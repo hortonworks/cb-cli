@@ -30,6 +30,9 @@ release: build
 	rm -rf release
 	glu release
 
+release-docker:
+	@true
+
 upload_s3:
 	ls -1 release | xargs -I@ aws s3 cp release/@ s3:///hdc-cli/@ --acl public-read
 
