@@ -26,8 +26,8 @@ func createTemplateImpl(skeleton ClusterSkeleton, channel chan int64, postTempla
 		CloudPlatform: "AWS",
 		InstanceType:  skeleton.Master.InstanceType,
 		VolumeType:    &skeleton.Master.VolumeType,
-		VolumeSize:    skeleton.Master.VolumeSize,
-		VolumeCount:   skeleton.Master.VolumeCount,
+		VolumeSize:    &skeleton.Master.VolumeSize,
+		VolumeCount:   &skeleton.Master.VolumeCount,
 		Parameters:    make(map[string]interface{}),
 	}
 
@@ -36,8 +36,8 @@ func createTemplateImpl(skeleton ClusterSkeleton, channel chan int64, postTempla
 		CloudPlatform: "AWS",
 		InstanceType:  skeleton.Worker.InstanceType,
 		VolumeType:    &skeleton.Worker.VolumeType,
-		VolumeSize:    skeleton.Worker.VolumeSize,
-		VolumeCount:   skeleton.Worker.VolumeCount,
+		VolumeSize:    &skeleton.Worker.VolumeSize,
+		VolumeCount:   &skeleton.Worker.VolumeCount,
 		Parameters:    make(map[string]interface{}),
 	}
 
