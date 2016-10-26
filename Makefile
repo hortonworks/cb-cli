@@ -11,7 +11,8 @@ endif
 
 deps:
 	go get github.com/keyki/glu
-	go get github.com/tools/godep
+	go get -u github.com/govend/govend
+	govend -v
 
 format:
 	@gofmt -w ${GOFILES_NOVENDOR}
