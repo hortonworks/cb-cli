@@ -9,5 +9,19 @@ machine:
     - sudo tar -C /usr/local -xzf download/$GODIST
 
 dependencies:
+  pre:
+    - go get -u github.com/govend/govend
+    - mkdir -p $GOPATH/src/github.com/hortonworks
+    - cp -r $HOME/hdc-cli $GOPATH/src/github.com/hortonworks
+    - cd $GOPATH/src/github.com/hortonworks/hdc-cli && govend -v
+    - cp -r $GOPATH/src/github.com/hortonworks/hdc-cli/vendor $HOME/hdc-cli
+
   cache_directories:
     - ~/download
+
+test:
+  pre:
+    - go vet github.com/hortonworks/hdc-cli/cli
+
+  override:
+    - go test -v -race github.com/hortonworks/hdc-cli/cli
