@@ -379,13 +379,7 @@ func createClusterImpl(skeleton ClusterSkeleton,
 		if skeleton.Ldap != nil && len(*skeleton.Ldap) > 0 {
 			ldap := getLdapConfig(*skeleton.Ldap)
 			ldapConfigId = ldap.ID
-			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_BIND_DN"}).s, PropertyValue: &ldap.BindDn})
-			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_BIND_PASSWORD"}).s, PropertyValue: &ldap.BindPassword})
-			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_DOMAIN"}).s, PropertyValue: ldap.Domain})
-			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_GROUP_SEARCH_BASE"}).s, PropertyValue: ldap.GroupSearchBase})
-			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_URL"}).s, PropertyValue: &(&stringWrapper{fmt.Sprintf("%s://%s:%d", *ldap.Protocol, ldap.ServerHost, ldap.ServerPort)}).s})
-			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_NAME_ATTRIBUTE"}).s, PropertyValue: ldap.UserSearchAttribute})
-			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_SYNC_SEARCH_BASE"}).s, PropertyValue: &ldap.UserSearchBase})
+			inputs = append(inputs, getLdapInputs(ldap, blueprint.Inputs)...)
 		}
 
 		exposedServices := []string{}
@@ -453,6 +447,44 @@ func createClusterImpl(skeleton ClusterSkeleton,
 	}()
 
 	return stackId
+}
+
+func getLdapInputs(ldap *models_cloudbreak.LdapConfigResponse, blueprintParameters []*models_cloudbreak.BlueprintParameter) []*models_cloudbreak.BlueprintInput {
+	var inputs []*models_cloudbreak.BlueprintInput = make([]*models_cloudbreak.BlueprintInput, 0)
+	for _, input := range blueprintParameters {
+		name := *input.Name
+		if name == "LDAP_BIND_DN" {
+			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_BIND_DN"}).s, PropertyValue: &ldap.BindDn})
+			continue
+		}
+		if name == "LDAP_BIND_PASSWORD" {
+			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_BIND_PASSWORD"}).s, PropertyValue: &ldap.BindPassword})
+			continue
+		}
+		if name == "LDAP_DOMAIN" {
+			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_DOMAIN"}).s, PropertyValue: ldap.Domain})
+			continue
+		}
+		if name == "LDAP_GROUP_SEARCH_BASE" {
+			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_GROUP_SEARCH_BASE"}).s, PropertyValue: ldap.GroupSearchBase})
+			continue
+		}
+		if name == "LDAP_URL" {
+			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_URL"}).s,
+				PropertyValue: &(&stringWrapper{fmt.Sprintf("%s://%s:%d", *ldap.Protocol, ldap.ServerHost, ldap.ServerPort)}).s})
+			continue
+		}
+		if name == "LDAP_NAME_ATTRIBUTE" {
+			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_NAME_ATTRIBUTE"}).s,
+				PropertyValue: ldap.UserSearchAttribute})
+			continue
+		}
+		if name == "LDAP_SYNC_SEARCH_BASE" {
+			inputs = append(inputs, &models_cloudbreak.BlueprintInput{Name: &(&stringWrapper{"LDAP_SYNC_SEARCH_BASE"}).s, PropertyValue: &ldap.UserSearchBase})
+			continue
+		}
+	}
+	return inputs
 }
 
 func ValidateCreateClusterSkeleton(c *cli.Context) error {
