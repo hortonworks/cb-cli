@@ -1,22 +1,22 @@
 package cli
 
 import (
+	log "github.com/Sirupsen/logrus"
 	f "github.com/hortonworks/hdc-cli/client_cloudbreak/flexsubscriptions"
 	s "github.com/hortonworks/hdc-cli/client_cloudbreak/smartsensesubscriptions"
-	log "github.com/Sirupsen/logrus"
-	"github.com/urfave/cli"
-	"time"
-	"strconv"
 	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	"github.com/urfave/cli"
+	"strconv"
+	"time"
 )
 
 var FlexSubscriptionHeader []string = []string{"Name", "SubscriptionID", "IsDefault", "UsedForController"}
 
 type FlexSubscription struct {
-	Name string `json:"Name" yaml:"Name"`
-	SubscriptionId  string `json:"SubscriptionID" yaml:"SubscriptionID"`
-	IsDefault  string `json:"IsDefault" yaml:"IsDefault"`
-	UsedForController  string `json:"UsedForController" yaml:"UsedForController"`
+	Name              string `json:"Name" yaml:"Name"`
+	SubscriptionId    string `json:"SubscriptionID" yaml:"SubscriptionID"`
+	IsDefault         string `json:"IsDefault" yaml:"IsDefault"`
+	UsedForController string `json:"UsedForController" yaml:"UsedForController"`
 }
 
 func (b *FlexSubscription) DataAsStringArray() []string {
@@ -65,11 +65,11 @@ func createFlexSubscriptionImpl(
 	smartSenseSubscriptionId := sss.Payload[0].ID
 	fa := false
 	resp, err2 := postPrivateFlexSubscription(&f.PostPrivateFlexSubscriptionParams{Body: &models_cloudbreak.FlexSubscriptionRequest{
-		Name: name,
-		SubscriptionID: &subscriptionId,
+		Name:                     name,
+		SubscriptionID:           &subscriptionId,
 		SmartSenseSubscriptionID: smartSenseSubscriptionId,
-		Default: &fa,
-		UsedForController: &fa}})
+		Default:                  &fa,
+		UsedForController:        &fa}})
 
 	if err2 != nil {
 		logErrorAndExit(err1)
@@ -127,9 +127,9 @@ func listFlexSubscriptionImpl(
 	var tableRows []Row
 	for _, subscription := range resp.Payload {
 		row := &FlexSubscription{
-			Name: subscription.Name,
-			SubscriptionId: *subscription.SubscriptionID,
-			IsDefault: strconv.FormatBool(*subscription.Default),
+			Name:              subscription.Name,
+			SubscriptionId:    *subscription.SubscriptionID,
+			IsDefault:         strconv.FormatBool(*subscription.Default),
 			UsedForController: strconv.FormatBool(*subscription.UsedForController)}
 		tableRows = append(tableRows, row)
 		log.Infof("[listFlexSubscription] subscription name: %v ", subscription.Name)
@@ -137,7 +137,7 @@ func listFlexSubscriptionImpl(
 
 	log.Infof("[listFlexSubscription] number of available Flex subscriptions: %d ", len(resp.Payload))
 
-	if len(resp.Payload) > 0  {
+	if len(resp.Payload) > 0 {
 		output.WriteList(FlexSubscriptionHeader, tableRows)
 	}
 }
@@ -192,10 +192,10 @@ func useFlexSubscriptionForControllerImpl(
 	}
 }
 
-func (cb *Cloudbreak) GetFlexSubscriptionByName(name string) (*models_cloudbreak.FlexSubscriptionResponse) {
+func (cb *Cloudbreak) GetFlexSubscriptionByName(name string) *models_cloudbreak.FlexSubscriptionResponse {
 	defer timeTrack(time.Now(), "GetFlexSubscriptionByName")
 
-	resp, err := cb.Cloudbreak.Flexsubscriptions.GetPrivateFlexSubscriptionByName(&f.GetPrivateFlexSubscriptionByNameParams{Name: name});
+	resp, err := cb.Cloudbreak.Flexsubscriptions.GetPrivateFlexSubscriptionByName(&f.GetPrivateFlexSubscriptionByNameParams{Name: name})
 
 	if err != nil {
 		logErrorAndExit(err)

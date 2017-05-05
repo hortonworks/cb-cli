@@ -5,15 +5,15 @@ import (
 	s "github.com/hortonworks/hdc-cli/client_cloudbreak/smartsensesubscriptions"
 	"github.com/hortonworks/hdc-cli/models_cloudbreak"
 	"github.com/urfave/cli"
-	"time"
 	"strconv"
+	"time"
 )
 
 var SmartSenseSubscriptionHeader []string = []string{"ID", "SubscriptionID"}
 
 type SmartSenseSubscription struct {
-	Id string `json:"ID" yaml:"ID"`
-	SubscriptionId  string `json:"SubscriptionID" yaml:"SubscriptionID"`
+	Id             string `json:"ID" yaml:"ID"`
+	SubscriptionId string `json:"SubscriptionID" yaml:"SubscriptionID"`
 }
 
 func (b *SmartSenseSubscription) DataAsStringArray() []string {

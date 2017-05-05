@@ -794,7 +794,7 @@ func getBaseSkeleton() *ClusterSkeleton {
 			InstanceRole:           "CREATE",
 			Network:                &Network{},
 			Tags:                   make(map[string]string, 0),
-			FlexSubscription: &FlexSubscriptionBase{},
+			FlexSubscription:       &FlexSubscriptionBase{},
 		},
 		Autoscaling: &AutoscalingSkeletonBase{
 			Configuration: &AutoscalingConfiguration{

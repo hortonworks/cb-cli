@@ -168,9 +168,9 @@ func main() {
 			},
 		},
 		{
-			Name:  "create-flexsubscription",
-			Usage: "create a new Flex subscription",
-			Flags: []cli.Flag{hdc.FlFlexSubscriptionName, hdc.FlFlexSubscription, hdc.FlServer, hdc.FlUsername, hdc.FlPassword, hdc.FlOutput},
+			Name:   "create-flexsubscription",
+			Usage:  "create a new Flex subscription",
+			Flags:  []cli.Flag{hdc.FlFlexSubscriptionName, hdc.FlFlexSubscription, hdc.FlServer, hdc.FlUsername, hdc.FlPassword, hdc.FlOutput},
 			Before: ConfigRead,
 			Action: hdc.CreateFlexSubscription,
 			BashComplete: func(c *cli.Context) {
