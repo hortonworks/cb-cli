@@ -196,7 +196,7 @@ func createClusterImpl(skeleton ClusterSkeleton,
 	getLdapConfig func(string) *models_cloudbreak.LdapConfigResponse,
 	getCluster func(name string) *models_cloudbreak.StackResponse,
 	getClusterConfig func(int64, []*models_cloudbreak.BlueprintParameter) []*models_cloudbreak.BlueprintInput,
-	getFlexSubscriptionByName func(name string) (*models_cloudbreak.FlexSubscriptionResponse)) int64 {
+	getFlexSubscriptionByName func(name string) *models_cloudbreak.FlexSubscriptionResponse) int64 {
 
 	blueprint := getBlueprint(skeleton.ClusterType)
 	dataLake := false
