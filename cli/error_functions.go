@@ -49,6 +49,11 @@ func logErrorMessage(message string) {
 	log.Errorf(message)
 }
 
+func logErrorMessageAndExit(message string) {
+	log.Errorf(message)
+	exit(1)
+}
+
 func getFunctionName(caller interface{}) string {
 	longFunctionName := runtime.FuncForPC(reflect.ValueOf(caller).Pointer()).Name()
 	shortFunctionName := longFunctionName[strings.LastIndex(longFunctionName, ".")+1:]

@@ -105,6 +105,32 @@ func main() {
 				}
 			},
 		},
+		{
+			Name:   "list-blueprints",
+			Usage:  "list the available blueprints",
+			Flags:  []cli.Flag{hdc.FlServer, hdc.FlUsername, hdc.FlPassword, hdc.FlOutput},
+			Before: ConfigRead,
+			Action: hdc.ListBlueprints,
+			BashComplete: func(c *cli.Context) {
+				for _, f := range []cli.Flag{hdc.FlServer, hdc.FlUsername, hdc.FlPassword, hdc.FlOutput} {
+					printFlagCompletion(f)
+				}
+			},
+		},
+		{
+			Name:   "create-blueprint",
+			Usage:  "adds a new Ambari blueprint from a file or from a URL",
+			Flags:  []cli.Flag{hdc.FlBlueprintName, hdc.FlBlueprintDescription, hdc.FlBlueprintFileLocation, hdc.FlBlueprintURL,
+				hdc.FlServer, hdc.FlUsername, hdc.FlPassword},
+			Before: ConfigRead,
+			Action: hdc.CreateBlueprint,
+			BashComplete: func(c *cli.Context) {
+				for _, f := range []cli.Flag{hdc.FlBlueprintName, hdc.FlBlueprintDescription, hdc.FlBlueprintFileLocation, hdc.FlBlueprintURL,
+					hdc.FlServer, hdc.FlUsername, hdc.FlPassword} {
+					printFlagCompletion(f)
+				}
+			},
+		},
 	}
 
 	// internal commands
