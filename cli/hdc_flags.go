@@ -59,6 +59,34 @@ var (
 			EnvVar: "CB_PASSWORD",
 		},
 	}
+	FlBlueprintName = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "name",
+			Usage: "name of a blueprint",
+		},
+	}
+	FlBlueprintDescription = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name: "description",
+			Usage: "description of the blueprint",
+		},
+	}
+	FlBlueprintFileLocation = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name: "file",
+			Usage: "location of the Ambari blueprint JSON file",
+		},
+	}
+	FlBlueprintURL = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name: "url",
+			Usage: "URL location of the Ambari blueprint JSON file",
+		},
+	}
 	FlInputJson = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{
