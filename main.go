@@ -180,6 +180,67 @@ func main() {
 				}
 			},
 		},
+		{
+			Name:   "list-blueprints",
+			Usage:  "list the available blueprints",
+			Flags:  []cli.Flag{hdc.FlServer, hdc.FlUsername, hdc.FlPassword, hdc.FlOutput},
+			Before: ConfigRead,
+			Action: hdc.ListBlueprints,
+			BashComplete: func(c *cli.Context) {
+				for _, f := range []cli.Flag{hdc.FlServer, hdc.FlUsername, hdc.FlPassword, hdc.FlOutput} {
+					printFlagCompletion(f)
+				}
+			},
+		},
+		{
+			Name:   "create-blueprint",
+			Usage:  "adds a new Ambari blueprint from a file or from a URL",
+			Flags:  []cli.Flag{hdc.FlServer, hdc.FlUsername, hdc.FlPassword},
+			Before: ConfigRead,
+			BashComplete: func(c *cli.Context) {
+				for _, f := range []cli.Flag{hdc.FlServer, hdc.FlUsername, hdc.FlPassword} {
+					printFlagCompletion(f)
+				}
+			},
+			Subcommands: []cli.Command{
+				{
+					Name:   "from-url",
+					Flags:  []cli.Flag{hdc.FlBlueprintName, hdc.FlBlueprintDescription, hdc.FlBlueprintURL, hdc.FlServer, hdc.FlUsername, hdc.FlPassword},
+					Before: ConfigRead,
+					Action: hdc.CreateBlueprintFromUrl,
+					Usage:  "creates a blueprint by downloading it from a URL location",
+					BashComplete: func(c *cli.Context) {
+						for _, f := range []cli.Flag{hdc.FlBlueprintName, hdc.FlBlueprintDescription, hdc.FlBlueprintURL} {
+							printFlagCompletion(f)
+						}
+					},
+				},
+				{
+					Name:   "from-file",
+					Flags:  []cli.Flag{hdc.FlBlueprintName, hdc.FlBlueprintDescription, hdc.FlBlueprintFileLocation, hdc.FlServer, hdc.FlUsername, hdc.FlPassword},
+					Before: ConfigRead,
+					Action: hdc.CreateBlueprintFromFile,
+					Usage:  "creates a blueprint by reading it from a local file",
+					BashComplete: func(c *cli.Context) {
+						for _, f := range []cli.Flag{hdc.FlBlueprintName, hdc.FlBlueprintDescription, hdc.FlBlueprintFileLocation} {
+							printFlagCompletion(f)
+						}
+					},
+				},
+			},
+		},
+		{
+			Name:   "delete-blueprint",
+			Usage:  "deletes a blueprint from Cloudbreak",
+			Flags:  []cli.Flag{hdc.FlServer, hdc.FlUsername, hdc.FlPassword, hdc.FlOutput, hdc.FlBlueprintName},
+			Before: ConfigRead,
+			Action: hdc.DeleteBlueprint,
+			BashComplete: func(c *cli.Context) {
+				for _, f := range []cli.Flag{hdc.FlBlueprintName, hdc.FlServer, hdc.FlUsername, hdc.FlPassword, hdc.FlOutput} {
+					printFlagCompletion(f)
+				}
+			},
+		},
 	}
 
 	// internal commands
