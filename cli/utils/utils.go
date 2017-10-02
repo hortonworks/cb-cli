@@ -1,7 +1,9 @@
 package utils
 
 import (
+	"fmt"
 	"io/ioutil"
+	"net/http"
 	"strings"
 )
 
@@ -29,4 +31,21 @@ func ReadFile(fileLocation string) []byte {
 		LogErrorAndExit(err)
 	}
 	return bp
+}
+
+func ReadFromUrl(urlLocation string) []byte {
+	client := new(http.Client)
+	resp, httperr := client.Get(urlLocation)
+	if httperr != nil {
+		LogErrorAndExit(httperr)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		LogErrorMessageAndExit(fmt.Sprintf("Couldn't download blueprint from URL, response code is not %d.", resp.StatusCode))
+	}
+	bodyBytes, ioerr := ioutil.ReadAll(resp.Body)
+	if ioerr != nil {
+		LogErrorAndExit(ioerr)
+	}
+	return bodyBytes
 }
