@@ -49,7 +49,7 @@ func LogErrorMessage(message string) {
 	log.Errorf(message)
 }
 
-func logErrorMessageAndExit(message string) {
+func LogErrorMessageAndExit(message string) {
 	log.Errorf(message)
 	exit(1)
 }

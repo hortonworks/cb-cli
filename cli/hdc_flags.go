@@ -82,34 +82,6 @@ var (
 			EnvVar: "CB_PASSWORD",
 		},
 	}
-	FlBlueprintName = StringFlag{
-		RequiredFlag: REQUIRED,
-		StringFlag: cli.StringFlag{
-			Name:  "name",
-			Usage: "name of a blueprint",
-		},
-	}
-	FlBlueprintDescription = StringFlag{
-		RequiredFlag: OPTIONAL,
-		StringFlag: cli.StringFlag{
-			Name:  "description",
-			Usage: "description of the blueprint",
-		},
-	}
-	FlBlueprintFileLocation = StringFlag{
-		RequiredFlag: REQUIRED,
-		StringFlag: cli.StringFlag{
-			Name:  "file",
-			Usage: "location of the Ambari blueprint JSON file",
-		},
-	}
-	FlBlueprintURL = StringFlag{
-		RequiredFlag: REQUIRED,
-		StringFlag: cli.StringFlag{
-			Name:  "url",
-			Usage: "URL location of the Ambari blueprint JSON file",
-		},
-	}
 	FlName = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{
@@ -165,6 +137,20 @@ var (
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{
 			Name: "service-account-private-key-file",
+		},
+	}
+	FlBlueprintFileLocation = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "file",
+			Usage: "location of the Ambari blueprint JSON file",
+		},
+	}
+	FlBlueprintURL = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "url",
+			Usage: "URL location of the Ambari blueprint JSON file",
 		},
 	}
 	// Not used jet as i know
