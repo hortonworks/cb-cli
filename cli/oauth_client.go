@@ -57,7 +57,7 @@ func NewCloudbreakOAuth2HTTPClient(address string, username string, password str
 		utils.LogErrorAndExit(err)
 	}
 
-	cbTransport := &transport{client.New(address, "/cb/api/v1", []string{"https"})}
+	cbTransport := &transport{client.New(address, "/cb/api", []string{"https"})}
 	cbTransport.Runtime.DefaultAuthentication = client.BearerToken(token)
 	cbTransport.Runtime.Transport = LoggedTransportConfig
 	return &Cloudbreak{Cloudbreak: apiclient.New(cbTransport, strfmt.Default)}
@@ -90,11 +90,11 @@ func NewOAuth2HTTPClients(address string, username string, password string) (*Cl
 		utils.LogErrorAndExit(err)
 	}
 
-	cbTransport := &transport{client.New(address, "/cb/api/v1", []string{"https"})}
+	cbTransport := &transport{client.New(address, "/cb/api", []string{"https"})}
 	cbTransport.Runtime.DefaultAuthentication = client.BearerToken(token)
 	cbTransport.Runtime.Transport = LoggedTransportConfig
 
-	asTransport := &transport{client.New(address, "/as/api/v1", []string{"https"})}
+	asTransport := &transport{client.New(address, "/as/api", []string{"https"})}
 	asTransport.Runtime.DefaultAuthentication = client.BearerToken(token)
 	asTransport.Runtime.Transport = LoggedTransportConfig
 

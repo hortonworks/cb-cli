@@ -38,7 +38,7 @@ func (a *Client) DeleteCluster(params *DeleteClusterParams) error {
 	_, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteCluster",
 		Method:             "DELETE",
-		PathPattern:        "/stacks/{id}/cluster",
+		PathPattern:        "/v1/stacks/{id}/cluster",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -68,7 +68,7 @@ func (a *Client) FailureReportCluster(params *FailureReportClusterParams) error 
 	_, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "failureReportCluster",
 		Method:             "POST",
-		PathPattern:        "/stacks/{id}/cluster/failurereport",
+		PathPattern:        "/v1/stacks/{id}/cluster/failurereport",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -98,7 +98,7 @@ func (a *Client) GetCluster(params *GetClusterParams) (*GetClusterOK, error) {
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getCluster",
 		Method:             "GET",
-		PathPattern:        "/stacks/{id}/cluster",
+		PathPattern:        "/v1/stacks/{id}/cluster",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -128,7 +128,7 @@ func (a *Client) GetConfigsCluster(params *GetConfigsClusterParams) (*GetConfigs
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getConfigsCluster",
 		Method:             "POST",
-		PathPattern:        "/stacks/{id}/cluster/config",
+		PathPattern:        "/v1/stacks/{id}/cluster/config",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -158,7 +158,7 @@ func (a *Client) GetFullCluster(params *GetFullClusterParams) (*GetFullClusterOK
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getFullCluster",
 		Method:             "GET",
-		PathPattern:        "/stacks/{id}/cluster/full",
+		PathPattern:        "/v1/stacks/{id}/cluster/full",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -188,7 +188,7 @@ func (a *Client) GetPrivateCluster(params *GetPrivateClusterParams) (*GetPrivate
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getPrivateCluster",
 		Method:             "GET",
-		PathPattern:        "/stacks/user/{name}/cluster",
+		PathPattern:        "/v1/stacks/user/{name}/cluster",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -218,7 +218,7 @@ func (a *Client) GetPublicCluster(params *GetPublicClusterParams) (*GetPublicClu
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getPublicCluster",
 		Method:             "GET",
-		PathPattern:        "/stacks/account/{name}/cluster",
+		PathPattern:        "/v1/stacks/account/{name}/cluster",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -248,7 +248,7 @@ func (a *Client) PostCluster(params *PostClusterParams) (*PostClusterOK, error) 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "postCluster",
 		Method:             "POST",
-		PathPattern:        "/stacks/{id}/cluster",
+		PathPattern:        "/v1/stacks/{id}/cluster",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -278,7 +278,7 @@ func (a *Client) PutCluster(params *PutClusterParams) error {
 	_, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "putCluster",
 		Method:             "PUT",
-		PathPattern:        "/stacks/{id}/cluster",
+		PathPattern:        "/v1/stacks/{id}/cluster",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -308,7 +308,7 @@ func (a *Client) RepairCluster(params *RepairClusterParams) error {
 	_, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "repairCluster",
 		Method:             "POST",
-		PathPattern:        "/stacks/{id}/cluster/manualrepair",
+		PathPattern:        "/v1/stacks/{id}/cluster/manualrepair",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -338,7 +338,7 @@ func (a *Client) UpgradeCluster(params *UpgradeClusterParams) error {
 	_, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "upgradeCluster",
 		Method:             "POST",
-		PathPattern:        "/stacks/{id}/cluster/upgrade",
+		PathPattern:        "/v1/stacks/{id}/cluster/upgrade",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
