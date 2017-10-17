@@ -35,7 +35,7 @@ var maxCardinality map[string]int = map[string]int{
 
 var getBlueprintClient func(string, string, string) getPublicBlueprint = func(server, userName, password string) getPublicBlueprint {
 	cbClient := NewCloudbreakOAuth2HTTPClient(server, userName, password)
-	return cbClient.Cloudbreak.Blueprints
+	return cbClient.Cloudbreak.V1blueprints
 }
 
 func GenerateAwsStackTemplate(c *cli.Context) error {
@@ -77,16 +77,12 @@ func getNetworkMode(c *cli.Context) cloud.NetworkMode {
 func generateStackTemplateImpl(mode cloud.NetworkMode, stringFinder func(string) string, getBlueprintClient func(string, string, string) getPublicBlueprint) error {
 	provider := cloud.GetProvider()
 
-	template := models_cloudbreak.StackRequest{
-		ClusterRequest: &models_cloudbreak.ClusterRequest{
-			Name:          &(&types.S{S: "____"}).S,
-			BlueprintName: "____",
-			HostGroups:    []*models_cloudbreak.HostGroupRequest{},
-			UserName:      &(&types.S{S: "____"}).S,
-			Password:      &(&types.S{S: ""}).S,
-			Gateway: &models_cloudbreak.GatewayJSON{
-				EnableGateway: &(&types.B{B: false}).B,
-				GatewayType:   "INDIVIDUAL",
+	template := models_cloudbreak.StackV2Request{
+		ClusterRequest: &models_cloudbreak.ClusterV2Request{
+			AmbariRequest: &models_cloudbreak.AmbariV2Request{
+				BlueprintName: "____",
+				UserName:      &(&types.S{S: "____"}).S,
+				Password:      &(&types.S{S: ""}).S,
 			},
 		},
 		CloudPlatform:    *provider.GetName(),
@@ -96,10 +92,9 @@ func generateStackTemplateImpl(mode cloud.NetworkMode, stringFinder func(string)
 		Region:           "____",
 		Orchestrator:     &models_cloudbreak.OrchestratorRequest{Type: &(&types.S{S: "SALT"}).S},
 		Parameters:       map[string]string{"instanceProfileStrategy": "CREATE"},
-		InstanceGroups:   []*models_cloudbreak.InstanceGroups{},
-		Network: &models_cloudbreak.NetworkRequest{
-			CloudPlatform: provider.GetName(),
-			Parameters:    provider.GetNetworkParamatersTemplate(mode),
+		InstanceGroups:   []*models_cloudbreak.InstanceGroupsV2{},
+		Network: &models_cloudbreak.NetworkV2Request{
+			Parameters: provider.GetNetworkParamatersTemplate(mode),
 		},
 		StackAuthentication: &models_cloudbreak.StackAuthentication{PublicKey: "____"},
 	}
@@ -117,7 +112,6 @@ func generateStackTemplateImpl(mode cloud.NetworkMode, stringFinder func(string)
 		nodes = getNodesByBlueprint(bp)
 	}
 	for _, n := range nodes {
-		template.ClusterRequest.HostGroups = append(template.ClusterRequest.HostGroups, convertNodeToHostGroup(n))
 		template.InstanceGroups = append(template.InstanceGroups, convertNodeToInstanceGroup(n))
 	}
 
@@ -172,33 +166,18 @@ func getNodesByBlueprint(bp []byte) []node {
 	return resp
 }
 
-func convertNodeToHostGroup(node node) *models_cloudbreak.HostGroupRequest {
-	return &models_cloudbreak.HostGroupRequest{
-		Name:         &node.name,
-		RecoveryMode: "AUTO",
-		Constraint: &models_cloudbreak.Constraint{
-			InstanceGroupName: node.name,
-			HostCount:         &node.count,
-		},
-	}
-}
-
-func convertNodeToInstanceGroup(node node) *models_cloudbreak.InstanceGroups {
-	provider := cloud.GetProvider()
-
-	return &models_cloudbreak.InstanceGroups{
-		Template: &models_cloudbreak.TemplateRequest{
-			CloudPlatform: provider.GetName(),
-			InstanceType:  &(&types.S{S: "____"}).S,
-			VolumeCount:   1,
-			VolumeSize:    10,
-			Parameters:    map[string]interface{}{"sshLocation": "0.0.0.0/0", "encrypted": false},
+func convertNodeToInstanceGroup(node node) *models_cloudbreak.InstanceGroupsV2 {
+	return &models_cloudbreak.InstanceGroupsV2{
+		Template: &models_cloudbreak.TemplateV2Request{
+			InstanceType: &(&types.S{S: "____"}).S,
+			VolumeCount:  1,
+			VolumeSize:   10,
+			Parameters:   map[string]interface{}{"sshLocation": "0.0.0.0/0", "encrypted": false},
 		},
 		Group:     &node.name,
 		NodeCount: &node.count,
 		Type:      node.groupType,
-		SecurityGroup: &models_cloudbreak.SecurityGroupRequest{
-			CloudPlatform: provider.GetName(),
+		SecurityGroup: &models_cloudbreak.SecurityGroupV2Request{
 			SecurityRules: getDefaultSecurityRules(),
 		},
 	}
