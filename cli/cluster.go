@@ -5,9 +5,9 @@ import (
 	"time"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/hortonworks/hdc-cli/client_cloudbreak/cluster"
-	"github.com/hortonworks/hdc-cli/client_cloudbreak/stacks"
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	"github.com/hortonworks/cb-cli/client_cloudbreak/cluster"
+	"github.com/hortonworks/cb-cli/client_cloudbreak/stacks"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 	"github.com/urfave/cli"
 
 	"encoding/json"

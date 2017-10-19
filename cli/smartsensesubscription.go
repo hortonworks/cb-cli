@@ -6,8 +6,8 @@ import (
 	"time"
 
 	log "github.com/Sirupsen/logrus"
-	s "github.com/hortonworks/hdc-cli/client_cloudbreak/smartsensesubscriptions"
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	s "github.com/hortonworks/cb-cli/client_cloudbreak/smartsensesubscriptions"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 	"github.com/urfave/cli"
 )
 

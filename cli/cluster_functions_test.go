@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 )
 
 func clusterSkeleton(stackParams map[string]string, credParams map[string]interface{}, netParams map[string]interface{}) (ClusterSkeletonResult, *models_cloudbreak.StackResponse, *models_cloudbreak.CredentialResponse, *models_cloudbreak.BlueprintResponse, *models_cloudbreak.NetworkResponse) {

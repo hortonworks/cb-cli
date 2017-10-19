@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hortonworks/hdc-cli/client_cloudbreak/rdsconfigs"
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	"github.com/hortonworks/cb-cli/client_cloudbreak/rdsconfigs"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 )
 
 func TestListRDSConfigsImpl(t *testing.T) {

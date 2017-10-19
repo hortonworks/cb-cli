@@ -5,7 +5,7 @@ import (
 	"os"
 
 	log "github.com/Sirupsen/logrus"
-	hdc "github.com/hortonworks/hdc-cli/cli"
+	hdc "github.com/hortonworks/cb-cli/cli"
 	"github.com/urfave/cli"
 )
 
