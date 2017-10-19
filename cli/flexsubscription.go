@@ -5,8 +5,8 @@ import (
 	"time"
 
 	log "github.com/Sirupsen/logrus"
-	f "github.com/hortonworks/hdc-cli/client_cloudbreak/flexsubscriptions"
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	f "github.com/hortonworks/cb-cli/client_cloudbreak/flexsubscriptions"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 	"github.com/urfave/cli"
 )
 

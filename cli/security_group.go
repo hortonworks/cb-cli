@@ -8,8 +8,8 @@ import (
 
 	"fmt"
 	log "github.com/Sirupsen/logrus"
-	"github.com/hortonworks/hdc-cli/client_cloudbreak/securitygroups"
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	"github.com/hortonworks/cb-cli/client_cloudbreak/securitygroups"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 )
 
 var SECURITY_GROUP_DEFAULT_PORTS = []string{"22"}

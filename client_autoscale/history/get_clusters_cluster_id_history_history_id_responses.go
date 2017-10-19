@@ -12,7 +12,7 @@ import (
 
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 
-	"github.com/hortonworks/hdc-cli/models_autoscale"
+	"github.com/hortonworks/cb-cli/models_autoscale"
 )
 
 // GetClustersClusterIDHistoryHistoryIDReader is a Reader for the GetClustersClusterIDHistoryHistoryID structure.

@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hortonworks/hdc-cli/client_cloudbreak/templates"
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	"github.com/hortonworks/cb-cli/client_cloudbreak/templates"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 )
 
 func TestCreateTemplateImpl(t *testing.T) {

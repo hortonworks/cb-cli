@@ -1,6 +1,6 @@
 package cli
 
-import "github.com/hortonworks/hdc-cli/models_cloudbreak"
+import "github.com/hortonworks/cb-cli/models_cloudbreak"
 
 var (
 	MASTER      = "master"

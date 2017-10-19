@@ -3,7 +3,7 @@ package cli
 import (
 	"testing"
 
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 )
 
 func TestCleanupBlueprintsImplNotGenerated(t *testing.T) {

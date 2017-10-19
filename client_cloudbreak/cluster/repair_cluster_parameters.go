@@ -10,7 +10,7 @@ import (
 
 	strfmt "github.com/go-swagger/go-swagger/strfmt"
 
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 )
 
 // NewRepairClusterParams creates a new RepairClusterParams object

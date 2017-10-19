@@ -6,8 +6,8 @@ import (
 	"time"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/hortonworks/hdc-cli/client_cloudbreak/templates"
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	"github.com/hortonworks/cb-cli/client_cloudbreak/templates"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 )
 
 func (c *Cloudbreak) CreateTemplate(skeleton ClusterSkeleton, channel chan int64, wg *sync.WaitGroup) {

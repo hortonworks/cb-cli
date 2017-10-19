@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hortonworks/hdc-cli/client_cloudbreak/securitygroups"
-	"github.com/hortonworks/hdc-cli/models_cloudbreak"
+	"github.com/hortonworks/cb-cli/client_cloudbreak/securitygroups"
+	"github.com/hortonworks/cb-cli/models_cloudbreak"
 )
 
 func TestCreateSecurityGroupImplNoWebAccess(t *testing.T) {
