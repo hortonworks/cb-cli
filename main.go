@@ -16,6 +16,7 @@ import (
 	_ "github.com/hortonworks/cb-cli/cli/cloud/yarn"
 	"github.com/hortonworks/cb-cli/cli/utils"
 	"github.com/urfave/cli"
+	"plugin"
 )
 
 func ConfigRead(c *cli.Context) error {
@@ -1401,6 +1402,18 @@ func main() {
 			},
 		},
 	}
+
+	// https://github.com/golang/go/issues/18827
+	p, err := plugin.Open("/Users/khorvath/go/src/github.com/hortonworks/cb-cli/krisz/krisz.so")
+	if err == nil {
+		fun, e := p.Lookup("Commander")
+		if e != nil {
+			fmt.Print(e.Error())
+		}
+		c := fun.(func() []cli.Command)()
+		app.Commands = append(app.Commands, c...)
+	}
+
 	sortByName(app.Commands)
 
 	// internal commands

@@ -52,7 +52,10 @@ build-docker:
 	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${VERSION} golang:1.9 make deps-errcheck build
 
 build-darwin:
-	GOOS=darwin CGO_ENABLED=0 go build -a ${LDFLAGS_NOVER} -o build/Darwin/${BINARY} main.go
+	GOOS=darwin CGO_ENABLED=1 go build -a ${LDFLAGS_NOVER} -o build/Darwin/${BINARY} main.go
+
+build-krisz:
+	make -C krisz build-krisz
 
 build-linux:
 	GOOS=linux CGO_ENABLED=0 go build -a ${LDFLAGS_NOVER} -o build/Linux/${BINARY} main.go
