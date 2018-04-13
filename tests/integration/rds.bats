@@ -3,7 +3,7 @@
 load ../utils/commands
 
 @test "Check rds configs are listed" {
-  for OUTPUT in $(list-database | jq ' .[] | [to_entries[].key] == ["databaseType","clusterNames","validated","publicInAccount","hdpVersion","name","connectionURL","id","type","creationDate","properties"]');
+  for OUTPUT in $(list-database | jq ' .[] | [to_entries[].key] == ["name","connectionURL","type","connectorJarUrl","id","creationDate","publicInAccount","clusterNames","stackVersion","databaseEngine","connectionDriver","databaseEngineDisplayName"]');
   do
     echo $OUTPUT
     [[ "$OUTPUT" == "true" ]]
@@ -11,9 +11,9 @@ load ../utils/commands
  }
 
 @test "Create rds" {
-  OUTPUT=$(create-database  --name testrds --db-username testuser --db-password password --url jdbc:postgresql://google.com/db --driver org.postgresql.Driver --database-engine MYSQL --type HIVE 2>&1 | awk '{printf "%s",$0} END {print ""}' | awk 'match($0, /{[^{}]+}/) { print substr($0, RSTART, RLENGTH)}')
+  OUTPUT=$(create-database postgres  --name testrds --db-username testuser --db-password password --url jdbc:postgresql://google.com:1234/db --driver org.postgresql.Driver --database-engine MYSQL --type HIVE 2>&1 | awk '{printf "%s",$0} END {print ""}' | awk 'match($0, /{[^{}]+}/) { print substr($0, RSTART, RLENGTH)}')
 
-  [[ $(echo "${OUTPUT}" | jq ' . |  [to_entries[].key] == ["connectionPassword","connectionURL","connectionUserName","name","type"]') == true ]]
+  [[ $(echo "${OUTPUT}" | jq ' . |  [to_entries[].key] == ["connectionPassword","connectionURL","connectionUserName","connectorJarUrl","name","oracleParameters","type"]') == true ]]
 }
 
 @test "Check rds delete" {
