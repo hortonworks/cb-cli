@@ -36,6 +36,8 @@ import (
 	"github.com/hortonworks/cb-cli/client_cloudbreak/v1util"
 	"github.com/hortonworks/cb-cli/client_cloudbreak/v2connectors"
 	"github.com/hortonworks/cb-cli/client_cloudbreak/v2stacks"
+	"github.com/hortonworks/cb-cli/client_cloudbreak/v3_organization_id_proxyconfigs"
+	"github.com/hortonworks/cb-cli/client_cloudbreak/v3_organization_id_recipes"
 )
 
 // Default cloudbreak HTTP client.
@@ -128,6 +130,10 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 	cli.V2connectors = v2connectors.New(transport, formats)
 
 	cli.V2stacks = v2stacks.New(transport, formats)
+
+	cli.V3OrganizationIDProxyconfigs = v3_organization_id_proxyconfigs.New(transport, formats)
+
+	cli.V3OrganizationIDRecipes = v3_organization_id_recipes.New(transport, formats)
 
 	return cli
 }
@@ -223,6 +229,10 @@ type Cloudbreak struct {
 
 	V2stacks *v2stacks.Client
 
+	V3OrganizationIDProxyconfigs *v3_organization_id_proxyconfigs.Client
+
+	V3OrganizationIDRecipes *v3_organization_id_recipes.Client
+
 	Transport runtime.ClientTransport
 }
 
@@ -279,5 +289,9 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.V2connectors.SetTransport(transport)
 
 	c.V2stacks.SetTransport(transport)
+
+	c.V3OrganizationIDProxyconfigs.SetTransport(transport)
+
+	c.V3OrganizationIDRecipes.SetTransport(transport)
 
 }
