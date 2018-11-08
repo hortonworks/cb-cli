@@ -5,6 +5,7 @@
 : ${BASE_URL:=https://127.0.0.1}
 : ${USERNAME_CLI:=admin@example.com}
 : ${PASSWORD_CLI:=cloudbreak}
+: ${TENANT:=hortonworks}
 : ${DOCKER_TAG:=latest}
 : ${CLI_TEST_FILES:=spec/integration/*.rb}
 
@@ -76,6 +77,7 @@ test-regression() {
        --net=host \
        --name $TEST_CONTAINER_NAME \
        -v $(pwd)/aruba:/aruba \
+       -v $(pwd)/scripts/aruba-docker.sh:/entrypoint.sh \
        -v $(pwd)/responses:/responses \
        -v $(pwd)/requests:/requests \
        -v $(pwd)/../build/Linux:/usr/local/bin \
@@ -83,6 +85,7 @@ test-regression() {
        -e "BASE_URL=$BASE_URL" \
        -e "USERNAME_CLI=$USERNAME_CLI" \
        -e "PASSWORD_CLI=$PASSWORD_CLI" \
+       -e "TENANT=$TENANT" \
        -e "OS_V2_ENDPOINT=$OS_V2_ENDPOINT" \
        -e "OS_V2_USERNAME=$OS_V2_USERNAME" \
        -e "OS_V2_PASSWORD=$OS_V2_PASSWORD" \

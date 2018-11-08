@@ -16,8 +16,8 @@ if [[ "${TARGET_CBD_VERSION}" != "MOCK" ]]; then
     echo "CB CLI version is: "$(cb -v)
 fi
 
-echo "Configure CB CLI to Server: "$BASE_URL" User: "$USERNAME_CLI" Password: "$PASSWORD_CLI
-cb configure --server $BASE_URL --username $USERNAME_CLI --password $PASSWORD_CLI --workspace $USERNAME_CLI 
+echo "Configure CB CLI to Server: $BASE_URL User: $USERNAME_CLI Password: $PASSWORD_CLI Tenant: $TENANT"
+cb configure --server $BASE_URL --username $USERNAME_CLI --password $PASSWORD_CLI --workspace $USERNAME_CLI --tenant $TENANT
 
 echo "Running RSpec with "$CLI_TEST_FILES
 rspec -f RspecJunitFormatter -o test-result.xml -f h $CLI_TEST_FILES | tee test-result.html | ruby -n spec/common/integration_formatter.rb

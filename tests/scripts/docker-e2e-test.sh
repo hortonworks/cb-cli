@@ -4,6 +4,7 @@ set -x
 : ${BASE_URL?"Need to set BASE_URL"}
 : ${USERNAME_CLI?"Need to set USERNAME_CLI"}
 : ${PASSWORD_CLI?"Need to set PASSWORD_CLI"}
+: ${TENANT_CLI?"Need to set TENANT_CLI"}
 
 # OpenStack
 : ${OS_V2_ENDPOINT?"Need to set OS_V2_ENDPOINT"}
@@ -30,5 +31,5 @@ echo TARGET_CBD_VERSION
 # Get CB CLI to Jenkins machine
 curl -Ls https://s3-us-west-2.amazonaws.com/cb-cli/cb-cli_"${TARGET_CBD_VERSION}"_$(uname)_x86_64.tgz | tar -xvz --directory /usr/local/bin
 
-cb configure --server $BASE_URL --username $USERNAME_CLI --password $PASSWORD_CLI
+cb configure --server $BASE_URL --username $USERNAME_CLI --password $PASSWORD_CLI --tenant $TENANT_CLI
 bats --tap e2e/*.bats | tee report.tap
