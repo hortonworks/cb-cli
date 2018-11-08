@@ -50,6 +50,22 @@ var (
 			EnvVar: "CB_PROFILE",
 		},
 	}
+	FlTenant = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:   "tenant",
+			Usage:  "tenant to use for login",
+			EnvVar: "CB_TENANT",
+		},
+	}
+	FlTenantRequired = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:   "tenant",
+			Usage:  "tenant to use for login",
+			EnvVar: "CB_TENANT",
+		},
+	}
 	FlAuthTypeOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
@@ -1092,7 +1108,7 @@ func (fb *FlagBuilder) AddFlags(flags ...cli.Flag) *FlagBuilder {
 }
 
 func (fb *FlagBuilder) AddAuthenticationFlags() *FlagBuilder {
-	for _, f := range []cli.Flag{FlServerOptional, FlUsername, FlPassword, FlWorkspaceOptional, FlProfileOptional, FlAuthTypeOptional} {
+	for _, f := range []cli.Flag{FlServerOptional, FlUsername, FlPassword, FlTenant, FlWorkspaceOptional, FlProfileOptional, FlAuthTypeOptional} {
 		fb.flags = append(fb.flags, f)
 	}
 	return fb

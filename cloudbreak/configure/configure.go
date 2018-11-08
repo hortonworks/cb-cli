@@ -11,8 +11,9 @@ func Configure(c *cli.Context) {
 
 	err := cf.WriteConfigToFile(cf.GetHomeDirectory(), c.String(fl.FlServerOptional.Name),
 		c.String(fl.FlUsername.Name), c.String(fl.FlPassword.Name),
-		c.String(fl.FlOutputOptional.Name), c.String(fl.FlProfileOptional.Name),
-		c.String(fl.FlAuthTypeOptional.Name), c.String(fl.FlWorkspaceOptional.Name))
+		c.String(fl.FlOutputOptional.Name), c.String(fl.FlTenant.Name),
+		c.String(fl.FlProfileOptional.Name), c.String(fl.FlAuthTypeOptional.Name),
+		c.String(fl.FlWorkspaceOptional.Name))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}

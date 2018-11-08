@@ -46,10 +46,10 @@ var TransportConfig = &http.Transport{
 var LoggedTransportConfig = httplogger.NewLoggedTransport(TransportConfig, newLogger())
 
 func NewCloudbreakHTTPClientFromContext(c *cli.Context) *Cloudbreak {
-	return NewCloudbreakHTTPClient(c.String(fl.FlServerOptional.Name), c.String(fl.FlUsername.Name), c.String(fl.FlPassword.Name), c.String(fl.FlAuthTypeOptional.Name))
+	return NewCloudbreakHTTPClient(c.String(fl.FlServerOptional.Name), c.String(fl.FlUsername.Name), c.String(fl.FlPassword.Name), c.String(fl.FlTenant.Name), c.String(fl.FlAuthTypeOptional.Name))
 }
 
-func NewCloudbreakHTTPClient(address, username, password, authType string) *Cloudbreak {
+func NewCloudbreakHTTPClient(address, username, password, tenant, authType string) *Cloudbreak {
 	for _, v := range PREFIX_TRIM {
 		address = strings.TrimPrefix(address, v)
 	}
@@ -64,6 +64,12 @@ func NewCloudbreakHTTPClient(address, username, password, authType string) *Clou
 	cbTransport := &transport{client.New(address, basePath+"/cb/api", []string{"https"})}
 
 	switch authType {
+	case common.CAAS:
+		token, err := getCaasToken("https://"+address+basePath+"/auth/token", tenant, username)
+		if err != nil {
+			utils.LogErrorAndExit(err)
+		}
+		cbTransport.Runtime.DefaultAuthentication = client.BearerToken(token)
 	case common.OAUTH2:
 		token, err := getOAuth2Token("https://"+address+basePath+"/identity/oauth/authorize", username, password, "cloudbreak_shell")
 		if err != nil {
@@ -80,6 +86,26 @@ func NewCloudbreakHTTPClient(address, username, password, authType string) *Clou
 
 	cbTransport.Runtime.Transport = LoggedTransportConfig
 	return &Cloudbreak{Cloudbreak: apiclient.New(cbTransport, strfmt.Default)}
+}
+
+func getCaasToken(caasUrl string, tenant string, username string) (string, error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s?tenant=%s&username=%s", caasUrl, tenant, username), nil)
+	if err != nil {
+		return "", err
+	}
+	c := &http.Client{
+		Transport: LoggedTransportConfig,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return errors.New("Don't redirect!")
+		},
+	}
+	resp, err := c.Do(req)
+	defer resp.Body.Close()
+	token, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	return string(token), nil
 }
 
 func getOAuth2Token(identityUrl string, username string, password string, clientId string) (string, error) {

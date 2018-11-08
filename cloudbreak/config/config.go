@@ -1,6 +1,7 @@
 package config
 
 import (
+	"bufio"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -26,6 +27,7 @@ type Config struct {
 	AuthType  string `json:"authType,omitempty" yaml:"authType,omitempty"`
 	Workspace string `json:"workspace,omitempty" yaml:"workspace,omitempty"`
 	Output    string `json:"output,omitempty" yaml:"output,omitempty"`
+	Tenant    string `json:"tenant,omitempty" yaml:"tenant,omitempty"`
 }
 
 type ConfigList map[string]Config
@@ -66,6 +68,7 @@ func configRead(c *cli.Context) error {
 	server := c.String(fl.FlServerOptional.Name)
 	username := c.String(fl.FlUsername.Name)
 	password := c.String(fl.FlPassword.Name)
+	tenant := c.String(fl.FlTenant.Name)
 	output := c.String(fl.FlOutputOptional.Name)
 	profile := c.String(fl.FlProfileOptional.Name)
 	authType := c.String(fl.FlAuthTypeOptional.Name)
@@ -93,10 +96,10 @@ func configRead(c *cli.Context) error {
 	if len(authType) == 0 {
 		authType = config.AuthType
 		if len(authType) == 0 {
-			set(fl.FlAuthTypeOptional.Name, common.OAUTH2)
+			set(fl.FlAuthTypeOptional.Name, common.CAAS)
 		} else {
-			if authType != common.OAUTH2 && authType != common.BASIC {
-				utils.LogErrorAndExit(errors.New(fmt.Sprintf("invalid authentication type, accepted values: [%s, %s]", common.OAUTH2, common.BASIC)))
+			if authType != common.CAAS && authType != common.OAUTH2 && authType != common.BASIC {
+				utils.LogErrorAndExit(errors.New(fmt.Sprintf("invalid authentication type, accepted values: [%s, %s, %s]", common.CAAS, common.OAUTH2, common.BASIC)))
 			}
 			set(fl.FlAuthTypeOptional.Name, authType)
 		}
@@ -107,6 +110,15 @@ func configRead(c *cli.Context) error {
 	}
 	if len(username) == 0 {
 		set(fl.FlUsername.Name, config.Username)
+	}
+	if len(tenant) == 0 {
+		set(fl.FlTenant.Name, config.Tenant)
+		if len(config.Tenant) == 0 {
+			fmt.Println("Enter Tenant: ") // needs trailing new-line
+			reader := bufio.NewReader(os.Stdin)
+			tenant, _ := reader.ReadString('\n')
+			set(fl.FlTenant.Name, tenant)
+		}
 	}
 	if len(password) == 0 {
 		if len(config.Password) == 0 {
@@ -131,7 +143,7 @@ func configRead(c *cli.Context) error {
 				}
 			}
 
-			err = WriteConfigToFile(GetHomeDirectory(), config.Server, config.Username, config.Password, config.Output, profile, config.AuthType, config.Username)
+			err = WriteConfigToFile(GetHomeDirectory(), config.Server, config.Username, config.Password, config.Output, config.Tenant, profile, config.AuthType, config.Username)
 			if err != nil {
 				utils.LogErrorAndExit(err)
 			}
@@ -193,7 +205,7 @@ func ReadConfig(baseDir string, profile string) (*Config, error) {
 	}
 }
 
-func WriteConfigToFile(baseDir, server, username, password, output, profile, authType, workspace string) error {
+func WriteConfigToFile(baseDir, server, username, password, output, tenant, profile, authType, workspace string) error {
 	configDir := baseDir + "/" + common.Config_dir
 	configFile := configDir + "/" + common.Config_file
 	if len(profile) == 0 {
@@ -224,6 +236,7 @@ func WriteConfigToFile(baseDir, server, username, password, output, profile, aut
 		Workspace: workspace,
 		Username:  username,
 		Password:  password,
+		Tenant:    tenant,
 		Output:    output,
 		AuthType:  authType,
 	}
