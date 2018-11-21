@@ -31,10 +31,10 @@ type KerberosRequest struct {
 	// container dn
 	ContainerDn string `json:"containerDn,omitempty"`
 
-	// descriptor
+	// Ambari kerberos descriptor
 	Descriptor string `json:"descriptor,omitempty"`
 
-	// krb5 conf
+	// Ambari kerberos krb5.conf template
 	Krb5Conf string `json:"krb5Conf,omitempty"`
 
 	// ldap Url
@@ -65,6 +65,9 @@ type KerberosRequest struct {
 
 	// kerberos KDC server URL
 	URL string `json:"url,omitempty"`
+
+	// Allows to select either a trusting SSL connection or a validating (non-trusting) SSL connection to KDC
+	VerifyKdcTrust *bool `json:"verifyKdcTrust,omitempty"`
 }
 
 /* polymorph KerberosRequest admin false */
@@ -92,6 +95,8 @@ type KerberosRequest struct {
 /* polymorph KerberosRequest type false */
 
 /* polymorph KerberosRequest url false */
+
+/* polymorph KerberosRequest verifyKdcTrust false */
 
 // Validate validates this kerberos request
 func (m *KerberosRequest) Validate(formats strfmt.Registry) error {
