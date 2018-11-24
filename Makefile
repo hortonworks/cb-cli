@@ -81,6 +81,11 @@ generate-swagger: build-swagger-fix
 	swagger generate client -f http://$(CB_IP):$(CB_PORT)/cb/api/swagger.json -c client -m model -t cloudbreak/api
 	make fix-swagger
 
+generate-swagger-dp: build-swagger-fix
+	rm -rf dataplane/api/client dataplane/api/model
+	swagger generate client -f http://$(DP_IP):$(DP_PORT)/spec/api-docs/swagger.json -c client -m model -t dataplane/api
+	#make fix-swagger
+
 generate-swagger-docker: build-swagger-fix
 	rm -rf cloudbreak/api/client cloudbreak/api/model
 	@docker run --rm -it -v "${GOPATH}":"${GOPATH}" -w "${PWD}" -e GOPATH --net=host quay.io/goswagger/swagger:0.12.0 \
@@ -89,6 +94,7 @@ generate-swagger-docker: build-swagger-fix
 
 build-swagger-fix:
 	go build -o build/swagger_fix swagger_fix/main.go
+
 
 fix-swagger:
 	$(info fixed on master https://github.com/go-swagger/go-swagger/issues/1197#issuecomment-335610396)
