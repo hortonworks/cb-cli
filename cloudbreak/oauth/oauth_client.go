@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	apiclient "github.com/hortonworks/cb-cli/cloudbreak/api/client"
 	fl "github.com/hortonworks/cb-cli/cloudbreak/flags"
+	dpapiclient "github.com/hortonworks/cb-cli/dataplane/api/client"
 	"github.com/hortonworks/cb-cli/dp-cli-common/caasauth"
 	"github.com/urfave/cli"
 )
@@ -19,6 +20,10 @@ var PREFIX_TRIM = []string{"http://", "https://"}
 
 type Cloudbreak struct {
 	Cloudbreak *apiclient.Cloudbreak
+}
+
+type Dataplane struct {
+	Dataplane *dpapiclient.Dataplane
 }
 
 // This is nearly identical with http.DefaultTransport
@@ -48,6 +53,23 @@ func NewCloudbreakHTTPClient(address string, refreshToken string) *Cloudbreak {
 		transport, _ = caasauth.RefreshAccessToken(address, baseAPIPath, refreshToken)
 	}
 	return &Cloudbreak{Cloudbreak: apiclient.New(transport, strfmt.Default)}
+}
+
+// NewDataplaneHTTPClientFromContext : Initialize Dataplane client.
+func NewDataplaneHTTPClientFromContext(c *cli.Context) *Dataplane {
+	return NewDataplaneHTTPClient(c.String(fl.FlServerOptional.Name), c.String(fl.FlRefreshTokenOptional.Name))
+}
+
+// NewDataplaneHTTPClient : Creates new Dataplane client
+func NewDataplaneHTTPClient(address string, refreshToken string) *Dataplane {
+	var transport *caasauth.Transport
+	baseAPIPath := "/"
+	if len(refreshToken) == 0 {
+		transport, _ = caasauth.NewCaasTransport(address, baseAPIPath)
+	} else {
+		transport, _ = caasauth.RefreshAccessToken(address, baseAPIPath, refreshToken)
+	}
+	return &Dataplane{Dataplane: dpapiclient.New(transport, strfmt.Default)}
 }
 
 type httpLogger struct {

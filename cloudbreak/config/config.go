@@ -121,6 +121,74 @@ func configRead(c *cli.Context) error {
 	return nil
 }
 
+//Workspace concept is not manadatory for Dataplane
+func CheckConfigAndCommandFlagsDP(c *cli.Context) error {
+	err := fl.CheckRequiredFlagsAndArguments(c)
+	if err == nil {
+		return configReadDP(c)
+	}
+	return err
+}
+
+func configReadDP(c *cli.Context) error {
+	args := c.Args()
+	if args.Present() {
+		name := args.First()
+		if k := c.App.Command(name); k != nil {
+			// this is a sub-command invocation
+			return nil
+		}
+	}
+
+	server := c.String(fl.FlServerOptional.Name)
+	output := c.String(fl.FlOutputOptional.Name)
+	profile := c.String(fl.FlProfileOptional.Name)
+	refreshToken := c.String(fl.FlRefreshTokenOptional.Name)
+
+	if len(profile) == 0 {
+		profile = "default"
+	}
+
+	config, err := ReadConfig(GetHomeDirectory(), profile)
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+
+	set := func(name, value string) {
+		if err = c.Set(name, value); err != nil {
+			log.Debug(err)
+		}
+	}
+
+	if len(output) == 0 {
+		set(fl.FlOutputOptional.Name, config.Output)
+	}
+	PrintConfig(*config)
+	if len(server) == 0 {
+		set(fl.FlServerOptional.Name, config.Server)
+	}
+	if len(refreshToken) == 0 {
+		if len(config.RefreshToken) == 0 {
+			token := caasauth.NewRefreshToken(c.String(fl.FlServerOptional.Name))
+			err = WriteConfigToFile(GetHomeDirectory(), config.Server, config.Output, profile, config.Workspace, token)
+			if err != nil {
+				utils.LogErrorAndExit(err)
+			}
+			set(fl.FlRefreshTokenOptional.Name, token)
+		} else {
+			set(fl.FlRefreshTokenOptional.Name, config.RefreshToken)
+		}
+	}
+
+	server = c.String(fl.FlServerOptional.Name)
+	if len(server) == 0 {
+		log.Error(fmt.Sprintf("configuration is not set, see: cb configure --help or provide the following flags: %v",
+			[]string{"--" + fl.FlServerOptional.Name}))
+		os.Exit(1)
+	}
+	return nil
+}
+
 func PrintConfig(cfg Config) {
 	cfg.RefreshToken = "*"
 	log.Infof("[CheckConfigAndCommandFlags] Config read from file, setting as global variable:\n%s", cfg.Yaml())

@@ -87,6 +87,11 @@ generate-swagger-docker: build-swagger-fix
 	generate client -f http://$(CB_IP):$(CB_PORT)/cb/api/swagger.json -c client -m model -t cloudbreak/api
 	make fix-swagger
 
+generate-swagger-dp: build-swagger-fix
+	rm -rf dataplane/api/client dataplane/api/model
+	swagger generate client -f http://$(DP_IP):$(DP_PORT)/spec/api-docs/swagger.json -c client -m model -t dataplane/api
+
+
 build-swagger-fix:
 	go build -o build/swagger_fix swagger_fix/main.go
 
