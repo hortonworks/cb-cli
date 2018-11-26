@@ -12,7 +12,7 @@ import (
 	apiclient "github.com/hortonworks/cb-cli/cloudbreak/api/client"
 	fl "github.com/hortonworks/cb-cli/cloudbreak/flags"
 	dpapiclient "github.com/hortonworks/cb-cli/dataplane/api/client"
-	"github.com/hortonworks/cb-cli/dps-common/caasauth"
+	"github.com/hortonworks/cb-cli/dp-cli-common/caasauth"
 	"github.com/urfave/cli"
 )
 
