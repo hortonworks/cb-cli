@@ -859,6 +859,13 @@ var (
 			Usage: "id of the user",
 		},
 	}
+	FlUserIDOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "user-id",
+			Usage: "id of the user",
+		},
+	}
 	FlVersion = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{
