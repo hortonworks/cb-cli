@@ -10,8 +10,8 @@ import (
 	"github.com/ernesto-jimenez/httplogger"
 	"github.com/go-openapi/strfmt"
 	apiclient "github.com/hortonworks/cb-cli/dataplane/api/client"
-	authapiclient "github.com/hortonworks/cb-cli/dataplane/oauthapi/client"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
+	authapiclient "github.com/hortonworks/cb-cli/dataplane/oauthapi/client"
 	"github.com/hortonworks/dp-cli-common/caasauth"
 	"github.com/urfave/cli"
 )
@@ -25,6 +25,7 @@ type Cloudbreak struct {
 type Dataplane struct {
 	Dataplane *authapiclient.Dataplane
 }
+
 // This is nearly identical with http.DefaultTransport
 var TransportConfig = &http.Transport{
 	Proxy:           http.ProxyFromEnvironment,

@@ -1,30 +1,29 @@
 package user
+
 import (
-	"strconv"
-	"strings"
-	"testing"
 	"github.com/hortonworks/cb-cli/dataplane/oauthapi/client/users"
 	"github.com/hortonworks/cb-cli/dataplane/oauthapi/model"
 	"github.com/hortonworks/cb-cli/dataplane/types"
 	"github.com/hortonworks/dp-cli-common/utils"
-	
+	"strconv"
+	"strings"
+	"testing"
 )
 
 type mockUserClient struct {
 }
 
-
-func (*mockUserClient) GetAllUsers (params *users.GetAllUsersParams) (*users.GetAllUsersOK, error) {
+func (*mockUserClient) GetAllUsers(params *users.GetAllUsersParams) (*users.GetAllUsersOK, error) {
 	resp := []*model.UserWithRoles{
 		{
-			Name: &(&types.S{S: "test1"}).S,
+			Name:              &(&types.S{S: "test1"}).S,
 			PreferredUsername: &(&types.S{S: "test1"}).S,
-			Email: "test1",
+			Email:             "test1",
 		},
 		{
-			Name: &(&types.S{S: "test2"}).S,
+			Name:              &(&types.S{S: "test2"}).S,
 			PreferredUsername: &(&types.S{S: "test2"}).S,
-			Email: "test2",
+			Email:             "test2",
 		},
 	}
 	return &users.GetAllUsersOK{Payload: resp}, nil

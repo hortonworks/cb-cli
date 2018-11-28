@@ -4,45 +4,16 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/oauth"
 	"time"
 
-	"github.com/go-openapi/swag"
 	log "github.com/Sirupsen/logrus"
+	"github.com/go-openapi/swag"
+	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/cb-cli/dataplane/oauthapi/client/oidc"
 	"github.com/hortonworks/cb-cli/dataplane/oauthapi/client/roles"
 	"github.com/hortonworks/cb-cli/dataplane/oauthapi/client/users"
 	"github.com/hortonworks/cb-cli/dataplane/oauthapi/model"
-	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/dp-cli-common/utils"
 	"github.com/urfave/cli"
 )
-
-/* var userListHeader = []string{"User ID", "Name"}
-
-type userListOut struct {
-	User *model.UserResponseJSON
-}
-
-func (u *userListOut) DataAsStringArray() []string {
-	return []string{u.User.UserID, u.User.Username}
-}
-
-func ListUsers(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "list users")
-	log.Infof("[ListUsers] List all users in a tenant")
-	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
-
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
-
-	resp, err := cbClient.Cloudbreak.V1users.GetAllUsers(v1users.NewGetAllUsersParams())
-	if err != nil {
-		utils.LogErrorAndExit(err)
-	}
-
-	tableRows := []utils.Row{}
-	for _, user := range resp.Payload {
-		tableRows = append(tableRows, &userListOut{user})
-	}
-	output.WriteList(userListHeader, tableRows)
-} */
 
 var userListHeader = []string{"ID", "PreferredUsername", "Name", "Email"}
 var userInfoHeader = []string{"ID", "PrefferedUserName", "Name", "Email"}
