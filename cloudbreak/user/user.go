@@ -3,7 +3,6 @@ package user
 import (
 	"time"
 
-	"github.com/go-openapi/strfmt" 
 	"github.com/go-openapi/swag"
 	"github.com/hortonworks/cb-cli/cloudbreak/oauth"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/oidc"
@@ -27,7 +26,7 @@ type UsersInfoOut struct {
 
 func (u *UsersInfoOut) DataAsStringArray() []string {
 	return []string{
-		strfmt.UUID.String(u.User.ID),
+		u.User.ID.String(),
 		swag.StringValue(u.User.PreferredUsername),
 		swag.StringValue(u.User.Name),
 		u.User.Email,
@@ -40,7 +39,7 @@ type userListOut struct {
 
 func (u *userListOut) DataAsStringArray() []string {
 	return []string{
-		strfmt.UUID.String(u.User.ID),
+		u.User.ID.String(),
 		swag.StringValue(u.User.PreferredUsername),
 		swag.StringValue(u.User.Name),
 		u.User.Email,
@@ -53,7 +52,7 @@ type roleDetailsOut struct {
 
 func (r *roleDetailsOut) DataAsStringArray() []string {
 	return []string{
-		strfmt.UUID.String(r.Role.ID),
+		r.Role.ID.String(),
 		swag.StringValue(r.Role.Name),
 		swag.StringValue(r.Role.DisplayName),
 		swag.StringValue(r.Role.Service.Name),
