@@ -3,7 +3,7 @@ package user
 import (
 	"time"
 
-	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt" 
 	"github.com/go-openapi/swag"
 	"github.com/hortonworks/cb-cli/cloudbreak/oauth"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/oidc"
@@ -17,8 +17,8 @@ import (
 	"github.com/urfave/cli"
 )
 
-var userListHeader = []string{"ID", "tenantID", "PreferredUsername", "Name", "Email"}
-var userInfoHeader = []string{"ID", "TenantID", "PrefferedUserName", "Name", "Email"}
+var userListHeader = []string{"ID", "PreferredUsername", "Name", "Email"}
+var userInfoHeader = []string{"ID", "PrefferedUserName", "Name", "Email"}
 var roleDetailsHeader = []string{"ID", "Name", "DisplayName", "Service"}
 
 type UsersInfoOut struct {
@@ -28,7 +28,6 @@ type UsersInfoOut struct {
 func (u *UsersInfoOut) DataAsStringArray() []string {
 	return []string{
 		strfmt.UUID.String(u.User.ID),
-		strfmt.UUID.String(*u.User.TenantID),
 		swag.StringValue(u.User.PreferredUsername),
 		swag.StringValue(u.User.Name),
 		u.User.Email,
@@ -42,7 +41,6 @@ type userListOut struct {
 func (u *userListOut) DataAsStringArray() []string {
 	return []string{
 		strfmt.UUID.String(u.User.ID),
-		strfmt.UUID.String(*u.User.TenantID),
 		swag.StringValue(u.User.PreferredUsername),
 		swag.StringValue(u.User.Name),
 		u.User.Email,
@@ -66,14 +64,21 @@ type roleOut struct {
 	Role *model.RoleWithPermission
 }
 
+type userClient interface {
+	GetAllUsers(params *users.GetAllUsersParams) (*users.GetAllUsersOK, error)
+}
+
 // ListUsers :
 func ListUsers(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "list users")
 	log.Infof("[ListUsers] List all users in a tenant")
 	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
-	userID := c.String(fl.FlUserIDOptional.Name)
 	dpClient := oauth.NewDataplaneHTTPClientFromContext(c)
-	resp, err := dpClient.Dataplane.Users.GetAllUsers(users.NewGetAllUsersParams().WithID(&userID))
+	listUsersImpl(dpClient.Dataplane.Users, output.WriteList)
+}
+
+func listUsersImpl(client userClient, writer func([]string, []utils.Row)) {
+	resp, err := client.GetAllUsers(users.NewGetAllUsersParams())
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -81,7 +86,7 @@ func ListUsers(c *cli.Context) {
 	for _, user := range resp.Payload {
 		tableRows = append(tableRows, &userListOut{user})
 	}
-	output.WriteList(userListHeader, tableRows)
+	writer(userListHeader, tableRows)
 }
 
 // ListRoles :

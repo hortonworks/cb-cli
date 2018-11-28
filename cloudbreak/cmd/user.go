@@ -15,11 +15,11 @@ func init() {
 			{
 				Name:   "list",
 				Usage:  "list all users",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlUserIDOptional).AddAuthenticationFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build(),
 				Before: cf.CheckConfigAndCommandFlagsDP,
 				Action: user.ListUsers,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlUserIDOptional).AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
