@@ -80,6 +80,10 @@ generate-swagger: build-swagger-fix
 	rm -rf dataplane/api/client dataplane/api/model
 	swagger generate client -f http://$(CB_IP):$(CB_PORT)/cb/api/swagger.json -c client -m model -t dataplane/api
 	make fix-swagger
+	
+generate-swagger-dp: 
+	rm -rf dataplane/oauthapi/client dataplane/oauthapi/model
+	swagger generate client -f http://$(DP_IP):$(DP_PORT)/spec/api-docs/swagger.json -c client -m model -t dataplane/oauthapi
 
 generate-swagger-docker: build-swagger-fix
 	rm -rf dataplane/api/client dataplane/api/model
