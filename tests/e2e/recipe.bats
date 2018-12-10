@@ -3,6 +3,13 @@
 load ../utils/e2e_parameters
 load ../utils/commands
 
+@test "Check 'pre-ambari-start' recipe create" {
+  OUTPUT=$(create-recipe from-file --name ${RECIPE_NAME} --execution-type pre-ambari-start --file ${RECIPE_FILE} 2>&1 | awk '{printf "%s",$0} END {print ""}' | awk 'match($0, /{[^{}]+}/) { print substr($0, RSTART, RLENGTH)}')
+
+  [[ $(echo "${OUTPUT}" | jq ' . |  [to_entries[].key] == ["content","description","name","recipeType"]') == true ]]
+  [[ $(echo "${OUTPUT}" | jq -r ."recipeType") == PRE_AMBARI_START ]]
+}
+
 @test "Check recipes are listed" {
   for OUTPUT in $(list-recipes | jq ' .[] | [to_entries[].key] == ["Name","Description","ExecutionType"]');
   do
