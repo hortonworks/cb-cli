@@ -147,6 +147,9 @@ type StackResponse struct {
 	// status message of the stack
 	StatusReason string `json:"statusReason,omitempty"`
 
+	// termination completion time of stack in long
+	Terminated int64 `json:"terminated,omitempty"`
+
 	// stack related userdefined tags
 	UserDefinedTags map[string]string `json:"userDefinedTags,omitempty"`
 
@@ -233,6 +236,8 @@ type StackResponse struct {
 /* polymorph StackResponse status false */
 
 /* polymorph StackResponse statusReason false */
+
+/* polymorph StackResponse terminated false */
 
 /* polymorph StackResponse userDefinedTags false */
 
