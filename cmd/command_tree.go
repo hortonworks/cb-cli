@@ -38,13 +38,15 @@ func printCommandTree(c *cli.Context) {
 
 func buildTree(commands []cli.Command, tree Tree, showUsage bool) {
 	for _, command := range commands {
-		name := command.Name
-		if showUsage {
-			name += " - " + command.Usage
-		}
-		subTree := tree.Add(name)
-		if command.Subcommands != nil && len(command.Subcommands) > 0 {
-			buildTree(command.Subcommands, subTree, showUsage)
+		if !command.Hidden {
+			name := command.Name
+			if showUsage {
+				name += " - " + command.Usage
+			}
+			subTree := tree.Add(name)
+			if command.Subcommands != nil && len(command.Subcommands) > 0 {
+				buildTree(command.Subcommands, subTree, showUsage)
+			}
 		}
 	}
 }
