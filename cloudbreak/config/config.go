@@ -10,6 +10,7 @@ import (
 	"syscall"
 
 	log "github.com/Sirupsen/logrus"
+	cr "github.com/go-openapi/runtime/client"
 	"github.com/hortonworks/cb-cli/cloudbreak/common"
 	fl "github.com/hortonworks/cb-cli/cloudbreak/flags"
 	ws "github.com/hortonworks/cb-cli/cloudbreak/workspace"
@@ -18,6 +19,7 @@ import (
 	"github.com/urfave/cli"
 	"golang.org/x/crypto/ssh/terminal"
 	yaml "gopkg.in/yaml.v2"
+	"time"
 )
 
 type Config struct {
@@ -27,6 +29,7 @@ type Config struct {
 	AuthType  string `json:"authType,omitempty" yaml:"authType,omitempty"`
 	Workspace string `json:"workspace,omitempty" yaml:"workspace,omitempty"`
 	Output    string `json:"output,omitempty" yaml:"output,omitempty"`
+	Timeout   string `json:"timeout,omitempty" yaml:"timeout,omitempty"`
 }
 
 type ConfigList map[string]Config
@@ -138,6 +141,13 @@ func configRead(c *cli.Context, checkWorkspace bool) error {
 			[]string{"--" + fl.FlServerOptional.Name, "--" + fl.FlUsername.Name, "--" + fl.FlPassword.Name})
 		log.Error(message)
 		panic(message)
+	}
+	if len(config.Timeout) != 0 {
+		timeout, parseError := time.ParseDuration(config.Timeout)
+		if parseError != nil {
+			utils.LogErrorAndExit(parseError)
+		}
+		cr.DefaultTimeout = timeout
 	}
 	if !checkWorkspace {
 		return nil
