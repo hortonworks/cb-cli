@@ -90,7 +90,8 @@ type getStackNotFoundClient struct {
 
 func (c getStackNotFoundClient) GetStackInWorkspace(*v3_workspace_id_stacks.GetStackInWorkspaceParams) (*v3_workspace_id_stacks.GetStackInWorkspaceOK, error) {
 	return nil, &utils.RESTError{
-		nil, 403,
+		Response: nil,
+		Code:     403,
 	}
 }
 

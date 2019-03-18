@@ -267,7 +267,14 @@ func DescribeCredential(c *cli.Context) {
 	}
 
 	cred := resp.Payload
-	output.Write(append(common.CloudResourceHeader, "ID"), &credentialOutDescribe{&common.CloudResourceOut{*cred.Name, *cred.Description, *cred.CloudPlatform}, strconv.FormatInt(cred.ID, 10)})
+	output.Write(append(common.CloudResourceHeader, "ID"), &credentialOutDescribe{
+		&common.CloudResourceOut{
+			Name:          *cred.Name,
+			Description:   *cred.Description,
+			CloudPlatform: *cred.CloudPlatform,
+		},
+		strconv.FormatInt(cred.ID, 10)},
+	)
 }
 
 func DeleteCredential(c *cli.Context) {
@@ -305,7 +312,11 @@ func listCredentialsImpl(client listCredentialsByWorkspaceClient, workspaceID in
 
 	tableRows := []utils.Row{}
 	for _, cred := range credResp.Payload {
-		tableRows = append(tableRows, &common.CloudResourceOut{*cred.Name, *cred.Description, *cred.CloudPlatform})
+		tableRows = append(tableRows, &common.CloudResourceOut{
+			Name:          *cred.Name,
+			Description:   *cred.Description,
+			CloudPlatform: *cred.CloudPlatform},
+		)
 	}
 
 	writer(common.CloudResourceHeader, tableRows)
