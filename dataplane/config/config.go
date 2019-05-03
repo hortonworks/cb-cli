@@ -68,7 +68,7 @@ func CheckConfigAndCommandFlagsDP(c *cli.Context) error {
 	err := fl.CheckRequiredFlagsAndArguments(c)
 	if err == nil {
 		resp := configRead(c)
-		validateContext(c, []fl.StringFlag{fl.FlServerOptional})
+		validateContext(c, []fl.StringFlag{fl.FlServerOptional, fl.FlApiKeyIDOptional, fl.FlPrivateKeyOptional})
 		return resp
 	}
 	return err
@@ -77,7 +77,7 @@ func CheckConfigAndCommandFlagsDP(c *cli.Context) error {
 func validateContext(c *cli.Context, flagsTocheck []fl.StringFlag) {
 	for _, f := range flagsTocheck {
 		if len(c.String(f.Name)) == 0 {
-			log.Error(fmt.Sprintf("configuration is not set, see: dp configure --help or provide the following flags: %v",
+			log.Error(fmt.Sprintf("dp command line tool has not beeen configured yet, see: dp configure --help or provide the following flags: %v",
 				[]string{"--" + f.Name}))
 			os.Exit(1)
 		}

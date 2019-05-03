@@ -1188,7 +1188,6 @@ var (
 			Usage: "shows the internal commands as well",
 		},
 	}
-
 	FlApiKeyIDOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
@@ -1198,6 +1197,20 @@ var (
 	}
 	FlPrivateKeyOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "privatekey",
+			Usage: "API private key",
+		},
+	}
+	FlApiKeyIDRequired = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "apikeyid",
+			Usage: "API key ID",
+		},
+	}
+	FlPrivateKeyRequired = StringFlag{
+		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{
 			Name:  "privatekey",
 			Usage: "API private key",
