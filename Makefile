@@ -18,9 +18,9 @@ endif
 ifeq ($(SDX_IP),)
         SDX_IP = localhost
 endif
-CB_PORT = $(shell echo \${PORT})
+SDX_PORT = $(shell echo \${PORT})
 ifeq ($(SDX_PORT),)
-        SDX_PORT = 9092
+        SDX_PORT = 8086
 endif
 
 deps: deps-errcheck
