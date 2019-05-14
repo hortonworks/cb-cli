@@ -13,7 +13,6 @@ import (
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/dp-cli-common/utils"
 	"github.com/urfave/cli"
-	"strings"
 )
 
 var kubernetesHeader = []string{"Name", "Description", "Environments"}
@@ -21,7 +20,6 @@ var kubernetesHeader = []string{"Name", "Description", "Environments"}
 type kubernetes struct {
 	Name         string `json:"Name" yaml:"Name"`
 	Description  string `json:"Description" yaml:"Description"`
-	Environments []string
 }
 
 type kubernetesOutDescribe struct {
@@ -30,7 +28,7 @@ type kubernetesOutDescribe struct {
 }
 
 func (k *kubernetes) DataAsStringArray() []string {
-	return []string{k.Name, k.Description, strings.Join(k.Environments, ",")}
+	return []string{k.Name, k.Description}
 }
 
 func (k *kubernetesOutDescribe) DataAsStringArray() []string {
@@ -51,18 +49,16 @@ func CreateKubernetes(c *cli.Context) {
 		c.Int64(fl.FlWorkspaceOptional.Name),
 		c.String(fl.FlName.Name),
 		c.String(fl.FlDescriptionOptional.Name),
-		base64.StdEncoding.EncodeToString(utils.ReadFile(c.String(fl.FlKubernetesConfigFile.Name))),
-		utils.DelimitedStringToArray(c.String(fl.FlEnvironmentsOptional.Name), ","))
+		base64.StdEncoding.EncodeToString(utils.ReadFile(c.String(fl.FlKubernetesConfigFile.Name))))
 }
 
-func createKubernetesImpl(client kubernetesClient, workspaceID int64, name string, description string, configuration string, environments []string) {
+func createKubernetesImpl(client kubernetesClient, workspaceID int64, name string, description string, configuration string) {
 	defer utils.TimeTrack(time.Now(), "create kubernetes config")
 	config := string(configuration)
 	kubernetesRequest := &model.KubernetesV4Request{
 		Name:         &name,
 		Description:  &description,
 		Content:      &config,
-		Environments: environments,
 	}
 	var kubernetesResponse *model.KubernetesV4Response
 	log.Infof("[createKubernetesImpl] sending create kubernetes config request")
@@ -139,45 +135,8 @@ func DescribeKubernetes(c *cli.Context) {
 		&kubernetes{
 			Name:         *r.Name,
 			Description:  *r.Description,
-			Environments: r.Environments,
 		}, strconv.FormatInt(r.ID, 10)})
 
-}
-
-func AttachKubernetesToEnvs(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "attach kubernetes to environments")
-
-	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
-	kubernetesName := c.String(fl.FlName.Name)
-	environments := utils.DelimitedStringToArray(c.String(fl.FlEnvironments.Name), ",")
-	log.Infof("[AttachKubernetesToEnvs] attach kubernetes config '%s' to environments: %s", kubernetesName, environments)
-
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
-	attachRequest := v4kube.NewAttachKubernetesResourceToEnvironmentsParams().WithWorkspaceID(workspaceID).WithName(kubernetesName).WithBody(&model.EnvironmentNames{EnvironmentNames: environments})
-	response, err := cbClient.Cloudbreak.V4WorkspaceIDKubernetes.AttachKubernetesResourceToEnvironments(attachRequest)
-	if err != nil {
-		utils.LogErrorAndExit(err)
-	}
-	kubernetes := response.Payload
-	log.Infof("[AttachKubernetesToEnvs] kubernetes config '%s' is now attached to the following environments: %s", *kubernetes.Name, kubernetes.Environments)
-}
-
-func DetachKubernetesFromEnvs(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "detach kubernetes from environments")
-
-	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
-	kubernetesName := c.String(fl.FlName.Name)
-	environments := utils.DelimitedStringToArray(c.String(fl.FlEnvironments.Name), ",")
-	log.Infof("[DetachKubernetesFromEnvs] detach kubernetes config '%s' from environments: %s", kubernetesName, environments)
-
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
-	detachRequest := v4kube.NewDetachKubernetesResourceFromEnvironmentsParams().WithWorkspaceID(workspaceID).WithName(kubernetesName).WithBody(&model.EnvironmentNames{EnvironmentNames: environments})
-	response, err := cbClient.Cloudbreak.V4WorkspaceIDKubernetes.DetachKubernetesResourceFromEnvironments(detachRequest)
-	if err != nil {
-		utils.LogErrorAndExit(err)
-	}
-	kubernetes := response.Payload
-	log.Infof("[DetachKubernetesFromEnvs] kubernetes config '%s' is now attached to the following environments: %s", *kubernetes.Name, kubernetes.Environments)
 }
 
 func ListAllKubernetes(c *cli.Context) error {
@@ -201,7 +160,6 @@ func listAllKubernetesImpl(kubernetesClient kubernetesClient, writer func([]stri
 		row := &kubernetes{
 			Name:         *r.Name,
 			Description:  utils.SafeStringConvert(r.Description),
-			Environments: r.Environments,
 		}
 		tableRows = append(tableRows, row)
 	}
