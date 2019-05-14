@@ -15,11 +15,11 @@ func init() {
 			{
 				Name:   "create",
 				Usage:  "create kubernetes configuration",
-				Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlKubernetesConfigFile, fl.FlEnvironmentsOptional).AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlKubernetesConfigFile).AddAuthenticationFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: kubernetes.CreateKubernetes,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlKubernetesConfigFile, fl.FlEnvironmentsOptional).AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlKubernetesConfigFile).AddAuthenticationFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -56,30 +56,6 @@ func init() {
 				Action: kubernetes.DescribeKubernetes,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build() {
-						fl.PrintFlagCompletion(f)
-					}
-				},
-			},
-			{
-				Name:   "attach",
-				Usage:  "attach an Kubernetes to environments",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddAuthenticationFlags().AddOutputFlag().Build(),
-				Before: cf.CheckConfigAndCommandFlags,
-				Action: kubernetes.AttachKubernetesToEnvs,
-				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddAuthenticationFlags().AddOutputFlag().Build() {
-						fl.PrintFlagCompletion(f)
-					}
-				},
-			},
-			{
-				Name:   "detach",
-				Usage:  "detach an Kubernetes from environments",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddOutputFlag().AddAuthenticationFlags().Build(),
-				Before: cf.CheckConfigAndCommandFlags,
-				Action: kubernetes.DetachKubernetesFromEnvs,
-				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddOutputFlag().AddAuthenticationFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

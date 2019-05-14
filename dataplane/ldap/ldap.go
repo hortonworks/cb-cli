@@ -43,7 +43,6 @@ type ldap struct {
 	GroupSearchBase      string `json:"GroupSearchBase,omitempty" yaml:"GroupSearchBase,omitempty"`
 	AdminGroup           string `json:"AdminGroup,omitempty" yaml:"AdminGroup,omitempty"`
 	Certificate          string `json:"Certificate,omitempty" yaml:"Certificate,omitempty"`
-	Environments         []string
 }
 
 type ldapOutDescribe struct {
@@ -53,7 +52,7 @@ type ldapOutDescribe struct {
 
 func (l *ldap) DataAsStringArray() []string {
 	return []string{l.Name, l.Description, l.Server, l.Domain, l.DirectoryType, l.UserSearchBase, l.UserDnPattern, l.UserNameAttribute,
-		l.UserObjectClass, l.GroupMemberAttribute, l.GroupNameAttribute, l.GroupObjectClass, l.GroupSearchBase, strings.Join(l.Environments, ",")}
+		l.UserObjectClass, l.GroupMemberAttribute, l.GroupNameAttribute, l.GroupObjectClass, l.GroupSearchBase}
 }
 
 func (l *ldapOutDescribe) DataAsStringArray() []string {
@@ -113,8 +112,6 @@ func CreateLDAP(c *cli.Context) error {
 	}
 	server := c.String(fl.FlLdapServer.Name)
 
-	environments := utils.DelimitedStringToArray(c.String(fl.FlEnvironmentsOptional.Name), ",")
-
 	ldapRegexp := regexp.MustCompile("^(?:ldap://|ldaps://)[a-z0-9-.]+:\\d+$")
 	if !ldapRegexp.MatchString(server) {
 		utils.LogErrorMessageAndExit("Invalid ldap server address format, e.g: ldaps://10.0.0.1:389")
@@ -128,12 +125,12 @@ func CreateLDAP(c *cli.Context) error {
 	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
 
 	return createLDAPImpl(cbClient.Cloudbreak.V4WorkspaceIDLdaps, int32(serverPort), workspaceID, name, description, server, protocol, domain, bindDn, bindPassword, directoryType,
-		userSearchBase, userDnPattern, userNameAttribute, userObjectClass, groupSearchBase, groupMemberAttribute, groupNameAttribute, groupObjectClass, adminGroup, certificate, environments)
+		userSearchBase, userDnPattern, userNameAttribute, userObjectClass, groupSearchBase, groupMemberAttribute, groupNameAttribute, groupObjectClass, adminGroup, certificate)
 }
 
 func createLDAPImpl(ldapClient ldapClient, port int32, workspaceID int64, name, description, server, protocol, domain, bindDn, bindPassword, directoryType,
 	userSearchBase, userDnPattern, userNameAttribute, userObjectClass, groupSearchBase, groupMemberAttribute, groupNameAttribute,
-	groupObjectClass, adminGroup, certificate string, environments []string) error {
+	groupObjectClass, adminGroup, certificate string) error {
 	defer utils.TimeTrack(time.Now(), "create ldap")
 
 	host := server[strings.LastIndex(server, "/")+1 : strings.LastIndex(server, ":")]
@@ -157,7 +154,6 @@ func createLDAPImpl(ldapClient ldapClient, port int32, workspaceID int64, name, 
 		GroupSearchBase:      groupSearchBase,
 		AdminGroup:           adminGroup,
 		Certificate:          certificate,
-		Environments:         environments,
 	}
 
 	log.Infof("[createLDAPImpl] create ldap with name: %s", name)
@@ -207,7 +203,6 @@ func listLdapsImpl(ldapClient ldapClient, writer func([]string, []utils.Row), wo
 			GroupSearchBase:      l.GroupSearchBase,
 			AdminGroup:           l.AdminGroup,
 			Certificate:          l.Certificate,
-			Environments:         l.Environments,
 		}
 		tableRows = append(tableRows, row)
 	}
@@ -263,45 +258,8 @@ func DescribeLdap(c *cli.Context) {
 			GroupSearchBase:      l.GroupSearchBase,
 			AdminGroup:           l.AdminGroup,
 			Certificate:          l.Certificate,
-			Environments:         l.Environments,
 		},
 		strconv.FormatInt(l.ID, 10)})
-}
-
-func AttachLdapToEnvs(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "attach ldap to environments")
-
-	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
-	ldapName := c.String(fl.FlName.Name)
-	environments := utils.DelimitedStringToArray(c.String(fl.FlEnvironments.Name), ",")
-	log.Infof("[AttachLdapToEnvs] attach ldap config '%s' to environments: %s", ldapName, environments)
-
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
-	attachRequest := v4ldap.NewAttachLdapResourceToEnvironmentsParams().WithWorkspaceID(workspaceID).WithName(ldapName).WithBody(&model.EnvironmentNames{EnvironmentNames: environments})
-	response, err := cbClient.Cloudbreak.V4WorkspaceIDLdaps.AttachLdapResourceToEnvironments(attachRequest)
-	if err != nil {
-		utils.LogErrorAndExit(err)
-	}
-	ldap := response.Payload
-	log.Infof("[AttachLdapToEnvs] ldap config '%s' is now attached to the following environments: %s", *ldap.Name, ldap.Environments)
-}
-
-func DetachLdapFromEnvs(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "detach ldap from environments")
-
-	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
-	ldapName := c.String(fl.FlName.Name)
-	environments := utils.DelimitedStringToArray(c.String(fl.FlEnvironments.Name), ",")
-	log.Infof("[DetachLdapFromEnvs] detach ldap config '%s' from environments: %s", ldapName, environments)
-
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
-	detachRequest := v4ldap.NewDetachLdapResourceFromEnvironmentsParams().WithWorkspaceID(workspaceID).WithName(ldapName).WithBody(&model.EnvironmentNames{EnvironmentNames: environments})
-	response, err := cbClient.Cloudbreak.V4WorkspaceIDLdaps.DetachLdapResourceFromEnvironments(detachRequest)
-	if err != nil {
-		utils.LogErrorAndExit(err)
-	}
-	ldap := response.Payload
-	log.Infof("[DetachLdapFromEnvs] ldap config '%s' is now attached to the following environments: %s", *ldap.Name, ldap.Environments)
 }
 
 func CreateLdapUser(c *cli.Context) error {

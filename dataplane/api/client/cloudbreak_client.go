@@ -12,13 +12,13 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/hortonworks/cb-cli/dataplane/api/client/autoscale"
+	"github.com/hortonworks/cb-cli/dataplane/api/client/v1distrox"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_audits"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_blueprints"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_blueprints_util"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_clustertemplates"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_connectors"
-	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_credentials"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_databases"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_environments"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_events"
@@ -28,7 +28,6 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_kubernetes"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_ldaps"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_mpacks"
-	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_proxies"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_recipes"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_stacks"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4info"
@@ -83,6 +82,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 
 	cli.Autoscale = autoscale.New(transport, formats)
 
+	cli.V1distrox = v1distrox.New(transport, formats)
+
 	cli.V4WorkspaceID = v4_workspace_id.New(transport, formats)
 
 	cli.V4WorkspaceIDAudits = v4_workspace_id_audits.New(transport, formats)
@@ -94,8 +95,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 	cli.V4WorkspaceIDClustertemplates = v4_workspace_id_clustertemplates.New(transport, formats)
 
 	cli.V4WorkspaceIDConnectors = v4_workspace_id_connectors.New(transport, formats)
-
-	cli.V4WorkspaceIDCredentials = v4_workspace_id_credentials.New(transport, formats)
 
 	cli.V4WorkspaceIDDatabases = v4_workspace_id_databases.New(transport, formats)
 
@@ -114,8 +113,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 	cli.V4WorkspaceIDLdaps = v4_workspace_id_ldaps.New(transport, formats)
 
 	cli.V4WorkspaceIDMpacks = v4_workspace_id_mpacks.New(transport, formats)
-
-	cli.V4WorkspaceIDProxies = v4_workspace_id_proxies.New(transport, formats)
 
 	cli.V4WorkspaceIDRecipes = v4_workspace_id_recipes.New(transport, formats)
 
@@ -177,6 +174,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type Cloudbreak struct {
 	Autoscale *autoscale.Client
 
+	V1distrox *v1distrox.Client
+
 	V4WorkspaceID *v4_workspace_id.Client
 
 	V4WorkspaceIDAudits *v4_workspace_id_audits.Client
@@ -188,8 +187,6 @@ type Cloudbreak struct {
 	V4WorkspaceIDClustertemplates *v4_workspace_id_clustertemplates.Client
 
 	V4WorkspaceIDConnectors *v4_workspace_id_connectors.Client
-
-	V4WorkspaceIDCredentials *v4_workspace_id_credentials.Client
 
 	V4WorkspaceIDDatabases *v4_workspace_id_databases.Client
 
@@ -208,8 +205,6 @@ type Cloudbreak struct {
 	V4WorkspaceIDLdaps *v4_workspace_id_ldaps.Client
 
 	V4WorkspaceIDMpacks *v4_workspace_id_mpacks.Client
-
-	V4WorkspaceIDProxies *v4_workspace_id_proxies.Client
 
 	V4WorkspaceIDRecipes *v4_workspace_id_recipes.Client
 
@@ -234,6 +229,8 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 
 	c.Autoscale.SetTransport(transport)
 
+	c.V1distrox.SetTransport(transport)
+
 	c.V4WorkspaceID.SetTransport(transport)
 
 	c.V4WorkspaceIDAudits.SetTransport(transport)
@@ -245,8 +242,6 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.V4WorkspaceIDClustertemplates.SetTransport(transport)
 
 	c.V4WorkspaceIDConnectors.SetTransport(transport)
-
-	c.V4WorkspaceIDCredentials.SetTransport(transport)
 
 	c.V4WorkspaceIDDatabases.SetTransport(transport)
 
@@ -265,8 +260,6 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.V4WorkspaceIDLdaps.SetTransport(transport)
 
 	c.V4WorkspaceIDMpacks.SetTransport(transport)
-
-	c.V4WorkspaceIDProxies.SetTransport(transport)
 
 	c.V4WorkspaceIDRecipes.SetTransport(transport)
 

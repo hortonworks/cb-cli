@@ -17,39 +17,15 @@ func init() {
 				Usage: "creates a new LDAP",
 				Flags: fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlLdapServer, fl.FlLdapDomain,
 					fl.FlLdapBindDN, fl.FlLdapBindPassword, fl.FlLdapDirectoryType, fl.FlLdapUserSearchBase, fl.FlLdapUserDnPattern,
-					fl.FlLdapUserNameAttribute, fl.FlLdapUserObjectClass, fl.FlLdapGroupMemberAttribute, fl.FlEnvironmentsOptional,
+					fl.FlLdapUserNameAttribute, fl.FlLdapUserObjectClass, fl.FlLdapGroupMemberAttribute,
 					fl.FlLdapGroupNameAttribute, fl.FlLdapGroupObjectClass, fl.FlLdapGroupSearchBase, fl.FlLdapAdminGroup, fl.FlLdapCertificate).AddAuthenticationFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: ldap.CreateLDAP,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlLdapServer, fl.FlLdapDomain,
 						fl.FlLdapBindDN, fl.FlLdapBindPassword, fl.FlLdapDirectoryType, fl.FlLdapUserSearchBase, fl.FlLdapUserDnPattern,
-						fl.FlLdapUserNameAttribute, fl.FlLdapUserObjectClass, fl.FlLdapGroupMemberAttribute, fl.FlEnvironmentsOptional,
+						fl.FlLdapUserNameAttribute, fl.FlLdapUserObjectClass, fl.FlLdapGroupMemberAttribute,
 						fl.FlLdapGroupNameAttribute, fl.FlLdapGroupObjectClass, fl.FlLdapGroupSearchBase, fl.FlLdapAdminGroup, fl.FlLdapCertificate).AddAuthenticationFlags().Build() {
-						fl.PrintFlagCompletion(f)
-					}
-				},
-			},
-			{
-				Name:   "attach",
-				Usage:  "attach an LDAP to environments",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddOutputFlag().AddAuthenticationFlags().Build(),
-				Before: cf.CheckConfigAndCommandFlags,
-				Action: ldap.AttachLdapToEnvs,
-				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddOutputFlag().AddAuthenticationFlags().Build() {
-						fl.PrintFlagCompletion(f)
-					}
-				},
-			},
-			{
-				Name:   "detach",
-				Usage:  "detach an LDAP from environments",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddOutputFlag().AddAuthenticationFlags().Build(),
-				Before: cf.CheckConfigAndCommandFlags,
-				Action: ldap.DetachLdapFromEnvs,
-				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddOutputFlag().AddAuthenticationFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

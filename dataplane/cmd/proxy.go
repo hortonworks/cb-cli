@@ -16,36 +16,12 @@ func init() {
 				Name:  "create",
 				Usage: "creates a new proxy",
 				Flags: fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlProxyHost, fl.FlProxyPort,
-					fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword, fl.FlEnvironmentsOptional).AddAuthenticationFlags().Build(),
+					fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword).AddAuthenticationFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: proxy.CreateProxy,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlProxyHost, fl.FlProxyPort,
-						fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword, fl.FlEnvironmentsOptional).AddAuthenticationFlags().Build() {
-						fl.PrintFlagCompletion(f)
-					}
-				},
-			},
-			{
-				Name:   "attach",
-				Usage:  "attach a proxy to environments",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddOutputFlag().AddAuthenticationFlags().Build(),
-				Before: cf.CheckConfigAndCommandFlags,
-				Action: proxy.AttachProxyToEnvs,
-				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddOutputFlag().AddAuthenticationFlags().Build() {
-						fl.PrintFlagCompletion(f)
-					}
-				},
-			},
-			{
-				Name:   "detach",
-				Usage:  "detach a proxy from environments",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddOutputFlag().AddAuthenticationFlags().Build(),
-				Before: cf.CheckConfigAndCommandFlags,
-				Action: proxy.DetachProxyFromEnvs,
-				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironments).AddOutputFlag().AddAuthenticationFlags().Build() {
+						fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword).AddAuthenticationFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
