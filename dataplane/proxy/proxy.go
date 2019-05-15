@@ -1,22 +1,24 @@
 package proxy
 
 import (
-	"github.com/hortonworks/cb-cli/dataplane/oauth"
 	"strconv"
 	"time"
 
+	"github.com/hortonworks/cb-cli/dataplane/oauth"
+
+	"strings"
+
 	log "github.com/Sirupsen/logrus"
-	v4Proxy "github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_proxies"
-	"github.com/hortonworks/cb-cli/dataplane/api/model"
+	v1Proxy "github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1proxies"
+	model "github.com/hortonworks/cb-cli/dataplane/api-environment/model"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/dp-cli-common/utils"
 	"github.com/urfave/cli"
-	"strings"
 )
 
 type proxyClient interface {
-	CreateProxyConfigInWorkspace(params *v4Proxy.CreateProxyConfigInWorkspaceParams) (*v4Proxy.CreateProxyConfigInWorkspaceOK, error)
-	ListProxyConfigsByWorkspace(params *v4Proxy.ListProxyConfigsByWorkspaceParams) (*v4Proxy.ListProxyConfigsByWorkspaceOK, error)
+	CreateProxyConfigV1(params *v1Proxy.CreateProxyConfigV1Params) (*v1Proxy.CreateProxyConfigV1OK, error)
+	ListProxyConfigsV1(params *v1Proxy.ListProxyConfigsV1Params) (*v1Proxy.ListProxyConfigsV1OK, error)
 }
 
 var Header = []string{"Name", "Host", "Port", "Protocol", "Environments"}
@@ -36,7 +38,6 @@ func (p *proxy) DataAsStringArray() []string {
 func CreateProxy(c *cli.Context) error {
 	defer utils.TimeTrack(time.Now(), "create proxy")
 
-	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 	name := c.String(fl.FlName.Name)
 	host := c.String(fl.FlProxyHost.Name)
 	port := c.String(fl.FlProxyPort.Name)
@@ -50,13 +51,13 @@ func CreateProxy(c *cli.Context) error {
 	}
 	serverPort, _ := strconv.Atoi(port)
 
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
 
-	return createProxy(cbClient.Cloudbreak.V4WorkspaceIDProxies, workspaceID, name, host, int32(serverPort), protocol, user, password, environments)
+	return createProxy(envClient.Environment.V1proxies, name, host, int32(serverPort), protocol, user, password, environments)
 }
 
-func createProxy(proxyClient proxyClient, workspaceID int64, name, host string, port int32, protocol, user, password string, environments []string) error {
-	proxyRequest := &model.ProxyV4Request{
+func createProxy(proxyClient proxyClient, name, host string, port int32, protocol, user, password string, environments []string) error {
+	proxyRequest := &model.ProxyV1Request{
 		Name:         &name,
 		Host:         &host,
 		Port:         &port,
@@ -67,8 +68,8 @@ func createProxy(proxyClient proxyClient, workspaceID int64, name, host string, 
 	}
 
 	log.Infof("[createProxy] create proxy with name: %s", name)
-	var proxy *model.ProxyV4Response
-	resp, err := proxyClient.CreateProxyConfigInWorkspace(v4Proxy.NewCreateProxyConfigInWorkspaceParams().WithWorkspaceID(workspaceID).WithBody(proxyRequest))
+	var proxy *model.ProxyV1Response
+	resp, err := proxyClient.CreateProxyConfigV1(v1Proxy.NewCreateProxyConfigV1Params().WithBody(proxyRequest))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -81,14 +82,13 @@ func createProxy(proxyClient proxyClient, workspaceID int64, name, host string, 
 func AttachProxyToEnvs(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "attach proxy to environments")
 
-	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 	proxyName := c.String(fl.FlName.Name)
 	environments := utils.DelimitedStringToArray(c.String(fl.FlEnvironments.Name), ",")
 	log.Infof("[AttachProxyToEnvs] attach proxy config '%s' to environments: %s", proxyName, environments)
 
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
-	attachRequest := v4Proxy.NewAttachProxyResourceToEnvironmentsParams().WithWorkspaceID(workspaceID).WithName(proxyName).WithBody(&model.EnvironmentNames{EnvironmentNames: environments})
-	response, err := cbClient.Cloudbreak.V4WorkspaceIDProxies.AttachProxyResourceToEnvironments(attachRequest)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	attachRequest := v1Proxy.NewAttachProxyResourceToEnvironmentsParams().WithName(proxyName).WithBody(&model.EnvironmentNames{EnvironmentNames: environments})
+	response, err := envClient.Environment.V1proxies.AttachProxyResourceToEnvironments(attachRequest)
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -99,14 +99,13 @@ func AttachProxyToEnvs(c *cli.Context) {
 func DetachProxyFromEnvs(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "detach proxy from environments")
 
-	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 	proxyName := c.String(fl.FlName.Name)
 	environments := utils.DelimitedStringToArray(c.String(fl.FlEnvironments.Name), ",")
 	log.Infof("[DetachProxyFromEnvs] detach proxy config '%s' from environments: %s", proxyName, environments)
 
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
-	detachRequest := v4Proxy.NewDetachProxyResourceFromEnvironmentsParams().WithWorkspaceID(workspaceID).WithName(proxyName).WithBody(&model.EnvironmentNames{EnvironmentNames: environments})
-	response, err := cbClient.Cloudbreak.V4WorkspaceIDProxies.DetachProxyResourceFromEnvironments(detachRequest)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	detachRequest := v1Proxy.NewDetachProxyResourceFromEnvironmentsParams().WithName(proxyName).WithBody(&model.EnvironmentNames{EnvironmentNames: environments})
+	response, err := envClient.Environment.V1proxies.DetachProxyResourceFromEnvironments(detachRequest)
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -117,15 +116,14 @@ func DetachProxyFromEnvs(c *cli.Context) {
 func ListProxies(c *cli.Context) error {
 	defer utils.TimeTrack(time.Now(), "list proxies")
 
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
 
 	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
-	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
-	return listProxiesImpl(cbClient.Cloudbreak.V4WorkspaceIDProxies, output.WriteList, workspaceID)
+	return listProxiesImpl(envClient.Environment.V1proxies, output.WriteList)
 }
 
-func listProxiesImpl(proxyClient proxyClient, writer func([]string, []utils.Row), workspaceID int64) error {
-	resp, err := proxyClient.ListProxyConfigsByWorkspace(v4Proxy.NewListProxyConfigsByWorkspaceParams().WithWorkspaceID(workspaceID))
+func listProxiesImpl(proxyClient proxyClient, writer func([]string, []utils.Row)) error {
+	resp, err := proxyClient.ListProxyConfigsV1(v1Proxy.NewListProxyConfigsV1Params())
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -149,13 +147,12 @@ func listProxiesImpl(proxyClient proxyClient, writer func([]string, []utils.Row)
 func DeleteProxy(c *cli.Context) error {
 	defer utils.TimeTrack(time.Now(), "delete a proxy")
 
-	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 	proxyName := c.String(fl.FlName.Name)
 	log.Infof("[DeleteProxy] delete proxy config by name: %s", proxyName)
 
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
 
-	if _, err := cbClient.Cloudbreak.V4WorkspaceIDProxies.DeleteProxyConfigInWorkspace(v4Proxy.NewDeleteProxyConfigInWorkspaceParams().WithWorkspaceID(workspaceID).WithName(proxyName)); err != nil {
+	if _, err := envClient.Environment.V1proxies.DeleteProxyConfigV1(v1Proxy.NewDeleteProxyConfigV1Params().WithName(proxyName)); err != nil {
 		utils.LogErrorAndExit(err)
 	}
 	log.Infof("[DeleteProxy] proxy config deleted: %s", proxyName)
