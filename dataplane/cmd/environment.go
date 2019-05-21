@@ -75,26 +75,6 @@ func init() {
 				},
 			},
 			{
-				Name:  "cumulus",
-				Usage: "cumulus related operations",
-				Subcommands: []cli.Command{
-					{
-						Name:  "register-datalake",
-						Usage: "register an existing Cumulus based Data Lake",
-						Flags: fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlLdapNameOptional, fl.FlRdsNamesOptional,
-							fl.FlKerberosNameOptional, fl.FlRangerAdminPasswordOptional).AddAuthenticationFlags().Build(),
-						Before: cf.CheckConfigAndCommandFlags,
-						Action: env.RegisterCumulusDatalake,
-						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlLdapNameOptional, fl.FlRdsNamesOptional,
-								fl.FlKerberosNameOptional, fl.FlRangerAdminPasswordOptional).AddAuthenticationFlags().Build() {
-								fl.PrintFlagCompletion(f)
-							}
-						},
-					},
-				},
-			},
-			{
 				Name:   "list",
 				Usage:  "list the available environments",
 				Flags:  fl.NewFlagBuilder().AddOutputFlag().AddAuthenticationFlags().Build(),
