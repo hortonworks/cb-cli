@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// CumulusYarnCredentialV1Parameters cumulus yarn credential v1 parameters
-// swagger:model CumulusYarnCredentialV1Parameters
-type CumulusYarnCredentialV1Parameters struct {
+// CumulusYarnV1Parameters cumulus yarn v1 parameters
+// swagger:model CumulusYarnV1Parameters
+type CumulusYarnV1Parameters struct {
 
 	// ambari password
 	// Required: true
@@ -30,8 +30,8 @@ type CumulusYarnCredentialV1Parameters struct {
 	AmbariUser *string `json:"ambariUser"`
 }
 
-// Validate validates this cumulus yarn credential v1 parameters
-func (m *CumulusYarnCredentialV1Parameters) Validate(formats strfmt.Registry) error {
+// Validate validates this cumulus yarn v1 parameters
+func (m *CumulusYarnV1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAmbariPassword(formats); err != nil {
@@ -52,7 +52,7 @@ func (m *CumulusYarnCredentialV1Parameters) Validate(formats strfmt.Registry) er
 	return nil
 }
 
-func (m *CumulusYarnCredentialV1Parameters) validateAmbariPassword(formats strfmt.Registry) error {
+func (m *CumulusYarnV1Parameters) validateAmbariPassword(formats strfmt.Registry) error {
 
 	if err := validate.Required("ambariPassword", "body", m.AmbariPassword); err != nil {
 		return err
@@ -61,7 +61,7 @@ func (m *CumulusYarnCredentialV1Parameters) validateAmbariPassword(formats strfm
 	return nil
 }
 
-func (m *CumulusYarnCredentialV1Parameters) validateAmbariURL(formats strfmt.Registry) error {
+func (m *CumulusYarnV1Parameters) validateAmbariURL(formats strfmt.Registry) error {
 
 	if err := validate.Required("ambariUrl", "body", m.AmbariURL); err != nil {
 		return err
@@ -70,7 +70,7 @@ func (m *CumulusYarnCredentialV1Parameters) validateAmbariURL(formats strfmt.Reg
 	return nil
 }
 
-func (m *CumulusYarnCredentialV1Parameters) validateAmbariUser(formats strfmt.Registry) error {
+func (m *CumulusYarnV1Parameters) validateAmbariUser(formats strfmt.Registry) error {
 
 	if err := validate.Required("ambariUser", "body", m.AmbariUser); err != nil {
 		return err
@@ -80,7 +80,7 @@ func (m *CumulusYarnCredentialV1Parameters) validateAmbariUser(formats strfmt.Re
 }
 
 // MarshalBinary interface implementation
-func (m *CumulusYarnCredentialV1Parameters) MarshalBinary() ([]byte, error) {
+func (m *CumulusYarnV1Parameters) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -88,8 +88,8 @@ func (m *CumulusYarnCredentialV1Parameters) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *CumulusYarnCredentialV1Parameters) UnmarshalBinary(b []byte) error {
-	var res CumulusYarnCredentialV1Parameters
+func (m *CumulusYarnV1Parameters) UnmarshalBinary(b []byte) error {
+	var res CumulusYarnV1Parameters
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

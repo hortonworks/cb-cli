@@ -12,19 +12,19 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// GcpCredentialV1Parameters gcp credential v1 parameters
-// swagger:model GcpCredentialV1Parameters
-type GcpCredentialV1Parameters struct {
+// GcpV1Parameters gcp v1 parameters
+// swagger:model GcpV1Parameters
+type GcpV1Parameters struct {
 
 	// json
-	JSON *JSONParameters `json:"json,omitempty"`
+	JSON *JSONV1Parameters `json:"json,omitempty"`
 
 	// p12
-	P12 *P12Parameters `json:"p12,omitempty"`
+	P12 *P12V1Parameters `json:"p12,omitempty"`
 }
 
-// Validate validates this gcp credential v1 parameters
-func (m *GcpCredentialV1Parameters) Validate(formats strfmt.Registry) error {
+// Validate validates this gcp v1 parameters
+func (m *GcpV1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateJSON(formats); err != nil {
@@ -41,7 +41,7 @@ func (m *GcpCredentialV1Parameters) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *GcpCredentialV1Parameters) validateJSON(formats strfmt.Registry) error {
+func (m *GcpV1Parameters) validateJSON(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.JSON) { // not required
 		return nil
@@ -59,7 +59,7 @@ func (m *GcpCredentialV1Parameters) validateJSON(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *GcpCredentialV1Parameters) validateP12(formats strfmt.Registry) error {
+func (m *GcpV1Parameters) validateP12(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.P12) { // not required
 		return nil
@@ -78,7 +78,7 @@ func (m *GcpCredentialV1Parameters) validateP12(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *GcpCredentialV1Parameters) MarshalBinary() ([]byte, error) {
+func (m *GcpV1Parameters) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -86,8 +86,8 @@ func (m *GcpCredentialV1Parameters) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *GcpCredentialV1Parameters) UnmarshalBinary(b []byte) error {
-	var res GcpCredentialV1Parameters
+func (m *GcpV1Parameters) UnmarshalBinary(b []byte) error {
+	var res GcpV1Parameters
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

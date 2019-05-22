@@ -47,7 +47,7 @@ func NewGetRegionsByCredentialAndWorkspaceOK() *GetRegionsByCredentialAndWorkspa
 successful operation
 */
 type GetRegionsByCredentialAndWorkspaceOK struct {
-	Payload *model.RegionV1Response
+	Payload *model.CompactRegionV1Response
 }
 
 func (o *GetRegionsByCredentialAndWorkspaceOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetRegionsByCredentialAndWorkspaceOK) Error() string {
 
 func (o *GetRegionsByCredentialAndWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.RegionV1Response)
+	o.Payload = new(model.CompactRegionV1Response)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

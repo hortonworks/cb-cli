@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// CredentialV1Base credential v1 base
-// swagger:model CredentialV1Base
-type CredentialV1Base struct {
+// CredentialBase credential base
+// swagger:model CredentialBase
+type CredentialBase struct {
 
 	// custom parameters for AWS credential
 	Aws *AwsCredentialV1Parameters `json:"aws,omitempty"`
@@ -25,7 +25,7 @@ type CredentialV1Base struct {
 	CloudPlatform *string `json:"cloudPlatform"`
 
 	// custom parameters for Cumulus Yarn credential
-	Cumulus *CumulusYarnCredentialV1Parameters `json:"cumulus,omitempty"`
+	Cumulus *CumulusYarnV1Parameters `json:"cumulus,omitempty"`
 
 	// description of the resource
 	// Max Length: 1000
@@ -33,7 +33,7 @@ type CredentialV1Base struct {
 	Description *string `json:"description,omitempty"`
 
 	// custom parameters for GCP credential
-	Gcp *GcpCredentialV1Parameters `json:"gcp,omitempty"`
+	Gcp *GcpV1Parameters `json:"gcp,omitempty"`
 
 	// name of the resource
 	// Required: true
@@ -43,14 +43,14 @@ type CredentialV1Base struct {
 	Name *string `json:"name"`
 
 	// custom parameters for Openstack credential
-	Openstack *OpenstackCredentialV1Parameters `json:"openstack,omitempty"`
+	Openstack *OpenstackV1Parameters `json:"openstack,omitempty"`
 
 	// custom parameters for Yarn credential
-	Yarn *YarnCredentialV1Parameters `json:"yarn,omitempty"`
+	Yarn *YarnV1Parameters `json:"yarn,omitempty"`
 }
 
-// Validate validates this credential v1 base
-func (m *CredentialV1Base) Validate(formats strfmt.Registry) error {
+// Validate validates this credential base
+func (m *CredentialBase) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAws(formats); err != nil {
@@ -91,7 +91,7 @@ func (m *CredentialV1Base) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CredentialV1Base) validateAws(formats strfmt.Registry) error {
+func (m *CredentialBase) validateAws(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Aws) { // not required
 		return nil
@@ -109,7 +109,7 @@ func (m *CredentialV1Base) validateAws(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CredentialV1Base) validateCloudPlatform(formats strfmt.Registry) error {
+func (m *CredentialBase) validateCloudPlatform(formats strfmt.Registry) error {
 
 	if err := validate.Required("cloudPlatform", "body", m.CloudPlatform); err != nil {
 		return err
@@ -118,7 +118,7 @@ func (m *CredentialV1Base) validateCloudPlatform(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *CredentialV1Base) validateCumulus(formats strfmt.Registry) error {
+func (m *CredentialBase) validateCumulus(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Cumulus) { // not required
 		return nil
@@ -136,7 +136,7 @@ func (m *CredentialV1Base) validateCumulus(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CredentialV1Base) validateDescription(formats strfmt.Registry) error {
+func (m *CredentialBase) validateDescription(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Description) { // not required
 		return nil
@@ -153,7 +153,7 @@ func (m *CredentialV1Base) validateDescription(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CredentialV1Base) validateGcp(formats strfmt.Registry) error {
+func (m *CredentialBase) validateGcp(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Gcp) { // not required
 		return nil
@@ -171,7 +171,7 @@ func (m *CredentialV1Base) validateGcp(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CredentialV1Base) validateName(formats strfmt.Registry) error {
+func (m *CredentialBase) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
@@ -192,7 +192,7 @@ func (m *CredentialV1Base) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CredentialV1Base) validateOpenstack(formats strfmt.Registry) error {
+func (m *CredentialBase) validateOpenstack(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Openstack) { // not required
 		return nil
@@ -210,7 +210,7 @@ func (m *CredentialV1Base) validateOpenstack(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CredentialV1Base) validateYarn(formats strfmt.Registry) error {
+func (m *CredentialBase) validateYarn(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Yarn) { // not required
 		return nil
@@ -229,7 +229,7 @@ func (m *CredentialV1Base) validateYarn(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *CredentialV1Base) MarshalBinary() ([]byte, error) {
+func (m *CredentialBase) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -237,8 +237,8 @@ func (m *CredentialV1Base) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *CredentialV1Base) UnmarshalBinary(b []byte) error {
-	var res CredentialV1Base
+func (m *CredentialBase) UnmarshalBinary(b []byte) error {
+	var res CredentialBase
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

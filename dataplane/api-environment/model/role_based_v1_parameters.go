@@ -13,17 +13,17 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// RoleBasedCredentialParameters role based credential parameters
-// swagger:model RoleBasedCredentialParameters
-type RoleBasedCredentialParameters struct {
+// RoleBasedV1Parameters role based v1 parameters
+// swagger:model RoleBasedV1Parameters
+type RoleBasedV1Parameters struct {
 
 	// role arn
 	// Required: true
 	RoleArn *string `json:"roleArn"`
 }
 
-// Validate validates this role based credential parameters
-func (m *RoleBasedCredentialParameters) Validate(formats strfmt.Registry) error {
+// Validate validates this role based v1 parameters
+func (m *RoleBasedV1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateRoleArn(formats); err != nil {
@@ -36,7 +36,7 @@ func (m *RoleBasedCredentialParameters) Validate(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *RoleBasedCredentialParameters) validateRoleArn(formats strfmt.Registry) error {
+func (m *RoleBasedV1Parameters) validateRoleArn(formats strfmt.Registry) error {
 
 	if err := validate.Required("roleArn", "body", m.RoleArn); err != nil {
 		return err
@@ -46,7 +46,7 @@ func (m *RoleBasedCredentialParameters) validateRoleArn(formats strfmt.Registry)
 }
 
 // MarshalBinary interface implementation
-func (m *RoleBasedCredentialParameters) MarshalBinary() ([]byte, error) {
+func (m *RoleBasedV1Parameters) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -54,8 +54,8 @@ func (m *RoleBasedCredentialParameters) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *RoleBasedCredentialParameters) UnmarshalBinary(b []byte) error {
-	var res RoleBasedCredentialParameters
+func (m *RoleBasedV1Parameters) UnmarshalBinary(b []byte) error {
+	var res RoleBasedV1Parameters
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

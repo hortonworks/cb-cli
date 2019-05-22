@@ -10,7 +10,7 @@ func (p *AwsProvider) GetCredentialRequest(stringFinder func(string) string, gov
 	var parameters *model.AwsCredentialV1Parameters
 	if len(stringFinder("role-arn")) == 0 {
 		parameters = &model.AwsCredentialV1Parameters{
-			KeyBased: &model.KeyBasedCredentialParameters{
+			KeyBased: &model.KeyBasedV1Parameters{
 				AccessKey: &(&types.S{S: stringFinder("access-key")}).S,
 				SecretKey: &(&types.S{S: stringFinder("secret-key")}).S,
 			},
@@ -18,7 +18,7 @@ func (p *AwsProvider) GetCredentialRequest(stringFinder func(string) string, gov
 		}
 	} else {
 		parameters = &model.AwsCredentialV1Parameters{
-			RoleBased: &model.RoleBasedCredentialParameters{
+			RoleBased: &model.RoleBasedV1Parameters{
 				RoleArn: &(&types.S{S: stringFinder("role-arn")}).S,
 			},
 			GovCloud: &govCloud,

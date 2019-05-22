@@ -15,7 +15,7 @@ import (
 // CredentialV1Response credential v1 response
 // swagger:model CredentialV1Response
 type CredentialV1Response struct {
-	CredentialV1Base
+	CredentialBase
 
 	// provider specific attributes of the credential
 	Attributes *SecretResponse `json:"attributes,omitempty"`
@@ -25,16 +25,19 @@ type CredentialV1Response struct {
 
 	// id of the resource
 	ID int64 `json:"id,omitempty"`
+
+	// global identifiers of the resource
+	ResourceCrn string `json:"resourceCrn,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
 func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 	// AO0
-	var aO0 CredentialV1Base
+	var aO0 CredentialBase
 	if err := swag.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
-	m.CredentialV1Base = aO0
+	m.CredentialBase = aO0
 
 	// AO1
 	var dataAO1 struct {
@@ -43,6 +46,8 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 		Azure *AzureCredentialV1ResponseParameters `json:"azure,omitempty"`
 
 		ID int64 `json:"id,omitempty"`
+
+		ResourceCrn string `json:"resourceCrn,omitempty"`
 	}
 	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
 		return err
@@ -54,6 +59,8 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 
 	m.ID = dataAO1.ID
 
+	m.ResourceCrn = dataAO1.ResourceCrn
+
 	return nil
 }
 
@@ -61,7 +68,7 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.CredentialV1Base)
+	aO0, err := swag.WriteJSON(m.CredentialBase)
 	if err != nil {
 		return nil, err
 	}
@@ -73,6 +80,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 		Azure *AzureCredentialV1ResponseParameters `json:"azure,omitempty"`
 
 		ID int64 `json:"id,omitempty"`
+
+		ResourceCrn string `json:"resourceCrn,omitempty"`
 	}
 
 	dataAO1.Attributes = m.Attributes
@@ -80,6 +89,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 	dataAO1.Azure = m.Azure
 
 	dataAO1.ID = m.ID
+
+	dataAO1.ResourceCrn = m.ResourceCrn
 
 	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
 	if errAO1 != nil {
@@ -94,8 +105,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 func (m *CredentialV1Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with CredentialV1Base
-	if err := m.CredentialV1Base.Validate(formats); err != nil {
+	// validation for a type composition with CredentialBase
+	if err := m.CredentialBase.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 

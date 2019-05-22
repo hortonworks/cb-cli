@@ -10,7 +10,7 @@ func (p *AzureProvider) GetCredentialRequest(stringFinder func(string) string, g
 	parameters := &model.AzureCredentialV1RequestParameters{
 		SubscriptionID: &(&types.S{S: stringFinder("subscription-id")}).S,
 		TenantID:       &(&types.S{S: stringFinder("tenant-id")}).S,
-		AppBased: &model.AppBasedRequest{
+		AppBased: &model.AppBasedV1Request{
 			AccessKey: &(&types.S{S: stringFinder("app-id")}).S,
 			SecretKey: &(&types.S{S: stringFinder("app-password")}).S,
 		},

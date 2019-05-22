@@ -47,7 +47,7 @@ func NewInteractiveLoginCredentialV1OK() *InteractiveLoginCredentialV1OK {
 successful operation
 */
 type InteractiveLoginCredentialV1OK struct {
-	Payload *model.InteractiveCredential
+	Payload *model.InteractiveV1Credential
 }
 
 func (o *InteractiveLoginCredentialV1OK) Error() string {
@@ -56,7 +56,7 @@ func (o *InteractiveLoginCredentialV1OK) Error() string {
 
 func (o *InteractiveLoginCredentialV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.InteractiveCredential)
+	o.Payload = new(model.InteractiveV1Credential)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

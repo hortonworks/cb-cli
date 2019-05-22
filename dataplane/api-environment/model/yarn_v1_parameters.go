@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// YarnCredentialV1Parameters yarn credential v1 parameters
-// swagger:model YarnCredentialV1Parameters
-type YarnCredentialV1Parameters struct {
+// YarnV1Parameters yarn v1 parameters
+// swagger:model YarnV1Parameters
+type YarnV1Parameters struct {
 
 	// ambari user
 	// Required: true
@@ -26,8 +26,8 @@ type YarnCredentialV1Parameters struct {
 	Endpoint *string `json:"endpoint"`
 }
 
-// Validate validates this yarn credential v1 parameters
-func (m *YarnCredentialV1Parameters) Validate(formats strfmt.Registry) error {
+// Validate validates this yarn v1 parameters
+func (m *YarnV1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAmbariUser(formats); err != nil {
@@ -44,7 +44,7 @@ func (m *YarnCredentialV1Parameters) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *YarnCredentialV1Parameters) validateAmbariUser(formats strfmt.Registry) error {
+func (m *YarnV1Parameters) validateAmbariUser(formats strfmt.Registry) error {
 
 	if err := validate.Required("ambariUser", "body", m.AmbariUser); err != nil {
 		return err
@@ -53,7 +53,7 @@ func (m *YarnCredentialV1Parameters) validateAmbariUser(formats strfmt.Registry)
 	return nil
 }
 
-func (m *YarnCredentialV1Parameters) validateEndpoint(formats strfmt.Registry) error {
+func (m *YarnV1Parameters) validateEndpoint(formats strfmt.Registry) error {
 
 	if err := validate.Required("endpoint", "body", m.Endpoint); err != nil {
 		return err
@@ -63,7 +63,7 @@ func (m *YarnCredentialV1Parameters) validateEndpoint(formats strfmt.Registry) e
 }
 
 // MarshalBinary interface implementation
-func (m *YarnCredentialV1Parameters) MarshalBinary() ([]byte, error) {
+func (m *YarnV1Parameters) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -71,8 +71,8 @@ func (m *YarnCredentialV1Parameters) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *YarnCredentialV1Parameters) UnmarshalBinary(b []byte) error {
-	var res YarnCredentialV1Parameters
+func (m *YarnV1Parameters) UnmarshalBinary(b []byte) error {
+	var res YarnV1Parameters
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

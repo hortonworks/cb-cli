@@ -22,10 +22,10 @@ type AwsCredentialV1Parameters struct {
 	GovCloud *bool `json:"govCloud"`
 
 	// key based
-	KeyBased *KeyBasedCredentialParameters `json:"keyBased,omitempty"`
+	KeyBased *KeyBasedV1Parameters `json:"keyBased,omitempty"`
 
 	// role based
-	RoleBased *RoleBasedCredentialParameters `json:"roleBased,omitempty"`
+	RoleBased *RoleBasedV1Parameters `json:"roleBased,omitempty"`
 }
 
 // Validate validates this aws credential v1 parameters

@@ -14,16 +14,16 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// CredentialResponses Wrapper which contains multiple CredentialV1Response
-// swagger:model CredentialResponses
-type CredentialResponses struct {
+// CredentialV1Responses Wrapper which contains multiple CredentialV1Response
+// swagger:model CredentialV1Responses
+type CredentialV1Responses struct {
 
 	// responses
 	Responses []*CredentialV1Response `json:"responses"`
 }
 
-// Validate validates this credential responses
-func (m *CredentialResponses) Validate(formats strfmt.Registry) error {
+// Validate validates this credential v1 responses
+func (m *CredentialV1Responses) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateResponses(formats); err != nil {
@@ -36,7 +36,7 @@ func (m *CredentialResponses) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CredentialResponses) validateResponses(formats strfmt.Registry) error {
+func (m *CredentialV1Responses) validateResponses(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Responses) { // not required
 		return nil
@@ -62,7 +62,7 @@ func (m *CredentialResponses) validateResponses(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *CredentialResponses) MarshalBinary() ([]byte, error) {
+func (m *CredentialV1Responses) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -70,8 +70,8 @@ func (m *CredentialResponses) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *CredentialResponses) UnmarshalBinary(b []byte) error {
-	var res CredentialResponses
+func (m *CredentialV1Responses) UnmarshalBinary(b []byte) error {
+	var res CredentialV1Responses
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

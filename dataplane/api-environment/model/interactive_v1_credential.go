@@ -11,9 +11,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// InteractiveCredential Contains values from an Azure interactive login attempt
-// swagger:model InteractiveCredential
-type InteractiveCredential struct {
+// InteractiveV1Credential Contains values from an Azure interactive login attempt
+// swagger:model InteractiveV1Credential
+type InteractiveV1Credential struct {
 
 	// The user code what has to be used for the sign-in process on the Azure portal
 	UserCode string `json:"userCode,omitempty"`
@@ -22,13 +22,13 @@ type InteractiveCredential struct {
 	VerificationURL string `json:"verificationUrl,omitempty"`
 }
 
-// Validate validates this interactive credential
-func (m *InteractiveCredential) Validate(formats strfmt.Registry) error {
+// Validate validates this interactive v1 credential
+func (m *InteractiveV1Credential) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *InteractiveCredential) MarshalBinary() ([]byte, error) {
+func (m *InteractiveV1Credential) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -36,8 +36,8 @@ func (m *InteractiveCredential) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *InteractiveCredential) UnmarshalBinary(b []byte) error {
-	var res InteractiveCredential
+func (m *InteractiveV1Credential) UnmarshalBinary(b []byte) error {
+	var res InteractiveV1Credential
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

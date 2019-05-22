@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// SimpleEnvironmentV1Responses simple environment v1 responses
+// SimpleEnvironmentV1Responses Wrapper which contains multiple SimpleEnvironmentV1Responses
 // swagger:model SimpleEnvironmentV1Responses
 type SimpleEnvironmentV1Responses struct {
 

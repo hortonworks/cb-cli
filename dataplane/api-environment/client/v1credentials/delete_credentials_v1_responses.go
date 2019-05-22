@@ -47,7 +47,7 @@ func NewDeleteCredentialsV1OK() *DeleteCredentialsV1OK {
 successful operation
 */
 type DeleteCredentialsV1OK struct {
-	Payload *model.CredentialResponses
+	Payload *model.CredentialV1Responses
 }
 
 func (o *DeleteCredentialsV1OK) Error() string {
@@ -56,7 +56,7 @@ func (o *DeleteCredentialsV1OK) Error() string {
 
 func (o *DeleteCredentialsV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.CredentialResponses)
+	o.Payload = new(model.CredentialV1Responses)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

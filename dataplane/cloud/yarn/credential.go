@@ -7,7 +7,7 @@ import (
 )
 
 func (p *YarnProvider) GetCredentialRequest(stringFinder func(string) string, govCloud bool) (*model.CredentialV1Request, error) {
-	parameters := &model.YarnCredentialV1Parameters{
+	parameters := &model.YarnV1Parameters{
 		Endpoint: &(&types.S{S: stringFinder("yarn-endpoint")}).S,
 	}
 	credReq := cloud.CreateBaseCredentialRequest(stringFinder)

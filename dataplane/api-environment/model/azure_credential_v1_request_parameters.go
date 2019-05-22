@@ -18,10 +18,10 @@ import (
 type AzureCredentialV1RequestParameters struct {
 
 	// app based
-	AppBased *AppBasedRequest `json:"appBased,omitempty"`
+	AppBased *AppBasedV1Request `json:"appBased,omitempty"`
 
 	// role based
-	RoleBased *RoleBasedRequest `json:"roleBased,omitempty"`
+	RoleBased *RoleBasedV1Request `json:"roleBased,omitempty"`
 
 	// subscription Id
 	// Required: true

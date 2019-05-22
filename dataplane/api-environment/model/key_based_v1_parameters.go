@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// KeyBasedCredentialParameters key based credential parameters
-// swagger:model KeyBasedCredentialParameters
-type KeyBasedCredentialParameters struct {
+// KeyBasedV1Parameters key based v1 parameters
+// swagger:model KeyBasedV1Parameters
+type KeyBasedV1Parameters struct {
 
 	// access key
 	// Required: true
@@ -26,8 +26,8 @@ type KeyBasedCredentialParameters struct {
 	SecretKey *string `json:"secretKey"`
 }
 
-// Validate validates this key based credential parameters
-func (m *KeyBasedCredentialParameters) Validate(formats strfmt.Registry) error {
+// Validate validates this key based v1 parameters
+func (m *KeyBasedV1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAccessKey(formats); err != nil {
@@ -44,7 +44,7 @@ func (m *KeyBasedCredentialParameters) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *KeyBasedCredentialParameters) validateAccessKey(formats strfmt.Registry) error {
+func (m *KeyBasedV1Parameters) validateAccessKey(formats strfmt.Registry) error {
 
 	if err := validate.Required("accessKey", "body", m.AccessKey); err != nil {
 		return err
@@ -53,7 +53,7 @@ func (m *KeyBasedCredentialParameters) validateAccessKey(formats strfmt.Registry
 	return nil
 }
 
-func (m *KeyBasedCredentialParameters) validateSecretKey(formats strfmt.Registry) error {
+func (m *KeyBasedV1Parameters) validateSecretKey(formats strfmt.Registry) error {
 
 	if err := validate.Required("secretKey", "body", m.SecretKey); err != nil {
 		return err
@@ -63,7 +63,7 @@ func (m *KeyBasedCredentialParameters) validateSecretKey(formats strfmt.Registry
 }
 
 // MarshalBinary interface implementation
-func (m *KeyBasedCredentialParameters) MarshalBinary() ([]byte, error) {
+func (m *KeyBasedV1Parameters) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -71,8 +71,8 @@ func (m *KeyBasedCredentialParameters) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *KeyBasedCredentialParameters) UnmarshalBinary(b []byte) error {
-	var res KeyBasedCredentialParameters
+func (m *KeyBasedV1Parameters) UnmarshalBinary(b []byte) error {
+	var res KeyBasedV1Parameters
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

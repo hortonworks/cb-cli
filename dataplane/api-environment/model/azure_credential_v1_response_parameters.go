@@ -20,7 +20,7 @@ type AzureCredentialV1ResponseParameters struct {
 	AccessKey string `json:"accessKey,omitempty"`
 
 	// role based
-	RoleBased *RoleBasedResponse `json:"roleBased,omitempty"`
+	RoleBased *RoleBasedV1Response `json:"roleBased,omitempty"`
 
 	// subscription Id
 	SubscriptionID string `json:"subscriptionId,omitempty"`

@@ -15,9 +15,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// OpenstackCredentialV1Parameters openstack credential v1 parameters
-// swagger:model OpenstackCredentialV1Parameters
-type OpenstackCredentialV1Parameters struct {
+// OpenstackV1Parameters openstack v1 parameters
+// swagger:model OpenstackV1Parameters
+type OpenstackV1Parameters struct {
 
 	// endpoint
 	// Required: true
@@ -43,8 +43,8 @@ type OpenstackCredentialV1Parameters struct {
 	UserName *string `json:"userName"`
 }
 
-// Validate validates this openstack credential v1 parameters
-func (m *OpenstackCredentialV1Parameters) Validate(formats strfmt.Registry) error {
+// Validate validates this openstack v1 parameters
+func (m *OpenstackV1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateEndpoint(formats); err != nil {
@@ -77,7 +77,7 @@ func (m *OpenstackCredentialV1Parameters) Validate(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *OpenstackCredentialV1Parameters) validateEndpoint(formats strfmt.Registry) error {
+func (m *OpenstackV1Parameters) validateEndpoint(formats strfmt.Registry) error {
 
 	if err := validate.Required("endpoint", "body", m.Endpoint); err != nil {
 		return err
@@ -86,7 +86,7 @@ func (m *OpenstackCredentialV1Parameters) validateEndpoint(formats strfmt.Regist
 	return nil
 }
 
-var openstackCredentialV1ParametersTypeFacingPropEnum []interface{}
+var openstackV1ParametersTypeFacingPropEnum []interface{}
 
 func init() {
 	var res []string
@@ -94,31 +94,31 @@ func init() {
 		panic(err)
 	}
 	for _, v := range res {
-		openstackCredentialV1ParametersTypeFacingPropEnum = append(openstackCredentialV1ParametersTypeFacingPropEnum, v)
+		openstackV1ParametersTypeFacingPropEnum = append(openstackV1ParametersTypeFacingPropEnum, v)
 	}
 }
 
 const (
 
-	// OpenstackCredentialV1ParametersFacingPublic captures enum value "public"
-	OpenstackCredentialV1ParametersFacingPublic string = "public"
+	// OpenstackV1ParametersFacingPublic captures enum value "public"
+	OpenstackV1ParametersFacingPublic string = "public"
 
-	// OpenstackCredentialV1ParametersFacingAdmin captures enum value "admin"
-	OpenstackCredentialV1ParametersFacingAdmin string = "admin"
+	// OpenstackV1ParametersFacingAdmin captures enum value "admin"
+	OpenstackV1ParametersFacingAdmin string = "admin"
 
-	// OpenstackCredentialV1ParametersFacingInternal captures enum value "internal"
-	OpenstackCredentialV1ParametersFacingInternal string = "internal"
+	// OpenstackV1ParametersFacingInternal captures enum value "internal"
+	OpenstackV1ParametersFacingInternal string = "internal"
 )
 
 // prop value enum
-func (m *OpenstackCredentialV1Parameters) validateFacingEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, openstackCredentialV1ParametersTypeFacingPropEnum); err != nil {
+func (m *OpenstackV1Parameters) validateFacingEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, openstackV1ParametersTypeFacingPropEnum); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *OpenstackCredentialV1Parameters) validateFacing(formats strfmt.Registry) error {
+func (m *OpenstackV1Parameters) validateFacing(formats strfmt.Registry) error {
 
 	if err := validate.Required("facing", "body", m.Facing); err != nil {
 		return err
@@ -132,7 +132,7 @@ func (m *OpenstackCredentialV1Parameters) validateFacing(formats strfmt.Registry
 	return nil
 }
 
-func (m *OpenstackCredentialV1Parameters) validateKeystoneV2(formats strfmt.Registry) error {
+func (m *OpenstackV1Parameters) validateKeystoneV2(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.KeystoneV2) { // not required
 		return nil
@@ -150,7 +150,7 @@ func (m *OpenstackCredentialV1Parameters) validateKeystoneV2(formats strfmt.Regi
 	return nil
 }
 
-func (m *OpenstackCredentialV1Parameters) validateKeystoneV3(formats strfmt.Registry) error {
+func (m *OpenstackV1Parameters) validateKeystoneV3(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.KeystoneV3) { // not required
 		return nil
@@ -168,7 +168,7 @@ func (m *OpenstackCredentialV1Parameters) validateKeystoneV3(formats strfmt.Regi
 	return nil
 }
 
-func (m *OpenstackCredentialV1Parameters) validatePassword(formats strfmt.Registry) error {
+func (m *OpenstackV1Parameters) validatePassword(formats strfmt.Registry) error {
 
 	if err := validate.Required("password", "body", m.Password); err != nil {
 		return err
@@ -177,7 +177,7 @@ func (m *OpenstackCredentialV1Parameters) validatePassword(formats strfmt.Regist
 	return nil
 }
 
-func (m *OpenstackCredentialV1Parameters) validateUserName(formats strfmt.Registry) error {
+func (m *OpenstackV1Parameters) validateUserName(formats strfmt.Registry) error {
 
 	if err := validate.Required("userName", "body", m.UserName); err != nil {
 		return err
@@ -187,7 +187,7 @@ func (m *OpenstackCredentialV1Parameters) validateUserName(formats strfmt.Regist
 }
 
 // MarshalBinary interface implementation
-func (m *OpenstackCredentialV1Parameters) MarshalBinary() ([]byte, error) {
+func (m *OpenstackV1Parameters) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -195,8 +195,8 @@ func (m *OpenstackCredentialV1Parameters) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *OpenstackCredentialV1Parameters) UnmarshalBinary(b []byte) error {
-	var res OpenstackCredentialV1Parameters
+func (m *OpenstackV1Parameters) UnmarshalBinary(b []byte) error {
+	var res OpenstackV1Parameters
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

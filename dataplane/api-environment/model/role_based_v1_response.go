@@ -11,9 +11,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RoleBasedResponse role based response
-// swagger:model RoleBasedResponse
-type RoleBasedResponse struct {
+// RoleBasedV1Response role based v1 response
+// swagger:model RoleBasedV1Response
+type RoleBasedV1Response struct {
 
 	// app object Id
 	AppObjectID string `json:"appObjectId,omitempty"`
@@ -28,13 +28,13 @@ type RoleBasedResponse struct {
 	SpDisplayName string `json:"spDisplayName,omitempty"`
 }
 
-// Validate validates this role based response
-func (m *RoleBasedResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this role based v1 response
+func (m *RoleBasedV1Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *RoleBasedResponse) MarshalBinary() ([]byte, error) {
+func (m *RoleBasedV1Response) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -42,8 +42,8 @@ func (m *RoleBasedResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *RoleBasedResponse) UnmarshalBinary(b []byte) error {
-	var res RoleBasedResponse
+func (m *RoleBasedV1Response) UnmarshalBinary(b []byte) error {
+	var res RoleBasedV1Response
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -18,7 +18,7 @@ func (p *OpenstackProvider) GetCredentialRequest(stringFinder func(string) strin
 		return nil, err
 	}
 
-	parameters := &model.OpenstackCredentialV1Parameters{
+	parameters := &model.OpenstackV1Parameters{
 		Facing:   &facing,
 		UserName: &(&types.S{S: stringFinder("tenant-user")}).S,
 		Password: &(&types.S{S: stringFinder("tenant-password")}).S,

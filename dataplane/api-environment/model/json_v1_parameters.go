@@ -13,17 +13,17 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// JSONParameters Json parameters
-// swagger:model JsonParameters
-type JSONParameters struct {
+// JSONV1Parameters Json v1 parameters
+// swagger:model JsonV1Parameters
+type JSONV1Parameters struct {
 
 	// credential Json
 	// Required: true
 	CredentialJSON *string `json:"credentialJson"`
 }
 
-// Validate validates this Json parameters
-func (m *JSONParameters) Validate(formats strfmt.Registry) error {
+// Validate validates this Json v1 parameters
+func (m *JSONV1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCredentialJSON(formats); err != nil {
@@ -36,7 +36,7 @@ func (m *JSONParameters) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *JSONParameters) validateCredentialJSON(formats strfmt.Registry) error {
+func (m *JSONV1Parameters) validateCredentialJSON(formats strfmt.Registry) error {
 
 	if err := validate.Required("credentialJson", "body", m.CredentialJSON); err != nil {
 		return err
@@ -46,7 +46,7 @@ func (m *JSONParameters) validateCredentialJSON(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *JSONParameters) MarshalBinary() ([]byte, error) {
+func (m *JSONV1Parameters) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -54,8 +54,8 @@ func (m *JSONParameters) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *JSONParameters) UnmarshalBinary(b []byte) error {
-	var res JSONParameters
+func (m *JSONV1Parameters) UnmarshalBinary(b []byte) error {
+	var res JSONV1Parameters
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

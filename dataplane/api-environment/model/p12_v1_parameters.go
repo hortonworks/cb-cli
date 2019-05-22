@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// P12Parameters p12 parameters
-// swagger:model P12Parameters
-type P12Parameters struct {
+// P12V1Parameters p12 v1 parameters
+// swagger:model P12V1Parameters
+type P12V1Parameters struct {
 
 	// project Id
 	// Required: true
@@ -30,8 +30,8 @@ type P12Parameters struct {
 	ServiceAccountPrivateKey *string `json:"serviceAccountPrivateKey"`
 }
 
-// Validate validates this p12 parameters
-func (m *P12Parameters) Validate(formats strfmt.Registry) error {
+// Validate validates this p12 v1 parameters
+func (m *P12V1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateProjectID(formats); err != nil {
@@ -52,7 +52,7 @@ func (m *P12Parameters) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *P12Parameters) validateProjectID(formats strfmt.Registry) error {
+func (m *P12V1Parameters) validateProjectID(formats strfmt.Registry) error {
 
 	if err := validate.Required("projectId", "body", m.ProjectID); err != nil {
 		return err
@@ -61,7 +61,7 @@ func (m *P12Parameters) validateProjectID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *P12Parameters) validateServiceAccountID(formats strfmt.Registry) error {
+func (m *P12V1Parameters) validateServiceAccountID(formats strfmt.Registry) error {
 
 	if err := validate.Required("serviceAccountId", "body", m.ServiceAccountID); err != nil {
 		return err
@@ -70,7 +70,7 @@ func (m *P12Parameters) validateServiceAccountID(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *P12Parameters) validateServiceAccountPrivateKey(formats strfmt.Registry) error {
+func (m *P12V1Parameters) validateServiceAccountPrivateKey(formats strfmt.Registry) error {
 
 	if err := validate.Required("serviceAccountPrivateKey", "body", m.ServiceAccountPrivateKey); err != nil {
 		return err
@@ -80,7 +80,7 @@ func (m *P12Parameters) validateServiceAccountPrivateKey(formats strfmt.Registry
 }
 
 // MarshalBinary interface implementation
-func (m *P12Parameters) MarshalBinary() ([]byte, error) {
+func (m *P12V1Parameters) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -88,8 +88,8 @@ func (m *P12Parameters) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *P12Parameters) UnmarshalBinary(b []byte) error {
-	var res P12Parameters
+func (m *P12V1Parameters) UnmarshalBinary(b []byte) error {
+	var res P12V1Parameters
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

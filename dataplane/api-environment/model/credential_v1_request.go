@@ -15,7 +15,7 @@ import (
 // CredentialV1Request credential v1 request
 // swagger:model CredentialV1Request
 type CredentialV1Request struct {
-	CredentialV1Base
+	CredentialBase
 
 	// custom parameters for Azure credential
 	Azure *AzureCredentialV1RequestParameters `json:"azure,omitempty"`
@@ -24,11 +24,11 @@ type CredentialV1Request struct {
 // UnmarshalJSON unmarshals this object from a JSON structure
 func (m *CredentialV1Request) UnmarshalJSON(raw []byte) error {
 	// AO0
-	var aO0 CredentialV1Base
+	var aO0 CredentialBase
 	if err := swag.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
-	m.CredentialV1Base = aO0
+	m.CredentialBase = aO0
 
 	// AO1
 	var dataAO1 struct {
@@ -47,7 +47,7 @@ func (m *CredentialV1Request) UnmarshalJSON(raw []byte) error {
 func (m CredentialV1Request) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.CredentialV1Base)
+	aO0, err := swag.WriteJSON(m.CredentialBase)
 	if err != nil {
 		return nil, err
 	}
@@ -72,8 +72,8 @@ func (m CredentialV1Request) MarshalJSON() ([]byte, error) {
 func (m *CredentialV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with CredentialV1Base
-	if err := m.CredentialV1Base.Validate(formats); err != nil {
+	// validation for a type composition with CredentialBase
+	if err := m.CredentialBase.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 

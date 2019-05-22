@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// AppBasedRequest app based request
-// swagger:model AppBasedRequest
-type AppBasedRequest struct {
+// AppBasedV1Request app based v1 request
+// swagger:model AppBasedV1Request
+type AppBasedV1Request struct {
 
 	// access key
 	// Required: true
@@ -26,8 +26,8 @@ type AppBasedRequest struct {
 	SecretKey *string `json:"secretKey"`
 }
 
-// Validate validates this app based request
-func (m *AppBasedRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this app based v1 request
+func (m *AppBasedV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAccessKey(formats); err != nil {
@@ -44,7 +44,7 @@ func (m *AppBasedRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *AppBasedRequest) validateAccessKey(formats strfmt.Registry) error {
+func (m *AppBasedV1Request) validateAccessKey(formats strfmt.Registry) error {
 
 	if err := validate.Required("accessKey", "body", m.AccessKey); err != nil {
 		return err
@@ -53,7 +53,7 @@ func (m *AppBasedRequest) validateAccessKey(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *AppBasedRequest) validateSecretKey(formats strfmt.Registry) error {
+func (m *AppBasedV1Request) validateSecretKey(formats strfmt.Registry) error {
 
 	if err := validate.Required("secretKey", "body", m.SecretKey); err != nil {
 		return err
@@ -63,7 +63,7 @@ func (m *AppBasedRequest) validateSecretKey(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *AppBasedRequest) MarshalBinary() ([]byte, error) {
+func (m *AppBasedV1Request) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -71,8 +71,8 @@ func (m *AppBasedRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *AppBasedRequest) UnmarshalBinary(b []byte) error {
-	var res AppBasedRequest
+func (m *AppBasedV1Request) UnmarshalBinary(b []byte) error {
+	var res AppBasedV1Request
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

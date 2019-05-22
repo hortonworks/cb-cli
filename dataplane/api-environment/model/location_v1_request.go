@@ -17,9 +17,6 @@ import (
 // swagger:model LocationV1Request
 type LocationV1Request struct {
 
-	// empty
-	Empty bool `json:"empty,omitempty"`
-
 	// Location latitude of the environment.
 	Latitude float64 `json:"latitude,omitempty"`
 
