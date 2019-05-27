@@ -64,8 +64,8 @@ class MockHelper
         hashExpectedResponseURL = JSON.parse(prettyJsonExpectedResponse)["calledEndpoint"]
 
         # For debugging purposes
-        #puts "Pretty JSON Actual Trace: #{prettyJsonActualTrace}"
-        #puts "Pretty JSON Expected Response: #{prettyJsonExpectedResponse}"
+        puts "Pretty JSON Actual Trace: #{prettyJsonActualTrace}"
+        puts "Pretty JSON Expected Response: #{prettyJsonExpectedResponse}"
 
         isEndpointCorrect = hashActualTraceURL.include? hashExpectedResponseURL
         if !isEndpointCorrect
