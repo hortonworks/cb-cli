@@ -12,9 +12,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// VMTypeV1Response Vm type v1 response
-// swagger:model VmTypeV1Response
-type VMTypeV1Response struct {
+// VMTypeResponse Vm type response
+// swagger:model VmTypeResponse
+type VMTypeResponse struct {
 
 	// value
 	Value string `json:"value,omitempty"`
@@ -23,8 +23,8 @@ type VMTypeV1Response struct {
 	VMTypeMetaJSON *VMTypeMetaJSON `json:"vmTypeMetaJson,omitempty"`
 }
 
-// Validate validates this Vm type v1 response
-func (m *VMTypeV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this Vm type response
+func (m *VMTypeResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateVMTypeMetaJSON(formats); err != nil {
@@ -37,7 +37,7 @@ func (m *VMTypeV1Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *VMTypeV1Response) validateVMTypeMetaJSON(formats strfmt.Registry) error {
+func (m *VMTypeResponse) validateVMTypeMetaJSON(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.VMTypeMetaJSON) { // not required
 		return nil
@@ -56,7 +56,7 @@ func (m *VMTypeV1Response) validateVMTypeMetaJSON(formats strfmt.Registry) error
 }
 
 // MarshalBinary interface implementation
-func (m *VMTypeV1Response) MarshalBinary() ([]byte, error) {
+func (m *VMTypeResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -64,8 +64,8 @@ func (m *VMTypeV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *VMTypeV1Response) UnmarshalBinary(b []byte) error {
-	var res VMTypeV1Response
+func (m *VMTypeResponse) UnmarshalBinary(b []byte) error {
+	var res VMTypeResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

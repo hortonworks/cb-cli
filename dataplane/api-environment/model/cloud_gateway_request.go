@@ -11,9 +11,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// CloudGatewayV1Request cloud gateway v1 request
-// swagger:model CloudGatewayV1Request
-type CloudGatewayV1Request struct {
+// CloudGatewayRequest cloud gateway request
+// swagger:model CloudGatewayRequest
+type CloudGatewayRequest struct {
 
 	// id
 	ID string `json:"id,omitempty"`
@@ -25,13 +25,13 @@ type CloudGatewayV1Request struct {
 	Properties map[string]interface{} `json:"properties,omitempty"`
 }
 
-// Validate validates this cloud gateway v1 request
-func (m *CloudGatewayV1Request) Validate(formats strfmt.Registry) error {
+// Validate validates this cloud gateway request
+func (m *CloudGatewayRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *CloudGatewayV1Request) MarshalBinary() ([]byte, error) {
+func (m *CloudGatewayRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -39,8 +39,8 @@ func (m *CloudGatewayV1Request) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *CloudGatewayV1Request) UnmarshalBinary(b []byte) error {
-	var res CloudGatewayV1Request
+func (m *CloudGatewayRequest) UnmarshalBinary(b []byte) error {
+	var res CloudGatewayRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

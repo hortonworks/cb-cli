@@ -65,7 +65,7 @@ for the create proxy config v1 operation typically these are written to a http.R
 type CreateProxyConfigV1Params struct {
 
 	/*Body*/
-	Body *model.ProxyV1Request
+	Body *model.ProxyRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -106,13 +106,13 @@ func (o *CreateProxyConfigV1Params) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the create proxy config v1 params
-func (o *CreateProxyConfigV1Params) WithBody(body *model.ProxyV1Request) *CreateProxyConfigV1Params {
+func (o *CreateProxyConfigV1Params) WithBody(body *model.ProxyRequest) *CreateProxyConfigV1Params {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the create proxy config v1 params
-func (o *CreateProxyConfigV1Params) SetBody(body *model.ProxyV1Request) {
+func (o *CreateProxyConfigV1Params) SetBody(body *model.ProxyRequest) {
 	o.Body = body
 }
 

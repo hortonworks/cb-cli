@@ -15,16 +15,16 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PlatformNetworksV1Response platform networks v1 response
-// swagger:model PlatformNetworksV1Response
-type PlatformNetworksV1Response struct {
+// PlatformNetworksResponse platform networks response
+// swagger:model PlatformNetworksResponse
+type PlatformNetworksResponse struct {
 
 	// networks
-	Networks map[string][]PlatformNetworkV1Response `json:"networks,omitempty"`
+	Networks map[string][]PlatformNetworkResponse `json:"networks,omitempty"`
 }
 
-// Validate validates this platform networks v1 response
-func (m *PlatformNetworksV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this platform networks response
+func (m *PlatformNetworksResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateNetworks(formats); err != nil {
@@ -37,7 +37,7 @@ func (m *PlatformNetworksV1Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *PlatformNetworksV1Response) validateNetworks(formats strfmt.Registry) error {
+func (m *PlatformNetworksResponse) validateNetworks(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Networks) { // not required
 		return nil
@@ -70,7 +70,7 @@ func (m *PlatformNetworksV1Response) validateNetworks(formats strfmt.Registry) e
 }
 
 // MarshalBinary interface implementation
-func (m *PlatformNetworksV1Response) MarshalBinary() ([]byte, error) {
+func (m *PlatformNetworksResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -78,8 +78,8 @@ func (m *PlatformNetworksV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *PlatformNetworksV1Response) UnmarshalBinary(b []byte) error {
-	var res PlatformNetworksV1Response
+func (m *PlatformNetworksResponse) UnmarshalBinary(b []byte) error {
+	var res PlatformNetworksResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

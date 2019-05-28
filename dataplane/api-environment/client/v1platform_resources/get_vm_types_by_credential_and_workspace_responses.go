@@ -47,7 +47,7 @@ func NewGetVMTypesByCredentialAndWorkspaceOK() *GetVMTypesByCredentialAndWorkspa
 successful operation
 */
 type GetVMTypesByCredentialAndWorkspaceOK struct {
-	Payload *model.PlatformVmtypesV1Response
+	Payload *model.PlatformVmtypesResponse
 }
 
 func (o *GetVMTypesByCredentialAndWorkspaceOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetVMTypesByCredentialAndWorkspaceOK) Error() string {
 
 func (o *GetVMTypesByCredentialAndWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PlatformVmtypesV1Response)
+	o.Payload = new(model.PlatformVmtypesResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

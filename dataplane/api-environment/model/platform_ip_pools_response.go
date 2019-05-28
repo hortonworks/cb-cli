@@ -15,16 +15,16 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PlatformIPPoolsV1Response platform Ip pools v1 response
-// swagger:model PlatformIpPoolsV1Response
-type PlatformIPPoolsV1Response struct {
+// PlatformIPPoolsResponse platform Ip pools response
+// swagger:model PlatformIpPoolsResponse
+type PlatformIPPoolsResponse struct {
 
 	// ippools
-	Ippools map[string][]IPPoolV1Response `json:"ippools,omitempty"`
+	Ippools map[string][]IPPoolResponse `json:"ippools,omitempty"`
 }
 
-// Validate validates this platform Ip pools v1 response
-func (m *PlatformIPPoolsV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this platform Ip pools response
+func (m *PlatformIPPoolsResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateIppools(formats); err != nil {
@@ -37,7 +37,7 @@ func (m *PlatformIPPoolsV1Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *PlatformIPPoolsV1Response) validateIppools(formats strfmt.Registry) error {
+func (m *PlatformIPPoolsResponse) validateIppools(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Ippools) { // not required
 		return nil
@@ -70,7 +70,7 @@ func (m *PlatformIPPoolsV1Response) validateIppools(formats strfmt.Registry) err
 }
 
 // MarshalBinary interface implementation
-func (m *PlatformIPPoolsV1Response) MarshalBinary() ([]byte, error) {
+func (m *PlatformIPPoolsResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -78,8 +78,8 @@ func (m *PlatformIPPoolsV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *PlatformIPPoolsV1Response) UnmarshalBinary(b []byte) error {
-	var res PlatformIPPoolsV1Response
+func (m *PlatformIPPoolsResponse) UnmarshalBinary(b []byte) error {
+	var res PlatformIPPoolsResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

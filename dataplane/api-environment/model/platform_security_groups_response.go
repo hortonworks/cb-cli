@@ -15,16 +15,16 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PlatformSecurityGroupsV1Response platform security groups v1 response
-// swagger:model PlatformSecurityGroupsV1Response
-type PlatformSecurityGroupsV1Response struct {
+// PlatformSecurityGroupsResponse platform security groups response
+// swagger:model PlatformSecurityGroupsResponse
+type PlatformSecurityGroupsResponse struct {
 
 	// security groups
-	SecurityGroups map[string][]PlatformSecurityGroupV1Response `json:"securityGroups,omitempty"`
+	SecurityGroups map[string][]PlatformSecurityGroupResponse `json:"securityGroups,omitempty"`
 }
 
-// Validate validates this platform security groups v1 response
-func (m *PlatformSecurityGroupsV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this platform security groups response
+func (m *PlatformSecurityGroupsResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateSecurityGroups(formats); err != nil {
@@ -37,7 +37,7 @@ func (m *PlatformSecurityGroupsV1Response) Validate(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *PlatformSecurityGroupsV1Response) validateSecurityGroups(formats strfmt.Registry) error {
+func (m *PlatformSecurityGroupsResponse) validateSecurityGroups(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.SecurityGroups) { // not required
 		return nil
@@ -70,7 +70,7 @@ func (m *PlatformSecurityGroupsV1Response) validateSecurityGroups(formats strfmt
 }
 
 // MarshalBinary interface implementation
-func (m *PlatformSecurityGroupsV1Response) MarshalBinary() ([]byte, error) {
+func (m *PlatformSecurityGroupsResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -78,8 +78,8 @@ func (m *PlatformSecurityGroupsV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *PlatformSecurityGroupsV1Response) UnmarshalBinary(b []byte) error {
-	var res PlatformSecurityGroupsV1Response
+func (m *PlatformSecurityGroupsResponse) UnmarshalBinary(b []byte) error {
+	var res PlatformSecurityGroupsResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

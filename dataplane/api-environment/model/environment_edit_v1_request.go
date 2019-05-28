@@ -25,6 +25,9 @@ type EnvironmentEditV1Request struct {
 	// Location of the environment.
 	Location *LocationV1Request `json:"location,omitempty"`
 
+	// Network related specifics of the environment.
+	Network *EnvironmentNetworkV1Request `json:"network,omitempty"`
+
 	// Regions of the environment.
 	// Unique: true
 	Regions []string `json:"regions"`
@@ -39,6 +42,10 @@ func (m *EnvironmentEditV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLocation(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetwork(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -79,6 +86,24 @@ func (m *EnvironmentEditV1Request) validateLocation(formats strfmt.Registry) err
 		if err := m.Location.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("location")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EnvironmentEditV1Request) validateNetwork(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Network) { // not required
+		return nil
+	}
+
+	if m.Network != nil {
+		if err := m.Network.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("network")
 			}
 			return err
 		}

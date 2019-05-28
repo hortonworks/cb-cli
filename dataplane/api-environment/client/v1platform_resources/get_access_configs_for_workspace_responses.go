@@ -47,7 +47,7 @@ func NewGetAccessConfigsForWorkspaceOK() *GetAccessConfigsForWorkspaceOK {
 successful operation
 */
 type GetAccessConfigsForWorkspaceOK struct {
-	Payload *model.PlatformAccessConfigsV1Response
+	Payload *model.PlatformAccessConfigsResponse
 }
 
 func (o *GetAccessConfigsForWorkspaceOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetAccessConfigsForWorkspaceOK) Error() string {
 
 func (o *GetAccessConfigsForWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PlatformAccessConfigsV1Response)
+	o.Payload = new(model.PlatformAccessConfigsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

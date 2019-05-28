@@ -47,7 +47,7 @@ func NewGetIPPoolsCredentialIDForWorkspaceOK() *GetIPPoolsCredentialIDForWorkspa
 successful operation
 */
 type GetIPPoolsCredentialIDForWorkspaceOK struct {
-	Payload *model.PlatformIPPoolsV1Response
+	Payload *model.PlatformIPPoolsResponse
 }
 
 func (o *GetIPPoolsCredentialIDForWorkspaceOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetIPPoolsCredentialIDForWorkspaceOK) Error() string {
 
 func (o *GetIPPoolsCredentialIDForWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PlatformIPPoolsV1Response)
+	o.Payload = new(model.PlatformIPPoolsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

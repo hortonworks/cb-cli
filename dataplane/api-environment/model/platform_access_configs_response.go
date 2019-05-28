@@ -15,17 +15,17 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PlatformAccessConfigsV1Response platform access configs v1 response
-// swagger:model PlatformAccessConfigsV1Response
-type PlatformAccessConfigsV1Response struct {
+// PlatformAccessConfigsResponse platform access configs response
+// swagger:model PlatformAccessConfigsResponse
+type PlatformAccessConfigsResponse struct {
 
 	// access configs
 	// Unique: true
-	AccessConfigs []*AccessConfigV1Response `json:"accessConfigs"`
+	AccessConfigs []*AccessConfigResponse `json:"accessConfigs"`
 }
 
-// Validate validates this platform access configs v1 response
-func (m *PlatformAccessConfigsV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this platform access configs response
+func (m *PlatformAccessConfigsResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAccessConfigs(formats); err != nil {
@@ -38,7 +38,7 @@ func (m *PlatformAccessConfigsV1Response) Validate(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *PlatformAccessConfigsV1Response) validateAccessConfigs(formats strfmt.Registry) error {
+func (m *PlatformAccessConfigsResponse) validateAccessConfigs(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.AccessConfigs) { // not required
 		return nil
@@ -68,7 +68,7 @@ func (m *PlatformAccessConfigsV1Response) validateAccessConfigs(formats strfmt.R
 }
 
 // MarshalBinary interface implementation
-func (m *PlatformAccessConfigsV1Response) MarshalBinary() ([]byte, error) {
+func (m *PlatformAccessConfigsResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -76,8 +76,8 @@ func (m *PlatformAccessConfigsV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *PlatformAccessConfigsV1Response) UnmarshalBinary(b []byte) error {
-	var res PlatformAccessConfigsV1Response
+func (m *PlatformAccessConfigsResponse) UnmarshalBinary(b []byte) error {
+	var res PlatformAccessConfigsResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -14,7 +14,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -22,7 +21,7 @@ import (
 // NewListProxyConfigsV1Params creates a new ListProxyConfigsV1Params object
 // with the default values initialized.
 func NewListProxyConfigsV1Params() *ListProxyConfigsV1Params {
-	var ()
+
 	return &ListProxyConfigsV1Params{
 
 		timeout: cr.DefaultTimeout,
@@ -32,7 +31,7 @@ func NewListProxyConfigsV1Params() *ListProxyConfigsV1Params {
 // NewListProxyConfigsV1ParamsWithTimeout creates a new ListProxyConfigsV1Params object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewListProxyConfigsV1ParamsWithTimeout(timeout time.Duration) *ListProxyConfigsV1Params {
-	var ()
+
 	return &ListProxyConfigsV1Params{
 
 		timeout: timeout,
@@ -42,7 +41,7 @@ func NewListProxyConfigsV1ParamsWithTimeout(timeout time.Duration) *ListProxyCon
 // NewListProxyConfigsV1ParamsWithContext creates a new ListProxyConfigsV1Params object
 // with the default values initialized, and the ability to set a context for a request
 func NewListProxyConfigsV1ParamsWithContext(ctx context.Context) *ListProxyConfigsV1Params {
-	var ()
+
 	return &ListProxyConfigsV1Params{
 
 		Context: ctx,
@@ -52,7 +51,7 @@ func NewListProxyConfigsV1ParamsWithContext(ctx context.Context) *ListProxyConfi
 // NewListProxyConfigsV1ParamsWithHTTPClient creates a new ListProxyConfigsV1Params object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewListProxyConfigsV1ParamsWithHTTPClient(client *http.Client) *ListProxyConfigsV1Params {
-	var ()
+
 	return &ListProxyConfigsV1Params{
 		HTTPClient: client,
 	}
@@ -62,12 +61,6 @@ func NewListProxyConfigsV1ParamsWithHTTPClient(client *http.Client) *ListProxyCo
 for the list proxy configs v1 operation typically these are written to a http.Request
 */
 type ListProxyConfigsV1Params struct {
-
-	/*AttachGlobal*/
-	AttachGlobal *bool
-	/*Environment*/
-	Environment *string
-
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -106,28 +99,6 @@ func (o *ListProxyConfigsV1Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithAttachGlobal adds the attachGlobal to the list proxy configs v1 params
-func (o *ListProxyConfigsV1Params) WithAttachGlobal(attachGlobal *bool) *ListProxyConfigsV1Params {
-	o.SetAttachGlobal(attachGlobal)
-	return o
-}
-
-// SetAttachGlobal adds the attachGlobal to the list proxy configs v1 params
-func (o *ListProxyConfigsV1Params) SetAttachGlobal(attachGlobal *bool) {
-	o.AttachGlobal = attachGlobal
-}
-
-// WithEnvironment adds the environment to the list proxy configs v1 params
-func (o *ListProxyConfigsV1Params) WithEnvironment(environment *string) *ListProxyConfigsV1Params {
-	o.SetEnvironment(environment)
-	return o
-}
-
-// SetEnvironment adds the environment to the list proxy configs v1 params
-func (o *ListProxyConfigsV1Params) SetEnvironment(environment *string) {
-	o.Environment = environment
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *ListProxyConfigsV1Params) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -135,38 +106,6 @@ func (o *ListProxyConfigsV1Params) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-
-	if o.AttachGlobal != nil {
-
-		// query param attachGlobal
-		var qrAttachGlobal bool
-		if o.AttachGlobal != nil {
-			qrAttachGlobal = *o.AttachGlobal
-		}
-		qAttachGlobal := swag.FormatBool(qrAttachGlobal)
-		if qAttachGlobal != "" {
-			if err := r.SetQueryParam("attachGlobal", qAttachGlobal); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.Environment != nil {
-
-		// query param environment
-		var qrEnvironment string
-		if o.Environment != nil {
-			qrEnvironment = *o.Environment
-		}
-		qEnvironment := qrEnvironment
-		if qEnvironment != "" {
-			if err := r.SetQueryParam("environment", qEnvironment); err != nil {
-				return err
-			}
-		}
-
-	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

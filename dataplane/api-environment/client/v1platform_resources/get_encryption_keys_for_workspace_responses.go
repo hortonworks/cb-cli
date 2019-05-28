@@ -47,7 +47,7 @@ func NewGetEncryptionKeysForWorkspaceOK() *GetEncryptionKeysForWorkspaceOK {
 successful operation
 */
 type GetEncryptionKeysForWorkspaceOK struct {
-	Payload *model.PlatformEncryptionKeysV1Response
+	Payload *model.PlatformEncryptionKeysResponse
 }
 
 func (o *GetEncryptionKeysForWorkspaceOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetEncryptionKeysForWorkspaceOK) Error() string {
 
 func (o *GetEncryptionKeysForWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PlatformEncryptionKeysV1Response)
+	o.Payload = new(model.PlatformEncryptionKeysResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

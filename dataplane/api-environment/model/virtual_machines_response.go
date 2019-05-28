@@ -15,20 +15,20 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// VirtualMachinesV1Response virtual machines v1 response
-// swagger:model VirtualMachinesV1Response
-type VirtualMachinesV1Response struct {
+// VirtualMachinesResponse virtual machines response
+// swagger:model VirtualMachinesResponse
+type VirtualMachinesResponse struct {
 
 	// default virtual machines
-	DefaultVirtualMachine *VMTypeV1Response `json:"defaultVirtualMachine,omitempty"`
+	DefaultVirtualMachine *VMTypeResponse `json:"defaultVirtualMachine,omitempty"`
 
 	// virtual machines
 	// Unique: true
-	VirtualMachines []*VMTypeV1Response `json:"virtualMachines"`
+	VirtualMachines []*VMTypeResponse `json:"virtualMachines"`
 }
 
-// Validate validates this virtual machines v1 response
-func (m *VirtualMachinesV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this virtual machines response
+func (m *VirtualMachinesResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDefaultVirtualMachine(formats); err != nil {
@@ -45,7 +45,7 @@ func (m *VirtualMachinesV1Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *VirtualMachinesV1Response) validateDefaultVirtualMachine(formats strfmt.Registry) error {
+func (m *VirtualMachinesResponse) validateDefaultVirtualMachine(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.DefaultVirtualMachine) { // not required
 		return nil
@@ -63,7 +63,7 @@ func (m *VirtualMachinesV1Response) validateDefaultVirtualMachine(formats strfmt
 	return nil
 }
 
-func (m *VirtualMachinesV1Response) validateVirtualMachines(formats strfmt.Registry) error {
+func (m *VirtualMachinesResponse) validateVirtualMachines(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.VirtualMachines) { // not required
 		return nil
@@ -93,7 +93,7 @@ func (m *VirtualMachinesV1Response) validateVirtualMachines(formats strfmt.Regis
 }
 
 // MarshalBinary interface implementation
-func (m *VirtualMachinesV1Response) MarshalBinary() ([]byte, error) {
+func (m *VirtualMachinesResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -101,8 +101,8 @@ func (m *VirtualMachinesV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *VirtualMachinesV1Response) UnmarshalBinary(b []byte) error {
-	var res VirtualMachinesV1Response
+func (m *VirtualMachinesResponse) UnmarshalBinary(b []byte) error {
+	var res VirtualMachinesResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -3,7 +3,6 @@ package env
 import (
 	"encoding/json"
 	"fmt"
-	"strconv"
 	"strings"
 	"time"
 
@@ -74,7 +73,6 @@ func CreateEnvironment(c *cli.Context) {
 	description := c.String(fl.FlDescriptionOptional.Name)
 	credentialName := c.String(fl.FlEnvironmentCredential.Name)
 	regions := utils.DelimitedStringToArray(c.String(fl.FlEnvironmentRegions.Name), ",")
-	proxyConfigs := utils.DelimitedStringToArray(c.String(fl.FlProxyNamesOptional.Name), ",")
 	locationName := c.String(fl.FlEnvironmentLocationName.Name)
 	longitude := c.Float64(fl.FlEnvironmentLongitudeOptional.Name)
 	latitude := c.Float64(fl.FlEnvironmentLatitudeOptional.Name)
@@ -84,7 +82,6 @@ func CreateEnvironment(c *cli.Context) {
 		Description:    &description,
 		CredentialName: credentialName,
 		Regions:        regions,
-		Proxies:        proxyConfigs,
 		Location: &model.LocationV1Request{
 			Name:      &locationName,
 			Longitude: longitude,
@@ -154,7 +151,6 @@ func createEnvironmentWithNetwork(c *cli.Context) model.EnvironmentV1Request {
 		Description:    new(string),
 		CredentialName: "____",
 		Regions:        make([]string, 0),
-		Proxies:        make([]string, 0),
 		Location: &model.LocationV1Request{
 			Name:      new(string),
 			Longitude: 0,
@@ -245,7 +241,7 @@ func DescribeEnvironment(c *cli.Context) {
 	}
 	env := resp.Payload
 	if output.Format != "table" && output.Format != "yaml" {
-		output.Write(append(EnvironmentHeader, "Ldaps", "Proxies", "Databases", "ID", "Network"), convertResponseToJsonOutput(env))
+		output.Write(append(EnvironmentHeader, "ID", "Network"), convertResponseToJsonOutput(env))
 	} else {
 		output.Write(append(EnvironmentHeader, "ID"), convertResponseToTableOutput(env))
 	}
@@ -260,66 +256,6 @@ func DeleteEnvironment(c *cli.Context) {
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
-}
-
-func AttachResources(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "attach resources to an environment")
-	attachRequest := createAttachRequest(c)
-	sendAttachRequest(c, attachRequest)
-}
-
-func createAttachRequest(c *cli.Context) *v1env.AttachResourcesToEnvironmentV1Params {
-	envName := c.String(fl.FlName.Name)
-	proxyConfigs := utils.DelimitedStringToArray(c.String(fl.FlProxyNamesOptional.Name), ",")
-	log.Infof("[AttachResources] attach resources to environment: %s. Proxies: [%s]",
-		envName, proxyConfigs)
-	attachBody := &model.EnvironmentAttachV1Request{
-		Proxies: proxyConfigs,
-	}
-	attachRequest := v1env.NewAttachResourcesToEnvironmentV1Params().WithName(envName).WithBody(attachBody)
-	return attachRequest
-}
-
-func sendAttachRequest(c *cli.Context, attachRequest *v1env.AttachResourcesToEnvironmentV1Params) {
-	envClient := oauth.NewEnvironmentClientFromContext(c)
-	var environment *model.DetailedEnvironmentV1Response
-	resp, err := envClient.Environment.V1env.AttachResourcesToEnvironmentV1(attachRequest)
-	if err != nil {
-		utils.LogErrorAndExit(err)
-	}
-	environment = resp.Payload
-	log.Infof("[AttachResources] resources attached to environment with name: %s, id: %d", environment.Name, environment.ID)
-}
-
-func DetachResources(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "detach resources from an environment")
-	detachRequest := createDetachRequest(c)
-	sendDetachRequest(c, detachRequest)
-}
-
-func createDetachRequest(c *cli.Context) *v1env.DetachResourcesFromEnvironmentV1Params {
-	envName := c.String(fl.FlName.Name)
-	ldapConfigs := utils.DelimitedStringToArray(c.String(fl.FlLdapNamesOptional.Name), ",")
-	proxyConfigs := utils.DelimitedStringToArray(c.String(fl.FlProxyNamesOptional.Name), ",")
-	kerberosConfigs := utils.DelimitedStringToArray(c.String(fl.FlKerberosNamesOptional.Name), ",")
-	rdsConfigs := utils.DelimitedStringToArray(c.String(fl.FlRdsNamesOptional.Name), ",")
-	log.Infof("[DetachResources] detach resources from environment: %s. Ldaps: [%s] Proxies: [%s] Kerberos: [%s] Rds: [%s]",
-		envName, ldapConfigs, proxyConfigs, kerberosConfigs, rdsConfigs)
-	detachBody := &model.EnvironmentDetachV1Request{
-		Proxies: proxyConfigs,
-	}
-	attachRequest := v1env.NewDetachResourcesFromEnvironmentV1Params().WithName(envName).WithBody(detachBody)
-	return attachRequest
-}
-
-func sendDetachRequest(c *cli.Context, detachRequest *v1env.DetachResourcesFromEnvironmentV1Params) {
-	envClient := oauth.NewEnvironmentClientFromContext(c)
-	resp, err := envClient.Environment.V1env.DetachResourcesFromEnvironmentV1(detachRequest)
-	if err != nil {
-		utils.LogErrorAndExit(err)
-	}
-	environment := resp.Payload
-	log.Infof("[DetachResources] resources detached to environment with name: %s, id: %d", environment.Name, environment.ID)
 }
 
 func ChangeCredential(c *cli.Context) {
@@ -380,7 +316,7 @@ func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response) *env
 			Longitude:     env.Location.Longitude,
 			Latitude:      env.Location.Latitude,
 		},
-		ID: strconv.FormatInt(env.ID, 10),
+		ID: env.ID,
 	}
 }
 
@@ -396,8 +332,7 @@ func convertResponseToJsonOutput(env *model.DetailedEnvironmentV1Response) *envi
 			Longitude:     env.Location.Longitude,
 			Latitude:      env.Location.Latitude,
 		},
-		ProxyConfigs: getProxyConfigNames(env.Proxies),
-		ID:           strconv.FormatInt(env.ID, 10),
+		ID: env.ID,
 	}
 	if env.Network != nil {
 		result.Network = *env.Network
@@ -407,13 +342,13 @@ func convertResponseToJsonOutput(env *model.DetailedEnvironmentV1Response) *envi
 
 func getRegionNames(region *model.CompactRegionV1Response) []string {
 	var regions []string
-	for _, v := range region.Values {
+	for _, v := range region.Regions {
 		regions = append(regions, v)
 	}
 	return regions
 }
 
-func getProxyConfigNames(configs []*model.ProxyV1Response) []string {
+func getProxyConfigNames(configs []*model.ProxyResponse) []string {
 	var names []string
 	for _, c := range configs {
 		names = append(names, *c.Name)

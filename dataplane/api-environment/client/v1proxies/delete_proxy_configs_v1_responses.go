@@ -47,7 +47,7 @@ func NewDeleteProxyConfigsV1OK() *DeleteProxyConfigsV1OK {
 successful operation
 */
 type DeleteProxyConfigsV1OK struct {
-	Payload *model.ProxyV1Responses
+	Payload *model.ProxyResponses
 }
 
 func (o *DeleteProxyConfigsV1OK) Error() string {
@@ -56,7 +56,7 @@ func (o *DeleteProxyConfigsV1OK) Error() string {
 
 func (o *DeleteProxyConfigsV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.ProxyV1Responses)
+	o.Payload = new(model.ProxyResponses)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

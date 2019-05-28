@@ -47,7 +47,7 @@ func NewGetGatewaysCredentialIDForWorkspaceOK() *GetGatewaysCredentialIDForWorks
 successful operation
 */
 type GetGatewaysCredentialIDForWorkspaceOK struct {
-	Payload *model.PlatformGatewaysV1Response
+	Payload *model.PlatformGatewaysResponse
 }
 
 func (o *GetGatewaysCredentialIDForWorkspaceOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetGatewaysCredentialIDForWorkspaceOK) Error() string {
 
 func (o *GetGatewaysCredentialIDForWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PlatformGatewaysV1Response)
+	o.Payload = new(model.PlatformGatewaysResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

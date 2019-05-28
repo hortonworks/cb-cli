@@ -47,7 +47,7 @@ func NewGetTagSpecificationsOK() *GetTagSpecificationsOK {
 successful operation
 */
 type GetTagSpecificationsOK struct {
-	Payload *model.TagSpecificationsV1Response
+	Payload *model.TagSpecificationsResponse
 }
 
 func (o *GetTagSpecificationsOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetTagSpecificationsOK) Error() string {
 
 func (o *GetTagSpecificationsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.TagSpecificationsV1Response)
+	o.Payload = new(model.TagSpecificationsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

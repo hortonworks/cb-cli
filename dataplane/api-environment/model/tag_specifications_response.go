@@ -11,21 +11,21 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// TagSpecificationsV1Response tag specifications v1 response
-// swagger:model TagSpecificationsV1Response
-type TagSpecificationsV1Response struct {
+// TagSpecificationsResponse tag specifications response
+// swagger:model TagSpecificationsResponse
+type TagSpecificationsResponse struct {
 
 	// tag specifications
 	Specifications map[string]map[string]interface{} `json:"specifications,omitempty"`
 }
 
-// Validate validates this tag specifications v1 response
-func (m *TagSpecificationsV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this tag specifications response
+func (m *TagSpecificationsResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *TagSpecificationsV1Response) MarshalBinary() ([]byte, error) {
+func (m *TagSpecificationsResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -33,8 +33,8 @@ func (m *TagSpecificationsV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TagSpecificationsV1Response) UnmarshalBinary(b []byte) error {
-	var res TagSpecificationsV1Response
+func (m *TagSpecificationsResponse) UnmarshalBinary(b []byte) error {
+	var res TagSpecificationsResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

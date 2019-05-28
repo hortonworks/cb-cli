@@ -45,10 +45,6 @@ type EnvironmentV1Request struct {
 	// Network related specifics of the environment.
 	Network *EnvironmentNetworkV1Request `json:"network,omitempty"`
 
-	// Name of the proxy configurations to be attached to the environment.
-	// Unique: true
-	Proxies []string `json:"proxies"`
-
 	// Regions of the environment.
 	// Unique: true
 	Regions []string `json:"regions"`
@@ -75,10 +71,6 @@ func (m *EnvironmentV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNetwork(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateProxies(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -179,19 +171,6 @@ func (m *EnvironmentV1Request) validateNetwork(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *EnvironmentV1Request) validateProxies(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Proxies) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("proxies", "body", m.Proxies); err != nil {
-		return err
 	}
 
 	return nil

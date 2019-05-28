@@ -17,19 +17,33 @@ import (
 // swagger:model CompactRegionV1Response
 type CompactRegionV1Response struct {
 
+	// availability zones
+	AvailabilityZones map[string][]string `json:"availabilityZones,omitempty"`
+
+	// default regions
+	DefaultRegion string `json:"defaultRegion,omitempty"`
+
 	// regions with displayNames
 	DisplayNames map[string]string `json:"displayNames,omitempty"`
 
+	// regions with location data
+	// Unique: true
+	Locations []string `json:"locations"`
+
 	// Regions of the environment.
 	// Unique: true
-	Values []string `json:"values"`
+	Regions []string `json:"regions"`
 }
 
 // Validate validates this compact region v1 response
 func (m *CompactRegionV1Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateValues(formats); err != nil {
+	if err := m.validateLocations(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRegions(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -39,13 +53,26 @@ func (m *CompactRegionV1Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CompactRegionV1Response) validateValues(formats strfmt.Registry) error {
+func (m *CompactRegionV1Response) validateLocations(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Values) { // not required
+	if swag.IsZero(m.Locations) { // not required
 		return nil
 	}
 
-	if err := validate.UniqueItems("values", "body", m.Values); err != nil {
+	if err := validate.UniqueItems("locations", "body", m.Locations); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CompactRegionV1Response) validateRegions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Regions) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("regions", "body", m.Regions); err != nil {
 		return err
 	}
 

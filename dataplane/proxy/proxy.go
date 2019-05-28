@@ -57,18 +57,17 @@ func CreateProxy(c *cli.Context) error {
 }
 
 func createProxy(proxyClient proxyClient, name, host string, port int32, protocol, user, password string, environments []string) error {
-	proxyRequest := &model.ProxyV1Request{
-		Name:         &name,
-		Host:         &host,
-		Port:         &port,
-		Protocol:     &protocol,
-		UserName:     user,
-		Password:     password,
-		Environments: environments,
+	proxyRequest := &model.ProxyRequest{
+		Name:     &name,
+		Host:     &host,
+		Port:     &port,
+		Protocol: &protocol,
+		UserName: user,
+		Password: password,
 	}
 
 	log.Infof("[createProxy] create proxy with name: %s", name)
-	var proxy *model.ProxyV1Response
+	var proxy *model.ProxyResponse
 	resp, err := proxyClient.CreateProxyConfigV1(v1Proxy.NewCreateProxyConfigV1Params().WithBody(proxyRequest))
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -77,40 +76,6 @@ func createProxy(proxyClient proxyClient, name, host string, port int32, protoco
 
 	log.Infof("[createProxy] proxy created with name: %s, id: %d", name, proxy.ID)
 	return nil
-}
-
-func AttachProxyToEnvs(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "attach proxy to environments")
-
-	proxyName := c.String(fl.FlName.Name)
-	environments := utils.DelimitedStringToArray(c.String(fl.FlEnvironments.Name), ",")
-	log.Infof("[AttachProxyToEnvs] attach proxy config '%s' to environments: %s", proxyName, environments)
-
-	envClient := oauth.NewEnvironmentClientFromContext(c)
-	attachRequest := v1Proxy.NewAttachProxyResourceToEnvironmentsParams().WithName(proxyName).WithBody(&model.EnvironmentNames{EnvironmentNames: environments})
-	response, err := envClient.Environment.V1proxies.AttachProxyResourceToEnvironments(attachRequest)
-	if err != nil {
-		utils.LogErrorAndExit(err)
-	}
-	proxy := response.Payload
-	log.Infof("[AttachProxyToEnvs] proxy config '%s' is now attached to the following environments: %s", *proxy.Name, proxy.Environments)
-}
-
-func DetachProxyFromEnvs(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "detach proxy from environments")
-
-	proxyName := c.String(fl.FlName.Name)
-	environments := utils.DelimitedStringToArray(c.String(fl.FlEnvironments.Name), ",")
-	log.Infof("[DetachProxyFromEnvs] detach proxy config '%s' from environments: %s", proxyName, environments)
-
-	envClient := oauth.NewEnvironmentClientFromContext(c)
-	detachRequest := v1Proxy.NewDetachProxyResourceFromEnvironmentsParams().WithName(proxyName).WithBody(&model.EnvironmentNames{EnvironmentNames: environments})
-	response, err := envClient.Environment.V1proxies.DetachProxyResourceFromEnvironments(detachRequest)
-	if err != nil {
-		utils.LogErrorAndExit(err)
-	}
-	proxy := response.Payload
-	log.Infof("[DetachProxyFromEnvs] proxy config '%s' is now attached to the following environments: %s", *proxy.Name, proxy.Environments)
 }
 
 func ListProxies(c *cli.Context) error {
@@ -131,11 +96,10 @@ func listProxiesImpl(proxyClient proxyClient, writer func([]string, []utils.Row)
 	var tableRows []utils.Row
 	for _, p := range resp.Payload.Responses {
 		row := &proxy{
-			Name:         *p.Name,
-			Host:         *p.Host,
-			Port:         strconv.Itoa(int(*p.Port)),
-			Protocol:     *p.Protocol,
-			Environments: p.Environments,
+			Name:     *p.Name,
+			Host:     *p.Host,
+			Port:     strconv.Itoa(int(*p.Port)),
+			Protocol: *p.Protocol,
 		}
 		tableRows = append(tableRows, row)
 	}

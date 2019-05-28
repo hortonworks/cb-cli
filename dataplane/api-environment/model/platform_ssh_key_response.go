@@ -11,9 +11,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// PlatformSSHKeyV1Response platform Ssh key v1 response
-// swagger:model PlatformSshKeyV1Response
-type PlatformSSHKeyV1Response struct {
+// PlatformSSHKeyResponse platform Ssh key response
+// swagger:model PlatformSshKeyResponse
+type PlatformSSHKeyResponse struct {
 
 	// name
 	Name string `json:"name,omitempty"`
@@ -22,13 +22,13 @@ type PlatformSSHKeyV1Response struct {
 	Properties map[string]interface{} `json:"properties,omitempty"`
 }
 
-// Validate validates this platform Ssh key v1 response
-func (m *PlatformSSHKeyV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this platform Ssh key response
+func (m *PlatformSSHKeyResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *PlatformSSHKeyV1Response) MarshalBinary() ([]byte, error) {
+func (m *PlatformSSHKeyResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -36,8 +36,8 @@ func (m *PlatformSSHKeyV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *PlatformSSHKeyV1Response) UnmarshalBinary(b []byte) error {
-	var res PlatformSSHKeyV1Response
+func (m *PlatformSSHKeyResponse) UnmarshalBinary(b []byte) error {
+	var res PlatformSSHKeyResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

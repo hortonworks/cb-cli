@@ -47,7 +47,7 @@ func NewGetPlatformSecurityGroupsForWorkspaceOK() *GetPlatformSecurityGroupsForW
 successful operation
 */
 type GetPlatformSecurityGroupsForWorkspaceOK struct {
-	Payload *model.PlatformSecurityGroupsV1Response
+	Payload *model.PlatformSecurityGroupsResponse
 }
 
 func (o *GetPlatformSecurityGroupsForWorkspaceOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetPlatformSecurityGroupsForWorkspaceOK) Error() string {
 
 func (o *GetPlatformSecurityGroupsForWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PlatformSecurityGroupsV1Response)
+	o.Payload = new(model.PlatformSecurityGroupsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

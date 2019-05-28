@@ -14,16 +14,16 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ProxyV1Responses Cloudbreak allows you to save your existing proxy configuration information as an external source so that you can provide the proxy information to multiple clusters that you create with Cloudbreak
-// swagger:model ProxyV1Responses
-type ProxyV1Responses struct {
+// ProxyResponses Cloudbreak allows you to save your existing proxy configuration information as an external source so that you can provide the proxy information to multiple clusters that you create with Cloudbreak
+// swagger:model ProxyResponses
+type ProxyResponses struct {
 
 	// responses
-	Responses []*ProxyV1Response `json:"responses"`
+	Responses []*ProxyResponse `json:"responses"`
 }
 
-// Validate validates this proxy v1 responses
-func (m *ProxyV1Responses) Validate(formats strfmt.Registry) error {
+// Validate validates this proxy responses
+func (m *ProxyResponses) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateResponses(formats); err != nil {
@@ -36,7 +36,7 @@ func (m *ProxyV1Responses) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProxyV1Responses) validateResponses(formats strfmt.Registry) error {
+func (m *ProxyResponses) validateResponses(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Responses) { // not required
 		return nil
@@ -62,7 +62,7 @@ func (m *ProxyV1Responses) validateResponses(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *ProxyV1Responses) MarshalBinary() ([]byte, error) {
+func (m *ProxyResponses) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -70,8 +70,8 @@ func (m *ProxyV1Responses) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ProxyV1Responses) UnmarshalBinary(b []byte) error {
-	var res ProxyV1Responses
+func (m *ProxyResponses) UnmarshalBinary(b []byte) error {
+	var res ProxyResponses
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

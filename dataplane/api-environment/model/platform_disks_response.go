@@ -11,9 +11,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// PlatformDisksV1Response platform disks v1 response
-// swagger:model PlatformDisksV1Response
-type PlatformDisksV1Response struct {
+// PlatformDisksResponse platform disks response
+// swagger:model PlatformDisksResponse
+type PlatformDisksResponse struct {
 
 	// default disks
 	DefaultDisks map[string]string `json:"defaultDisks,omitempty"`
@@ -28,13 +28,13 @@ type PlatformDisksV1Response struct {
 	DisplayNames map[string]map[string]string `json:"displayNames,omitempty"`
 }
 
-// Validate validates this platform disks v1 response
-func (m *PlatformDisksV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this platform disks response
+func (m *PlatformDisksResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *PlatformDisksV1Response) MarshalBinary() ([]byte, error) {
+func (m *PlatformDisksResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -42,8 +42,8 @@ func (m *PlatformDisksV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *PlatformDisksV1Response) UnmarshalBinary(b []byte) error {
-	var res PlatformDisksV1Response
+func (m *PlatformDisksResponse) UnmarshalBinary(b []byte) error {
+	var res PlatformDisksResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -11,9 +11,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// VolumeParameterConfigV1Response volume parameter config v1 response
-// swagger:model VolumeParameterConfigV1Response
-type VolumeParameterConfigV1Response struct {
+// VolumeParameterConfigResponse volume parameter config response
+// swagger:model VolumeParameterConfigResponse
+type VolumeParameterConfigResponse struct {
 
 	// maximum number
 	MaximumNumber int32 `json:"maximumNumber,omitempty"`
@@ -31,13 +31,13 @@ type VolumeParameterConfigV1Response struct {
 	VolumeParameterType string `json:"volumeParameterType,omitempty"`
 }
 
-// Validate validates this volume parameter config v1 response
-func (m *VolumeParameterConfigV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this volume parameter config response
+func (m *VolumeParameterConfigResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *VolumeParameterConfigV1Response) MarshalBinary() ([]byte, error) {
+func (m *VolumeParameterConfigResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -45,8 +45,8 @@ func (m *VolumeParameterConfigV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *VolumeParameterConfigV1Response) UnmarshalBinary(b []byte) error {
-	var res VolumeParameterConfigV1Response
+func (m *VolumeParameterConfigResponse) UnmarshalBinary(b []byte) error {
+	var res VolumeParameterConfigResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

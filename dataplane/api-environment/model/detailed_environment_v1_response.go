@@ -7,7 +7,6 @@ package model
 
 import (
 	"encoding/json"
-	"strconv"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -34,7 +33,7 @@ type DetailedEnvironmentV1Response struct {
 	EnvironmentStatus string `json:"environmentStatus,omitempty"`
 
 	// id of the resource
-	ID int64 `json:"id,omitempty"`
+	ID string `json:"id,omitempty"`
 
 	// Location of the environment.
 	Location *LocationV1Response `json:"location,omitempty"`
@@ -44,10 +43,6 @@ type DetailedEnvironmentV1Response struct {
 
 	// Network related specifics of the environment.
 	Network *EnvironmentNetworkV1Response `json:"network,omitempty"`
-
-	// Proxy configurations in the environment.
-	// Unique: true
-	Proxies []*ProxyV1Response `json:"proxies"`
 
 	// Regions of the environment.
 	Regions *CompactRegionV1Response `json:"regions,omitempty"`
@@ -66,10 +61,6 @@ func (m *DetailedEnvironmentV1Response) Validate(formats strfmt.Registry) error 
 	}
 
 	if err := m.validateNetwork(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateProxies(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -172,35 +163,6 @@ func (m *DetailedEnvironmentV1Response) validateNetwork(formats strfmt.Registry)
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *DetailedEnvironmentV1Response) validateProxies(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Proxies) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("proxies", "body", m.Proxies); err != nil {
-		return err
-	}
-
-	for i := 0; i < len(m.Proxies); i++ {
-		if swag.IsZero(m.Proxies[i]) { // not required
-			continue
-		}
-
-		if m.Proxies[i] != nil {
-			if err := m.Proxies[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("proxies" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil

@@ -47,7 +47,7 @@ func NewGetPlatformSShKeysForWorkspaceOK() *GetPlatformSShKeysForWorkspaceOK {
 successful operation
 */
 type GetPlatformSShKeysForWorkspaceOK struct {
-	Payload *model.PlatformSSHKeysV1Response
+	Payload *model.PlatformSSHKeysResponse
 }
 
 func (o *GetPlatformSShKeysForWorkspaceOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetPlatformSShKeysForWorkspaceOK) Error() string {
 
 func (o *GetPlatformSShKeysForWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PlatformSSHKeysV1Response)
+	o.Payload = new(model.PlatformSSHKeysResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

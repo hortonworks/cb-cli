@@ -47,7 +47,7 @@ func NewGetDisktypesForWorkspaceOK() *GetDisktypesForWorkspaceOK {
 successful operation
 */
 type GetDisktypesForWorkspaceOK struct {
-	Payload *model.PlatformDisksV1Response
+	Payload *model.PlatformDisksResponse
 }
 
 func (o *GetDisktypesForWorkspaceOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetDisktypesForWorkspaceOK) Error() string {
 
 func (o *GetDisktypesForWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PlatformDisksV1Response)
+	o.Payload = new(model.PlatformDisksResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

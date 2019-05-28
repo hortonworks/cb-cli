@@ -47,7 +47,7 @@ func NewGetPlatformNetworksForWorkspaceOK() *GetPlatformNetworksForWorkspaceOK {
 successful operation
 */
 type GetPlatformNetworksForWorkspaceOK struct {
-	Payload *model.PlatformNetworksV1Response
+	Payload *model.PlatformNetworksResponse
 }
 
 func (o *GetPlatformNetworksForWorkspaceOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetPlatformNetworksForWorkspaceOK) Error() string {
 
 func (o *GetPlatformNetworksForWorkspaceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PlatformNetworksV1Response)
+	o.Payload = new(model.PlatformNetworksResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

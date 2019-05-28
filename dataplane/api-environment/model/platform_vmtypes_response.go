@@ -13,16 +13,16 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PlatformVmtypesV1Response platform vmtypes v1 response
-// swagger:model PlatformVmtypesV1Response
-type PlatformVmtypesV1Response struct {
+// PlatformVmtypesResponse platform vmtypes response
+// swagger:model PlatformVmtypesResponse
+type PlatformVmtypesResponse struct {
 
 	// vm types
-	VMTypes map[string]VirtualMachinesV1Response `json:"vmTypes,omitempty"`
+	VMTypes map[string]VirtualMachinesResponse `json:"vmTypes,omitempty"`
 }
 
-// Validate validates this platform vmtypes v1 response
-func (m *PlatformVmtypesV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this platform vmtypes response
+func (m *PlatformVmtypesResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateVMTypes(formats); err != nil {
@@ -35,7 +35,7 @@ func (m *PlatformVmtypesV1Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *PlatformVmtypesV1Response) validateVMTypes(formats strfmt.Registry) error {
+func (m *PlatformVmtypesResponse) validateVMTypes(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.VMTypes) { // not required
 		return nil
@@ -58,7 +58,7 @@ func (m *PlatformVmtypesV1Response) validateVMTypes(formats strfmt.Registry) err
 }
 
 // MarshalBinary interface implementation
-func (m *PlatformVmtypesV1Response) MarshalBinary() ([]byte, error) {
+func (m *PlatformVmtypesResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -66,8 +66,8 @@ func (m *PlatformVmtypesV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *PlatformVmtypesV1Response) UnmarshalBinary(b []byte) error {
-	var res PlatformVmtypesV1Response
+func (m *PlatformVmtypesResponse) UnmarshalBinary(b []byte) error {
+	var res PlatformVmtypesResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

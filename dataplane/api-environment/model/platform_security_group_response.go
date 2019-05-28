@@ -11,27 +11,27 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// IPPoolV1Response Ip pool v1 response
-// swagger:model IpPoolV1Response
-type IPPoolV1Response struct {
+// PlatformSecurityGroupResponse platform security group response
+// swagger:model PlatformSecurityGroupResponse
+type PlatformSecurityGroupResponse struct {
 
-	// id
-	ID string `json:"id,omitempty"`
+	// group Id
+	GroupID string `json:"groupId,omitempty"`
 
-	// name
-	Name string `json:"name,omitempty"`
+	// group name
+	GroupName string `json:"groupName,omitempty"`
 
 	// properties
 	Properties map[string]interface{} `json:"properties,omitempty"`
 }
 
-// Validate validates this Ip pool v1 response
-func (m *IPPoolV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this platform security group response
+func (m *PlatformSecurityGroupResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *IPPoolV1Response) MarshalBinary() ([]byte, error) {
+func (m *PlatformSecurityGroupResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -39,8 +39,8 @@ func (m *IPPoolV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *IPPoolV1Response) UnmarshalBinary(b []byte) error {
-	var res IPPoolV1Response
+func (m *PlatformSecurityGroupResponse) UnmarshalBinary(b []byte) error {
+	var res PlatformSecurityGroupResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

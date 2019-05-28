@@ -13,18 +13,14 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// ProxyV1Response Cloudbreak allows you to save your existing proxy configuration information as an external source so that you can provide the proxy information to multiple clusters that you create with Cloudbreak
-// swagger:model ProxyV1Response
-type ProxyV1Response struct {
+// ProxyResponse Cloudbreak allows you to save your existing proxy configuration information as an external source so that you can provide the proxy information to multiple clusters that you create with Cloudbreak
+// swagger:model ProxyResponse
+type ProxyResponse struct {
 
 	// description of the resource
 	// Max Length: 1000
 	// Min Length: 0
 	Description *string `json:"description,omitempty"`
-
-	// Environments of the resource
-	// Unique: true
-	Environments []string `json:"environments"`
 
 	// host or IP address of proxy server
 	// Required: true
@@ -34,7 +30,7 @@ type ProxyV1Response struct {
 	Host *string `json:"host"`
 
 	// proxy configuration id for the cluster
-	ID int64 `json:"id,omitempty"`
+	ID string `json:"id,omitempty"`
 
 	// Name of the proxy configuration resource
 	// Required: true
@@ -61,15 +57,11 @@ type ProxyV1Response struct {
 	UserName *SecretResponse `json:"userName,omitempty"`
 }
 
-// Validate validates this proxy v1 response
-func (m *ProxyV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this proxy response
+func (m *ProxyResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDescription(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateEnvironments(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -103,7 +95,7 @@ func (m *ProxyV1Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProxyV1Response) validateDescription(formats strfmt.Registry) error {
+func (m *ProxyResponse) validateDescription(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Description) { // not required
 		return nil
@@ -120,20 +112,7 @@ func (m *ProxyV1Response) validateDescription(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProxyV1Response) validateEnvironments(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Environments) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("environments", "body", m.Environments); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ProxyV1Response) validateHost(formats strfmt.Registry) error {
+func (m *ProxyResponse) validateHost(formats strfmt.Registry) error {
 
 	if err := validate.Required("host", "body", m.Host); err != nil {
 		return err
@@ -154,7 +133,7 @@ func (m *ProxyV1Response) validateHost(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProxyV1Response) validateName(formats strfmt.Registry) error {
+func (m *ProxyResponse) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
@@ -175,7 +154,7 @@ func (m *ProxyV1Response) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProxyV1Response) validatePassword(formats strfmt.Registry) error {
+func (m *ProxyResponse) validatePassword(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Password) { // not required
 		return nil
@@ -193,7 +172,7 @@ func (m *ProxyV1Response) validatePassword(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProxyV1Response) validatePort(formats strfmt.Registry) error {
+func (m *ProxyResponse) validatePort(formats strfmt.Registry) error {
 
 	if err := validate.Required("port", "body", m.Port); err != nil {
 		return err
@@ -210,7 +189,7 @@ func (m *ProxyV1Response) validatePort(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProxyV1Response) validateProtocol(formats strfmt.Registry) error {
+func (m *ProxyResponse) validateProtocol(formats strfmt.Registry) error {
 
 	if err := validate.Required("protocol", "body", m.Protocol); err != nil {
 		return err
@@ -223,7 +202,7 @@ func (m *ProxyV1Response) validateProtocol(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProxyV1Response) validateUserName(formats strfmt.Registry) error {
+func (m *ProxyResponse) validateUserName(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.UserName) { // not required
 		return nil
@@ -242,7 +221,7 @@ func (m *ProxyV1Response) validateUserName(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *ProxyV1Response) MarshalBinary() ([]byte, error) {
+func (m *ProxyResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -250,8 +229,8 @@ func (m *ProxyV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ProxyV1Response) UnmarshalBinary(b []byte) error {
-	var res ProxyV1Response
+func (m *ProxyResponse) UnmarshalBinary(b []byte) error {
+	var res ProxyResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

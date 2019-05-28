@@ -11,15 +11,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// EncryptionKeyConfigV1Response encryption key config v1 response
-// swagger:model EncryptionKeyConfigV1Response
-type EncryptionKeyConfigV1Response struct {
-
-	// description
-	Description string `json:"description,omitempty"`
-
-	// display name
-	DisplayName string `json:"displayName,omitempty"`
+// IPPoolResponse Ip pool response
+// swagger:model IpPoolResponse
+type IPPoolResponse struct {
 
 	// id
 	ID string `json:"id,omitempty"`
@@ -31,13 +25,13 @@ type EncryptionKeyConfigV1Response struct {
 	Properties map[string]interface{} `json:"properties,omitempty"`
 }
 
-// Validate validates this encryption key config v1 response
-func (m *EncryptionKeyConfigV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this Ip pool response
+func (m *IPPoolResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *EncryptionKeyConfigV1Response) MarshalBinary() ([]byte, error) {
+func (m *IPPoolResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -45,8 +39,8 @@ func (m *EncryptionKeyConfigV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *EncryptionKeyConfigV1Response) UnmarshalBinary(b []byte) error {
-	var res EncryptionKeyConfigV1Response
+func (m *IPPoolResponse) UnmarshalBinary(b []byte) error {
+	var res IPPoolResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

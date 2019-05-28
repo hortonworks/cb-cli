@@ -11,9 +11,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// PlatformNetworkV1Response platform network v1 response
-// swagger:model PlatformNetworkV1Response
-type PlatformNetworkV1Response struct {
+// AccessConfigResponse access config response
+// swagger:model AccessConfigResponse
+type AccessConfigResponse struct {
 
 	// id
 	ID string `json:"id,omitempty"`
@@ -23,18 +23,15 @@ type PlatformNetworkV1Response struct {
 
 	// properties
 	Properties map[string]interface{} `json:"properties,omitempty"`
-
-	// subnets
-	Subnets map[string]string `json:"subnets,omitempty"`
 }
 
-// Validate validates this platform network v1 response
-func (m *PlatformNetworkV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this access config response
+func (m *AccessConfigResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *PlatformNetworkV1Response) MarshalBinary() ([]byte, error) {
+func (m *AccessConfigResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -42,8 +39,8 @@ func (m *PlatformNetworkV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *PlatformNetworkV1Response) UnmarshalBinary(b []byte) error {
-	var res PlatformNetworkV1Response
+func (m *AccessConfigResponse) UnmarshalBinary(b []byte) error {
+	var res AccessConfigResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

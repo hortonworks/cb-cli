@@ -47,7 +47,7 @@ func NewGetProxyRequestFromNameV1OK() *GetProxyRequestFromNameV1OK {
 successful operation
 */
 type GetProxyRequestFromNameV1OK struct {
-	Payload *model.ProxyV1Request
+	Payload *model.ProxyRequest
 }
 
 func (o *GetProxyRequestFromNameV1OK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetProxyRequestFromNameV1OK) Error() string {
 
 func (o *GetProxyRequestFromNameV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.ProxyV1Request)
+	o.Payload = new(model.ProxyRequest)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

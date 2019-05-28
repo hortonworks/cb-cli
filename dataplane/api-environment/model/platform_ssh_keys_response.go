@@ -15,16 +15,16 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PlatformSSHKeysV1Response platform Ssh keys v1 response
-// swagger:model PlatformSshKeysV1Response
-type PlatformSSHKeysV1Response struct {
+// PlatformSSHKeysResponse platform Ssh keys response
+// swagger:model PlatformSshKeysResponse
+type PlatformSSHKeysResponse struct {
 
 	// ssh keys
-	SSHKeys map[string][]PlatformSSHKeyV1Response `json:"sshKeys,omitempty"`
+	SSHKeys map[string][]PlatformSSHKeyResponse `json:"sshKeys,omitempty"`
 }
 
-// Validate validates this platform Ssh keys v1 response
-func (m *PlatformSSHKeysV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this platform Ssh keys response
+func (m *PlatformSSHKeysResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateSSHKeys(formats); err != nil {
@@ -37,7 +37,7 @@ func (m *PlatformSSHKeysV1Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *PlatformSSHKeysV1Response) validateSSHKeys(formats strfmt.Registry) error {
+func (m *PlatformSSHKeysResponse) validateSSHKeys(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.SSHKeys) { // not required
 		return nil
@@ -70,7 +70,7 @@ func (m *PlatformSSHKeysV1Response) validateSSHKeys(formats strfmt.Registry) err
 }
 
 // MarshalBinary interface implementation
-func (m *PlatformSSHKeysV1Response) MarshalBinary() ([]byte, error) {
+func (m *PlatformSSHKeysResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -78,8 +78,8 @@ func (m *PlatformSSHKeysV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *PlatformSSHKeysV1Response) UnmarshalBinary(b []byte) error {
-	var res PlatformSSHKeysV1Response
+func (m *PlatformSSHKeysResponse) UnmarshalBinary(b []byte) error {
+	var res PlatformSSHKeysResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

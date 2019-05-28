@@ -15,17 +15,17 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PlatformEncryptionKeysV1Response platform encryption keys v1 response
-// swagger:model PlatformEncryptionKeysV1Response
-type PlatformEncryptionKeysV1Response struct {
+// PlatformEncryptionKeysResponse platform encryption keys response
+// swagger:model PlatformEncryptionKeysResponse
+type PlatformEncryptionKeysResponse struct {
 
 	// encryption key configs
 	// Unique: true
-	EncryptionKeyConfigs []*EncryptionKeyConfigV1Response `json:"encryptionKeyConfigs"`
+	EncryptionKeyConfigs []*EncryptionKeyConfigResponse `json:"encryptionKeyConfigs"`
 }
 
-// Validate validates this platform encryption keys v1 response
-func (m *PlatformEncryptionKeysV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this platform encryption keys response
+func (m *PlatformEncryptionKeysResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateEncryptionKeyConfigs(formats); err != nil {
@@ -38,7 +38,7 @@ func (m *PlatformEncryptionKeysV1Response) Validate(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *PlatformEncryptionKeysV1Response) validateEncryptionKeyConfigs(formats strfmt.Registry) error {
+func (m *PlatformEncryptionKeysResponse) validateEncryptionKeyConfigs(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.EncryptionKeyConfigs) { // not required
 		return nil
@@ -68,7 +68,7 @@ func (m *PlatformEncryptionKeysV1Response) validateEncryptionKeyConfigs(formats 
 }
 
 // MarshalBinary interface implementation
-func (m *PlatformEncryptionKeysV1Response) MarshalBinary() ([]byte, error) {
+func (m *PlatformEncryptionKeysResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -76,8 +76,8 @@ func (m *PlatformEncryptionKeysV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *PlatformEncryptionKeysV1Response) UnmarshalBinary(b []byte) error {
-	var res PlatformEncryptionKeysV1Response
+func (m *PlatformEncryptionKeysResponse) UnmarshalBinary(b []byte) error {
+	var res PlatformEncryptionKeysResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
