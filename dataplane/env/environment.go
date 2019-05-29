@@ -16,12 +16,13 @@ import (
 	v1env "github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
 )
 
-var EnvironmentHeader = []string{"Name", "Description", "CloudPlatform", "Credential", "Regions", "LocationName", "Longitude", "Latitude"}
+var EnvironmentHeader = []string{"Name", "Description", "CloudPlatform", "Status", "Credential", "Regions", "LocationName", "Longitude", "Latitude"}
 
 type environment struct {
 	Name          string   `json:"Name" yaml:"Name"`
 	Description   string   `json:"Description" yaml:"Description"`
 	CloudPlatform string   `json:"CloudPlatform" yaml:"CloudPlatform"`
+	Status 		  string   `json:"Status" yaml:"Status"`
 	Credential    string   `json:"Credential" yaml:"Credential"`
 	Regions       []string `json:"Regions" yaml:"Regions"`
 	LocationName  string   `json:"LocationName" yaml:"LocationName"`
@@ -55,7 +56,7 @@ type environmentClient interface {
 }
 
 func (e *environment) DataAsStringArray() []string {
-	return []string{e.Name, e.Description, e.CloudPlatform, e.Credential, strings.Join(e.Regions, ","), e.LocationName, utils.FloatToString(e.Longitude), utils.FloatToString(e.Latitude)}
+	return []string{e.Name, e.Description, e.CloudPlatform, e.Status, e.Credential, strings.Join(e.Regions, ","), e.LocationName, utils.FloatToString(e.Longitude), utils.FloatToString(e.Latitude)}
 }
 
 func (e *environmentOutJsonDescribe) DataAsStringArray() []string {
@@ -202,6 +203,7 @@ func listEnvironmentsImpl(envClient environmentClient, output utils.Output) erro
 			Name:          e.Name,
 			Description:   e.Description,
 			CloudPlatform: e.CloudPlatform,
+			Status: 	   e.EnvironmentStatus,
 			Credential:    e.CredentialName,
 			Regions:       getRegionNames(e.Regions),
 			LocationName:  e.Location.Name,
@@ -310,6 +312,7 @@ func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response) *env
 			Name:          env.Name,
 			Description:   env.Description,
 			CloudPlatform: env.CloudPlatform,
+			Status:        env.EnvironmentStatus,
 			Credential:    env.CredentialName,
 			Regions:       getRegionNames(env.Regions),
 			LocationName:  env.Location.Name,
@@ -326,6 +329,7 @@ func convertResponseToJsonOutput(env *model.DetailedEnvironmentV1Response) *envi
 			Name:          env.Name,
 			Description:   env.Description,
 			CloudPlatform: env.CloudPlatform,
+			Status:        env.EnvironmentStatus,
 			Credential:    env.CredentialName,
 			Regions:       getRegionNames(env.Regions),
 			LocationName:  env.Location.Name,
