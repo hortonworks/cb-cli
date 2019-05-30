@@ -6,11 +6,9 @@ import (
 
 	"github.com/hortonworks/cb-cli/dataplane/oauth"
 
-	"strings"
-
 	log "github.com/Sirupsen/logrus"
 	v1Proxy "github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1proxies"
-	model "github.com/hortonworks/cb-cli/dataplane/api-environment/model"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/model"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/dp-cli-common/utils"
 	"github.com/urfave/cli"
@@ -21,18 +19,18 @@ type proxyClient interface {
 	ListProxyConfigsV1(params *v1Proxy.ListProxyConfigsV1Params) (*v1Proxy.ListProxyConfigsV1OK, error)
 }
 
-var Header = []string{"Name", "Host", "Port", "Protocol", "Environments"}
+var Header = []string{"Name", "Host", "Port", "Protocol", "Crn"}
 
 type proxy struct {
 	Name         string `json:"Name" yaml:"Name"`
 	Host         string `json:"Host" yaml:"Host"`
 	Port         string `json:"Port" yaml:"Port"`
 	Protocol     string `json:"Protocol" yaml:"Protocol"`
-	Environments []string
+	Crn 		 string `json:"Crn" yaml:"Crn"`
 }
 
 func (p *proxy) DataAsStringArray() []string {
-	return []string{p.Name, p.Host, p.Port, p.Protocol, strings.Join(p.Environments, ",")}
+	return []string{p.Name, p.Host, p.Port, p.Protocol, p.Crn}
 }
 
 func CreateProxy(c *cli.Context) error {
@@ -44,7 +42,6 @@ func CreateProxy(c *cli.Context) error {
 	protocol := c.String(fl.FlProxyProtocol.Name)
 	user := c.String(fl.FlProxyUser.Name)
 	password := c.String(fl.FlProxyPassword.Name)
-	environments := utils.DelimitedStringToArray(c.String(fl.FlEnvironmentsOptional.Name), ",")
 
 	if protocol != "http" && protocol != "https" {
 		utils.LogErrorMessageAndExit("Proxy protocol must be either http or https")
@@ -53,10 +50,10 @@ func CreateProxy(c *cli.Context) error {
 
 	envClient := oauth.NewEnvironmentClientFromContext(c)
 
-	return createProxy(envClient.Environment.V1proxies, name, host, int32(serverPort), protocol, user, password, environments)
+	return createProxy(envClient.Environment.V1proxies, name, host, int32(serverPort), protocol, user, password)
 }
 
-func createProxy(proxyClient proxyClient, name, host string, port int32, protocol, user, password string, environments []string) error {
+func createProxy(proxyClient proxyClient, name, host string, port int32, protocol, user, password string) error {
 	proxyRequest := &model.ProxyRequest{
 		Name:     &name,
 		Host:     &host,
@@ -74,7 +71,7 @@ func createProxy(proxyClient proxyClient, name, host string, port int32, protoco
 	}
 	proxy = resp.Payload
 
-	log.Infof("[createProxy] proxy created with name: %s, id: %d", name, proxy.ID)
+	log.Infof("[createProxy] proxy created with name: %s, CRN: %d", name, proxy.Crn)
 	return nil
 }
 
@@ -100,6 +97,7 @@ func listProxiesImpl(proxyClient proxyClient, writer func([]string, []utils.Row)
 			Host:     *p.Host,
 			Port:     strconv.Itoa(int(*p.Port)),
 			Protocol: *p.Protocol,
+			Crn: 	  p.Crn,
 		}
 		tableRows = append(tableRows, row)
 	}

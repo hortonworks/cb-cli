@@ -116,7 +116,7 @@ _init-swagger-generation-freeipa:
 _init-swagger-generation-environment:
 	rm -rf dataplane/api-environment/client dataplane/api-environment/model
 	rm -f build/swagger.json
-	curl -sL http://$(ENVIRONMENT_IP):$(ENVIRONMENT_PORT)/env/api/swagger.json -o build/swagger.json
+	curl -sL http://$(ENVIRONMENT_IP):$(ENVIRONMENT_PORT)/environmentservice/api/swagger.json -o build/swagger.json
 
 generate-swagger: _init-swagger-generation
 	swagger generate client -f build/swagger.json -c client -m model -t dataplane/api
