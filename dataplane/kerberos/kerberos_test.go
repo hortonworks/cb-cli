@@ -23,10 +23,6 @@ func MockKerberosResponse(name string) *model.KerberosV4Response {
 		Name:        name,
 		Type:        &(&types.S{S: "ACTIVE_DIRECTORY"}).S,
 		URL:         "testUrl",
-		Admin: &model.SecretResponse{
-			EnginePath: "",
-			SecretPath: "",
-		},
 		Password: &model.SecretResponse{
 			EnginePath: "",
 			SecretPath: "",

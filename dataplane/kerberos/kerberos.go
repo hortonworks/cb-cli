@@ -51,7 +51,6 @@ func GetVerifyKdcTrustFlag(c *cli.Context) bool {
 }
 
 func CreateAdKerberos(c *cli.Context) error {
-	admin := c.String(fl.FlKerberosAdmin.Name)
 	verifyKdcTrust := GetVerifyKdcTrustFlag(c)
 	domain := c.String(fl.FlKerberosDomain.Name)
 	nameServers := c.String(fl.FlKerberosNameServers.Name)
@@ -76,7 +75,6 @@ func CreateAdKerberos(c *cli.Context) error {
 		Realm:          &realm,
 		LdapURL:        &ldapUrl,
 		ContainerDn:    &containerDn,
-		Admin:          admin,
 	}
 
 	kerberosRequest := CreateKerberosRequest(c)
@@ -113,7 +111,6 @@ func CreateCustomKerberos(c *cli.Context) error {
 }
 
 func CreateFreeIpaKerberos(c *cli.Context) error {
-	admin := c.String(fl.FlKerberosAdmin.Name)
 	verifyKdcTrust := GetVerifyKdcTrustFlag(c)
 	domain := c.String(fl.FlKerberosDomain.Name)
 	nameServers := c.String(fl.FlKerberosNameServers.Name)
@@ -134,7 +131,6 @@ func CreateFreeIpaKerberos(c *cli.Context) error {
 		URL:            &url,
 		AdminURL:       &adminUrl,
 		Realm:          &realm,
-		Admin:          admin,
 	}
 
 	kerberosRequest := CreateKerberosRequest(c)
