@@ -18,8 +18,8 @@ import (
 var kubernetesHeader = []string{"Name", "Description", "Environments"}
 
 type kubernetes struct {
-	Name         string `json:"Name" yaml:"Name"`
-	Description  string `json:"Description" yaml:"Description"`
+	Name        string `json:"Name" yaml:"Name"`
+	Description string `json:"Description" yaml:"Description"`
 }
 
 type kubernetesOutDescribe struct {
@@ -56,9 +56,9 @@ func createKubernetesImpl(client kubernetesClient, workspaceID int64, name strin
 	defer utils.TimeTrack(time.Now(), "create kubernetes config")
 	config := string(configuration)
 	kubernetesRequest := &model.KubernetesV4Request{
-		Name:         &name,
-		Description:  &description,
-		Content:      &config,
+		Name:        &name,
+		Description: &description,
+		Content:     &config,
 	}
 	var kubernetesResponse *model.KubernetesV4Response
 	log.Infof("[createKubernetesImpl] sending create kubernetes config request")
@@ -133,8 +133,8 @@ func DescribeKubernetes(c *cli.Context) {
 
 	output.Write(append(kubernetesHeader, "ID"), &kubernetesOutDescribe{
 		&kubernetes{
-			Name:         *r.Name,
-			Description:  *r.Description,
+			Name:        *r.Name,
+			Description: *r.Description,
 		}, strconv.FormatInt(r.ID, 10)})
 
 }
@@ -158,8 +158,8 @@ func listAllKubernetesImpl(kubernetesClient kubernetesClient, writer func([]stri
 	var tableRows []utils.Row
 	for _, r := range resp.Payload.Responses {
 		row := &kubernetes{
-			Name:         *r.Name,
-			Description:  utils.SafeStringConvert(r.Description),
+			Name:        *r.Name,
+			Description: utils.SafeStringConvert(r.Description),
 		}
 		tableRows = append(tableRows, row)
 	}

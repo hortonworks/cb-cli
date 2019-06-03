@@ -37,12 +37,9 @@ type environmentOutTableDescribe struct {
 
 type environmentOutJsonDescribe struct {
 	*environment
-	LdapConfigs     []string                           `json:"LdapConfigs" yaml:"LdapConfigs"`
-	ProxyConfigs    []string                           `json:"ProxyConfigs" yaml:"ProxyConfigs"`
-	KerberosConfigs []string                           `json:"KerberosConfigs" yaml:"KerberosConfigs"`
-	RdsConfigs      []string                           `json:"RdsConfigs" yaml:"RdsConfigs"`
-	ID              string                             `json:"ID" yaml:"ID"`
-	Network         model.EnvironmentNetworkV1Response `json:"Network" yaml:"Network"`
+	ProxyConfigs []string                           `json:"ProxyConfigs" yaml:"ProxyConfigs"`
+	ID           string                             `json:"ID" yaml:"ID"`
+	Network      model.EnvironmentNetworkV1Response `json:"Network" yaml:"Network"`
 }
 
 type environmentListJsonDescribe struct {
@@ -242,6 +239,8 @@ func DescribeEnvironment(c *cli.Context) {
 		utils.LogErrorAndExit(err)
 	}
 	env := resp.Payload
+	fmt.Printf("%+v\n", env)
+	fmt.Printf("%+v\n", env.Regions.DisplayNames)
 	if output.Format != "table" && output.Format != "yaml" {
 		output.Write(append(EnvironmentHeader, "ID", "Network"), convertResponseToJsonOutput(env))
 	} else {
@@ -347,8 +346,8 @@ func convertResponseToJsonOutput(env *model.DetailedEnvironmentV1Response) *envi
 
 func getRegionNames(region *model.CompactRegionV1Response) []string {
 	var regions []string
-	for _, v := range region.Regions {
-		regions = append(regions, v)
+	for k, v := range region.DisplayNames {
+		regions = append(regions, fmt.Sprintf("%s (%s)", v, k))
 	}
 	return regions
 }

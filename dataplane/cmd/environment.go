@@ -15,15 +15,13 @@ func init() {
 			{
 				Name:  "create",
 				Usage: "creates a new Environment",
-				Flags: fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlEnvironmentCredential, fl.FlEnvironmentRegions,
-					fl.FlLdapNamesOptional, fl.FlProxyNamesOptional, fl.FlKerberosNamesOptional, fl.FlRdsNamesOptional, fl.FlEnvironmentLocationName,
+				Flags: fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlEnvironmentCredential, fl.FlEnvironmentRegions, fl.FlProxyNamesOptional, fl.FlEnvironmentLocationName,
 					fl.FlEnvironmentLongitudeOptional, fl.FlEnvironmentLatitudeOptional).AddAuthenticationFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: env.CreateEnvironment,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlEnvironmentCredential, fl.FlEnvironmentRegions,
-						fl.FlLdapNamesOptional, fl.FlProxyNamesOptional, fl.FlKerberosNamesOptional, fl.FlRdsNamesOptional, fl.FlEnvironmentLocationName,
-						fl.FlEnvironmentLongitudeOptional, fl.FlEnvironmentLatitudeOptional).AddAuthenticationFlags().Build() {
+						fl.FlProxyNamesOptional, fl.FlEnvironmentLocationName, fl.FlEnvironmentLongitudeOptional, fl.FlEnvironmentLatitudeOptional).AddAuthenticationFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

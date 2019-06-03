@@ -16,9 +16,9 @@ import (
 var Header = []string{"Name", "Description", "Type", "Environments", "ID"}
 
 type kerberos struct {
-	Name         string `json:"Name" yaml:"Name"`
-	Description  string `json:"Description" yaml:"Description"`
-	Type         string `json:"Type" yaml:"Type"`
+	Name        string `json:"Name" yaml:"Name"`
+	Description string `json:"Description" yaml:"Description"`
+	Type        string `json:"Type" yaml:"Type"`
 }
 
 type kerberosOutDescribe struct {
@@ -142,8 +142,8 @@ func CreateKerberosRequest(c *cli.Context) model.KerberosV4Request {
 	description := c.String(fl.FlDescriptionOptional.Name)
 
 	kerberosRequest := &model.KerberosV4Request{
-		Name:         &kerberosName,
-		Description:  &description,
+		Name:        &kerberosName,
+		Description: &description,
 	}
 
 	return *kerberosRequest
@@ -186,9 +186,9 @@ func ListKerberosImpl(kerberosClient kerberosClient, workspaceID int64, writer f
 	for _, k := range resp.Payload.Responses {
 		row := &kerberosOutDescribe{
 			&kerberos{
-				Name:         *k.Name,
-				Description:  utils.SafeStringConvert(k.Description),
-				Type:         utils.SafeStringConvert(&k.Type),
+				Name:        *k.Name,
+				Description: utils.SafeStringConvert(k.Description),
+				Type:        utils.SafeStringConvert(&k.Type),
 			},
 			strconv.FormatInt(k.ID, 10)}
 		tableRows = append(tableRows, row)
@@ -242,9 +242,9 @@ func DeleteKerberosImpl(kerberosClient kerberosClient, workspaceID int64, kerber
 func writeResponse(writer func([]string, utils.Row), kerberosResponse *model.KerberosV4Response) {
 	writer(append(Header), &kerberosOutDescribe{
 		&kerberos{
-			Name:         kerberosResponse.Name,
-			Description:  utils.SafeStringConvert(kerberosResponse.Description),
-			Type:         utils.SafeStringConvert(kerberosResponse.Type),
+			Name:        kerberosResponse.Name,
+			Description: utils.SafeStringConvert(kerberosResponse.Description),
+			Type:        utils.SafeStringConvert(kerberosResponse.Type),
 		},
 		strconv.FormatInt(kerberosResponse.ID, 10)})
 }
