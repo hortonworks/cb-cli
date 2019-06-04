@@ -31,8 +31,8 @@ type DistroXV1Request struct {
 	// cluster
 	Cluster *DistroXClusterV1Request `json:"cluster,omitempty"`
 
-	// environment
-	Environment *DistroXEnvironmentV1Request `json:"environment,omitempty"`
+	// environment crn
+	EnvironmentCrn string `json:"environmentCrn,omitempty"`
 
 	// image
 	Image *DistroXImageV1Request `json:"image,omitempty"`
@@ -70,10 +70,6 @@ func (m *DistroXV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCluster(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateEnvironment(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -149,24 +145,6 @@ func (m *DistroXV1Request) validateCluster(formats strfmt.Registry) error {
 		if err := m.Cluster.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cluster")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *DistroXV1Request) validateEnvironment(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Environment) { // not required
-		return nil
-	}
-
-	if m.Environment != nil {
-		if err := m.Environment.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("environment")
 			}
 			return err
 		}

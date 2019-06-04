@@ -71,7 +71,7 @@ func createProxy(proxyClient proxyClient, name, host string, port int32, protoco
 	}
 	proxy = resp.Payload
 
-	log.Infof("[createProxy] proxy created with name: %s, CRN: %s", name, proxy.ID)
+	log.Infof("[createProxy] proxy created with name: %s, CRN: %s", name, proxy.Crn)
 	return nil
 }
 
@@ -97,7 +97,7 @@ func listProxiesImpl(proxyClient proxyClient, writer func([]string, []utils.Row)
 			Host:     *p.Host,
 			Port:     strconv.Itoa(int(*p.Port)),
 			Protocol: *p.Protocol,
-			Crn:      p.ID,
+			Crn:      p.Crn,
 		}
 		tableRows = append(tableRows, row)
 	}
