@@ -16,7 +16,7 @@ import (
 	v1env "github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
 )
 
-var EnvironmentHeader = []string{"Name", "Description", "CloudPlatform", "Status", "Credential", "Regions", "LocationName", "Longitude", "Latitude"}
+var EnvironmentHeader = []string{"Name", "Description", "CloudPlatform", "Status", "Credential", "Regions", "LocationName", "Longitude", "Latitude", "Crn"}
 
 type environment struct {
 	Name          string   `json:"Name" yaml:"Name"`
@@ -28,17 +28,16 @@ type environment struct {
 	LocationName  string   `json:"LocationName" yaml:"LocationName"`
 	Longitude     float64  `json:"Longitude" yaml:"Longitude"`
 	Latitude      float64  `json:"Latitude" yaml:"Latitude"`
+	Crn           string   `json:"Crn" yaml:"Crn"`
 }
 
 type environmentOutTableDescribe struct {
 	*environment
-	ID string `json:"ID" yaml:"ID"`
 }
 
 type environmentOutJsonDescribe struct {
 	*environment
 	ProxyConfigs []string                           `json:"ProxyConfigs" yaml:"ProxyConfigs"`
-	ID           string                             `json:"ID" yaml:"ID"`
 	Network      model.EnvironmentNetworkV1Response `json:"Network" yaml:"Network"`
 }
 
@@ -53,15 +52,15 @@ type environmentClient interface {
 }
 
 func (e *environment) DataAsStringArray() []string {
-	return []string{e.Name, e.Description, e.CloudPlatform, e.Status, e.Credential, strings.Join(e.Regions, ","), e.LocationName, utils.FloatToString(e.Longitude), utils.FloatToString(e.Latitude)}
+	return []string{e.Name, e.Description, e.CloudPlatform, e.Status, e.Credential, strings.Join(e.Regions, ","), e.LocationName, utils.FloatToString(e.Longitude), utils.FloatToString(e.Latitude), e.Crn}
 }
 
 func (e *environmentOutJsonDescribe) DataAsStringArray() []string {
-	return append(e.environment.DataAsStringArray(), e.ID)
+	return append(e.environment.DataAsStringArray())
 }
 
 func (e *environmentOutTableDescribe) DataAsStringArray() []string {
-	return append(e.environment.DataAsStringArray(), e.ID)
+	return append(e.environment.DataAsStringArray())
 }
 
 func CreateEnvironment(c *cli.Context) {
@@ -206,6 +205,7 @@ func listEnvironmentsImpl(envClient environmentClient, output utils.Output) erro
 			LocationName:  e.Location.Name,
 			Longitude:     e.Location.Longitude,
 			Latitude:      e.Location.Latitude,
+			Crn:           e.ID,
 		}
 
 		if output.Format != "table" && output.Format != "yaml" && e.Network != nil {
@@ -242,9 +242,9 @@ func DescribeEnvironment(c *cli.Context) {
 	fmt.Printf("%+v\n", env)
 	fmt.Printf("%+v\n", env.Regions.DisplayNames)
 	if output.Format != "table" && output.Format != "yaml" {
-		output.Write(append(EnvironmentHeader, "ID", "Network"), convertResponseToJsonOutput(env))
+		output.Write(append(EnvironmentHeader,  "Network"), convertResponseToJsonOutput(env))
 	} else {
-		output.Write(append(EnvironmentHeader, "ID"), convertResponseToTableOutput(env))
+		output.Write(append(EnvironmentHeader), convertResponseToTableOutput(env))
 	}
 }
 
@@ -318,8 +318,8 @@ func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response) *env
 			LocationName:  env.Location.Name,
 			Longitude:     env.Location.Longitude,
 			Latitude:      env.Location.Latitude,
+			Crn:           env.ID,
 		},
-		ID: env.ID,
 	}
 }
 
@@ -335,8 +335,8 @@ func convertResponseToJsonOutput(env *model.DetailedEnvironmentV1Response) *envi
 			LocationName:  env.Location.Name,
 			Longitude:     env.Location.Longitude,
 			Latitude:      env.Location.Latitude,
+			Crn:           env.ID,
 		},
-		ID: env.ID,
 	}
 	if env.Network != nil {
 		result.Network = *env.Network
