@@ -393,35 +393,3 @@ func getRegionNames(region *model.CompactRegionV4Response) []string {
 	}
 	return regions
 }
-
-func getLdapConfigNames(configs []*model.LdapV4Response) []string {
-	var names []string
-	for _, l := range configs {
-		names = append(names, *l.Name)
-	}
-	return names
-}
-
-func getProxyConfigNames(configs []*model.ProxyV4Response) []string {
-	var names []string
-	for _, c := range configs {
-		names = append(names, *c.Name)
-	}
-	return names
-}
-
-func getRdsConfigNames(configs []*model.DatabaseV4Response) []string {
-	var names []string
-	for _, c := range configs {
-		names = append(names, *c.Name)
-	}
-	return names
-}
-
-func getKerberosConfigs(configs []*model.KerberosV4Response) []string {
-	var names []string
-	for _, c := range configs {
-		names = append(names, c.Name)
-	}
-	return names
-}
