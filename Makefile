@@ -39,6 +39,14 @@ ifeq ($(REDBEAMS_PORT),)
         REDBEAMS_PORT = 8087
 endif
 
+ifeq ($(REDBEAMS_IP),)
+        REDBEAMS_IP = localhost
+endif
+REDBEAMS_PORT = $(shell echo \${PORT})
+ifeq ($(REDBEAMS_PORT),)
+        REDBEAMS_PORT = 8087
+endif
+
 deps: deps-errcheck
 	go get -u golang.org/x/tools/cmd/goimports
 	curl -o $(GOPATH)/bin/swagger -L'#' https://github.com/go-swagger/go-swagger/releases/download/v0.19.0/swagger_$(shell echo `uname`|tr '[:upper:]' '[:lower:]')_amd64
