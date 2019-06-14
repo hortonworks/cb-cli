@@ -992,6 +992,13 @@ var (
 			Usage: "ldap config name",
 		},
 	}
+	FlEnvironmentCrn = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "env-crn",
+			Usage: "crn of an environment",
+		},
+	}
 	FlEnvironmentName = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{

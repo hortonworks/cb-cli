@@ -3,6 +3,7 @@ package oauth
 import (
 	"github.com/go-openapi/strfmt"
 	freeipaclient "github.com/hortonworks/cb-cli/dataplane/api-freeipa/client"
+	redbeamsclient "github.com/hortonworks/cb-cli/dataplane/api-redbeams/client"
 	sdxclient "github.com/hortonworks/cb-cli/dataplane/api-sdx/client"
 	apiclient "github.com/hortonworks/cb-cli/dataplane/api/client"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
@@ -26,6 +27,9 @@ type Sdx struct {
 }
 type FreeIpa struct {
 	FreeIpa *freeipaclient.FreeIPA
+}
+type Redbeams struct {
+	Redbeams *redbeamsclient.Redbeams
 }
 
 func NewCloudbreakHTTPClientFromContext(c *cli.Context) *Cloudbreak {
