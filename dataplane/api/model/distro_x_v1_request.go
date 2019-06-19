@@ -6,6 +6,7 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"strconv"
 
 	strfmt "github.com/go-openapi/strfmt"
@@ -22,11 +23,15 @@ type DistroXV1Request struct {
 	// authentication
 	Authentication *DistroXAuthenticationV1Request `json:"authentication,omitempty"`
 
-	// aws
+	// aws specific parameters for stack
 	Aws AwsDistroXV1Parameters `json:"aws,omitempty"`
 
-	// azure
+	// azure specific parameters for stack
 	Azure *AzureDistroXV1Parameters `json:"azure,omitempty"`
+
+	// cloud platform
+	// Enum: [AWS GCP AZURE OPENSTACK CUMULUS_YARN YARN MOCK]
+	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
 	// cluster
 	Cluster *DistroXClusterV1Request `json:"cluster,omitempty"`
@@ -44,7 +49,7 @@ type DistroXV1Request struct {
 	// Unique: true
 	InstanceGroups []*InstanceGroupV1Request `json:"instanceGroups"`
 
-	// name
+	// name of the stack
 	// Required: true
 	// Max Length: 40
 	// Min Length: 5
@@ -62,6 +67,12 @@ type DistroXV1Request struct {
 
 	// telemetry
 	Telemetry *TelemetryV1Request `json:"telemetry,omitempty"`
+
+	// time to live
+	TimeToLive int64 `json:"timeToLive,omitempty"`
+
+	// yarn
+	Yarn *YarnDistroXV1Parameters `json:"yarn,omitempty"`
 }
 
 // Validate validates this distro x v1 request
@@ -73,6 +84,10 @@ func (m *DistroXV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCloudPlatform(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -105,6 +120,10 @@ func (m *DistroXV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTelemetry(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateYarn(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -145,6 +164,64 @@ func (m *DistroXV1Request) validateAzure(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var distroXV1RequestTypeCloudPlatformPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","CUMULUS_YARN","YARN","MOCK"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		distroXV1RequestTypeCloudPlatformPropEnum = append(distroXV1RequestTypeCloudPlatformPropEnum, v)
+	}
+}
+
+const (
+
+	// DistroXV1RequestCloudPlatformAWS captures enum value "AWS"
+	DistroXV1RequestCloudPlatformAWS string = "AWS"
+
+	// DistroXV1RequestCloudPlatformGCP captures enum value "GCP"
+	DistroXV1RequestCloudPlatformGCP string = "GCP"
+
+	// DistroXV1RequestCloudPlatformAZURE captures enum value "AZURE"
+	DistroXV1RequestCloudPlatformAZURE string = "AZURE"
+
+	// DistroXV1RequestCloudPlatformOPENSTACK captures enum value "OPENSTACK"
+	DistroXV1RequestCloudPlatformOPENSTACK string = "OPENSTACK"
+
+	// DistroXV1RequestCloudPlatformCUMULUSYARN captures enum value "CUMULUS_YARN"
+	DistroXV1RequestCloudPlatformCUMULUSYARN string = "CUMULUS_YARN"
+
+	// DistroXV1RequestCloudPlatformYARN captures enum value "YARN"
+	DistroXV1RequestCloudPlatformYARN string = "YARN"
+
+	// DistroXV1RequestCloudPlatformMOCK captures enum value "MOCK"
+	DistroXV1RequestCloudPlatformMOCK string = "MOCK"
+)
+
+// prop value enum
+func (m *DistroXV1Request) validateCloudPlatformEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, distroXV1RequestTypeCloudPlatformPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DistroXV1Request) validateCloudPlatform(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CloudPlatform) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCloudPlatformEnum("cloudPlatform", "body", m.CloudPlatform); err != nil {
+		return err
 	}
 
 	return nil
@@ -300,6 +377,24 @@ func (m *DistroXV1Request) validateTelemetry(formats strfmt.Registry) error {
 		if err := m.Telemetry.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("telemetry")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DistroXV1Request) validateYarn(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Yarn) { // not required
+		return nil
+	}
+
+	if m.Yarn != nil {
+		if err := m.Yarn.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("yarn")
 			}
 			return err
 		}
