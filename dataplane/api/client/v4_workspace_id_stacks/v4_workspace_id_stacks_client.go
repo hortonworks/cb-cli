@@ -147,17 +147,17 @@ func (a *Client) DeleteWithKerberos(params *DeleteWithKerberosParams) error {
 /*
 GetClusterHostsInventory generates hosts inventory
 */
-func (a *Client) GetClusterHostsInventory(params *GetClusterHostsInventoryParams) error {
+func (a *Client) GetClusterHostsInventory(params *GetClusterHostsInventoryParams) (*GetClusterHostsInventoryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetClusterHostsInventoryParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getClusterHostsInventory",
 		Method:             "GET",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/inventory",
-		ProducesMediaTypes: []string{"application/octet-stream"},
+		ProducesMediaTypes: []string{"text/plain"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
@@ -166,9 +166,9 @@ func (a *Client) GetClusterHostsInventory(params *GetClusterHostsInventoryParams
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*GetClusterHostsInventoryOK), nil
 
 }
 
@@ -233,7 +233,7 @@ func (a *Client) GetStackRequestFromNameV4(params *GetStackRequestFromNameV4Para
 }
 
 /*
-ListStackInWorkspaceV4 lists stacks for the given workspace
+ListStackInWorkspaceV4 lists stacks for the given workspace and environment name
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
