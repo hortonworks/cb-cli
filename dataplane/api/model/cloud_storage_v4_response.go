@@ -20,13 +20,13 @@ import (
 type CloudStorageV4Response struct {
 
 	// adls
-	Adls *AdlsCloudStorageV4Parameters `json:"adls,omitempty"`
+	Adls *AdlsCloudStorageParameters `json:"adls,omitempty"`
 
 	// adls gen2
-	AdlsGen2 *AdlsGen2CloudStorageV4Parameters `json:"adlsGen2,omitempty"`
+	AdlsGen2 *AdlsGen2CloudStorageParameters `json:"adlsGen2,omitempty"`
 
 	// gcs
-	Gcs *GcsCloudStorageV4Parameters `json:"gcs,omitempty"`
+	Gcs *GcsCloudStorageParameters `json:"gcs,omitempty"`
 
 	// id of the resource
 	// Required: true
@@ -41,14 +41,14 @@ type CloudStorageV4Response struct {
 	Name *string `json:"name"`
 
 	// s3
-	S3 *S3CloudStorageV4Parameters `json:"s3,omitempty"`
+	S3 *S3CloudStorageParameters `json:"s3,omitempty"`
 
 	// type of the filesystem
 	// Required: true
 	Type *string `json:"type"`
 
 	// wasb
-	Wasb *WasbCloudStorageV4Parameters `json:"wasb,omitempty"`
+	Wasb *WasbCloudStorageParameters `json:"wasb,omitempty"`
 }
 
 // Validate validates this cloud storage v4 response

@@ -20,23 +20,23 @@ import (
 type CloudStorageV4Request struct {
 
 	// adls
-	Adls *AdlsCloudStorageV4Parameters `json:"adls,omitempty"`
+	Adls *AdlsCloudStorageParameters `json:"adls,omitempty"`
 
 	// adls gen2
-	AdlsGen2 *AdlsGen2CloudStorageV4Parameters `json:"adlsGen2,omitempty"`
+	AdlsGen2 *AdlsGen2CloudStorageParameters `json:"adlsGen2,omitempty"`
 
 	// gcs
-	Gcs *GcsCloudStorageV4Parameters `json:"gcs,omitempty"`
+	Gcs *GcsCloudStorageParameters `json:"gcs,omitempty"`
 
 	// cloud storage locations
 	// Unique: true
 	Locations []*StorageLocationV4Request `json:"locations"`
 
 	// s3
-	S3 *S3CloudStorageV4Parameters `json:"s3,omitempty"`
+	S3 *S3CloudStorageParameters `json:"s3,omitempty"`
 
 	// wasb
-	Wasb *WasbCloudStorageV4Parameters `json:"wasb,omitempty"`
+	Wasb *WasbCloudStorageParameters `json:"wasb,omitempty"`
 }
 
 // Validate validates this cloud storage v4 request

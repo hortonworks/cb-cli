@@ -357,7 +357,7 @@ func extendTemplateWithEncryptionType(template *model.StackV4Request, boolFinder
 func extendTemplateWithStorageType(template *model.StackV4Request, storageType cloud.CloudStorageType) {
 	if storageType == cloud.WASB {
 		template.Cluster.CloudStorage = &model.CloudStorageV4Request{
-			Wasb: &model.WasbCloudStorageV4Parameters{
+			Wasb: &model.WasbCloudStorageParameters{
 				AccountKey:  &(&types.S{S: "____"}).S,
 				AccountName: &(&types.S{S: "____"}).S,
 				Secure:      false,
@@ -366,7 +366,7 @@ func extendTemplateWithStorageType(template *model.StackV4Request, storageType c
 		}
 	} else if storageType == cloud.ADLS_GEN1 {
 		template.Cluster.CloudStorage = &model.CloudStorageV4Request{
-			Adls: &model.AdlsCloudStorageV4Parameters{
+			Adls: &model.AdlsCloudStorageParameters{
 				AccountName: &(&types.S{S: "____"}).S,
 				ClientID:    &(&types.S{S: "____"}).S,
 				Credential:  &(&types.S{S: "____"}).S,
@@ -375,21 +375,21 @@ func extendTemplateWithStorageType(template *model.StackV4Request, storageType c
 		}
 	} else if storageType == cloud.S3 {
 		template.Cluster.CloudStorage = &model.CloudStorageV4Request{
-			S3: &model.S3CloudStorageV4Parameters{
+			S3: &model.S3CloudStorageParameters{
 				InstanceProfile: &(&types.S{S: "____"}).S,
 			},
 			Locations: []*model.StorageLocationV4Request{},
 		}
 	} else if storageType == cloud.GCS {
 		template.Cluster.CloudStorage = &model.CloudStorageV4Request{
-			Gcs: &model.GcsCloudStorageV4Parameters{
+			Gcs: &model.GcsCloudStorageParameters{
 				ServiceAccountEmail: &(&types.S{S: "____"}).S,
 			},
 			Locations: []*model.StorageLocationV4Request{},
 		}
 	} else if storageType == cloud.ADLS_GEN2 {
 		template.Cluster.CloudStorage = &model.CloudStorageV4Request{
-			AdlsGen2: &model.AdlsGen2CloudStorageV4Parameters{
+			AdlsGen2: &model.AdlsGen2CloudStorageParameters{
 				AccountKey:  &(&types.S{S: "____"}).S,
 				AccountName: &(&types.S{S: "____"}).S,
 			},
