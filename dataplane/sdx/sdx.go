@@ -133,7 +133,7 @@ func setupExternalDbIfNeeded(withExternalDatabase bool, withoutExternalDatabase 
 }
 
 func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile string, cloudStorageRequest *sdxModel.SdxClusterRequest) {
-	if len(cloudStorageBaseLocation) > 0 {
+	if len(cloudStorageBaseLocation) > 0 && len(instanceProfile) > 0 {
 		s3CloudStorage := &sdxModel.S3CloudStorageV1Parameters{
 			InstanceProfile: &instanceProfile,
 		}
