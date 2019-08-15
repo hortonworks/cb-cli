@@ -6,10 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // TelemetryRequest telemetry request
@@ -20,7 +23,8 @@ type TelemetryRequest struct {
 	Logging *LoggingRequest `json:"logging,omitempty"`
 
 	// enable cluster deployment log reporting.
-	ReportDeploymentLogs bool `json:"reportDeploymentLogs,omitempty"`
+	// Enum: [ENABLED DISABLED]
+	ReportDeploymentLogs string `json:"reportDeploymentLogs,omitempty"`
 
 	// Workload analytics (telemetry) settings.
 	WorkloadAnalytics *WorkloadAnalyticsRequest `json:"workloadAnalytics,omitempty"`
@@ -31,6 +35,10 @@ func (m *TelemetryRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateLogging(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReportDeploymentLogs(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -57,6 +65,49 @@ func (m *TelemetryRequest) validateLogging(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var telemetryRequestTypeReportDeploymentLogsPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		telemetryRequestTypeReportDeploymentLogsPropEnum = append(telemetryRequestTypeReportDeploymentLogsPropEnum, v)
+	}
+}
+
+const (
+
+	// TelemetryRequestReportDeploymentLogsENABLED captures enum value "ENABLED"
+	TelemetryRequestReportDeploymentLogsENABLED string = "ENABLED"
+
+	// TelemetryRequestReportDeploymentLogsDISABLED captures enum value "DISABLED"
+	TelemetryRequestReportDeploymentLogsDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *TelemetryRequest) validateReportDeploymentLogsEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, telemetryRequestTypeReportDeploymentLogsPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *TelemetryRequest) validateReportDeploymentLogs(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ReportDeploymentLogs) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateReportDeploymentLogsEnum("reportDeploymentLogs", "body", m.ReportDeploymentLogs); err != nil {
+		return err
 	}
 
 	return nil

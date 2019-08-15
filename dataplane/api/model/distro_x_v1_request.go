@@ -48,9 +48,6 @@ type DistroXV1Request struct {
 
 	// name of the stack
 	// Required: true
-	// Max Length: 40
-	// Min Length: 5
-	// Pattern: (^[a-z][-a-z0-9]*[a-z0-9]$)
 	Name *string `json:"name"`
 
 	// network
@@ -66,7 +63,8 @@ type DistroXV1Request struct {
 	TimeToLive int64 `json:"timeToLive,omitempty"`
 
 	// enable workload analytics for the cluser
-	WorkloadAnalytics bool `json:"workloadAnalytics,omitempty"`
+	// Enum: [ENABLED DISABLED]
+	WorkloadAnalytics string `json:"workloadAnalytics,omitempty"`
 
 	// yarn
 	Yarn *YarnDistroXV1Parameters `json:"yarn,omitempty"`
@@ -109,6 +107,10 @@ func (m *DistroXV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTags(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkloadAnalytics(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -269,18 +271,6 @@ func (m *DistroXV1Request) validateName(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MinLength("name", "body", string(*m.Name), 5); err != nil {
-		return err
-	}
-
-	if err := validate.MaxLength("name", "body", string(*m.Name), 40); err != nil {
-		return err
-	}
-
-	if err := validate.Pattern("name", "body", string(*m.Name), `(^[a-z][-a-z0-9]*[a-z0-9]$)`); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -333,6 +323,49 @@ func (m *DistroXV1Request) validateTags(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var distroXV1RequestTypeWorkloadAnalyticsPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		distroXV1RequestTypeWorkloadAnalyticsPropEnum = append(distroXV1RequestTypeWorkloadAnalyticsPropEnum, v)
+	}
+}
+
+const (
+
+	// DistroXV1RequestWorkloadAnalyticsENABLED captures enum value "ENABLED"
+	DistroXV1RequestWorkloadAnalyticsENABLED string = "ENABLED"
+
+	// DistroXV1RequestWorkloadAnalyticsDISABLED captures enum value "DISABLED"
+	DistroXV1RequestWorkloadAnalyticsDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *DistroXV1Request) validateWorkloadAnalyticsEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, distroXV1RequestTypeWorkloadAnalyticsPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DistroXV1Request) validateWorkloadAnalytics(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.WorkloadAnalytics) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateWorkloadAnalyticsEnum("workloadAnalytics", "body", m.WorkloadAnalytics); err != nil {
+		return err
 	}
 
 	return nil
