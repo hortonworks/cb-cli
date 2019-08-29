@@ -4,6 +4,7 @@ LABEL maintainer=Hortonworks
 COPY . /go/src/github.com/hortonworks/cb-cli
 WORKDIR /go/src/github.com/hortonworks/cb-cli
 
+
 ENV GO111MODULE on
 
 RUN make build-linux
