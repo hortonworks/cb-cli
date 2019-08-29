@@ -6,6 +6,7 @@ WORKDIR /go/src/github.com/hortonworks/cb-cli
 
 ENV GO111MODULE on
 
+
 RUN make build-linux
 
 FROM alpine
