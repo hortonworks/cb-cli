@@ -90,7 +90,7 @@ var instanceMetaDataTypeInstanceStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","FAILED","STOPPED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","FAILED","STOPPED","ORCHESTRATION_FAILED","DECOMMISSION_FAILED"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -117,6 +117,10 @@ const (
 	InstanceMetaDataInstanceStatusFAILED string = "FAILED"
 	// InstanceMetaDataInstanceStatusSTOPPED captures enum value "STOPPED"
 	InstanceMetaDataInstanceStatusSTOPPED string = "STOPPED"
+	// InstanceMetaDataInstanceStatusORCHESTRATIONFAILED captures enum value "ORCHESTRATION_FAILED"
+	InstanceMetaDataInstanceStatusORCHESTRATIONFAILED string = "ORCHESTRATION_FAILED"
+	// InstanceMetaDataInstanceStatusDECOMMISSIONFAILED captures enum value "DECOMMISSION_FAILED"
+	InstanceMetaDataInstanceStatusDECOMMISSIONFAILED string = "DECOMMISSION_FAILED"
 )
 
 // prop value enum

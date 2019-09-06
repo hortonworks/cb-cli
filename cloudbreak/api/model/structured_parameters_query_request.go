@@ -37,6 +37,9 @@ type StructuredParametersQueryRequest struct {
 	// Required: true
 	FileSystemType *string `json:"fileSystemType"`
 
+	// Connect with SSL connection
+	Secure *bool `json:"secure,omitempty"`
+
 	// Storage name of the path
 	// Required: true
 	StorageName *string `json:"storageName"`
@@ -51,6 +54,8 @@ type StructuredParametersQueryRequest struct {
 /* polymorph StructuredParametersQueryRequest clusterName false */
 
 /* polymorph StructuredParametersQueryRequest fileSystemType false */
+
+/* polymorph StructuredParametersQueryRequest secure false */
 
 /* polymorph StructuredParametersQueryRequest storageName false */
 

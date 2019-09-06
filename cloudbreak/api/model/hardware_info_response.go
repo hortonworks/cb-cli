@@ -214,7 +214,7 @@ var hardwareInfoResponseTypeInstanceStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","FAILED","STOPPED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","FAILED","STOPPED","ORCHESTRATION_FAILED","DECOMMISSION_FAILED"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -241,6 +241,10 @@ const (
 	HardwareInfoResponseInstanceStatusFAILED string = "FAILED"
 	// HardwareInfoResponseInstanceStatusSTOPPED captures enum value "STOPPED"
 	HardwareInfoResponseInstanceStatusSTOPPED string = "STOPPED"
+	// HardwareInfoResponseInstanceStatusORCHESTRATIONFAILED captures enum value "ORCHESTRATION_FAILED"
+	HardwareInfoResponseInstanceStatusORCHESTRATIONFAILED string = "ORCHESTRATION_FAILED"
+	// HardwareInfoResponseInstanceStatusDECOMMISSIONFAILED captures enum value "DECOMMISSION_FAILED"
+	HardwareInfoResponseInstanceStatusDECOMMISSIONFAILED string = "DECOMMISSION_FAILED"
 )
 
 // prop value enum

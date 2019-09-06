@@ -50,6 +50,9 @@ type StackViewResponse struct {
 
 	// status of the stack
 	Status string `json:"status,omitempty"`
+
+	// termination completion time of stack in long
+	Terminated int64 `json:"terminated,omitempty"`
 }
 
 /* polymorph StackViewResponse cloudPlatform false */
@@ -71,6 +74,8 @@ type StackViewResponse struct {
 /* polymorph StackViewResponse platformVariant false */
 
 /* polymorph StackViewResponse status false */
+
+/* polymorph StackViewResponse terminated false */
 
 // Validate validates this stack view response
 func (m *StackViewResponse) Validate(formats strfmt.Registry) error {
