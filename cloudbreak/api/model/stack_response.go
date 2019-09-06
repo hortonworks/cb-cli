@@ -43,9 +43,6 @@ type StackResponse struct {
 	// related events for a cloudbreak stack
 	CloudbreakEvents []*CloudbreakEvent `json:"cloudbreakEvents"`
 
-	// usage information for a specific stack
-	CloudbreakUsages []*CloudbreakUsage `json:"cloudbreakUsages"`
-
 	// cluster object on stack
 	Cluster *ClusterResponse `json:"cluster,omitempty"`
 
@@ -147,6 +144,9 @@ type StackResponse struct {
 	// status message of the stack
 	StatusReason string `json:"statusReason,omitempty"`
 
+	// termination completion time of stack in long
+	Terminated int64 `json:"terminated,omitempty"`
+
 	// stack related userdefined tags
 	UserDefinedTags map[string]string `json:"userDefinedTags,omitempty"`
 
@@ -167,8 +167,6 @@ type StackResponse struct {
 /* polymorph StackResponse cloudbreakDetails false */
 
 /* polymorph StackResponse cloudbreakEvents false */
-
-/* polymorph StackResponse cloudbreakUsages false */
 
 /* polymorph StackResponse cluster false */
 
@@ -234,6 +232,8 @@ type StackResponse struct {
 
 /* polymorph StackResponse statusReason false */
 
+/* polymorph StackResponse terminated false */
+
 /* polymorph StackResponse userDefinedTags false */
 
 /* polymorph StackResponse workspace false */
@@ -248,11 +248,6 @@ func (m *StackResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCloudbreakEvents(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateCloudbreakUsages(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -369,33 +364,6 @@ func (m *StackResponse) validateCloudbreakEvents(formats strfmt.Registry) error 
 			if err := m.CloudbreakEvents[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cloudbreakEvents" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *StackResponse) validateCloudbreakUsages(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.CloudbreakUsages) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.CloudbreakUsages); i++ {
-
-		if swag.IsZero(m.CloudbreakUsages[i]) { // not required
-			continue
-		}
-
-		if m.CloudbreakUsages[i] != nil {
-
-			if err := m.CloudbreakUsages[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("cloudbreakUsages" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

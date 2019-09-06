@@ -35,7 +35,6 @@ type SecurityRuleResponse struct {
 
 	// definition of allowed subnet in CIDR format
 	// Required: true
-	// Pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
 	Subnet *string `json:"subnet"`
 }
 
@@ -99,10 +98,6 @@ func (m *SecurityRuleResponse) validateProtocol(formats strfmt.Registry) error {
 func (m *SecurityRuleResponse) validateSubnet(formats strfmt.Registry) error {
 
 	if err := validate.Required("subnet", "body", m.Subnet); err != nil {
-		return err
-	}
-
-	if err := validate.Pattern("subnet", "body", string(*m.Subnet), `^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$`); err != nil {
 		return err
 	}
 

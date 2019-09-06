@@ -74,6 +74,9 @@ type CloudbreakEvent struct {
 	// status of the stack
 	StackStatus string `json:"stackStatus,omitempty"`
 
+	// stack view
+	StackView *StackViewResponse `json:"stackView,omitempty"`
+
 	// User ID in the new authorization model
 	UserIDV3 string `json:"userIdV3,omitempty"`
 
@@ -117,6 +120,8 @@ type CloudbreakEvent struct {
 
 /* polymorph CloudbreakEvent stackStatus false */
 
+/* polymorph CloudbreakEvent stackView false */
+
 /* polymorph CloudbreakEvent userIdV3 false */
 
 /* polymorph CloudbreakEvent workspaceId false */
@@ -131,6 +136,11 @@ func (m *CloudbreakEvent) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateStackStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateStackView(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -294,6 +304,25 @@ func (m *CloudbreakEvent) validateStackStatus(formats strfmt.Registry) error {
 	// value enum
 	if err := m.validateStackStatusEnum("stackStatus", "body", m.StackStatus); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *CloudbreakEvent) validateStackView(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.StackView) { // not required
+		return nil
+	}
+
+	if m.StackView != nil {
+
+		if err := m.StackView.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("stackView")
+			}
+			return err
+		}
 	}
 
 	return nil

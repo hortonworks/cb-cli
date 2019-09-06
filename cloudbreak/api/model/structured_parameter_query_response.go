@@ -37,6 +37,9 @@ type StructuredParameterQueryResponse struct {
 
 	// related service
 	RelatedService string `json:"relatedService,omitempty"`
+
+	// secure
+	Secure *bool `json:"secure,omitempty"`
 }
 
 /* polymorph StructuredParameterQueryResponse defaultPath false */
@@ -52,6 +55,8 @@ type StructuredParameterQueryResponse struct {
 /* polymorph StructuredParameterQueryResponse protocol false */
 
 /* polymorph StructuredParameterQueryResponse relatedService false */
+
+/* polymorph StructuredParameterQueryResponse secure false */
 
 // Validate validates this structured parameter query response
 func (m *StructuredParameterQueryResponse) Validate(formats strfmt.Registry) error {

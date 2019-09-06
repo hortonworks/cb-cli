@@ -22,6 +22,9 @@ type CredentialViewResponse struct {
 	// Required: true
 	CloudPlatform *string `json:"cloudPlatform"`
 
+	// Flag indicating if the credential type is AWS Gov Cloud
+	GovCloud *bool `json:"govCloud,omitempty"`
+
 	// name of the resource
 	// Required: true
 	// Max Length: 100
@@ -31,6 +34,8 @@ type CredentialViewResponse struct {
 }
 
 /* polymorph CredentialViewResponse cloudPlatform false */
+
+/* polymorph CredentialViewResponse govCloud false */
 
 /* polymorph CredentialViewResponse name false */
 

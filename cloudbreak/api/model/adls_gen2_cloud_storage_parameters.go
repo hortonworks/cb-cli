@@ -25,11 +25,16 @@ type AdlsGen2CloudStorageParameters struct {
 	// account name
 	// Required: true
 	AccountName *string `json:"accountName"`
+
+	// secure
+	Secure *bool `json:"secure,omitempty"`
 }
 
 /* polymorph AdlsGen2CloudStorageParameters accountKey false */
 
 /* polymorph AdlsGen2CloudStorageParameters accountName false */
+
+/* polymorph AdlsGen2CloudStorageParameters secure false */
 
 // Validate validates this adls gen2 cloud storage parameters
 func (m *AdlsGen2CloudStorageParameters) Validate(formats strfmt.Registry) error {
