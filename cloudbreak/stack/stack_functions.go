@@ -1,15 +1,17 @@
 package stack
 
 import (
-	"github.com/hortonworks/cb-cli/cloudbreak/oauth"
 	"strings"
 	"time"
+
+	"github.com/hortonworks/cb-cli/cloudbreak/oauth"
+
+	"net/http"
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/hortonworks/cb-cli/cloudbreak/api/client/v3_workspace_id_stacks"
 	"github.com/hortonworks/cb-cli/cloudbreak/api/model"
 	"github.com/hortonworks/cb-cli/utils"
-	"net/http"
 )
 
 type status string
@@ -108,6 +110,16 @@ func (c *CloudbreakStack) deleteStack(workspaceID int64, name string, forced boo
 
 	log.Infof("[deleteStack] deleting stack, name: %s", name)
 	err := c.Cloudbreak.V3WorkspaceIDStacks.DeleteStackInWorkspace(v3_workspace_id_stacks.NewDeleteStackInWorkspaceParams().WithWorkspaceID(workspaceID).WithName(name).WithForced(&forced))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+}
+
+func (c *CloudbreakStack) deleteInstances(workspaceID int64, name string, ids []string, forced bool) {
+	defer utils.TimeTrack(time.Now(), "delete instances by id")
+
+	log.Infof("[deleteInstances] deleting instances, ids: %q from stack: %s", ids, name)
+	err := c.Cloudbreak.V3WorkspaceIDStacks.DeleteMultipleInstancesStackV3(v3_workspace_id_stacks.NewDeleteMultipleInstancesStackV3Params().WithWorkspaceID(workspaceID).WithName(name).WithID(ids).WithForced(&forced))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}

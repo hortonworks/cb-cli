@@ -316,6 +316,24 @@ func init() {
 				},
 			},
 			{
+				Name:  "instance",
+				Usage: "instance related operations",
+				Subcommands: []cli.Command{
+					{
+						Name:   "delete",
+						Usage:  "delete multiple instances",
+						Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddFlags(fl.FlClusterName, fl.FlInstanceIdList, fl.FlForceOptional, fl.FlWaitOptional).Build(),
+						Before: cf.CheckConfigAndCommandFlags,
+						Action: stack.DeleteMultiInstances,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddFlags(fl.FlClusterName, fl.FlInstanceIdList, fl.FlForceOptional, fl.FlWaitOptional).Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
+			{
 				Name:   "list",
 				Usage:  "lists the running clusters",
 				Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build(),

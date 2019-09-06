@@ -905,6 +905,20 @@ var (
 			Usage: "repository GPG url",
 		},
 	}
+	FlInstanceIdList = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "id-list",
+			Usage: "comma separated list of instance-ids",
+		},
+	}
+	FlClusterName = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "cluster-name",
+			Usage: "name of the cluster",
+		},
+	}
 )
 
 type RequiredFlag struct {
