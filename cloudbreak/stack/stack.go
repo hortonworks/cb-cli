@@ -3,12 +3,13 @@ package stack
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/hortonworks/cb-cli/cloudbreak/common"
-	"github.com/hortonworks/cb-cli/cloudbreak/oauth"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/hortonworks/cb-cli/cloudbreak/common"
+	"github.com/hortonworks/cb-cli/cloudbreak/oauth"
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/hortonworks/cb-cli/cloudbreak/api/client/v3_workspace_id_stacks"
@@ -338,6 +339,23 @@ func assembleReinstallRequest(c *cli.Context) *model.ReinstallRequestV2 {
 	req.KerberosPrincipal = c.String(fl.FlKerberosPrincipalOptional.Name)
 
 	return &req
+}
+
+func DeleteMultiInstances(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "delete multiple instances")
+
+	cbClient := CloudbreakStack(*oauth.NewCloudbreakHTTPClientFromContext(c))
+	name := c.String(fl.FlClusterName.Name)
+	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
+	instanceIds := c.String(fl.FlInstanceIdList.Name)
+	instanceList := strings.Split(instanceIds, ",")
+
+	cbClient.deleteInstances(workspaceID, name, instanceList, c.Bool(fl.FlForceOptional.Name))
+	log.Infof("[DeleteMultiInstances] instances deleted, ids: %s from stack: %s", instanceIds, name)
+
+	if c.Bool(fl.FlWaitOptional.Name) {
+		cbClient.waitForOperationToFinish(workspaceID, name, AVAILABLE, AVAILABLE)
+	}
 }
 
 func DeleteStack(c *cli.Context) {
