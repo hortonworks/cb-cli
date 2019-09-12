@@ -83,6 +83,9 @@ type ClusterV4Response struct {
 	// proxy config name
 	ProxyConfigName string `json:"proxyConfigName,omitempty"`
 
+	// FQDN of the gateway node for the stack
+	ServerFqdn string `json:"serverFqdn,omitempty"`
+
 	// public ambari ip of the stack
 	ServerIP string `json:"serverIp,omitempty"`
 
