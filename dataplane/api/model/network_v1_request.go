@@ -21,6 +21,9 @@ type NetworkV1Request struct {
 
 	// provider specific parameters of the specified network
 	Azure *AzureNetworkV1Parameters `json:"azure,omitempty"`
+
+	// mock network parameters
+	Mock *MockNetworkV1Parameters `json:"mock,omitempty"`
 }
 
 // Validate validates this network v1 request
@@ -32,6 +35,10 @@ func (m *NetworkV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMock(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -69,6 +76,24 @@ func (m *NetworkV1Request) validateAzure(formats strfmt.Registry) error {
 		if err := m.Azure.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azure")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *NetworkV1Request) validateMock(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Mock) { // not required
+		return nil
+	}
+
+	if m.Mock != nil {
+		if err := m.Mock.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("mock")
 			}
 			return err
 		}

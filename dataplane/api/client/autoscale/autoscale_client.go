@@ -203,6 +203,36 @@ func (a *Client) GetStackForAutoscale(params *GetStackForAutoscaleParams) (*GetS
 }
 
 /*
+NodeStatusChangeReportClusterForAutoscale changeds nodes report
+
+Endpoint to report the new failed and healthy nodes in the given cluster. If recovery mode for the node's hostgroup is AUTO then autorecovery would be started. If recovery mode for the node's hostgroup is MANUAL, the nodes will be marked as unhealthy.
+*/
+func (a *Client) NodeStatusChangeReportClusterForAutoscale(params *NodeStatusChangeReportClusterForAutoscaleParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewNodeStatusChangeReportClusterForAutoscaleParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "nodeStatusChangeReportClusterForAutoscale",
+		Method:             "POST",
+		PathPattern:        "/autoscale/stack/crn/{crn}/cluster/changed_nodes_report",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &NodeStatusChangeReportClusterForAutoscaleReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 PutClusterForAutoscale updates stack by id
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
