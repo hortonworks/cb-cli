@@ -13,9 +13,12 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// EnvironmentNetworkOpenstackV1Params environment network openstack v1 params
-// swagger:model EnvironmentNetworkOpenstackV1Params
-type EnvironmentNetworkOpenstackV1Params struct {
+// EnvironmentNetworkMockV1Params environment network mock v1 params
+// swagger:model EnvironmentNetworkMockV1Params
+type EnvironmentNetworkMockV1Params struct {
+
+	// internet gateway Id
+	InternetGatewayID string `json:"internetGatewayId,omitempty"`
 
 	// Subnet ids of the specified networks
 	// Required: true
@@ -24,8 +27,8 @@ type EnvironmentNetworkOpenstackV1Params struct {
 	VpcID *string `json:"vpcId"`
 }
 
-// Validate validates this environment network openstack v1 params
-func (m *EnvironmentNetworkOpenstackV1Params) Validate(formats strfmt.Registry) error {
+// Validate validates this environment network mock v1 params
+func (m *EnvironmentNetworkMockV1Params) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateVpcID(formats); err != nil {
@@ -38,7 +41,7 @@ func (m *EnvironmentNetworkOpenstackV1Params) Validate(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *EnvironmentNetworkOpenstackV1Params) validateVpcID(formats strfmt.Registry) error {
+func (m *EnvironmentNetworkMockV1Params) validateVpcID(formats strfmt.Registry) error {
 
 	if err := validate.Required("vpcId", "body", m.VpcID); err != nil {
 		return err
@@ -56,7 +59,7 @@ func (m *EnvironmentNetworkOpenstackV1Params) validateVpcID(formats strfmt.Regis
 }
 
 // MarshalBinary interface implementation
-func (m *EnvironmentNetworkOpenstackV1Params) MarshalBinary() ([]byte, error) {
+func (m *EnvironmentNetworkMockV1Params) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -64,8 +67,8 @@ func (m *EnvironmentNetworkOpenstackV1Params) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *EnvironmentNetworkOpenstackV1Params) UnmarshalBinary(b []byte) error {
-	var res EnvironmentNetworkOpenstackV1Params
+func (m *EnvironmentNetworkMockV1Params) UnmarshalBinary(b []byte) error {
+	var res EnvironmentNetworkMockV1Params
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
