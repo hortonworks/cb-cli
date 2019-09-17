@@ -13,6 +13,9 @@ get-cbd() {
         curl -Ls s3.amazonaws.com/public-repo-1.hortonworks.com/HDP/cloudbreak/cloudbreak-deployer_snapshot_$(uname)_x86_64.tgz|tar -xz cbd
         echo "CBD has been found with version: $(./cbd --version)"
     fi
+
+    mkdir etc
+    echo "TEST_LICENSE" > etc/license.txt
 }
 
 mock-start-logs() {
