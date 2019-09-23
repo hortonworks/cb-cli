@@ -15,6 +15,9 @@ import (
 // swagger:model ClouderaManagerProductV4Request
 type ClouderaManagerProductV4Request struct {
 
+	// CSD (service descriptor) urls for the Cloudera manager product
+	Csd []string `json:"csd"`
+
 	// name of the Cloudera manager product
 	Name string `json:"name,omitempty"`
 
