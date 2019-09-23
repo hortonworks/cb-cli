@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -20,8 +21,11 @@ import (
 // NewDeleteSdxParams creates a new DeleteSdxParams object
 // with the default values initialized.
 func NewDeleteSdxParams() *DeleteSdxParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteSdxParams{
+		Forced: &forcedDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -30,8 +34,11 @@ func NewDeleteSdxParams() *DeleteSdxParams {
 // NewDeleteSdxParamsWithTimeout creates a new DeleteSdxParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteSdxParamsWithTimeout(timeout time.Duration) *DeleteSdxParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteSdxParams{
+		Forced: &forcedDefault,
 
 		timeout: timeout,
 	}
@@ -40,8 +47,11 @@ func NewDeleteSdxParamsWithTimeout(timeout time.Duration) *DeleteSdxParams {
 // NewDeleteSdxParamsWithContext creates a new DeleteSdxParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewDeleteSdxParamsWithContext(ctx context.Context) *DeleteSdxParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteSdxParams{
+		Forced: &forcedDefault,
 
 		Context: ctx,
 	}
@@ -50,8 +60,11 @@ func NewDeleteSdxParamsWithContext(ctx context.Context) *DeleteSdxParams {
 // NewDeleteSdxParamsWithHTTPClient creates a new DeleteSdxParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteSdxParamsWithHTTPClient(client *http.Client) *DeleteSdxParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteSdxParams{
+		Forced:     &forcedDefault,
 		HTTPClient: client,
 	}
 }
@@ -61,6 +74,8 @@ for the delete sdx operation typically these are written to a http.Request
 */
 type DeleteSdxParams struct {
 
+	/*Forced*/
+	Forced *bool
 	/*Name*/
 	Name string
 
@@ -102,6 +117,17 @@ func (o *DeleteSdxParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithForced adds the forced to the delete sdx params
+func (o *DeleteSdxParams) WithForced(forced *bool) *DeleteSdxParams {
+	o.SetForced(forced)
+	return o
+}
+
+// SetForced adds the forced to the delete sdx params
+func (o *DeleteSdxParams) SetForced(forced *bool) {
+	o.Forced = forced
+}
+
 // WithName adds the name to the delete sdx params
 func (o *DeleteSdxParams) WithName(name string) *DeleteSdxParams {
 	o.SetName(name)
@@ -120,6 +146,22 @@ func (o *DeleteSdxParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		return err
 	}
 	var res []error
+
+	if o.Forced != nil {
+
+		// query param forced
+		var qrForced bool
+		if o.Forced != nil {
+			qrForced = *o.Forced
+		}
+		qForced := swag.FormatBool(qrForced)
+		if qForced != "" {
+			if err := r.SetQueryParam("forced", qForced); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

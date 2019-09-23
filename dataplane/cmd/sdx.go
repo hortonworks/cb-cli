@@ -34,10 +34,10 @@ func init() {
 				Name:   "delete",
 				Usage:  "deletes an SDX cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlForceOptional).AddResourceDefaultFlags().AddAuthenticationFlags().Build(),
 				Action: sdx.DeleteSdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlForceOptional).AddResourceDefaultFlags().AddAuthenticationFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
