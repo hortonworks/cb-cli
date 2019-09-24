@@ -3,6 +3,7 @@ package redbeams
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/database_servers"
@@ -17,7 +18,7 @@ import (
 
 type ClientRedbeams oauth.Redbeams
 
-var serverListHeader = []string{"Name", "Description", "Crn", "EnvironmentCrn", "Status", "ResourceStatus", "DatabaseVendor", "Host", "Port"}
+var serverListHeader = []string{"Name", "Description", "Crn", "EnvironmentCrn", "Status", "ResourceStatus", "DatabaseVendor", "Host", "Port", "CreationDate"}
 
 type serverDetails struct {
 	Name           string `json:"Name" yaml:"Name"`
@@ -34,7 +35,7 @@ type serverDetails struct {
 }
 
 func (server *serverDetails) DataAsStringArray() []string {
-	return []string{server.Name, server.Description, server.CRN, server.EnvironmentCrn, server.Status, server.DatabaseVendor, server.Host, string(server.Port)}
+	return []string{server.Name, server.Description, server.CRN, server.EnvironmentCrn, server.Status, server.ResourceStatus, server.DatabaseVendor, server.Host, strconv.FormatInt(int64(server.Port), 10), strconv.FormatInt(server.CreationDate, 10)}
 }
 
 func NewDetailsFromResponse(r *model.DatabaseServerV4Response) *serverDetails {
@@ -227,28 +228,32 @@ func DeleteDatabaseServer(c *cli.Context) {
 	output.Write(serverListHeader, row)
 }
 
-var dbListHeader = []string{"Name", "Description", "Crn", "EnvironmentCrn", "DatabaseVendor", "ConnectionURL"}
+var dbListHeader = []string{"Name", "Type", "Description", "Crn", "EnvironmentCrn", "DatabaseVendor", "ConnectionURL", "ResourceStatus", "CreationDate"}
 
 type dbDetails struct {
 	Name           string `json:"Name" yaml:"Name"`
+	Type           string `json:"Type" yaml:"Type"`
 	Description    string `json:"Description" yaml:"Description"`
 	CRN            string `json:"CRN" yaml:"CRN"`
 	EnvironmentCrn string `json:"EnvironmentCrn" yaml:"EnvironmentCrn"`
 	DatabaseEngine string `json:"DatabaseEngine" yaml:"DatabaseEngine"`
 	ConnectionURL  string `json:"ConnectionURL" yaml:"ConnectionURL"`
+	ResourceStatus string `json:"ResourceStatus" yaml:"ResourceStatus"`
 	CreationDate   int64  `json:"CreationDate" yaml:"CreationDate"`
 }
 
 func (db *dbDetails) DataAsStringArray() []string {
-	return []string{db.Name, db.Description, db.CRN, db.EnvironmentCrn, db.DatabaseEngine, db.ConnectionURL, string(db.CreationDate)}
+	return []string{db.Name, db.Type, db.Description, db.CRN, db.EnvironmentCrn, db.DatabaseEngine, db.ConnectionURL, db.ResourceStatus, strconv.FormatInt(db.CreationDate, 10)}
 }
 
 func NewDetailsFromDbResponse(r *model.DatabaseV4Response) *dbDetails {
 	details := &dbDetails{
 		Name:           *r.Name,
+		Type:           *r.Type,
 		CRN:            r.Crn,
 		EnvironmentCrn: *r.EnvironmentCrn,
 		ConnectionURL:  *r.ConnectionURL,
+		ResourceStatus: r.ResourceStatus,
 		CreationDate:   r.CreationDate,
 	}
 
