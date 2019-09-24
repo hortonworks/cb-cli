@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -61,6 +63,10 @@ type DatabaseV4Response struct {
 	// Pattern: (^[a-z][-a-z0-9]*[a-z0-9]$)
 	Name *string `json:"name"`
 
+	// Ownership status of the database server
+	// Enum: [UNKNOWN SERVICE_MANAGED USER_MANAGED]
+	ResourceStatus string `json:"resourceStatus,omitempty"`
+
 	// Type of database, i.e., the service name that will use the database (HIVE, DRUID, SUPERSET, RANGER, ...)
 	// Required: true
 	// Max Length: 56
@@ -106,6 +112,10 @@ func (m *DatabaseV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateResourceStatus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -232,6 +242,52 @@ func (m *DatabaseV4Response) validateName(formats strfmt.Registry) error {
 	}
 
 	if err := validate.Pattern("name", "body", string(*m.Name), `(^[a-z][-a-z0-9]*[a-z0-9]$)`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var databaseV4ResponseTypeResourceStatusPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["UNKNOWN","SERVICE_MANAGED","USER_MANAGED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		databaseV4ResponseTypeResourceStatusPropEnum = append(databaseV4ResponseTypeResourceStatusPropEnum, v)
+	}
+}
+
+const (
+
+	// DatabaseV4ResponseResourceStatusUNKNOWN captures enum value "UNKNOWN"
+	DatabaseV4ResponseResourceStatusUNKNOWN string = "UNKNOWN"
+
+	// DatabaseV4ResponseResourceStatusSERVICEMANAGED captures enum value "SERVICE_MANAGED"
+	DatabaseV4ResponseResourceStatusSERVICEMANAGED string = "SERVICE_MANAGED"
+
+	// DatabaseV4ResponseResourceStatusUSERMANAGED captures enum value "USER_MANAGED"
+	DatabaseV4ResponseResourceStatusUSERMANAGED string = "USER_MANAGED"
+)
+
+// prop value enum
+func (m *DatabaseV4Response) validateResourceStatusEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, databaseV4ResponseTypeResourceStatusPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DatabaseV4Response) validateResourceStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ResourceStatus) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateResourceStatusEnum("resourceStatus", "body", m.ResourceStatus); err != nil {
 		return err
 	}
 
