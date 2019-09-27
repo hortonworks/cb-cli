@@ -1,0 +1,27 @@
+{
+  "responses": [
+    {
+      "name": "dbstck-mock-amazon-12345a6b7cd8e9012",
+      "host": "dbsvr-a12b3c4e-f5g6-78h9-iijk-lm0n1op23qr4.s5uvwxyzabcd.eu-west-1.rds.amazonaws.com",
+      "port": 5432,
+      "databaseVendor": "postgres",
+      "connectionDriver": "org.postgresql.Driver",
+      "environmentCrn": "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
+      "id": 1,
+      "crn": "crn:cdp:redbeams:us-west-1:hortonworks:databaseServer:1abc234d-ee55-6f78-gh9i-01234jklm56n",
+      "databaseVendorDisplayName": "PostgreSQL",
+      "connectionUserName": {
+        "enginePath": "secret",
+        "secretPath": "redbeams/shared/databaseserverconfig/connectionusername/7903e0aa-2ca9-4ed0-a9ef-26012518467c-16d727a65ff"
+      },
+      "connectionPassword": {
+        "enginePath": "secret",
+        "secretPath": "redbeams/shared/databaseserverconfig/connectionpassword/8a7ca233-581f-4ed3-8723-481d9f7b9470-16d726d8bfa"
+      },
+      "creationDate": 1569582844884,
+      "resourceStatus": "SERVICE_MANAGED",
+      "status": "AVAILABLE",
+      "statusReason": ""
+    }
+  ]
+}

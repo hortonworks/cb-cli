@@ -6,27 +6,35 @@ class MockHelper
     @@cb_base_url = ENV['CB_BASE_URL']
     @@dl_base_url = ENV['DL_BASE_URL']
     @@env_base_url = ENV['ENV_BASE_URL']
+    @@beams_base_url = ENV['BEAMS_BASE_URL']
     @@cb_base = "cb"
     @@env_base = "environmentservice"
     @@dl_base = "dl"
+    @@beams_base = "redbeams"
     @@cb_api_base = "#{@@cb_base}/api"
     @@dl_api_base = "#{@@dl_base}/api"
     @@env_api_base = "#{@@env_base}/api"
+    @@beams_api_base = "#{@@beams_base}/api"
     @@cb_endpoint = "#{@@cb_base_url}/#{@@cb_api_base}"
     @@dl_endpoint = "#{@@dl_base_url}/#{@@dl_api_base}"
     @@env_endpoint = "#{@@env_base_url}/#{@@env_api_base}"
+    @@beams_endpoint = "#{@@beams_base_url}/#{@@beams_api_base}"
     @@reset_cb_trace_endpoint = "#{@@cb_endpoint}/resettrace"
     @@reset_dl_trace_endpoint = "#{@@dl_endpoint}/resettrace"
     @@reset_env_trace_endpoint = "#{@@env_endpoint}/resettrace"
+    @@reset_beams_trace_endpoint = "#{@@beams_endpoint}/resettrace"
     @@reset_cb_endpoint = "#{@@cb_endpoint}/reset"
     @@reset_dl_endpoint = "#{@@dl_endpoint}/reset"
     @@reset_env_endpoint = "#{@@env_endpoint}/reset"
+    @@reset_beams_endpoint = "#{@@beams_endpoint}/reset"
     @@setup_cb_endpoint = "#{@@cb_endpoint}/setup"
     @@setup_dl_endpoint = "#{@@dl_endpoint}/setup"
     @@setup_env_endpoint = "#{@@env_endpoint}/setup"
+    @@setup_beams_endpoint = "#{@@beams_endpoint}/setup"
     @@get_cb_trace_endpoint = "#{@@cb_endpoint}/trace"
     @@get_dl_trace_endpoint = "#{@@dl_endpoint}/trace"
     @@get_env_trace_endpoint = "#{@@env_endpoint}/trace"
+    @@get_beams_trace_endpoint = "#{@@beams_endpoint}/trace"
 
     def self.resetTrace(service)
         case service
@@ -51,6 +59,14 @@ class MockHelper
 
             RestClient::Request.execute(
                 :url => @@reset_env_trace_endpoint,
+                :method => :post,
+                :verify_ssl => false
+            )
+        when "beams"
+            puts "Reset REDBEAMS trace: #{@@reset_beams_trace_endpoint}"
+
+            RestClient::Request.execute(
+                :url => @@reset_beams_trace_endpoint,
                 :method => :post,
                 :verify_ssl => false
             )
@@ -85,6 +101,15 @@ class MockHelper
             resetTrace(service)
             RestClient::Request.execute(
                 :url => @@reset_env_endpoint,
+                :method => :post,
+                :verify_ssl => false
+            )
+        when "beams"
+            puts "Reset REDBEAMS endpoint: #{@@reset_beams_endpoint}"
+
+            resetTrace(service)
+            RestClient::Request.execute(
+                :url => @@reset_beams_endpoint,
                 :method => :post,
                 :verify_ssl => false
             )
@@ -123,6 +148,17 @@ class MockHelper
             response = RestClient::Request.execute(
                 :headers => {:accept => 'application/json', :content_type => 'application/json'},
                 :url => @@get_env_trace_endpoint,
+                :method => :get,
+                :verify_ssl => false
+            )
+
+            JSON.parse(response.body)
+        when "beams"
+            puts "Get REDBEAMS trace: #{@@get_beams_trace_endpoint}"
+
+            response = RestClient::Request.execute(
+                :headers => {:accept => 'application/json', :content_type => 'application/json'},
+                :url => @@get_beams_trace_endpoint,
                 :method => :get,
                 :verify_ssl => false
             )
@@ -176,6 +212,21 @@ class MockHelper
             RestClient::Request.execute(
                 :headers => {:accept => 'application/json', :content_type => 'application/json'},
                 :url => @@setup_env_endpoint,
+                :method => :post,
+                :payload => requestBody.to_json,
+                :verify_ssl => false
+            )
+        when "beams"
+            puts "Setup REDBEAMS endpoint: #{@@setup_beams_endpoint}"
+
+            requestBody = {
+                :operationid => operationId,
+                :responses => [{:response => response, :statusCode => statusCode}]
+            }
+
+            RestClient::Request.execute(
+                :headers => {:accept => 'application/json', :content_type => 'application/json'},
+                :url => @@setup_beams_endpoint,
                 :method => :post,
                 :payload => requestBody.to_json,
                 :verify_ssl => false

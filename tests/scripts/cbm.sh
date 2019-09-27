@@ -28,10 +28,12 @@ mock-start-logs() {
         sudo docker logs cbreak_cloudbreak_1 > test-logs/cloudbreak_start.log
         sudo docker logs cbreak_environment_1 > test-logs/environment_start.log
         sudo docker logs cbreak_datalake_1 > test-logs/datalake_start.log
+        sudo docker logs cbreak_redbeams_1 > test-logs/redbeams_start.log
     else
         docker logs cbreak_cloudbreak_1 > test-logs/cloudbreak_start.log
         docker logs cbreak_environment_1 > test-logs/environment_start.log
         docker logs cbreak_datalake_1 > test-logs/datalake_start.log
+        docker logs cbreak_redbeams_1 > test-logs/redbeams_start.log
     fi
 }
 
