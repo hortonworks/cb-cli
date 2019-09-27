@@ -54,3 +54,19 @@ services:
         container_name: cbreak_datalake_1
         networks:
           - mock-cbreak-network
+    redbeams:
+        labels:
+          - traefik.port=8080
+          - traefik.frontend.rule=PathPrefix:/redbeams/
+          - traefik.backend=redbeams-backend
+          - traefik.frontend.priority=510
+        ports:
+          - 8087:8080
+        volumes:
+          - ${PWD}/swagger-redbeams.json:/cbm/api/swagger.json
+          - ${PWD}/responses:/cbm/responses
+        image: hortonworks/cloud-swagger-mock
+        command: ['--', '-u','/redbeams/api', '-s', '/redbeams/api']
+        container_name: cbreak_redbeams_1
+        networks:
+          - mock-cbreak-network

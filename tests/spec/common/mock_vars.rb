@@ -15,5 +15,6 @@ RSpec.shared_context "mock shared vars", :a => :b do
     @mock_password = "mockpassword"
 
     @environment_file = "../../templates/aws-environment-skeleton.json"
+    @environment_crn = "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs"
   }
 end

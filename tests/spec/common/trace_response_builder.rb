@@ -8,9 +8,11 @@ class TraceResponseBuilder
     @@cb_base = "cb"
     @@dl_base = "dl"
     @@env_base = "environmentservice"
+    @@beams_base = "redbeams"
     @@cb_api_base = "#{@@cb_base}/api"
     @@dl_api_base = "#{@@dl_base}/api"
     @@env_api_base = "#{@@env_base}/api"
+    @@beams_api_base = "#{@@beams_base}/api"
     @@blueprint_base = "#{@@cb_api_base}/v4/#{@@default_workspace}/blueprints"
     @@create_blueprint_endpoint = "#{@@blueprint_base}"
     @@cluster_base = "#{@@cb_api_base}/v4/#{@@default_workspace}/stack"
@@ -21,6 +23,8 @@ class TraceResponseBuilder
     @@base_credential_endpoint = "#{@@env_api_base}/v1/credentials"
     @@prerequisites_endpoint = "#{@@base_credential_endpoint}/prerequisites"
     @@base_environment_endpoint = "#{@@env_api_base}/v1/env"
+    @@base_beams_db_endpoint = "#{@@beams_api_base}/v4/databases"
+    @@base_beams_dbserver_endpoint = "#{@@beams_api_base}/v4/databaseservers"
 
     def self.createWorkspaceRequestFactory(requestBody)
         return {
@@ -103,6 +107,20 @@ class TraceResponseBuilder
         return {
             :calledEndpoint => @@base_environment_endpoint,
             :sentValue => requestBody
+        }
+    end
+
+    def self.listDatabasesResponseFactory(responseBody)
+        return {
+            :calledEndpoint => @@base_beams_db_endpoint,
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.listDatabaseServersResponseFactory(responseBody)
+        return {
+            :calledEndpoint => @@base_beams_dbserver_endpoint,
+            :receivedValue => responseBody
         }
     end
 end

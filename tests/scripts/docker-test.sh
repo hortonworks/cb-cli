@@ -6,6 +6,7 @@
 : ${CB_BASE_URL:=http://127.0.0.1:9091}
 : ${DL_BASE_URL:=http://127.0.0.1:8086}
 : ${ENV_BASE_URL:=http://127.0.0.1:8088}
+: ${BEAMS_BASE_URL:=http://127.0.0.1:8087}
 : ${USERNAME_CLI:=admin@example.com}
 : ${PASSWORD_CLI:=cloudbreak}
 : ${CLI_TEST_FILES:=spec/integration/*.rb}
@@ -79,6 +80,7 @@ test-regression() {
        -e "CB_BASE_URL=$CB_BASE_URL" \
        -e "DL_BASE_URL=$DL_BASE_URL" \
        -e "ENV_BASE_URL=$ENV_BASE_URL" \
+       -e "BEAMS_BASE_URL=$BEAMS_BASE_URL" \
        -e "USERNAME_CLI=$USERNAME_CLI" \
        -e "PASSWORD_CLI=$PASSWORD_CLI" \
        -e "OS_V2_ENDPOINT=$OS_V2_ENDPOINT" \

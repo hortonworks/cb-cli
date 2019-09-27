@@ -22,6 +22,7 @@ export BASE_URL=https://127.0.0.1
 export CB_BASE_URL=http://127.0.0.1:9091
 export DL_BASE_URL=http://127.0.0.1:8086
 export ENV_BASE_URL=http://127.0.0.1:8088
+export BEAMS_BASE_URL=http://127.0.0.1:8087
 export USERNAME_CLI=test@example.com
 export PASSWORD_CLI=test
 
