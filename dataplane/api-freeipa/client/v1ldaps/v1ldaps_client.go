@@ -55,7 +55,7 @@ func (a *Client) CreateLdapConfigV1(params *CreateLdapConfigV1Params) (*CreateLd
 }
 
 /*
-DeleteLdapConfigV1 deletes l d a p config by name
+DeleteLdapConfigV1 deletes l d a p config by environment crn
 
 LDAP server integration enables the user to provide a central place to store usernames and passwords for the users of his/her clusters.
 */
@@ -85,7 +85,37 @@ func (a *Client) DeleteLdapConfigV1(params *DeleteLdapConfigV1Params) error {
 }
 
 /*
-GetLdapConfigV1 gets l d a p config by name
+GetLdapConfigForClusterV1 gets or create if not exists l d a p config with separate user for cluster
+
+LDAP server integration enables the user to provide a central place to store usernames and passwords for the users of his/her clusters.
+*/
+func (a *Client) GetLdapConfigForClusterV1(params *GetLdapConfigForClusterV1Params) (*GetLdapConfigForClusterV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLdapConfigForClusterV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getLdapConfigForClusterV1",
+		Method:             "GET",
+		PathPattern:        "/v1/ldaps/cluster",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetLdapConfigForClusterV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetLdapConfigForClusterV1OK), nil
+
+}
+
+/*
+GetLdapConfigV1 gets l d a p config by environment crn
 
 LDAP server integration enables the user to provide a central place to store usernames and passwords for the users of his/her clusters.
 */
