@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -20,8 +21,11 @@ import (
 // NewDeleteSdxByCrnParams creates a new DeleteSdxByCrnParams object
 // with the default values initialized.
 func NewDeleteSdxByCrnParams() *DeleteSdxByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteSdxByCrnParams{
+		Forced: &forcedDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -30,8 +34,11 @@ func NewDeleteSdxByCrnParams() *DeleteSdxByCrnParams {
 // NewDeleteSdxByCrnParamsWithTimeout creates a new DeleteSdxByCrnParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteSdxByCrnParamsWithTimeout(timeout time.Duration) *DeleteSdxByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteSdxByCrnParams{
+		Forced: &forcedDefault,
 
 		timeout: timeout,
 	}
@@ -40,8 +47,11 @@ func NewDeleteSdxByCrnParamsWithTimeout(timeout time.Duration) *DeleteSdxByCrnPa
 // NewDeleteSdxByCrnParamsWithContext creates a new DeleteSdxByCrnParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewDeleteSdxByCrnParamsWithContext(ctx context.Context) *DeleteSdxByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteSdxByCrnParams{
+		Forced: &forcedDefault,
 
 		Context: ctx,
 	}
@@ -50,8 +60,11 @@ func NewDeleteSdxByCrnParamsWithContext(ctx context.Context) *DeleteSdxByCrnPara
 // NewDeleteSdxByCrnParamsWithHTTPClient creates a new DeleteSdxByCrnParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteSdxByCrnParamsWithHTTPClient(client *http.Client) *DeleteSdxByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteSdxByCrnParams{
+		Forced:     &forcedDefault,
 		HTTPClient: client,
 	}
 }
@@ -63,6 +76,8 @@ type DeleteSdxByCrnParams struct {
 
 	/*ClusterCrn*/
 	ClusterCrn string
+	/*Forced*/
+	Forced *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -113,6 +128,17 @@ func (o *DeleteSdxByCrnParams) SetClusterCrn(clusterCrn string) {
 	o.ClusterCrn = clusterCrn
 }
 
+// WithForced adds the forced to the delete sdx by crn params
+func (o *DeleteSdxByCrnParams) WithForced(forced *bool) *DeleteSdxByCrnParams {
+	o.SetForced(forced)
+	return o
+}
+
+// SetForced adds the forced to the delete sdx by crn params
+func (o *DeleteSdxByCrnParams) SetForced(forced *bool) {
+	o.Forced = forced
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DeleteSdxByCrnParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -124,6 +150,22 @@ func (o *DeleteSdxByCrnParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	// path param clusterCrn
 	if err := r.SetPathParam("clusterCrn", o.ClusterCrn); err != nil {
 		return err
+	}
+
+	if o.Forced != nil {
+
+		// query param forced
+		var qrForced bool
+		if o.Forced != nil {
+			qrForced = *o.Forced
+		}
+		qForced := swag.FormatBool(qrForced)
+		if qForced != "" {
+			if err := r.SetQueryParam("forced", qForced); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

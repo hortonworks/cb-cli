@@ -118,6 +118,39 @@ func ModifyCredentialFromFile(c *cli.Context) {
 	putCredential(envClient.Environment.V1credentials, credReq)
 }
 
+type verifyCredentialClient interface {
+	VerifyCredentialByName(params *v1cred.VerifyCredentialByNameParams) (*v1cred.VerifyCredentialByNameOK, error)
+	VerifyCredentialByCrn(params *v1cred.VerifyCredentialByCrnParams) (*v1cred.VerifyCredentialByCrnOK, error)
+}
+
+type credentialOutVerify struct {
+	*common.CloudResourceOut
+	VerificationStatus string `json:"VerificationStatus" yaml:"VerificationStatus"`
+}
+
+func (c *credentialOutVerify) DataAsStringArray() []string {
+	return append(c.CloudResourceOut.DataAsStringArray(), c.VerificationStatus)
+}
+
+func VerifyCredential(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "validate credential")
+
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	name := c.String(fl.FlName.Name)
+	crn := c.String(fl.FlCrn.Name)
+	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	verifyCredentialImpl(envClient.Environment.V1credentials, name, crn, output.Write)
+}
+
+func verifyCredentialImpl(client verifyCredentialClient, name, crn string, writer func([]string, utils.Row)) {
+	cred := verifyCredential(client, name, crn)
+	writer(append(common.CloudResourceHeader, "VerificationStatus"),
+		&credentialOutVerify{&common.CloudResourceOut{Name: *cred.Name,
+			Description:   *cred.Description,
+			CloudPlatform: *cred.CloudPlatform,
+		}, cred.VerificationStatusText})
+}
+
 func assembleCredentialRequest(path, credName string) *model.CredentialV1Request {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		utils.LogErrorAndExit(err)
@@ -189,6 +222,28 @@ func modifyCredentialImpl(stringFinder func(string) string, client modifyCredent
 	return putCredential(client, credReq)
 }
 
+func verifyCredential(client verifyCredentialClient, name, crn string) *model.CredentialV1Response {
+	defer utils.TimeTrack(time.Now(), "verify credential")
+
+	var response *model.CredentialV1Response
+	if len(name) > 0 {
+		log.Infof("[verifyCredential] verify credential by name: %s", name)
+		responseByName, err := client.VerifyCredentialByName(v1cred.NewVerifyCredentialByNameParams().WithName(name))
+		if err != nil {
+			utils.LogErrorAndExit(err)
+		}
+		response = responseByName.Payload
+	} else {
+		log.Infof("[verifyCredential] verify credential by crn: %s", crn)
+		responseByCrn, err := client.VerifyCredentialByCrn(v1cred.NewVerifyCredentialByCrnParams().WithCrn(crn))
+		if err != nil {
+			utils.LogErrorAndExit(err)
+		}
+		response = responseByCrn.Payload
+	}
+	return response
+}
+
 func getCredential(name string, client modifyCredentialClient) *model.CredentialV1Response {
 	defer utils.TimeTrack(time.Now(), "get credential")
 
@@ -243,11 +298,12 @@ func postCredential(client createCredentialClient, credReq *model.CredentialV1Re
 
 type credentialOutDescribe struct {
 	*common.CloudResourceOut
-	CRN string `json:"CRN" yaml:"CRN"`
+	CRN                string `json:"CRN" yaml:"CRN"`
+	VerificationStatus string `json:"VerificationStatus" yaml:"VerificationStatus"`
 }
 
 func (c *credentialOutDescribe) DataAsStringArray() []string {
-	return append(c.CloudResourceOut.DataAsStringArray(), c.CRN)
+	return append(c.CloudResourceOut.DataAsStringArray(), c.CRN, c.VerificationStatus)
 }
 
 func DescribeCredential(c *cli.Context) {
@@ -261,7 +317,9 @@ func DescribeCredential(c *cli.Context) {
 	}
 
 	cred := resp.Payload
-	output.Write(append(common.CloudResourceHeader, "ID"), &credentialOutDescribe{&common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform}, cred.Crn})
+	output.Write(append(common.CloudResourceHeader, "ID", "VerificationStatus"),
+		&credentialOutDescribe{&common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform},
+			cred.Crn, cred.VerificationStatusText})
 }
 
 func DeleteCredential(c *cli.Context) {

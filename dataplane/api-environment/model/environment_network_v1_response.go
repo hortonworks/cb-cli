@@ -28,6 +28,12 @@ type EnvironmentNetworkV1Response struct {
 	// id of the resource
 	Crn string `json:"crn,omitempty"`
 
+	// The existing network is created by the user, otherwise created by the Cloudbreak.
+	ExistingNetwork bool `json:"existingNetwork,omitempty"`
+
+	// Mock parameters
+	Mock *EnvironmentNetworkMockV1Params `json:"mock,omitempty"`
+
 	// name of the resource
 	// Required: true
 	Name *string `json:"name"`
@@ -61,6 +67,10 @@ func (m *EnvironmentNetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMock(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -122,6 +132,24 @@ func (m *EnvironmentNetworkV1Response) validateAzure(formats strfmt.Registry) er
 		if err := m.Azure.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azure")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateMock(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Mock) { // not required
+		return nil
+	}
+
+	if m.Mock != nil {
+		if err := m.Mock.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("mock")
 			}
 			return err
 		}
