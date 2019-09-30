@@ -115,6 +115,36 @@ func (a *Client) GetFlowLogsByResourceName(params *GetFlowLogsByResourceNamePara
 }
 
 /*
+GetFlowLogsByResourceNameAndChainID gets flow logs for resource name and chain id
+
+Flow log operations
+*/
+func (a *Client) GetFlowLogsByResourceNameAndChainID(params *GetFlowLogsByResourceNameAndChainIDParams) (*GetFlowLogsByResourceNameAndChainIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFlowLogsByResourceNameAndChainIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getFlowLogsByResourceNameAndChainId",
+		Method:             "GET",
+		PathPattern:        "/flow_logs/resource/name/{resourceName}/{chainId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetFlowLogsByResourceNameAndChainIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetFlowLogsByResourceNameAndChainIDOK), nil
+
+}
+
+/*
 GetLastFlowByID gets last flow log by flow id
 
 Flow log operations
