@@ -1,0 +1,10 @@
+{
+  "connectionPassword": "dbroot",
+  "connectionUserName": "cloudera1",
+  "databaseVendor": "postgres",
+  "description": "auto testing",
+  "environmentCrn": "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
+  "host": "dbsvr-a12b3c4e-f5g6-78h9-iijk-lm0n1op23qr4.s5uvwxyzabcd.eu-west-1.rds.amazonaws.com",
+  "name": "dbstck-mock-amazon-12345a6b7cd8e9012",
+  "port": 5432
+}

@@ -68,9 +68,9 @@ class TraceResponseBuilder
         }
     end
 
-    def self.getCredentialByNameV1ResponseFactory(responseBody)
+    def self.getCredentialByNameV1ResponseFactory(responseBody, name)
         return {
-            :calledEndpoint => "#{@@base_credential_endpoint}/name/cli-aws-key",
+            :calledEndpoint => "#{@@base_credential_endpoint}/name/#{name}",
             :receivedValue => responseBody
         }
     end
@@ -91,7 +91,7 @@ class TraceResponseBuilder
 
     def self.getPrerequisitesByCloudPlatformV1ResponseFactory(cloudPlatform, responseBody)
         return {
-            :calledEndpoint => "#{@@prerequisites_endpoint}/" + cloudPlatform,
+            :calledEndpoint => [@@prerequisites_endpoint, cloudPlatform].join("/"),
             :receivedValue => responseBody
         }
     end
@@ -120,6 +120,48 @@ class TraceResponseBuilder
     def self.listDatabaseServersResponseFactory(responseBody)
         return {
             :calledEndpoint => @@base_beams_dbserver_endpoint,
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.getDatabaseServerByCrnResponseFactory(responseBody, crn)
+        return {
+            :calledEndpoint => "#{@@base_beams_dbserver_endpoint}/#{crn}",
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.getDatabaseServerByNameResponseFactory(responseBody, name)
+        return {
+            :calledEndpoint => "#{@@base_beams_dbserver_endpoint}/name/#{name}",
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.createDatabaseServerRequestFactory(requestBody)
+        return {
+            :calledEndpoint => "#{@@base_beams_dbserver_endpoint}/managed",
+            :sentValue => requestBody
+        }
+    end
+
+    def self.releaseManagedDatabaseServerResponseFactory(responseBody, crn)
+        return {
+            :calledEndpoint => "#{@@base_beams_dbserver_endpoint}/#{crn}/release",
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.registerDatabaseServerRequestFactory(requestBody)
+        return {
+            :calledEndpoint => "#{@@base_beams_dbserver_endpoint}/register",
+            :sentValue => requestBody
+        }
+    end
+
+    def self.deleteDatabaseServerByCrnResponseFactory(responseBody, crn)
+        return {
+            :calledEndpoint => "#{@@base_beams_dbserver_endpoint}/#{crn}",
             :receivedValue => responseBody
         }
     end

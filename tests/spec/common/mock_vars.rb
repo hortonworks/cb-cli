@@ -16,5 +16,10 @@ RSpec.shared_context "mock shared vars", :a => :b do
 
     @environment_file = "../../templates/aws-environment-skeleton.json"
     @environment_crn = "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs"
+
+    @dbserver_crn = "crn:cdp:redbeams:us-west-1:hortonworks:databaseServer:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs"
+    @dbserver_name = "dbstck-mock-amazon-12345a6b7cd8e9012"
+    @dbserver_create_file = "../../templates/dbserver-create-skeleton.json"
+    @dbserver_register_file = "../../templates/dbserver-register-skeleton.json"
   }
 end
