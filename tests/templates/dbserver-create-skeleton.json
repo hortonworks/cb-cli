@@ -1,0 +1,16 @@
+{
+  "environmentCrn": "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
+  "databaseServer": {
+    "instanceType": "db.m3.medium",
+    "databaseVendor": "postgres",
+    "storageSize": 40,
+    "rootUserName": "dbroot",
+    "rootUserPassword": "cloudera1",
+    "aws": {
+      "backupRetentionPeriod": 1,
+      "engineVersion": "10.6"
+    },
+    "port":6789
+  },
+  "description": "auto testing"
+}

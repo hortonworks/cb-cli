@@ -18,7 +18,7 @@ if [[ "${TARGET_CBD_VERSION}" != "MOCK" ]]; then
 fi
 
 echo "Configure DP CLI to Server: $BASE_URL User: $USERNAME_CLI"
-DEBUG=1 dp configure --server $BASE_URL --workspace $USERNAME_CLI --apikeyid Y3JuOmFsdHVzOmlhbTp1cy13ZXN0LTE6Y2xvdWRlcmE6dXNlcjpiYmloYXJpQGhvcnRvbndvcmtzLmNvbQ== --privatekey nHkdxgZR0BaNHaSYM3ooS6rIlpV5E+k1CIkr+jFId2g=
+DEBUG=1 dp configure --server $BASE_URL --workspace $USERNAME_CLI --apikeyid Y3JuOmFsdHVzOmlhbTp1cy13ZXN0LTE6Y2xvdWRlcmE6dXNlcjphZG1pbkBleGFtcGxlLmNvbQ== --privatekey nHkdxgZR0BaNHaSYM3ooS6rIlpV5E+k1CIkr+jFId2g=
 
 echo "Running RSpec with "$CLI_TEST_FILES
 mkdir -p tmp/aruba

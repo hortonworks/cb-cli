@@ -1,0 +1,23 @@
+{
+  "name": "dbstck-mock-amazon-12345a6b7cd8e9012",
+  "host": "dbsvr-a12b3c4e-f5g6-78h9-iijk-lm0n1op23qr4.s5uvwxyzabcd.eu-west-1.rds.amazonaws.com",
+  "port": 5432,
+  "databaseVendor": "postgres",
+  "connectionDriver": "org.postgresql.Driver",
+  "environmentCrn": "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
+  "id": 1,
+  "crn": "crn:cdp:redbeams:us-west-1:hortonworks:databaseServer:1abc234d-ee55-6f78-gh9i-01234jklm56n",
+  "databaseVendorDisplayName": "PostgreSQL",
+  "connectionUserName": {
+    "enginePath": "secret",
+    "secretPath": "redbeams/shared/databaseserverconfig/connectionusername/a65395a0-3df4-4a0d-8ca1-82ab2f904c7c-16d8198841c"
+  },
+  "connectionPassword": {
+    "enginePath": "secret",
+    "secretPath": "redbeams/shared/databaseserverconfig/connectionpassword/8ef94d3f-0cd3-40f3-99c4-d3fc28178a39-16d8188f2ec"
+  },
+  "creationDate": 1569836298944,
+  "resourceStatus": "SERVICE_MANAGED",
+  "status": "DELETE_REQUESTED",
+  "statusReason": ""
+}

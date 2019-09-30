@@ -1,0 +1,20 @@
+{
+  "name": "dbstck-mock-amazon-12345a6b7cd8e9012",
+  "databaseVendor": "postgres",
+  "connectionDriver": "org.postgresql.Driver",
+  "environmentCrn": "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
+  "id": 1,
+  "crn": "crn:cdp:redbeams:us-west-1:hortonworks:databaseServer:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
+  "databaseVendorDisplayName": "PostgreSQL",
+  "connectionUserName": {
+    "enginePath": "secret",
+    "secretPath": "redbeams/shared/databaseserverconfig/connectionusername/e99da81b-8a3d-4655-a7ee-611f42ebf996-16d82b1f18d"
+  },
+  "connectionPassword": {
+    "enginePath": "secret",
+    "secretPath": "redbeams/shared/databaseserverconfig/connectionpassword/9459769b-04d2-4b64-a032-35b6249fda30-16d82b1f197"
+  },
+  "creationDate": 1569855762828,
+  "resourceStatus": "USER_MANAGED",
+  "status": "UNKNOWN"
+}
