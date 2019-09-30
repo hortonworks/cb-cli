@@ -6,6 +6,8 @@ import (
 	"strconv"
 	"time"
 
+	"os"
+
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipa"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipauser"
 	freeIpaModel "github.com/hortonworks/cb-cli/dataplane/api-freeipa/model"
@@ -15,7 +17,6 @@ import (
 	commonutils "github.com/hortonworks/dp-cli-common/utils"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
-	"os"
 )
 
 type ClientFreeIpa oauth.FreeIpa
@@ -69,6 +70,30 @@ func DescribeFreeIpa(c *cli.Context) {
 	}
 
 	output.Write(header, &freeIpaOut)
+}
+
+func StartFreeIpa(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "start FreeIpa cluster")
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	err := freeIpaClient.V1freeipa.StartV1(v1freeipa.NewStartV1Params().WithEnvironment(&envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("[startFreeIpa] FreeIpa cluster start requested in enviornment %s", envName)
+}
+
+func StopFreeIpa(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "stop FreeIpa cluster")
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	err := freeIpaClient.V1freeipa.StopV1(v1freeipa.NewStopV1Params().WithEnvironment(&envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("[stopFreeIpa] FreeIpa cluster stop requested in enviornment %s", envName)
 }
 
 func ListFreeIpa(c *cli.Context) {

@@ -24,6 +24,9 @@ type ServicePrincipalV1Request struct {
 	// Required: true
 	EnvironmentCrn *string `json:"environmentCrn"`
 
+	// Name of the role to be created if not exists
+	RoleName string `json:"roleName,omitempty"`
+
 	// Hostname where the service is running
 	// Required: true
 	ServerHostName *string `json:"serverHostName"`

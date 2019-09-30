@@ -115,6 +115,36 @@ func (a *Client) GetCreateKerberosRequestForEnvironment(params *GetCreateKerbero
 }
 
 /*
+GetKerberosConfigForClusterV1 gets or create if not exists l d a p config with separate user for cluster
+
+Kerberos config operations
+*/
+func (a *Client) GetKerberosConfigForClusterV1(params *GetKerberosConfigForClusterV1Params) (*GetKerberosConfigForClusterV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetKerberosConfigForClusterV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getKerberosConfigForClusterV1",
+		Method:             "GET",
+		PathPattern:        "/v1/kerberos/cluster",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetKerberosConfigForClusterV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetKerberosConfigForClusterV1OK), nil
+
+}
+
+/*
 GetKerberosConfigForEnvironment describes kerberos config for the given environment
 
 Kerberos config operations
