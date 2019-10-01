@@ -25,6 +25,9 @@ type EnvironmentNetworkV1Request struct {
 	// Subnet ids of the specified networks
 	Azure *EnvironmentNetworkAzureV1Params `json:"azure,omitempty"`
 
+	// Mock parameters
+	Mock *EnvironmentNetworkMockV1Params `json:"mock,omitempty"`
+
 	// network cidr
 	// Max Length: 255
 	// Min Length: 0
@@ -51,6 +54,10 @@ func (m *EnvironmentNetworkV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMock(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -104,6 +111,24 @@ func (m *EnvironmentNetworkV1Request) validateAzure(formats strfmt.Registry) err
 		if err := m.Azure.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azure")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Request) validateMock(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Mock) { // not required
+		return nil
+	}
+
+	if m.Mock != nil {
+		if err := m.Mock.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("mock")
 			}
 			return err
 		}

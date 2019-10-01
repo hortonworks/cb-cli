@@ -21,6 +21,52 @@ func init() {
 	cloud.SetProviderType(cloud.AWS)
 }
 
+type mockCredentialVerify struct{}
+
+func (m *mockCredentialVerify) VerifyCredentialByName(params *v1cred.VerifyCredentialByNameParams) (*v1cred.VerifyCredentialByNameOK, error) {
+	resp := &model.CredentialV1Response{
+		CredentialBase: model.CredentialBase{
+			Name:                   &(&types.S{S: "name"}).S,
+			Description:            &(&types.S{S: "desc"}).S,
+			CloudPlatform:          &(&types.S{S: "AWS"}).S,
+			VerificationStatusText: "Okay",
+		},
+	}
+	return &v1cred.VerifyCredentialByNameOK{Payload: resp}, nil
+}
+
+func (m *mockCredentialVerify) VerifyCredentialByCrn(params *v1cred.VerifyCredentialByCrnParams) (*v1cred.VerifyCredentialByCrnOK, error) {
+	resp := &model.CredentialV1Response{
+		CredentialBase: model.CredentialBase{
+			Name:                   &(&types.S{S: "name"}).S,
+			Description:            &(&types.S{S: "desc"}).S,
+			CloudPlatform:          &(&types.S{S: "AWS"}).S,
+			VerificationStatusText: "Okay",
+		},
+	}
+	return &v1cred.VerifyCredentialByCrnOK{Payload: resp}, nil
+}
+
+func TestVerifyCredentialImplByName(t *testing.T) {
+	t.Parallel()
+	var row utils.Row
+	verifyCredentialImpl(new(mockCredentialVerify), "name", "", func(h []string, r utils.Row) { row = r })
+	expected := []string{"name", "desc", "AWS", "Okay"}
+	if strings.Join(row.DataAsStringArray(), "") != strings.Join(expected, "") {
+		t.Errorf("row data not match %s == %s", expected, row.DataAsStringArray())
+	}
+}
+
+func TestVerifyCredentialImplByCrn(t *testing.T) {
+	t.Parallel()
+	var row utils.Row
+	verifyCredentialImpl(new(mockCredentialVerify), "", "crn", func(h []string, r utils.Row) { row = r })
+	expected := []string{"name", "desc", "AWS", "Okay"}
+	if strings.Join(row.DataAsStringArray(), "") != strings.Join(expected, "") {
+		t.Errorf("row data not match %s == %s", expected, row.DataAsStringArray())
+	}
+}
+
 type mockCredentialCreate struct {
 	request chan *model.CredentialV1Request
 }

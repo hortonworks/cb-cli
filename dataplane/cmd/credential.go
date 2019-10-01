@@ -394,6 +394,36 @@ func init() {
 					},
 				},
 			},
+			{
+				Name:  "verify",
+				Usage: "verify credentials",
+				Subcommands: []cli.Command{
+					{
+						Name:   "by-name",
+						Usage:  "verify credential by name",
+						Before: cf.CheckConfigAndCommandFlags,
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Action: credential.VerifyCredential,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:   "by-crn",
+						Usage:  "verify credential by crn",
+						Before: cf.CheckConfigAndCommandFlags,
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Action: credential.VerifyCredential,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAuthenticationFlags().AddOutputFlag().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
 		},
 	})
 }
