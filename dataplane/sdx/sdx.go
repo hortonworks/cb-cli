@@ -188,9 +188,10 @@ func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cl
 func DeleteSdx(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "delete SDX cluster")
 	name := c.String(fl.FlName.Name)
+	forced := c.Bool(fl.FlForceOptional.Name)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
-	err := sdxClient.Sdx.DeleteSdx(sdx.NewDeleteSdxParams().WithName(name))
+	err := sdxClient.Sdx.DeleteSdx(sdx.NewDeleteSdxParams().WithName(name).WithForced(&forced))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}

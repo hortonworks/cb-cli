@@ -35,6 +35,10 @@ type FileSystemParameterV4Response struct {
 	// protocol
 	Protocol string `json:"protocol,omitempty"`
 
+	// related missing services
+	// Unique: true
+	RelatedMissingServices []string `json:"relatedMissingServices"`
+
 	// related services
 	// Unique: true
 	RelatedServices []string `json:"relatedServices"`
@@ -50,6 +54,10 @@ type FileSystemParameterV4Response struct {
 func (m *FileSystemParameterV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateRelatedMissingServices(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateRelatedServices(formats); err != nil {
 		res = append(res, err)
 	}
@@ -57,6 +65,19 @@ func (m *FileSystemParameterV4Response) Validate(formats strfmt.Registry) error 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *FileSystemParameterV4Response) validateRelatedMissingServices(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RelatedMissingServices) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("relatedMissingServices", "body", m.RelatedMissingServices); err != nil {
+		return err
+	}
+
 	return nil
 }
 
