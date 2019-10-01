@@ -18,6 +18,14 @@ import (
 
 type ClientRedbeams oauth.Redbeams
 
+func _nilsafe(s *string) string {
+	if s == nil {
+		return "<nil>"
+	} else {
+		return *s
+	}
+}
+
 var serverListHeader = []string{"Name", "Description", "Crn", "EnvironmentCrn", "Status", "ResourceStatus", "DatabaseVendor", "Host", "Port", "CreationDate"}
 
 type serverDetails struct {
@@ -197,7 +205,7 @@ func RegisterDatabaseServer(c *cli.Context) {
 		commonutils.LogErrorMessageAndExit(msg)
 	}
 
-	log.Infof("[RegisterDBServer] JSON read, registering database server with name: %s", *req.Name)
+	log.Infof("[RegisterDBServer] JSON read, registering database server with name: %s", _nilsafe(req.Name))
 	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServers
 	resp, err := redbeamsDbServerClient.RegisterDatabaseServer(database_servers.NewRegisterDatabaseServerParams().WithBody(&req), nil)
 	if err != nil {
@@ -331,21 +339,21 @@ func CreateDatabase(c *cli.Context) {
 		commonutils.LogErrorMessageAndExit(msg)
 	}
 
-	log.Infof("[CreateDB] JSON read, creating database with name: %s", *req.DatabaseName)
+	log.Infof("[CreateDB] JSON read, creating database with name: %s", _nilsafe(req.DatabaseName))
 	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServers
 	result, err := redbeamsDbServerClient.CreateDatabaseOnServer(database_servers.NewCreateDatabaseOnServerParams().WithBody(&req), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
 
-	log.Infof("[DeleteDBServer] Created database with name: %s Details: %s", *req.DatabaseName, result)
+	log.Infof("[DeleteDBServer] Created database with name: %s Details: %s", _nilsafe(req.DatabaseName), result)
 }
 
 func RegisterDatabase(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Register database")
 	fileLocation := c.String(fl.FlDatabaseRegistrationFile.Name)
 
-	log.Infof("[RegisterDB] Registering database server from file: %s", fileLocation)
+	log.Infof("[RegisterDB] Registering database from file: %s", fileLocation)
 	content := commonutils.ReadFile(fileLocation)
 	var req model.DatabaseV4Request
 	err := json.Unmarshal(content, &req)
@@ -354,7 +362,7 @@ func RegisterDatabase(c *cli.Context) {
 		commonutils.LogErrorMessageAndExit(msg)
 	}
 
-	log.Infof("[RegisterDB] JSON read, registering database with name: %s", *req.Name)
+	log.Infof("[RegisterDB] JSON read, registering database with name: %s", _nilsafe(req.Name))
 	redbeamsDbClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.Databases
 	resp, err := redbeamsDbClient.RegisterDatabase(databases.NewRegisterDatabaseParams().WithBody(&req), nil)
 	if err != nil {
