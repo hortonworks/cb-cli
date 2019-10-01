@@ -21,5 +21,9 @@ RSpec.shared_context "mock shared vars", :a => :b do
     @dbserver_name = "dbstck-mock-amazon-12345a6b7cd8e9012"
     @dbserver_create_file = "../../templates/dbserver-create-skeleton.json"
     @dbserver_register_file = "../../templates/dbserver-register-skeleton.json"
+    @db_crn = "crn:cdp:redbeams:us-west-1:hortonworks:database:12345ab6-7c89-012d-e343-fgh567iij890"
+    @db_name = "mock-db"
+    @db_create_file = "../../templates/db-create-skeleton.json"
+    @db_register_file = "../../templates/db-register-skeleton.json"
   }
 end

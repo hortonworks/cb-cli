@@ -1,3 +1,25 @@
 {
-  "responses": []
+  "responses": [
+    {
+      "name": "mock-db",
+      "description": "auto testing",
+      "connectionURL": "jdbc:postgresql://dbsvr-ab1223cd-4567-89e0-fg12-34hij56789kl.a1bcdefghijk.eu-west-1.rds.amazonaws.com:5432/mock-db",
+      "type": "hive",
+      "connectionDriver": "org.postgresql.Driver",
+      "environmentCrn": "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
+      "crn": "crn:cdp:redbeams:us-west-1:hortonworks:database:12345ab6-7c89-012d-e343-fgh567iij890",
+      "creationDate": 1569928238260,
+      "databaseEngine": "POSTGRES",
+      "databaseEngineDisplayName": "PostgreSQL",
+      "connectionUserName": {
+        "enginePath": "secret",
+        "secretPath": "redbeams/shared/databaseconfig/connectionusername/c56390f2-286a-4b1b-acfe-6105cd2445b1-16d8703d4b7"
+      },
+      "connectionPassword": {
+        "enginePath": "secret",
+        "secretPath": "redbeams/shared/databaseconfig/connectionpassword/feb35257-b773-4b15-b910-298364e99522-16d8703d4c4"
+      },
+      "resourceStatus": "SERVICE_MANAGED"
+    }
+  ]
 }

@@ -110,13 +110,6 @@ class TraceResponseBuilder
         }
     end
 
-    def self.listDatabasesResponseFactory(responseBody)
-        return {
-            :calledEndpoint => @@base_beams_db_endpoint,
-            :receivedValue => responseBody
-        }
-    end
-
     def self.listDatabaseServersResponseFactory(responseBody)
         return {
             :calledEndpoint => @@base_beams_dbserver_endpoint,
@@ -162,6 +155,55 @@ class TraceResponseBuilder
     def self.deleteDatabaseServerByCrnResponseFactory(responseBody, crn)
         return {
             :calledEndpoint => "#{@@base_beams_dbserver_endpoint}/#{crn}",
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.listDatabasesResponseFactory(responseBody)
+        return {
+            :calledEndpoint => @@base_beams_db_endpoint,
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.getDatabaseByCrnResponseFactory(responseBody, crn)
+        return {
+            :calledEndpoint => "#{@@base_beams_db_endpoint}/#{crn}",
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.getDatabaseByNameResponseFactory(responseBody, name)
+        return {
+            :calledEndpoint => "#{@@base_beams_db_endpoint}/name/#{name}",
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.createDatabaseOnServerRequestFactory(requestBody)
+        return {
+            :calledEndpoint => "#{@@base_beams_dbserver_endpoint}/createDatabase",
+            :sentValue => requestBody
+        }
+    end
+
+    def self.registerDatabaseRequestFactory(requestBody)
+        return {
+            :calledEndpoint => "#{@@base_beams_db_endpoint}/register",
+            :sentValue => requestBody
+        }
+    end
+
+    def self.deleteDatabaseByCrnResponseFactory(responseBody, crn)
+        return {
+            :calledEndpoint => "#{@@base_beams_db_endpoint}/#{crn}",
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.deleteDatabaseByNameResponseFactory(responseBody, name)
+        return {
+            :calledEndpoint => "#{@@base_beams_db_endpoint}/name/#{name}",
             :receivedValue => responseBody
         }
     end
