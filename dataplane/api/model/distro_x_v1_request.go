@@ -63,7 +63,7 @@ type DistroXV1Request struct {
 	TimeToLive int64 `json:"timeToLive,omitempty"`
 
 	// enable workload analytics for the cluser
-	WorkloadAnalytics *FeatureSetting `json:"workloadAnalytics,omitempty"`
+	WorkloadAnalytics bool `json:"workloadAnalytics,omitempty"`
 
 	// yarn
 	Yarn *YarnDistroXV1Parameters `json:"yarn,omitempty"`
@@ -106,10 +106,6 @@ func (m *DistroXV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTags(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateWorkloadAnalytics(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -319,24 +315,6 @@ func (m *DistroXV1Request) validateTags(formats strfmt.Registry) error {
 		if err := m.Tags.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("tags")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *DistroXV1Request) validateWorkloadAnalytics(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.WorkloadAnalytics) { // not required
-		return nil
-	}
-
-	if m.WorkloadAnalytics != nil {
-		if err := m.WorkloadAnalytics.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("workloadAnalytics")
 			}
 			return err
 		}

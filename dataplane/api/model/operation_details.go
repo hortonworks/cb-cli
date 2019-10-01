@@ -53,9 +53,6 @@ type OperationDetails struct {
 	// user name
 	UserName string `json:"userName,omitempty"`
 
-	// utcdate time
-	UtcdateTime string `json:"utcdateTime,omitempty"`
-
 	// uuid
 	UUID string `json:"uuid,omitempty"`
 

@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-GetAccessConfigs retrieves access configs with properties
+GetAccessConfigs retrives access configs with properties
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */
@@ -55,7 +55,7 @@ func (a *Client) GetAccessConfigs(params *GetAccessConfigsParams) (*GetAccessCon
 }
 
 /*
-GetDisktypes retrieves available disk types
+GetDisktypes retrives available disk types
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */
@@ -85,7 +85,7 @@ func (a *Client) GetDisktypes(params *GetDisktypesParams) (*GetDisktypesOK, erro
 }
 
 /*
-GetEncryptionKeys retrieves encryption keys with properties
+GetEncryptionKeys retrives encryption keys with properties
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */
@@ -115,7 +115,7 @@ func (a *Client) GetEncryptionKeys(params *GetEncryptionKeysParams) (*GetEncrypt
 }
 
 /*
-GetGatewaysCredentialID retrieves gateways with properties
+GetGatewaysCredentialID retrives gateways with properties
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */
@@ -145,7 +145,7 @@ func (a *Client) GetGatewaysCredentialID(params *GetGatewaysCredentialIDParams) 
 }
 
 /*
-GetIPPoolsCredentialID retrieves ip pools with properties
+GetIPPoolsCredentialID retrives ip pools with properties
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */
@@ -175,37 +175,7 @@ func (a *Client) GetIPPoolsCredentialID(params *GetIPPoolsCredentialIDParams) (*
 }
 
 /*
-GetNoSQLTables retrieves nosql tables
-
-Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
-*/
-func (a *Client) GetNoSQLTables(params *GetNoSQLTablesParams) (*GetNoSQLTablesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetNoSQLTablesParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getNoSqlTables",
-		Method:             "GET",
-		PathPattern:        "/v1/platform_resources/nosql_tables",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetNoSQLTablesReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetNoSQLTablesOK), nil
-
-}
-
-/*
-GetPlatformNetworks retrieves network properties
+GetPlatformNetworks retrives network properties
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */
@@ -235,7 +205,7 @@ func (a *Client) GetPlatformNetworks(params *GetPlatformNetworksParams) (*GetPla
 }
 
 /*
-GetPlatformSShKeys retrieves sshkeys properties
+GetPlatformSShKeys retrives sshkeys properties
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */
@@ -265,7 +235,7 @@ func (a *Client) GetPlatformSShKeys(params *GetPlatformSShKeysParams) (*GetPlatf
 }
 
 /*
-GetPlatformSecurityGroups retrieves securitygroups properties
+GetPlatformSecurityGroups retrives securitygroups properties
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */
@@ -295,7 +265,7 @@ func (a *Client) GetPlatformSecurityGroups(params *GetPlatformSecurityGroupsPara
 }
 
 /*
-GetRegionsByCredential retrieves regions by type
+GetRegionsByCredential retrives regions by type
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */
@@ -325,7 +295,7 @@ func (a *Client) GetRegionsByCredential(params *GetRegionsByCredentialParams) (*
 }
 
 /*
-GetTagSpecifications retrieves tag specifications
+GetTagSpecifications retrives tag specifications
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */
@@ -355,7 +325,7 @@ func (a *Client) GetTagSpecifications(params *GetTagSpecificationsParams) (*GetT
 }
 
 /*
-GetVMTypesByCredential retrieves vmtype properties by credential
+GetVMTypesByCredential retrives vmtype properties by credential
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */

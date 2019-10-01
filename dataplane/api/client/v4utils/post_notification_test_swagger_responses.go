@@ -12,8 +12,6 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
-
-	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // PostNotificationTestReader is a Reader for the PostNotificationTest structure.
@@ -47,7 +45,7 @@ func NewPostNotificationTestOK() *PostNotificationTestOK {
 successful operation
 */
 type PostNotificationTestOK struct {
-	Payload *model.ResourceEventResponse
+	Payload string
 }
 
 func (o *PostNotificationTestOK) Error() string {
@@ -56,10 +54,8 @@ func (o *PostNotificationTestOK) Error() string {
 
 func (o *PostNotificationTestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.ResourceEventResponse)
-
 	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
