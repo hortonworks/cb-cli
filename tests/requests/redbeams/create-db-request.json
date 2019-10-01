@@ -1,0 +1,6 @@
+{
+  "databaseDescription": "auto testing",
+  "databaseName": "mock-db",
+  "existingDatabaseServerCrn": "crn:cdp:redbeams:us-west-1:hortonworks:databaseServer:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
+  "type": "hive"
+}

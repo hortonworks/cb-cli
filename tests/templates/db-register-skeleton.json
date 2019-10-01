@@ -1,0 +1,8 @@
+{
+  "description": "auto testing",
+  "type": "hive",
+  "connectionURL": "jdbc:postgresql://dbsvr-ab1223cd-4567-89e0-fg12-34hij56789kl.a1bcdefghijk.eu-west-1.rds.amazonaws.com:5432/mock-db",
+  "connectionUserName": "mock",
+  "connectionPassword": "mock",
+  "environmentCrn": "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs"
+}

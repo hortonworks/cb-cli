@@ -1,7 +1,7 @@
 {
   "environmentCrn": "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
   "name": "dbstck-aszegedi-amazon-090b2a5b65202e0ce",
-  "resourceCrn": "crn:cdp:redbeams:us-west-1:hortonworks:databaseServer:740ef9d3-3869-41c1-95db-b27cbced0801",
+  "resourceCrn": "crn:cdp:redbeams:us-west-1:hortonworks:databaseServer:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
   "status": "REQUESTED",
   "statusReason": ""
 }
