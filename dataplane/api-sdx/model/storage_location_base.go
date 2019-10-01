@@ -20,7 +20,7 @@ import (
 type StorageLocationBase struct {
 
 	// type
-	// Enum: [ZEPPELIN_NOTEBOOK YARN_LOG HIVE_METASTORE_WAREHOUSE HIVE_METASTORE_EXTERNAL_WAREHOUSE HIVE_REPLICA_WAREHOUSE HBASE_ROOT RANGER_AUDIT PROFILER_SERVICE_FS_URI DEFAULT_FS]
+	// Enum: [ZEPPELIN_NOTEBOOK YARN_LOG HIVE_METASTORE_WAREHOUSE HIVE_METASTORE_EXTERNAL_WAREHOUSE HIVE_REPLICA_WAREHOUSE HBASE_ROOT RANGER_AUDIT PROFILER_SERVICE_FS_URI]
 	Type string `json:"type,omitempty"`
 
 	// value
@@ -45,7 +45,7 @@ var storageLocationBaseTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["ZEPPELIN_NOTEBOOK","YARN_LOG","HIVE_METASTORE_WAREHOUSE","HIVE_METASTORE_EXTERNAL_WAREHOUSE","HIVE_REPLICA_WAREHOUSE","HBASE_ROOT","RANGER_AUDIT","PROFILER_SERVICE_FS_URI","DEFAULT_FS"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["ZEPPELIN_NOTEBOOK","YARN_LOG","HIVE_METASTORE_WAREHOUSE","HIVE_METASTORE_EXTERNAL_WAREHOUSE","HIVE_REPLICA_WAREHOUSE","HBASE_ROOT","RANGER_AUDIT","PROFILER_SERVICE_FS_URI"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -78,9 +78,6 @@ const (
 
 	// StorageLocationBaseTypePROFILERSERVICEFSURI captures enum value "PROFILER_SERVICE_FS_URI"
 	StorageLocationBaseTypePROFILERSERVICEFSURI string = "PROFILER_SERVICE_FS_URI"
-
-	// StorageLocationBaseTypeDEFAULTFS captures enum value "DEFAULT_FS"
-	StorageLocationBaseTypeDEFAULTFS string = "DEFAULT_FS"
 )
 
 // prop value enum
