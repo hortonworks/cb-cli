@@ -18,7 +18,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
 )
 
-var EnvironmentHeader = []string{"Name", "Description", "CloudPlatform", "Status", "Credential", "Regions", "LocationName", "Longitude", "Latitude", "Crn"}
+var EnvironmentHeader = []string{"Name", "Description", "CloudPlatform", "Status", "Credential", "Regions", "LocationName", "Crn"}
 
 type environment struct {
 	Name          string   `json:"Name" yaml:"Name"`
@@ -57,7 +57,7 @@ type environmentClient interface {
 }
 
 func (e *environment) DataAsStringArray() []string {
-	return []string{e.Name, e.Description, e.CloudPlatform, e.Status, e.Credential, strings.Join(e.Regions, ","), e.LocationName, utils.FloatToString(e.Longitude), utils.FloatToString(e.Latitude), e.Crn}
+	return []string{e.Name, e.Description, e.CloudPlatform, e.Status, e.Credential, strings.Join(e.Regions, ","), e.LocationName, e.Crn}
 }
 
 func (e *environmentOutJsonDescribe) DataAsStringArray() []string {

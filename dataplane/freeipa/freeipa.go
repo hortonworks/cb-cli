@@ -114,6 +114,7 @@ func ListFreeIpa(c *cli.Context) {
 			CRN:            *response.Crn,
 			EnvironmentCrn: *response.EnvironmentCrn,
 			Status:         response.Status,
+			Domain:         response.Domain,
 		}
 		tableRows = append(tableRows, row)
 	}

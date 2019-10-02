@@ -55,7 +55,7 @@ deps-errcheck:
 #	go get -u github.com/kisielk/errcheck
 
 formatcheck:
-	([ -z "$(shell gofmt -d $(GOFILES_NOVENDOR))" ]) || (echo "Source is unformatted"; exit 1)
+	([ -z "$(shell gofmt -d $(GOFILES_NOVENDOR))" ]) || (echo "Source is unformatted, please execute make format"; exit 1)
 
 format:
 	@gofmt -w ${GOFILES_NOVENDOR}
