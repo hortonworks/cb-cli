@@ -17,19 +17,19 @@ import (
 // swagger:model AddDnsZoneForSubnetsV1Request
 type AddDNSZoneForSubnetsV1Request struct {
 
-	// failed
-	Failed map[string]string `json:"failed,omitempty"`
+	// CRN of the environment
+	// Required: true
+	EnvironmentCrn *string `json:"environmentCrn"`
 
-	// success
-	// Unique: true
-	Success []string `json:"success"`
+	// subnets
+	Subnets []string `json:"subnets"`
 }
 
 // Validate validates this add Dns zone for subnets v1 request
 func (m *AddDNSZoneForSubnetsV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateSuccess(formats); err != nil {
+	if err := m.validateEnvironmentCrn(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -39,13 +39,9 @@ func (m *AddDNSZoneForSubnetsV1Request) Validate(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *AddDNSZoneForSubnetsV1Request) validateSuccess(formats strfmt.Registry) error {
+func (m *AddDNSZoneForSubnetsV1Request) validateEnvironmentCrn(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Success) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("success", "body", m.Success); err != nil {
+	if err := validate.Required("environmentCrn", "body", m.EnvironmentCrn); err != nil {
 		return err
 	}
 

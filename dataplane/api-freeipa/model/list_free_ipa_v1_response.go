@@ -23,6 +23,9 @@ type ListFreeIpaV1Response struct {
 	// Required: true
 	Crn *string `json:"crn"`
 
+	// domain
+	Domain string `json:"domain,omitempty"`
+
 	// CRN of the environment
 	// Required: true
 	EnvironmentCrn *string `json:"environmentCrn"`
