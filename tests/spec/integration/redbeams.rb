@@ -188,7 +188,6 @@ RSpec.describe 'Redbeams test cases', :type => :aruba, :feature => "Redbeams", :
   end
 
   it "Redbeams - Database - Register DB", :story => "Redbeams", :severity => :normal, :testId => 12 do
-    skip("BUG-XXXX Known Issue: 'runtime error: invalid memory address or nil pointer dereference'")
     with_environment 'DEBUG' => '1' do
       responseHash = MockHelper.getResponseHash("../../../responses/redbeams/register-db-response.json")
       requestHash = MockHelper.getResponseHash("../../../requests/redbeams/register-db-request.json")
