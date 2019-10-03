@@ -1,0 +1,16 @@
+[
+  {
+    "crn": "crn:cdp:datalake:us-west-1:hortonworks:datalake:12a34bc5-d678-90ee-f123-4gh5ij6k7l89",
+    "name": "mock-sdx",
+    "clusterShape": "LIGHT_DUTY",
+    "status": "RUNNING",
+    "statusReason": "Datalake is running",
+    "environmentName": "amazon",
+    "environmentCrn": "crn:cdp:environments:us-west-1:hortonworks:environment:a123bcde-fgh4-5i6j-7k8l-m90nop124qrs",
+    "databaseServerCrn": "crn:cdp:redbeams:us-west-1:hortonworks:databaseServer:1abc234d-ee55-6f78-gh9i-01234jklm56n",
+    "stackCrn": "crn:cdp:datahub:us-west-1:hortonworks:cluster:1ab234cd-5eff-6789-012g-h345ijjk6l6m",
+    "created": 1569833807277,
+    "cloudStorageBaseLocation": "s3a://mocktest/mock",
+    "cloudStorageFileSystemType": "S3"
+  }
+]

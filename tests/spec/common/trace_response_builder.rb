@@ -25,6 +25,7 @@ class TraceResponseBuilder
     @@base_environment_endpoint = "#{@@env_api_base}/v1/env"
     @@base_beams_db_endpoint = "#{@@beams_api_base}/v4/databases"
     @@base_beams_dbserver_endpoint = "#{@@beams_api_base}/v4/databaseservers"
+    @@base_sdx_endpoint = "#{@@dl_api_base}/sdx"
 
     def self.createWorkspaceRequestFactory(requestBody)
         return {
@@ -204,6 +205,13 @@ class TraceResponseBuilder
     def self.deleteDatabaseByNameResponseFactory(responseBody, name)
         return {
             :calledEndpoint => "#{@@base_beams_db_endpoint}/name/#{name}",
+            :receivedValue => responseBody
+        }
+    end
+
+    def self.listSdxResponseFactory(responseBody)
+        return {
+            :calledEndpoint => "#{@@base_sdx_endpoint}/list",
             :receivedValue => responseBody
         }
     end
