@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	ct "github.com/hortonworks/cb-cli/dataplane/clustertemplate"
+	cd "github.com/hortonworks/cb-cli/dataplane/clusterdefinition"
 	cf "github.com/hortonworks/cb-cli/dataplane/config"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/urfave/cli"
@@ -9,33 +9,21 @@ import (
 
 func init() {
 	DataPlaneCommands = append(DataPlaneCommands, cli.Command{
-		Name:  "clustertemplate",
-		Usage: "cluster template related operations",
+		Name:  "clusterdefinition",
+		Usage: "cluster definition related operations",
 		Subcommands: []cli.Command{
 			{
 				Name:  "create",
-				Usage: "adds a new cluster template from a file or from a URL",
+				Usage: "adds a new cluster definition from a file",
 				Subcommands: []cli.Command{
 					{
-						Name:   "from-url",
-						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlURL, fl.FlDlOptional).AddAuthenticationFlags().Build(),
-						Before: cf.CheckConfigAndCommandFlags,
-						Action: ct.CreateClusterTemplateFromUrl,
-						Usage:  "creates a cluster template by downloading it from a URL location",
-						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlURL, fl.FlDlOptional).AddAuthenticationFlags().Build() {
-								fl.PrintFlagCompletion(f)
-							}
-						},
-					},
-					{
 						Name:   "from-file",
-						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlFile, fl.FlDlOptional).AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlFile).AddAuthenticationFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
-						Action: ct.CreateClusterTemplateFromFile,
-						Usage:  "creates a cluster template by reading it from a local file",
+						Action: cd.CreateClusterDefinitionFromFile,
+						Usage:  "creates a cluster definition by reading it from a local file",
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlFile, fl.FlDlOptional).AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlFile).AddAuthenticationFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -44,10 +32,10 @@ func init() {
 			},
 			{
 				Name:   "delete",
-				Usage:  "deletes one or more cluster templates",
+				Usage:  "deletes one or more cluster definitions",
 				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNames).AddAuthenticationFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
-				Action: ct.DeleteClusterTemplates,
+				Action: cd.DeleteClusterDefinitions,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNames).AddAuthenticationFlags().Build() {
 						fl.PrintFlagCompletion(f)
@@ -56,10 +44,10 @@ func init() {
 			},
 			{
 				Name:   "describe",
-				Usage:  "describes a cluster template",
+				Usage:  "describes a cluster definition",
 				Before: cf.CheckConfigAndCommandFlags,
 				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build(),
-				Action: ct.DescribeClusterTemplate,
+				Action: cd.DescribeClusterDefinition,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
@@ -68,10 +56,10 @@ func init() {
 			},
 			{
 				Name:   "list",
-				Usage:  "lists the available cluster templates",
+				Usage:  "lists the available cluster definitions",
 				Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
-				Action: ct.ListClusterTemplates,
+				Action: cd.ListClusterDefinitions,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
