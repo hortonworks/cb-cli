@@ -16,6 +16,12 @@ import (
 // swagger:model TelemetryRequest
 type TelemetryRequest struct {
 
+	// Telemetry features settings
+	Features *FeaturesRequest `json:"features,omitempty"`
+
+	// Telemetry fluent settings (overrides).
+	FluentAttributes map[string]interface{} `json:"fluentAttributes,omitempty"`
+
 	// Cloud Logging (telemetry) settings.
 	Logging *LoggingRequest `json:"logging,omitempty"`
 
@@ -30,6 +36,10 @@ type TelemetryRequest struct {
 func (m *TelemetryRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateFeatures(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateLogging(formats); err != nil {
 		res = append(res, err)
 	}
@@ -41,6 +51,24 @@ func (m *TelemetryRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *TelemetryRequest) validateFeatures(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Features) { // not required
+		return nil
+	}
+
+	if m.Features != nil {
+		if err := m.Features.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("features")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
