@@ -55,6 +55,30 @@ func init() {
 				},
 			},
 			{
+				Name:   "start",
+				Usage:  "start an SDX cluster",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddAuthenticationFlags().AddOutputFlag().Build(),
+				Action: sdx.StartSdx,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddAuthenticationFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
+				Name:   "stop",
+				Usage:  "stop an SDX cluster",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddAuthenticationFlags().AddOutputFlag().Build(),
+				Action: sdx.StopSdx,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddAuthenticationFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:   "list",
 				Usage:  "list SDX clusters",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,

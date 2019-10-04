@@ -297,3 +297,25 @@ func DescribeSdx(c *cli.Context) {
 		sdxCluster.StatusReason})
 	log.Infof("[DescribeSdx] Describe a particular SDX cluster")
 }
+
+func StartSdx(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "Start sdx cluster by name")
+	name := c.String(fl.FlName.Name)
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	err := sdxClient.Sdx.StartSdx(sdx.NewStartSdxParams().WithName(name))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	log.Infof("[StartSdx] SDX cluster start executed for: %s", name)
+}
+
+func StopSdx(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "Stop sdx cluster by name")
+	name := c.String(fl.FlName.Name)
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	err := sdxClient.Sdx.StopSdx(sdx.NewStopSdxParams().WithName(name))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	log.Infof("[StopSdx] SDX cluster stop executed for: %s", name)
+}

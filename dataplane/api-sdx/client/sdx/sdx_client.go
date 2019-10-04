@@ -445,6 +445,118 @@ func (a *Client) RetrySdxByCrn(params *RetrySdxByCrnParams) error {
 }
 
 /*
+StartSdx starts sdx
+*/
+func (a *Client) StartSdx(params *StartSdxParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStartSdxParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "startSdx",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/start",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StartSdxReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+StartSdxByCrn starts sdx by crn
+*/
+func (a *Client) StartSdxByCrn(params *StartSdxByCrnParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStartSdxByCrnParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "startSdxByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/crn/{crn}/start",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StartSdxByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+StopSdx stops sdx
+*/
+func (a *Client) StopSdx(params *StopSdxParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopSdxParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stopSdx",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/stop",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StopSdxReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+StopSdxByCrn stops sdx by crn
+*/
+func (a *Client) StopSdxByCrn(params *StopSdxByCrnParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopSdxByCrnParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stopSdxByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/crn/{crn}/stop",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StopSdxByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 SyncSdx syncs s d x cluster by name
 */
 func (a *Client) SyncSdx(params *SyncSdxParams) error {
