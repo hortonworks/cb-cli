@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/hortonworks/cb-cli/dataplane/env"
@@ -201,11 +202,10 @@ func DeleteSdx(c *cli.Context) {
 func RepairSdx(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Sdx cluster repair")
 	name := c.String(fl.FlName.Name)
-	hostGroupToRepair := c.String(fl.FlHostGroup.Name)
+	hostGroupToRepair := c.String(fl.FlHostGroupOptional.Name)
+	hostGroupsToRepair := strings.Split(c.String(fl.FlHostGroupsOptional.Name), ",")
 
-	hostGroupToRepairRequest := &sdxModel.SdxRepairRequest{
-		HostGroupName: hostGroupToRepair,
-	}
+	hostGroupToRepairRequest := formulateRequest(hostGroupToRepair, hostGroupsToRepair)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	err := sdxClient.Sdx.RepairSdxNode(sdx.NewRepairSdxNodeParams().WithName(name).WithBody(hostGroupToRepairRequest))
@@ -213,6 +213,22 @@ func RepairSdx(c *cli.Context) {
 		utils.LogErrorAndExit(err)
 	}
 	log.Infof("[RepairSdx] SDX cluster repair is started for: %s", name)
+}
+
+func formulateRequest(hostGroupToRepair string, hostGroupsToRepair []string) *sdxModel.SdxRepairRequest {
+	if (len(hostGroupToRepair) == 0) == (len(hostGroupsToRepair[0]) == 0) {
+		utils.LogErrorMessageAndExit(fmt.Sprintf("Please only specify either %s or %s", fl.FlHostGroupOptional.Name, fl.FlHostGroupsOptional.Name))
+	}
+	hostGroupToRepairRequest := &sdxModel.SdxRepairRequest{}
+	if len(hostGroupToRepair) > 0 {
+		hostGroupToRepairRequest.HostGroupName = hostGroupToRepair
+	}
+
+	if len(hostGroupsToRepair[0]) > 0 {
+		hostGroupToRepairRequest.HostGroupNames = hostGroupsToRepair
+	}
+
+	return hostGroupToRepairRequest
 }
 
 func ListSdx(c *cli.Context) {
