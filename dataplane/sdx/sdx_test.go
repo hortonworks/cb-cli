@@ -62,6 +62,36 @@ func TestIfDatabaseNeeded(t *testing.T) {
 	}
 }
 
+func TestIfRepairWithIncorrect(t *testing.T) {
+	func() {
+		defer func() {
+			if r := recover(); r == nil {
+				t.Errorf("TestUserFail should have panicked!")
+			}
+		}()
+		formulateRequest("", []string{""})
+	}()
+}
+
+func TestIfRepairWithIncorrectBothProperty(t *testing.T) {
+	func() {
+		defer func() {
+			if r := recover(); r == nil {
+				t.Errorf("TestUserFail should have panicked!")
+			}
+		}()
+		formulateRequest("master", []string{"master", "idbroker"})
+	}()
+}
+
+func TestIfRepairSingleHostGroup(t *testing.T) {
+	formulateRequest("master", []string{""})
+}
+
+func TestIfRepairMultipleHostGroup(t *testing.T) {
+	formulateRequest("", []string{"master", "idbroker"})
+}
+
 func TestIfDatabaseNeededFalse(t *testing.T) {
 	sdxRequest := &sdxModel.SdxClusterRequest{
 		ClusterShape:     nil,

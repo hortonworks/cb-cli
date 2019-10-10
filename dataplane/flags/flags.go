@@ -830,6 +830,20 @@ var (
 			Usage: "comma separated list of hostgroups where the failed nodes will be repaired",
 		},
 	}
+	FlHostGroupOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "host-group",
+			Usage: "hostgroup where the failed nodes will be repaired",
+		},
+	}
+	FlHostGroupsOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "host-groups",
+			Usage: "comma separated list of hostgroups where the failed nodes will be repaired",
+		},
+	}
 	FlNodes = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{
