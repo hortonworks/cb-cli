@@ -55,9 +55,39 @@ func (a *Client) CleanupClusterSecretsV1(params *CleanupClusterSecretsV1Params) 
 }
 
 /*
+CleanupEnvironmentSecretsV1 cleanups all the secrets associated with the environment
+
+Deletes all the secrets that are associated for the given cluster.
+*/
+func (a *Client) CleanupEnvironmentSecretsV1(params *CleanupEnvironmentSecretsV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCleanupEnvironmentSecretsV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "cleanupEnvironmentSecretsV1",
+		Method:             "DELETE",
+		PathPattern:        "/v1/kerberosmgmt/cleanupEnvironmentSecrets",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CleanupEnvironmentSecretsV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 DeleteHostV1 deletes the host
 
-Deletes the host and all the principals associated with the host in the FreeIPA. It also deletes vault secrets associated with the host.
+Deletes the host and all the principals associated with the host in the FreeIPA. It also deletes vault secrets associated with the host. If a role is specified, it will also be deleted. However, if the role is still in use, it will not be deleted in a normal scenerio.
 */
 func (a *Client) DeleteHostV1(params *DeleteHostV1Params) error {
 	// TODO: Validate the params before sending
@@ -87,7 +117,7 @@ func (a *Client) DeleteHostV1(params *DeleteHostV1Params) error {
 /*
 DeleteServicePrinciapalV1 deletes the service principal
 
-Deletes the principal from the FreeIPA. It also deletes vault secrets associated with the principal
+Deletes the principal from the FreeIPA. It also deletes vault secrets associated with the principal. If a role is specified, it will also be deleted. However, if the role is still in use, it will not be deleted in a normal scenerio.
 */
 func (a *Client) DeleteServicePrinciapalV1(params *DeleteServicePrinciapalV1Params) error {
 	// TODO: Validate the params before sending
@@ -111,6 +141,36 @@ func (a *Client) DeleteServicePrinciapalV1(params *DeleteServicePrinciapalV1Para
 		return err
 	}
 	return nil
+
+}
+
+/*
+GenerateHostKeytabV1 creates the host and then get the keytab for the provided host
+
+Creates the host if it doesn't exist and also generates keytab for the host. Resets the secret for the Kerberos principal redering all other keytabs for that principal invalid. Calling the API multiple times for the same principal renders the keytab already generated for that principal invalid. The keytab in the response is base64 encoded.
+*/
+func (a *Client) GenerateHostKeytabV1(params *GenerateHostKeytabV1Params) (*GenerateHostKeytabV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGenerateHostKeytabV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "generateHostKeytabV1",
+		Method:             "POST",
+		PathPattern:        "/v1/kerberosmgmt/hostkeytab",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GenerateHostKeytabV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GenerateHostKeytabV1OK), nil
 
 }
 
@@ -141,6 +201,36 @@ func (a *Client) GenerateServiceKeytabV1(params *GenerateServiceKeytabV1Params) 
 		return nil, err
 	}
 	return result.(*GenerateServiceKeytabV1OK), nil
+
+}
+
+/*
+GetHostKeytabV1 gets the keytab for the provided host
+
+Retrieves the existing keytab for the host provided. Gets the existing keytab without modification and not effecting the prior keytab. The keytab in the response is base64 encoded.
+*/
+func (a *Client) GetHostKeytabV1(params *GetHostKeytabV1Params) (*GetHostKeytabV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetHostKeytabV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getHostKeytabV1",
+		Method:             "GET",
+		PathPattern:        "/v1/kerberosmgmt/hostkeytab",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetHostKeytabV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetHostKeytabV1OK), nil
 
 }
 
