@@ -63,7 +63,7 @@ type DatabaseV4Response struct {
 	// Pattern: (^[a-z][-a-z0-9]*[a-z0-9]$)
 	Name *string `json:"name"`
 
-	// Ownership status of the database server
+	// Ownership status of the database
 	// Enum: [UNKNOWN SERVICE_MANAGED USER_MANAGED]
 	ResourceStatus string `json:"resourceStatus,omitempty"`
 
