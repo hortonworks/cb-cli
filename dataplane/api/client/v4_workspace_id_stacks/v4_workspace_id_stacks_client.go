@@ -85,6 +85,36 @@ func (a *Client) DeleteInstanceStackV4(params *DeleteInstanceStackV4Params) erro
 }
 
 /*
+DeleteMultipleInstancesStackV4 deletes multiple instances from the stack s cluster in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) DeleteMultipleInstancesStackV4(params *DeleteMultipleInstancesStackV4Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteMultipleInstancesStackV4Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteMultipleInstancesStackV4",
+		Method:             "DELETE",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/instances",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteMultipleInstancesStackV4Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 DeleteStackInWorkspaceV4 deletes stack by name in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.

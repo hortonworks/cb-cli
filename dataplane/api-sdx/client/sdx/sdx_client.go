@@ -445,34 +445,6 @@ func (a *Client) RetrySdxByCrn(params *RetrySdxByCrnParams) error {
 }
 
 /*
-StartSdx starts sdx
-*/
-func (a *Client) StartSdx(params *StartSdxParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewStartSdxParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "startSdx",
-		Method:             "POST",
-		PathPattern:        "/sdx/{name}/start",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &StartSdxReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
 StartSdxByCrn starts sdx by crn
 */
 func (a *Client) StartSdxByCrn(params *StartSdxByCrnParams) error {
@@ -501,23 +473,23 @@ func (a *Client) StartSdxByCrn(params *StartSdxByCrnParams) error {
 }
 
 /*
-StopSdx stops sdx
+StartSdxByName starts sdx
 */
-func (a *Client) StopSdx(params *StopSdxParams) error {
+func (a *Client) StartSdxByName(params *StartSdxByNameParams) error {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewStopSdxParams()
+		params = NewStartSdxByNameParams()
 	}
 
 	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "stopSdx",
+		ID:                 "startSdxByName",
 		Method:             "POST",
-		PathPattern:        "/sdx/{name}/stop",
+		PathPattern:        "/sdx/{name}/start",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &StopSdxReader{formats: a.formats},
+		Reader:             &StartSdxByNameReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -546,6 +518,34 @@ func (a *Client) StopSdxByCrn(params *StopSdxByCrnParams) error {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &StopSdxByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+StopSdxByName stops sdx
+*/
+func (a *Client) StopSdxByName(params *StopSdxByNameParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopSdxByNameParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stopSdxByName",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/stop",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StopSdxByNameReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

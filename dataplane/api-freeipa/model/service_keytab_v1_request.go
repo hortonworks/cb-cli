@@ -34,6 +34,9 @@ type ServiceKeytabV1Request struct {
 	// Required: true
 	ServerHostName *string `json:"serverHostName"`
 
+	// Alias name for the service
+	ServerHostNameAlias string `json:"serverHostNameAlias,omitempty"`
+
 	// Service requesting keytab
 	// Required: true
 	ServiceName *string `json:"serviceName"`

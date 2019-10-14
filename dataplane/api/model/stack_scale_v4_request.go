@@ -21,6 +21,9 @@ type StackScaleV4Request struct {
 	// Required: true
 	DesiredCount *int32 `json:"desiredCount"`
 
+	// Force remove instance
+	Forced bool `json:"forced,omitempty"`
+
 	// name of the instance group
 	// Required: true
 	Group *string `json:"group"`

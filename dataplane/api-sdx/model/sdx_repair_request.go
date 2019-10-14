@@ -8,9 +8,7 @@ package model
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // SdxRepairRequest sdx repair request
@@ -18,30 +16,14 @@ import (
 type SdxRepairRequest struct {
 
 	// host group name
-	// Required: true
-	HostGroupName *string `json:"hostGroupName"`
+	HostGroupName string `json:"hostGroupName,omitempty"`
+
+	// host group names
+	HostGroupNames []string `json:"hostGroupNames"`
 }
 
 // Validate validates this sdx repair request
 func (m *SdxRepairRequest) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateHostGroupName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *SdxRepairRequest) validateHostGroupName(formats strfmt.Registry) error {
-
-	if err := validate.Required("hostGroupName", "body", m.HostGroupName); err != nil {
-		return err
-	}
-
 	return nil
 }
 

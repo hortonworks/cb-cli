@@ -17,6 +17,9 @@ import (
 // swagger:model HostGroupAdjustmentV4Request
 type HostGroupAdjustmentV4Request struct {
 
+	// Force remove host
+	Forced bool `json:"forced,omitempty"`
+
 	// name of the host group
 	// Required: true
 	HostGroup *string `json:"hostGroup"`

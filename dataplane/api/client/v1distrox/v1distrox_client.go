@@ -145,6 +145,66 @@ func (a *Client) DeleteInstanceDistroXV1ByName(params *DeleteInstanceDistroXV1By
 }
 
 /*
+DeleteInstancesDistroXV1ByCrn deletes multiple instances from the stack s cluster in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) DeleteInstancesDistroXV1ByCrn(params *DeleteInstancesDistroXV1ByCrnParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteInstancesDistroXV1ByCrnParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteInstancesDistroXV1ByCrn",
+		Method:             "DELETE",
+		PathPattern:        "/v1/distrox/crn/{crn}/instances",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteInstancesDistroXV1ByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+DeleteInstancesDistroXV1ByName deletes multiple instances from the stack s cluster in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) DeleteInstancesDistroXV1ByName(params *DeleteInstancesDistroXV1ByNameParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteInstancesDistroXV1ByNameParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteInstancesDistroXV1ByName",
+		Method:             "DELETE",
+		PathPattern:        "/v1/distrox/name/{name}/instances",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteInstancesDistroXV1ByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 DeleteWithKerberosDistroXV1ByCrn deletes the stack with kerberos cluster by crn
 
 Clusters are materialised Hadoop services on a given infrastructure. They are built based on a blueprint (running the components and services specified) and on a configured infrastructure Stack. Once a cluster is created and launched, it can be used the usual way as any Hadoop cluster. We suggest to start with the Cluster's Ambari UI for an overview of your cluster.
