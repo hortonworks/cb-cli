@@ -19,7 +19,7 @@ type ServiceKeytabV1Response struct {
 	// Keytab that was requested
 	Keytab *SecretResponse `json:"keytab,omitempty"`
 
-	// Kerberos Service Principal Name
+	// Kerberos Principal Name
 	ServicePrincipal *SecretResponse `json:"servicePrincipal,omitempty"`
 }
 
