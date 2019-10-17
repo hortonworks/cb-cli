@@ -14,6 +14,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api/client/autoscale"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/flow_logs"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v1distrox"
+	"github.com/hortonworks/cb-cli/dataplane/api/client/v1internaldistrox"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_audits"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_blueprints"
@@ -83,6 +84,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 	cli.FlowLogs = flow_logs.New(transport, formats)
 
 	cli.V1distrox = v1distrox.New(transport, formats)
+
+	cli.V1internaldistrox = v1internaldistrox.New(transport, formats)
 
 	cli.V4WorkspaceID = v4_workspace_id.New(transport, formats)
 
@@ -172,6 +175,8 @@ type Cloudbreak struct {
 
 	V1distrox *v1distrox.Client
 
+	V1internaldistrox *v1internaldistrox.Client
+
 	V4WorkspaceID *v4_workspace_id.Client
 
 	V4WorkspaceIDAudits *v4_workspace_id_audits.Client
@@ -222,6 +227,8 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.FlowLogs.SetTransport(transport)
 
 	c.V1distrox.SetTransport(transport)
+
+	c.V1internaldistrox.SetTransport(transport)
 
 	c.V4WorkspaceID.SetTransport(transport)
 

@@ -26,6 +26,9 @@ type HostMetadataViewV4Response struct {
 
 	// state of the host
 	State string `json:"state,omitempty"`
+
+	// reason of the state
+	StatusReason string `json:"statusReason,omitempty"`
 }
 
 // Validate validates this host metadata view v4 response

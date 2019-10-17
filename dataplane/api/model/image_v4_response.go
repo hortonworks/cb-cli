@@ -16,6 +16,9 @@ import (
 // swagger:model ImageV4Response
 type ImageV4Response struct {
 
+	// created
+	Created int64 `json:"created,omitempty"`
+
 	// date
 	Date string `json:"date,omitempty"`
 
