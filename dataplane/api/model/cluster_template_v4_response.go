@@ -44,6 +44,10 @@ type ClusterTemplateV4Response struct {
 	// environment name
 	EnvironmentName string `json:"environmentName,omitempty"`
 
+	// feature state
+	// Enum: [PREVIEW RELEASED]
+	FeatureState string `json:"featureState,omitempty"`
+
 	// id of the resource
 	ID int64 `json:"id,omitempty"`
 
@@ -77,6 +81,10 @@ func (m *ClusterTemplateV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDistroXTemplate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFeatureState(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -174,6 +182,49 @@ func (m *ClusterTemplateV4Response) validateDistroXTemplate(formats strfmt.Regis
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var clusterTemplateV4ResponseTypeFeatureStatePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["PREVIEW","RELEASED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		clusterTemplateV4ResponseTypeFeatureStatePropEnum = append(clusterTemplateV4ResponseTypeFeatureStatePropEnum, v)
+	}
+}
+
+const (
+
+	// ClusterTemplateV4ResponseFeatureStatePREVIEW captures enum value "PREVIEW"
+	ClusterTemplateV4ResponseFeatureStatePREVIEW string = "PREVIEW"
+
+	// ClusterTemplateV4ResponseFeatureStateRELEASED captures enum value "RELEASED"
+	ClusterTemplateV4ResponseFeatureStateRELEASED string = "RELEASED"
+)
+
+// prop value enum
+func (m *ClusterTemplateV4Response) validateFeatureStateEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, clusterTemplateV4ResponseTypeFeatureStatePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *ClusterTemplateV4Response) validateFeatureState(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.FeatureState) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateFeatureStateEnum("featureState", "body", m.FeatureState); err != nil {
+		return err
 	}
 
 	return nil

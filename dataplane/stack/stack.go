@@ -3,12 +3,13 @@ package stack
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/hortonworks/cb-cli/dataplane/env"
 	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/hortonworks/cb-cli/dataplane/env"
 
 	"github.com/hortonworks/cb-cli/dataplane/utils"
 	commonutils "github.com/hortonworks/dp-cli-common/utils"
@@ -25,6 +26,7 @@ import (
 )
 
 var stackHeader = []string{"Name", "CloudPlatform", "EnvironmentCrn", "StackStatus", "ClusterStatus"}
+var instanceHeader = []string{"FQDN", "InstanceGroup", "PublicIP", "PrivateIP", "HostStatus", "StatusReason"}
 
 type stackOut struct {
 	common.CloudResourceOut
@@ -39,6 +41,19 @@ type stackOutDescribe struct {
 
 type stackOutRequest struct {
 	*model.StackV4Request
+}
+
+type instanceOutDescribe struct {
+	FQDN          string `json:"FQDN" yaml:"FQDN"`
+	InstanceGroup string `json:"InstanceGroup" yaml:"InstanceGroup"`
+	PublicIP      string `json:"PublicIP" yaml:"PublicIP"`
+	PrivateIP     string `json:"PrivateIP" yaml:"PrivateIP"`
+	HostStatus    string `json:"HostStatus" yaml:"HostStatus"`
+	StatusReason  string `json:"StatusReason" yaml:"StatusReason"`
+}
+
+func (s *instanceOutDescribe) DataAsStringArray() []string {
+	return []string{s.FQDN, s.InstanceGroup, s.PublicIP, s.PrivateIP, s.HostStatus, s.StatusReason}
 }
 
 func (s *stackOut) DataAsStringArray() []string {
@@ -185,14 +200,36 @@ func DescribeStack(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "describe stack")
 
 	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	name := c.String(fl.FlName.Name)
+	cbClient := CloudbreakStack(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
-	resp, err := cbClient.Cloudbreak.V4WorkspaceIDStacks.GetStackInWorkspaceV4(v4stack.NewGetStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(c.String(fl.FlName.Name)))
-	if err != nil {
-		commonutils.LogErrorAndExit(err)
+	resp := cbClient.getStackByName(workspaceID, name)
+	output.Write(append(stackHeader, "ID"), &stackOutDescribe{resp})
+}
+
+func DescribeStackInstances(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "describe instances")
+
+	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
+	cbClient := CloudbreakStack(*oauth.NewCloudbreakHTTPClientFromContext(c))
+	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	name := c.String(fl.FlName.Name)
+
+	stack := cbClient.getStackByName(workspaceID, name)
+	var tableRows []commonutils.Row
+	for _, ig := range stack.InstanceGroups {
+		for _, meta := range ig.Metadata {
+			tableRows = append(tableRows, &instanceOutDescribe{
+				FQDN:          meta.DiscoveryFQDN,
+				InstanceGroup: meta.InstanceGroup,
+				PublicIP:      meta.PublicIP,
+				PrivateIP:     meta.PrivateIP,
+				HostStatus:    meta.State,
+				StatusReason:  meta.StatusReason,
+			})
+		}
 	}
-	s := resp.Payload
-	output.Write(append(stackHeader, "ID"), &stackOutDescribe{s})
+	output.WriteList(instanceHeader, tableRows)
 }
 
 type getStackInWorkspace interface {
