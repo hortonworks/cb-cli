@@ -342,6 +342,11 @@ func ListCredentials(c *cli.Context) {
 	listCredentialsImpl(envClient.Environment.V1credentials, output.WriteList)
 }
 
+type credentialListOutDescribe struct {
+	*common.CloudResourceOut
+	RoleArn *string `json:"RoleArn" yaml:"RoleArn"`
+}
+
 type listCredentialsByWorkspaceClient interface {
 	ListCredentialsV1(*v1cred.ListCredentialsV1Params) (*v1cred.ListCredentialsV1OK, error)
 }
@@ -355,7 +360,13 @@ func listCredentialsImpl(client listCredentialsByWorkspaceClient, writer func([]
 
 	var tableRows []utils.Row
 	for _, cred := range credResp.Payload.Responses {
-		tableRows = append(tableRows, &common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform})
+		if cred.Aws != nil && cred.Aws.RoleBased != nil && cred.Aws.RoleBased.RoleArn != nil {
+			tableRows = append(tableRows,
+				&credentialListOutDescribe{&common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform},
+					cred.Aws.RoleBased.RoleArn})
+		} else {
+			tableRows = append(tableRows, &common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform})
+		}
 	}
 
 	writer(common.CloudResourceHeader, tableRows)
