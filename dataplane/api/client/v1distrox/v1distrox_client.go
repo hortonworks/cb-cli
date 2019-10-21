@@ -415,6 +415,36 @@ func (a *Client) ListDistroXV1(params *ListDistroXV1Params) (*ListDistroXV1OK, e
 }
 
 /*
+ListRetryableFlowsDistroXV1 lists retryable failed flows
+
+List all, currently retryable operations for the stack
+*/
+func (a *Client) ListRetryableFlowsDistroXV1(params *ListRetryableFlowsDistroXV1Params) (*ListRetryableFlowsDistroXV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListRetryableFlowsDistroXV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listRetryableFlowsDistroXV1",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/{name}/retry",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListRetryableFlowsDistroXV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListRetryableFlowsDistroXV1OK), nil
+
+}
+
+/*
 PostDistroXForBlueprintV1ByCrn posts stack for blueprint by crn
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.

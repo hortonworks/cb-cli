@@ -15,6 +15,9 @@ import (
 // swagger:model UserProfileV4Response
 type UserProfileV4Response struct {
 
+	// entitlements
+	Entitlements []string `json:"entitlements"`
+
 	// tenant
 	Tenant string `json:"tenant,omitempty"`
 

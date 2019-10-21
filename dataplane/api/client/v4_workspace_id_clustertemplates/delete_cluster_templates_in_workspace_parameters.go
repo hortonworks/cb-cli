@@ -65,6 +65,10 @@ type DeleteClusterTemplatesInWorkspaceParams struct {
 
 	/*Body*/
 	Body []string
+	/*EnvironmentCrn*/
+	EnvironmentCrn *string
+	/*EnvironmentName*/
+	EnvironmentName *string
 	/*WorkspaceID*/
 	WorkspaceID int64
 
@@ -117,6 +121,28 @@ func (o *DeleteClusterTemplatesInWorkspaceParams) SetBody(body []string) {
 	o.Body = body
 }
 
+// WithEnvironmentCrn adds the environmentCrn to the delete cluster templates in workspace params
+func (o *DeleteClusterTemplatesInWorkspaceParams) WithEnvironmentCrn(environmentCrn *string) *DeleteClusterTemplatesInWorkspaceParams {
+	o.SetEnvironmentCrn(environmentCrn)
+	return o
+}
+
+// SetEnvironmentCrn adds the environmentCrn to the delete cluster templates in workspace params
+func (o *DeleteClusterTemplatesInWorkspaceParams) SetEnvironmentCrn(environmentCrn *string) {
+	o.EnvironmentCrn = environmentCrn
+}
+
+// WithEnvironmentName adds the environmentName to the delete cluster templates in workspace params
+func (o *DeleteClusterTemplatesInWorkspaceParams) WithEnvironmentName(environmentName *string) *DeleteClusterTemplatesInWorkspaceParams {
+	o.SetEnvironmentName(environmentName)
+	return o
+}
+
+// SetEnvironmentName adds the environmentName to the delete cluster templates in workspace params
+func (o *DeleteClusterTemplatesInWorkspaceParams) SetEnvironmentName(environmentName *string) {
+	o.EnvironmentName = environmentName
+}
+
 // WithWorkspaceID adds the workspaceID to the delete cluster templates in workspace params
 func (o *DeleteClusterTemplatesInWorkspaceParams) WithWorkspaceID(workspaceID int64) *DeleteClusterTemplatesInWorkspaceParams {
 	o.SetWorkspaceID(workspaceID)
@@ -140,6 +166,38 @@ func (o *DeleteClusterTemplatesInWorkspaceParams) WriteToRequest(r runtime.Clien
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
 		}
+	}
+
+	if o.EnvironmentCrn != nil {
+
+		// query param environmentCrn
+		var qrEnvironmentCrn string
+		if o.EnvironmentCrn != nil {
+			qrEnvironmentCrn = *o.EnvironmentCrn
+		}
+		qEnvironmentCrn := qrEnvironmentCrn
+		if qEnvironmentCrn != "" {
+			if err := r.SetQueryParam("environmentCrn", qEnvironmentCrn); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.EnvironmentName != nil {
+
+		// query param environmentName
+		var qrEnvironmentName string
+		if o.EnvironmentName != nil {
+			qrEnvironmentName = *o.EnvironmentName
+		}
+		qEnvironmentName := qrEnvironmentName
+		if qEnvironmentName != "" {
+			if err := r.SetQueryParam("environmentName", qEnvironmentName); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	// path param workspaceId

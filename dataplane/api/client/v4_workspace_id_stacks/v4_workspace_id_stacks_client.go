@@ -263,6 +263,36 @@ func (a *Client) GetStackRequestFromNameV4(params *GetStackRequestFromNameV4Para
 }
 
 /*
+ListRetryableFlowsV4 lists retryable failed flows
+
+List all, currently retryable operations for the stack
+*/
+func (a *Client) ListRetryableFlowsV4(params *ListRetryableFlowsV4Params) (*ListRetryableFlowsV4OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListRetryableFlowsV4Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listRetryableFlowsV4",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/retry",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListRetryableFlowsV4Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListRetryableFlowsV4OK), nil
+
+}
+
+/*
 ListStackInWorkspaceV4 lists stacks for the given workspace and environment name
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.

@@ -54,6 +54,9 @@ type InstanceMetaDataV4Response struct {
 
 	// state of the host
 	State string `json:"state,omitempty"`
+
+	// reason of the state
+	StatusReason string `json:"statusReason,omitempty"`
 }
 
 // Validate validates this instance meta data v4 response

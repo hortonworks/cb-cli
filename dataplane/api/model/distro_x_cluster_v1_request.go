@@ -18,7 +18,8 @@ import (
 type DistroXClusterV1Request struct {
 
 	// blueprint name for the cluster
-	BlueprintName string `json:"blueprintName,omitempty"`
+	// Required: true
+	BlueprintName *string `json:"blueprintName"`
 
 	// external cloud storage configuration
 	CloudStorage *CloudStorageRequest `json:"cloudStorage,omitempty"`
@@ -57,6 +58,10 @@ type DistroXClusterV1Request struct {
 func (m *DistroXClusterV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBlueprintName(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCloudStorage(formats); err != nil {
 		res = append(res, err)
 	}
@@ -80,6 +85,15 @@ func (m *DistroXClusterV1Request) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DistroXClusterV1Request) validateBlueprintName(formats strfmt.Registry) error {
+
+	if err := validate.Required("blueprintName", "body", m.BlueprintName); err != nil {
+		return err
+	}
+
 	return nil
 }
 

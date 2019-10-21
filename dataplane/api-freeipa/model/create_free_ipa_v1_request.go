@@ -53,6 +53,9 @@ type CreateFreeIpaV1Request struct {
 	// placement configuration parameters for a cluster (e.g. 'region', 'availabilityZone')
 	// Required: true
 	Placement *PlacementV1Request `json:"placement"`
+
+	// whether to use CCM for communicating with the freeipa instance
+	UseCcm bool `json:"useCcm,omitempty"`
 }
 
 // Validate validates this create free ipa v1 request
