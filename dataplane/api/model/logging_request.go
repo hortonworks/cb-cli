@@ -17,6 +17,9 @@ import (
 // swagger:model LoggingRequest
 type LoggingRequest struct {
 
+	// telemetry - logging adls gen2 attributes
+	AdlsGen2 *AdlsGen2CloudStorageV1Parameters `json:"adlsGen2,omitempty"`
+
 	// telemetry component custom attributes
 	Attributes map[string]interface{} `json:"attributes,omitempty"`
 
@@ -26,14 +29,15 @@ type LoggingRequest struct {
 	// telemetry - logging storage location / container
 	// Required: true
 	StorageLocation *string `json:"storageLocation"`
-
-	// telemetry - logging wasb attributes
-	Wasb *WasbCloudStorageV1Parameters `json:"wasb,omitempty"`
 }
 
 // Validate validates this logging request
 func (m *LoggingRequest) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAdlsGen2(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateS3(formats); err != nil {
 		res = append(res, err)
@@ -43,13 +47,27 @@ func (m *LoggingRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateWasb(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *LoggingRequest) validateAdlsGen2(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AdlsGen2) { // not required
+		return nil
+	}
+
+	if m.AdlsGen2 != nil {
+		if err := m.AdlsGen2.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("adlsGen2")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -75,24 +93,6 @@ func (m *LoggingRequest) validateStorageLocation(formats strfmt.Registry) error 
 
 	if err := validate.Required("storageLocation", "body", m.StorageLocation); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-func (m *LoggingRequest) validateWasb(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Wasb) { // not required
-		return nil
-	}
-
-	if m.Wasb != nil {
-		if err := m.Wasb.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("wasb")
-			}
-			return err
-		}
 	}
 
 	return nil

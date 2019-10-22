@@ -311,6 +311,13 @@ var (
 			Usage: "in case of AWS storage it specifies the instanceProfile",
 		},
 	}
+	FlCloudStorageManagedIdentityOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "cloud-storage-azure-managed-identity",
+			Usage: "in case of Azure storage it specifies the full id of the user managed identity",
+		},
+	}
 	FlCloudStorageTypeOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{

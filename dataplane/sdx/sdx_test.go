@@ -115,7 +115,7 @@ func TestSetupCloudStorageIfNeeded(t *testing.T) {
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
 	}
-	setupCloudStorageIfNeeded("location", "instanceProfiule", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
+	setupCloudStorageIfNeeded("location", "instanceProfile", "managedIdentity", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
 
 	if sdxRequest.CloudStorage == nil {
 		t.Errorf("CloudStorage was not set correctly")
@@ -130,7 +130,7 @@ func TestSetupCloudStorageInternalIfNeeded(t *testing.T) {
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
 	}
-	setupCloudStorageIfNeeded("location", "instanceProfiule", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
+	setupCloudStorageIfNeeded("location", "instanceProfile", "managedIdentity", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
 
 	if sdxRequest.CloudStorage == nil {
 		t.Errorf("CloudStorage was not set correctly")

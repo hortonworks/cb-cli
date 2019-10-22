@@ -380,8 +380,10 @@ func extendTemplateWithStorageType(template *model.StackV4Request, storageType c
 			Identities: []*model.StorageIdentityBase{
 				{
 					AdlsGen2: &model.AdlsGen2CloudStorageV1Parameters{
-						AccountKey:  &(&types.S{S: "____"}).S,
-						AccountName: &(&types.S{S: "____"}).S,
+						AccountKey:      (&types.S{S: "____"}).S,
+						AccountName:     (&types.S{S: "____"}).S,
+						ManagedIdentity: (&types.S{S: "____"}).S,
+						Secure:          false,
 					},
 				},
 			},
