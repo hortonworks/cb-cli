@@ -8,9 +8,7 @@ package model
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // AdlsGen2CloudStorageV1Parameters adls gen2 cloud storage v1 parameters
@@ -18,12 +16,13 @@ import (
 type AdlsGen2CloudStorageV1Parameters struct {
 
 	// account key
-	// Required: true
-	AccountKey *string `json:"accountKey"`
+	AccountKey string `json:"accountKey,omitempty"`
 
 	// account name
-	// Required: true
-	AccountName *string `json:"accountName"`
+	AccountName string `json:"accountName,omitempty"`
+
+	// managed identity
+	ManagedIdentity string `json:"managedIdentity,omitempty"`
 
 	// secure
 	Secure bool `json:"secure,omitempty"`
@@ -31,37 +30,6 @@ type AdlsGen2CloudStorageV1Parameters struct {
 
 // Validate validates this adls gen2 cloud storage v1 parameters
 func (m *AdlsGen2CloudStorageV1Parameters) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateAccountKey(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateAccountName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *AdlsGen2CloudStorageV1Parameters) validateAccountKey(formats strfmt.Registry) error {
-
-	if err := validate.Required("accountKey", "body", m.AccountKey); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AdlsGen2CloudStorageV1Parameters) validateAccountName(formats strfmt.Registry) error {
-
-	if err := validate.Required("accountName", "body", m.AccountName); err != nil {
-		return err
-	}
-
 	return nil
 }
 

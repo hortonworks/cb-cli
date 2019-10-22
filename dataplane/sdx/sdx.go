@@ -79,20 +79,21 @@ func CreateSdx(c *cli.Context) {
 	clusterShape := c.String(fl.FlClusterShape.Name)
 	baseLocation := c.String(fl.FlCloudStorageBaseLocationOptional.Name)
 	instanceProfile := c.String(fl.FlCloudStorageInstanceProfileOptional.Name)
+	managedIdentity := c.String(fl.FlCloudStorageManagedIdentityOptional.Name)
 	withExternalDatabase := c.Bool(fl.FlWithExternalDatabaseOptional.Name)
 	withoutExternalDatabase := c.Bool(fl.FlWithoutExternalDatabaseOptional.Name)
 
 	inputJson := assembleStackRequest(c)
 
 	if inputJson != nil {
-		createInternalSdx(envName, inputJson, c, name, baseLocation, instanceProfile, withoutExternalDatabase, withExternalDatabase)
+		createInternalSdx(envName, inputJson, c, name, baseLocation, instanceProfile, managedIdentity, withoutExternalDatabase, withExternalDatabase)
 	} else {
-		createSdx(clusterShape, envName, c, name, baseLocation, instanceProfile, withoutExternalDatabase, withExternalDatabase)
+		createSdx(clusterShape, envName, c, name, baseLocation, instanceProfile, managedIdentity, withoutExternalDatabase, withExternalDatabase)
 	}
 }
 
-func createSdx(clusterShape string, envName string, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, withoutExternalDatabase bool, withExternalDatabase bool) {
-	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, withExternalDatabase, withoutExternalDatabase)
+func createSdx(clusterShape string, envName string, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, withoutExternalDatabase bool, withExternalDatabase bool) {
+	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, withExternalDatabase, withoutExternalDatabase)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	resp, err := sdxClient.Sdx.CreateSdx(sdx.NewCreateSdxParams().WithName(name).WithBody(sdxRequest))
@@ -103,7 +104,7 @@ func createSdx(clusterShape string, envName string, c *cli.Context, name string,
 	log.Infof("[CreateSdx] SDX cluster created in environment: %s, with name: %s", envName, sdxCluster.Name)
 }
 
-func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocation string, instanceProfile string, withExternalDatabase bool, withoutExternalDatabase bool) *sdxModel.SdxClusterRequest {
+func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, withExternalDatabase bool, withoutExternalDatabase bool) *sdxModel.SdxClusterRequest {
 	sdxRequest := &sdxModel.SdxClusterRequest{
 		ClusterShape:     &clusterShape,
 		Environment:      &envName,
@@ -111,7 +112,7 @@ func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocat
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
 	}
-	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = storage }))
+	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = storage }))
 	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, &sdxRequest.ExternalDatabase)
 	return sdxRequest
 }
@@ -140,26 +141,42 @@ func (s CloudStorageSetter) SetCloudStorage(req *sdxModel.SdxCloudStorageRequest
 	s(req)
 }
 
-func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile string, setter CloudStorageSetter) {
+func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, setter CloudStorageSetter) {
 	if len(cloudStorageBaseLocation) > 0 {
-		s3CloudStorage := &sdxModel.S3CloudStorageV1Parameters{
-			InstanceProfile: &instanceProfile,
-		}
+		if len(instanceProfile) > 0 {
+			s3CloudStorage := &sdxModel.S3CloudStorageV1Parameters{
+				InstanceProfile: &instanceProfile,
+			}
+			cloudStorage := &sdxModel.SdxCloudStorageRequest{
+				Adls:           nil,
+				AdlsGen2:       nil,
+				BaseLocation:   cloudStorageBaseLocation,
+				FileSystemType: "S3",
+				Gcs:            nil,
+				S3:             s3CloudStorage,
+				Wasb:           nil,
+			}
+			setter.SetCloudStorage(cloudStorage)
 
-		cloudStorage := &sdxModel.SdxCloudStorageRequest{
-			Adls:           nil,
-			AdlsGen2:       nil,
-			BaseLocation:   cloudStorageBaseLocation,
-			FileSystemType: "S3",
-			Gcs:            nil,
-			S3:             s3CloudStorage,
-			Wasb:           nil,
+		} else if len(managedIdentity) > 0 {
+			adlsGen2Storage := &sdxModel.AdlsGen2CloudStorageV1Parameters{
+				ManagedIdentity: managedIdentity,
+			}
+			cloudStorage := &sdxModel.SdxCloudStorageRequest{
+				Adls:           nil,
+				AdlsGen2:       adlsGen2Storage,
+				BaseLocation:   cloudStorageBaseLocation,
+				FileSystemType: "ADLS_GEN_2",
+				Gcs:            nil,
+				S3:             nil,
+				Wasb:           nil,
+			}
+			setter.SetCloudStorage(cloudStorage)
 		}
-		setter.SetCloudStorage(cloudStorage)
 	}
 }
 
-func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, withoutExternalDatabase bool, withExternalDatabase bool) {
+func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, withoutExternalDatabase bool, withExternalDatabase bool) {
 	sdxInternalRequest := &sdxModel.SdxInternalClusterRequest{
 		ClusterShape:     &(&types.S{S: sdxModel.SdxClusterRequestClusterShapeCUSTOM}).S,
 		Environment:      &envName,
@@ -168,7 +185,7 @@ func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cl
 		ExternalDatabase: nil,
 	}
 
-	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxInternalRequest.CloudStorage = storage }))
+	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxInternalRequest.CloudStorage = storage }))
 	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, &sdxInternalRequest.ExternalDatabase)
 
 	if inputJson.EnvironmentCrn == nil || len(*inputJson.EnvironmentCrn) == 0 {
