@@ -242,7 +242,7 @@ func ListImagesValidForUpgrade(c *cli.Context) {
 }
 
 func toImageResponseList(images *model.ImagesV4Response) []*model.ImageV4Response {
-	var imagesList = make([]*model.ImageV4Response, 0, len(images.BaseImages)+len(images.HdfImages)+len(images.HdpImages))
+	var imagesList = make([]*model.ImageV4Response, 0, len(images.BaseImages)+len(images.HdfImages)+len(images.HdpImages)+len(images.CdhImages))
 	for _, i := range images.BaseImages {
 		imagesList = append(imagesList, toImageResponse(i))
 	}
@@ -250,6 +250,9 @@ func toImageResponseList(images *model.ImagesV4Response) []*model.ImageV4Respons
 		imagesList = append(imagesList, i)
 	}
 	for _, i := range images.HdpImages {
+		imagesList = append(imagesList, i)
+	}
+	for _, i := range images.CdhImages {
 		imagesList = append(imagesList, i)
 	}
 
@@ -306,6 +309,9 @@ func findImageByUUID(imageResponse *model.ImagesV4Response, imageID string) *mod
 		warmupImage := findWarmupImage(imageResponse.HdpImages, imageID)
 		if warmupImage == nil {
 			warmupImage = findWarmupImage(imageResponse.HdfImages, imageID)
+			if warmupImage == nil {
+				warmupImage = findWarmupImage(imageResponse.CdhImages, imageID)
+			}
 		}
 		return warmupImage
 	}
@@ -371,6 +377,15 @@ func listImagesImpl(client getPublicImagesClient, writer func([]string, []utils.
 
 	var tableRows []utils.Row
 	for _, i := range imageResp.Payload.BaseImages {
+		tableRows = append(tableRows, &imageOut{i.Date, i.Description, i.Version, i.UUID})
+	}
+	for _, i := range imageResp.Payload.CdhImages {
+		tableRows = append(tableRows, &imageOut{i.Date, i.Description, i.Version, i.UUID})
+	}
+	for _, i := range imageResp.Payload.HdpImages {
+		tableRows = append(tableRows, &imageOut{i.Date, i.Description, i.Version, i.UUID})
+	}
+	for _, i := range imageResp.Payload.HdfImages {
 		tableRows = append(tableRows, &imageOut{i.Date, i.Description, i.Version, i.UUID})
 	}
 
