@@ -390,3 +390,28 @@ func StopSdx(c *cli.Context) {
 	}
 	log.Infof("[StopSdx] SDX cluster stop executed for: %s", name)
 }
+
+func UpgradeSdx(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "Upgrade sdx cluster by name")
+	name := c.String(fl.FlName.Name)
+	dryRun := c.Bool(fl.FlDryRunOptional.Name)
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	if dryRun {
+		resp, err := sdxClient.Sdx.CheckForUpgrade(sdx.NewCheckForUpgradeParams().WithName(name))
+		if err != nil {
+			utils.LogErrorAndExit(err)
+		}
+		payload := resp.Payload
+		if len(payload.ImageCatalogName) > 0 && len(payload.ImageID) > 0 {
+			fmt.Printf("There's new image for upgrade: %s\n", string(payload.ImageID))
+		} else {
+			log.Errorf("There's no new image for: %s", name)
+		}
+	} else {
+		err := sdxClient.Sdx.UpgradeDatalakeCluster(sdx.NewUpgradeDatalakeClusterParams().WithName(name))
+		if err != nil {
+			utils.LogErrorAndExit(err)
+		}
+	}
+	log.Infof("[UpgradeSdx] SDX cluster upgrade is in progress for: %s", name)
+}

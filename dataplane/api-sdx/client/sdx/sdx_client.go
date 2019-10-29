@@ -25,6 +25,62 @@ type Client struct {
 }
 
 /*
+CheckForUpgrade checks for upgrade options by name
+*/
+func (a *Client) CheckForUpgrade(params *CheckForUpgradeParams) (*CheckForUpgradeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCheckForUpgradeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "checkForUpgrade",
+		Method:             "GET",
+		PathPattern:        "/sdx/{name}/check_for_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CheckForUpgradeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CheckForUpgradeOK), nil
+
+}
+
+/*
+CheckForUpgradeByCrn checks for upgrade options by crn
+*/
+func (a *Client) CheckForUpgradeByCrn(params *CheckForUpgradeByCrnParams) (*CheckForUpgradeByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCheckForUpgradeByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "checkForUpgradeByCrn",
+		Method:             "GET",
+		PathPattern:        "/sdx/crn/{crn}/check_for_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CheckForUpgradeByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CheckForUpgradeByCrnOK), nil
+
+}
+
+/*
 CreateSdx creates s d x cluster
 */
 func (a *Client) CreateSdx(params *CreateSdxParams) (*CreateSdxOK, error) {
@@ -345,7 +401,7 @@ func (a *Client) RepairSdxNode(params *RepairSdxNodeParams) error {
 		ID:                 "repairSdxNode",
 		Method:             "POST",
 		PathPattern:        "/sdx/{name}/manual_repair",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
@@ -373,7 +429,7 @@ func (a *Client) RepairSdxNodeByCrn(params *RepairSdxNodeByCrnParams) error {
 		ID:                 "repairSdxNodeByCrn",
 		Method:             "POST",
 		PathPattern:        "/sdx/crn/{crn}/manual_repair",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
@@ -602,6 +658,62 @@ func (a *Client) SyncSdxByCrn(params *SyncSdxByCrnParams) error {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &SyncSdxByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+UpgradeDatalakeCluster upgrades the datalake cluster to the latest images
+*/
+func (a *Client) UpgradeDatalakeCluster(params *UpgradeDatalakeClusterParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDatalakeClusterParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDatalakeCluster",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDatalakeClusterReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+UpgradeDatalakeClusterByCrn upgrades the datalake cluster to the latest images
+*/
+func (a *Client) UpgradeDatalakeClusterByCrn(params *UpgradeDatalakeClusterByCrnParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDatalakeClusterByCrnParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDatalakeClusterByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/crn/{crn}/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDatalakeClusterByCrnReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

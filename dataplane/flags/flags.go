@@ -1378,6 +1378,13 @@ var (
 			Usage: "location of the JSON file for database registration",
 		},
 	}
+	FlDryRunOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "dry-run",
+			Usage: "checks the availability of a newer OS image",
+		},
+	}
 )
 
 type RequiredFlag struct {
@@ -1535,6 +1542,13 @@ func (fb *FlagBuilder) AddAuthenticationFlagsWithoutWorkspace() *FlagBuilder {
 
 func (fb *FlagBuilder) AddResourceDefaultFlags() *FlagBuilder {
 	for _, f := range []cli.Flag{FlName, FlDescriptionOptional} {
+		fb.flags = append(fb.flags, f)
+	}
+	return fb
+}
+
+func (fb *FlagBuilder) AddNameFlag() *FlagBuilder {
+	for _, f := range []cli.Flag{FlName} {
 		fb.flags = append(fb.flags, f)
 	}
 	return fb
