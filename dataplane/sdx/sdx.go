@@ -37,6 +37,11 @@ type sdxClusterOutput struct {
 	StatusReason               string `json:"StatusReason" yaml:"StatusReason"`
 }
 
+type sdxClusterDetailedOutput struct {
+	*sdxClusterOutput
+	StackV4Response sdxModel.StackV4Response `json:"StackV4Response" yaml:"StackV4Response"`
+}
+
 func (r *sdxClusterOutput) DataAsStringArray() []string {
 	return []string{r.Crn, r.Name, r.Environment, r.EnvironmentCrn, r.StackCrn, r.DatabaseServerCrn, r.CloudStorageBaseLocation, r.CloudStorageFileSystemType, r.Status, r.StatusReason}
 }
@@ -309,13 +314,22 @@ func createCloudStorageRequestForSdx() {
 func DescribeSdx(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "describe SDX cluster")
 	name := c.String(fl.FlName.Name)
+	detailed := c.Bool(fl.FlDetailedOptional.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx.Sdx
-	resp, err := sdxClient.GetSdx(sdx.NewGetSdxParams().WithName(name))
 
+	if detailed {
+		describeSdxDetailed(sdxClient, name, c)
+	} else {
+		describeSdx(sdxClient, name, c)
+	}
+
+}
+
+func describeSdx(sdxClient *sdx.Client, name string, c *cli.Context) {
+	resp, err := sdxClient.GetSdx(sdx.NewGetSdxParams().WithName(name))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
-
 	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	sdxCluster := resp.Payload
 	output.Write(sdxClusterHeader, &sdxClusterOutput{sdxCluster.Crn,
@@ -329,6 +343,30 @@ func DescribeSdx(c *cli.Context) {
 		sdxCluster.Status,
 		sdxCluster.StatusReason})
 	log.Infof("[DescribeSdx] Describe a particular SDX cluster")
+}
+
+func describeSdxDetailed(sdxClient *sdx.Client, name string, c *cli.Context) {
+	resp, err := sdxClient.GetSdxDetail(sdx.NewGetSdxDetailParams().WithName(name))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	sdxCluster := resp.Payload
+
+	output.Write(sdxClusterHeader, &sdxClusterDetailedOutput{
+		sdxClusterOutput: &sdxClusterOutput{sdxCluster.Crn,
+			sdxCluster.Name,
+			sdxCluster.EnvironmentName,
+			sdxCluster.EnvironmentCrn,
+			sdxCluster.StackCrn,
+			sdxCluster.DatabaseServerCrn,
+			sdxCluster.CloudStorageBaseLocation,
+			sdxCluster.CloudStorageFileSystemType,
+			sdxCluster.Status,
+			sdxCluster.StatusReason},
+		StackV4Response: *sdxCluster.StackV4Response,
+	})
+	log.Infof("[DescribeSdxDetailed] Describe a particular SDX cluster")
 }
 
 func StartSdx(c *cli.Context) {
