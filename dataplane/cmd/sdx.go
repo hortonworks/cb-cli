@@ -46,10 +46,10 @@ func init() {
 				Name:   "describe",
 				Usage:  "describes an SDX cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddAuthenticationFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlDetailedOptional).AddAuthenticationFlags().AddOutputFlag().Build(),
 				Action: sdx.DescribeSdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlDetailedOptional).AddAuthenticationFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

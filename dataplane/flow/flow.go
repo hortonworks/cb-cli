@@ -22,6 +22,7 @@ type flow struct {
 	CurrentState string `json:"CurrentState" yaml:"CurrentState"`
 	Finalized    bool   `json:"Finalized" yaml:"Finalized"`
 	StateStatus  string `json:"StateStatus" yaml:"StateStatus"`
+	NodeId       string `json:"NodeId" yaml:"NodeId"`
 	NextEvent    string `json:"NextEvent" yaml:"NextEvent"`
 }
 
@@ -111,6 +112,7 @@ func writeOutOne(r *model.FlowLogResponse, writer func([]string, utils.Row)) {
 		CurrentState: r.CurrentState,
 		Finalized:    r.Finalized,
 		StateStatus:  r.StateStatus,
+		NodeId:       r.NodeID,
 		NextEvent:    r.NextEvent,
 	})
 }
@@ -124,6 +126,7 @@ func writeOut(responses []*model.FlowLogResponse, writer func([]string, []utils.
 			CurrentState: r.CurrentState,
 			Finalized:    r.Finalized,
 			StateStatus:  r.StateStatus,
+			NodeId:       r.NodeID,
 			NextEvent:    r.NextEvent,
 		}
 		tableRows = append(tableRows, row)
