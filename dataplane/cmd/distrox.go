@@ -68,6 +68,18 @@ func init() {
 				},
 			},
 			{
+				Name:   "multi-delete",
+				Usage:  "deletes multiple DistroX clusters by name",
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNames, fl.FlForceOptional).AddAuthenticationFlags().Build(),
+				Before: cf.CheckConfigAndCommandFlags,
+				Action: distrox.DeleteMultipleDistroxClusters,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNames, fl.FlForceOptional).AddAuthenticationFlags().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:   "describe",
 				Usage:  "describes a DistroX cluster",
 				Before: cf.CheckConfigAndCommandFlags,
