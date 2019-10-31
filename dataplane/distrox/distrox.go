@@ -83,7 +83,7 @@ func convertViewResponseToStack(s *model.StackViewV4Response) *dxOut {
 }
 
 func DeleteDistroX(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "delete DistroX")
+	defer commonutils.TimeTrack(time.Now(), "delete DistroX cluster")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	name := c.String(fl.FlName.Name)
@@ -92,6 +92,24 @@ func DeleteDistroX(c *cli.Context) {
 
 	if c.Bool(fl.FlWaitOptional.Name) {
 		dxClient.WaitForDistroXOperationToFinish(name, DELETE_COMPLETED, SKIP)
+	}
+}
+
+func DeleteMultipleDistroxClusters(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "delete multiple DistroX clusters by name")
+
+	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
+	val := c.String(fl.FlNames.Name)
+	clusterNames := strings.Split(val[1:len(val)-1], ",")
+	forced := c.Bool(fl.FlForceOptional.Name)
+	log.Infof("[DeleteMultipleDistroxClusters] delete clusters(s) by names: %s", clusterNames)
+	request := model.DistroXMultiDeleteV1Request{
+		Names: clusterNames,
+	}
+	err := dxClient.Cloudbreak.V1distrox.DeleteMultipleDistroXClustersByNamesV1(
+		v1distrox.NewDeleteMultipleDistroXClustersByNamesV1Params().WithForced(&forced).WithBody(&request))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
 	}
 }
 
