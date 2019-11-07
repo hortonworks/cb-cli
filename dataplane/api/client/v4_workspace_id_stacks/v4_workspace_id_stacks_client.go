@@ -55,6 +55,36 @@ func (a *Client) ChangeImageStackInWorkspaceV4(params *ChangeImageStackInWorkspa
 }
 
 /*
+CheckForUpgradeInWorkspaceV4 checks for upgrades for the stack by name in workspace
+
+Checks for upgrades for the given cluster.
+*/
+func (a *Client) CheckForUpgradeInWorkspaceV4(params *CheckForUpgradeInWorkspaceV4Params) (*CheckForUpgradeInWorkspaceV4OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCheckForUpgradeInWorkspaceV4Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "checkForUpgradeInWorkspaceV4",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/check_for_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CheckForUpgradeInWorkspaceV4Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CheckForUpgradeInWorkspaceV4OK), nil
+
+}
+
+/*
 DeleteInstanceStackV4 deletes instance from the stack s cluster in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -672,6 +702,36 @@ func (a *Client) SyncStackInWorkspaceV4(params *SyncStackInWorkspaceV4Params) er
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &SyncStackInWorkspaceV4Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+UpgradeClusterInWorkspaceV4 upgrades the stack by name in workspace
+
+Removing all nodes and starting new nodes with the latest image. If the cluster already uses the the latest image then no remove/restart will happen.
+*/
+func (a *Client) UpgradeClusterInWorkspaceV4(params *UpgradeClusterInWorkspaceV4Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeClusterInWorkspaceV4Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeClusterInWorkspaceV4",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeClusterInWorkspaceV4Reader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

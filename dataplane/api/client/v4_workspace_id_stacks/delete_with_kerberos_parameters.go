@@ -23,10 +23,10 @@ import (
 // with the default values initialized.
 func NewDeleteWithKerberosParams() *DeleteWithKerberosParams {
 	var (
-		withStackDeleteDefault = bool(false)
+		forcedDefault = bool(false)
 	)
 	return &DeleteWithKerberosParams{
-		WithStackDelete: &withStackDeleteDefault,
+		Forced: &forcedDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -36,10 +36,10 @@ func NewDeleteWithKerberosParams() *DeleteWithKerberosParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteWithKerberosParamsWithTimeout(timeout time.Duration) *DeleteWithKerberosParams {
 	var (
-		withStackDeleteDefault = bool(false)
+		forcedDefault = bool(false)
 	)
 	return &DeleteWithKerberosParams{
-		WithStackDelete: &withStackDeleteDefault,
+		Forced: &forcedDefault,
 
 		timeout: timeout,
 	}
@@ -49,10 +49,10 @@ func NewDeleteWithKerberosParamsWithTimeout(timeout time.Duration) *DeleteWithKe
 // with the default values initialized, and the ability to set a context for a request
 func NewDeleteWithKerberosParamsWithContext(ctx context.Context) *DeleteWithKerberosParams {
 	var (
-		withStackDeleteDefault = bool(false)
+		forcedDefault = bool(false)
 	)
 	return &DeleteWithKerberosParams{
-		WithStackDelete: &withStackDeleteDefault,
+		Forced: &forcedDefault,
 
 		Context: ctx,
 	}
@@ -62,11 +62,11 @@ func NewDeleteWithKerberosParamsWithContext(ctx context.Context) *DeleteWithKerb
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteWithKerberosParamsWithHTTPClient(client *http.Client) *DeleteWithKerberosParams {
 	var (
-		withStackDeleteDefault = bool(false)
+		forcedDefault = bool(false)
 	)
 	return &DeleteWithKerberosParams{
-		WithStackDelete: &withStackDeleteDefault,
-		HTTPClient:      client,
+		Forced:     &forcedDefault,
+		HTTPClient: client,
 	}
 }
 
@@ -75,10 +75,10 @@ for the delete with kerberos operation typically these are written to a http.Req
 */
 type DeleteWithKerberosParams struct {
 
+	/*Forced*/
+	Forced *bool
 	/*Name*/
 	Name string
-	/*WithStackDelete*/
-	WithStackDelete *bool
 	/*WorkspaceID*/
 	WorkspaceID int64
 
@@ -120,6 +120,17 @@ func (o *DeleteWithKerberosParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithForced adds the forced to the delete with kerberos params
+func (o *DeleteWithKerberosParams) WithForced(forced *bool) *DeleteWithKerberosParams {
+	o.SetForced(forced)
+	return o
+}
+
+// SetForced adds the forced to the delete with kerberos params
+func (o *DeleteWithKerberosParams) SetForced(forced *bool) {
+	o.Forced = forced
+}
+
 // WithName adds the name to the delete with kerberos params
 func (o *DeleteWithKerberosParams) WithName(name string) *DeleteWithKerberosParams {
 	o.SetName(name)
@@ -129,17 +140,6 @@ func (o *DeleteWithKerberosParams) WithName(name string) *DeleteWithKerberosPara
 // SetName adds the name to the delete with kerberos params
 func (o *DeleteWithKerberosParams) SetName(name string) {
 	o.Name = name
-}
-
-// WithWithStackDelete adds the withStackDelete to the delete with kerberos params
-func (o *DeleteWithKerberosParams) WithWithStackDelete(withStackDelete *bool) *DeleteWithKerberosParams {
-	o.SetWithStackDelete(withStackDelete)
-	return o
-}
-
-// SetWithStackDelete adds the withStackDelete to the delete with kerberos params
-func (o *DeleteWithKerberosParams) SetWithStackDelete(withStackDelete *bool) {
-	o.WithStackDelete = withStackDelete
 }
 
 // WithWorkspaceID adds the workspaceID to the delete with kerberos params
@@ -161,25 +161,25 @@ func (o *DeleteWithKerberosParams) WriteToRequest(r runtime.ClientRequest, reg s
 	}
 	var res []error
 
-	// path param name
-	if err := r.SetPathParam("name", o.Name); err != nil {
-		return err
-	}
+	if o.Forced != nil {
 
-	if o.WithStackDelete != nil {
-
-		// query param withStackDelete
-		var qrWithStackDelete bool
-		if o.WithStackDelete != nil {
-			qrWithStackDelete = *o.WithStackDelete
+		// query param forced
+		var qrForced bool
+		if o.Forced != nil {
+			qrForced = *o.Forced
 		}
-		qWithStackDelete := swag.FormatBool(qrWithStackDelete)
-		if qWithStackDelete != "" {
-			if err := r.SetQueryParam("withStackDelete", qWithStackDelete); err != nil {
+		qForced := swag.FormatBool(qrForced)
+		if qForced != "" {
+			if err := r.SetQueryParam("forced", qForced); err != nil {
 				return err
 			}
 		}
 
+	}
+
+	// path param name
+	if err := r.SetPathParam("name", o.Name); err != nil {
+		return err
 	}
 
 	// path param workspaceId

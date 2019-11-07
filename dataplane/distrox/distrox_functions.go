@@ -83,7 +83,7 @@ func (c *DistroX) deleteDistroX(name string, forced bool) {
 	defer utils.TimeTrack(time.Now(), "delete DistroX by name")
 
 	log.Infof("[deleteDistroX] deleting DistroX, name: %s", name)
-	err := c.Cloudbreak.V1distrox.DeleteDistroXV1ByName(v1distrox.NewDeleteDistroXV1ByNameParams().WithName(name).WithForced(&forced))
+	err := c.Cloudbreak.V1distrox.DeleteWithKerberosDistroXV1ByName(v1distrox.NewDeleteWithKerberosDistroXV1ByNameParams().WithName(name).WithForced(&forced))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}

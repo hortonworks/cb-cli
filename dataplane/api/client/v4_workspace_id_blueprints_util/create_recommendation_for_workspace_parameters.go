@@ -73,6 +73,8 @@ type CreateRecommendationForWorkspaceParams struct {
 	PlatformVariant *string
 	/*Region*/
 	Region *string
+	/*ResourceType*/
+	ResourceType *string
 	/*WorkspaceID*/
 	WorkspaceID int64
 
@@ -169,6 +171,17 @@ func (o *CreateRecommendationForWorkspaceParams) SetRegion(region *string) {
 	o.Region = region
 }
 
+// WithResourceType adds the resourceType to the create recommendation for workspace params
+func (o *CreateRecommendationForWorkspaceParams) WithResourceType(resourceType *string) *CreateRecommendationForWorkspaceParams {
+	o.SetResourceType(resourceType)
+	return o
+}
+
+// SetResourceType adds the resourceType to the create recommendation for workspace params
+func (o *CreateRecommendationForWorkspaceParams) SetResourceType(resourceType *string) {
+	o.ResourceType = resourceType
+}
+
 // WithWorkspaceID adds the workspaceID to the create recommendation for workspace params
 func (o *CreateRecommendationForWorkspaceParams) WithWorkspaceID(workspaceID int64) *CreateRecommendationForWorkspaceParams {
 	o.SetWorkspaceID(workspaceID)
@@ -262,6 +275,22 @@ func (o *CreateRecommendationForWorkspaceParams) WriteToRequest(r runtime.Client
 		qRegion := qrRegion
 		if qRegion != "" {
 			if err := r.SetQueryParam("region", qRegion); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.ResourceType != nil {
+
+		// query param resourceType
+		var qrResourceType string
+		if o.ResourceType != nil {
+			qrResourceType = *o.ResourceType
+		}
+		qResourceType := qrResourceType
+		if qResourceType != "" {
+			if err := r.SetQueryParam("resourceType", qResourceType); err != nil {
 				return err
 			}
 		}

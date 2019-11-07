@@ -17,6 +17,9 @@ import (
 // swagger:model ImageCatalogV4Response
 type ImageCatalogV4Response struct {
 
+	// creation time of the resource in long
+	Created int64 `json:"created,omitempty"`
+
 	// the creator of the resource
 	Creator string `json:"creator,omitempty"`
 
