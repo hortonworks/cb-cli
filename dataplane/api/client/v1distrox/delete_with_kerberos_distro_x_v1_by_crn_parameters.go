@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -21,8 +22,11 @@ import (
 // NewDeleteWithKerberosDistroXV1ByCrnParams creates a new DeleteWithKerberosDistroXV1ByCrnParams object
 // with the default values initialized.
 func NewDeleteWithKerberosDistroXV1ByCrnParams() *DeleteWithKerberosDistroXV1ByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteWithKerberosDistroXV1ByCrnParams{
+		Forced: &forcedDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -31,8 +35,11 @@ func NewDeleteWithKerberosDistroXV1ByCrnParams() *DeleteWithKerberosDistroXV1ByC
 // NewDeleteWithKerberosDistroXV1ByCrnParamsWithTimeout creates a new DeleteWithKerberosDistroXV1ByCrnParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteWithKerberosDistroXV1ByCrnParamsWithTimeout(timeout time.Duration) *DeleteWithKerberosDistroXV1ByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteWithKerberosDistroXV1ByCrnParams{
+		Forced: &forcedDefault,
 
 		timeout: timeout,
 	}
@@ -41,8 +48,11 @@ func NewDeleteWithKerberosDistroXV1ByCrnParamsWithTimeout(timeout time.Duration)
 // NewDeleteWithKerberosDistroXV1ByCrnParamsWithContext creates a new DeleteWithKerberosDistroXV1ByCrnParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewDeleteWithKerberosDistroXV1ByCrnParamsWithContext(ctx context.Context) *DeleteWithKerberosDistroXV1ByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteWithKerberosDistroXV1ByCrnParams{
+		Forced: &forcedDefault,
 
 		Context: ctx,
 	}
@@ -51,8 +61,11 @@ func NewDeleteWithKerberosDistroXV1ByCrnParamsWithContext(ctx context.Context) *
 // NewDeleteWithKerberosDistroXV1ByCrnParamsWithHTTPClient creates a new DeleteWithKerberosDistroXV1ByCrnParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteWithKerberosDistroXV1ByCrnParamsWithHTTPClient(client *http.Client) *DeleteWithKerberosDistroXV1ByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteWithKerberosDistroXV1ByCrnParams{
+		Forced:     &forcedDefault,
 		HTTPClient: client,
 	}
 }
@@ -64,6 +77,8 @@ type DeleteWithKerberosDistroXV1ByCrnParams struct {
 
 	/*Crn*/
 	Crn string
+	/*Forced*/
+	Forced *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -114,6 +129,17 @@ func (o *DeleteWithKerberosDistroXV1ByCrnParams) SetCrn(crn string) {
 	o.Crn = crn
 }
 
+// WithForced adds the forced to the delete with kerberos distro x v1 by crn params
+func (o *DeleteWithKerberosDistroXV1ByCrnParams) WithForced(forced *bool) *DeleteWithKerberosDistroXV1ByCrnParams {
+	o.SetForced(forced)
+	return o
+}
+
+// SetForced adds the forced to the delete with kerberos distro x v1 by crn params
+func (o *DeleteWithKerberosDistroXV1ByCrnParams) SetForced(forced *bool) {
+	o.Forced = forced
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DeleteWithKerberosDistroXV1ByCrnParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -125,6 +151,22 @@ func (o *DeleteWithKerberosDistroXV1ByCrnParams) WriteToRequest(r runtime.Client
 	// path param crn
 	if err := r.SetPathParam("crn", o.Crn); err != nil {
 		return err
+	}
+
+	if o.Forced != nil {
+
+		// query param forced
+		var qrForced bool
+		if o.Forced != nil {
+			qrForced = *o.Forced
+		}
+		qForced := swag.FormatBool(qrForced)
+		if qForced != "" {
+			if err := r.SetQueryParam("forced", qForced); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {
