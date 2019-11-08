@@ -325,6 +325,13 @@ var (
 			Usage: "type of the cloud storage [wasb/WASB, adls-gen1/ADLS-GEN1, s3/S3, gcs/GCS, adls-gen2/ADLS-GEN2]",
 		},
 	}
+	FlDetailedOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "details",
+			Usage: "adds additional if to describe",
+		},
+	}
 	FlDefaultEncryptionOptional = BoolFlag{
 		RequiredFlag: OPTIONAL,
 		BoolFlag: cli.BoolFlag{
