@@ -401,9 +401,9 @@ func UpgradeSdx(c *cli.Context) {
 		if err != nil {
 			utils.LogErrorAndExit(err)
 		}
-		payload := resp.Payload
-		if len(payload.ImageCatalogName) > 0 && len(payload.ImageID) > 0 {
-			fmt.Printf("There's new image for upgrade: %s\n", string(payload.ImageID))
+		upgrade := resp.Payload.Upgrade
+		if upgrade != nil && len(upgrade.ImageID) > 0 {
+			fmt.Printf("There's new image for upgrade: %s\n", string(upgrade.ImageID))
 		} else {
 			log.Errorf("There's no new image for: %s", name)
 		}
