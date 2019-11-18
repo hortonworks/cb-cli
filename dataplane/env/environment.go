@@ -235,7 +235,7 @@ func listEnvironmentsImpl(envClient environmentClient, output utils.Output) erro
 			Description:   e.Description,
 			CloudPlatform: e.CloudPlatform,
 			Status:        e.EnvironmentStatus,
-			Credential:    *e.Credential.Name,
+			Credential:    e.Credential.Name,
 			Regions:       getRegionNames(e.Regions),
 			LocationName:  e.Location.Name,
 			Longitude:     e.Location.Longitude,
@@ -284,6 +284,30 @@ func DescribeEnvironment(c *cli.Context) {
 		output.Write(append(EnvironmentHeader, "Network", "Telemetry", "Authentication"), convertResponseToJsonOutput(env))
 	} else {
 		output.Write(append(EnvironmentHeader), convertResponseToTableOutput(env))
+	}
+}
+
+func StartEnvironment(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "start an environment")
+	envName := c.String(fl.FlName.Name)
+	log.Infof("[StartEnvironment] start environment by name: %s", envName)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+
+	err := envClient.Environment.V1env.StartEnvironmentByNameV1(v1env.NewStartEnvironmentByNameV1Params().WithName(envName))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+}
+
+func StopEnvironment(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "stop an environment")
+	envName := c.String(fl.FlName.Name)
+	log.Infof("[StopEnvironment] stop environment by name: %s", envName)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+
+	err := envClient.Environment.V1env.StopEnvironmentByNameV1(v1env.NewStopEnvironmentByNameV1Params().WithName(envName))
+	if err != nil {
+		utils.LogErrorAndExit(err)
 	}
 }
 

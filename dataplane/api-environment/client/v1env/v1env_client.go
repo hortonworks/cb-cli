@@ -384,6 +384,126 @@ func (a *Client) ListEnvironmentV1(params *ListEnvironmentV1Params) (*ListEnviro
 
 }
 
+/*
+StartEnvironmentByCrnV1 starts an environment by c r n the freeipa datalake and datahubs will be started in this order
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) StartEnvironmentByCrnV1(params *StartEnvironmentByCrnV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStartEnvironmentByCrnV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "startEnvironmentByCrnV1",
+		Method:             "POST",
+		PathPattern:        "/v1/env/crn/{crn}/start",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StartEnvironmentByCrnV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+StartEnvironmentByNameV1 starts an environment by name the freeipa datalake and datahubs will be started in this order
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) StartEnvironmentByNameV1(params *StartEnvironmentByNameV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStartEnvironmentByNameV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "startEnvironmentByNameV1",
+		Method:             "POST",
+		PathPattern:        "/v1/env/name/{name}/start",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StartEnvironmentByNameV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+StopEnvironmentByCrnV1 stops an environment by c r n the datahubs datalake and freeipa will be stopped in this order
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) StopEnvironmentByCrnV1(params *StopEnvironmentByCrnV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopEnvironmentByCrnV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stopEnvironmentByCrnV1",
+		Method:             "POST",
+		PathPattern:        "/v1/env/crn/{crn}/stop",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StopEnvironmentByCrnV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+StopEnvironmentByNameV1 stops an environment by name the datahubs datalake and freeipa will be stopped in this order
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) StopEnvironmentByNameV1(params *StopEnvironmentByNameV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopEnvironmentByNameV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stopEnvironmentByNameV1",
+		Method:             "POST",
+		PathPattern:        "/v1/env/name/{name}/stop",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StopEnvironmentByNameV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

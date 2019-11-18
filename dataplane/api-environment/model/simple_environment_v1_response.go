@@ -40,8 +40,8 @@ type SimpleEnvironmentV1Response struct {
 	// crn of the creator
 	Creator string `json:"creator,omitempty"`
 
-	// Credential of the environment.
-	Credential *CredentialV1Response `json:"credential,omitempty"`
+	// credential
+	Credential *CredentialViewV1Response `json:"credential,omitempty"`
 
 	// id of the resource
 	Crn string `json:"crn,omitempty"`
