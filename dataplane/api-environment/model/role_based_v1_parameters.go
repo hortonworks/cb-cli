@@ -17,7 +17,7 @@ import (
 // swagger:model RoleBasedV1Parameters
 type RoleBasedV1Parameters struct {
 
-	// role arn
+	// the role ARN of the credential
 	// Required: true
 	RoleArn *string `json:"roleArn"`
 }
