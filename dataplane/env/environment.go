@@ -315,9 +315,10 @@ func DeleteEnvironment(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "delete environment")
 	val := c.String(fl.FlNames.Name)
 	envNames := strings.Split(val[1:len(val)-1], ",")
+	forced := c.Bool(fl.FlForceOptional.Name)
 	envClient := oauth.NewEnvironmentClientFromContext(c)
 	log.Infof("[DeleteEnvironment] delete environment(s) by names: %s", envNames)
-	_, err := envClient.Environment.V1env.DeleteEnvironmentsByName(v1env.NewDeleteEnvironmentsByNameParams().WithBody(envNames))
+	_, err := envClient.Environment.V1env.DeleteEnvironmentsByName(v1env.NewDeleteEnvironmentsByNameParams().WithForced(&forced).WithBody(envNames))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
