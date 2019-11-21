@@ -72,6 +72,8 @@ type GetVMTypesByCredentialParams struct {
 	PlatformVariant *string
 	/*Region*/
 	Region *string
+	/*ResourceType*/
+	ResourceType *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -166,6 +168,17 @@ func (o *GetVMTypesByCredentialParams) SetRegion(region *string) {
 	o.Region = region
 }
 
+// WithResourceType adds the resourceType to the get Vm types by credential params
+func (o *GetVMTypesByCredentialParams) WithResourceType(resourceType *string) *GetVMTypesByCredentialParams {
+	o.SetResourceType(resourceType)
+	return o
+}
+
+// SetResourceType adds the resourceType to the get Vm types by credential params
+func (o *GetVMTypesByCredentialParams) SetResourceType(resourceType *string) {
+	o.ResourceType = resourceType
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetVMTypesByCredentialParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -248,6 +261,22 @@ func (o *GetVMTypesByCredentialParams) WriteToRequest(r runtime.ClientRequest, r
 		qRegion := qrRegion
 		if qRegion != "" {
 			if err := r.SetQueryParam("region", qRegion); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.ResourceType != nil {
+
+		// query param resourceType
+		var qrResourceType string
+		if o.ResourceType != nil {
+			qrResourceType = *o.ResourceType
+		}
+		qResourceType := qrResourceType
+		if qResourceType != "" {
+			if err := r.SetQueryParam("resourceType", qResourceType); err != nil {
 				return err
 			}
 		}

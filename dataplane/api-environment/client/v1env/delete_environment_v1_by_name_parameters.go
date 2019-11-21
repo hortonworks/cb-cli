@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -21,8 +22,11 @@ import (
 // NewDeleteEnvironmentV1ByNameParams creates a new DeleteEnvironmentV1ByNameParams object
 // with the default values initialized.
 func NewDeleteEnvironmentV1ByNameParams() *DeleteEnvironmentV1ByNameParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteEnvironmentV1ByNameParams{
+		Forced: &forcedDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -31,8 +35,11 @@ func NewDeleteEnvironmentV1ByNameParams() *DeleteEnvironmentV1ByNameParams {
 // NewDeleteEnvironmentV1ByNameParamsWithTimeout creates a new DeleteEnvironmentV1ByNameParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteEnvironmentV1ByNameParamsWithTimeout(timeout time.Duration) *DeleteEnvironmentV1ByNameParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteEnvironmentV1ByNameParams{
+		Forced: &forcedDefault,
 
 		timeout: timeout,
 	}
@@ -41,8 +48,11 @@ func NewDeleteEnvironmentV1ByNameParamsWithTimeout(timeout time.Duration) *Delet
 // NewDeleteEnvironmentV1ByNameParamsWithContext creates a new DeleteEnvironmentV1ByNameParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewDeleteEnvironmentV1ByNameParamsWithContext(ctx context.Context) *DeleteEnvironmentV1ByNameParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteEnvironmentV1ByNameParams{
+		Forced: &forcedDefault,
 
 		Context: ctx,
 	}
@@ -51,8 +61,11 @@ func NewDeleteEnvironmentV1ByNameParamsWithContext(ctx context.Context) *DeleteE
 // NewDeleteEnvironmentV1ByNameParamsWithHTTPClient creates a new DeleteEnvironmentV1ByNameParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteEnvironmentV1ByNameParamsWithHTTPClient(client *http.Client) *DeleteEnvironmentV1ByNameParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteEnvironmentV1ByNameParams{
+		Forced:     &forcedDefault,
 		HTTPClient: client,
 	}
 }
@@ -62,6 +75,8 @@ for the delete environment v1 by name operation typically these are written to a
 */
 type DeleteEnvironmentV1ByNameParams struct {
 
+	/*Forced*/
+	Forced *bool
 	/*Name*/
 	Name string
 
@@ -103,6 +118,17 @@ func (o *DeleteEnvironmentV1ByNameParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithForced adds the forced to the delete environment v1 by name params
+func (o *DeleteEnvironmentV1ByNameParams) WithForced(forced *bool) *DeleteEnvironmentV1ByNameParams {
+	o.SetForced(forced)
+	return o
+}
+
+// SetForced adds the forced to the delete environment v1 by name params
+func (o *DeleteEnvironmentV1ByNameParams) SetForced(forced *bool) {
+	o.Forced = forced
+}
+
 // WithName adds the name to the delete environment v1 by name params
 func (o *DeleteEnvironmentV1ByNameParams) WithName(name string) *DeleteEnvironmentV1ByNameParams {
 	o.SetName(name)
@@ -121,6 +147,22 @@ func (o *DeleteEnvironmentV1ByNameParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
+
+	if o.Forced != nil {
+
+		// query param forced
+		var qrForced bool
+		if o.Forced != nil {
+			qrForced = *o.Forced
+		}
+		qForced := swag.FormatBool(qrForced)
+		if qForced != "" {
+			if err := r.SetQueryParam("forced", qForced); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

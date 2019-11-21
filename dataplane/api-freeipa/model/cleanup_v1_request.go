@@ -17,6 +17,9 @@ import (
 // swagger:model CleanupV1Request
 type CleanupV1Request struct {
 
+	// cluster name
+	ClusterName string `json:"clusterName,omitempty"`
+
 	// CRN of the environment
 	// Required: true
 	EnvironmentCrn *string `json:"environmentCrn"`

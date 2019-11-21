@@ -145,6 +145,36 @@ func (a *Client) DeleteRecipesInWorkspace(params *DeleteRecipesInWorkspaceParams
 }
 
 /*
+GetCreateRecipeRequestForCli produces cli command input
+
+Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.
+*/
+func (a *Client) GetCreateRecipeRequestForCli(params *GetCreateRecipeRequestForCliParams) (*GetCreateRecipeRequestForCliOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCreateRecipeRequestForCliParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getCreateRecipeRequestForCli",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/recipes/cli_create",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetCreateRecipeRequestForCliReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetCreateRecipeRequestForCliOK), nil
+
+}
+
+/*
 GetRecipeByCrnInWorkspace gets recipe by crn in workspace
 
 Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.

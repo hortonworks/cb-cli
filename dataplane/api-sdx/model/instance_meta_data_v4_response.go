@@ -33,7 +33,7 @@ type InstanceMetaDataV4Response struct {
 	InstanceID string `json:"instanceId,omitempty"`
 
 	// status of the instance
-	// Enum: [REQUESTED CREATED UNREGISTERED REGISTERED DECOMMISSIONED TERMINATED DELETED_ON_PROVIDER_SIDE FAILED STOPPED ORCHESTRATION_FAILED DECOMMISSION_FAILED]
+	// Enum: [REQUESTED FAILED CREATED ORCHESTRATION_FAILED SERVICES_RUNNING SERVICES_HEALTHY SERVICES_UNHEALTHY WAITING_FOR_REPAIR STOPPED DELETED_ON_PROVIDER_SIDE DELETE_REQUESTED DECOMMISSIONED DECOMMISSION_FAILED TERMINATED]
 	InstanceStatus string `json:"instanceStatus,omitempty"`
 
 	// type of the instance
@@ -85,7 +85,7 @@ var instanceMetaDataV4ResponseTypeInstanceStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","FAILED","STOPPED","ORCHESTRATION_FAILED","DECOMMISSION_FAILED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","FAILED","CREATED","ORCHESTRATION_FAILED","SERVICES_RUNNING","SERVICES_HEALTHY","SERVICES_UNHEALTHY","WAITING_FOR_REPAIR","STOPPED","DELETED_ON_PROVIDER_SIDE","DELETE_REQUESTED","DECOMMISSIONED","DECOMMISSION_FAILED","TERMINATED"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -98,35 +98,44 @@ const (
 	// InstanceMetaDataV4ResponseInstanceStatusREQUESTED captures enum value "REQUESTED"
 	InstanceMetaDataV4ResponseInstanceStatusREQUESTED string = "REQUESTED"
 
-	// InstanceMetaDataV4ResponseInstanceStatusCREATED captures enum value "CREATED"
-	InstanceMetaDataV4ResponseInstanceStatusCREATED string = "CREATED"
-
-	// InstanceMetaDataV4ResponseInstanceStatusUNREGISTERED captures enum value "UNREGISTERED"
-	InstanceMetaDataV4ResponseInstanceStatusUNREGISTERED string = "UNREGISTERED"
-
-	// InstanceMetaDataV4ResponseInstanceStatusREGISTERED captures enum value "REGISTERED"
-	InstanceMetaDataV4ResponseInstanceStatusREGISTERED string = "REGISTERED"
-
-	// InstanceMetaDataV4ResponseInstanceStatusDECOMMISSIONED captures enum value "DECOMMISSIONED"
-	InstanceMetaDataV4ResponseInstanceStatusDECOMMISSIONED string = "DECOMMISSIONED"
-
-	// InstanceMetaDataV4ResponseInstanceStatusTERMINATED captures enum value "TERMINATED"
-	InstanceMetaDataV4ResponseInstanceStatusTERMINATED string = "TERMINATED"
-
-	// InstanceMetaDataV4ResponseInstanceStatusDELETEDONPROVIDERSIDE captures enum value "DELETED_ON_PROVIDER_SIDE"
-	InstanceMetaDataV4ResponseInstanceStatusDELETEDONPROVIDERSIDE string = "DELETED_ON_PROVIDER_SIDE"
-
 	// InstanceMetaDataV4ResponseInstanceStatusFAILED captures enum value "FAILED"
 	InstanceMetaDataV4ResponseInstanceStatusFAILED string = "FAILED"
 
-	// InstanceMetaDataV4ResponseInstanceStatusSTOPPED captures enum value "STOPPED"
-	InstanceMetaDataV4ResponseInstanceStatusSTOPPED string = "STOPPED"
+	// InstanceMetaDataV4ResponseInstanceStatusCREATED captures enum value "CREATED"
+	InstanceMetaDataV4ResponseInstanceStatusCREATED string = "CREATED"
 
 	// InstanceMetaDataV4ResponseInstanceStatusORCHESTRATIONFAILED captures enum value "ORCHESTRATION_FAILED"
 	InstanceMetaDataV4ResponseInstanceStatusORCHESTRATIONFAILED string = "ORCHESTRATION_FAILED"
 
+	// InstanceMetaDataV4ResponseInstanceStatusSERVICESRUNNING captures enum value "SERVICES_RUNNING"
+	InstanceMetaDataV4ResponseInstanceStatusSERVICESRUNNING string = "SERVICES_RUNNING"
+
+	// InstanceMetaDataV4ResponseInstanceStatusSERVICESHEALTHY captures enum value "SERVICES_HEALTHY"
+	InstanceMetaDataV4ResponseInstanceStatusSERVICESHEALTHY string = "SERVICES_HEALTHY"
+
+	// InstanceMetaDataV4ResponseInstanceStatusSERVICESUNHEALTHY captures enum value "SERVICES_UNHEALTHY"
+	InstanceMetaDataV4ResponseInstanceStatusSERVICESUNHEALTHY string = "SERVICES_UNHEALTHY"
+
+	// InstanceMetaDataV4ResponseInstanceStatusWAITINGFORREPAIR captures enum value "WAITING_FOR_REPAIR"
+	InstanceMetaDataV4ResponseInstanceStatusWAITINGFORREPAIR string = "WAITING_FOR_REPAIR"
+
+	// InstanceMetaDataV4ResponseInstanceStatusSTOPPED captures enum value "STOPPED"
+	InstanceMetaDataV4ResponseInstanceStatusSTOPPED string = "STOPPED"
+
+	// InstanceMetaDataV4ResponseInstanceStatusDELETEDONPROVIDERSIDE captures enum value "DELETED_ON_PROVIDER_SIDE"
+	InstanceMetaDataV4ResponseInstanceStatusDELETEDONPROVIDERSIDE string = "DELETED_ON_PROVIDER_SIDE"
+
+	// InstanceMetaDataV4ResponseInstanceStatusDELETEREQUESTED captures enum value "DELETE_REQUESTED"
+	InstanceMetaDataV4ResponseInstanceStatusDELETEREQUESTED string = "DELETE_REQUESTED"
+
+	// InstanceMetaDataV4ResponseInstanceStatusDECOMMISSIONED captures enum value "DECOMMISSIONED"
+	InstanceMetaDataV4ResponseInstanceStatusDECOMMISSIONED string = "DECOMMISSIONED"
+
 	// InstanceMetaDataV4ResponseInstanceStatusDECOMMISSIONFAILED captures enum value "DECOMMISSION_FAILED"
 	InstanceMetaDataV4ResponseInstanceStatusDECOMMISSIONFAILED string = "DECOMMISSION_FAILED"
+
+	// InstanceMetaDataV4ResponseInstanceStatusTERMINATED captures enum value "TERMINATED"
+	InstanceMetaDataV4ResponseInstanceStatusTERMINATED string = "TERMINATED"
 )
 
 // prop value enum

@@ -30,7 +30,7 @@ type StackV4Response struct {
 	Azure *AzureStackV4Parameters `json:"azure,omitempty"`
 
 	// Cloudplatform of the stack
-	// Enum: [AWS GCP AZURE OPENSTACK CUMULUS_YARN YARN MOCK]
+	// Enum: [AWS GCP AZURE OPENSTACK YARN MOCK]
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
 	// details of the Cloudbreak that provisioned the stack
@@ -254,7 +254,7 @@ var stackV4ResponseTypeCloudPlatformPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","CUMULUS_YARN","YARN","MOCK"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","YARN","MOCK"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -275,9 +275,6 @@ const (
 
 	// StackV4ResponseCloudPlatformOPENSTACK captures enum value "OPENSTACK"
 	StackV4ResponseCloudPlatformOPENSTACK string = "OPENSTACK"
-
-	// StackV4ResponseCloudPlatformCUMULUSYARN captures enum value "CUMULUS_YARN"
-	StackV4ResponseCloudPlatformCUMULUSYARN string = "CUMULUS_YARN"
 
 	// StackV4ResponseCloudPlatformYARN captures enum value "YARN"
 	StackV4ResponseCloudPlatformYARN string = "YARN"

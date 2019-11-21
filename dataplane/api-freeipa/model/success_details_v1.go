@@ -15,6 +15,9 @@ import (
 // swagger:model SuccessDetailsV1
 type SuccessDetailsV1 struct {
 
+	// additional details
+	AdditionalDetails map[string][]string `json:"additionalDetails,omitempty"`
+
 	// environment
 	Environment string `json:"environment,omitempty"`
 }

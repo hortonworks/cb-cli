@@ -27,6 +27,9 @@ type DescribeFreeIpaV1Response struct {
 	// Required: true
 	Authentication *StackAuthenticationV1Response `json:"authentication"`
 
+	// cloud storage details for freeipa server
+	CloudStorage *CloudStorageResponse `json:"cloudStorage,omitempty"`
+
 	// crn
 	// Required: true
 	Crn *string `json:"crn"`
@@ -63,6 +66,9 @@ type DescribeFreeIpaV1Response struct {
 
 	// status reason
 	StatusReason string `json:"statusReason,omitempty"`
+
+	// telemetry setting for freeipa server
+	Telemetry *TelemetryResponse `json:"telemetry,omitempty"`
 }
 
 // Validate validates this describe free ipa v1 response
@@ -70,6 +76,10 @@ func (m *DescribeFreeIpaV1Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAuthentication(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCloudStorage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -109,6 +119,10 @@ func (m *DescribeFreeIpaV1Response) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateTelemetry(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -125,6 +139,24 @@ func (m *DescribeFreeIpaV1Response) validateAuthentication(formats strfmt.Regist
 		if err := m.Authentication.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("authentication")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DescribeFreeIpaV1Response) validateCloudStorage(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CloudStorage) { // not required
+		return nil
+	}
+
+	if m.CloudStorage != nil {
+		if err := m.CloudStorage.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cloudStorage")
 			}
 			return err
 		}
@@ -352,6 +384,24 @@ func (m *DescribeFreeIpaV1Response) validateStatus(formats strfmt.Registry) erro
 	// value enum
 	if err := m.validateStatusEnum("status", "body", m.Status); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DescribeFreeIpaV1Response) validateTelemetry(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Telemetry) { // not required
+		return nil
+	}
+
+	if m.Telemetry != nil {
+		if err := m.Telemetry.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("telemetry")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -18,6 +18,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1kerberos"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1kerberosmgmt"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1ldaps"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1operation"
 )
 
 // Default free IP a HTTP client.
@@ -77,6 +78,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *FreeIPA {
 
 	cli.V1ldaps = v1ldaps.New(transport, formats)
 
+	cli.V1operation = v1operation.New(transport, formats)
+
 	return cli
 }
 
@@ -135,6 +138,8 @@ type FreeIPA struct {
 
 	V1ldaps *v1ldaps.Client
 
+	V1operation *v1operation.Client
+
 	Transport runtime.ClientTransport
 }
 
@@ -155,5 +160,7 @@ func (c *FreeIPA) SetTransport(transport runtime.ClientTransport) {
 	c.V1kerberosmgmt.SetTransport(transport)
 
 	c.V1ldaps.SetTransport(transport)
+
+	c.V1operation.SetTransport(transport)
 
 }

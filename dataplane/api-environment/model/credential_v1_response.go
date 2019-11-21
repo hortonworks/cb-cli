@@ -23,6 +23,9 @@ type CredentialV1Response struct {
 	// custom parameters for Azure credential
 	Azure *AzureCredentialV1ResponseParameters `json:"azure,omitempty"`
 
+	// creation time of the credential in long
+	Created int64 `json:"created,omitempty"`
+
 	// crn of the creator
 	Creator string `json:"creator,omitempty"`
 
@@ -45,6 +48,8 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 
 		Azure *AzureCredentialV1ResponseParameters `json:"azure,omitempty"`
 
+		Created int64 `json:"created,omitempty"`
+
 		Creator string `json:"creator,omitempty"`
 
 		Crn string `json:"crn,omitempty"`
@@ -56,6 +61,8 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 	m.Attributes = dataAO1.Attributes
 
 	m.Azure = dataAO1.Azure
+
+	m.Created = dataAO1.Created
 
 	m.Creator = dataAO1.Creator
 
@@ -79,6 +86,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 
 		Azure *AzureCredentialV1ResponseParameters `json:"azure,omitempty"`
 
+		Created int64 `json:"created,omitempty"`
+
 		Creator string `json:"creator,omitempty"`
 
 		Crn string `json:"crn,omitempty"`
@@ -87,6 +96,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 	dataAO1.Attributes = m.Attributes
 
 	dataAO1.Azure = m.Azure
+
+	dataAO1.Created = m.Created
 
 	dataAO1.Creator = m.Creator
 

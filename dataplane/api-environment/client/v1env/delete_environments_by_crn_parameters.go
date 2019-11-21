@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -21,8 +22,11 @@ import (
 // NewDeleteEnvironmentsByCrnParams creates a new DeleteEnvironmentsByCrnParams object
 // with the default values initialized.
 func NewDeleteEnvironmentsByCrnParams() *DeleteEnvironmentsByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteEnvironmentsByCrnParams{
+		Forced: &forcedDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -31,8 +35,11 @@ func NewDeleteEnvironmentsByCrnParams() *DeleteEnvironmentsByCrnParams {
 // NewDeleteEnvironmentsByCrnParamsWithTimeout creates a new DeleteEnvironmentsByCrnParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteEnvironmentsByCrnParamsWithTimeout(timeout time.Duration) *DeleteEnvironmentsByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteEnvironmentsByCrnParams{
+		Forced: &forcedDefault,
 
 		timeout: timeout,
 	}
@@ -41,8 +48,11 @@ func NewDeleteEnvironmentsByCrnParamsWithTimeout(timeout time.Duration) *DeleteE
 // NewDeleteEnvironmentsByCrnParamsWithContext creates a new DeleteEnvironmentsByCrnParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewDeleteEnvironmentsByCrnParamsWithContext(ctx context.Context) *DeleteEnvironmentsByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteEnvironmentsByCrnParams{
+		Forced: &forcedDefault,
 
 		Context: ctx,
 	}
@@ -51,8 +61,11 @@ func NewDeleteEnvironmentsByCrnParamsWithContext(ctx context.Context) *DeleteEnv
 // NewDeleteEnvironmentsByCrnParamsWithHTTPClient creates a new DeleteEnvironmentsByCrnParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteEnvironmentsByCrnParamsWithHTTPClient(client *http.Client) *DeleteEnvironmentsByCrnParams {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteEnvironmentsByCrnParams{
+		Forced:     &forcedDefault,
 		HTTPClient: client,
 	}
 }
@@ -64,6 +77,8 @@ type DeleteEnvironmentsByCrnParams struct {
 
 	/*Body*/
 	Body []string
+	/*Forced*/
+	Forced *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -114,6 +129,17 @@ func (o *DeleteEnvironmentsByCrnParams) SetBody(body []string) {
 	o.Body = body
 }
 
+// WithForced adds the forced to the delete environments by crn params
+func (o *DeleteEnvironmentsByCrnParams) WithForced(forced *bool) *DeleteEnvironmentsByCrnParams {
+	o.SetForced(forced)
+	return o
+}
+
+// SetForced adds the forced to the delete environments by crn params
+func (o *DeleteEnvironmentsByCrnParams) SetForced(forced *bool) {
+	o.Forced = forced
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DeleteEnvironmentsByCrnParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -126,6 +152,22 @@ func (o *DeleteEnvironmentsByCrnParams) WriteToRequest(r runtime.ClientRequest, 
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
 		}
+	}
+
+	if o.Forced != nil {
+
+		// query param forced
+		var qrForced bool
+		if o.Forced != nil {
+			qrForced = *o.Forced
+		}
+		qForced := swag.FormatBool(qrForced)
+		if qForced != "" {
+			if err := r.SetQueryParam("forced", qForced); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {
