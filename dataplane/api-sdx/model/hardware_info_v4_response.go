@@ -52,7 +52,7 @@ type HardwareInfoV4Response struct {
 	InstanceMetadataType string `json:"instanceMetadataType,omitempty"`
 
 	// status of the instance
-	// Enum: [REQUESTED CREATED UNREGISTERED REGISTERED DECOMMISSIONED TERMINATED DELETED_ON_PROVIDER_SIDE FAILED STOPPED ORCHESTRATION_FAILED DECOMMISSION_FAILED]
+	// Enum: [REQUESTED FAILED CREATED ORCHESTRATION_FAILED SERVICES_RUNNING SERVICES_HEALTHY SERVICES_UNHEALTHY WAITING_FOR_REPAIR STOPPED DELETED_ON_PROVIDER_SIDE DELETE_REQUESTED DECOMMISSIONED DECOMMISSION_FAILED TERMINATED]
 	InstanceStatus string `json:"instanceStatus,omitempty"`
 
 	// name of the resource
@@ -173,7 +173,7 @@ var hardwareInfoV4ResponseTypeInstanceStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","FAILED","STOPPED","ORCHESTRATION_FAILED","DECOMMISSION_FAILED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","FAILED","CREATED","ORCHESTRATION_FAILED","SERVICES_RUNNING","SERVICES_HEALTHY","SERVICES_UNHEALTHY","WAITING_FOR_REPAIR","STOPPED","DELETED_ON_PROVIDER_SIDE","DELETE_REQUESTED","DECOMMISSIONED","DECOMMISSION_FAILED","TERMINATED"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -186,35 +186,44 @@ const (
 	// HardwareInfoV4ResponseInstanceStatusREQUESTED captures enum value "REQUESTED"
 	HardwareInfoV4ResponseInstanceStatusREQUESTED string = "REQUESTED"
 
-	// HardwareInfoV4ResponseInstanceStatusCREATED captures enum value "CREATED"
-	HardwareInfoV4ResponseInstanceStatusCREATED string = "CREATED"
-
-	// HardwareInfoV4ResponseInstanceStatusUNREGISTERED captures enum value "UNREGISTERED"
-	HardwareInfoV4ResponseInstanceStatusUNREGISTERED string = "UNREGISTERED"
-
-	// HardwareInfoV4ResponseInstanceStatusREGISTERED captures enum value "REGISTERED"
-	HardwareInfoV4ResponseInstanceStatusREGISTERED string = "REGISTERED"
-
-	// HardwareInfoV4ResponseInstanceStatusDECOMMISSIONED captures enum value "DECOMMISSIONED"
-	HardwareInfoV4ResponseInstanceStatusDECOMMISSIONED string = "DECOMMISSIONED"
-
-	// HardwareInfoV4ResponseInstanceStatusTERMINATED captures enum value "TERMINATED"
-	HardwareInfoV4ResponseInstanceStatusTERMINATED string = "TERMINATED"
-
-	// HardwareInfoV4ResponseInstanceStatusDELETEDONPROVIDERSIDE captures enum value "DELETED_ON_PROVIDER_SIDE"
-	HardwareInfoV4ResponseInstanceStatusDELETEDONPROVIDERSIDE string = "DELETED_ON_PROVIDER_SIDE"
-
 	// HardwareInfoV4ResponseInstanceStatusFAILED captures enum value "FAILED"
 	HardwareInfoV4ResponseInstanceStatusFAILED string = "FAILED"
 
-	// HardwareInfoV4ResponseInstanceStatusSTOPPED captures enum value "STOPPED"
-	HardwareInfoV4ResponseInstanceStatusSTOPPED string = "STOPPED"
+	// HardwareInfoV4ResponseInstanceStatusCREATED captures enum value "CREATED"
+	HardwareInfoV4ResponseInstanceStatusCREATED string = "CREATED"
 
 	// HardwareInfoV4ResponseInstanceStatusORCHESTRATIONFAILED captures enum value "ORCHESTRATION_FAILED"
 	HardwareInfoV4ResponseInstanceStatusORCHESTRATIONFAILED string = "ORCHESTRATION_FAILED"
 
+	// HardwareInfoV4ResponseInstanceStatusSERVICESRUNNING captures enum value "SERVICES_RUNNING"
+	HardwareInfoV4ResponseInstanceStatusSERVICESRUNNING string = "SERVICES_RUNNING"
+
+	// HardwareInfoV4ResponseInstanceStatusSERVICESHEALTHY captures enum value "SERVICES_HEALTHY"
+	HardwareInfoV4ResponseInstanceStatusSERVICESHEALTHY string = "SERVICES_HEALTHY"
+
+	// HardwareInfoV4ResponseInstanceStatusSERVICESUNHEALTHY captures enum value "SERVICES_UNHEALTHY"
+	HardwareInfoV4ResponseInstanceStatusSERVICESUNHEALTHY string = "SERVICES_UNHEALTHY"
+
+	// HardwareInfoV4ResponseInstanceStatusWAITINGFORREPAIR captures enum value "WAITING_FOR_REPAIR"
+	HardwareInfoV4ResponseInstanceStatusWAITINGFORREPAIR string = "WAITING_FOR_REPAIR"
+
+	// HardwareInfoV4ResponseInstanceStatusSTOPPED captures enum value "STOPPED"
+	HardwareInfoV4ResponseInstanceStatusSTOPPED string = "STOPPED"
+
+	// HardwareInfoV4ResponseInstanceStatusDELETEDONPROVIDERSIDE captures enum value "DELETED_ON_PROVIDER_SIDE"
+	HardwareInfoV4ResponseInstanceStatusDELETEDONPROVIDERSIDE string = "DELETED_ON_PROVIDER_SIDE"
+
+	// HardwareInfoV4ResponseInstanceStatusDELETEREQUESTED captures enum value "DELETE_REQUESTED"
+	HardwareInfoV4ResponseInstanceStatusDELETEREQUESTED string = "DELETE_REQUESTED"
+
+	// HardwareInfoV4ResponseInstanceStatusDECOMMISSIONED captures enum value "DECOMMISSIONED"
+	HardwareInfoV4ResponseInstanceStatusDECOMMISSIONED string = "DECOMMISSIONED"
+
 	// HardwareInfoV4ResponseInstanceStatusDECOMMISSIONFAILED captures enum value "DECOMMISSION_FAILED"
 	HardwareInfoV4ResponseInstanceStatusDECOMMISSIONFAILED string = "DECOMMISSION_FAILED"
+
+	// HardwareInfoV4ResponseInstanceStatusTERMINATED captures enum value "TERMINATED"
+	HardwareInfoV4ResponseInstanceStatusTERMINATED string = "TERMINATED"
 )
 
 // prop value enum

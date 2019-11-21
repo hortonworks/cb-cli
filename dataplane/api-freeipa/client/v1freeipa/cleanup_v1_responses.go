@@ -47,7 +47,7 @@ func NewCleanupV1OK() *CleanupV1OK {
 successful operation
 */
 type CleanupV1OK struct {
-	Payload *model.CleanupV1Response
+	Payload *model.OperationV1Status
 }
 
 func (o *CleanupV1OK) Error() string {
@@ -56,7 +56,7 @@ func (o *CleanupV1OK) Error() string {
 
 func (o *CleanupV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.CleanupV1Response)
+	o.Payload = new(model.OperationV1Status)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

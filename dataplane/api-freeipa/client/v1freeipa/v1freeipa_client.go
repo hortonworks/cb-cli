@@ -55,6 +55,66 @@ func (a *Client) CleanupV1(params *CleanupV1Params) (*CleanupV1OK, error) {
 }
 
 /*
+ClusterProxyDeregisterV1 deregisters free IP a stack with given environment c r n with cluster proxy
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) ClusterProxyDeregisterV1(params *ClusterProxyDeregisterV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewClusterProxyDeregisterV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "clusterProxyDeregisterV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/cluster-proxy/deregister",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ClusterProxyDeregisterV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+ClusterProxyRegisterV1 registers free IP a stack with given environment c r n with cluster proxy
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) ClusterProxyRegisterV1(params *ClusterProxyRegisterV1Params) (*ClusterProxyRegisterV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewClusterProxyRegisterV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "clusterProxyRegisterV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/cluster-proxy/register",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ClusterProxyRegisterV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ClusterProxyRegisterV1OK), nil
+
+}
+
+/*
 CreateFreeIpaV1 creates free ipa stack
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.

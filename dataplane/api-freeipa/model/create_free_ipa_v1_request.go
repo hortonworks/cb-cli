@@ -54,6 +54,9 @@ type CreateFreeIpaV1Request struct {
 	// Required: true
 	Placement *PlacementV1Request `json:"placement"`
 
+	// telemetry setting for freeipa server
+	Telemetry *TelemetryRequest `json:"telemetry,omitempty"`
+
 	// whether to use CCM for communicating with the freeipa instance
 	UseCcm bool `json:"useCcm,omitempty"`
 }
@@ -95,6 +98,10 @@ func (m *CreateFreeIpaV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePlacement(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTelemetry(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -246,6 +253,24 @@ func (m *CreateFreeIpaV1Request) validatePlacement(formats strfmt.Registry) erro
 		if err := m.Placement.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("placement")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CreateFreeIpaV1Request) validateTelemetry(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Telemetry) { // not required
+		return nil
+	}
+
+	if m.Telemetry != nil {
+		if err := m.Telemetry.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("telemetry")
 			}
 			return err
 		}

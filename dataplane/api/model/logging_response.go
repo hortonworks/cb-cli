@@ -20,9 +20,6 @@ type LoggingResponse struct {
 	// telemetry - logging adls gen2 attributes
 	AdlsGen2 *AdlsGen2CloudStorageV1Parameters `json:"adlsGen2,omitempty"`
 
-	// telemetry component custom attributes
-	Attributes map[string]interface{} `json:"attributes,omitempty"`
-
 	// telemetry - logging s3 attributes
 	S3 *S3CloudStorageV1Parameters `json:"s3,omitempty"`
 

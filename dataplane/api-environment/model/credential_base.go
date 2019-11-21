@@ -24,9 +24,6 @@ type CredentialBase struct {
 	// Required: true
 	CloudPlatform *string `json:"cloudPlatform"`
 
-	// custom parameters for Cumulus Yarn credential
-	Cumulus *CumulusYarnV1Parameters `json:"cumulus,omitempty"`
-
 	// description of the resource
 	// Max Length: 1000
 	// Min Length: 0
@@ -61,10 +58,6 @@ func (m *CredentialBase) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCloudPlatform(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateCumulus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -116,24 +109,6 @@ func (m *CredentialBase) validateCloudPlatform(formats strfmt.Registry) error {
 
 	if err := validate.Required("cloudPlatform", "body", m.CloudPlatform); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-func (m *CredentialBase) validateCumulus(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Cumulus) { // not required
-		return nil
-	}
-
-	if m.Cumulus != nil {
-		if err := m.Cumulus.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("cumulus")
-			}
-			return err
-		}
 	}
 
 	return nil

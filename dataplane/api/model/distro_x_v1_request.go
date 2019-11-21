@@ -27,7 +27,7 @@ type DistroXV1Request struct {
 	Azure *AzureDistroXV1Parameters `json:"azure,omitempty"`
 
 	// cloud platform
-	// Enum: [AWS GCP AZURE OPENSTACK CUMULUS_YARN YARN MOCK]
+	// Enum: [AWS GCP AZURE OPENSTACK YARN MOCK]
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
 	// cluster
@@ -61,9 +61,6 @@ type DistroXV1Request struct {
 
 	// time to live
 	TimeToLive int64 `json:"timeToLive,omitempty"`
-
-	// enable workload analytics for the cluser
-	WorkloadAnalytics bool `json:"workloadAnalytics,omitempty"`
 
 	// yarn
 	Yarn *YarnDistroXV1Parameters `json:"yarn,omitempty"`
@@ -141,7 +138,7 @@ var distroXV1RequestTypeCloudPlatformPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","CUMULUS_YARN","YARN","MOCK"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","YARN","MOCK"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -162,9 +159,6 @@ const (
 
 	// DistroXV1RequestCloudPlatformOPENSTACK captures enum value "OPENSTACK"
 	DistroXV1RequestCloudPlatformOPENSTACK string = "OPENSTACK"
-
-	// DistroXV1RequestCloudPlatformCUMULUSYARN captures enum value "CUMULUS_YARN"
-	DistroXV1RequestCloudPlatformCUMULUSYARN string = "CUMULUS_YARN"
 
 	// DistroXV1RequestCloudPlatformYARN captures enum value "YARN"
 	DistroXV1RequestCloudPlatformYARN string = "YARN"

@@ -12,8 +12,6 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
-
-	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // GetDistroXRequestV1ByCrnReader is a Reader for the GetDistroXRequestV1ByCrn structure.
@@ -47,19 +45,17 @@ func NewGetDistroXRequestV1ByCrnOK() *GetDistroXRequestV1ByCrnOK {
 successful operation
 */
 type GetDistroXRequestV1ByCrnOK struct {
-	Payload *model.DistroXV1Request
+	Payload interface{}
 }
 
 func (o *GetDistroXRequestV1ByCrnOK) Error() string {
-	return fmt.Sprintf("[GET /v1/distrox/crn/{crn}/request][%d] getDistroXRequestV1ByCrnOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /v1/distrox/crn/{crn}/cli_create][%d] getDistroXRequestV1ByCrnOK  %+v", 200, o.Payload)
 }
 
 func (o *GetDistroXRequestV1ByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.DistroXV1Request)
-
 	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

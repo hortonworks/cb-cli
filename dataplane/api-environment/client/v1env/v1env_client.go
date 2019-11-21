@@ -295,6 +295,96 @@ func (a *Client) EditEnvironmentV1ByCrn(params *EditEnvironmentV1ByCrnParams) (*
 }
 
 /*
+GetCreateEnvironmentForCli produces cli command input for environment creation
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) GetCreateEnvironmentForCli(params *GetCreateEnvironmentForCliParams) (*GetCreateEnvironmentForCliOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCreateEnvironmentForCliParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getCreateEnvironmentForCli",
+		Method:             "POST",
+		PathPattern:        "/v1/env/cli_create",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetCreateEnvironmentForCliReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetCreateEnvironmentForCliOK), nil
+
+}
+
+/*
+GetCreateEnvironmentForCliByCrn produces cli command input for environment creation
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) GetCreateEnvironmentForCliByCrn(params *GetCreateEnvironmentForCliByCrnParams) (*GetCreateEnvironmentForCliByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCreateEnvironmentForCliByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getCreateEnvironmentForCliByCrn",
+		Method:             "POST",
+		PathPattern:        "/v1/env/crn/{crn}/cli_create",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetCreateEnvironmentForCliByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetCreateEnvironmentForCliByCrnOK), nil
+
+}
+
+/*
+GetCreateEnvironmentForCliByName produces cli command input for environment creation
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) GetCreateEnvironmentForCliByName(params *GetCreateEnvironmentForCliByNameParams) (*GetCreateEnvironmentForCliByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCreateEnvironmentForCliByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getCreateEnvironmentForCliByName",
+		Method:             "POST",
+		PathPattern:        "/v1/env/name/{name}/cli_create",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetCreateEnvironmentForCliByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetCreateEnvironmentForCliByNameOK), nil
+
+}
+
+/*
 GetEnvironmentV1ByCrn gets an environment by c r n
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.

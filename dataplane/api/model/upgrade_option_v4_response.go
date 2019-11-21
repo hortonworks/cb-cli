@@ -8,6 +8,7 @@ package model
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -15,15 +16,64 @@ import (
 // swagger:model UpgradeOptionV4Response
 type UpgradeOptionV4Response struct {
 
-	// image catalog name
-	ImageCatalogName string `json:"imageCatalogName,omitempty"`
+	// current
+	Current *ImageInfoV4Response `json:"current,omitempty"`
 
-	// image Id
-	ImageID string `json:"imageId,omitempty"`
+	// upgrade
+	Upgrade *ImageInfoV4Response `json:"upgrade,omitempty"`
 }
 
 // Validate validates this upgrade option v4 response
 func (m *UpgradeOptionV4Response) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCurrent(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpgrade(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UpgradeOptionV4Response) validateCurrent(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Current) { // not required
+		return nil
+	}
+
+	if m.Current != nil {
+		if err := m.Current.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("current")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *UpgradeOptionV4Response) validateUpgrade(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Upgrade) { // not required
+		return nil
+	}
+
+	if m.Upgrade != nil {
+		if err := m.Upgrade.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("upgrade")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

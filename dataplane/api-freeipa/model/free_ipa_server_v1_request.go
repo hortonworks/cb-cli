@@ -18,8 +18,7 @@ import (
 type FreeIpaServerV1Request struct {
 
 	// Name of the admin group to be used for all the services.
-	// Required: true
-	AdminGroupName *string `json:"adminGroupName"`
+	AdminGroupName string `json:"adminGroupName,omitempty"`
 
 	// admin password
 	// Required: true
@@ -40,10 +39,6 @@ type FreeIpaServerV1Request struct {
 func (m *FreeIpaServerV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAdminGroupName(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateAdminPassword(formats); err != nil {
 		res = append(res, err)
 	}
@@ -59,15 +54,6 @@ func (m *FreeIpaServerV1Request) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *FreeIpaServerV1Request) validateAdminGroupName(formats strfmt.Registry) error {
-
-	if err := validate.Required("adminGroupName", "body", m.AdminGroupName); err != nil {
-		return err
-	}
-
 	return nil
 }
 

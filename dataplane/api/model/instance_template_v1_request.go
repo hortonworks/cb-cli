@@ -31,7 +31,7 @@ type InstanceTemplateV1Request struct {
 	Azure *AzureInstanceTemplateV1Parameters `json:"azure,omitempty"`
 
 	// cloud platform
-	// Enum: [AWS GCP AZURE OPENSTACK CUMULUS_YARN YARN MOCK]
+	// Enum: [AWS GCP AZURE OPENSTACK YARN MOCK]
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
 	// ephemeral volume
@@ -154,7 +154,7 @@ var instanceTemplateV1RequestTypeCloudPlatformPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","CUMULUS_YARN","YARN","MOCK"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","YARN","MOCK"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -175,9 +175,6 @@ const (
 
 	// InstanceTemplateV1RequestCloudPlatformOPENSTACK captures enum value "OPENSTACK"
 	InstanceTemplateV1RequestCloudPlatformOPENSTACK string = "OPENSTACK"
-
-	// InstanceTemplateV1RequestCloudPlatformCUMULUSYARN captures enum value "CUMULUS_YARN"
-	InstanceTemplateV1RequestCloudPlatformCUMULUSYARN string = "CUMULUS_YARN"
 
 	// InstanceTemplateV1RequestCloudPlatformYARN captures enum value "YARN"
 	InstanceTemplateV1RequestCloudPlatformYARN string = "YARN"
