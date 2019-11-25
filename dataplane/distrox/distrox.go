@@ -28,6 +28,7 @@ var stackHeader = []string{"Name", "Crn", "CloudPlatform", "Environment", "Distr
 type dxOut struct {
 	common.CloudResourceOut
 	Crn           string `json:"Crn" yaml:"Crn"`
+	CloudPlatform string `json:"CloudPlatform" yaml:"CloudPlatform"`
 	Environment   string `json:"Environment" yaml:"Environment"`
 	DistroXStatus string `json:"DistroXStatus" yaml:"DistroXStatus"`
 	ClusterStatus string `json:"ClusterStatus" yaml:"ClusterStatus"`
@@ -40,8 +41,8 @@ type stackOutDescribe struct {
 }
 
 func (s *dxOut) DataAsStringArray() []string {
-	arr := []string{s.Name, s.CloudPlatform}
-	arr = append(arr, s.Crn)
+	arr := []string{s.Name, s.Crn}
+	arr = append(arr, s.CloudPlatform)
 	arr = append(arr, s.Environment)
 	arr = append(arr, s.DistroXStatus)
 	arr = append(arr, s.ClusterStatus)
@@ -51,7 +52,6 @@ func (s *dxOut) DataAsStringArray() []string {
 func (s *stackOutDescribe) DataAsStringArray() []string {
 	stack := convertResponseToDx(s)
 	arr := append(stack.DataAsStringArray(), s.Stack.StatusReason)
-	arr = append(arr, s.Crn)
 	return arr
 }
 
@@ -63,6 +63,7 @@ func convertResponseToDx(s *stackOutDescribe) *dxOut {
 			CloudPlatform: s.Environment.CloudPlatform,
 		},
 		Crn:           s.Crn,
+		CloudPlatform: s.Stack.CloudPlatform,
 		Environment:   s.Environment.Name,
 		DistroXStatus: s.Stack.Status,
 		ClusterStatus: utils.SafeClusterStatusConvert(&s.Stack),
@@ -76,6 +77,7 @@ func convertViewResponseToStack(s *model.StackViewV4Response) *dxOut {
 			CloudPlatform: s.CloudPlatform,
 		},
 		Crn:           s.Crn,
+		CloudPlatform: s.CloudPlatform,
 		Environment:   s.EnvironmentName,
 		DistroXStatus: s.Status,
 		ClusterStatus: utils.SafeClusterViewStatusConvert(s),
@@ -264,7 +266,7 @@ func DescribeDistroX(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 
-	output.Write(append(stackHeader, "STATUSREASON", "CRN"), &stackOutDescribe{
+	output.Write(append(stackHeader, "STATUSREASON"), &stackOutDescribe{
 		Stack:       *s,
 		Environment: *envResp.Payload,
 		Crn:         s.Crn,
