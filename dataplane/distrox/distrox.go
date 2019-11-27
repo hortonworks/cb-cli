@@ -23,7 +23,7 @@ import (
 	"github.com/urfave/cli"
 )
 
-var stackHeader = []string{"Name", "Crn", "CloudPlatform", "Environment", "DistroXStatus", "ClusterStatus"}
+var stackHeader = []string{"Name", "Crn", "CloudPlatform", "Environment", "DistroXStatus", "ClusterStatus", "NodeCount"}
 
 type dxOut struct {
 	common.CloudResourceOut
@@ -32,6 +32,7 @@ type dxOut struct {
 	Environment   string `json:"Environment" yaml:"Environment"`
 	DistroXStatus string `json:"DistroXStatus" yaml:"DistroXStatus"`
 	ClusterStatus string `json:"ClusterStatus" yaml:"ClusterStatus"`
+	NodeCount     string `json:"NodeCount" yaml:"NodeCount"`
 }
 
 type stackOutDescribe struct {
@@ -46,6 +47,7 @@ func (s *dxOut) DataAsStringArray() []string {
 	arr = append(arr, s.Environment)
 	arr = append(arr, s.DistroXStatus)
 	arr = append(arr, s.ClusterStatus)
+	arr = append(arr, s.NodeCount)
 	return arr
 }
 
@@ -67,6 +69,7 @@ func convertResponseToDx(s *stackOutDescribe) *dxOut {
 		Environment:   s.Environment.Name,
 		DistroXStatus: s.Stack.Status,
 		ClusterStatus: utils.SafeClusterStatusConvert(&s.Stack),
+		NodeCount:     strconv.FormatInt(int64(s.Stack.NodeCount), 10),
 	}
 }
 
@@ -81,6 +84,7 @@ func convertViewResponseToStack(s *model.StackViewV4Response) *dxOut {
 		Environment:   s.EnvironmentName,
 		DistroXStatus: s.Status,
 		ClusterStatus: utils.SafeClusterViewStatusConvert(s),
+		NodeCount:     strconv.FormatInt(int64(s.NodeCount), 10),
 	}
 }
 
