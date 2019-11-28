@@ -28,7 +28,6 @@ var stackHeader = []string{"Name", "Crn", "CloudPlatform", "Environment", "Distr
 type dxOut struct {
 	common.CloudResourceOut
 	Crn           string `json:"Crn" yaml:"Crn"`
-	CloudPlatform string `json:"CloudPlatform" yaml:"CloudPlatform"`
 	Environment   string `json:"Environment" yaml:"Environment"`
 	DistroXStatus string `json:"DistroXStatus" yaml:"DistroXStatus"`
 	ClusterStatus string `json:"ClusterStatus" yaml:"ClusterStatus"`
@@ -65,7 +64,6 @@ func convertResponseToDx(s *stackOutDescribe) *dxOut {
 			CloudPlatform: s.Environment.CloudPlatform,
 		},
 		Crn:           s.Crn,
-		CloudPlatform: s.Stack.CloudPlatform,
 		Environment:   s.Environment.Name,
 		DistroXStatus: s.Stack.Status,
 		ClusterStatus: utils.SafeClusterStatusConvert(&s.Stack),
@@ -80,7 +78,6 @@ func convertViewResponseToStack(s *model.StackViewV4Response) *dxOut {
 			CloudPlatform: s.CloudPlatform,
 		},
 		Crn:           s.Crn,
-		CloudPlatform: s.CloudPlatform,
 		Environment:   s.EnvironmentName,
 		DistroXStatus: s.Status,
 		ClusterStatus: utils.SafeClusterViewStatusConvert(s),
