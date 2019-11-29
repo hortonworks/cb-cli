@@ -57,6 +57,9 @@ deps-errcheck:
 formatcheck:
 	([ -z "$(shell gofmt -d $(GOFILES_NOVENDOR))" ]) || (echo "Source is unformatted, please execute make format"; exit 1)
 
+versioncheck:
+	./checkversion.sh
+
 format:
 	@gofmt -w ${GOFILES_NOVENDOR}
 
@@ -78,7 +81,7 @@ coverage-html:
 	@go tool cover -html=fmt
 	@rm -f fmt
 
-build: errcheck formatcheck vet test build-darwin build-linux build-windows
+build: versioncheck errcheck formatcheck vet test build-darwin build-linux build-windows
 
 build-version: errcheck format vet test build-darwin-version build-linux-version build-windows-version
 
