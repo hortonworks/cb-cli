@@ -488,7 +488,7 @@ func (a *Client) ListRetryableFlowsDistroXV1(params *ListRetryableFlowsDistroXV1
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listRetryableFlowsDistroXV1",
 		Method:             "GET",
-		PathPattern:        "/v1/distrox/{name}/retry",
+		PathPattern:        "/v1/distrox/name/{name}/retry",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},

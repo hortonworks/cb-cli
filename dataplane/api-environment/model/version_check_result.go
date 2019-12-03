@@ -11,9 +11,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// VersionCheckV4Result version check v4 result
-// swagger:model VersionCheckV4Result
-type VersionCheckV4Result struct {
+// VersionCheckResult version check result
+// swagger:model VersionCheckResult
+type VersionCheckResult struct {
 
 	// message
 	Message string `json:"message,omitempty"`
@@ -22,13 +22,13 @@ type VersionCheckV4Result struct {
 	VersionCheckOk bool `json:"versionCheckOk,omitempty"`
 }
 
-// Validate validates this version check v4 result
-func (m *VersionCheckV4Result) Validate(formats strfmt.Registry) error {
+// Validate validates this version check result
+func (m *VersionCheckResult) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *VersionCheckV4Result) MarshalBinary() ([]byte, error) {
+func (m *VersionCheckResult) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -36,8 +36,8 @@ func (m *VersionCheckV4Result) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *VersionCheckV4Result) UnmarshalBinary(b []byte) error {
-	var res VersionCheckV4Result
+func (m *VersionCheckResult) UnmarshalBinary(b []byte) error {
+	var res VersionCheckResult
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

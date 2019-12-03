@@ -2,7 +2,11 @@ package env
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1utils"
+	"github.com/hortonworks/cb-cli/dataplane/common"
 	"strings"
 	"time"
 
@@ -133,6 +137,7 @@ func EditEnvironmentFromTemplate(c *cli.Context) {
 	}
 
 	envClient := oauth.NewEnvironmentClientFromContext(c)
+	checkClientVersion(envClient.Environment, common.Version)
 	resp, err := envClient.Environment.V1env.EditEnvironmentV1(v1env.NewEditEnvironmentV1Params().WithBody(&req).WithName(name))
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -144,8 +149,8 @@ func EditEnvironmentFromTemplate(c *cli.Context) {
 
 func createEnvironmentImpl(c *cli.Context, EnvironmentV1Request *model.EnvironmentV1Request) {
 	log.Infof("[createEnvironmentImpl] create environment with name: %s", *EnvironmentV1Request.Name)
-
 	envClient := oauth.NewEnvironmentClientFromContext(c)
+	checkClientVersion(envClient.Environment, common.Version)
 	resp, err := envClient.Environment.V1env.CreateEnvironmentV1(v1env.NewCreateEnvironmentV1Params().WithBody(EnvironmentV1Request))
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -157,13 +162,13 @@ func createEnvironmentImpl(c *cli.Context, EnvironmentV1Request *model.Environme
 
 func GenerateAwsEnvironmentTemplate(c *cli.Context) error {
 	cloud.SetProviderType(cloud.AWS)
-	template := createEnvironmentWithNetwork(getNetworkMode(c), c)
+	template := createEnvironmentTemplateWithNetwork(getNetworkMode(c), c)
 	return printTemplate(template)
 }
 
 func GenerateAzureEnvironmentTemplate(c *cli.Context) error {
 	cloud.SetProviderType(cloud.AZURE)
-	template := createEnvironmentWithNetwork(getNetworkMode(c), c)
+	template := createEnvironmentTemplateWithNetwork(getNetworkMode(c), c)
 	return printTemplate(template)
 }
 
@@ -178,7 +183,7 @@ func getNetworkMode(c *cli.Context) cloud.NetworkMode {
 	}
 }
 
-func createEnvironmentWithNetwork(mode cloud.NetworkMode, c *cli.Context) model.EnvironmentV1Request {
+func createEnvironmentTemplateWithNetwork(mode cloud.NetworkMode, c *cli.Context) model.EnvironmentV1Request {
 	provider := cloud.GetProvider()
 	template := model.EnvironmentV1Request{
 		Name:           new(string),
@@ -334,6 +339,7 @@ func ChangeCredential(c *cli.Context) {
 	}
 	request := v1env.NewChangeCredentialInEnvironmentV1Params().WithName(envName).WithBody(requestBody)
 	envClient := oauth.NewEnvironmentClientFromContext(c)
+	checkClientVersion(envClient.Environment, common.Version)
 	resp, err := envClient.Environment.V1env.ChangeCredentialInEnvironmentV1(request)
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -362,6 +368,7 @@ func EditEnvironment(c *cli.Context) {
 	}
 	request := v1env.NewEditEnvironmentV1Params().WithName(envName).WithBody(requestBody)
 	envClient := oauth.NewEnvironmentClientFromContext(c)
+	checkClientVersion(envClient.Environment, common.Version)
 	resp, err := envClient.Environment.V1env.EditEnvironmentV1(request)
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -440,4 +447,17 @@ func GetEnvCrnByName(envName string, c *cli.Context) string {
 		utils.LogErrorAndExit(err)
 	}
 	return envResp.Payload.Crn
+}
+
+func checkClientVersion(client *client.Environment, version string) {
+	versionCheckRequest := v1utils.NewCheckClientVersionOfEnvironmentV1Params().WithVersion(&version)
+	resp, err := client.V1utils.CheckClientVersionOfEnvironmentV1(versionCheckRequest)
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	valid := resp.Payload.VersionCheckOk
+	message := resp.Payload.Message
+	if !valid {
+		utils.LogErrorAndExit(errors.New(message))
+	}
 }
