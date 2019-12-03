@@ -51,7 +51,7 @@ type ListRetryableFlowsDistroXV1OK struct {
 }
 
 func (o *ListRetryableFlowsDistroXV1OK) Error() string {
-	return fmt.Sprintf("[GET /v1/distrox/{name}/retry][%d] listRetryableFlowsDistroXV1OK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /v1/distrox/name/{name}/retry][%d] listRetryableFlowsDistroXV1OK  %+v", 200, o.Payload)
 }
 
 func (o *ListRetryableFlowsDistroXV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

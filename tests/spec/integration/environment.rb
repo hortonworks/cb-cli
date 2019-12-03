@@ -36,17 +36,20 @@ RSpec.describe 'Environment test cases', :type => :aruba, :feature => "Environme
 
   it "Environment - Create AWS Environment", :story => "AWS Environments", :severity => :normal, :testId => 2 do
     with_environment 'DEBUG' => '1' do
-     responseHash = MockHelper.getResponseHash("../../../responses/environments/post-aws-environment-response.json")
-     requestHash = MockHelper.getResponseHash("../../../requests/environments/post-aws-environment-request.json")
-     expectedEndpointRequest = TraceResponseBuilder.createEnvironmentRequestFactory(requestHash)
-     MockHelper.setupResponse("env", "createEnvironmentV1", responseHash)
+      versionCheckResultHash = MockHelper.getResponseHash("../../../responses/utils/clientversionok.json")
+      MockHelper.setupResponse("env", "checkClientVersionOfEnvironmentV1", versionCheckResultHash)
 
-     result = cb.env.create.from_file.file(@environment_file).build(true)
-     resultHash = MockHelper.getResultHash(result.output)
+      responseHash = MockHelper.getResponseHash("../../../responses/environments/post-aws-environment-response.json")
+      requestHash = MockHelper.getResponseHash("../../../requests/environments/post-aws-environment-request.json")
+      expectedEndpointRequest = TraceResponseBuilder.createEnvironmentRequestFactory(requestHash)
+      MockHelper.setupResponse("env", "createEnvironmentV1", responseHash)
 
-     expect(result.exit_status).to eql 0
-     expect(result.stderr.to_s.downcase).not_to include("error")
-     expect(MockHelper.getRequestDiff("env", expectedEndpointRequest)).to be_truthy
+      result = cb.env.create.from_file.file(@environment_file).build(true)
+      resultHash = MockHelper.getResultHash(result.output)
+
+      expect(result.exit_status).to eql 0
+      expect(result.stderr.to_s.downcase).not_to include("error")
+      expect(MockHelper.getRequestDiff("env", expectedEndpointRequest)).to be_truthy
     end
   end
 end

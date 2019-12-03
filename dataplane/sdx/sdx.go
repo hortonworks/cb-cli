@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxutils"
+	"github.com/hortonworks/cb-cli/dataplane/common"
 	"os"
 	"strings"
 	"time"
@@ -101,6 +104,7 @@ func createSdx(clusterShape string, envName string, c *cli.Context, name string,
 	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, withExternalDatabase, withoutExternalDatabase)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	checkClientVersion(sdxClient, common.Version)
 	resp, err := sdxClient.Sdx.CreateSdx(sdx.NewCreateSdxParams().WithName(name).WithBody(sdxRequest))
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -200,6 +204,7 @@ func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cl
 	}
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	checkClientVersion(sdxClient, common.Version)
 	resp, err := sdxClient.Internalsdx.CreateInternalSdx(internalsdx.NewCreateInternalSdxParams().WithName(name).WithBody(sdxInternalRequest))
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -230,6 +235,7 @@ func RepairSdx(c *cli.Context) {
 	hostGroupToRepairRequest := formulateRequest(hostGroupToRepair, hostGroupsToRepair)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	checkClientVersion(sdxClient, common.Version)
 	err := sdxClient.Sdx.RepairSdxNode(sdx.NewRepairSdxNodeParams().WithName(name).WithBody(hostGroupToRepairRequest))
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -289,6 +295,7 @@ func SyncSdx(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "Sync sdx cluster in environment")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	checkClientVersion(sdxClient, common.Version)
 	err := sdxClient.Sdx.SyncSdx(sdx.NewSyncSdxParams().WithName(name))
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -300,6 +307,7 @@ func RetrySdx(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "Retry sdx cluster")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	checkClientVersion(sdxClient, common.Version)
 	err := sdxClient.Sdx.RetrySdx(sdx.NewRetrySdxParams().WithName(name))
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -396,6 +404,7 @@ func UpgradeSdx(c *cli.Context) {
 	name := c.String(fl.FlName.Name)
 	dryRun := c.Bool(fl.FlDryRunOptional.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	checkClientVersion(sdxClient, common.Version)
 	if dryRun {
 		resp, err := sdxClient.Sdx.CheckForUpgrade(sdx.NewCheckForUpgradeParams().WithName(name))
 		if err != nil {
@@ -414,4 +423,17 @@ func UpgradeSdx(c *cli.Context) {
 		}
 	}
 	log.Infof("[UpgradeSdx] SDX cluster upgrade is in progress for: %s", name)
+}
+
+func checkClientVersion(client *client.Datalake, version string) {
+	versionCheckRequest := sdxutils.NewCheckClientVersionOfSdxParams().WithVersion(&version)
+	resp, err := client.Sdxutils.CheckClientVersionOfSdx(versionCheckRequest)
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	valid := resp.Payload.VersionCheckOk
+	message := resp.Payload.Message
+	if !valid {
+		utils.LogErrorAndExit(errors.New(message))
+	}
 }

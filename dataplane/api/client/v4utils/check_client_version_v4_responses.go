@@ -47,7 +47,7 @@ func NewCheckClientVersionV4OK() *CheckClientVersionV4OK {
 successful operation
 */
 type CheckClientVersionV4OK struct {
-	Payload *model.VersionCheckV4Result
+	Payload *model.VersionCheckResult
 }
 
 func (o *CheckClientVersionV4OK) Error() string {
@@ -56,7 +56,7 @@ func (o *CheckClientVersionV4OK) Error() string {
 
 func (o *CheckClientVersionV4OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.VersionCheckV4Result)
+	o.Payload = new(model.VersionCheckResult)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

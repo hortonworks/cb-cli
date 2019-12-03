@@ -11,9 +11,9 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/flow_logs"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/internalsdx"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdx"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxutils"
 )
 
 // Default datalake HTTP client.
@@ -59,11 +59,11 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Datalake {
 	cli := new(Datalake)
 	cli.Transport = transport
 
-	cli.FlowLogs = flow_logs.New(transport, formats)
-
 	cli.Internalsdx = internalsdx.New(transport, formats)
 
 	cli.Sdx = sdx.New(transport, formats)
+
+	cli.Sdxutils = sdxutils.New(transport, formats)
 
 	return cli
 }
@@ -109,11 +109,11 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Datalake is a client for datalake
 type Datalake struct {
-	FlowLogs *flow_logs.Client
-
 	Internalsdx *internalsdx.Client
 
 	Sdx *sdx.Client
+
+	Sdxutils *sdxutils.Client
 
 	Transport runtime.ClientTransport
 }
@@ -122,10 +122,10 @@ type Datalake struct {
 func (c *Datalake) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 
-	c.FlowLogs.SetTransport(transport)
-
 	c.Internalsdx.SetTransport(transport)
 
 	c.Sdx.SetTransport(transport)
+
+	c.Sdxutils.SetTransport(transport)
 
 }
