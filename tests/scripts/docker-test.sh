@@ -71,6 +71,7 @@ test-regression() {
        --privileged \
        --net=host \
        --name $TEST_CONTAINER_NAME \
+       -u "$(id -u $(whoami)):$(id -g $(whoami))" \
        -v $(pwd):/aruba \
        -v $(pwd)/tmp/responses:/responses \
        -v $(pwd)/requests:/requests \
