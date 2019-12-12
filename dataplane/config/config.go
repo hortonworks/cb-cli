@@ -8,6 +8,7 @@ import (
 	"os"
 	"strconv"
 
+	cr "github.com/go-openapi/runtime/client"
 	"github.com/hortonworks/cb-cli/dataplane/common"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/dp-cli-common/utils"
@@ -15,6 +16,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 	"gopkg.in/yaml.v2"
+	"time"
 )
 
 type Config struct {
@@ -24,6 +26,7 @@ type Config struct {
 	RefreshToken string `json:"refreshtoken,omitempty" yaml:"refreshtoken,omitempty"`
 	ApiKeyID     string `json:"apikeyid" yaml:"apikeyid"`
 	PrivateKey   string `json:"privatekey" yaml:"privatekey"`
+	Timeout      string `json:"timeout,omitempty" yaml:"timeout,omitempty"`
 }
 
 type ConfigList map[string]Config
@@ -137,7 +140,13 @@ func configRead(c *cli.Context) error {
 	if len(privateKey) == 0 {
 		set(fl.FlPrivateKeyOptional.Name, config.PrivateKey)
 	}
-
+	if len(config.Timeout) != 0 {
+		timeout, parseError := time.ParseDuration(config.Timeout)
+		if parseError != nil {
+			utils.LogErrorAndExit(parseError)
+		}
+		cr.DefaultTimeout = timeout
+	}
 	return nil
 }
 
