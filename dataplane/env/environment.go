@@ -6,7 +6,12 @@ import (
 	"fmt"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1utils"
+	sdxModel "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
+	"github.com/hortonworks/cb-cli/dataplane/api/client/v1distrox"
 	"github.com/hortonworks/cb-cli/dataplane/common"
+	"github.com/hortonworks/cb-cli/dataplane/distrox"
+	"github.com/hortonworks/cb-cli/dataplane/sdx"
+	"strconv"
 	"strings"
 	"time"
 
@@ -39,6 +44,8 @@ type environment struct {
 
 type environmentOutTableDescribe struct {
 	*environment
+	SdxStatus    string `json:"SdxStatus" yaml:"SdxStatus"`
+	DataHubCount int    `json:"DataHubCount" yaml:"DataHubCount"`
 }
 
 type environmentOutJsonDescribe struct {
@@ -69,7 +76,11 @@ func (e *environmentOutJsonDescribe) DataAsStringArray() []string {
 }
 
 func (e *environmentOutTableDescribe) DataAsStringArray() []string {
-	return append(e.environment.DataAsStringArray())
+	dhc := "UNKNOWN"
+	if e.DataHubCount > -1 {
+		dhc = strconv.Itoa(e.DataHubCount)
+	}
+	return append(e.environment.DataAsStringArray(), e.SdxStatus, dhc)
 }
 
 func CreateEnvironment(c *cli.Context) {
@@ -224,14 +235,17 @@ func ListEnvironments(c *cli.Context) error {
 	envClient := oauth.NewEnvironmentClientFromContext(c)
 
 	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
-	return listEnvironmentsImpl(envClient.Environment.V1env, output)
+	return listEnvironmentsImpl(envClient.Environment.V1env, output, c)
 }
 
-func listEnvironmentsImpl(envClient environmentClient, output utils.Output) error {
+func listEnvironmentsImpl(envClient environmentClient, output utils.Output, c *cli.Context) error {
 	resp, err := envClient.ListEnvironmentV1(v1env.NewListEnvironmentV1Params())
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
+
+	dixis := distrox.GetListOfDistroXs(c)
+	sdxs := sdx.GetListOfSdx(c)
 
 	var tableRows []utils.Row
 	for _, e := range resp.Payload.Responses {
@@ -260,16 +274,43 @@ func listEnvironmentsImpl(envClient environmentClient, output utils.Output) erro
 			}
 			tableRows = append(tableRows, &envListJSON)
 		} else {
-			tableRows = append(tableRows, row)
+			envListTable := environmentOutTableDescribe{
+				environment:  row,
+				SdxStatus:    getSdxStatusByEnv(sdxs, row.Crn),
+				DataHubCount: getDistroXCountByEnv(dixis, row.Crn),
+			}
+			tableRows = append(tableRows, &envListTable)
 		}
 	}
 
 	if output.Format != "table" && output.Format != "yaml" {
 		output.WriteList(append(EnvironmentHeader, "Network", "Telemetry"), tableRows)
 	} else {
-		output.WriteList(EnvironmentHeader, tableRows)
+		output.WriteList(append(EnvironmentHeader, "SdxStatus", "DataHubCount"), tableRows)
 	}
 	return nil
+}
+
+func getDistroXCountByEnv(dixlist *v1distrox.ListDistroXV1OK, envCrn string) int {
+	quantity := 0
+	if dixlist == nil {
+		return 0
+	}
+	for _, response := range dixlist.Payload.Responses {
+		if response.EnvironmentCrn == envCrn {
+			quantity = quantity + 1
+		}
+	}
+	return quantity
+}
+
+func getSdxStatusByEnv(sdxlist []*sdxModel.SdxClusterResponse, envCrn string) string {
+	for _, response := range sdxlist {
+		if response.EnvironmentCrn == envCrn {
+			return response.Status
+		}
+	}
+	return "-"
 }
 
 func DescribeEnvironment(c *cli.Context) {
@@ -288,7 +329,9 @@ func DescribeEnvironment(c *cli.Context) {
 	if output.Format != "table" && output.Format != "yaml" {
 		output.Write(append(EnvironmentHeader, "Network", "Telemetry", "Authentication"), convertResponseToJsonOutput(env))
 	} else {
-		output.Write(append(EnvironmentHeader), convertResponseToTableOutput(env))
+		dixis := distrox.GetListOfDistroXs(c)
+		sdxs := sdx.GetListOfSdx(c)
+		output.Write(append(EnvironmentHeader, "SdxStatus", "DataHubCount"), convertResponseToTableOutput(env, getSdxStatusByEnv(sdxs, env.Crn), getDistroXCountByEnv(dixis, env.Crn)))
 	}
 }
 
@@ -377,7 +420,7 @@ func EditEnvironment(c *cli.Context) {
 	log.Infof("[Edit] Environment %s was edited.", environment.Name)
 }
 
-func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response) *environmentOutTableDescribe {
+func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response, sdxStatus string, datahubCount int) *environmentOutTableDescribe {
 	return &environmentOutTableDescribe{
 		environment: &environment{
 			Name:          env.Name,
@@ -391,6 +434,8 @@ func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response) *env
 			Latitude:      env.Location.Latitude,
 			Crn:           env.Crn,
 		},
+		SdxStatus:    sdxStatus,
+		DataHubCount: datahubCount,
 	}
 }
 

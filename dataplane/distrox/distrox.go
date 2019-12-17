@@ -293,6 +293,18 @@ func ListDistroXs(c *cli.Context) {
 	output.WriteList(stackHeader, tableRows)
 }
 
+func GetListOfDistroXs(c *cli.Context) *v1distrox.ListDistroXV1OK {
+	defer commonutils.TimeTrack(time.Now(), "list DistroXs")
+
+	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
+
+	resp, err := dxClient.Cloudbreak.V1distrox.ListDistroXV1(v1distrox.NewListDistroXV1Params())
+	if err != nil {
+		return nil
+	}
+	return resp
+}
+
 func RepairDistroXHostGroups(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "repair DistroX")
 
