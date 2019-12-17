@@ -11,8 +11,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hortonworks/cb-cli/dataplane/env"
-
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/internalsdx"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdx"
 	sdxModel "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
@@ -197,12 +195,6 @@ func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cl
 	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxInternalRequest.CloudStorage = storage }))
 	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, &sdxInternalRequest.ExternalDatabase)
 
-	if inputJson.EnvironmentCrn == nil || len(*inputJson.EnvironmentCrn) == 0 {
-		envCrn := env.GetEnvCrnByName(envName, c)
-		log.Debugf("[CreateInternalSdx] env crn is empty in stack request, update with: %s", envCrn)
-		inputJson.EnvironmentCrn = &envCrn
-	}
-
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 	resp, err := sdxClient.Internalsdx.CreateInternalSdx(internalsdx.NewCreateInternalSdxParams().WithName(name).WithBody(sdxInternalRequest))
@@ -267,6 +259,16 @@ func ListSdx(c *cli.Context) {
 	writer := output.WriteList
 	listSdxClusterImpl(sdxClient.Sdx.Sdx, envName, writer)
 	log.Infof("[ListSdx] SDX cluster list in environment: %s", envName)
+}
+
+func GetListOfSdx(c *cli.Context) []*sdxModel.SdxClusterResponse {
+	defer utils.TimeTrack(time.Now(), "List sdx clusters by environment crn")
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c))
+	resp, err := sdxClient.Sdx.Sdx.ListSdx(sdx.NewListSdxParams())
+	if err != nil {
+		return []*sdxModel.SdxClusterResponse{}
+	}
+	return resp.Payload
 }
 
 func listSdxClusterImpl(client clientSdx, envName string, writer func([]string, []utils.Row)) {
