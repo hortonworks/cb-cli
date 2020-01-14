@@ -23,7 +23,7 @@ import (
 	"github.com/urfave/cli"
 )
 
-var sdxClusterHeader = []string{"Crn", "Name", "EnvironmentName", "EnvironmentCrn", "StackCrn", "DatabaseServerCrn", "Status", "StatusReason"}
+var sdxClusterHeader = []string{"Crn", "Name", "EnvironmentName", "EnvironmentCrn", "StackCrn", "DatabaseServerCrn", "CludStorageLocation", "CloudStorageFileSystemType", "Status", "StatusReason"}
 
 type sdxClusterOutput struct {
 	Crn                        string `json:"Crn" yaml:"Crn"`
