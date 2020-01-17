@@ -143,6 +143,34 @@ func (a *Client) GetCertificateStackForAutoscale(params *GetCertificateStackForA
 }
 
 /*
+GetClusterProxyconfiguration get cluster proxyconfiguration API
+*/
+func (a *Client) GetClusterProxyconfiguration(params *GetClusterProxyconfigurationParams) (*GetClusterProxyconfigurationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetClusterProxyconfigurationParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getClusterProxyconfiguration",
+		Method:             "GET",
+		PathPattern:        "/autoscale/clusterproxy",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetClusterProxyconfigurationReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetClusterProxyconfigurationOK), nil
+
+}
+
+/*
 GetStackForAmbariForAutoscale retrieves stack by ambari address
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -199,6 +227,36 @@ func (a *Client) GetStackForAutoscale(params *GetStackForAutoscaleParams) (*GetS
 		return nil, err
 	}
 	return result.(*GetStackForAutoscaleOK), nil
+
+}
+
+/*
+GetStackStatusForAutoscale retrieves stack by crn
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) GetStackStatusForAutoscale(params *GetStackStatusForAutoscaleParams) (*GetStackStatusForAutoscaleOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetStackStatusForAutoscaleParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getStackStatusForAutoscale",
+		Method:             "GET",
+		PathPattern:        "/autoscale/stack/crn/{crn}/status",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetStackStatusForAutoscaleReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetStackStatusForAutoscaleOK), nil
 
 }
 

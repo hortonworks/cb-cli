@@ -33,7 +33,7 @@ type EnvironmentNetworkV1Request struct {
 	// Min Length: 0
 	NetworkCidr *string `json:"networkCidr,omitempty"`
 
-	// A flag to enable or disable the private sutbet creation.
+	// A flag to enable or disable the private subnet creation.
 	// Enum: [ENABLED DISABLED]
 	PrivateSubnetCreation string `json:"privateSubnetCreation,omitempty"`
 

@@ -27,6 +27,9 @@ type DescribeFreeIpaV1Response struct {
 	// Required: true
 	Authentication *StackAuthenticationV1Response `json:"authentication"`
 
+	// Cloud Platform for FreeIPA
+	CloudPlatform string `json:"cloudPlatform,omitempty"`
+
 	// cloud storage details for freeipa server
 	CloudStorage *CloudStorageResponse `json:"cloudStorage,omitempty"`
 
@@ -61,11 +64,14 @@ type DescribeFreeIpaV1Response struct {
 	Placement *PlacementV1Response `json:"placement"`
 
 	// status
-	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE STACK_AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED]
+	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE STACK_AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED UNREACHABLE UNHEALTHY DELETED_ON_PROVIDER_SIDE UNKNOWN]
 	Status string `json:"status,omitempty"`
 
 	// status reason
 	StatusReason string `json:"statusReason,omitempty"`
+
+	// status string
+	StatusString string `json:"statusString,omitempty"`
 
 	// telemetry setting for freeipa server
 	Telemetry *TelemetryResponse `json:"telemetry,omitempty"`
@@ -293,7 +299,7 @@ var describeFreeIpaV1ResponseTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","STACK_AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","STACK_AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED","UNREACHABLE","UNHEALTHY","DELETED_ON_PROVIDER_SIDE","UNKNOWN"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -365,6 +371,18 @@ const (
 
 	// DescribeFreeIpaV1ResponseStatusMAINTENANCEMODEENABLED captures enum value "MAINTENANCE_MODE_ENABLED"
 	DescribeFreeIpaV1ResponseStatusMAINTENANCEMODEENABLED string = "MAINTENANCE_MODE_ENABLED"
+
+	// DescribeFreeIpaV1ResponseStatusUNREACHABLE captures enum value "UNREACHABLE"
+	DescribeFreeIpaV1ResponseStatusUNREACHABLE string = "UNREACHABLE"
+
+	// DescribeFreeIpaV1ResponseStatusUNHEALTHY captures enum value "UNHEALTHY"
+	DescribeFreeIpaV1ResponseStatusUNHEALTHY string = "UNHEALTHY"
+
+	// DescribeFreeIpaV1ResponseStatusDELETEDONPROVIDERSIDE captures enum value "DELETED_ON_PROVIDER_SIDE"
+	DescribeFreeIpaV1ResponseStatusDELETEDONPROVIDERSIDE string = "DELETED_ON_PROVIDER_SIDE"
+
+	// DescribeFreeIpaV1ResponseStatusUNKNOWN captures enum value "UNKNOWN"
+	DescribeFreeIpaV1ResponseStatusUNKNOWN string = "UNKNOWN"
 )
 
 // prop value enum

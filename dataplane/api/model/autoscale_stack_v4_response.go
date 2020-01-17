@@ -26,7 +26,7 @@ type AutoscaleStackV4Response struct {
 	ClusterManagerVariant string `json:"clusterManagerVariant,omitempty"`
 
 	// status of the cluster
-	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED]
+	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED AMBIGUOUS]
 	ClusterStatus string `json:"clusterStatus,omitempty"`
 
 	// creation time of the stack in long
@@ -49,11 +49,15 @@ type AutoscaleStackV4Response struct {
 	StackID int64 `json:"stackId,omitempty"`
 
 	// status of the stack
-	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED]
+	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED AMBIGUOUS]
 	Status string `json:"status,omitempty"`
 
 	// name of the tenant
 	Tenant string `json:"tenant,omitempty"`
+
+	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
+	// Enum: [DIRECT CCM CLUSTER_PROXY]
+	Tunnel string `json:"tunnel,omitempty"`
 
 	// id of the user
 	UserID string `json:"userId,omitempty"`
@@ -81,6 +85,10 @@ func (m *AutoscaleStackV4Response) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateTunnel(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -91,7 +99,7 @@ var autoscaleStackV4ResponseTypeClusterStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED","AMBIGUOUS"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -163,6 +171,9 @@ const (
 
 	// AutoscaleStackV4ResponseClusterStatusMAINTENANCEMODEENABLED captures enum value "MAINTENANCE_MODE_ENABLED"
 	AutoscaleStackV4ResponseClusterStatusMAINTENANCEMODEENABLED string = "MAINTENANCE_MODE_ENABLED"
+
+	// AutoscaleStackV4ResponseClusterStatusAMBIGUOUS captures enum value "AMBIGUOUS"
+	AutoscaleStackV4ResponseClusterStatusAMBIGUOUS string = "AMBIGUOUS"
 )
 
 // prop value enum
@@ -200,7 +211,7 @@ var autoscaleStackV4ResponseTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED","AMBIGUOUS"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -272,6 +283,9 @@ const (
 
 	// AutoscaleStackV4ResponseStatusMAINTENANCEMODEENABLED captures enum value "MAINTENANCE_MODE_ENABLED"
 	AutoscaleStackV4ResponseStatusMAINTENANCEMODEENABLED string = "MAINTENANCE_MODE_ENABLED"
+
+	// AutoscaleStackV4ResponseStatusAMBIGUOUS captures enum value "AMBIGUOUS"
+	AutoscaleStackV4ResponseStatusAMBIGUOUS string = "AMBIGUOUS"
 )
 
 // prop value enum
@@ -290,6 +304,52 @@ func (m *AutoscaleStackV4Response) validateStatus(formats strfmt.Registry) error
 
 	// value enum
 	if err := m.validateStatusEnum("status", "body", m.Status); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var autoscaleStackV4ResponseTypeTunnelPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		autoscaleStackV4ResponseTypeTunnelPropEnum = append(autoscaleStackV4ResponseTypeTunnelPropEnum, v)
+	}
+}
+
+const (
+
+	// AutoscaleStackV4ResponseTunnelDIRECT captures enum value "DIRECT"
+	AutoscaleStackV4ResponseTunnelDIRECT string = "DIRECT"
+
+	// AutoscaleStackV4ResponseTunnelCCM captures enum value "CCM"
+	AutoscaleStackV4ResponseTunnelCCM string = "CCM"
+
+	// AutoscaleStackV4ResponseTunnelCLUSTERPROXY captures enum value "CLUSTER_PROXY"
+	AutoscaleStackV4ResponseTunnelCLUSTERPROXY string = "CLUSTER_PROXY"
+)
+
+// prop value enum
+func (m *AutoscaleStackV4Response) validateTunnelEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, autoscaleStackV4ResponseTypeTunnelPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *AutoscaleStackV4Response) validateTunnel(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Tunnel) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTunnelEnum("tunnel", "body", m.Tunnel); err != nil {
 		return err
 	}
 

@@ -12,7 +12,6 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // PlatformAccessConfigsResponse platform access configs response
@@ -20,7 +19,6 @@ import (
 type PlatformAccessConfigsResponse struct {
 
 	// access configs
-	// Unique: true
 	AccessConfigs []*AccessConfigResponse `json:"accessConfigs"`
 }
 
@@ -42,10 +40,6 @@ func (m *PlatformAccessConfigsResponse) validateAccessConfigs(formats strfmt.Reg
 
 	if swag.IsZero(m.AccessConfigs) { // not required
 		return nil
-	}
-
-	if err := validate.UniqueItems("accessConfigs", "body", m.AccessConfigs); err != nil {
-		return err
 	}
 
 	for i := 0; i < len(m.AccessConfigs); i++ {

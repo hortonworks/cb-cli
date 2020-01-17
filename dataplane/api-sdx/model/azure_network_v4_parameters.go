@@ -18,9 +18,6 @@ type AzureNetworkV4Parameters struct {
 	// network Id
 	NetworkID string `json:"networkId,omitempty"`
 
-	// no firewall rules
-	NoFirewallRules bool `json:"noFirewallRules,omitempty"`
-
 	// no public Ip
 	NoPublicIP bool `json:"noPublicIp,omitempty"`
 

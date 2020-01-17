@@ -20,9 +20,6 @@ import (
 // swagger:model ClusterV4Response
 type ClusterV4Response struct {
 
-	// ambari
-	Ambari *AmbariV4Response `json:"ambari,omitempty"`
-
 	// Additional information for ambari cluster
 	Attributes map[string]interface{} `json:"attributes,omitempty"`
 
@@ -93,7 +90,7 @@ type ClusterV4Response struct {
 	ServerURL string `json:"serverUrl,omitempty"`
 
 	// status of the cluster
-	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED]
+	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED AMBIGUOUS]
 	Status string `json:"status,omitempty"`
 
 	// status message of the cluster
@@ -109,10 +106,6 @@ type ClusterV4Response struct {
 // Validate validates this cluster v4 response
 func (m *ClusterV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateAmbari(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateBlueprint(formats); err != nil {
 		res = append(res, err)
@@ -161,24 +154,6 @@ func (m *ClusterV4Response) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *ClusterV4Response) validateAmbari(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Ambari) { // not required
-		return nil
-	}
-
-	if m.Ambari != nil {
-		if err := m.Ambari.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ambari")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 
@@ -365,7 +340,7 @@ var clusterV4ResponseTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED","AMBIGUOUS"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -437,6 +412,9 @@ const (
 
 	// ClusterV4ResponseStatusMAINTENANCEMODEENABLED captures enum value "MAINTENANCE_MODE_ENABLED"
 	ClusterV4ResponseStatusMAINTENANCEMODEENABLED string = "MAINTENANCE_MODE_ENABLED"
+
+	// ClusterV4ResponseStatusAMBIGUOUS captures enum value "AMBIGUOUS"
+	ClusterV4ResponseStatusAMBIGUOUS string = "AMBIGUOUS"
 )
 
 // prop value enum

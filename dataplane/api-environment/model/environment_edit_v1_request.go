@@ -37,15 +37,8 @@ type EnvironmentEditV1Request struct {
 	// Enum: [NONE MOCK IDBMMS]
 	IDBrokerMappingSource string `json:"idBrokerMappingSource,omitempty"`
 
-	// Location of the environment.
-	Location *LocationV1Request `json:"location,omitempty"`
-
 	// Network related specifics of the environment.
 	Network *EnvironmentNetworkV1Request `json:"network,omitempty"`
-
-	// Regions of the environment.
-	// Unique: true
-	Regions []string `json:"regions"`
 
 	// Security control for FreeIPA and Datalake deployment.
 	SecurityAccess *SecurityAccessV1Request `json:"securityAccess,omitempty"`
@@ -74,15 +67,7 @@ func (m *EnvironmentEditV1Request) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateLocation(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateNetwork(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRegions(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -199,24 +184,6 @@ func (m *EnvironmentEditV1Request) validateIDBrokerMappingSource(formats strfmt.
 	return nil
 }
 
-func (m *EnvironmentEditV1Request) validateLocation(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Location) { // not required
-		return nil
-	}
-
-	if m.Location != nil {
-		if err := m.Location.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("location")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (m *EnvironmentEditV1Request) validateNetwork(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Network) { // not required
@@ -230,19 +197,6 @@ func (m *EnvironmentEditV1Request) validateNetwork(formats strfmt.Registry) erro
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *EnvironmentEditV1Request) validateRegions(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Regions) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("regions", "body", m.Regions); err != nil {
-		return err
 	}
 
 	return nil

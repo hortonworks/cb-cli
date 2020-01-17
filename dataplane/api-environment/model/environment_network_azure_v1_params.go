@@ -25,10 +25,6 @@ type EnvironmentNetworkAzureV1Params struct {
 
 	// Subnet ids of the specified networks
 	// Required: true
-	NoFirewallRules *bool `json:"noFirewallRules"`
-
-	// Subnet ids of the specified networks
-	// Required: true
 	NoPublicIP *bool `json:"noPublicIp"`
 
 	// Subnet ids of the specified networks
@@ -43,10 +39,6 @@ func (m *EnvironmentNetworkAzureV1Params) Validate(formats strfmt.Registry) erro
 	var res []error
 
 	if err := m.validateNetworkID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateNoFirewallRules(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -75,15 +67,6 @@ func (m *EnvironmentNetworkAzureV1Params) validateNetworkID(formats strfmt.Regis
 	}
 
 	if err := validate.MaxLength("networkId", "body", string(*m.NetworkID), 255); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *EnvironmentNetworkAzureV1Params) validateNoFirewallRules(formats strfmt.Registry) error {
-
-	if err := validate.Required("noFirewallRules", "body", m.NoFirewallRules); err != nil {
 		return err
 	}
 

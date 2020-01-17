@@ -20,6 +20,10 @@ type AzureCredentialPrerequisites struct {
 	// Azure CLI command to create Azure AD Application as prerequisite for credential creation.The field is base64 encoded.
 	// Required: true
 	AppCreationCommand *string `json:"appCreationCommand"`
+
+	// Azure specific JSON file that is base64 encoded and describes the necessary Azure role for cloud resource provisioning.
+	// Required: true
+	RoleDefitionJSON *string `json:"roleDefitionJson"`
 }
 
 // Validate validates this azure credential prerequisites
@@ -27,6 +31,10 @@ func (m *AzureCredentialPrerequisites) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAppCreationCommand(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRoleDefitionJSON(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -39,6 +47,15 @@ func (m *AzureCredentialPrerequisites) Validate(formats strfmt.Registry) error {
 func (m *AzureCredentialPrerequisites) validateAppCreationCommand(formats strfmt.Registry) error {
 
 	if err := validate.Required("appCreationCommand", "body", m.AppCreationCommand); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AzureCredentialPrerequisites) validateRoleDefitionJSON(formats strfmt.Registry) error {
+
+	if err := validate.Required("roleDefitionJson", "body", m.RoleDefitionJSON); err != nil {
 		return err
 	}
 

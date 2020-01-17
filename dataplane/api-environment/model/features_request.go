@@ -19,6 +19,9 @@ type FeaturesRequest struct {
 	// enable cluster deployment log reporting.
 	ReportDeploymentLogs *FeatureSetting `json:"reportDeploymentLogs,omitempty"`
 
+	// enable shared Altus credential usage
+	UseSharedAltusCredential *FeatureSetting `json:"useSharedAltusCredential,omitempty"`
+
 	// Workload analytics (telemetry) settings.
 	WorkloadAnalytics *FeatureSetting `json:"workloadAnalytics,omitempty"`
 }
@@ -28,6 +31,10 @@ func (m *FeaturesRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateReportDeploymentLogs(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUseSharedAltusCredential(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -51,6 +58,24 @@ func (m *FeaturesRequest) validateReportDeploymentLogs(formats strfmt.Registry) 
 		if err := m.ReportDeploymentLogs.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("reportDeploymentLogs")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *FeaturesRequest) validateUseSharedAltusCredential(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.UseSharedAltusCredential) { // not required
+		return nil
+	}
+
+	if m.UseSharedAltusCredential != nil {
+		if err := m.UseSharedAltusCredential.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("useSharedAltusCredential")
 			}
 			return err
 		}

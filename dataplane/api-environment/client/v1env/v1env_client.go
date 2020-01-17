@@ -385,6 +385,36 @@ func (a *Client) GetCreateEnvironmentForCliByName(params *GetCreateEnvironmentFo
 }
 
 /*
+GetCrnByNameV1 gets the crn of an environment by name
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) GetCrnByNameV1(params *GetCrnByNameV1Params) (*GetCrnByNameV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCrnByNameV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getCrnByNameV1",
+		Method:             "GET",
+		PathPattern:        "/v1/env/crnByName/{name}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetCrnByNameV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetCrnByNameV1OK), nil
+
+}
+
+/*
 GetEnvironmentV1ByCrn gets an environment by c r n
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.

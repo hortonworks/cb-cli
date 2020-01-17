@@ -21,8 +21,11 @@ import (
 // NewGetAccessConfigsParams creates a new GetAccessConfigsParams object
 // with the default values initialized.
 func NewGetAccessConfigsParams() *GetAccessConfigsParams {
-	var ()
+	var (
+		accessConfigTypeDefault = string("INSTANCE_PROFILE")
+	)
 	return &GetAccessConfigsParams{
+		AccessConfigType: &accessConfigTypeDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -31,8 +34,11 @@ func NewGetAccessConfigsParams() *GetAccessConfigsParams {
 // NewGetAccessConfigsParamsWithTimeout creates a new GetAccessConfigsParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetAccessConfigsParamsWithTimeout(timeout time.Duration) *GetAccessConfigsParams {
-	var ()
+	var (
+		accessConfigTypeDefault = string("INSTANCE_PROFILE")
+	)
 	return &GetAccessConfigsParams{
+		AccessConfigType: &accessConfigTypeDefault,
 
 		timeout: timeout,
 	}
@@ -41,8 +47,11 @@ func NewGetAccessConfigsParamsWithTimeout(timeout time.Duration) *GetAccessConfi
 // NewGetAccessConfigsParamsWithContext creates a new GetAccessConfigsParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewGetAccessConfigsParamsWithContext(ctx context.Context) *GetAccessConfigsParams {
-	var ()
+	var (
+		accessConfigTypeDefault = string("INSTANCE_PROFILE")
+	)
 	return &GetAccessConfigsParams{
+		AccessConfigType: &accessConfigTypeDefault,
 
 		Context: ctx,
 	}
@@ -51,9 +60,12 @@ func NewGetAccessConfigsParamsWithContext(ctx context.Context) *GetAccessConfigs
 // NewGetAccessConfigsParamsWithHTTPClient creates a new GetAccessConfigsParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetAccessConfigsParamsWithHTTPClient(client *http.Client) *GetAccessConfigsParams {
-	var ()
+	var (
+		accessConfigTypeDefault = string("INSTANCE_PROFILE")
+	)
 	return &GetAccessConfigsParams{
-		HTTPClient: client,
+		AccessConfigType: &accessConfigTypeDefault,
+		HTTPClient:       client,
 	}
 }
 
@@ -62,6 +74,8 @@ for the get access configs operation typically these are written to a http.Reque
 */
 type GetAccessConfigsParams struct {
 
+	/*AccessConfigType*/
+	AccessConfigType *string
 	/*AvailabilityZone*/
 	AvailabilityZone *string
 	/*CredentialCrn*/
@@ -109,6 +123,17 @@ func (o *GetAccessConfigsParams) WithHTTPClient(client *http.Client) *GetAccessC
 // SetHTTPClient adds the HTTPClient to the get access configs params
 func (o *GetAccessConfigsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithAccessConfigType adds the accessConfigType to the get access configs params
+func (o *GetAccessConfigsParams) WithAccessConfigType(accessConfigType *string) *GetAccessConfigsParams {
+	o.SetAccessConfigType(accessConfigType)
+	return o
+}
+
+// SetAccessConfigType adds the accessConfigType to the get access configs params
+func (o *GetAccessConfigsParams) SetAccessConfigType(accessConfigType *string) {
+	o.AccessConfigType = accessConfigType
 }
 
 // WithAvailabilityZone adds the availabilityZone to the get access configs params
@@ -173,6 +198,22 @@ func (o *GetAccessConfigsParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
+
+	if o.AccessConfigType != nil {
+
+		// query param accessConfigType
+		var qrAccessConfigType string
+		if o.AccessConfigType != nil {
+			qrAccessConfigType = *o.AccessConfigType
+		}
+		qAccessConfigType := qrAccessConfigType
+		if qAccessConfigType != "" {
+			if err := r.SetQueryParam("accessConfigType", qAccessConfigType); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.AvailabilityZone != nil {
 

@@ -19,6 +19,9 @@ type UpgradeOptionV4Response struct {
 	// current
 	Current *ImageInfoV4Response `json:"current,omitempty"`
 
+	// reason
+	Reason string `json:"reason,omitempty"`
+
 	// upgrade
 	Upgrade *ImageInfoV4Response `json:"upgrade,omitempty"`
 }

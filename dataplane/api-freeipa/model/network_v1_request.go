@@ -21,6 +21,12 @@ type NetworkV1Request struct {
 
 	// provider specific parameters of the specified network
 	Azure *AzureNetworkV1Parameters `json:"azure,omitempty"`
+
+	// provider specific parameters of the specified network
+	Gcp *GcpNetworkV1Parameters `json:"gcp,omitempty"`
+
+	// provider specific parameters of the specified network
+	Openstack *OpenStackNetworkV1Parameters `json:"openstack,omitempty"`
 }
 
 // Validate validates this network v1 request
@@ -32,6 +38,14 @@ func (m *NetworkV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcp(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOpenstack(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -69,6 +83,42 @@ func (m *NetworkV1Request) validateAzure(formats strfmt.Registry) error {
 		if err := m.Azure.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azure")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *NetworkV1Request) validateGcp(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Gcp) { // not required
+		return nil
+	}
+
+	if m.Gcp != nil {
+		if err := m.Gcp.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *NetworkV1Request) validateOpenstack(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Openstack) { // not required
+		return nil
+	}
+
+	if m.Openstack != nil {
+		if err := m.Openstack.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("openstack")
 			}
 			return err
 		}

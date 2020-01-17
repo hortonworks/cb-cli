@@ -19,12 +19,6 @@ type StackMatrixV4Response struct {
 
 	// cdh
 	Cdh map[string]ClouderaManagerStackDescriptorV4Response `json:"cdh,omitempty"`
-
-	// hdf
-	Hdf map[string]AmbariStackDescriptorV4Response `json:"hdf,omitempty"`
-
-	// hdp
-	Hdp map[string]AmbariStackDescriptorV4Response `json:"hdp,omitempty"`
 }
 
 // Validate validates this stack matrix v4 response
@@ -32,14 +26,6 @@ func (m *StackMatrixV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCdh(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateHdf(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateHdp(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -61,50 +47,6 @@ func (m *StackMatrixV4Response) validateCdh(formats strfmt.Registry) error {
 			return err
 		}
 		if val, ok := m.Cdh[k]; ok {
-			if err := val.Validate(formats); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *StackMatrixV4Response) validateHdf(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Hdf) { // not required
-		return nil
-	}
-
-	for k := range m.Hdf {
-
-		if err := validate.Required("hdf"+"."+k, "body", m.Hdf[k]); err != nil {
-			return err
-		}
-		if val, ok := m.Hdf[k]; ok {
-			if err := val.Validate(formats); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *StackMatrixV4Response) validateHdp(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Hdp) { // not required
-		return nil
-	}
-
-	for k := range m.Hdp {
-
-		if err := validate.Required("hdp"+"."+k, "body", m.Hdp[k]); err != nil {
-			return err
-		}
-		if val, ok := m.Hdp[k]; ok {
 			if err := val.Validate(formats); err != nil {
 				return err
 			}

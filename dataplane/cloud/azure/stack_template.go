@@ -18,7 +18,6 @@ func (p *AzureProvider) GenerateDefaultNetwork(mode cloud.NetworkMode) *model.Ne
 				NetworkID:         "____",
 				SubnetID:          "____",
 				NoPublicIP:        false,
-				NoFirewallRules:   false,
 			},
 		}
 	default:
@@ -44,7 +43,6 @@ func (p *AzureProvider) GenerateDefaultNetworkWithParams(getFlags func(string) s
 				NetworkID:         &networkId,
 				ResourceGroupName: &resourceGroup,
 				NoPublicIP:        &(&types.B{B: false}).B,
-				NoFirewallRules:   &(&types.B{B: false}).B,
 			},
 			SubnetIds: subnetIds,
 		}
@@ -54,7 +52,6 @@ func (p *AzureProvider) GenerateDefaultNetworkWithParams(getFlags func(string) s
 				NetworkID:         &(&types.S{S: "____"}).S,
 				ResourceGroupName: &(&types.S{S: "____"}).S,
 				NoPublicIP:        &(&types.B{B: false}).B,
-				NoFirewallRules:   &(&types.B{B: false}).B,
 			},
 			SubnetIds:   []string{"____"},
 			NetworkCidr: &(&types.S{S: "____"}).S,
@@ -92,7 +89,6 @@ func (p *AzureProvider) GenerateNetworkRequestFromNetworkResponse(response *mode
 			NetworkID:         azureParams.NetworkID,
 			SubnetID:          azureParams.SubnetID,
 			NoPublicIP:        azureParams.NoPublicIP,
-			NoFirewallRules:   azureParams.NoFirewallRules,
 		},
 	}
 	return request
