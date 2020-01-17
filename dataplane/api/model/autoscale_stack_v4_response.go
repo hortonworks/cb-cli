@@ -55,6 +55,10 @@ type AutoscaleStackV4Response struct {
 	// name of the tenant
 	Tenant string `json:"tenant,omitempty"`
 
+	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
+	// Enum: [DIRECT CCM CLUSTER_PROXY]
+	Tunnel string `json:"tunnel,omitempty"`
+
 	// id of the user
 	UserID string `json:"userId,omitempty"`
 
@@ -78,6 +82,10 @@ func (m *AutoscaleStackV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTunnel(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -290,6 +298,52 @@ func (m *AutoscaleStackV4Response) validateStatus(formats strfmt.Registry) error
 
 	// value enum
 	if err := m.validateStatusEnum("status", "body", m.Status); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var autoscaleStackV4ResponseTypeTunnelPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		autoscaleStackV4ResponseTypeTunnelPropEnum = append(autoscaleStackV4ResponseTypeTunnelPropEnum, v)
+	}
+}
+
+const (
+
+	// AutoscaleStackV4ResponseTunnelDIRECT captures enum value "DIRECT"
+	AutoscaleStackV4ResponseTunnelDIRECT string = "DIRECT"
+
+	// AutoscaleStackV4ResponseTunnelCCM captures enum value "CCM"
+	AutoscaleStackV4ResponseTunnelCCM string = "CCM"
+
+	// AutoscaleStackV4ResponseTunnelCLUSTERPROXY captures enum value "CLUSTER_PROXY"
+	AutoscaleStackV4ResponseTunnelCLUSTERPROXY string = "CLUSTER_PROXY"
+)
+
+// prop value enum
+func (m *AutoscaleStackV4Response) validateTunnelEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, autoscaleStackV4ResponseTypeTunnelPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *AutoscaleStackV4Response) validateTunnel(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Tunnel) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTunnelEnum("tunnel", "body", m.Tunnel); err != nil {
 		return err
 	}
 
