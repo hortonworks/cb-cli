@@ -231,6 +231,36 @@ func (a *Client) PostNotificationTest(params *PostNotificationTestParams) (*Post
 }
 
 /*
+RenewCertificate triggers a certificate renewal on the desired cluster which is identified via stack s name
+
+Trigger a certificate renewal on the specified cluster.
+*/
+func (a *Client) RenewCertificate(params *RenewCertificateParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRenewCertificateParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "renewCertificate",
+		Method:             "POST",
+		PathPattern:        "/v4/utils/renew_certificate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RenewCertificateReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 RepositoryConfigsValidationV4 validates repository configs fields check their availability
 
 Repository configs validation related operations

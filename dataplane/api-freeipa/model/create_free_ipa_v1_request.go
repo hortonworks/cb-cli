@@ -6,6 +6,7 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"strconv"
 
 	strfmt "github.com/go-openapi/strfmt"
@@ -57,6 +58,10 @@ type CreateFreeIpaV1Request struct {
 	// telemetry setting for freeipa server
 	Telemetry *TelemetryRequest `json:"telemetry,omitempty"`
 
+	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
+	// Enum: [DIRECT CCM CLUSTER_PROXY]
+	Tunnel string `json:"tunnel,omitempty"`
+
 	// whether to use CCM for communicating with the freeipa instance
 	UseCcm bool `json:"useCcm,omitempty"`
 }
@@ -102,6 +107,10 @@ func (m *CreateFreeIpaV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTelemetry(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTunnel(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -274,6 +283,52 @@ func (m *CreateFreeIpaV1Request) validateTelemetry(formats strfmt.Registry) erro
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var createFreeIpaV1RequestTypeTunnelPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createFreeIpaV1RequestTypeTunnelPropEnum = append(createFreeIpaV1RequestTypeTunnelPropEnum, v)
+	}
+}
+
+const (
+
+	// CreateFreeIpaV1RequestTunnelDIRECT captures enum value "DIRECT"
+	CreateFreeIpaV1RequestTunnelDIRECT string = "DIRECT"
+
+	// CreateFreeIpaV1RequestTunnelCCM captures enum value "CCM"
+	CreateFreeIpaV1RequestTunnelCCM string = "CCM"
+
+	// CreateFreeIpaV1RequestTunnelCLUSTERPROXY captures enum value "CLUSTER_PROXY"
+	CreateFreeIpaV1RequestTunnelCLUSTERPROXY string = "CLUSTER_PROXY"
+)
+
+// prop value enum
+func (m *CreateFreeIpaV1Request) validateTunnelEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, createFreeIpaV1RequestTypeTunnelPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateFreeIpaV1Request) validateTunnel(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Tunnel) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTunnelEnum("tunnel", "body", m.Tunnel); err != nil {
+		return err
 	}
 
 	return nil

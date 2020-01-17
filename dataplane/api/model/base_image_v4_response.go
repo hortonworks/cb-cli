@@ -27,6 +27,9 @@ type BaseImageV4Response struct {
 	// cloudera manager repo
 	ClouderaManagerRepo *ClouderaManagerRepositoryV4Response `json:"clouderaManagerRepo,omitempty"`
 
+	// cm build number
+	CmBuildNumber string `json:"cmBuildNumber,omitempty"`
+
 	// created
 	Created int64 `json:"created,omitempty"`
 

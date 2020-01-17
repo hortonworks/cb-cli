@@ -16,6 +16,9 @@ import (
 // swagger:model ImageV4Response
 type ImageV4Response struct {
 
+	// cm build number
+	CmBuildNumber string `json:"cmBuildNumber,omitempty"`
+
 	// created
 	Created int64 `json:"created,omitempty"`
 

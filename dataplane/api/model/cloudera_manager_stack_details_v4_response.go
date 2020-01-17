@@ -19,6 +19,9 @@ type ClouderaManagerStackDetailsV4Response struct {
 	// repository
 	Repository *ClouderaManagerStackRepoDetailsV4Response `json:"repository,omitempty"`
 
+	// stack build number
+	StackBuildNumber string `json:"stackBuildNumber,omitempty"`
+
 	// version
 	Version string `json:"version,omitempty"`
 }

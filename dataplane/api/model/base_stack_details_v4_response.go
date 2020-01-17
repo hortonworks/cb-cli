@@ -15,6 +15,9 @@ import (
 // swagger:model BaseStackDetailsV4Response
 type BaseStackDetailsV4Response struct {
 
+	// stack build number
+	StackBuildNumber string `json:"stackBuildNumber,omitempty"`
+
 	// version
 	Version string `json:"version,omitempty"`
 }

@@ -72,8 +72,8 @@ type EnvironmentV1Request struct {
 	// Telemetry related specifics of the environment.
 	Telemetry *TelemetryRequest `json:"telemetry,omitempty"`
 
-	// Configuration that the connection going directly or with ccm.
-	// Enum: [DIRECT CCM]
+	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
+	// Enum: [DIRECT CCM CLUSTER_PROXY]
 	Tunnel string `json:"tunnel,omitempty"`
 }
 
@@ -383,7 +383,7 @@ var environmentV1RequestTypeTunnelPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["DIRECT","CCM"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -398,6 +398,9 @@ const (
 
 	// EnvironmentV1RequestTunnelCCM captures enum value "CCM"
 	EnvironmentV1RequestTunnelCCM string = "CCM"
+
+	// EnvironmentV1RequestTunnelCLUSTERPROXY captures enum value "CLUSTER_PROXY"
+	EnvironmentV1RequestTunnelCLUSTERPROXY string = "CLUSTER_PROXY"
 )
 
 // prop value enum

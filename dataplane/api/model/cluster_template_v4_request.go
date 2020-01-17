@@ -40,7 +40,7 @@ type ClusterTemplateV4Request struct {
 
 	// type
 	// Required: true
-	// Enum: [SPARK HIVE EDW ETL DATASCIENCE DATAMART DATALAKE DATAENGINEERING DATAENGINEERING_HA STREAMING STREAMING_HA OTHER]
+	// Enum: [SPARK HIVE EDW ETL DATASCIENCE DATAMART DATALAKE DATAENGINEERING DATAENGINEERING_HA STREAMING STREAMING_HA OPERATIONALDATABASE OTHER]
 	Type *string `json:"type"`
 }
 
@@ -130,7 +130,7 @@ var clusterTemplateV4RequestTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["SPARK","HIVE","EDW","ETL","DATASCIENCE","DATAMART","DATALAKE","DATAENGINEERING","DATAENGINEERING_HA","STREAMING","STREAMING_HA","OTHER"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["SPARK","HIVE","EDW","ETL","DATASCIENCE","DATAMART","DATALAKE","DATAENGINEERING","DATAENGINEERING_HA","STREAMING","STREAMING_HA","OPERATIONALDATABASE","OTHER"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -172,6 +172,9 @@ const (
 
 	// ClusterTemplateV4RequestTypeSTREAMINGHA captures enum value "STREAMING_HA"
 	ClusterTemplateV4RequestTypeSTREAMINGHA string = "STREAMING_HA"
+
+	// ClusterTemplateV4RequestTypeOPERATIONALDATABASE captures enum value "OPERATIONALDATABASE"
+	ClusterTemplateV4RequestTypeOPERATIONALDATABASE string = "OPERATIONALDATABASE"
 
 	// ClusterTemplateV4RequestTypeOTHER captures enum value "OTHER"
 	ClusterTemplateV4RequestTypeOTHER string = "OTHER"
