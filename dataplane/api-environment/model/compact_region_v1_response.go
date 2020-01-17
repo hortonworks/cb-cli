@@ -26,6 +26,10 @@ type CompactRegionV1Response struct {
 	// regions with displayNames
 	DisplayNames map[string]string `json:"displayNames,omitempty"`
 
+	// regions with k8s support
+	// Unique: true
+	K8sSupportedlocations []string `json:"k8sSupportedlocations"`
+
 	// regions with location data
 	// Unique: true
 	Locations []string `json:"locations"`
@@ -39,6 +43,10 @@ type CompactRegionV1Response struct {
 func (m *CompactRegionV1Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateK8sSupportedlocations(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateLocations(formats); err != nil {
 		res = append(res, err)
 	}
@@ -50,6 +58,19 @@ func (m *CompactRegionV1Response) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *CompactRegionV1Response) validateK8sSupportedlocations(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.K8sSupportedlocations) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("k8sSupportedlocations", "body", m.K8sSupportedlocations); err != nil {
+		return err
+	}
+
 	return nil
 }
 

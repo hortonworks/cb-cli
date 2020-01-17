@@ -46,7 +46,7 @@ type EnvironmentNetworkV1Response struct {
 	// The subnet in which resource should be deployed if not specified by user
 	PreferedSubnetID string `json:"preferedSubnetId,omitempty"`
 
-	// A flag to enable or disable the private sutbet creation.
+	// A flag to enable or disable the private subnet creation.
 	// Enum: [ENABLED DISABLED]
 	PrivateSubnetCreation string `json:"privateSubnetCreation,omitempty"`
 

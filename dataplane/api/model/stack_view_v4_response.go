@@ -51,11 +51,15 @@ type StackViewV4Response struct {
 	NodeCount int32 `json:"nodeCount,omitempty"`
 
 	// status of the stack
-	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED]
+	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED AMBIGUOUS]
 	Status string `json:"status,omitempty"`
 
 	// termination completion time of stack in long
 	Terminated int64 `json:"terminated,omitempty"`
+
+	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
+	// Enum: [DIRECT CCM CLUSTER_PROXY]
+	Tunnel string `json:"tunnel,omitempty"`
 
 	// the related user
 	User *UserViewV4Response `json:"user,omitempty"`
@@ -74,6 +78,10 @@ func (m *StackViewV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTunnel(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -118,7 +126,7 @@ var stackViewV4ResponseTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED","AMBIGUOUS"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -190,6 +198,9 @@ const (
 
 	// StackViewV4ResponseStatusMAINTENANCEMODEENABLED captures enum value "MAINTENANCE_MODE_ENABLED"
 	StackViewV4ResponseStatusMAINTENANCEMODEENABLED string = "MAINTENANCE_MODE_ENABLED"
+
+	// StackViewV4ResponseStatusAMBIGUOUS captures enum value "AMBIGUOUS"
+	StackViewV4ResponseStatusAMBIGUOUS string = "AMBIGUOUS"
 )
 
 // prop value enum
@@ -208,6 +219,52 @@ func (m *StackViewV4Response) validateStatus(formats strfmt.Registry) error {
 
 	// value enum
 	if err := m.validateStatusEnum("status", "body", m.Status); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var stackViewV4ResponseTypeTunnelPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		stackViewV4ResponseTypeTunnelPropEnum = append(stackViewV4ResponseTypeTunnelPropEnum, v)
+	}
+}
+
+const (
+
+	// StackViewV4ResponseTunnelDIRECT captures enum value "DIRECT"
+	StackViewV4ResponseTunnelDIRECT string = "DIRECT"
+
+	// StackViewV4ResponseTunnelCCM captures enum value "CCM"
+	StackViewV4ResponseTunnelCCM string = "CCM"
+
+	// StackViewV4ResponseTunnelCLUSTERPROXY captures enum value "CLUSTER_PROXY"
+	StackViewV4ResponseTunnelCLUSTERPROXY string = "CLUSTER_PROXY"
+)
+
+// prop value enum
+func (m *StackViewV4Response) validateTunnelEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, stackViewV4ResponseTypeTunnelPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *StackViewV4Response) validateTunnel(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Tunnel) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTunnelEnum("tunnel", "body", m.Tunnel); err != nil {
 		return err
 	}
 

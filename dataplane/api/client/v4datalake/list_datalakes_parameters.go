@@ -64,6 +64,8 @@ type ListDatalakesParams struct {
 
 	/*Environment*/
 	Environment *string
+	/*EnvironmentCrn*/
+	EnvironmentCrn *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -114,6 +116,17 @@ func (o *ListDatalakesParams) SetEnvironment(environment *string) {
 	o.Environment = environment
 }
 
+// WithEnvironmentCrn adds the environmentCrn to the list datalakes params
+func (o *ListDatalakesParams) WithEnvironmentCrn(environmentCrn *string) *ListDatalakesParams {
+	o.SetEnvironmentCrn(environmentCrn)
+	return o
+}
+
+// SetEnvironmentCrn adds the environmentCrn to the list datalakes params
+func (o *ListDatalakesParams) SetEnvironmentCrn(environmentCrn *string) {
+	o.EnvironmentCrn = environmentCrn
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *ListDatalakesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -132,6 +145,22 @@ func (o *ListDatalakesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		qEnvironment := qrEnvironment
 		if qEnvironment != "" {
 			if err := r.SetQueryParam("environment", qEnvironment); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.EnvironmentCrn != nil {
+
+		// query param environmentCrn
+		var qrEnvironmentCrn string
+		if o.EnvironmentCrn != nil {
+			qrEnvironmentCrn = *o.EnvironmentCrn
+		}
+		qEnvironmentCrn := qrEnvironmentCrn
+		if qEnvironmentCrn != "" {
+			if err := r.SetQueryParam("environmentCrn", qEnvironmentCrn); err != nil {
 				return err
 			}
 		}

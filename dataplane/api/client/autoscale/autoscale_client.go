@@ -231,6 +231,36 @@ func (a *Client) GetStackForAutoscale(params *GetStackForAutoscaleParams) (*GetS
 }
 
 /*
+GetStackStatusForAutoscale retrieves stack by crn
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) GetStackStatusForAutoscale(params *GetStackStatusForAutoscaleParams) (*GetStackStatusForAutoscaleOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetStackStatusForAutoscaleParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getStackStatusForAutoscale",
+		Method:             "GET",
+		PathPattern:        "/autoscale/stack/crn/{crn}/status",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetStackStatusForAutoscaleReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetStackStatusForAutoscaleOK), nil
+
+}
+
+/*
 NodeStatusChangeReportClusterForAutoscale changeds nodes report
 
 Endpoint to report the new failed and healthy nodes in the given cluster. If recovery mode for the node's hostgroup is AUTO then autorecovery would be started. If recovery mode for the node's hostgroup is MANUAL, the nodes will be marked as unhealthy.

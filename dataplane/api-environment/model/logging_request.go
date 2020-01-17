@@ -20,6 +20,9 @@ type LoggingRequest struct {
 	// telemetry - logging adls gen2 attributes
 	AdlsGen2 *AdlsGen2CloudStorageV1Parameters `json:"adlsGen2,omitempty"`
 
+	// telemetry - logging cloudwatch attributes
+	Cloudwatch *CloudwatchParams `json:"cloudwatch,omitempty"`
+
 	// telemetry - logging s3 attributes
 	S3 *S3CloudStorageV1Parameters `json:"s3,omitempty"`
 
@@ -33,6 +36,10 @@ func (m *LoggingRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAdlsGen2(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCloudwatch(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -60,6 +67,24 @@ func (m *LoggingRequest) validateAdlsGen2(formats strfmt.Registry) error {
 		if err := m.AdlsGen2.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("adlsGen2")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *LoggingRequest) validateCloudwatch(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Cloudwatch) { // not required
+		return nil
+	}
+
+	if m.Cloudwatch != nil {
+		if err := m.Cloudwatch.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cloudwatch")
 			}
 			return err
 		}

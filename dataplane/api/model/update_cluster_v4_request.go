@@ -30,9 +30,6 @@ type UpdateClusterV4Request struct {
 	// Unique: true
 	Hostgroups []*HostGroupV4Request `json:"hostgroups"`
 
-	// details of the Ambari stack
-	StackRepository *StackRepositoryV4Request `json:"stackRepository,omitempty"`
-
 	// request status
 	// Enum: [SYNC FULL_SYNC REPAIR_FAILED_NODES STOPPED STARTED]
 	Status string `json:"status,omitempty"`
@@ -53,10 +50,6 @@ func (m *UpdateClusterV4Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateHostgroups(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateStackRepository(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -116,24 +109,6 @@ func (m *UpdateClusterV4Request) validateHostgroups(formats strfmt.Registry) err
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *UpdateClusterV4Request) validateStackRepository(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.StackRepository) { // not required
-		return nil
-	}
-
-	if m.StackRepository != nil {
-		if err := m.StackRepository.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("stackRepository")
-			}
-			return err
-		}
 	}
 
 	return nil

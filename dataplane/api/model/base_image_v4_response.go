@@ -18,9 +18,6 @@ import (
 // swagger:model BaseImageV4Response
 type BaseImageV4Response struct {
 
-	// ambari repo
-	AmbariRepo *AmbariRepositoryV4Response `json:"ambariRepo,omitempty"`
-
 	// cdh stacks
 	CdhStacks []*ClouderaManagerStackDetailsV4Response `json:"cdhStacks"`
 
@@ -41,12 +38,6 @@ type BaseImageV4Response struct {
 
 	// description
 	Description string `json:"description,omitempty"`
-
-	// hdf stacks
-	HdfStacks []*AmbariStackDetailsV4Response `json:"hdfStacks"`
-
-	// hdp stacks
-	HdpStacks []*AmbariStackDetailsV4Response `json:"hdpStacks"`
 
 	// images
 	Images map[string]map[string]string `json:"images,omitempty"`
@@ -77,23 +68,11 @@ type BaseImageV4Response struct {
 func (m *BaseImageV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAmbariRepo(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateCdhStacks(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateClouderaManagerRepo(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateHdfStacks(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateHdpStacks(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -104,24 +83,6 @@ func (m *BaseImageV4Response) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *BaseImageV4Response) validateAmbariRepo(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.AmbariRepo) { // not required
-		return nil
-	}
-
-	if m.AmbariRepo != nil {
-		if err := m.AmbariRepo.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ambariRepo")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 
@@ -163,56 +124,6 @@ func (m *BaseImageV4Response) validateClouderaManagerRepo(formats strfmt.Registr
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *BaseImageV4Response) validateHdfStacks(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.HdfStacks) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.HdfStacks); i++ {
-		if swag.IsZero(m.HdfStacks[i]) { // not required
-			continue
-		}
-
-		if m.HdfStacks[i] != nil {
-			if err := m.HdfStacks[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("hdfStacks" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *BaseImageV4Response) validateHdpStacks(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.HdpStacks) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.HdpStacks); i++ {
-		if swag.IsZero(m.HdpStacks[i]) { // not required
-			continue
-		}
-
-		if m.HdpStacks[i] != nil {
-			if err := m.HdpStacks[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("hdpStacks" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil

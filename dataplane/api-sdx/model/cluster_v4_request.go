@@ -19,9 +19,6 @@ import (
 // swagger:model ClusterV4Request
 type ClusterV4Request struct {
 
-	// ambari specific requests
-	Ambari *AmbariV4Request `json:"ambari,omitempty"`
-
 	// blueprint name for the cluster
 	BlueprintName string `json:"blueprintName,omitempty"`
 
@@ -73,10 +70,6 @@ type ClusterV4Request struct {
 func (m *ClusterV4Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAmbari(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateCloudStorage(formats); err != nil {
 		res = append(res, err)
 	}
@@ -112,24 +105,6 @@ func (m *ClusterV4Request) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *ClusterV4Request) validateAmbari(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Ambari) { // not required
-		return nil
-	}
-
-	if m.Ambari != nil {
-		if err := m.Ambari.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ambari")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 

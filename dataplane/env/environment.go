@@ -83,32 +83,6 @@ func (e *environmentOutTableDescribe) DataAsStringArray() []string {
 	return append(e.environment.DataAsStringArray(), e.SdxStatus, dhc)
 }
 
-func CreateEnvironment(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "create environment")
-
-	name := c.String(fl.FlName.Name)
-	description := c.String(fl.FlDescriptionOptional.Name)
-	credentialName := c.String(fl.FlEnvironmentCredential.Name)
-	regions := utils.DelimitedStringToArray(c.String(fl.FlEnvironmentRegions.Name), ",")
-	locationName := c.String(fl.FlEnvironmentLocationName.Name)
-	longitude := c.Float64(fl.FlEnvironmentLongitudeOptional.Name)
-	latitude := c.Float64(fl.FlEnvironmentLatitudeOptional.Name)
-
-	EnvironmentV1Request := &model.EnvironmentV1Request{
-		Name:           &name,
-		Description:    &description,
-		CredentialName: credentialName,
-		Regions:        regions,
-		Location: &model.LocationV1Request{
-			Name:      &locationName,
-			Longitude: longitude,
-			Latitude:  latitude,
-		},
-	}
-
-	createEnvironmentImpl(c, EnvironmentV1Request)
-}
-
 func CreateEnvironmentFromTemplate(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "create environment from template")
 	fileLocation := c.String(fl.FlEnvironmentTemplateFile.Name)
@@ -391,35 +365,6 @@ func ChangeCredential(c *cli.Context) {
 	log.Infof("[ChangeCredential] credential of environment %s changed to: %s", environment.Name, *environment.Credential.Name)
 }
 
-func EditEnvironment(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "edit environment")
-	envName := c.String(fl.FlName.Name)
-	description := c.String(fl.FlDescriptionOptional.Name)
-	regions := utils.DelimitedStringToArray(c.String(fl.FlEnvironmentRegions.Name), ",")
-	locationName := c.String(fl.FlEnvironmentLocationNameOptional.Name)
-	longitude := c.Float64(fl.FlEnvironmentLongitudeOptional.Name)
-	latitude := c.Float64(fl.FlEnvironmentLatitudeOptional.Name)
-
-	requestBody := &model.EnvironmentEditV1Request{
-		Description: &description,
-		Regions:     regions,
-		Location: &model.LocationV1Request{
-			Name:      &locationName,
-			Longitude: longitude,
-			Latitude:  latitude,
-		},
-	}
-	request := v1env.NewEditEnvironmentV1Params().WithName(envName).WithBody(requestBody)
-	envClient := oauth.NewEnvironmentClientFromContext(c)
-	checkClientVersion(envClient.Environment, common.Version)
-	resp, err := envClient.Environment.V1env.EditEnvironmentV1(request)
-	if err != nil {
-		utils.LogErrorAndExit(err)
-	}
-	environment := resp.Payload
-	log.Infof("[Edit] Environment %s was edited.", environment.Name)
-}
-
 func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response, sdxStatus string, datahubCount int) *environmentOutTableDescribe {
 	return &environmentOutTableDescribe{
 		environment: &environment{
@@ -472,14 +417,6 @@ func getRegionNames(region *model.CompactRegionV1Response) []string {
 		regions = append(regions, fmt.Sprintf("%s (%s)", v, k))
 	}
 	return regions
-}
-
-func getProxyConfigNames(configs []*model.ProxyResponse) []string {
-	var names []string
-	for _, c := range configs {
-		names = append(names, *c.Name)
-	}
-	return names
 }
 
 func GetEnvCrnByName(envName string, c *cli.Context) string {
