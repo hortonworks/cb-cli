@@ -66,6 +66,9 @@ type DetailedEnvironmentV1Response struct {
 	// Network related specifics of the environment.
 	Network *EnvironmentNetworkV1Response `json:"network,omitempty"`
 
+	// Parent environment global identifier
+	ParentEnvironmentCrn string `json:"parentEnvironmentCrn,omitempty"`
+
 	// Regions of the environment.
 	Regions *CompactRegionV1Response `json:"regions,omitempty"`
 
