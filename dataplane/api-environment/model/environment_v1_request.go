@@ -62,6 +62,9 @@ type EnvironmentV1Request struct {
 	// Network related specifics of the environment.
 	Network *EnvironmentNetworkV1Request `json:"network,omitempty"`
 
+	// Parent environment global identifier
+	ParentEnvironmentCrn string `json:"parentEnvironmentCrn,omitempty"`
+
 	// Regions of the environment.
 	// Unique: true
 	Regions []string `json:"regions"`
