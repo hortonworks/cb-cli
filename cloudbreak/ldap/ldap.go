@@ -1,8 +1,9 @@
 package ldap
 
 import (
-	"github.com/hortonworks/cb-cli/cloudbreak/oauth"
 	"time"
+
+	"github.com/hortonworks/cb-cli/cloudbreak/oauth"
 
 	"crypto/tls"
 	"errors"
@@ -86,7 +87,7 @@ type ldapClient interface {
 func CreateLDAP(c *cli.Context) error {
 
 	name := c.String(fl.FlName.Name)
-	domain := c.String(fl.FlLdapDomain.Name)
+	domain := c.String(fl.FlLdapDomainOptional.Name)
 	bindDn := c.String(fl.FlLdapBindDN.Name)
 	bindPassword := c.String(fl.FlLdapBindPassword.Name)
 
