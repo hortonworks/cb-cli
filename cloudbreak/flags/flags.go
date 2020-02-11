@@ -406,8 +406,8 @@ var (
 			Usage: "set ldaps if the ldap is secured with SSL",
 		},
 	}
-	FlLdapDomain = StringFlag{
-		RequiredFlag: REQUIRED,
+	FlLdapDomainOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
 			Name:  "ldap-domain",
 			Usage: "ldap domain (e.g: ad.cb.com)",
