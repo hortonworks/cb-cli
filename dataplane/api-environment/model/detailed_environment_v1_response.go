@@ -75,6 +75,9 @@ type DetailedEnvironmentV1Response struct {
 	// status reason
 	StatusReason string `json:"statusReason,omitempty"`
 
+	// Tags for environments.
+	Tags *TagResponse `json:"tags,omitempty"`
+
 	// Telemetry related specifics of the environment.
 	Telemetry *TelemetryResponse `json:"telemetry,omitempty"`
 
@@ -120,6 +123,10 @@ func (m *DetailedEnvironmentV1Response) Validate(formats strfmt.Registry) error 
 	}
 
 	if err := m.validateSecurityAccess(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -443,6 +450,24 @@ func (m *DetailedEnvironmentV1Response) validateSecurityAccess(formats strfmt.Re
 		if err := m.SecurityAccess.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("securityAccess")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DetailedEnvironmentV1Response) validateTags(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Tags) { // not required
+		return nil
+	}
+
+	if m.Tags != nil {
+		if err := m.Tags.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("tags")
 			}
 			return err
 		}

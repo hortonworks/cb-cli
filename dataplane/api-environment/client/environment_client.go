@@ -11,10 +11,12 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/flow_logs"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1credentials"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1platform_resources"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1proxies"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1tags"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1utils"
 )
 
@@ -61,6 +63,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Environmen
 	cli := new(Environment)
 	cli.Transport = transport
 
+	cli.FlowLogs = flow_logs.New(transport, formats)
+
 	cli.V1credentials = v1credentials.New(transport, formats)
 
 	cli.V1env = v1env.New(transport, formats)
@@ -68,6 +72,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Environmen
 	cli.V1platformResources = v1platform_resources.New(transport, formats)
 
 	cli.V1proxies = v1proxies.New(transport, formats)
+
+	cli.V1tags = v1tags.New(transport, formats)
 
 	cli.V1utils = v1utils.New(transport, formats)
 
@@ -115,6 +121,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Environment is a client for environment
 type Environment struct {
+	FlowLogs *flow_logs.Client
+
 	V1credentials *v1credentials.Client
 
 	V1env *v1env.Client
@@ -122,6 +130,8 @@ type Environment struct {
 	V1platformResources *v1platform_resources.Client
 
 	V1proxies *v1proxies.Client
+
+	V1tags *v1tags.Client
 
 	V1utils *v1utils.Client
 
@@ -132,6 +142,8 @@ type Environment struct {
 func (c *Environment) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 
+	c.FlowLogs.SetTransport(transport)
+
 	c.V1credentials.SetTransport(transport)
 
 	c.V1env.SetTransport(transport)
@@ -139,6 +151,8 @@ func (c *Environment) SetTransport(transport runtime.ClientTransport) {
 	c.V1platformResources.SetTransport(transport)
 
 	c.V1proxies.SetTransport(transport)
+
+	c.V1tags.SetTransport(transport)
 
 	c.V1utils.SetTransport(transport)
 

@@ -8,9 +8,7 @@ package model
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // CompactRegionV1Response compact region v1 response
@@ -27,76 +25,17 @@ type CompactRegionV1Response struct {
 	DisplayNames map[string]string `json:"displayNames,omitempty"`
 
 	// regions with k8s support
-	// Unique: true
 	K8sSupportedlocations []string `json:"k8sSupportedlocations"`
 
 	// regions with location data
-	// Unique: true
 	Locations []string `json:"locations"`
 
 	// Regions of the environment.
-	// Unique: true
 	Names []string `json:"names"`
 }
 
 // Validate validates this compact region v1 response
 func (m *CompactRegionV1Response) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateK8sSupportedlocations(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateLocations(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateNames(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *CompactRegionV1Response) validateK8sSupportedlocations(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.K8sSupportedlocations) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("k8sSupportedlocations", "body", m.K8sSupportedlocations); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CompactRegionV1Response) validateLocations(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Locations) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("locations", "body", m.Locations); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CompactRegionV1Response) validateNames(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Names) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("names", "body", m.Names); err != nil {
-		return err
-	}
-
 	return nil
 }
 
