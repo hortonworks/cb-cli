@@ -69,6 +69,9 @@ type EnvironmentV1Request struct {
 	// Security control for FreeIPA and Datalake deployment.
 	SecurityAccess *SecurityAccessV1Request `json:"securityAccess,omitempty"`
 
+	// Tags for environments.
+	Tags map[string]string `json:"tags,omitempty"`
+
 	// Telemetry related specifics of the environment.
 	Telemetry *TelemetryRequest `json:"telemetry,omitempty"`
 
