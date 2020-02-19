@@ -30,16 +30,17 @@ import (
 var EnvironmentHeader = []string{"Name", "Description", "CloudPlatform", "Status", "Credential", "Regions", "LocationName", "Crn"}
 
 type environment struct {
-	Name          string   `json:"Name" yaml:"Name"`
-	Description   string   `json:"Description" yaml:"Description"`
-	CloudPlatform string   `json:"CloudPlatform" yaml:"CloudPlatform"`
-	Status        string   `json:"Status" yaml:"Status"`
-	Credential    string   `json:"Credential" yaml:"Credential"`
-	Regions       []string `json:"Regions" yaml:"Regions"`
-	LocationName  string   `json:"LocationName" yaml:"LocationName"`
-	Longitude     float64  `json:"Longitude" yaml:"Longitude"`
-	Latitude      float64  `json:"Latitude" yaml:"Latitude"`
-	Crn           string   `json:"Crn" yaml:"Crn"`
+	Name                  string   `json:"Name" yaml:"Name"`
+	Description           string   `json:"Description" yaml:"Description"`
+	CloudPlatform         string   `json:"CloudPlatform" yaml:"CloudPlatform"`
+	Status                string   `json:"Status" yaml:"Status"`
+	Credential            string   `json:"Credential" yaml:"Credential"`
+	Regions               []string `json:"Regions" yaml:"Regions"`
+	LocationName          string   `json:"LocationName" yaml:"LocationName"`
+	Longitude             float64  `json:"Longitude" yaml:"Longitude"`
+	Latitude              float64  `json:"Latitude" yaml:"Latitude"`
+	Crn                   string   `json:"Crn" yaml:"Crn"`
+	ParentEnvironmentName string   `json:"ParentEnvironmentName" yaml:"ParentEnvironmentName"`
 }
 
 type environmentOutTableDescribe struct {
@@ -224,16 +225,17 @@ func listEnvironmentsImpl(envClient environmentClient, output utils.Output, c *c
 	var tableRows []utils.Row
 	for _, e := range resp.Payload.Responses {
 		row := &environment{
-			Name:          e.Name,
-			Description:   e.Description,
-			CloudPlatform: e.CloudPlatform,
-			Status:        e.EnvironmentStatus,
-			Credential:    e.Credential.Name,
-			Regions:       getRegionNames(e.Regions),
-			LocationName:  e.Location.Name,
-			Longitude:     e.Location.Longitude,
-			Latitude:      e.Location.Latitude,
-			Crn:           e.Crn,
+			Name:                  e.Name,
+			Description:           e.Description,
+			CloudPlatform:         e.CloudPlatform,
+			Status:                e.EnvironmentStatus,
+			Credential:            e.Credential.Name,
+			Regions:               getRegionNames(e.Regions),
+			LocationName:          e.Location.Name,
+			Longitude:             e.Location.Longitude,
+			Latitude:              e.Location.Latitude,
+			Crn:                   e.Crn,
+			ParentEnvironmentName: e.ParentEnvironmentName,
 		}
 
 		if output.Format != "table" && output.Format != "yaml" {
@@ -387,16 +389,17 @@ func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response, sdxS
 func convertResponseToJsonOutput(env *model.DetailedEnvironmentV1Response) *environmentOutJsonDescribe {
 	result := &environmentOutJsonDescribe{
 		environment: &environment{
-			Name:          env.Name,
-			Description:   env.Description,
-			CloudPlatform: env.CloudPlatform,
-			Status:        env.EnvironmentStatus,
-			Credential:    *env.Credential.Name,
-			Regions:       getRegionNames(env.Regions),
-			LocationName:  env.Location.Name,
-			Longitude:     env.Location.Longitude,
-			Latitude:      env.Location.Latitude,
-			Crn:           env.Crn,
+			Name:                  env.Name,
+			Description:           env.Description,
+			CloudPlatform:         env.CloudPlatform,
+			Status:                env.EnvironmentStatus,
+			Credential:            *env.Credential.Name,
+			Regions:               getRegionNames(env.Regions),
+			LocationName:          env.Location.Name,
+			Longitude:             env.Location.Longitude,
+			Latitude:              env.Location.Latitude,
+			Crn:                   env.Crn,
+			ParentEnvironmentName: env.ParentEnvironmentName,
 		},
 	}
 	if env.Network != nil {
