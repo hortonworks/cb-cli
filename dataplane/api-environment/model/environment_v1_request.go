@@ -62,12 +62,18 @@ type EnvironmentV1Request struct {
 	// Network related specifics of the environment.
 	Network *EnvironmentNetworkV1Request `json:"network,omitempty"`
 
+	// Parent environment name
+	ParentEnvironmentName string `json:"parentEnvironmentName,omitempty"`
+
 	// Regions of the environment.
 	// Unique: true
 	Regions []string `json:"regions"`
 
 	// Security control for FreeIPA and Datalake deployment.
 	SecurityAccess *SecurityAccessV1Request `json:"securityAccess,omitempty"`
+
+	// Tags for environments.
+	Tags map[string]string `json:"tags,omitempty"`
 
 	// Telemetry related specifics of the environment.
 	Telemetry *TelemetryRequest `json:"telemetry,omitempty"`

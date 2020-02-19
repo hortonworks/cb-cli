@@ -17,10 +17,6 @@ import (
 // swagger:model YarnV1Parameters
 type YarnV1Parameters struct {
 
-	// ambari user
-	// Required: true
-	AmbariUser *string `json:"ambariUser"`
-
 	// endpoint
 	// Required: true
 	Endpoint *string `json:"endpoint"`
@@ -30,10 +26,6 @@ type YarnV1Parameters struct {
 func (m *YarnV1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAmbariUser(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateEndpoint(formats); err != nil {
 		res = append(res, err)
 	}
@@ -41,15 +33,6 @@ func (m *YarnV1Parameters) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *YarnV1Parameters) validateAmbariUser(formats strfmt.Registry) error {
-
-	if err := validate.Required("ambariUser", "body", m.AmbariUser); err != nil {
-		return err
-	}
-
 	return nil
 }
 
