@@ -11,6 +11,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1credentials"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1platform_resources"
@@ -60,6 +61,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Environmen
 
 	cli := new(Environment)
 	cli.Transport = transport
+
+	cli.Flow = flow.New(transport, formats)
 
 	cli.V1credentials = v1credentials.New(transport, formats)
 
@@ -115,6 +118,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Environment is a client for environment
 type Environment struct {
+	Flow *flow.Client
+
 	V1credentials *v1credentials.Client
 
 	V1env *v1env.Client
@@ -131,6 +136,8 @@ type Environment struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *Environment) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
+
+	c.Flow.SetTransport(transport)
 
 	c.V1credentials.SetTransport(transport)
 
