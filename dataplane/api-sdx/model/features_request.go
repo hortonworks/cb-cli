@@ -16,11 +16,8 @@ import (
 // swagger:model FeaturesRequest
 type FeaturesRequest struct {
 
-	// enable cluster deployment log reporting.
-	ReportDeploymentLogs *FeatureSetting `json:"reportDeploymentLogs,omitempty"`
-
-	// enable shared Altus credential usage
-	UseSharedAltusCredential *FeatureSetting `json:"useSharedAltusCredential,omitempty"`
+	// enable cluster logs collection
+	ClusterLogsCollection *FeatureSetting `json:"clusterLogsCollection,omitempty"`
 
 	// Workload analytics (telemetry) settings.
 	WorkloadAnalytics *FeatureSetting `json:"workloadAnalytics,omitempty"`
@@ -30,11 +27,7 @@ type FeaturesRequest struct {
 func (m *FeaturesRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateReportDeploymentLogs(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateUseSharedAltusCredential(formats); err != nil {
+	if err := m.validateClusterLogsCollection(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -48,34 +41,16 @@ func (m *FeaturesRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *FeaturesRequest) validateReportDeploymentLogs(formats strfmt.Registry) error {
+func (m *FeaturesRequest) validateClusterLogsCollection(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ReportDeploymentLogs) { // not required
+	if swag.IsZero(m.ClusterLogsCollection) { // not required
 		return nil
 	}
 
-	if m.ReportDeploymentLogs != nil {
-		if err := m.ReportDeploymentLogs.Validate(formats); err != nil {
+	if m.ClusterLogsCollection != nil {
+		if err := m.ClusterLogsCollection.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("reportDeploymentLogs")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *FeaturesRequest) validateUseSharedAltusCredential(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.UseSharedAltusCredential) { // not required
-		return nil
-	}
-
-	if m.UseSharedAltusCredential != nil {
-		if err := m.UseSharedAltusCredential.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("useSharedAltusCredential")
+				return ve.ValidateName("clusterLogsCollection")
 			}
 			return err
 		}

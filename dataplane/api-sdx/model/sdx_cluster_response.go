@@ -48,6 +48,9 @@ type SdxClusterResponse struct {
 	// name
 	Name string `json:"name,omitempty"`
 
+	// runtime
+	Runtime string `json:"runtime,omitempty"`
+
 	// stack crn
 	StackCrn string `json:"stackCrn,omitempty"`
 

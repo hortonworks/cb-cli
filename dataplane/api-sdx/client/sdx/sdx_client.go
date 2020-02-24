@@ -724,6 +724,34 @@ func (a *Client) UpgradeDatalakeClusterByCrn(params *UpgradeDatalakeClusterByCrn
 
 }
 
+/*
+Versions lists datalake versions
+*/
+func (a *Client) Versions(params *VersionsParams) (*VersionsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVersionsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "versions",
+		Method:             "GET",
+		PathPattern:        "/sdx/versions",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &VersionsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*VersionsOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

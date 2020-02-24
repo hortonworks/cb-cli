@@ -311,6 +311,13 @@ var (
 			Usage: "in case of AWS storage it specifies the instanceProfile",
 		},
 	}
+	FlRuntimeOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "runtime",
+			Usage: "Cloudera Runtime version",
+		},
+	}
 	FlCloudStorageManagedIdentityOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
