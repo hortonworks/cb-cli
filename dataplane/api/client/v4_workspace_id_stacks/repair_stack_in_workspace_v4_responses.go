@@ -7,10 +7,13 @@ package v4_workspace_id_stacks
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // RepairStackInWorkspaceV4Reader is a Reader for the RepairStackInWorkspaceV4 structure.
@@ -20,43 +23,45 @@ type RepairStackInWorkspaceV4Reader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *RepairStackInWorkspaceV4Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewRepairStackInWorkspaceV4Default(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewRepairStackInWorkspaceV4OK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewRepairStackInWorkspaceV4Default creates a RepairStackInWorkspaceV4Default with default headers values
-func NewRepairStackInWorkspaceV4Default(code int) *RepairStackInWorkspaceV4Default {
-	return &RepairStackInWorkspaceV4Default{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*RepairStackInWorkspaceV4Default handles this case with default header values.
+// NewRepairStackInWorkspaceV4OK creates a RepairStackInWorkspaceV4OK with default headers values
+func NewRepairStackInWorkspaceV4OK() *RepairStackInWorkspaceV4OK {
+	return &RepairStackInWorkspaceV4OK{}
+}
+
+/*RepairStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */
-type RepairStackInWorkspaceV4Default struct {
-	_statusCode int
+type RepairStackInWorkspaceV4OK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the repair stack in workspace v4 default response
-func (o *RepairStackInWorkspaceV4Default) Code() int {
-	return o._statusCode
+func (o *RepairStackInWorkspaceV4OK) Error() string {
+	return fmt.Sprintf("[POST /v4/{workspaceId}/stacks/{name}/manual_repair][%d] repairStackInWorkspaceV4OK  %+v", 200, o.Payload)
 }
 
-func (o *RepairStackInWorkspaceV4Default) Error() string {
-	return fmt.Sprintf("[POST /v4/{workspaceId}/stacks/{name}/manual_repair][%d] repairStackInWorkspaceV4 default ", o._statusCode)
-}
+func (o *RepairStackInWorkspaceV4OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *RepairStackInWorkspaceV4Default) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

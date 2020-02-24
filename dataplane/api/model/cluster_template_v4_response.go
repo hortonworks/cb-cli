@@ -58,6 +58,15 @@ type ClusterTemplateV4Response struct {
 	// Pattern: ^[^;\/%]*$
 	Name *string `json:"name"`
 
+	// node count of the cluster template
+	NodeCount int32 `json:"nodeCount,omitempty"`
+
+	// stack type of cluster template
+	StackType string `json:"stackType,omitempty"`
+
+	// stack version of cluster template
+	StackVersion string `json:"stackVersion,omitempty"`
+
 	// status
 	// Enum: [DEFAULT DEFAULT_DELETED USER_MANAGED OUTDATED]
 	Status string `json:"status,omitempty"`

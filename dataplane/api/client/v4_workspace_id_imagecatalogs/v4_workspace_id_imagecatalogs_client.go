@@ -265,6 +265,36 @@ func (a *Client) GetImagesByNameInWorkspace(params *GetImagesByNameInWorkspacePa
 }
 
 /*
+GetImagesForUpgrade determines available images for platform upgrade
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) GetImagesForUpgrade(params *GetImagesForUpgradeParams) (*GetImagesForUpgradeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetImagesForUpgradeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getImagesForUpgrade",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/{name}/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetImagesForUpgradeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetImagesForUpgradeOK), nil
+
+}
+
+/*
 GetImagesInWorkspace determines available images for the given stack or platformfrom the default image catalog
 
 Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.

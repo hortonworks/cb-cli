@@ -26,7 +26,7 @@ func ChangeAmbariPassword(c *cli.Context) {
 		Password:    &(&types.S{S: c.String(fl.FlNewPassword.Name)}).S,
 		UserName:    &(&types.S{S: c.String(fl.FlAmbariUser.Name)}).S,
 	}
-	err := cbClient.Cloudbreak.V4WorkspaceIDStacks.PutpasswordStackV4(v4stack.NewPutpasswordStackV4Params().WithWorkspaceID(workspaceID).WithName(name).WithBody(req))
+	err, _ := cbClient.Cloudbreak.V4WorkspaceIDStacks.PutpasswordStackV4(v4stack.NewPutpasswordStackV4Params().WithWorkspaceID(workspaceID).WithName(name).WithBody(req))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}

@@ -63,6 +63,9 @@ type StackV4Response struct {
 	// environment name
 	EnvironmentName string `json:"environmentName,omitempty"`
 
+	// Flow identifier for the current stack creation. Only returned during the stack create request/response.
+	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
+
 	// port of the gateway secured proxy
 	GatewayPort int32 `json:"gatewayPort,omitempty"`
 
@@ -161,6 +164,10 @@ func (m *StackV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCustomDomains(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFlowIdentifier(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -384,6 +391,24 @@ func (m *StackV4Response) validateCustomDomains(formats strfmt.Registry) error {
 		if err := m.CustomDomains.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("customDomains")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackV4Response) validateFlowIdentifier(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.FlowIdentifier) { // not required
+		return nil
+	}
+
+	if m.FlowIdentifier != nil {
+		if err := m.FlowIdentifier.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("flowIdentifier")
 			}
 			return err
 		}

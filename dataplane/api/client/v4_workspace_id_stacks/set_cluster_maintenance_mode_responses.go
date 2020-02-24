@@ -7,10 +7,13 @@ package v4_workspace_id_stacks
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // SetClusterMaintenanceModeReader is a Reader for the SetClusterMaintenanceMode structure.
@@ -20,43 +23,45 @@ type SetClusterMaintenanceModeReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *SetClusterMaintenanceModeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewSetClusterMaintenanceModeDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewSetClusterMaintenanceModeOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewSetClusterMaintenanceModeDefault creates a SetClusterMaintenanceModeDefault with default headers values
-func NewSetClusterMaintenanceModeDefault(code int) *SetClusterMaintenanceModeDefault {
-	return &SetClusterMaintenanceModeDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*SetClusterMaintenanceModeDefault handles this case with default header values.
+// NewSetClusterMaintenanceModeOK creates a SetClusterMaintenanceModeOK with default headers values
+func NewSetClusterMaintenanceModeOK() *SetClusterMaintenanceModeOK {
+	return &SetClusterMaintenanceModeOK{}
+}
+
+/*SetClusterMaintenanceModeOK handles this case with default header values.
 
 successful operation
 */
-type SetClusterMaintenanceModeDefault struct {
-	_statusCode int
+type SetClusterMaintenanceModeOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the set cluster maintenance mode default response
-func (o *SetClusterMaintenanceModeDefault) Code() int {
-	return o._statusCode
+func (o *SetClusterMaintenanceModeOK) Error() string {
+	return fmt.Sprintf("[PUT /v4/{workspaceId}/stacks/{name}/maintenance][%d] setClusterMaintenanceModeOK  %+v", 200, o.Payload)
 }
 
-func (o *SetClusterMaintenanceModeDefault) Error() string {
-	return fmt.Sprintf("[PUT /v4/{workspaceId}/stacks/{name}/maintenance][%d] setClusterMaintenanceMode default ", o._statusCode)
-}
+func (o *SetClusterMaintenanceModeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *SetClusterMaintenanceModeDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

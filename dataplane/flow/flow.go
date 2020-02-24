@@ -6,7 +6,7 @@ import (
 
 	"github.com/hortonworks/cb-cli/dataplane/oauth"
 
-	"github.com/hortonworks/cb-cli/dataplane/api/client/flow_logs"
+	flow_logs "github.com/hortonworks/cb-cli/dataplane/api/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api/model"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/dp-cli-common/utils"
@@ -43,7 +43,7 @@ func ListByCrn(c *cli.Context) {
 	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
 	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	resourceCrn := c.String(fl.FlCrn.Name)
-	listFlowsByCrnImpl(cbClient.Cloudbreak.FlowLogs, resourceCrn, output.WriteList)
+	listFlowsByCrnImpl(cbClient.Cloudbreak.Flow, resourceCrn, output.WriteList)
 }
 
 func ListByName(c *cli.Context) {
@@ -52,7 +52,7 @@ func ListByName(c *cli.Context) {
 	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
 	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	resourceName := c.String(fl.FlName.Name)
-	listFlowsByNameImpl(cbClient.Cloudbreak.FlowLogs, resourceName, output.WriteList)
+	listFlowsByNameImpl(cbClient.Cloudbreak.Flow, resourceName, output.WriteList)
 }
 
 func listFlowsByCrnImpl(client flowClient, resourceCrn string, writer func([]string, []utils.Row)) {
@@ -77,7 +77,7 @@ func DescribeLastFlowByCrn(c *cli.Context) {
 	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
 	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	resourceName := c.String(fl.FlName.Name)
-	describeLastFlowByCrnImpl(cbClient.Cloudbreak.FlowLogs, resourceName, output.Write)
+	describeLastFlowByCrnImpl(cbClient.Cloudbreak.Flow, resourceName, output.Write)
 }
 
 func DescribeLastFlowByName(c *cli.Context) {
@@ -86,7 +86,7 @@ func DescribeLastFlowByName(c *cli.Context) {
 	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
 	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	resourceName := c.String(fl.FlName.Name)
-	describeLastFlowByNameImpl(cbClient.Cloudbreak.FlowLogs, resourceName, output.Write)
+	describeLastFlowByNameImpl(cbClient.Cloudbreak.Flow, resourceName, output.Write)
 }
 
 func describeLastFlowByCrnImpl(client flowClient, resourceCrn string, writer func([]string, utils.Row)) {

@@ -7,10 +7,13 @@ package v4_workspace_id_stacks
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // SyncStackInWorkspaceV4Reader is a Reader for the SyncStackInWorkspaceV4 structure.
@@ -20,43 +23,45 @@ type SyncStackInWorkspaceV4Reader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *SyncStackInWorkspaceV4Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewSyncStackInWorkspaceV4Default(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewSyncStackInWorkspaceV4OK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewSyncStackInWorkspaceV4Default creates a SyncStackInWorkspaceV4Default with default headers values
-func NewSyncStackInWorkspaceV4Default(code int) *SyncStackInWorkspaceV4Default {
-	return &SyncStackInWorkspaceV4Default{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*SyncStackInWorkspaceV4Default handles this case with default header values.
+// NewSyncStackInWorkspaceV4OK creates a SyncStackInWorkspaceV4OK with default headers values
+func NewSyncStackInWorkspaceV4OK() *SyncStackInWorkspaceV4OK {
+	return &SyncStackInWorkspaceV4OK{}
+}
+
+/*SyncStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */
-type SyncStackInWorkspaceV4Default struct {
-	_statusCode int
+type SyncStackInWorkspaceV4OK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the sync stack in workspace v4 default response
-func (o *SyncStackInWorkspaceV4Default) Code() int {
-	return o._statusCode
+func (o *SyncStackInWorkspaceV4OK) Error() string {
+	return fmt.Sprintf("[POST /v4/{workspaceId}/stacks/{name}/sync][%d] syncStackInWorkspaceV4OK  %+v", 200, o.Payload)
 }
 
-func (o *SyncStackInWorkspaceV4Default) Error() string {
-	return fmt.Sprintf("[POST /v4/{workspaceId}/stacks/{name}/sync][%d] syncStackInWorkspaceV4 default ", o._statusCode)
-}
+func (o *SyncStackInWorkspaceV4OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *SyncStackInWorkspaceV4Default) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

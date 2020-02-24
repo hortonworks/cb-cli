@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hortonworks/cb-cli/dataplane/api/client/flow_logs"
+	flow_logs "github.com/hortonworks/cb-cli/dataplane/api/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api/model"
 	_ "github.com/hortonworks/cb-cli/dataplane/cloud/aws"
 	"github.com/hortonworks/dp-cli-common/utils"

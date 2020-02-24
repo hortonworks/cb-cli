@@ -29,13 +29,13 @@ ChangeImageStackInWorkspaceV4 checks image in stack by name in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) ChangeImageStackInWorkspaceV4(params *ChangeImageStackInWorkspaceV4Params) error {
+func (a *Client) ChangeImageStackInWorkspaceV4(params *ChangeImageStackInWorkspaceV4Params) (*ChangeImageStackInWorkspaceV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewChangeImageStackInWorkspaceV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "changeImageStackInWorkspaceV4",
 		Method:             "PUT",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/change_image",
@@ -48,9 +48,9 @@ func (a *Client) ChangeImageStackInWorkspaceV4(params *ChangeImageStackInWorkspa
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*ChangeImageStackInWorkspaceV4OK), nil
 
 }
 
@@ -89,13 +89,13 @@ DeleteInstanceStackV4 deletes instance from the stack s cluster in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) DeleteInstanceStackV4(params *DeleteInstanceStackV4Params) error {
+func (a *Client) DeleteInstanceStackV4(params *DeleteInstanceStackV4Params) (*DeleteInstanceStackV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteInstanceStackV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteInstanceStackV4",
 		Method:             "DELETE",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/instance",
@@ -108,9 +108,9 @@ func (a *Client) DeleteInstanceStackV4(params *DeleteInstanceStackV4Params) erro
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*DeleteInstanceStackV4OK), nil
 
 }
 
@@ -119,13 +119,13 @@ DeleteMultipleInstancesStackV4 deletes multiple instances from the stack s clust
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) DeleteMultipleInstancesStackV4(params *DeleteMultipleInstancesStackV4Params) error {
+func (a *Client) DeleteMultipleInstancesStackV4(params *DeleteMultipleInstancesStackV4Params) (*DeleteMultipleInstancesStackV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteMultipleInstancesStackV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteMultipleInstancesStackV4",
 		Method:             "DELETE",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/instances",
@@ -138,9 +138,9 @@ func (a *Client) DeleteMultipleInstancesStackV4(params *DeleteMultipleInstancesS
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*DeleteMultipleInstancesStackV4OK), nil
 
 }
 
@@ -417,13 +417,13 @@ PutClusterV4 updates cluster by stack id
 
 Clusters are materialised Hadoop services on a given infrastructure. They are built based on a blueprint (running the components and services specified) and on a configured infrastructure Stack. Once a cluster is created and launched, it can be used the usual way as any Hadoop cluster. We suggest to start with the Cluster's Ambari UI for an overview of your cluster.
 */
-func (a *Client) PutClusterV4(params *PutClusterV4Params) error {
+func (a *Client) PutClusterV4(params *PutClusterV4Params) (*PutClusterV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutClusterV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "putClusterV4",
 		Method:             "PUT",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/cluster",
@@ -436,9 +436,9 @@ func (a *Client) PutClusterV4(params *PutClusterV4Params) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*PutClusterV4OK), nil
 
 }
 
@@ -447,13 +447,13 @@ PutScalingStackInWorkspaceV4 scales the stack by name in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) PutScalingStackInWorkspaceV4(params *PutScalingStackInWorkspaceV4Params) error {
+func (a *Client) PutScalingStackInWorkspaceV4(params *PutScalingStackInWorkspaceV4Params) (*PutScalingStackInWorkspaceV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutScalingStackInWorkspaceV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "putScalingStackInWorkspaceV4",
 		Method:             "PUT",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/scaling",
@@ -466,9 +466,9 @@ func (a *Client) PutScalingStackInWorkspaceV4(params *PutScalingStackInWorkspace
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*PutScalingStackInWorkspaceV4OK), nil
 
 }
 
@@ -477,13 +477,13 @@ PutpasswordStackV4 updates stack by name
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) PutpasswordStackV4(params *PutpasswordStackV4Params) error {
+func (a *Client) PutpasswordStackV4(params *PutpasswordStackV4Params) (*PutpasswordStackV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutpasswordStackV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "putpasswordStackV4",
 		Method:             "PUT",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/ambari_password",
@@ -496,9 +496,9 @@ func (a *Client) PutpasswordStackV4(params *PutpasswordStackV4Params) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*PutpasswordStackV4OK), nil
 
 }
 
@@ -507,13 +507,13 @@ RepairStackInWorkspaceV4 repairs the stack by name in workspace
 
 Removing the failed nodes and starting new nodes to substitute them.
 */
-func (a *Client) RepairStackInWorkspaceV4(params *RepairStackInWorkspaceV4Params) error {
+func (a *Client) RepairStackInWorkspaceV4(params *RepairStackInWorkspaceV4Params) (*RepairStackInWorkspaceV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRepairStackInWorkspaceV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "repairStackInWorkspaceV4",
 		Method:             "POST",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/manual_repair",
@@ -526,9 +526,9 @@ func (a *Client) RepairStackInWorkspaceV4(params *RepairStackInWorkspaceV4Params
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RepairStackInWorkspaceV4OK), nil
 
 }
 
@@ -537,13 +537,13 @@ RetryStackInWorkspaceV4 retries the stack by name in workspace
 
 Failed or interrupted stack and cluster operations can be retried, after the cause of the failure was eliminated. The operations will continue at the state, where the previous process failed.
 */
-func (a *Client) RetryStackInWorkspaceV4(params *RetryStackInWorkspaceV4Params) error {
+func (a *Client) RetryStackInWorkspaceV4(params *RetryStackInWorkspaceV4Params) (*RetryStackInWorkspaceV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRetryStackInWorkspaceV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "retryStackInWorkspaceV4",
 		Method:             "POST",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/retry",
@@ -556,9 +556,9 @@ func (a *Client) RetryStackInWorkspaceV4(params *RetryStackInWorkspaceV4Params) 
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RetryStackInWorkspaceV4OK), nil
 
 }
 
@@ -567,13 +567,13 @@ SetClusterMaintenanceMode sets maintenance mode for the cluster by name
 
 Setting maintenance mode for the cluster in order to be able to update Ambari and/or the Hadoop stack.
 */
-func (a *Client) SetClusterMaintenanceMode(params *SetClusterMaintenanceModeParams) error {
+func (a *Client) SetClusterMaintenanceMode(params *SetClusterMaintenanceModeParams) (*SetClusterMaintenanceModeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetClusterMaintenanceModeParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "setClusterMaintenanceMode",
 		Method:             "PUT",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/maintenance",
@@ -586,9 +586,9 @@ func (a *Client) SetClusterMaintenanceMode(params *SetClusterMaintenanceModePara
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*SetClusterMaintenanceModeOK), nil
 
 }
 
@@ -597,13 +597,13 @@ StartStackInWorkspaceV4 starts the stack by name in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) StartStackInWorkspaceV4(params *StartStackInWorkspaceV4Params) error {
+func (a *Client) StartStackInWorkspaceV4(params *StartStackInWorkspaceV4Params) (*StartStackInWorkspaceV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartStackInWorkspaceV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "startStackInWorkspaceV4",
 		Method:             "PUT",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/start",
@@ -616,9 +616,9 @@ func (a *Client) StartStackInWorkspaceV4(params *StartStackInWorkspaceV4Params) 
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StartStackInWorkspaceV4OK), nil
 
 }
 
@@ -657,13 +657,13 @@ StopStackInWorkspaceV4 stops the stack by name in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) StopStackInWorkspaceV4(params *StopStackInWorkspaceV4Params) error {
+func (a *Client) StopStackInWorkspaceV4(params *StopStackInWorkspaceV4Params) (*StopStackInWorkspaceV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopStackInWorkspaceV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "stopStackInWorkspaceV4",
 		Method:             "PUT",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/stop",
@@ -676,9 +676,9 @@ func (a *Client) StopStackInWorkspaceV4(params *StopStackInWorkspaceV4Params) er
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StopStackInWorkspaceV4OK), nil
 
 }
 
@@ -687,13 +687,13 @@ SyncStackInWorkspaceV4 syncs the stack by name in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) SyncStackInWorkspaceV4(params *SyncStackInWorkspaceV4Params) error {
+func (a *Client) SyncStackInWorkspaceV4(params *SyncStackInWorkspaceV4Params) (*SyncStackInWorkspaceV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSyncStackInWorkspaceV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "syncStackInWorkspaceV4",
 		Method:             "POST",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/sync",
@@ -706,9 +706,9 @@ func (a *Client) SyncStackInWorkspaceV4(params *SyncStackInWorkspaceV4Params) er
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*SyncStackInWorkspaceV4OK), nil
 
 }
 
@@ -717,13 +717,13 @@ UpgradeClusterInWorkspaceV4 upgrades the stack by name in workspace
 
 Removing all nodes and starting new nodes with the latest image. If the cluster already uses the the latest image then no remove/restart will happen.
 */
-func (a *Client) UpgradeClusterInWorkspaceV4(params *UpgradeClusterInWorkspaceV4Params) error {
+func (a *Client) UpgradeClusterInWorkspaceV4(params *UpgradeClusterInWorkspaceV4Params) (*UpgradeClusterInWorkspaceV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpgradeClusterInWorkspaceV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "upgradeClusterInWorkspaceV4",
 		Method:             "POST",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/upgrade",
@@ -736,9 +736,9 @@ func (a *Client) UpgradeClusterInWorkspaceV4(params *UpgradeClusterInWorkspaceV4
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*UpgradeClusterInWorkspaceV4OK), nil
 
 }
 

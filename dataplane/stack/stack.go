@@ -95,7 +95,7 @@ func ChangeImage(c *cli.Context) {
 	clusterName := c.String(fl.FlName.Name)
 	log.Infof("[ChangeImage] changing image for stack stack, name: %s, imageid: %s, imageCatalog: %s", clusterName, imageId, imageCatalogName)
 	req := model.StackImageChangeV4Request{ImageCatalogName: imageCatalogName, ImageID: &imageId}
-	err := cbClient.Cloudbreak.V4WorkspaceIDStacks.ChangeImageStackInWorkspaceV4(v4stack.NewChangeImageStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(clusterName).WithBody(&req))
+	err, _ := cbClient.Cloudbreak.V4WorkspaceIDStacks.ChangeImageStackInWorkspaceV4(v4stack.NewChangeImageStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(clusterName).WithBody(&req))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -259,7 +259,7 @@ func ScaleStack(c *cli.Context) {
 	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 	name := c.String(fl.FlName.Name)
 	log.Infof("[ScaleStack] scaling stack, name: %s", name)
-	err = cbClient.Cloudbreak.V4WorkspaceIDStacks.PutScalingStackInWorkspaceV4(v4stack.NewPutScalingStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name).WithBody(req))
+	err, _ = cbClient.Cloudbreak.V4WorkspaceIDStacks.PutScalingStackInWorkspaceV4(v4stack.NewPutScalingStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name).WithBody(req))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -277,7 +277,7 @@ func StartStack(c *cli.Context) {
 	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 	name := c.String(fl.FlName.Name)
 	log.Infof("[StartStack] starting stack, name: %s", name)
-	err := cbClient.Cloudbreak.V4WorkspaceIDStacks.StartStackInWorkspaceV4(v4stack.NewStartStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name))
+	err, _ := cbClient.Cloudbreak.V4WorkspaceIDStacks.StartStackInWorkspaceV4(v4stack.NewStartStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -295,7 +295,7 @@ func StopStack(c *cli.Context) {
 	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 	name := c.String(fl.FlName.Name)
 	log.Infof("[StopStack] stopping stack, name: %s", name)
-	err := cbClient.Cloudbreak.V4WorkspaceIDStacks.StopStackInWorkspaceV4(v4stack.NewStopStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name))
+	err, _ := cbClient.Cloudbreak.V4WorkspaceIDStacks.StopStackInWorkspaceV4(v4stack.NewStopStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -313,7 +313,7 @@ func SyncStack(c *cli.Context) {
 	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 	name := c.String(fl.FlName.Name)
 	log.Infof("[SyncStack] syncing stack, name: %s", name)
-	err := cbClient.Cloudbreak.V4WorkspaceIDStacks.SyncStackInWorkspaceV4(v4stack.NewSyncStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name))
+	err, _ := cbClient.Cloudbreak.V4WorkspaceIDStacks.SyncStackInWorkspaceV4(v4stack.NewSyncStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -351,7 +351,7 @@ func repairStackCommon(c *cli.Context, request model.ClusterRepairV4Request) {
 	name := c.String(fl.FlName.Name)
 	log.Infof("[RepairStack] repairing stack, id: %s, removeOnly: %t, workspaceId: %d", name, removeOnly, workspaceID)
 
-	err := cbClient.Cloudbreak.V4WorkspaceIDStacks.RepairStackInWorkspaceV4(v4stack.NewRepairStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name).WithBody(&request))
+	err, _ := cbClient.Cloudbreak.V4WorkspaceIDStacks.RepairStackInWorkspaceV4(v4stack.NewRepairStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name).WithBody(&request))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -369,7 +369,7 @@ func RetryCluster(c *cli.Context) {
 	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 	name := c.String(fl.FlName.Name)
 	log.Infof("[RetryCluster] retrying cluster creation, name: %s", name)
-	err := cbClient.Cloudbreak.V4WorkspaceIDStacks.RetryStackInWorkspaceV4(v4stack.NewRetryStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name))
+	err, _ := cbClient.Cloudbreak.V4WorkspaceIDStacks.RetryStackInWorkspaceV4(v4stack.NewRetryStackInWorkspaceV4Params().WithWorkspaceID(workspaceID).WithName(name))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}

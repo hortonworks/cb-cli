@@ -7,10 +7,13 @@ package v4_workspace_id_stacks
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // DeleteInstanceStackV4Reader is a Reader for the DeleteInstanceStackV4 structure.
@@ -20,43 +23,45 @@ type DeleteInstanceStackV4Reader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *DeleteInstanceStackV4Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewDeleteInstanceStackV4Default(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewDeleteInstanceStackV4OK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewDeleteInstanceStackV4Default creates a DeleteInstanceStackV4Default with default headers values
-func NewDeleteInstanceStackV4Default(code int) *DeleteInstanceStackV4Default {
-	return &DeleteInstanceStackV4Default{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*DeleteInstanceStackV4Default handles this case with default header values.
+// NewDeleteInstanceStackV4OK creates a DeleteInstanceStackV4OK with default headers values
+func NewDeleteInstanceStackV4OK() *DeleteInstanceStackV4OK {
+	return &DeleteInstanceStackV4OK{}
+}
+
+/*DeleteInstanceStackV4OK handles this case with default header values.
 
 successful operation
 */
-type DeleteInstanceStackV4Default struct {
-	_statusCode int
+type DeleteInstanceStackV4OK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the delete instance stack v4 default response
-func (o *DeleteInstanceStackV4Default) Code() int {
-	return o._statusCode
+func (o *DeleteInstanceStackV4OK) Error() string {
+	return fmt.Sprintf("[DELETE /v4/{workspaceId}/stacks/{name}/instance][%d] deleteInstanceStackV4OK  %+v", 200, o.Payload)
 }
 
-func (o *DeleteInstanceStackV4Default) Error() string {
-	return fmt.Sprintf("[DELETE /v4/{workspaceId}/stacks/{name}/instance][%d] deleteInstanceStackV4 default ", o._statusCode)
-}
+func (o *DeleteInstanceStackV4OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *DeleteInstanceStackV4Default) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

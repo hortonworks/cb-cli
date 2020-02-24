@@ -15,6 +15,9 @@ import (
 // swagger:model UserViewV4Response
 type UserViewV4Response struct {
 
+	// user crn
+	UserCrn string `json:"userCrn,omitempty"`
+
 	// user Id
 	UserID string `json:"userId,omitempty"`
 
