@@ -63,6 +63,9 @@ type StackV4Response struct {
 	// environment name
 	EnvironmentName string `json:"environmentName,omitempty"`
 
+	// External database parameters for the stack.
+	ExternalDatabase *DatabaseResponse `json:"externalDatabase,omitempty"`
+
 	// Flow identifier for the current stack creation. Only returned during the stack create request/response.
 	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
 
@@ -106,7 +109,7 @@ type StackV4Response struct {
 	SharedService *SharedServiceV4Response `json:"sharedService,omitempty"`
 
 	// status of the stack
-	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED AMBIGUOUS]
+	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED AMBIGUOUS EXTERNAL_DATABASE_CREATION_IN_PROGRESS EXTERNAL_DATABASE_CREATION_FINISHED EXTERNAL_DATABASE_CREATION_FAILED EXTERNAL_DATABASE_DELETION_IN_PROGRESS EXTERNAL_DATABASE_DELETION_FINISHED EXTERNAL_DATABASE_DELETION_FAILED]
 	Status string `json:"status,omitempty"`
 
 	// status message of the stack
@@ -164,6 +167,10 @@ func (m *StackV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCustomDomains(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExternalDatabase(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -399,6 +406,24 @@ func (m *StackV4Response) validateCustomDomains(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *StackV4Response) validateExternalDatabase(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ExternalDatabase) { // not required
+		return nil
+	}
+
+	if m.ExternalDatabase != nil {
+		if err := m.ExternalDatabase.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("externalDatabase")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *StackV4Response) validateFlowIdentifier(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.FlowIdentifier) { // not required
@@ -556,7 +581,7 @@ var stackV4ResponseTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED","AMBIGUOUS"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED","AMBIGUOUS","EXTERNAL_DATABASE_CREATION_IN_PROGRESS","EXTERNAL_DATABASE_CREATION_FINISHED","EXTERNAL_DATABASE_CREATION_FAILED","EXTERNAL_DATABASE_DELETION_IN_PROGRESS","EXTERNAL_DATABASE_DELETION_FINISHED","EXTERNAL_DATABASE_DELETION_FAILED"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -631,6 +656,24 @@ const (
 
 	// StackV4ResponseStatusAMBIGUOUS captures enum value "AMBIGUOUS"
 	StackV4ResponseStatusAMBIGUOUS string = "AMBIGUOUS"
+
+	// StackV4ResponseStatusEXTERNALDATABASECREATIONINPROGRESS captures enum value "EXTERNAL_DATABASE_CREATION_IN_PROGRESS"
+	StackV4ResponseStatusEXTERNALDATABASECREATIONINPROGRESS string = "EXTERNAL_DATABASE_CREATION_IN_PROGRESS"
+
+	// StackV4ResponseStatusEXTERNALDATABASECREATIONFINISHED captures enum value "EXTERNAL_DATABASE_CREATION_FINISHED"
+	StackV4ResponseStatusEXTERNALDATABASECREATIONFINISHED string = "EXTERNAL_DATABASE_CREATION_FINISHED"
+
+	// StackV4ResponseStatusEXTERNALDATABASECREATIONFAILED captures enum value "EXTERNAL_DATABASE_CREATION_FAILED"
+	StackV4ResponseStatusEXTERNALDATABASECREATIONFAILED string = "EXTERNAL_DATABASE_CREATION_FAILED"
+
+	// StackV4ResponseStatusEXTERNALDATABASEDELETIONINPROGRESS captures enum value "EXTERNAL_DATABASE_DELETION_IN_PROGRESS"
+	StackV4ResponseStatusEXTERNALDATABASEDELETIONINPROGRESS string = "EXTERNAL_DATABASE_DELETION_IN_PROGRESS"
+
+	// StackV4ResponseStatusEXTERNALDATABASEDELETIONFINISHED captures enum value "EXTERNAL_DATABASE_DELETION_FINISHED"
+	StackV4ResponseStatusEXTERNALDATABASEDELETIONFINISHED string = "EXTERNAL_DATABASE_DELETION_FINISHED"
+
+	// StackV4ResponseStatusEXTERNALDATABASEDELETIONFAILED captures enum value "EXTERNAL_DATABASE_DELETION_FAILED"
+	StackV4ResponseStatusEXTERNALDATABASEDELETIONFAILED string = "EXTERNAL_DATABASE_DELETION_FAILED"
 )
 
 // prop value enum

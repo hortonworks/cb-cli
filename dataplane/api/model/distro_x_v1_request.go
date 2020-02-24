@@ -36,6 +36,9 @@ type DistroXV1Request struct {
 	// environment name
 	EnvironmentName string `json:"environmentName,omitempty"`
 
+	// external database
+	ExternalDatabase *DistroXDatabaseRequest `json:"externalDatabase,omitempty"`
+
 	// image
 	Image *DistroXImageV1Request `json:"image,omitempty"`
 
@@ -79,6 +82,10 @@ func (m *DistroXV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCluster(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExternalDatabase(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -199,6 +206,24 @@ func (m *DistroXV1Request) validateCluster(formats strfmt.Registry) error {
 		if err := m.Cluster.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cluster")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DistroXV1Request) validateExternalDatabase(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ExternalDatabase) { // not required
+		return nil
+	}
+
+	if m.ExternalDatabase != nil {
+		if err := m.ExternalDatabase.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("externalDatabase")
 			}
 			return err
 		}
