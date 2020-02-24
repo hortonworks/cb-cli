@@ -40,6 +40,9 @@ type StackV4Request struct {
 	// Required: true
 	EnvironmentCrn *string `json:"environmentCrn"`
 
+	// External database parameters for the stack.
+	ExternalDatabase *DatabaseRequest `json:"externalDatabase,omitempty"`
+
 	// port of the gateway secured proxy
 	// Maximum: 65535
 	// Minimum: 1025
@@ -112,6 +115,10 @@ func (m *StackV4Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateEnvironmentCrn(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExternalDatabase(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -241,6 +248,24 @@ func (m *StackV4Request) validateEnvironmentCrn(formats strfmt.Registry) error {
 
 	if err := validate.Required("environmentCrn", "body", m.EnvironmentCrn); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *StackV4Request) validateExternalDatabase(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ExternalDatabase) { // not required
+		return nil
+	}
+
+	if m.ExternalDatabase != nil {
+		if err := m.ExternalDatabase.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("externalDatabase")
+			}
+			return err
+		}
 	}
 
 	return nil
