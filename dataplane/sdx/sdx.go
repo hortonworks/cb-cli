@@ -86,20 +86,21 @@ func CreateSdx(c *cli.Context) {
 	baseLocation := c.String(fl.FlCloudStorageBaseLocationOptional.Name)
 	instanceProfile := c.String(fl.FlCloudStorageInstanceProfileOptional.Name)
 	managedIdentity := c.String(fl.FlCloudStorageManagedIdentityOptional.Name)
+	runtime := c.String(fl.FlRuntimeOptional.Name)
 	withExternalDatabase := c.Bool(fl.FlWithExternalDatabaseOptional.Name)
 	withoutExternalDatabase := c.Bool(fl.FlWithoutExternalDatabaseOptional.Name)
 
 	inputJson := assembleStackRequest(c)
-
+	log.Infof("[CreateSdx] Runtime: %s", runtime)
 	if inputJson != nil {
-		createInternalSdx(envName, inputJson, c, name, baseLocation, instanceProfile, managedIdentity, withoutExternalDatabase, withExternalDatabase)
+		createInternalSdx(envName, inputJson, c, name, baseLocation, instanceProfile, managedIdentity, runtime, withoutExternalDatabase, withExternalDatabase)
 	} else {
-		createSdx(clusterShape, envName, c, name, baseLocation, instanceProfile, managedIdentity, withoutExternalDatabase, withExternalDatabase)
+		createSdx(clusterShape, envName, c, name, baseLocation, instanceProfile, managedIdentity, runtime, withoutExternalDatabase, withExternalDatabase)
 	}
 }
 
-func createSdx(clusterShape string, envName string, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, withoutExternalDatabase bool, withExternalDatabase bool) {
-	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, withExternalDatabase, withoutExternalDatabase)
+func createSdx(clusterShape string, envName string, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool) {
+	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, runtime, withExternalDatabase, withoutExternalDatabase)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
@@ -111,10 +112,11 @@ func createSdx(clusterShape string, envName string, c *cli.Context, name string,
 	log.Infof("[CreateSdx] SDX cluster created in environment: %s, with name: %s", envName, sdxCluster.Name)
 }
 
-func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, withExternalDatabase bool, withoutExternalDatabase bool) *sdxModel.SdxClusterRequest {
+func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withExternalDatabase bool, withoutExternalDatabase bool) *sdxModel.SdxClusterRequest {
 	sdxRequest := &sdxModel.SdxClusterRequest{
 		ClusterShape:     &clusterShape,
 		Environment:      &envName,
+		Runtime:          runtime,
 		Tags:             nil,
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
@@ -183,10 +185,11 @@ func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile 
 	}
 }
 
-func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, withoutExternalDatabase bool, withExternalDatabase bool) {
+func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool) {
 	sdxInternalRequest := &sdxModel.SdxInternalClusterRequest{
 		ClusterShape:     &(&types.S{S: sdxModel.SdxClusterRequestClusterShapeCUSTOM}).S,
 		Environment:      &envName,
+		Runtime:          runtime,
 		StackV4Request:   inputJson,
 		Tags:             nil,
 		ExternalDatabase: nil,
@@ -240,6 +243,7 @@ func formulateRequest(hostGroupToRepair string, hostGroupsToRepair []string) *sd
 		utils.LogErrorMessageAndExit(fmt.Sprintf("Please only specify either %s or %s", fl.FlHostGroupOptional.Name, fl.FlHostGroupsOptional.Name))
 	}
 	hostGroupToRepairRequest := &sdxModel.SdxRepairRequest{}
+
 	if len(hostGroupToRepair) > 0 {
 		hostGroupToRepairRequest.HostGroupName = hostGroupToRepair
 	}

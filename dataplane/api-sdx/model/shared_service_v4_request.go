@@ -20,6 +20,9 @@ type SharedServiceV4Request struct {
 	// datalake name
 	// Required: true
 	DatalakeName *string `json:"datalakeName"`
+
+	// runtime version
+	RuntimeVersion string `json:"runtimeVersion,omitempty"`
 }
 
 // Validate validates this shared service v4 request
