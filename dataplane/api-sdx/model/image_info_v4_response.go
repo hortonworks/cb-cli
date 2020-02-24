@@ -15,6 +15,9 @@ import (
 // swagger:model ImageInfoV4Response
 type ImageInfoV4Response struct {
 
+	// component versions
+	ComponentVersions map[string]string `json:"componentVersions,omitempty"`
+
 	// created
 	Created int64 `json:"created,omitempty"`
 

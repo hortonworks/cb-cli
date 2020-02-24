@@ -127,15 +127,51 @@ func init() {
 				},
 			},
 			{
-				Name:   "upgrade",
-				Usage:  "OS upgrade for the SDX cluster",
-				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlDryRunOptional).Build(),
-				Action: sdx.UpgradeSdx,
-				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlDryRunOptional).Build() {
-						fl.PrintFlagCompletion(f)
-					}
+				Name:  "upgrade",
+				Usage: "OS or data platform upgrade for the SDX cluster",
+				Subcommands: []cli.Command{
+					{
+						Name:   "os",
+						Usage:  "OS upgrade for the SDX cluster",
+						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:  fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlDryRunOptional).Build(),
+						Action: sdx.UpgradeSdx,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlDryRunOptional).Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:  "stack",
+						Usage: "stack upgrade for the SDX cluster",
+						Subcommands: []cli.Command{
+							{
+								Name:   "check",
+								Usage:  "check for stack upgrades",
+								Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+								Flags:  fl.NewFlagBuilder().AddOutputFlag().AddNameFlag().AddAuthenticationFlags().Build(),
+								Action: sdx.CheckSdxStackUpgrade,
+								BashComplete: func(c *cli.Context) {
+									for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddNameFlag().AddAuthenticationFlags().Build() {
+										fl.PrintFlagCompletion(f)
+									}
+								},
+							},
+							{
+								Name:   "upgrade",
+								Usage:  "upgrade the stack of the SDX cluster",
+								Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+								Flags:  fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlImageId).Build(),
+								Action: sdx.SdxStackUpgrade,
+								BashComplete: func(c *cli.Context) {
+									for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlImageId).Build() {
+										fl.PrintFlagCompletion(f)
+									}
+								},
+							},
+						},
+					},
 				},
 			},
 		},
