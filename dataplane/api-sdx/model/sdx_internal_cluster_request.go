@@ -34,6 +34,9 @@ type SdxInternalClusterRequest struct {
 	// external database
 	ExternalDatabase *SdxDatabaseRequest `json:"externalDatabase,omitempty"`
 
+	// runtime
+	Runtime string `json:"runtime,omitempty"`
+
 	// stack v4 request
 	StackV4Request *StackV4Request `json:"stackV4Request,omitempty"`
 

@@ -138,7 +138,7 @@ func generateStackTemplateImpl(mode cloud.NetworkMode, stringFinder func(string)
 		InstanceGroups: []*model.InstanceGroupV4Request{},
 		Network:        provider.GenerateDefaultNetwork(mode),
 		Authentication: &model.StackAuthenticationV4Request{
-			PublicKey: "____",
+			PublicKey: &(&types.S{S: "____"}).S,
 		},
 	}
 	preExtendTemplateWithOptionalBlocks(&template, boolFinder, storageType)

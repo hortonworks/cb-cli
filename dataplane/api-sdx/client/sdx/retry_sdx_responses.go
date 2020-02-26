@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // RetrySdxReader is a Reader for the RetrySdx structure.
@@ -20,43 +23,45 @@ type RetrySdxReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *RetrySdxReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewRetrySdxDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewRetrySdxOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewRetrySdxDefault creates a RetrySdxDefault with default headers values
-func NewRetrySdxDefault(code int) *RetrySdxDefault {
-	return &RetrySdxDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*RetrySdxDefault handles this case with default header values.
+// NewRetrySdxOK creates a RetrySdxOK with default headers values
+func NewRetrySdxOK() *RetrySdxOK {
+	return &RetrySdxOK{}
+}
+
+/*RetrySdxOK handles this case with default header values.
 
 successful operation
 */
-type RetrySdxDefault struct {
-	_statusCode int
+type RetrySdxOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the retry sdx default response
-func (o *RetrySdxDefault) Code() int {
-	return o._statusCode
+func (o *RetrySdxOK) Error() string {
+	return fmt.Sprintf("[POST /sdx/{name}/retry][%d] retrySdxOK  %+v", 200, o.Payload)
 }
 
-func (o *RetrySdxDefault) Error() string {
-	return fmt.Sprintf("[POST /sdx/{name}/retry][%d] retrySdx default ", o._statusCode)
-}
+func (o *RetrySdxOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *RetrySdxDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

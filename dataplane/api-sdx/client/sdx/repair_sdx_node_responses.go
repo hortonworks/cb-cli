@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // RepairSdxNodeReader is a Reader for the RepairSdxNode structure.
@@ -20,43 +23,45 @@ type RepairSdxNodeReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *RepairSdxNodeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewRepairSdxNodeDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewRepairSdxNodeOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewRepairSdxNodeDefault creates a RepairSdxNodeDefault with default headers values
-func NewRepairSdxNodeDefault(code int) *RepairSdxNodeDefault {
-	return &RepairSdxNodeDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*RepairSdxNodeDefault handles this case with default header values.
+// NewRepairSdxNodeOK creates a RepairSdxNodeOK with default headers values
+func NewRepairSdxNodeOK() *RepairSdxNodeOK {
+	return &RepairSdxNodeOK{}
+}
+
+/*RepairSdxNodeOK handles this case with default header values.
 
 successful operation
 */
-type RepairSdxNodeDefault struct {
-	_statusCode int
+type RepairSdxNodeOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the repair sdx node default response
-func (o *RepairSdxNodeDefault) Code() int {
-	return o._statusCode
+func (o *RepairSdxNodeOK) Error() string {
+	return fmt.Sprintf("[POST /sdx/{name}/manual_repair][%d] repairSdxNodeOK  %+v", 200, o.Payload)
 }
 
-func (o *RepairSdxNodeDefault) Error() string {
-	return fmt.Sprintf("[POST /sdx/{name}/manual_repair][%d] repairSdxNode default ", o._statusCode)
-}
+func (o *RepairSdxNodeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *RepairSdxNodeDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

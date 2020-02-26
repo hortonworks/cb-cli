@@ -25,6 +25,36 @@ type Client struct {
 }
 
 /*
+AttachChildEnvironmentV1 registers a child environment
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) AttachChildEnvironmentV1(params *AttachChildEnvironmentV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAttachChildEnvironmentV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "attachChildEnvironmentV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/attach_child_environment",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AttachChildEnvironmentV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 CleanupV1 cleans out users hosts and related DNS entries
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -175,6 +205,36 @@ func (a *Client) DeleteFreeIpaByEnvironmentV1(params *DeleteFreeIpaByEnvironment
 }
 
 /*
+DetachChildEnvironmentV1 deregisters a child environment
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) DetachChildEnvironmentV1(params *DetachChildEnvironmentV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDetachChildEnvironmentV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "detachChildEnvironmentV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/detach_child_environment",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DetachChildEnvironmentV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 GetFreeIpaByEnvironmentV1 gets free IP a stack by envid
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -231,6 +291,36 @@ func (a *Client) GetFreeIpaRootCertificateByEnvironmentV1(params *GetFreeIpaRoot
 		return nil, err
 	}
 	return result.(*GetFreeIpaRootCertificateByEnvironmentV1OK), nil
+
+}
+
+/*
+HealthV1 provides a detailed health of the free IP a stack
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) HealthV1(params *HealthV1Params) (*HealthV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewHealthV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "healthV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/health",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &HealthV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*HealthV1OK), nil
 
 }
 

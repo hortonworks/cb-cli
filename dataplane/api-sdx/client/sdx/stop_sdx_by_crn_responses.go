@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // StopSdxByCrnReader is a Reader for the StopSdxByCrn structure.
@@ -20,43 +23,45 @@ type StopSdxByCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *StopSdxByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewStopSdxByCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewStopSdxByCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewStopSdxByCrnDefault creates a StopSdxByCrnDefault with default headers values
-func NewStopSdxByCrnDefault(code int) *StopSdxByCrnDefault {
-	return &StopSdxByCrnDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*StopSdxByCrnDefault handles this case with default header values.
+// NewStopSdxByCrnOK creates a StopSdxByCrnOK with default headers values
+func NewStopSdxByCrnOK() *StopSdxByCrnOK {
+	return &StopSdxByCrnOK{}
+}
+
+/*StopSdxByCrnOK handles this case with default header values.
 
 successful operation
 */
-type StopSdxByCrnDefault struct {
-	_statusCode int
+type StopSdxByCrnOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the stop sdx by crn default response
-func (o *StopSdxByCrnDefault) Code() int {
-	return o._statusCode
+func (o *StopSdxByCrnOK) Error() string {
+	return fmt.Sprintf("[POST /sdx/crn/{crn}/stop][%d] stopSdxByCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *StopSdxByCrnDefault) Error() string {
-	return fmt.Sprintf("[POST /sdx/crn/{crn}/stop][%d] stopSdxByCrn default ", o._statusCode)
-}
+func (o *StopSdxByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *StopSdxByCrnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

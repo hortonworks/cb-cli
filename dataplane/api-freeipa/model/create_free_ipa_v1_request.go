@@ -55,6 +55,9 @@ type CreateFreeIpaV1Request struct {
 	// Required: true
 	Placement *PlacementV1Request `json:"placement"`
 
+	// Tags for freeipa server.
+	Tags map[string]string `json:"tags,omitempty"`
+
 	// telemetry setting for freeipa server
 	Telemetry *TelemetryRequest `json:"telemetry,omitempty"`
 

@@ -45,8 +45,14 @@ type SdxClusterDetailResponse struct {
 	// environment name
 	EnvironmentName string `json:"environmentName,omitempty"`
 
+	// flow identifier
+	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
+
 	// name
 	Name string `json:"name,omitempty"`
+
+	// runtime
+	Runtime string `json:"runtime,omitempty"`
 
 	// stack crn
 	StackCrn string `json:"stackCrn,omitempty"`
@@ -71,6 +77,10 @@ func (m *SdxClusterDetailResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateClusterShape(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFlowIdentifier(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -184,6 +194,24 @@ func (m *SdxClusterDetailResponse) validateClusterShape(formats strfmt.Registry)
 	// value enum
 	if err := m.validateClusterShapeEnum("clusterShape", "body", m.ClusterShape); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *SdxClusterDetailResponse) validateFlowIdentifier(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.FlowIdentifier) { // not required
+		return nil
+	}
+
+	if m.FlowIdentifier != nil {
+		if err := m.FlowIdentifier.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("flowIdentifier")
+			}
+			return err
+		}
 	}
 
 	return nil

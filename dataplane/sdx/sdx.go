@@ -211,7 +211,7 @@ func DeleteSdx(c *cli.Context) {
 	forced := c.Bool(fl.FlForceOptional.Name)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
-	err := sdxClient.Sdx.DeleteSdx(sdx.NewDeleteSdxParams().WithName(name).WithForced(&forced))
+	_, err := sdxClient.Sdx.DeleteSdx(sdx.NewDeleteSdxParams().WithName(name).WithForced(&forced))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -228,7 +228,7 @@ func RepairSdx(c *cli.Context) {
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
-	err := sdxClient.Sdx.RepairSdxNode(sdx.NewRepairSdxNodeParams().WithName(name).WithBody(hostGroupToRepairRequest))
+	_, err := sdxClient.Sdx.RepairSdxNode(sdx.NewRepairSdxNodeParams().WithName(name).WithBody(hostGroupToRepairRequest))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -310,7 +310,7 @@ func RetrySdx(c *cli.Context) {
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
-	err := sdxClient.Sdx.RetrySdx(sdx.NewRetrySdxParams().WithName(name))
+	_, err := sdxClient.Sdx.RetrySdx(sdx.NewRetrySdxParams().WithName(name))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -383,7 +383,7 @@ func StartSdx(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "Start sdx cluster by name")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
-	err := sdxClient.Sdx.StartSdxByName(sdx.NewStartSdxByNameParams().WithName(name))
+	_, err := sdxClient.Sdx.StartSdxByName(sdx.NewStartSdxByNameParams().WithName(name))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -394,7 +394,7 @@ func StopSdx(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "Stop sdx cluster by name")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
-	err := sdxClient.Sdx.StopSdxByName(sdx.NewStopSdxByNameParams().WithName(name))
+	_, err := sdxClient.Sdx.StopSdxByName(sdx.NewStopSdxByNameParams().WithName(name))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -419,7 +419,7 @@ func UpgradeSdx(c *cli.Context) {
 			log.Errorf("There's no new image for: %s", name)
 		}
 	} else {
-		err := sdxClient.Sdx.UpgradeDatalakeCluster(sdx.NewUpgradeDatalakeClusterParams().WithName(name))
+		_, err := sdxClient.Sdx.UpgradeDatalakeCluster(sdx.NewUpgradeDatalakeClusterParams().WithName(name))
 		if err != nil {
 			utils.LogErrorAndExit(err)
 		}

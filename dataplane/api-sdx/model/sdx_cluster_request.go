@@ -34,6 +34,9 @@ type SdxClusterRequest struct {
 	// external database
 	ExternalDatabase *SdxDatabaseRequest `json:"externalDatabase,omitempty"`
 
+	// runtime
+	Runtime string `json:"runtime,omitempty"`
+
 	// tags
 	Tags map[string]string `json:"tags,omitempty"`
 }

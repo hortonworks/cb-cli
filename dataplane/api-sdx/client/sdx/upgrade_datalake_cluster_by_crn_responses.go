@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // UpgradeDatalakeClusterByCrnReader is a Reader for the UpgradeDatalakeClusterByCrn structure.
@@ -20,43 +23,45 @@ type UpgradeDatalakeClusterByCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *UpgradeDatalakeClusterByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewUpgradeDatalakeClusterByCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewUpgradeDatalakeClusterByCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewUpgradeDatalakeClusterByCrnDefault creates a UpgradeDatalakeClusterByCrnDefault with default headers values
-func NewUpgradeDatalakeClusterByCrnDefault(code int) *UpgradeDatalakeClusterByCrnDefault {
-	return &UpgradeDatalakeClusterByCrnDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*UpgradeDatalakeClusterByCrnDefault handles this case with default header values.
+// NewUpgradeDatalakeClusterByCrnOK creates a UpgradeDatalakeClusterByCrnOK with default headers values
+func NewUpgradeDatalakeClusterByCrnOK() *UpgradeDatalakeClusterByCrnOK {
+	return &UpgradeDatalakeClusterByCrnOK{}
+}
+
+/*UpgradeDatalakeClusterByCrnOK handles this case with default header values.
 
 successful operation
 */
-type UpgradeDatalakeClusterByCrnDefault struct {
-	_statusCode int
+type UpgradeDatalakeClusterByCrnOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the upgrade datalake cluster by crn default response
-func (o *UpgradeDatalakeClusterByCrnDefault) Code() int {
-	return o._statusCode
+func (o *UpgradeDatalakeClusterByCrnOK) Error() string {
+	return fmt.Sprintf("[POST /sdx/crn/{crn}/upgrade][%d] upgradeDatalakeClusterByCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *UpgradeDatalakeClusterByCrnDefault) Error() string {
-	return fmt.Sprintf("[POST /sdx/crn/{crn}/upgrade][%d] upgradeDatalakeClusterByCrn default ", o._statusCode)
-}
+func (o *UpgradeDatalakeClusterByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *UpgradeDatalakeClusterByCrnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

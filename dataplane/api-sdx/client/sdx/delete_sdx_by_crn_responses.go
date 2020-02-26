@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // DeleteSdxByCrnReader is a Reader for the DeleteSdxByCrn structure.
@@ -20,43 +23,45 @@ type DeleteSdxByCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSdxByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewDeleteSdxByCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewDeleteSdxByCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewDeleteSdxByCrnDefault creates a DeleteSdxByCrnDefault with default headers values
-func NewDeleteSdxByCrnDefault(code int) *DeleteSdxByCrnDefault {
-	return &DeleteSdxByCrnDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*DeleteSdxByCrnDefault handles this case with default header values.
+// NewDeleteSdxByCrnOK creates a DeleteSdxByCrnOK with default headers values
+func NewDeleteSdxByCrnOK() *DeleteSdxByCrnOK {
+	return &DeleteSdxByCrnOK{}
+}
+
+/*DeleteSdxByCrnOK handles this case with default header values.
 
 successful operation
 */
-type DeleteSdxByCrnDefault struct {
-	_statusCode int
+type DeleteSdxByCrnOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the delete sdx by crn default response
-func (o *DeleteSdxByCrnDefault) Code() int {
-	return o._statusCode
+func (o *DeleteSdxByCrnOK) Error() string {
+	return fmt.Sprintf("[DELETE /sdx/crn/{clusterCrn}][%d] deleteSdxByCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *DeleteSdxByCrnDefault) Error() string {
-	return fmt.Sprintf("[DELETE /sdx/crn/{clusterCrn}][%d] deleteSdxByCrn default ", o._statusCode)
-}
+func (o *DeleteSdxByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *DeleteSdxByCrnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

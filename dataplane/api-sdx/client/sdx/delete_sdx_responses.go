@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // DeleteSdxReader is a Reader for the DeleteSdx structure.
@@ -20,43 +23,45 @@ type DeleteSdxReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSdxReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewDeleteSdxDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewDeleteSdxOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewDeleteSdxDefault creates a DeleteSdxDefault with default headers values
-func NewDeleteSdxDefault(code int) *DeleteSdxDefault {
-	return &DeleteSdxDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*DeleteSdxDefault handles this case with default header values.
+// NewDeleteSdxOK creates a DeleteSdxOK with default headers values
+func NewDeleteSdxOK() *DeleteSdxOK {
+	return &DeleteSdxOK{}
+}
+
+/*DeleteSdxOK handles this case with default header values.
 
 successful operation
 */
-type DeleteSdxDefault struct {
-	_statusCode int
+type DeleteSdxOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the delete sdx default response
-func (o *DeleteSdxDefault) Code() int {
-	return o._statusCode
+func (o *DeleteSdxOK) Error() string {
+	return fmt.Sprintf("[DELETE /sdx/{name}][%d] deleteSdxOK  %+v", 200, o.Payload)
 }
 
-func (o *DeleteSdxDefault) Error() string {
-	return fmt.Sprintf("[DELETE /sdx/{name}][%d] deleteSdx default ", o._statusCode)
-}
+func (o *DeleteSdxOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *DeleteSdxDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

@@ -16,11 +16,11 @@ import (
 // swagger:model FeaturesResponse
 type FeaturesResponse struct {
 
+	// enable cluster logs collection
+	ClusterLogsCollection *FeatureSetting `json:"clusterLogsCollection,omitempty"`
+
 	// Telemetry metering feature setting
 	Metering *FeatureSetting `json:"metering,omitempty"`
-
-	// enable cluster deployment log reporting.
-	ReportDeploymentLogs *FeatureSetting `json:"reportDeploymentLogs,omitempty"`
 
 	// enable shared Altus credential usage
 	UseSharedAltusCredential *FeatureSetting `json:"useSharedAltusCredential,omitempty"`
@@ -33,11 +33,11 @@ type FeaturesResponse struct {
 func (m *FeaturesResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateMetering(formats); err != nil {
+	if err := m.validateClusterLogsCollection(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateReportDeploymentLogs(formats); err != nil {
+	if err := m.validateMetering(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -55,6 +55,24 @@ func (m *FeaturesResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *FeaturesResponse) validateClusterLogsCollection(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ClusterLogsCollection) { // not required
+		return nil
+	}
+
+	if m.ClusterLogsCollection != nil {
+		if err := m.ClusterLogsCollection.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("clusterLogsCollection")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *FeaturesResponse) validateMetering(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Metering) { // not required
@@ -65,24 +83,6 @@ func (m *FeaturesResponse) validateMetering(formats strfmt.Registry) error {
 		if err := m.Metering.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metering")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *FeaturesResponse) validateReportDeploymentLogs(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ReportDeploymentLogs) { // not required
-		return nil
-	}
-
-	if m.ReportDeploymentLogs != nil {
-		if err := m.ReportDeploymentLogs.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("reportDeploymentLogs")
 			}
 			return err
 		}

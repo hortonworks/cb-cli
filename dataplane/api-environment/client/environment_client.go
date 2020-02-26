@@ -16,6 +16,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1platform_resources"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1proxies"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1tags"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1utils"
 )
 
@@ -71,6 +72,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Environmen
 	cli.V1platformResources = v1platform_resources.New(transport, formats)
 
 	cli.V1proxies = v1proxies.New(transport, formats)
+
+	cli.V1tags = v1tags.New(transport, formats)
 
 	cli.V1utils = v1utils.New(transport, formats)
 
@@ -128,6 +131,8 @@ type Environment struct {
 
 	V1proxies *v1proxies.Client
 
+	V1tags *v1tags.Client
+
 	V1utils *v1utils.Client
 
 	Transport runtime.ClientTransport
@@ -146,6 +151,8 @@ func (c *Environment) SetTransport(transport runtime.ClientTransport) {
 	c.V1platformResources.SetTransport(transport)
 
 	c.V1proxies.SetTransport(transport)
+
+	c.V1tags.SetTransport(transport)
 
 	c.V1utils.SetTransport(transport)
 

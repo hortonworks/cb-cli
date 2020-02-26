@@ -8,7 +8,9 @@ package model
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // StackAuthenticationV4Request stack authentication v4 request
@@ -16,17 +18,91 @@ import (
 type StackAuthenticationV4Request struct {
 
 	// authentication name for machines
-	LoginUserName string `json:"loginUserName,omitempty"`
+	// Max Length: 32
+	// Min Length: 0
+	LoginUserName *string `json:"loginUserName,omitempty"`
 
 	// public key for accessing instances
-	PublicKey string `json:"publicKey,omitempty"`
+	// Max Length: 2048
+	// Min Length: 0
+	PublicKey *string `json:"publicKey,omitempty"`
 
 	// public key id for accessing instances
-	PublicKeyID string `json:"publicKeyId,omitempty"`
+	// Max Length: 255
+	// Min Length: 0
+	PublicKeyID *string `json:"publicKeyId,omitempty"`
 }
 
 // Validate validates this stack authentication v4 request
 func (m *StackAuthenticationV4Request) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLoginUserName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePublicKey(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePublicKeyID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *StackAuthenticationV4Request) validateLoginUserName(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LoginUserName) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("loginUserName", "body", string(*m.LoginUserName), 0); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("loginUserName", "body", string(*m.LoginUserName), 32); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *StackAuthenticationV4Request) validatePublicKey(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PublicKey) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("publicKey", "body", string(*m.PublicKey), 0); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("publicKey", "body", string(*m.PublicKey), 2048); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *StackAuthenticationV4Request) validatePublicKeyID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PublicKeyID) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("publicKeyId", "body", string(*m.PublicKeyID), 0); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("publicKeyId", "body", string(*m.PublicKeyID), 255); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // StartSdxByNameReader is a Reader for the StartSdxByName structure.
@@ -20,43 +23,45 @@ type StartSdxByNameReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *StartSdxByNameReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewStartSdxByNameDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewStartSdxByNameOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewStartSdxByNameDefault creates a StartSdxByNameDefault with default headers values
-func NewStartSdxByNameDefault(code int) *StartSdxByNameDefault {
-	return &StartSdxByNameDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*StartSdxByNameDefault handles this case with default header values.
+// NewStartSdxByNameOK creates a StartSdxByNameOK with default headers values
+func NewStartSdxByNameOK() *StartSdxByNameOK {
+	return &StartSdxByNameOK{}
+}
+
+/*StartSdxByNameOK handles this case with default header values.
 
 successful operation
 */
-type StartSdxByNameDefault struct {
-	_statusCode int
+type StartSdxByNameOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the start sdx by name default response
-func (o *StartSdxByNameDefault) Code() int {
-	return o._statusCode
+func (o *StartSdxByNameOK) Error() string {
+	return fmt.Sprintf("[POST /sdx/{name}/start][%d] startSdxByNameOK  %+v", 200, o.Payload)
 }
 
-func (o *StartSdxByNameDefault) Error() string {
-	return fmt.Sprintf("[POST /sdx/{name}/start][%d] startSdxByName default ", o._statusCode)
-}
+func (o *StartSdxByNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *StartSdxByNameDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

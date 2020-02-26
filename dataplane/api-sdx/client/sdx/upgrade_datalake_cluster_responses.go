@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // UpgradeDatalakeClusterReader is a Reader for the UpgradeDatalakeCluster structure.
@@ -20,43 +23,45 @@ type UpgradeDatalakeClusterReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *UpgradeDatalakeClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewUpgradeDatalakeClusterDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewUpgradeDatalakeClusterOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewUpgradeDatalakeClusterDefault creates a UpgradeDatalakeClusterDefault with default headers values
-func NewUpgradeDatalakeClusterDefault(code int) *UpgradeDatalakeClusterDefault {
-	return &UpgradeDatalakeClusterDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*UpgradeDatalakeClusterDefault handles this case with default header values.
+// NewUpgradeDatalakeClusterOK creates a UpgradeDatalakeClusterOK with default headers values
+func NewUpgradeDatalakeClusterOK() *UpgradeDatalakeClusterOK {
+	return &UpgradeDatalakeClusterOK{}
+}
+
+/*UpgradeDatalakeClusterOK handles this case with default header values.
 
 successful operation
 */
-type UpgradeDatalakeClusterDefault struct {
-	_statusCode int
+type UpgradeDatalakeClusterOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the upgrade datalake cluster default response
-func (o *UpgradeDatalakeClusterDefault) Code() int {
-	return o._statusCode
+func (o *UpgradeDatalakeClusterOK) Error() string {
+	return fmt.Sprintf("[POST /sdx/{name}/upgrade][%d] upgradeDatalakeClusterOK  %+v", 200, o.Payload)
 }
 
-func (o *UpgradeDatalakeClusterDefault) Error() string {
-	return fmt.Sprintf("[POST /sdx/{name}/upgrade][%d] upgradeDatalakeCluster default ", o._statusCode)
-}
+func (o *UpgradeDatalakeClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *UpgradeDatalakeClusterDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

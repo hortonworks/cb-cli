@@ -111,13 +111,13 @@ func (a *Client) CreateSdx(params *CreateSdxParams) (*CreateSdxOK, error) {
 /*
 DeleteSdx deletes s d x cluster
 */
-func (a *Client) DeleteSdx(params *DeleteSdxParams) error {
+func (a *Client) DeleteSdx(params *DeleteSdxParams) (*DeleteSdxOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSdxParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteSdx",
 		Method:             "DELETE",
 		PathPattern:        "/sdx/{name}",
@@ -130,22 +130,22 @@ func (a *Client) DeleteSdx(params *DeleteSdxParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*DeleteSdxOK), nil
 
 }
 
 /*
 DeleteSdxByCrn deletes s d x cluster by crn
 */
-func (a *Client) DeleteSdxByCrn(params *DeleteSdxByCrnParams) error {
+func (a *Client) DeleteSdxByCrn(params *DeleteSdxByCrnParams) (*DeleteSdxByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSdxByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteSdxByCrn",
 		Method:             "DELETE",
 		PathPattern:        "/sdx/crn/{clusterCrn}",
@@ -158,9 +158,9 @@ func (a *Client) DeleteSdxByCrn(params *DeleteSdxByCrnParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*DeleteSdxByCrnOK), nil
 
 }
 
@@ -333,71 +333,15 @@ func (a *Client) ListSdx(params *ListSdxParams) (*ListSdxOK, error) {
 }
 
 /*
-RedeploySdx redeploys s d x cluster
-*/
-func (a *Client) RedeploySdx(params *RedeploySdxParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewRedeploySdxParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "redeploySdx",
-		Method:             "POST",
-		PathPattern:        "/sdx/{name}/redeploy",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &RedeploySdxReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-RedeploySdxByCrn redeploys s d x cluster by crn
-*/
-func (a *Client) RedeploySdxByCrn(params *RedeploySdxByCrnParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewRedeploySdxByCrnParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "redeploySdxByCrn",
-		Method:             "POST",
-		PathPattern:        "/sdx/crn/{clusterCrn}/redeploy",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &RedeploySdxByCrnReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
 RepairSdxNode repairs an sdx node in the specified hostgroup
 */
-func (a *Client) RepairSdxNode(params *RepairSdxNodeParams) error {
+func (a *Client) RepairSdxNode(params *RepairSdxNodeParams) (*RepairSdxNodeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRepairSdxNodeParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "repairSdxNode",
 		Method:             "POST",
 		PathPattern:        "/sdx/{name}/manual_repair",
@@ -410,22 +354,22 @@ func (a *Client) RepairSdxNode(params *RepairSdxNodeParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RepairSdxNodeOK), nil
 
 }
 
 /*
 RepairSdxNodeByCrn repairs an sdx node in the specified hostgroup by crn
 */
-func (a *Client) RepairSdxNodeByCrn(params *RepairSdxNodeByCrnParams) error {
+func (a *Client) RepairSdxNodeByCrn(params *RepairSdxNodeByCrnParams) (*RepairSdxNodeByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRepairSdxNodeByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "repairSdxNodeByCrn",
 		Method:             "POST",
 		PathPattern:        "/sdx/crn/{crn}/manual_repair",
@@ -438,22 +382,22 @@ func (a *Client) RepairSdxNodeByCrn(params *RepairSdxNodeByCrnParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RepairSdxNodeByCrnOK), nil
 
 }
 
 /*
 RetrySdx retries sdx
 */
-func (a *Client) RetrySdx(params *RetrySdxParams) error {
+func (a *Client) RetrySdx(params *RetrySdxParams) (*RetrySdxOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRetrySdxParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "retrySdx",
 		Method:             "POST",
 		PathPattern:        "/sdx/{name}/retry",
@@ -466,22 +410,22 @@ func (a *Client) RetrySdx(params *RetrySdxParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RetrySdxOK), nil
 
 }
 
 /*
 RetrySdxByCrn retries sdx by crn
 */
-func (a *Client) RetrySdxByCrn(params *RetrySdxByCrnParams) error {
+func (a *Client) RetrySdxByCrn(params *RetrySdxByCrnParams) (*RetrySdxByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRetrySdxByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "retrySdxByCrn",
 		Method:             "POST",
 		PathPattern:        "/sdx/crn/{crn}/retry",
@@ -494,22 +438,22 @@ func (a *Client) RetrySdxByCrn(params *RetrySdxByCrnParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RetrySdxByCrnOK), nil
 
 }
 
 /*
 StartSdxByCrn starts sdx by crn
 */
-func (a *Client) StartSdxByCrn(params *StartSdxByCrnParams) error {
+func (a *Client) StartSdxByCrn(params *StartSdxByCrnParams) (*StartSdxByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartSdxByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "startSdxByCrn",
 		Method:             "POST",
 		PathPattern:        "/sdx/crn/{crn}/start",
@@ -522,22 +466,22 @@ func (a *Client) StartSdxByCrn(params *StartSdxByCrnParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StartSdxByCrnOK), nil
 
 }
 
 /*
 StartSdxByName starts sdx
 */
-func (a *Client) StartSdxByName(params *StartSdxByNameParams) error {
+func (a *Client) StartSdxByName(params *StartSdxByNameParams) (*StartSdxByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartSdxByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "startSdxByName",
 		Method:             "POST",
 		PathPattern:        "/sdx/{name}/start",
@@ -550,22 +494,22 @@ func (a *Client) StartSdxByName(params *StartSdxByNameParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StartSdxByNameOK), nil
 
 }
 
 /*
 StopSdxByCrn stops sdx by crn
 */
-func (a *Client) StopSdxByCrn(params *StopSdxByCrnParams) error {
+func (a *Client) StopSdxByCrn(params *StopSdxByCrnParams) (*StopSdxByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopSdxByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "stopSdxByCrn",
 		Method:             "POST",
 		PathPattern:        "/sdx/crn/{crn}/stop",
@@ -578,22 +522,22 @@ func (a *Client) StopSdxByCrn(params *StopSdxByCrnParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StopSdxByCrnOK), nil
 
 }
 
 /*
 StopSdxByName stops sdx
 */
-func (a *Client) StopSdxByName(params *StopSdxByNameParams) error {
+func (a *Client) StopSdxByName(params *StopSdxByNameParams) (*StopSdxByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopSdxByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "stopSdxByName",
 		Method:             "POST",
 		PathPattern:        "/sdx/{name}/stop",
@@ -606,9 +550,9 @@ func (a *Client) StopSdxByName(params *StopSdxByNameParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StopSdxByNameOK), nil
 
 }
 
@@ -671,13 +615,13 @@ func (a *Client) SyncSdxByCrn(params *SyncSdxByCrnParams) error {
 /*
 UpgradeDatalakeCluster upgrades the datalake cluster to the latest images
 */
-func (a *Client) UpgradeDatalakeCluster(params *UpgradeDatalakeClusterParams) error {
+func (a *Client) UpgradeDatalakeCluster(params *UpgradeDatalakeClusterParams) (*UpgradeDatalakeClusterOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpgradeDatalakeClusterParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "upgradeDatalakeCluster",
 		Method:             "POST",
 		PathPattern:        "/sdx/{name}/upgrade",
@@ -690,22 +634,22 @@ func (a *Client) UpgradeDatalakeCluster(params *UpgradeDatalakeClusterParams) er
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*UpgradeDatalakeClusterOK), nil
 
 }
 
 /*
 UpgradeDatalakeClusterByCrn upgrades the datalake cluster to the latest images
 */
-func (a *Client) UpgradeDatalakeClusterByCrn(params *UpgradeDatalakeClusterByCrnParams) error {
+func (a *Client) UpgradeDatalakeClusterByCrn(params *UpgradeDatalakeClusterByCrnParams) (*UpgradeDatalakeClusterByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpgradeDatalakeClusterByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "upgradeDatalakeClusterByCrn",
 		Method:             "POST",
 		PathPattern:        "/sdx/crn/{crn}/upgrade",
@@ -718,9 +662,37 @@ func (a *Client) UpgradeDatalakeClusterByCrn(params *UpgradeDatalakeClusterByCrn
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*UpgradeDatalakeClusterByCrnOK), nil
+
+}
+
+/*
+Versions lists datalake versions
+*/
+func (a *Client) Versions(params *VersionsParams) (*VersionsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVersionsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "versions",
+		Method:             "GET",
+		PathPattern:        "/sdx/versions",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &VersionsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*VersionsOK), nil
 
 }
 

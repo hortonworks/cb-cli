@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // RetrySdxByCrnReader is a Reader for the RetrySdxByCrn structure.
@@ -20,43 +23,45 @@ type RetrySdxByCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *RetrySdxByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewRetrySdxByCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewRetrySdxByCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewRetrySdxByCrnDefault creates a RetrySdxByCrnDefault with default headers values
-func NewRetrySdxByCrnDefault(code int) *RetrySdxByCrnDefault {
-	return &RetrySdxByCrnDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*RetrySdxByCrnDefault handles this case with default header values.
+// NewRetrySdxByCrnOK creates a RetrySdxByCrnOK with default headers values
+func NewRetrySdxByCrnOK() *RetrySdxByCrnOK {
+	return &RetrySdxByCrnOK{}
+}
+
+/*RetrySdxByCrnOK handles this case with default header values.
 
 successful operation
 */
-type RetrySdxByCrnDefault struct {
-	_statusCode int
+type RetrySdxByCrnOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the retry sdx by crn default response
-func (o *RetrySdxByCrnDefault) Code() int {
-	return o._statusCode
+func (o *RetrySdxByCrnOK) Error() string {
+	return fmt.Sprintf("[POST /sdx/crn/{crn}/retry][%d] retrySdxByCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *RetrySdxByCrnDefault) Error() string {
-	return fmt.Sprintf("[POST /sdx/crn/{crn}/retry][%d] retrySdxByCrn default ", o._statusCode)
-}
+func (o *RetrySdxByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *RetrySdxByCrnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
