@@ -20,6 +20,9 @@ type AttachedFreeIpaRequest struct {
 	// Create freeipa in environment
 	// Required: true
 	Create *bool `json:"create"`
+
+	// The number of FreeIPA instances to create per group when creating freeipa in environment
+	InstanceCountByGroup int32 `json:"instanceCountByGroup,omitempty"`
 }
 
 // Validate validates this attached free ipa request
