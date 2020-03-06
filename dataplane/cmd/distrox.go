@@ -193,6 +193,18 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:   "get-request-from-name",
+				Usage:  "gets the CDP CLI request json for DistroX cluster by name",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build(),
+				Action: distrox.GetRequestByName,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }
