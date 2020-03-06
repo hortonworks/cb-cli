@@ -375,3 +375,21 @@ func SyncDistroX(c *cli.Context) {
 	}
 	log.Infof("[SyncDistroX] DistroX synced, name: %s", name)
 }
+
+func GetRequestByName(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "getting the CDP CLI request")
+
+	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
+	name := c.String(fl.FlName.Name)
+	log.Infof("[GetRequestByName] getting the CDP CLI request, name: %s", name)
+	result, err := dxClient.Cloudbreak.V1distrox.GetDistroXRequestV1ByName(v1distrox.NewGetDistroXRequestV1ByNameParams().WithName(name))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	bytes, err := json.Marshal(result)
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	commonutils.Println(string(bytes))
+	log.Infof("[GetRequestByName] getting the CDP CLI request, name: %s", name)
+}
