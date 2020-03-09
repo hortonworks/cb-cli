@@ -194,7 +194,7 @@ func init() {
 				},
 			},
 			{
-				Name:   "get-request-from-name",
+				Name:   "get-request",
 				Usage:  "gets the CDP CLI request json for DistroX cluster by name",
 				Before: cf.CheckConfigAndCommandFlags,
 				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build(),

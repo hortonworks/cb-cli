@@ -21,6 +21,7 @@ import (
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/cb-cli/dataplane/oauth"
 	"github.com/hortonworks/dp-cli-common/utils"
+	commonUtils "github.com/hortonworks/dp-cli-common/utils"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 
@@ -445,4 +446,22 @@ func checkClientVersion(client *client.Environment, version string) {
 	if !valid {
 		utils.LogErrorAndExit(errors.New(message))
 	}
+}
+
+func GetRequestByName(c *cli.Context) {
+	defer commonUtils.TimeTrack(time.Now(), "getting Environment CDP CLI request")
+
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	name := c.String(fl.FlName.Name)
+	log.Infof("[GetRequestByName] getting Environment CDP CLI request, name: %s", name)
+	result, err := envClient.Environment.V1env.GetCreateEnvironmentForCliByName(v1env.NewGetCreateEnvironmentForCliByNameParams().WithName(name))
+	if err != nil {
+		commonUtils.LogErrorAndExit(err)
+	}
+	bytes, err := json.Marshal(result)
+	if err != nil {
+		commonUtils.LogErrorAndExit(err)
+	}
+	commonUtils.Println(string(bytes))
+	log.Infof("[GetRequestByName] getting Environment CDP CLI request, name: %s", name)
 }

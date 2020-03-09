@@ -121,6 +121,18 @@ func init() {
 				},
 			},
 			{
+				Name:   "get-request",
+				Usage:  "gets the the CDP CLI request json for an Environment by name",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build(),
+				Action: env.GetRequestByName,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:  "generate-template",
 				Usage: "creates an environment JSON template",
 				Subcommands: []cli.Command{

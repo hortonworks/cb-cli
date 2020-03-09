@@ -18,7 +18,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/oauth"
 	"github.com/hortonworks/cb-cli/dataplane/types"
 	"github.com/hortonworks/cb-cli/dataplane/utils"
-	commonutils "github.com/hortonworks/dp-cli-common/utils"
+	commonUtils "github.com/hortonworks/dp-cli-common/utils"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 )
@@ -86,7 +86,7 @@ func convertViewResponseToStack(s *model.StackViewV4Response) *dxOut {
 }
 
 func DeleteDistroX(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "delete DistroX cluster")
+	defer commonUtils.TimeTrack(time.Now(), "delete DistroX cluster")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	name := c.String(fl.FlName.Name)
@@ -99,7 +99,7 @@ func DeleteDistroX(c *cli.Context) {
 }
 
 func DeleteMultipleDistroxClusters(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "delete multiple DistroX clusters by name")
+	defer commonUtils.TimeTrack(time.Now(), "delete multiple DistroX clusters by name")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	val := c.String(fl.FlNames.Name)
@@ -112,24 +112,24 @@ func DeleteMultipleDistroxClusters(c *cli.Context) {
 	err := dxClient.Cloudbreak.V1distrox.DeleteMultipleDistroXClustersByNamesV1(
 		v1distrox.NewDeleteMultipleDistroXClustersByNamesV1Params().WithForced(&forced).WithBody(&request))
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 }
 
 func assembleDistroXRequest(c *cli.Context) *model.DistroXV1Request {
 	path := c.String(fl.FlInputJson.Name)
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 
 	log.Infof("[assembleDistroXTemplate] read DistroX create json from file: %s", path)
-	content := commonutils.ReadFile(path)
+	content := commonUtils.ReadFile(path)
 
 	var req model.DistroXV1Request
 	err := json.Unmarshal(content, &req)
 	if err != nil {
 		msg := fmt.Sprintf(`Invalid json format: %s. Please make sure that the json is valid (check for commas and double quotes).`, err.Error())
-		commonutils.LogErrorMessageAndExit(msg)
+		commonUtils.LogErrorMessageAndExit(msg)
 	}
 
 	name := c.String(fl.FlName.Name)
@@ -145,7 +145,7 @@ func assembleDistroXRequest(c *cli.Context) *model.DistroXV1Request {
 		}
 	}
 	if req.Name == nil || len(*req.Name) == 0 {
-		commonutils.LogErrorMessageAndExit("Name of the DistroX must be set either in the template or with the --name command line option.")
+		commonUtils.LogErrorMessageAndExit("Name of the DistroX must be set either in the template or with the --name command line option.")
 	}
 
 	cmUser := c.String(fl.FlCMUserOptional.Name)
@@ -159,7 +159,7 @@ func assembleDistroXRequest(c *cli.Context) *model.DistroXV1Request {
 				req.Cluster.Password = &cmPassword
 			}
 		} else {
-			commonutils.LogErrorMessageAndExit("Missing DistroX node in JSON")
+			commonUtils.LogErrorMessageAndExit("Missing DistroX node in JSON")
 		}
 	}
 	return &req
@@ -168,9 +168,9 @@ func assembleDistroXRequest(c *cli.Context) *model.DistroXV1Request {
 func ScaleDistroX(c *cli.Context) {
 	desiredCount, err := strconv.Atoi(c.String(fl.FlDesiredNodeCount.Name))
 	if err != nil {
-		commonutils.LogErrorMessageAndExit("Unable to parse as number: " + c.String(fl.FlDesiredNodeCount.Name))
+		commonUtils.LogErrorMessageAndExit("Unable to parse as number: " + c.String(fl.FlDesiredNodeCount.Name))
 	}
-	defer commonutils.TimeTrack(time.Now(), "scale DistroX")
+	defer commonUtils.TimeTrack(time.Now(), "scale DistroX")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 
@@ -182,7 +182,7 @@ func ScaleDistroX(c *cli.Context) {
 	log.Infof("[ScaleDistroX] scaling DistroX, name: %s", name)
 	err = dxClient.Cloudbreak.V1distrox.PutScalingDistroXV1ByName(v1distrox.NewPutScalingDistroXV1ByNameParams().WithName(name).WithBody(req))
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 	log.Infof("[ScaleDistroX] DistroX scaled, name: %s", name)
 
@@ -192,14 +192,14 @@ func ScaleDistroX(c *cli.Context) {
 }
 
 func StartDistroX(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "start DistroX")
+	defer commonUtils.TimeTrack(time.Now(), "start DistroX")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	name := c.String(fl.FlName.Name)
 	log.Infof("[StartDistroX] starting DistroX, name: %s", name)
 	err := dxClient.Cloudbreak.V1distrox.StartDistroXV1ByName(v1distrox.NewStartDistroXV1ByNameParams().WithName(name))
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 	log.Infof("[StartDistroX] DistroX started, name: %s", name)
 
@@ -209,14 +209,14 @@ func StartDistroX(c *cli.Context) {
 }
 
 func StopDistroX(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "stop DistroX")
+	defer commonUtils.TimeTrack(time.Now(), "stop DistroX")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	name := c.String(fl.FlName.Name)
 	log.Infof("[StopDistroX] stopping DistroX, name: %s", name)
 	err := dxClient.Cloudbreak.V1distrox.StopDistroXV1ByName(v1distrox.NewStopDistroXV1ByNameParams().WithName(name))
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 	log.Infof("[StopDistroX] DistroX stopted, name: %s", name)
 
@@ -226,7 +226,7 @@ func StopDistroX(c *cli.Context) {
 }
 
 func CreateDistroX(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "create DistroX")
+	defer commonUtils.TimeTrack(time.Now(), "create DistroX")
 
 	req := assembleDistroXRequest(c)
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
@@ -251,20 +251,20 @@ func ChangeImage(c *cli.Context) {
 }
 
 func DescribeDistroX(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "describe DistroX")
+	defer commonUtils.TimeTrack(time.Now(), "describe DistroX")
 
 	dxClient := oauth.NewCloudbreakHTTPClientFromContext(c)
-	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	output := commonUtils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	resp, err := dxClient.Cloudbreak.V1distrox.GetDistroXV1ByName(v1distrox.NewGetDistroXV1ByNameParams().WithName(c.String(fl.FlName.Name)))
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 	s := resp.Payload
 
 	envClient := oauth.Environment(*oauth.NewEnvironmentClientFromContext(c)).Environment
 	envResp, err := envClient.V1env.GetEnvironmentV1ByCrn(v1env.NewGetEnvironmentV1ByCrnParams().WithCrn(s.EnvironmentCrn))
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 
 	output.Write(append(stackHeader, "STATUSREASON"), &stackOutDescribe{
@@ -275,17 +275,17 @@ func DescribeDistroX(c *cli.Context) {
 }
 
 func ListDistroXs(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "list DistroXs")
+	defer commonUtils.TimeTrack(time.Now(), "list DistroXs")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
-	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	output := commonUtils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 
 	resp, err := dxClient.Cloudbreak.V1distrox.ListDistroXV1(v1distrox.NewListDistroXV1Params())
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 
-	var tableRows []commonutils.Row
+	var tableRows []commonUtils.Row
 	for _, stack := range resp.Payload.Responses {
 		tableRows = append(tableRows, convertViewResponseToStack(stack))
 	}
@@ -294,7 +294,7 @@ func ListDistroXs(c *cli.Context) {
 }
 
 func GetListOfDistroXs(c *cli.Context) *v1distrox.ListDistroXV1OK {
-	defer commonutils.TimeTrack(time.Now(), "list DistroXs")
+	defer commonUtils.TimeTrack(time.Now(), "list DistroXs")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 
@@ -306,7 +306,7 @@ func GetListOfDistroXs(c *cli.Context) *v1distrox.ListDistroXV1OK {
 }
 
 func RepairDistroXHostGroups(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "repair DistroX")
+	defer commonUtils.TimeTrack(time.Now(), "repair DistroX")
 
 	var request model.DistroXRepairV1Request
 	hostGroups := strings.Split(c.String(fl.FlHostGroups.Name), ",")
@@ -316,7 +316,7 @@ func RepairDistroXHostGroups(c *cli.Context) {
 }
 
 func RepairDistroXNodes(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "repair DistroX")
+	defer commonUtils.TimeTrack(time.Now(), "repair DistroX")
 
 	var request model.DistroXRepairV1Request
 	deleteVolumes := c.Bool(fl.FlDeleteVolumes.Name)
@@ -337,7 +337,7 @@ func repairDistroX(c *cli.Context, request model.DistroXRepairV1Request) {
 
 	err := dxClient.Cloudbreak.V1distrox.RepairDistroXV1ByName(v1distrox.NewRepairDistroXV1ByNameParams().WithName(name).WithBody(&request))
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 	log.Infof("[RepairDistroX] DistroX repaired, name: %s", name)
 
@@ -347,14 +347,14 @@ func repairDistroX(c *cli.Context, request model.DistroXRepairV1Request) {
 }
 
 func RetryDistroX(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "retry DistroX creation")
+	defer commonUtils.TimeTrack(time.Now(), "retry DistroX creation")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	name := c.String(fl.FlName.Name)
 	log.Infof("[RetryDistroX retrying DistroX creation, name: %s", name)
 	err := dxClient.Cloudbreak.V1distrox.RetryDistroXV1ByName(v1distrox.NewRetryDistroXV1ByNameParams().WithName(name))
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 	log.Infof("[RetryDistroX] DistroX creation retried, name: %s", name)
 
@@ -364,32 +364,32 @@ func RetryDistroX(c *cli.Context) {
 }
 
 func SyncDistroX(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "sync DistroX")
+	defer commonUtils.TimeTrack(time.Now(), "sync DistroX")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	name := c.String(fl.FlName.Name)
 	log.Infof("[SyncDistroX] syncing DistroX, name: %s", name)
 	err := dxClient.Cloudbreak.V1distrox.SyncDistroXV1ByName(v1distrox.NewSyncDistroXV1ByNameParams().WithName(name))
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 	log.Infof("[SyncDistroX] DistroX synced, name: %s", name)
 }
 
 func GetRequestByName(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "getting the CDP CLI request")
+	defer commonUtils.TimeTrack(time.Now(), "getting Datahub CDP CLI request")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	name := c.String(fl.FlName.Name)
-	log.Infof("[GetRequestByName] getting the CDP CLI request, name: %s", name)
+	log.Infof("[GetRequestByName] getting Datahub CDP CLI request, name: %s", name)
 	result, err := dxClient.Cloudbreak.V1distrox.GetDistroXRequestV1ByName(v1distrox.NewGetDistroXRequestV1ByNameParams().WithName(name))
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
 	bytes, err := json.Marshal(result)
 	if err != nil {
-		commonutils.LogErrorAndExit(err)
+		commonUtils.LogErrorAndExit(err)
 	}
-	commonutils.Println(string(bytes))
-	log.Infof("[GetRequestByName] getting the CDP CLI request, name: %s", name)
+	commonUtils.Println(string(bytes))
+	log.Infof("[GetRequestByName] getting Datahub CDP CLI request, name: %s", name)
 }
