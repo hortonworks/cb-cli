@@ -55,6 +55,34 @@ func (a *Client) ChangeImageStackInWorkspaceV4(params *ChangeImageStackInWorkspa
 }
 
 /*
+CheckForUpgradeByName checks for upgrade options by name
+*/
+func (a *Client) CheckForUpgradeByName(params *CheckForUpgradeByNameParams) (*CheckForUpgradeByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCheckForUpgradeByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "checkForUpgradeByName",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/check_stack_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CheckForUpgradeByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CheckForUpgradeByNameOK), nil
+
+}
+
+/*
 CheckForUpgradeInWorkspaceV4 checks for upgrades for the stack by name in workspace
 
 Checks for upgrades for the given cluster.
@@ -739,6 +767,34 @@ func (a *Client) UpgradeClusterInWorkspaceV4(params *UpgradeClusterInWorkspaceV4
 		return nil, err
 	}
 	return result.(*UpgradeClusterInWorkspaceV4OK), nil
+
+}
+
+/*
+UpgradeStackByName upgrades a cluster to the latest c m or c d h version
+*/
+func (a *Client) UpgradeStackByName(params *UpgradeStackByNameParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeStackByNameParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeStackByName",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/stack_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeStackByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 
 }
 

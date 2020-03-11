@@ -31,6 +31,10 @@ type DetailedEnvironmentV1Response struct {
 	// Cloud platform of the environment.
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
+	// Cloud storage validation enabled or not.
+	// Enum: [ENABLED DISABLED]
+	CloudStorageValidation string `json:"cloudStorageValidation,omitempty"`
+
 	// Create freeipa in environment
 	CreateFreeIpa bool `json:"createFreeIpa,omitempty"`
 
@@ -104,6 +108,10 @@ func (m *DetailedEnvironmentV1Response) Validate(formats strfmt.Registry) error 
 	}
 
 	if err := m.validateAws(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCloudStorageValidation(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -188,6 +196,49 @@ func (m *DetailedEnvironmentV1Response) validateAws(formats strfmt.Registry) err
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var detailedEnvironmentV1ResponseTypeCloudStorageValidationPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		detailedEnvironmentV1ResponseTypeCloudStorageValidationPropEnum = append(detailedEnvironmentV1ResponseTypeCloudStorageValidationPropEnum, v)
+	}
+}
+
+const (
+
+	// DetailedEnvironmentV1ResponseCloudStorageValidationENABLED captures enum value "ENABLED"
+	DetailedEnvironmentV1ResponseCloudStorageValidationENABLED string = "ENABLED"
+
+	// DetailedEnvironmentV1ResponseCloudStorageValidationDISABLED captures enum value "DISABLED"
+	DetailedEnvironmentV1ResponseCloudStorageValidationDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *DetailedEnvironmentV1Response) validateCloudStorageValidationEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, detailedEnvironmentV1ResponseTypeCloudStorageValidationPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DetailedEnvironmentV1Response) validateCloudStorageValidation(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CloudStorageValidation) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCloudStorageValidationEnum("cloudStorageValidation", "body", m.CloudStorageValidation); err != nil {
+		return err
 	}
 
 	return nil

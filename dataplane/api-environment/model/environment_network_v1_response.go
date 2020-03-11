@@ -25,11 +25,20 @@ type EnvironmentNetworkV1Response struct {
 	// Subnet ids of the specified networks
 	Azure *EnvironmentNetworkAzureV1Params `json:"azure,omitempty"`
 
+	// Subnet metadata of CB subnets, union of the DWX and public subnets
+	CbSubnets map[string]CloudSubnet `json:"cbSubnets,omitempty"`
+
 	// id of the resource
 	Crn string `json:"crn,omitempty"`
 
+	// Subnet metadata of DWX subnets
+	DwxSubnets map[string]CloudSubnet `json:"dwxSubnets,omitempty"`
+
 	// The existing network is created by the user, otherwise created by the Cloudbreak.
 	ExistingNetwork bool `json:"existingNetwork,omitempty"`
+
+	// Subnet metadata of MLX subnets
+	MlxSubnets map[string]CloudSubnet `json:"mlxSubnets,omitempty"`
 
 	// Mock parameters
 	Mock *EnvironmentNetworkMockV1Params `json:"mock,omitempty"`
@@ -70,6 +79,18 @@ func (m *EnvironmentNetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCbSubnets(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDwxSubnets(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMlxSubnets(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -138,6 +159,72 @@ func (m *EnvironmentNetworkV1Response) validateAzure(formats strfmt.Registry) er
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateCbSubnets(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CbSubnets) { // not required
+		return nil
+	}
+
+	for k := range m.CbSubnets {
+
+		if err := validate.Required("cbSubnets"+"."+k, "body", m.CbSubnets[k]); err != nil {
+			return err
+		}
+		if val, ok := m.CbSubnets[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateDwxSubnets(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DwxSubnets) { // not required
+		return nil
+	}
+
+	for k := range m.DwxSubnets {
+
+		if err := validate.Required("dwxSubnets"+"."+k, "body", m.DwxSubnets[k]); err != nil {
+			return err
+		}
+		if val, ok := m.DwxSubnets[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateMlxSubnets(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.MlxSubnets) { // not required
+		return nil
+	}
+
+	for k := range m.MlxSubnets {
+
+		if err := validate.Required("mlxSubnets"+"."+k, "body", m.MlxSubnets[k]); err != nil {
+			return err
+		}
+		if val, ok := m.MlxSubnets[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil

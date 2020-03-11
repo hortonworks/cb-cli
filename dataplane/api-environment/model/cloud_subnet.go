@@ -6,9 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CloudSubnet cloud subnet
@@ -35,10 +39,72 @@ type CloudSubnet struct {
 
 	// private subnet
 	PrivateSubnet bool `json:"privateSubnet,omitempty"`
+
+	// type
+	// Enum: [PUBLIC MLX DWX PRIVATE]
+	Type string `json:"type,omitempty"`
 }
 
 // Validate validates this cloud subnet
 func (m *CloudSubnet) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var cloudSubnetTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["PUBLIC","MLX","DWX","PRIVATE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		cloudSubnetTypeTypePropEnum = append(cloudSubnetTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CloudSubnetTypePUBLIC captures enum value "PUBLIC"
+	CloudSubnetTypePUBLIC string = "PUBLIC"
+
+	// CloudSubnetTypeMLX captures enum value "MLX"
+	CloudSubnetTypeMLX string = "MLX"
+
+	// CloudSubnetTypeDWX captures enum value "DWX"
+	CloudSubnetTypeDWX string = "DWX"
+
+	// CloudSubnetTypePRIVATE captures enum value "PRIVATE"
+	CloudSubnetTypePRIVATE string = "PRIVATE"
+)
+
+// prop value enum
+func (m *CloudSubnet) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, cloudSubnetTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CloudSubnet) validateType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
+		return err
+	}
+
 	return nil
 }
 

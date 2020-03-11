@@ -28,6 +28,10 @@ type EnvironmentEditV1Request struct {
 	// AWS Specific parameters.
 	Aws *AwsEnvironmentV1Parameters `json:"aws,omitempty"`
 
+	// Cloud storage validation enabled or not.
+	// Enum: [ENABLED DISABLED]
+	CloudStorageValidation string `json:"cloudStorageValidation,omitempty"`
+
 	// description of the resource
 	// Max Length: 1000
 	// Min Length: 0
@@ -56,6 +60,10 @@ func (m *EnvironmentEditV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAws(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCloudStorageValidation(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -116,6 +124,49 @@ func (m *EnvironmentEditV1Request) validateAws(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var environmentEditV1RequestTypeCloudStorageValidationPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		environmentEditV1RequestTypeCloudStorageValidationPropEnum = append(environmentEditV1RequestTypeCloudStorageValidationPropEnum, v)
+	}
+}
+
+const (
+
+	// EnvironmentEditV1RequestCloudStorageValidationENABLED captures enum value "ENABLED"
+	EnvironmentEditV1RequestCloudStorageValidationENABLED string = "ENABLED"
+
+	// EnvironmentEditV1RequestCloudStorageValidationDISABLED captures enum value "DISABLED"
+	EnvironmentEditV1RequestCloudStorageValidationDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *EnvironmentEditV1Request) validateCloudStorageValidationEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, environmentEditV1RequestTypeCloudStorageValidationPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *EnvironmentEditV1Request) validateCloudStorageValidation(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CloudStorageValidation) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCloudStorageValidationEnum("cloudStorageValidation", "body", m.CloudStorageValidation); err != nil {
+		return err
 	}
 
 	return nil
