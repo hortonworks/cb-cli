@@ -143,15 +143,15 @@ func init() {
 						},
 					},
 					{
-						Name:  "stack",
-						Usage: "stack upgrade for the SDX cluster",
+						Name:  "cluster",
+						Usage: "cluster upgrade for the SDX",
 						Subcommands: []cli.Command{
 							{
 								Name:   "check",
-								Usage:  "check for stack upgrades",
+								Usage:  "check for cluster upgrades",
 								Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
 								Flags:  fl.NewFlagBuilder().AddOutputFlag().AddNameFlag().AddAuthenticationFlags().Build(),
-								Action: sdx.CheckSdxStackUpgrade,
+								Action: sdx.CheckSdxClusterUpgrade,
 								BashComplete: func(c *cli.Context) {
 									for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddNameFlag().AddAuthenticationFlags().Build() {
 										fl.PrintFlagCompletion(f)
@@ -160,10 +160,10 @@ func init() {
 							},
 							{
 								Name:   "upgrade",
-								Usage:  "upgrade the stack of the SDX cluster",
+								Usage:  "upgrade the SDX cluster",
 								Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
 								Flags:  fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlImageId).Build(),
-								Action: sdx.SdxStackUpgrade,
+								Action: sdx.SdxClusterkUpgrade,
 								BashComplete: func(c *cli.Context) {
 									for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlImageId).Build() {
 										fl.PrintFlagCompletion(f)
