@@ -33,7 +33,7 @@ type NodeHealthDetails struct {
 
 	// status
 	// Required: true
-	// Enum: [REQUESTED CREATED UNREGISTERED REGISTERED DECOMMISSIONED TERMINATED DELETED_ON_PROVIDER_SIDE FAILED STOPPED REBOOTING UNREACHABLE]
+	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE STACK_AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED UNREACHABLE UNHEALTHY DELETED_ON_PROVIDER_SIDE UNKNOWN]
 	Status *string `json:"status"`
 }
 
@@ -94,7 +94,7 @@ var nodeHealthDetailsTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","FAILED","STOPPED","REBOOTING","UNREACHABLE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","STACK_AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","CREATE_FAILED","DELETE_IN_PROGRESS","DELETE_FAILED","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED","UNREACHABLE","UNHEALTHY","DELETED_ON_PROVIDER_SIDE","UNKNOWN"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -107,35 +107,74 @@ const (
 	// NodeHealthDetailsStatusREQUESTED captures enum value "REQUESTED"
 	NodeHealthDetailsStatusREQUESTED string = "REQUESTED"
 
-	// NodeHealthDetailsStatusCREATED captures enum value "CREATED"
-	NodeHealthDetailsStatusCREATED string = "CREATED"
+	// NodeHealthDetailsStatusCREATEINPROGRESS captures enum value "CREATE_IN_PROGRESS"
+	NodeHealthDetailsStatusCREATEINPROGRESS string = "CREATE_IN_PROGRESS"
 
-	// NodeHealthDetailsStatusUNREGISTERED captures enum value "UNREGISTERED"
-	NodeHealthDetailsStatusUNREGISTERED string = "UNREGISTERED"
+	// NodeHealthDetailsStatusAVAILABLE captures enum value "AVAILABLE"
+	NodeHealthDetailsStatusAVAILABLE string = "AVAILABLE"
 
-	// NodeHealthDetailsStatusREGISTERED captures enum value "REGISTERED"
-	NodeHealthDetailsStatusREGISTERED string = "REGISTERED"
+	// NodeHealthDetailsStatusSTACKAVAILABLE captures enum value "STACK_AVAILABLE"
+	NodeHealthDetailsStatusSTACKAVAILABLE string = "STACK_AVAILABLE"
 
-	// NodeHealthDetailsStatusDECOMMISSIONED captures enum value "DECOMMISSIONED"
-	NodeHealthDetailsStatusDECOMMISSIONED string = "DECOMMISSIONED"
+	// NodeHealthDetailsStatusUPDATEINPROGRESS captures enum value "UPDATE_IN_PROGRESS"
+	NodeHealthDetailsStatusUPDATEINPROGRESS string = "UPDATE_IN_PROGRESS"
 
-	// NodeHealthDetailsStatusTERMINATED captures enum value "TERMINATED"
-	NodeHealthDetailsStatusTERMINATED string = "TERMINATED"
+	// NodeHealthDetailsStatusUPDATEREQUESTED captures enum value "UPDATE_REQUESTED"
+	NodeHealthDetailsStatusUPDATEREQUESTED string = "UPDATE_REQUESTED"
 
-	// NodeHealthDetailsStatusDELETEDONPROVIDERSIDE captures enum value "DELETED_ON_PROVIDER_SIDE"
-	NodeHealthDetailsStatusDELETEDONPROVIDERSIDE string = "DELETED_ON_PROVIDER_SIDE"
+	// NodeHealthDetailsStatusUPDATEFAILED captures enum value "UPDATE_FAILED"
+	NodeHealthDetailsStatusUPDATEFAILED string = "UPDATE_FAILED"
 
-	// NodeHealthDetailsStatusFAILED captures enum value "FAILED"
-	NodeHealthDetailsStatusFAILED string = "FAILED"
+	// NodeHealthDetailsStatusCREATEFAILED captures enum value "CREATE_FAILED"
+	NodeHealthDetailsStatusCREATEFAILED string = "CREATE_FAILED"
+
+	// NodeHealthDetailsStatusDELETEINPROGRESS captures enum value "DELETE_IN_PROGRESS"
+	NodeHealthDetailsStatusDELETEINPROGRESS string = "DELETE_IN_PROGRESS"
+
+	// NodeHealthDetailsStatusDELETEFAILED captures enum value "DELETE_FAILED"
+	NodeHealthDetailsStatusDELETEFAILED string = "DELETE_FAILED"
+
+	// NodeHealthDetailsStatusDELETECOMPLETED captures enum value "DELETE_COMPLETED"
+	NodeHealthDetailsStatusDELETECOMPLETED string = "DELETE_COMPLETED"
 
 	// NodeHealthDetailsStatusSTOPPED captures enum value "STOPPED"
 	NodeHealthDetailsStatusSTOPPED string = "STOPPED"
 
-	// NodeHealthDetailsStatusREBOOTING captures enum value "REBOOTING"
-	NodeHealthDetailsStatusREBOOTING string = "REBOOTING"
+	// NodeHealthDetailsStatusSTOPREQUESTED captures enum value "STOP_REQUESTED"
+	NodeHealthDetailsStatusSTOPREQUESTED string = "STOP_REQUESTED"
+
+	// NodeHealthDetailsStatusSTARTREQUESTED captures enum value "START_REQUESTED"
+	NodeHealthDetailsStatusSTARTREQUESTED string = "START_REQUESTED"
+
+	// NodeHealthDetailsStatusSTOPINPROGRESS captures enum value "STOP_IN_PROGRESS"
+	NodeHealthDetailsStatusSTOPINPROGRESS string = "STOP_IN_PROGRESS"
+
+	// NodeHealthDetailsStatusSTARTINPROGRESS captures enum value "START_IN_PROGRESS"
+	NodeHealthDetailsStatusSTARTINPROGRESS string = "START_IN_PROGRESS"
+
+	// NodeHealthDetailsStatusSTARTFAILED captures enum value "START_FAILED"
+	NodeHealthDetailsStatusSTARTFAILED string = "START_FAILED"
+
+	// NodeHealthDetailsStatusSTOPFAILED captures enum value "STOP_FAILED"
+	NodeHealthDetailsStatusSTOPFAILED string = "STOP_FAILED"
+
+	// NodeHealthDetailsStatusWAITFORSYNC captures enum value "WAIT_FOR_SYNC"
+	NodeHealthDetailsStatusWAITFORSYNC string = "WAIT_FOR_SYNC"
+
+	// NodeHealthDetailsStatusMAINTENANCEMODEENABLED captures enum value "MAINTENANCE_MODE_ENABLED"
+	NodeHealthDetailsStatusMAINTENANCEMODEENABLED string = "MAINTENANCE_MODE_ENABLED"
 
 	// NodeHealthDetailsStatusUNREACHABLE captures enum value "UNREACHABLE"
 	NodeHealthDetailsStatusUNREACHABLE string = "UNREACHABLE"
+
+	// NodeHealthDetailsStatusUNHEALTHY captures enum value "UNHEALTHY"
+	NodeHealthDetailsStatusUNHEALTHY string = "UNHEALTHY"
+
+	// NodeHealthDetailsStatusDELETEDONPROVIDERSIDE captures enum value "DELETED_ON_PROVIDER_SIDE"
+	NodeHealthDetailsStatusDELETEDONPROVIDERSIDE string = "DELETED_ON_PROVIDER_SIDE"
+
+	// NodeHealthDetailsStatusUNKNOWN captures enum value "UNKNOWN"
+	NodeHealthDetailsStatusUNKNOWN string = "UNKNOWN"
 )
 
 // prop value enum

@@ -45,6 +45,9 @@ type CredentialBase struct {
 	// verification status text for credential, if empty then there is no verification issue
 	VerificationStatusText string `json:"verificationStatusText,omitempty"`
 
+	// verify credential permissions
+	VerifyPermissions bool `json:"verifyPermissions,omitempty"`
+
 	// custom parameters for Yarn credential
 	Yarn *YarnV1Parameters `json:"yarn,omitempty"`
 }

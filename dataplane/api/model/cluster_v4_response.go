@@ -47,6 +47,9 @@ type ClusterV4Response struct {
 	// custom queue for yarn orchestrator
 	CustomQueue string `json:"customQueue,omitempty"`
 
+	// Contains valid Crn for a redbeams database server
+	DatabaseServerCrn string `json:"databaseServerCrn,omitempty"`
+
 	// Database configurations for the cluster
 	Databases []*DatabaseV4Response `json:"databases"`
 

@@ -73,6 +73,9 @@ type SimpleEnvironmentV1Response struct {
 	// Network related specifics of the environment.
 	Network *EnvironmentNetworkV1Response `json:"network,omitempty"`
 
+	// Parent environment cloud platform
+	ParentEnvironmentCloudPlatform string `json:"parentEnvironmentCloudPlatform,omitempty"`
+
 	// Parent environment global identifier
 	ParentEnvironmentCrn string `json:"parentEnvironmentCrn,omitempty"`
 
