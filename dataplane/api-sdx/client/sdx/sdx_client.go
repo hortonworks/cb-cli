@@ -25,58 +25,58 @@ type Client struct {
 }
 
 /*
-CheckForStackUpgradeByCrn checks for stack upgrade options by crn
+CheckForClusterUpgradeByCrn checks for cluster upgrade options by crn
 */
-func (a *Client) CheckForStackUpgradeByCrn(params *CheckForStackUpgradeByCrnParams) (*CheckForStackUpgradeByCrnOK, error) {
+func (a *Client) CheckForClusterUpgradeByCrn(params *CheckForClusterUpgradeByCrnParams) (*CheckForClusterUpgradeByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewCheckForStackUpgradeByCrnParams()
+		params = NewCheckForClusterUpgradeByCrnParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkForStackUpgradeByCrn",
+		ID:                 "checkForClusterUpgradeByCrn",
 		Method:             "GET",
-		PathPattern:        "/sdx/crn/{crn}/check_stack_upgrade",
+		PathPattern:        "/sdx/crn/{crn}/check_cluster_upgrade",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &CheckForStackUpgradeByCrnReader{formats: a.formats},
+		Reader:             &CheckForClusterUpgradeByCrnReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CheckForStackUpgradeByCrnOK), nil
+	return result.(*CheckForClusterUpgradeByCrnOK), nil
 
 }
 
 /*
-CheckForStackUpgradeByName checks for upgrade options by name
+CheckForClusterUpgradeByName checks for cluster upgrade options by name
 */
-func (a *Client) CheckForStackUpgradeByName(params *CheckForStackUpgradeByNameParams) (*CheckForStackUpgradeByNameOK, error) {
+func (a *Client) CheckForClusterUpgradeByName(params *CheckForClusterUpgradeByNameParams) (*CheckForClusterUpgradeByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewCheckForStackUpgradeByNameParams()
+		params = NewCheckForClusterUpgradeByNameParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkForStackUpgradeByName",
+		ID:                 "checkForClusterUpgradeByName",
 		Method:             "GET",
-		PathPattern:        "/sdx/{name}/check_stack_upgrade",
+		PathPattern:        "/sdx/{name}/check_cluster_upgrade",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &CheckForStackUpgradeByNameReader{formats: a.formats},
+		Reader:             &CheckForClusterUpgradeByNameReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CheckForStackUpgradeByNameOK), nil
+	return result.(*CheckForClusterUpgradeByNameOK), nil
 
 }
 
@@ -669,6 +669,62 @@ func (a *Client) SyncSdxByCrn(params *SyncSdxByCrnParams) error {
 }
 
 /*
+UpgradeClusterByCrn upgrades the datalake cluster by crn
+*/
+func (a *Client) UpgradeClusterByCrn(params *UpgradeClusterByCrnParams) (*UpgradeClusterByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeClusterByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeClusterByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/crn/{crn}/cluster_upgrade/image/{image}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeClusterByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeClusterByCrnOK), nil
+
+}
+
+/*
+UpgradeClusterByName upgrades the datalake cluster by name
+*/
+func (a *Client) UpgradeClusterByName(params *UpgradeClusterByNameParams) (*UpgradeClusterByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeClusterByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeClusterByName",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/cluster_upgrade/image/{image}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeClusterByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeClusterByNameOK), nil
+
+}
+
+/*
 UpgradeDatalakeCluster upgrades the datalake cluster to the latest images
 */
 func (a *Client) UpgradeDatalakeCluster(params *UpgradeDatalakeClusterParams) (*UpgradeDatalakeClusterOK, error) {
@@ -721,62 +777,6 @@ func (a *Client) UpgradeDatalakeClusterByCrn(params *UpgradeDatalakeClusterByCrn
 		return nil, err
 	}
 	return result.(*UpgradeDatalakeClusterByCrnOK), nil
-
-}
-
-/*
-UpgradeStackByCrn upgrades the datalake stack by crn
-*/
-func (a *Client) UpgradeStackByCrn(params *UpgradeStackByCrnParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUpgradeStackByCrnParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "upgradeStackByCrn",
-		Method:             "POST",
-		PathPattern:        "/sdx/crn/{crn}/stack_upgrade/image/{image}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &UpgradeStackByCrnReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-UpgradeStackByName upgrades the datalake stack by name
-*/
-func (a *Client) UpgradeStackByName(params *UpgradeStackByNameParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUpgradeStackByNameParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "upgradeStackByName",
-		Method:             "POST",
-		PathPattern:        "/sdx/{name}/stack_upgrade/image/{image}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &UpgradeStackByNameReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
 
 }
 

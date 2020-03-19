@@ -55,60 +55,60 @@ func (a *Client) ChangeImageStackInWorkspaceV4(params *ChangeImageStackInWorkspa
 }
 
 /*
-CheckForUpgradeByName checks for upgrade options by name
+CheckForClusterUpgradeByName checks for upgrade options by name
 */
-func (a *Client) CheckForUpgradeByName(params *CheckForUpgradeByNameParams) (*CheckForUpgradeByNameOK, error) {
+func (a *Client) CheckForClusterUpgradeByName(params *CheckForClusterUpgradeByNameParams) (*CheckForClusterUpgradeByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewCheckForUpgradeByNameParams()
+		params = NewCheckForClusterUpgradeByNameParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkForUpgradeByName",
+		ID:                 "checkForClusterUpgradeByName",
 		Method:             "GET",
-		PathPattern:        "/v4/{workspaceId}/stacks/{name}/check_stack_upgrade",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/check_cluster_upgrade",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &CheckForUpgradeByNameReader{formats: a.formats},
+		Reader:             &CheckForClusterUpgradeByNameReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CheckForUpgradeByNameOK), nil
+	return result.(*CheckForClusterUpgradeByNameOK), nil
 
 }
 
 /*
-CheckForUpgradeInWorkspaceV4 checks for upgrades for the stack by name in workspace
+CheckForOsUpgradeInWorkspaceV4 checks for upgrades for the stack by name in workspace
 
 Checks for upgrades for the given cluster.
 */
-func (a *Client) CheckForUpgradeInWorkspaceV4(params *CheckForUpgradeInWorkspaceV4Params) (*CheckForUpgradeInWorkspaceV4OK, error) {
+func (a *Client) CheckForOsUpgradeInWorkspaceV4(params *CheckForOsUpgradeInWorkspaceV4Params) (*CheckForOsUpgradeInWorkspaceV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewCheckForUpgradeInWorkspaceV4Params()
+		params = NewCheckForOsUpgradeInWorkspaceV4Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkForUpgradeInWorkspaceV4",
+		ID:                 "checkForOsUpgradeInWorkspaceV4",
 		Method:             "GET",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/check_for_upgrade",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &CheckForUpgradeInWorkspaceV4Reader{formats: a.formats},
+		Reader:             &CheckForOsUpgradeInWorkspaceV4Reader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CheckForUpgradeInWorkspaceV4OK), nil
+	return result.(*CheckForOsUpgradeInWorkspaceV4OK), nil
 
 }
 
@@ -741,60 +741,60 @@ func (a *Client) SyncStackInWorkspaceV4(params *SyncStackInWorkspaceV4Params) (*
 }
 
 /*
-UpgradeClusterInWorkspaceV4 upgrades the stack by name in workspace
-
-Removing all nodes and starting new nodes with the latest image. If the cluster already uses the the latest image then no remove/restart will happen.
+UpgradeClusterByName upgrades a cluster to the latest c m or c d h version
 */
-func (a *Client) UpgradeClusterInWorkspaceV4(params *UpgradeClusterInWorkspaceV4Params) (*UpgradeClusterInWorkspaceV4OK, error) {
+func (a *Client) UpgradeClusterByName(params *UpgradeClusterByNameParams) (*UpgradeClusterByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewUpgradeClusterInWorkspaceV4Params()
+		params = NewUpgradeClusterByNameParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "upgradeClusterInWorkspaceV4",
+		ID:                 "upgradeClusterByName",
 		Method:             "POST",
-		PathPattern:        "/v4/{workspaceId}/stacks/{name}/upgrade",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/cluster_upgrade",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &UpgradeClusterInWorkspaceV4Reader{formats: a.formats},
+		Reader:             &UpgradeClusterByNameReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpgradeClusterInWorkspaceV4OK), nil
+	return result.(*UpgradeClusterByNameOK), nil
 
 }
 
 /*
-UpgradeStackByName upgrades a cluster to the latest c m or c d h version
+UpgradeOsInWorkspaceV4 upgrades the stack by name in workspace
+
+Removing all nodes and starting new nodes with the latest image. If the cluster already uses the the latest image then no remove/restart will happen.
 */
-func (a *Client) UpgradeStackByName(params *UpgradeStackByNameParams) error {
+func (a *Client) UpgradeOsInWorkspaceV4(params *UpgradeOsInWorkspaceV4Params) (*UpgradeOsInWorkspaceV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewUpgradeStackByNameParams()
+		params = NewUpgradeOsInWorkspaceV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "upgradeStackByName",
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeOsInWorkspaceV4",
 		Method:             "POST",
-		PathPattern:        "/v4/{workspaceId}/stacks/{name}/stack_upgrade",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/upgrade",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &UpgradeStackByNameReader{formats: a.formats},
+		Reader:             &UpgradeOsInWorkspaceV4Reader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*UpgradeOsInWorkspaceV4OK), nil
 
 }
 

@@ -452,7 +452,7 @@ func printResponse(template *sdx.CheckForStackUpgradeByNameOK) error {
 	return nil
 }
 
-func SdxStackUpgrade(c *cli.Context) error {
+func SdxStackUpgrade(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "Start sdx stack upgrade")
 	name := c.String(fl.FlName.Name)
 	image := c.String(fl.FlImageId.Name)
@@ -462,7 +462,6 @@ func SdxStackUpgrade(c *cli.Context) error {
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
-	return nil
 }
 
 func checkClientVersion(client *client.Datalake, version string) {
