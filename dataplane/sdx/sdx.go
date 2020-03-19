@@ -431,19 +431,19 @@ func UpgradeSdx(c *cli.Context) {
 	log.Infof("[UpgradeSdx] SDX cluster upgrade is in progress for: %s", name)
 }
 
-func CheckSdxStackUpgrade(c *cli.Context) error {
+func CheckSdxClusterUpgrade(c *cli.Context) error {
 	defer utils.TimeTrack(time.Now(), "Check sdx cluster upgrade")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
-	resp, err := sdxClient.Sdx.CheckForStackUpgradeByName(sdx.NewCheckForStackUpgradeByNameParams().WithName(name))
+	resp, err := sdxClient.Sdx.CheckForClusterUpgradeByName(sdx.NewCheckForClusterUpgradeByNameParams().WithName(name))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
 	return printResponse(resp)
 }
 
-func printResponse(template *sdx.CheckForStackUpgradeByNameOK) error {
+func printResponse(template *sdx.CheckForClusterUpgradeByNameOK) error {
 	resp, err := json.MarshalIndent(template.Payload, "", "\t")
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -452,13 +452,13 @@ func printResponse(template *sdx.CheckForStackUpgradeByNameOK) error {
 	return nil
 }
 
-func SdxStackUpgrade(c *cli.Context) {
+func SdxClusterkUpgrade(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "Start sdx stack upgrade")
 	name := c.String(fl.FlName.Name)
 	image := c.String(fl.FlImageId.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
-	err := sdxClient.Sdx.UpgradeStackByName(sdx.NewUpgradeStackByNameParams().WithName(name).WithImage(image))
+	_, err := sdxClient.Sdx.UpgradeClusterByName(sdx.NewUpgradeClusterByNameParams().WithName(name).WithImage(image))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
