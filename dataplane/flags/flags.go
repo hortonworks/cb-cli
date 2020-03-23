@@ -129,6 +129,13 @@ var (
 			Usage: "marks the blueprint with Data Lake Ready tag",
 		},
 	}
+	FlCredentialVerifyOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "verify-permissions",
+			Usage: "verify credential permissions",
+		},
+	}
 	FlRoleARN = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{

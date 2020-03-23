@@ -44,6 +44,7 @@ mock-start() {
     mv docker-compose.yml docker-compose-mocks.yml
 
     cat <<EOF > Profile
+export PUBLIC_IP=$(hostname -i)
 export CB_LOCAL_DEV_LIST=cloudbreak,periscope,datalake,freeipa,redbeams,environment,uluwatu,cluster-proxy,core-gateway
 export VAULT_AUTO_UNSEAL=true
 export COMMON_DB_VOL=mock-common
