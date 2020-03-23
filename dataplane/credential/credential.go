@@ -180,14 +180,16 @@ func createCredential(c *cli.Context, govCloud bool) {
 	defer utils.TimeTrack(time.Now(), "create credential")
 
 	envClient := oauth.NewEnvironmentClientFromContext(c)
-	createCredentialImpl(c.String, envClient.Environment.V1credentials, govCloud)
+	verifyPermissions := c.Bool(fl.FlCredentialVerifyOptional.Name)
+	createCredentialImpl(c.String, envClient.Environment.V1credentials, govCloud, verifyPermissions)
 }
 
 func modifyCredential(c *cli.Context, govCloud bool) {
 	defer utils.TimeTrack(time.Now(), "modify credential")
 
 	envClient := oauth.NewEnvironmentClientFromContext(c)
-	modifyCredentialImpl(c.String, envClient.Environment.V1credentials, govCloud)
+	verifyPermissions := c.Bool(fl.FlCredentialVerifyOptional.Name)
+	modifyCredentialImpl(c.String, envClient.Environment.V1credentials, govCloud, verifyPermissions)
 }
 
 type modifyCredentialClient interface {
@@ -195,7 +197,7 @@ type modifyCredentialClient interface {
 	PutCredentialV1(params *v1cred.PutCredentialV1Params) (*v1cred.PutCredentialV1OK, error)
 }
 
-func modifyCredentialImpl(stringFinder func(string) string, client modifyCredentialClient, govCloud bool) *model.CredentialV1Response {
+func modifyCredentialImpl(stringFinder func(string) string, client modifyCredentialClient, govCloud bool, verifyPermissions bool) *model.CredentialV1Response {
 	name := stringFinder(fl.FlName.Name)
 	description := stringFinder(fl.FlDescriptionOptional.Name)
 	provider := cloud.GetProvider()
@@ -218,6 +220,7 @@ func modifyCredentialImpl(stringFinder func(string) string, client modifyCredent
 		}
 	}
 	credReq.Description = &description
+	credReq.VerifyPermissions = verifyPermissions
 
 	return putCredential(client, credReq)
 }
@@ -273,12 +276,13 @@ type createCredentialClient interface {
 	CreateCredentialV1(*v1cred.CreateCredentialV1Params) (*v1cred.CreateCredentialV1OK, error)
 }
 
-func createCredentialImpl(stringFinder func(string) string, client createCredentialClient, govCloud bool) {
+func createCredentialImpl(stringFinder func(string) string, client createCredentialClient, govCloud bool, verifyPermissions bool) {
 	provider := cloud.GetProvider()
 	credReq, err := provider.GetCredentialRequest(stringFinder, govCloud)
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
+	credReq.VerifyPermissions = verifyPermissions
 	postCredential(client, credReq)
 }
 
