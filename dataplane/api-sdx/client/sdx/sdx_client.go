@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+Advertisedruntimes lists advertised datalake versions
+*/
+func (a *Client) Advertisedruntimes(params *AdvertisedruntimesParams) (*AdvertisedruntimesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAdvertisedruntimesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "advertisedruntimes",
+		Method:             "GET",
+		PathPattern:        "/sdx/advertisedruntimes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AdvertisedruntimesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AdvertisedruntimesOK), nil
+
+}
+
+/*
 CheckForClusterUpgradeByCrn checks for cluster upgrade options by crn
 */
 func (a *Client) CheckForClusterUpgradeByCrn(params *CheckForClusterUpgradeByCrnParams) (*CheckForClusterUpgradeByCrnOK, error) {

@@ -29,7 +29,7 @@ type InstanceMetaDataV1Response struct {
 	InstanceID string `json:"instanceId,omitempty"`
 
 	// status of the instance
-	// Enum: [REQUESTED CREATED UNREGISTERED REGISTERED DECOMMISSIONED TERMINATED DELETED_ON_PROVIDER_SIDE FAILED STOPPED]
+	// Enum: [REQUESTED CREATED UNREGISTERED REGISTERED DECOMMISSIONED TERMINATED DELETED_ON_PROVIDER_SIDE FAILED STOPPED REBOOTING UNREACHABLE]
 	InstanceStatus string `json:"instanceStatus,omitempty"`
 
 	// type of the instance
@@ -71,7 +71,7 @@ var instanceMetaDataV1ResponseTypeInstanceStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","FAILED","STOPPED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","FAILED","STOPPED","REBOOTING","UNREACHABLE"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -107,6 +107,12 @@ const (
 
 	// InstanceMetaDataV1ResponseInstanceStatusSTOPPED captures enum value "STOPPED"
 	InstanceMetaDataV1ResponseInstanceStatusSTOPPED string = "STOPPED"
+
+	// InstanceMetaDataV1ResponseInstanceStatusREBOOTING captures enum value "REBOOTING"
+	InstanceMetaDataV1ResponseInstanceStatusREBOOTING string = "REBOOTING"
+
+	// InstanceMetaDataV1ResponseInstanceStatusUNREACHABLE captures enum value "UNREACHABLE"
+	InstanceMetaDataV1ResponseInstanceStatusUNREACHABLE string = "UNREACHABLE"
 )
 
 // prop value enum
