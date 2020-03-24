@@ -264,6 +264,36 @@ func (a *Client) GetServiceKeytabV1(params *GetServiceKeytabV1Params) (*GetServi
 
 }
 
+/*
+GetUserKeytabV1 gets the keytab for the provided user
+
+Retrieves the existing keytab for the user provided. Gets the existing keytab without modification and not effecting the prior keytab. The keytab in the response is base64 encoded.
+*/
+func (a *Client) GetUserKeytabV1(params *GetUserKeytabV1Params) (*GetUserKeytabV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetUserKeytabV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getUserKeytabV1",
+		Method:             "GET",
+		PathPattern:        "/v1/kerberosmgmt/userkeytab",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetUserKeytabV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetUserKeytabV1OK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

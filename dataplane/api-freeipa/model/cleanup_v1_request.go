@@ -28,6 +28,10 @@ type CleanupV1Request struct {
 	// Unique: true
 	Hosts []string `json:"hosts"`
 
+	// ips
+	// Unique: true
+	Ips []string `json:"ips"`
+
 	// roles
 	// Unique: true
 	Roles []string `json:"roles"`
@@ -46,6 +50,10 @@ func (m *CleanupV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateHosts(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIps(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -79,6 +87,19 @@ func (m *CleanupV1Request) validateHosts(formats strfmt.Registry) error {
 	}
 
 	if err := validate.UniqueItems("hosts", "body", m.Hosts); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CleanupV1Request) validateIps(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Ips) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("ips", "body", m.Ips); err != nil {
 		return err
 	}
 
