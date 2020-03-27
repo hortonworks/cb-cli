@@ -1,5 +1,7 @@
-GIT_FIRST_PARENT ?= $(shell git describe --tags --first-parent | sed -nre 's/^[^0-9]*(([0-9]+\.)*[0-9]-*([a-z]+\.)*[0-9]+).*/\1/p')
-GIT_LATEST_TAG ?= $(shell git describe --tags | grep -Eo "^[0-9]+\.[0-9]+\.[0-9]+\-[a-z]+\.[0-9]*")
+CB_VERSION = $(shell echo \${VERSION})
+ifeq ($(CB_VERSION),)
+    	CB_VERSION ?= $(shell git describe --tags --abbrev=0)-snapshot
+endif
 GIT_ACTIVE_BRANCH ?= $(shell git rev-parse HEAD)
 BLUEPRINT_URL ?= https://raw.githubusercontent.com/hortonworks/cb-cli/$(GIT_ACTIVE_BRANCH)/tests/blueprints/test.bp
 
@@ -23,7 +25,7 @@ deps:
 # For custom version apply as: 'GIT_FIRST_PARENT=2.8.0-dev.374 make start-mock'
 start-mock: download-s3
 	CLEANUP=true scripts/mock-test-helper.sh
-	GIT_VERSION=$(GIT_FIRST_PARENT) tmp/cbm.sh
+	CB_VERSION=$(CB_VERSION) tmp/cbm.sh
 
 # Stop DataPlane Mock
 stop-mock:
@@ -31,16 +33,16 @@ stop-mock:
 
 # Restart DataPlane Mock (only Containers are restarted) with same Swagger JSON
 restart-mock: stop-mock
-	GIT_VERSION=$(GIT_FIRST_PARENT) tmp/cbm.sh
+	CB_VERSION=$(CB_VERSION) tmp/cbm.sh
 
 # For custom version apply as: 'GIT_FIRST_PARENT=2.8.0-dev.374 make download-s3'
 download-s3:
-	curl -k https://s3-eu-central-1.amazonaws.com/cloudbreak-swagger/swagger-$(GIT_FIRST_PARENT).json -o swagger-cloudbreak.json
-	curl -k https://s3-us-east-2.amazonaws.com/environment-swagger/swagger-$(GIT_FIRST_PARENT).json -o swagger-environment.json
-	curl -k https://s3-us-east-2.amazonaws.com/freeipa-swagger/swagger-$(GIT_FIRST_PARENT).json -o swagger-freeipa.json
-	curl -k https://s3-us-east-2.amazonaws.com/redbeams-swagger/swagger-$(GIT_FIRST_PARENT).json -o swagger-redbeams.json
-	curl -k https://s3-us-east-2.amazonaws.com/datalake-swagger/swagger-$(GIT_FIRST_PARENT).json -o swagger-datalake.json
-	curl -k https://s3-us-east-2.amazonaws.com/autoscale-swagger/swagger-$(GIT_FIRST_PARENT).json -o swagger-autoscale.json
+	curl -k https://s3-eu-central-1.amazonaws.com/cloudbreak-swagger/swagger-$(CB_VERSION).json -o swagger-cloudbreak.json
+	curl -k https://s3-us-east-2.amazonaws.com/environment-swagger/swagger-$(CB_VERSION).json -o swagger-environment.json
+	curl -k https://s3-us-east-2.amazonaws.com/freeipa-swagger/swagger-$(CB_VERSION).json -o swagger-freeipa.json
+	curl -k https://s3-us-east-2.amazonaws.com/redbeams-swagger/swagger-$(CB_VERSION).json -o swagger-redbeams.json
+	curl -k https://s3-us-east-2.amazonaws.com/datalake-swagger/swagger-$(CB_VERSION).json -o swagger-datalake.json
+	curl -k https://s3-us-east-2.amazonaws.com/autoscale-swagger/swagger-$(CB_VERSION).json -o swagger-autoscale.json
 
 # You can re-run a test case or an entire test suite with no Docker Pull
 rerun-integration-test:
