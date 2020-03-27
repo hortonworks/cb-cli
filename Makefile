@@ -1,9 +1,12 @@
 BINARY=dp
 
-VERSION ?= $(shell git describe --tags --abbrev=0)-snapshot
+CB_VERSION = $(shell echo \${VERSION})
+ifeq ($(CB_VERSION),)
+    	CB_VERSION ?= $(shell git describe --tags --abbrev=0)-snapshot
+endif
 PLUGIN_ENABLED ?= false
 BUILD_TIME=$(shell date +%FT%T)
-LDFLAGS=-ldflags "-X github.com/hortonworks/cb-cli/dataplane/common.Version=${VERSION} -X github.com/hortonworks/cb-cli/dataplane/common.BuildTime=${BUILD_TIME} -X github.com/hortonworks/cb-cli/plugin.Enabled=${PLUGIN_ENABLED}"
+LDFLAGS=-ldflags "-X github.com/hortonworks/cb-cli/dataplane/common.Version=${CB_VERSION} -X github.com/hortonworks/cb-cli/dataplane/common.BuildTime=${BUILD_TIME} -X github.com/hortonworks/cb-cli/plugin.Enabled=${PLUGIN_ENABLED}"
 LDFLAGS_NOVER=-ldflags "-X github.com/hortonworks/cb-cli/dataplane/common.Version=snapshot -X github.com/hortonworks/cb-cli/dataplane/common.BuildTime=${BUILD_TIME} -X github.com/hortonworks/cb-cli/plugin.Enabled=${PLUGIN_ENABLED}"
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./.git/*")
 CB_IP = $(shell echo \${IP})
@@ -87,7 +90,7 @@ build-version: errcheck format vet test build-darwin-version build-linux-version
 
 build-docker:
 	@#USER_NS='-u $(shell id -u $(whoami)):$(shell id -g $(whoami))'
-	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${VERSION} -e GO111MODULE=on golang:1.13.1 make build
+	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GO111MODULE=on golang:1.13.1 make build
 
 build-darwin:
 	GOOS=darwin GO111MODULE=on CGO_ENABLED=0 go build -mod=vendor -a ${LDFLAGS_NOVER} -o build/Darwin/${BINARY} main.go
@@ -186,28 +189,28 @@ generate-swagger-environment-docker: _init-swagger-generation-environment
 release: build
 	rm -rf release
 	mkdir release
-	git tag v${VERSION}
-	git push https://${GITHUB_ACCESS_TOKEN}@github.com/hortonworks/cb-cli.git v${VERSION}
-	tar -zcvf release/dp-cli_${VERSION}_Darwin_x86_64.tgz -C build/Darwin "${BINARY}"
-	tar -zcvf release/dp-cli_${VERSION}_Linux_x86_64.tgz -C build/Linux "${BINARY}"
-	tar -zcvf release/dp-cli_${VERSION}_Windows_x86_64.tgz -C build/Windows "${BINARY}.exe"
+	git tag v${CB_VERSION}
+	git push https://${GITHUB_ACCESS_TOKEN}@github.com/hortonworks/cb-cli.git v${CB_VERSION}
+	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_x86_64.tgz -C build/Darwin "${BINARY}"
+	tar -zcvf release/dp-cli_${CB_VERSION}_Linux_x86_64.tgz -C build/Linux "${BINARY}"
+	tar -zcvf release/dp-cli_${CB_VERSION}_Windows_x86_64.tgz -C build/Windows "${BINARY}.exe"
 
 release-version: build-version
 	rm -rf release
 	mkdir release
-	git tag v${VERSION}
-	git push https://${GITHUB_ACCESS_TOKEN}@github.com/hortonworks/cb-cli.git v${VERSION}
-	tar -zcvf release/dp-cli_${VERSION}_Darwin_x86_64.tgz -C build/Darwin "${BINARY}"
-	tar -zcvf release/dp-cli_${VERSION}_Linux_x86_64.tgz -C build/Linux "${BINARY}"
-	tar -zcvf release/dp-cli_${VERSION}_Windows_x86_64.tgz -C build/Windows "${BINARY}.exe"
+	git tag v${CB_VERSION}
+	git push https://${GITHUB_ACCESS_TOKEN}@github.com/hortonworks/cb-cli.git v${CB_VERSION}
+	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_x86_64.tgz -C build/Darwin "${BINARY}"
+	tar -zcvf release/dp-cli_${CB_VERSION}_Linux_x86_64.tgz -C build/Linux "${BINARY}"
+	tar -zcvf release/dp-cli_${CB_VERSION}_Windows_x86_64.tgz -C build/Windows "${BINARY}.exe"
 
 release-docker:
 	@USER_NS='-u $(shell id -u $(whoami)):$(shell id -g $(whoami))'
-	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${VERSION} -e GITHUB_ACCESS_TOKEN=${GITHUB_TOKEN} -e GO111MODULE=on golang:1.13.1 bash -c "make release"
+	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GITHUB_ACCESS_TOKEN=${GITHUB_TOKEN} -e GO111MODULE=on golang:1.13.1 bash -c "make release"
 
 release-docker-version:
 	@USER_NS='-u $(shell id -u $(whoami)):$(shell id -g $(whoami))'
-	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${VERSION} -e GITHUB_ACCESS_TOKEN=${GITHUB_TOKEN} -e GO111MODULE=on golang:1.13.1 bash -c "make release-version"
+	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GITHUB_ACCESS_TOKEN=${GITHUB_TOKEN} -e GO111MODULE=on golang:1.13.1 bash -c "make release-version"
 
 upload_s3:
 	ls -1 release | xargs -I@ aws s3 cp release/@ s3://dp-cli/@ --acl public-read
