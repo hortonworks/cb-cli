@@ -175,6 +175,36 @@ func (a *Client) GetProxyConfigByCrnV1(params *GetProxyConfigByCrnV1Params) (*Ge
 }
 
 /*
+GetProxyConfigByEnvironmentCrnV1 gets proxyconfig by environment crn
+
+An proxy Configuration describe a connection to an external proxy server which provides internet access cluster members. It's applied for package manager and Ambari too
+*/
+func (a *Client) GetProxyConfigByEnvironmentCrnV1(params *GetProxyConfigByEnvironmentCrnV1Params) (*GetProxyConfigByEnvironmentCrnV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetProxyConfigByEnvironmentCrnV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getProxyConfigByEnvironmentCrnV1",
+		Method:             "GET",
+		PathPattern:        "/v1/proxies/environment/crn/{environmentCrn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetProxyConfigByEnvironmentCrnV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetProxyConfigByEnvironmentCrnV1OK), nil
+
+}
+
+/*
 GetProxyConfigByNameV1 gets proxy configuration
 
 An proxy Configuration describe a connection to an external proxy server which provides internet access cluster members. It's applied for package manager and Ambari too

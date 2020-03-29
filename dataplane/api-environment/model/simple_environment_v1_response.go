@@ -82,6 +82,9 @@ type SimpleEnvironmentV1Response struct {
 	// Parent environment name
 	ParentEnvironmentName string `json:"parentEnvironmentName,omitempty"`
 
+	// proxy config
+	ProxyConfig *ProxyViewResponse `json:"proxyConfig,omitempty"`
+
 	// Regions of the environment.
 	Regions *CompactRegionV1Response `json:"regions,omitempty"`
 
@@ -139,6 +142,10 @@ func (m *SimpleEnvironmentV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNetwork(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProxyConfig(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -502,6 +509,24 @@ func (m *SimpleEnvironmentV1Response) validateNetwork(formats strfmt.Registry) e
 		if err := m.Network.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("network")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *SimpleEnvironmentV1Response) validateProxyConfig(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ProxyConfig) { // not required
+		return nil
+	}
+
+	if m.ProxyConfig != nil {
+		if err := m.ProxyConfig.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("proxyConfig")
 			}
 			return err
 		}
