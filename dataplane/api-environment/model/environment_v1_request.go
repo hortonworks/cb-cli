@@ -69,6 +69,9 @@ type EnvironmentV1Request struct {
 	// Parent environment name
 	ParentEnvironmentName string `json:"parentEnvironmentName,omitempty"`
 
+	// Name of the proxyconfig of the environment.
+	ProxyConfigName string `json:"proxyConfigName,omitempty"`
+
 	// Regions of the environment.
 	// Unique: true
 	Regions []string `json:"regions"`

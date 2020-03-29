@@ -45,13 +45,14 @@ type environment struct {
 
 type environmentOutTableDescribe struct {
 	*environment
-	SdxStatus    string `json:"SdxStatus" yaml:"SdxStatus"`
-	DataHubCount int    `json:"DataHubCount" yaml:"DataHubCount"`
+	ProxyConfigName string `json:"ProxyConfigName" yaml:"ProxyConfigName"`
+	SdxStatus       string `json:"SdxStatus" yaml:"SdxStatus"`
+	DataHubCount    int    `json:"DataHubCount" yaml:"DataHubCount"`
 }
 
 type environmentOutJsonDescribe struct {
 	*environment
-	ProxyConfigs   []string                                  `json:"ProxyConfigs" yaml:"ProxyConfigs"`
+	ProxyConfig    model.ProxyResponse                       `json:"ProxyConfig" yaml:"ProxyConfig"`
 	Network        model.EnvironmentNetworkV1Response        `json:"Network" yaml:"Network"`
 	Telemetry      model.TelemetryResponse                   `json:"Telemetry" yaml:"Telemetry"`
 	Authentication model.EnvironmentAuthenticationV1Response `json:"Authentication" yaml:"Authentication"`
@@ -60,9 +61,10 @@ type environmentOutJsonDescribe struct {
 
 type environmentListJsonDescribe struct {
 	*environment
-	Network   model.EnvironmentNetworkV1Response `json:"Network" yaml:"Network"`
-	Telemetry model.TelemetryResponse            `json:"Telemetry" yaml:"Telemetry"`
-	FreeIpa   model.FreeIpaResponse              `json:"FreeIpa" yaml:"FreeIpa"`
+	ProxyConfig model.ProxyViewResponse            `json:"ProxyConfig" yaml:"ProxyConfig"`
+	Network     model.EnvironmentNetworkV1Response `json:"Network" yaml:"Network"`
+	Telemetry   model.TelemetryResponse            `json:"Telemetry" yaml:"Telemetry"`
+	FreeIpa     model.FreeIpaResponse              `json:"FreeIpa" yaml:"FreeIpa"`
 }
 
 type environmentClient interface {
@@ -83,7 +85,7 @@ func (e *environmentOutTableDescribe) DataAsStringArray() []string {
 	if e.DataHubCount > -1 {
 		dhc = strconv.Itoa(e.DataHubCount)
 	}
-	return append(e.environment.DataAsStringArray(), e.SdxStatus, dhc)
+	return append(e.environment.DataAsStringArray(), e.ProxyConfigName, e.SdxStatus, dhc)
 }
 
 func CreateEnvironmentFromTemplate(c *cli.Context) {
@@ -244,6 +246,9 @@ func listEnvironmentsImpl(envClient environmentClient, output utils.Output, c *c
 			envListJSON := environmentListJsonDescribe{
 				environment: row,
 			}
+			if e.ProxyConfig != nil {
+				envListJSON.ProxyConfig = *e.ProxyConfig
+			}
 			if e.Network != nil {
 				envListJSON.Network = *e.Network
 			}
@@ -260,14 +265,17 @@ func listEnvironmentsImpl(envClient environmentClient, output utils.Output, c *c
 				SdxStatus:    getSdxStatusByEnv(sdxs, row.Crn),
 				DataHubCount: getDistroXCountByEnv(dixis, row.Crn),
 			}
+			if e.ProxyConfig != nil {
+				envListTable.ProxyConfigName = *e.ProxyConfig.Name
+			}
 			tableRows = append(tableRows, &envListTable)
 		}
 	}
 
 	if output.Format != "table" && output.Format != "yaml" {
-		output.WriteList(append(EnvironmentHeader, "Network", "Telemetry"), tableRows)
+		output.WriteList(append(EnvironmentHeader, "ProxyConfig", "Network", "Telemetry"), tableRows)
 	} else {
-		output.WriteList(append(EnvironmentHeader, "SdxStatus", "DataHubCount"), tableRows)
+		output.WriteList(append(EnvironmentHeader, "ProxyConfig", "SdxStatus", "DataHubCount"), tableRows)
 	}
 	return nil
 }
@@ -308,11 +316,15 @@ func DescribeEnvironment(c *cli.Context) {
 	}
 	env := resp.Payload
 	if output.Format != "table" && output.Format != "yaml" {
-		output.Write(append(EnvironmentHeader, "Network", "Telemetry", "Authentication", "FreeIpa"), convertResponseToJsonOutput(env))
+		output.Write(append(EnvironmentHeader, "ProxyConfig", "Network", "Telemetry", "Authentication", "FreeIpa"), convertResponseToJsonOutput(env))
 	} else {
 		dixis := distrox.GetListOfDistroXs(c)
 		sdxs := sdx.GetListOfSdx(c)
-		output.Write(append(EnvironmentHeader, "SdxStatus", "DataHubCount"), convertResponseToTableOutput(env, getSdxStatusByEnv(sdxs, env.Crn), getDistroXCountByEnv(dixis, env.Crn)))
+		proxyConfig := ""
+		if env.ProxyConfig != nil {
+			proxyConfig = *env.ProxyConfig.Name
+		}
+		output.Write(append(EnvironmentHeader, "ProxyConfig", "SdxStatus", "DataHubCount"), convertResponseToTableOutput(env, proxyConfig, getSdxStatusByEnv(sdxs, env.Crn), getDistroXCountByEnv(dixis, env.Crn)))
 	}
 }
 
@@ -372,7 +384,7 @@ func ChangeCredential(c *cli.Context) {
 	log.Infof("[ChangeCredential] credential of environment %s changed to: %s", environment.Name, *environment.Credential.Name)
 }
 
-func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response, sdxStatus string, datahubCount int) *environmentOutTableDescribe {
+func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response, proxyConfig string, sdxStatus string, datahubCount int) *environmentOutTableDescribe {
 	return &environmentOutTableDescribe{
 		environment: &environment{
 			Name:          env.Name,
@@ -386,8 +398,9 @@ func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response, sdxS
 			Latitude:      env.Location.Latitude,
 			Crn:           env.Crn,
 		},
-		SdxStatus:    sdxStatus,
-		DataHubCount: datahubCount,
+		ProxyConfigName: proxyConfig,
+		SdxStatus:       sdxStatus,
+		DataHubCount:    datahubCount,
 	}
 }
 
@@ -406,6 +419,9 @@ func convertResponseToJsonOutput(env *model.DetailedEnvironmentV1Response) *envi
 			Crn:                   env.Crn,
 			ParentEnvironmentName: env.ParentEnvironmentName,
 		},
+	}
+	if env.ProxyConfig != nil {
+		result.ProxyConfig = *env.ProxyConfig
 	}
 	if env.Network != nil {
 		result.Network = *env.Network
