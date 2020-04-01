@@ -444,11 +444,22 @@ func CheckSdxClusterUpgrade(c *cli.Context) error {
 }
 
 func printResponse(template *sdx.CheckForClusterUpgradeByNameOK) error {
-	resp, err := json.MarshalIndent(template.Payload, "", "\t")
-	if err != nil {
-		utils.LogErrorAndExit(err)
+	var errorMessage error
+	var response []byte
+
+	if len(template.Payload.UpgradeCandidates) == 0 {
+		resp, err := json.MarshalIndent(template.Payload.Reason, "", "\t")
+		response = resp
+		errorMessage = err
+	} else {
+		resp, err := json.MarshalIndent(template.Payload, "", "\t")
+		response = resp
+		errorMessage = err
 	}
-	fmt.Printf("%s\n", string(resp))
+	if errorMessage != nil {
+		utils.LogErrorAndExit(errorMessage)
+	}
+	fmt.Printf("%s\n", string(response))
 	return nil
 }
 
