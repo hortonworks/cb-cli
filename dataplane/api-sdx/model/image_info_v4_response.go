@@ -8,6 +8,7 @@ package model
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -16,7 +17,7 @@ import (
 type ImageInfoV4Response struct {
 
 	// component versions
-	ComponentVersions map[string]string `json:"componentVersions,omitempty"`
+	ComponentVersions *ImageComponentVersions `json:"componentVersions,omitempty"`
 
 	// created
 	Created int64 `json:"created,omitempty"`
@@ -33,6 +34,33 @@ type ImageInfoV4Response struct {
 
 // Validate validates this image info v4 response
 func (m *ImageInfoV4Response) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateComponentVersions(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ImageInfoV4Response) validateComponentVersions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ComponentVersions) { // not required
+		return nil
+	}
+
+	if m.ComponentVersions != nil {
+		if err := m.ComponentVersions.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("componentVersions")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
