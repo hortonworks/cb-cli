@@ -55,12 +55,14 @@ type environmentOutJsonDescribe struct {
 	Network        model.EnvironmentNetworkV1Response        `json:"Network" yaml:"Network"`
 	Telemetry      model.TelemetryResponse                   `json:"Telemetry" yaml:"Telemetry"`
 	Authentication model.EnvironmentAuthenticationV1Response `json:"Authentication" yaml:"Authentication"`
+	FreeIpa        model.FreeIpaResponse                     `json:"FreeIpa" yaml:"FreeIpa"`
 }
 
 type environmentListJsonDescribe struct {
 	*environment
 	Network   model.EnvironmentNetworkV1Response `json:"Network" yaml:"Network"`
 	Telemetry model.TelemetryResponse            `json:"Telemetry" yaml:"Telemetry"`
+	FreeIpa   model.FreeIpaResponse              `json:"FreeIpa" yaml:"FreeIpa"`
 }
 
 type environmentClient interface {
@@ -248,6 +250,9 @@ func listEnvironmentsImpl(envClient environmentClient, output utils.Output, c *c
 			if e.Telemetry != nil {
 				envListJSON.Telemetry = *e.Telemetry
 			}
+			if e.FreeIpa != nil {
+				envListJSON.FreeIpa = *e.FreeIpa
+			}
 			tableRows = append(tableRows, &envListJSON)
 		} else {
 			envListTable := environmentOutTableDescribe{
@@ -303,7 +308,7 @@ func DescribeEnvironment(c *cli.Context) {
 	}
 	env := resp.Payload
 	if output.Format != "table" && output.Format != "yaml" {
-		output.Write(append(EnvironmentHeader, "Network", "Telemetry", "Authentication"), convertResponseToJsonOutput(env))
+		output.Write(append(EnvironmentHeader, "Network", "Telemetry", "Authentication", "FreeIpa"), convertResponseToJsonOutput(env))
 	} else {
 		dixis := distrox.GetListOfDistroXs(c)
 		sdxs := sdx.GetListOfSdx(c)
@@ -410,6 +415,9 @@ func convertResponseToJsonOutput(env *model.DetailedEnvironmentV1Response) *envi
 	}
 	if env.Authentication != nil {
 		result.Authentication = *env.Authentication
+	}
+	if env.FreeIpa != nil {
+		result.FreeIpa = *env.FreeIpa
 	}
 	return result
 }
