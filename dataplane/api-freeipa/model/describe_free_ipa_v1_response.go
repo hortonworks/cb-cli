@@ -75,6 +75,9 @@ type DescribeFreeIpaV1Response struct {
 
 	// telemetry setting for freeipa server
 	Telemetry *TelemetryResponse `json:"telemetry,omitempty"`
+
+	// user sync status details for the environment
+	UserSyncStatus *UserSyncStatusV1Response `json:"userSyncStatus,omitempty"`
 }
 
 // Validate validates this describe free ipa v1 response
@@ -126,6 +129,10 @@ func (m *DescribeFreeIpaV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTelemetry(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUserSyncStatus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -414,6 +421,24 @@ func (m *DescribeFreeIpaV1Response) validateTelemetry(formats strfmt.Registry) e
 		if err := m.Telemetry.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("telemetry")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DescribeFreeIpaV1Response) validateUserSyncStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.UserSyncStatus) { // not required
+		return nil
+	}
+
+	if m.UserSyncStatus != nil {
+		if err := m.UserSyncStatus.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("userSyncStatus")
 			}
 			return err
 		}

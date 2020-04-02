@@ -19,8 +19,8 @@ type AwsInstanceTemplateV4Parameters struct {
 	// encryption for vm
 	Encryption *AwsEncryptionV4Parameters `json:"encryption,omitempty"`
 
-	// spot price for aws
-	SpotPrice float64 `json:"spotPrice,omitempty"`
+	// aws specific spot instance parameters for template
+	Spot *AwsInstanceTemplateV4SpotParameters `json:"spot,omitempty"`
 }
 
 // Validate validates this aws instance template v4 parameters
@@ -28,6 +28,10 @@ func (m *AwsInstanceTemplateV4Parameters) Validate(formats strfmt.Registry) erro
 	var res []error
 
 	if err := m.validateEncryption(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSpot(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -47,6 +51,24 @@ func (m *AwsInstanceTemplateV4Parameters) validateEncryption(formats strfmt.Regi
 		if err := m.Encryption.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("encryption")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AwsInstanceTemplateV4Parameters) validateSpot(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Spot) { // not required
+		return nil
+	}
+
+	if m.Spot != nil {
+		if err := m.Spot.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("spot")
 			}
 			return err
 		}
