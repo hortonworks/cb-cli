@@ -73,7 +73,7 @@ type ClusterTemplateV4Response struct {
 
 	// type
 	// Required: true
-	// Enum: [SPARK HIVE EDW ETL DATASCIENCE DATAMART DATALAKE DATAENGINEERING DATAENGINEERING_HA STREAMING STREAMING_HA OPERATIONALDATABASE OTHER]
+	// Enum: [SPARK HIVE EDW ETL DATASCIENCE DATAMART DATALAKE DATAENGINEERING DATAENGINEERING_HA STREAMING STREAMING_HA FLOW_MANAGEMENT FLOW_MANAGEMENT_HA OPERATIONALDATABASE OTHER]
 	Type *string `json:"type"`
 }
 
@@ -313,7 +313,7 @@ var clusterTemplateV4ResponseTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["SPARK","HIVE","EDW","ETL","DATASCIENCE","DATAMART","DATALAKE","DATAENGINEERING","DATAENGINEERING_HA","STREAMING","STREAMING_HA","OPERATIONALDATABASE","OTHER"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["SPARK","HIVE","EDW","ETL","DATASCIENCE","DATAMART","DATALAKE","DATAENGINEERING","DATAENGINEERING_HA","STREAMING","STREAMING_HA","FLOW_MANAGEMENT","FLOW_MANAGEMENT_HA","OPERATIONALDATABASE","OTHER"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -355,6 +355,12 @@ const (
 
 	// ClusterTemplateV4ResponseTypeSTREAMINGHA captures enum value "STREAMING_HA"
 	ClusterTemplateV4ResponseTypeSTREAMINGHA string = "STREAMING_HA"
+
+	// ClusterTemplateV4ResponseTypeFLOWMANAGEMENT captures enum value "FLOW_MANAGEMENT"
+	ClusterTemplateV4ResponseTypeFLOWMANAGEMENT string = "FLOW_MANAGEMENT"
+
+	// ClusterTemplateV4ResponseTypeFLOWMANAGEMENTHA captures enum value "FLOW_MANAGEMENT_HA"
+	ClusterTemplateV4ResponseTypeFLOWMANAGEMENTHA string = "FLOW_MANAGEMENT_HA"
 
 	// ClusterTemplateV4ResponseTypeOPERATIONALDATABASE captures enum value "OPERATIONALDATABASE"
 	ClusterTemplateV4ResponseTypeOPERATIONALDATABASE string = "OPERATIONALDATABASE"

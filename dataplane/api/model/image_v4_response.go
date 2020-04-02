@@ -43,6 +43,12 @@ type ImageV4Response struct {
 	// package versions
 	PackageVersions map[string]string `json:"packageVersions,omitempty"`
 
+	// pre warm csd
+	PreWarmCsd []string `json:"preWarmCsd"`
+
+	// pre warm parcels
+	PreWarmParcels [][]string `json:"preWarmParcels"`
+
 	// repository
 	Repository map[string]string `json:"repository,omitempty"`
 
