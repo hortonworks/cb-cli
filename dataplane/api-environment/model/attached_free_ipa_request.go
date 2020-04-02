@@ -17,6 +17,9 @@ import (
 // swagger:model AttachedFreeIpaRequest
 type AttachedFreeIpaRequest struct {
 
+	// Aws specific FreeIpa parameters
+	Aws *AttachedFreeIpaRequestAwsParameters `json:"aws,omitempty"`
+
 	// Create freeipa in environment
 	// Required: true
 	Create *bool `json:"create"`
@@ -29,6 +32,10 @@ type AttachedFreeIpaRequest struct {
 func (m *AttachedFreeIpaRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAws(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCreate(formats); err != nil {
 		res = append(res, err)
 	}
@@ -36,6 +43,24 @@ func (m *AttachedFreeIpaRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AttachedFreeIpaRequest) validateAws(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Aws) { // not required
+		return nil
+	}
+
+	if m.Aws != nil {
+		if err := m.Aws.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("aws")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
