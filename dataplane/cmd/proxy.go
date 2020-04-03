@@ -16,12 +16,12 @@ func init() {
 				Name:  "create",
 				Usage: "creates a new proxy",
 				Flags: fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlProxyHost, fl.FlProxyPort,
-					fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword).AddAuthenticationFlags().Build(),
+					fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword).AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: proxy.CreateProxy,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlProxyHost, fl.FlProxyPort,
-						fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword).AddAuthenticationFlags().Build() {
+						fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword).AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -29,11 +29,11 @@ func init() {
 			{
 				Name:   "delete",
 				Usage:  "deletes a proxy",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddOutputFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddOutputFlag().AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: proxy.DeleteProxy,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddOutputFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddOutputFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -41,11 +41,11 @@ func init() {
 			{
 				Name:   "list",
 				Usage:  "list the available proxies",
-				Flags:  fl.NewFlagBuilder().AddOutputFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddOutputFlag().AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: proxy.ListProxies,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

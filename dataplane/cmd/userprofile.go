@@ -19,11 +19,11 @@ func init() {
 					{
 						Name:   "describe",
 						Usage:  "describe user config for showing terminated clusters",
-						Flags:  fl.NewFlagBuilder().AddOutputFlag().AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddOutputFlag().AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: userprofile.GetShowTerminatedClustersPreferences,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -31,11 +31,11 @@ func init() {
 					{
 						Name:   "enable",
 						Usage:  "enable showing terminated clusters and set user timeout",
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlTimeoutMinutes, fl.FlTimeoutHours, fl.FlTimeoutDays).AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlTimeoutMinutes, fl.FlTimeoutHours, fl.FlTimeoutDays).AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: userprofile.ActivateShowTerminatedClusters,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlTimeoutMinutes, fl.FlTimeoutHours, fl.FlTimeoutDays).AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlTimeoutMinutes, fl.FlTimeoutHours, fl.FlTimeoutDays).AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -43,11 +43,11 @@ func init() {
 					{
 						Name:   "disable",
 						Usage:  "disable showing terminated clusters for user",
-						Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: userprofile.DectivateShowTerminatedClusters,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -55,11 +55,11 @@ func init() {
 					{
 						Name:   "delete",
 						Usage:  "delete user config for showing terminated clusters",
-						Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: userprofile.DeleteShowTerminatedClustersPreferences,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},

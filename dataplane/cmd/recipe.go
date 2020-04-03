@@ -18,12 +18,12 @@ func init() {
 				Subcommands: []cli.Command{
 					{
 						Name:   "from-file",
-						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlExecutionType, fl.FlFile).AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlExecutionType, fl.FlFile).AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: recipe.CreateRecipeFromFile,
 						Usage:  "creates a recipe by reading it from a local file",
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlExecutionType, fl.FlFile).AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlExecutionType, fl.FlFile).AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -33,11 +33,11 @@ func init() {
 			{
 				Name:   "delete",
 				Usage:  "deletes one or more recipes",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNames).AddOutputFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNames).AddOutputFlag().AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: recipe.DeleteRecipes,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNames).AddOutputFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNames).AddOutputFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -46,10 +46,10 @@ func init() {
 				Name:   "describe",
 				Usage:  "describes a recipe",
 				Before: cf.CheckConfigAndCommandFlags,
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build(),
 				Action: recipe.DescribeRecipe,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -57,11 +57,11 @@ func init() {
 			{
 				Name:   "list",
 				Usage:  "lists the available recipes",
-				Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: recipe.ListRecipes,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

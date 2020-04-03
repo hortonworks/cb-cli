@@ -19,11 +19,11 @@ func init() {
 					{
 						Name:   "ad",
 						Usage:  "creates a new AD Kerberos",
-						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm, fl.FlKerberosLdapUrl, fl.FlKerberosContainerDn).AddOutputFlag().AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm, fl.FlKerberosLdapUrl, fl.FlKerberosContainerDn).AddOutputFlag().AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: kerberos.CreateAdKerberos,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm, fl.FlKerberosLdapUrl, fl.FlKerberosContainerDn).AddOutputFlag().AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm, fl.FlKerberosLdapUrl, fl.FlKerberosContainerDn).AddOutputFlag().AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -31,11 +31,11 @@ func init() {
 					{
 						Name:   "freeipa",
 						Usage:  "creates a new FreeIpa Kerberos",
-						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm).AddOutputFlag().AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm).AddOutputFlag().AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: kerberos.CreateFreeIpaKerberos,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm).AddOutputFlag().AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm).AddOutputFlag().AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -43,11 +43,11 @@ func init() {
 					{
 						Name:   "mit",
 						Usage:  "creates a new mit Kerberos",
-						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm).AddOutputFlag().AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm).AddOutputFlag().AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: kerberos.CreateMitKerberos,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm).AddOutputFlag().AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddCommonKerberosCreateFlags().AddFlags(fl.FlKerberosUrl, fl.FlKerberosAdminUrl, fl.FlKerberosRealm).AddOutputFlag().AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -57,11 +57,11 @@ func init() {
 			{
 				Name:   "delete",
 				Usage:  "deletes a Kerberos",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddOutputFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddOutputFlag().AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: kerberos.DeleteKerberos,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddOutputFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddOutputFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -69,11 +69,11 @@ func init() {
 			{
 				Name:   "describe",
 				Usage:  "describes a Kerberos",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddOutputFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddOutputFlag().AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: kerberos.GetKerberos,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddOutputFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddOutputFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

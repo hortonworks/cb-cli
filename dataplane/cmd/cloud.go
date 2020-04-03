@@ -20,11 +20,11 @@ func init() {
 			{
 				Name:   "availability-zones",
 				Usage:  "lists the available availabilityzones in a region",
-				Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddFlags(fl.FlCredential, fl.FlRegion).AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddFlags(fl.FlCredential, fl.FlRegion).AddOutputFlag().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: cb.ListAvailabilityZones,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddFlags(fl.FlCredential, fl.FlRegion).AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddFlags(fl.FlCredential, fl.FlRegion).AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -32,11 +32,11 @@ func init() {
 			{
 				Name:   "instances",
 				Usage:  "lists the available instance types",
-				Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddFlags(fl.FlCredential, fl.FlRegion, fl.FlAvailabilityZoneOptional).AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddFlags(fl.FlCredential, fl.FlRegion, fl.FlAvailabilityZoneOptional).AddOutputFlag().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: cb.ListInstanceTypes,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddFlags(fl.FlCredential, fl.FlRegion, fl.FlAvailabilityZoneOptional).AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddFlags(fl.FlCredential, fl.FlRegion, fl.FlAvailabilityZoneOptional).AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -44,11 +44,11 @@ func init() {
 			{
 				Name:   "regions",
 				Usage:  "lists the available regions",
-				Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddFlags(fl.FlCredential).AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddFlags(fl.FlCredential).AddOutputFlag().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: cb.ListRegions,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddFlags(fl.FlCredential).AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddFlags(fl.FlCredential).AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -60,11 +60,11 @@ func init() {
 					{
 						Name:   "aws",
 						Usage:  "list the available aws volume types",
-						Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: cb.ListAwsVolumeTypes,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -72,11 +72,11 @@ func init() {
 					{
 						Name:   "azure",
 						Usage:  "list the available azure volume types",
-						Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: cb.ListAzureVolumeTypes,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -84,11 +84,11 @@ func init() {
 					{
 						Name:   "gcp",
 						Usage:  "list the available gcp volume types",
-						Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: cb.ListGcpVolumeTypes,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},

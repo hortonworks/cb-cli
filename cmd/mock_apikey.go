@@ -20,9 +20,9 @@ func init() {
 		Usage:  "Generate mock ums apikey, based on tenant-name and tenant-user",
 		Before: cf.CheckConfigAndCommandFlagsDP,
 		Action: generateMockApikeys,
-		Flags:  fl.NewFlagBuilder().AddFlags(fl.FlTenantName, fl.FlTenantUser, fl.FlWriteToProfileOptional).AddAuthenticationFlagsWithoutWorkspace().AddOutputFlag().Build(),
+		Flags:  fl.NewFlagBuilder().AddFlags(fl.FlTenantName, fl.FlTenantUser, fl.FlWriteToProfileOptional).AddGlobalFlagsWithoutWorkspace().AddOutputFlag().Build(),
 		BashComplete: func(c *cli.Context) {
-			for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlTenantName, fl.FlTenantUser, fl.FlWriteToProfileOptional).AddAuthenticationFlagsWithoutWorkspace().AddOutputFlag().Build() {
+			for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlTenantName, fl.FlTenantUser, fl.FlWriteToProfileOptional).AddGlobalFlagsWithoutWorkspace().AddOutputFlag().Build() {
 				fl.PrintFlagCompletion(f)
 			}
 		},

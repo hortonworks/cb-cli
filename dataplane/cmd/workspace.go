@@ -15,11 +15,11 @@ func init() {
 			{
 				Name:   "list",
 				Usage:  "list workspaces",
-				Flags:  fl.NewFlagBuilder().AddOutputFlag().AddAuthenticationFlagsWithoutWorkspace().Build(),
+				Flags:  fl.NewFlagBuilder().AddOutputFlag().AddGlobalFlagsWithoutWorkspace().Build(),
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
 				Action: workspace.ListWorkspaces,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddAuthenticationFlagsWithoutWorkspace().Build() {
+					for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddGlobalFlagsWithoutWorkspace().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -27,11 +27,11 @@ func init() {
 			{
 				Name:   "describe",
 				Usage:  "describes a workspace",
-				Flags:  fl.NewFlagBuilder().AddOutputFlag().AddFlags(fl.FlName).AddAuthenticationFlagsWithoutWorkspace().Build(),
+				Flags:  fl.NewFlagBuilder().AddOutputFlag().AddFlags(fl.FlName).AddGlobalFlagsWithoutWorkspace().Build(),
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
 				Action: workspace.DescribeWorkspace,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddFlags(fl.FlName).AddAuthenticationFlagsWithoutWorkspace().Build() {
+					for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddFlags(fl.FlName).AddGlobalFlagsWithoutWorkspace().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
