@@ -25,10 +25,10 @@ func init() {
 						Name:   "list",
 						Usage:  "list all database servers",
 						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentCrn).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentCrn).AddAGlobalFlags().AddOutputFlag().Build(),
 						Action: redbeams.ListDatabaseServers,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentCrn).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentCrn).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -44,10 +44,10 @@ func init() {
 							}
 							return cf.CheckResourceAddressingFlags(c)
 						},
-						Flags:  fl.NewFlagBuilder().AddResourceAddressingFlags().AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddResourceAddressingFlags().AddAGlobalFlags().AddOutputFlag().Build(),
 						Action: redbeams.GetDatabaseServer,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceAddressingFlags().AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddResourceAddressingFlags().AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -56,10 +56,10 @@ func init() {
 						Name:   "create",
 						Usage:  "create a managed database server",
 						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlDatabaseServerCreationFile).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlDatabaseServerCreationFile).AddAGlobalFlags().AddOutputFlag().Build(),
 						Action: redbeams.CreateManagedDatabaseServer,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlDatabaseServerCreationFile).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlDatabaseServerCreationFile).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -68,10 +68,10 @@ func init() {
 						Name:   "release",
 						Usage:  "release a managed database server",
 						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().AddOutputFlag().Build(),
 						Action: redbeams.ReleaseManagedDatabaseServer,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -80,10 +80,10 @@ func init() {
 						Name:   "register",
 						Usage:  "register a database server",
 						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlDatabaseServerRegistrationFile).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlDatabaseServerRegistrationFile).AddAGlobalFlags().AddOutputFlag().Build(),
 						Action: redbeams.RegisterDatabaseServer,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlDatabaseServerRegistrationFile).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlDatabaseServerRegistrationFile).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -92,10 +92,10 @@ func init() {
 						Name:   "delete",
 						Usage:  "delete a database server",
 						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn, fl.FlForceOptional).AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn, fl.FlForceOptional).AddAGlobalFlags().Build(),
 						Action: redbeams.DeleteDatabaseServer,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn, fl.FlForceOptional).AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn, fl.FlForceOptional).AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -110,10 +110,10 @@ func init() {
 						Name:   "list",
 						Usage:  "list all databases",
 						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentCrn).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentCrn).AddAGlobalFlags().AddOutputFlag().Build(),
 						Action: redbeams.ListDatabases,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentCrn).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentCrn).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -129,10 +129,10 @@ func init() {
 							}
 							return cf.CheckResourceAddressingFlags(c)
 						},
-						Flags:  fl.NewFlagBuilder().AddResourceAddressingFlags().AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddResourceAddressingFlags().AddAGlobalFlags().AddOutputFlag().Build(),
 						Action: redbeams.GetDatabase,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceAddressingFlags().AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddResourceAddressingFlags().AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -141,10 +141,10 @@ func init() {
 						Name:   "create",
 						Usage:  "create a database",
 						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlDatabaseCreationFile).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlDatabaseCreationFile).AddAGlobalFlags().AddOutputFlag().Build(),
 						Action: redbeams.CreateDatabase,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlDatabaseCreationFile).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlDatabaseCreationFile).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -153,10 +153,10 @@ func init() {
 						Name:   "register",
 						Usage:  "register a database",
 						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlDatabaseRegistrationFile).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlDatabaseRegistrationFile).AddAGlobalFlags().AddOutputFlag().Build(),
 						Action: redbeams.RegisterDatabase,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlDatabaseRegistrationFile).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlDatabaseRegistrationFile).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -172,10 +172,10 @@ func init() {
 							}
 							return cf.CheckResourceAddressingFlags(c)
 						},
-						Flags:  fl.NewFlagBuilder().AddResourceAddressingFlags().AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddResourceAddressingFlags().AddAGlobalFlags().Build(),
 						Action: redbeams.DeleteDatabase,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceAddressingFlags().AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddResourceAddressingFlags().AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},

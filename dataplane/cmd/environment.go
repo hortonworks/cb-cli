@@ -19,11 +19,11 @@ func init() {
 					{
 						Name:   "from-file",
 						Usage:  "creates a new Environment from JSON template",
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentTemplateFile, fl.FlNameOptional).AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentTemplateFile, fl.FlNameOptional).AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: env.CreateEnvironmentFromTemplate,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentTemplateFile, fl.FlNameOptional).AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentTemplateFile, fl.FlNameOptional).AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -33,11 +33,11 @@ func init() {
 			{
 				Name:   "list",
 				Usage:  "list the available environments",
-				Flags:  fl.NewFlagBuilder().AddOutputFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddOutputFlag().AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: env.ListEnvironments,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -45,11 +45,11 @@ func init() {
 			{
 				Name:   "describe",
 				Usage:  "describes an environment",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddOutputFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddOutputFlag().AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: env.DescribeEnvironment,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddOutputFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddOutputFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -57,11 +57,11 @@ func init() {
 			{
 				Name:   "stop",
 				Usage:  "stop an environment and all related datahubs, datalake and freeipa",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: env.StopEnvironment,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -69,11 +69,11 @@ func init() {
 			{
 				Name:   "start",
 				Usage:  "start an environment and all related datahubs, datalake and freeipa",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: env.StartEnvironment,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -81,11 +81,11 @@ func init() {
 			{
 				Name:   "delete",
 				Usage:  "deletes an environment or more if names are spearated by commas",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNames).AddFlags(fl.FlForceOptional).AddOutputFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNames).AddFlags(fl.FlForceOptional).AddOutputFlag().AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: env.DeleteEnvironment,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNames).AddFlags(fl.FlForceOptional).AddOutputFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNames).AddFlags(fl.FlForceOptional).AddOutputFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -93,11 +93,11 @@ func init() {
 			{
 				Name:   "change-cred",
 				Usage:  "change the credential of an environment. also changes the credential of the clusters in the environment.",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredential).AddOutputFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredential).AddOutputFlag().AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: env.ChangeCredential,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredential).AddOutputFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredential).AddOutputFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -109,11 +109,11 @@ func init() {
 					{
 						Name:   "from-file",
 						Usage:  "edits an Environment from JSON template",
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentEditTemplateFile, fl.FlName).AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentEditTemplateFile, fl.FlName).AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: env.EditEnvironmentFromTemplate,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentEditTemplateFile, fl.FlName).AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentEditTemplateFile, fl.FlName).AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -130,24 +130,24 @@ func init() {
 						Subcommands: []cli.Command{
 							{
 								Name:   "use-existing-network",
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNetworkId, fl.FlSubnetIds).AddAuthenticationFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNetworkId, fl.FlSubnetIds).AddAGlobalFlags().Build(),
 								Usage:  "attach existing vpc and subnets",
 								Before: cf.CheckConfigAndCommandFlags,
 								Action: env.GenerateAwsEnvironmentTemplate,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNetworkId, fl.FlSubnetIds).AddAuthenticationFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNetworkId, fl.FlSubnetIds).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
 							},
 							{
 								Name:   "create-new-network",
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNetworkCidr, fl.FlSubnetCidrs).AddAuthenticationFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNetworkCidr, fl.FlSubnetCidrs).AddAGlobalFlags().Build(),
 								Usage:  "create new vpc and subnets",
 								Before: cf.CheckConfigAndCommandFlags,
 								Action: env.GenerateAwsEnvironmentTemplate,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNetworkCidr, fl.FlSubnetCidrs).AddAuthenticationFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNetworkCidr, fl.FlSubnetCidrs).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -160,24 +160,24 @@ func init() {
 						Subcommands: []cli.Command{
 							{
 								Name:   "use-existing-network",
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNetworkId, fl.FlSubnetIds, fl.FlResourceGroupName).AddAuthenticationFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNetworkId, fl.FlSubnetIds, fl.FlResourceGroupName).AddAGlobalFlags().Build(),
 								Usage:  "attach existing network and subnets",
 								Before: cf.CheckConfigAndCommandFlags,
 								Action: env.GenerateAzureEnvironmentTemplate,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNetworkId, fl.FlSubnetIds, fl.FlResourceGroupName).AddAuthenticationFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNetworkId, fl.FlSubnetIds, fl.FlResourceGroupName).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
 							},
 							{
 								Name:   "create-new-network",
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNetworkCidr, fl.FlSubnetCidrs).AddAuthenticationFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNetworkCidr, fl.FlSubnetCidrs).AddAGlobalFlags().Build(),
 								Usage:  "create new network and subnets",
 								Before: cf.CheckConfigAndCommandFlags,
 								Action: env.GenerateAzureEnvironmentTemplate,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNetworkCidr, fl.FlSubnetCidrs).AddAuthenticationFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNetworkCidr, fl.FlSubnetCidrs).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
