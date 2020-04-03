@@ -6,6 +6,9 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -16,6 +19,10 @@ import (
 // CleanupV1Request cleanup v1 request
 // swagger:model CleanupV1Request
 type CleanupV1Request struct {
+
+	// cleanup steps to skip
+	// Unique: true
+	CleanupStepsToSkip []string `json:"cleanupStepsToSkip"`
 
 	// cluster name
 	ClusterName string `json:"clusterName,omitempty"`
@@ -45,6 +52,10 @@ type CleanupV1Request struct {
 func (m *CleanupV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCleanupStepsToSkip(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateEnvironmentCrn(formats); err != nil {
 		res = append(res, err)
 	}
@@ -68,6 +79,47 @@ func (m *CleanupV1Request) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var cleanupV1RequestCleanupStepsToSkipItemsEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["REVOKE_CERTS","REMOVE_HOSTS","REMOVE_DNS_ENTRIES","REMOVE_VAULT_ENTRIES","REMOVE_USERS","REMOVE_ROLES"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		cleanupV1RequestCleanupStepsToSkipItemsEnum = append(cleanupV1RequestCleanupStepsToSkipItemsEnum, v)
+	}
+}
+
+func (m *CleanupV1Request) validateCleanupStepsToSkipItemsEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, cleanupV1RequestCleanupStepsToSkipItemsEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CleanupV1Request) validateCleanupStepsToSkip(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CleanupStepsToSkip) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("cleanupStepsToSkip", "body", m.CleanupStepsToSkip); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.CleanupStepsToSkip); i++ {
+
+		// value enum
+		if err := m.validateCleanupStepsToSkipItemsEnum("cleanupStepsToSkip"+"."+strconv.Itoa(i), "body", m.CleanupStepsToSkip[i]); err != nil {
+			return err
+		}
+
+	}
+
 	return nil
 }
 

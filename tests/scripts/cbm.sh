@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-: ${GIT_VERSION:=latest}
+: ${CB_VERSION:=latest}
 : ${STOP_MOCK:=false}
 
 set -x
@@ -8,8 +8,8 @@ set -x
 get-cbd() {
     declare desc="Downloading CBD binary"
 
-    if curl -Ls s3.amazonaws.com/public-repo-1.hortonworks.com/HDP/cloudbreak/cloudbreak-deployer_${GIT_VERSION}_$(uname)_x86_64.tgz|tar -xz cbd; then
-        echo "CBD has been found with version: $GIT_VERSION"
+    if curl -Ls s3.amazonaws.com/public-repo-1.hortonworks.com/HDP/cloudbreak/cloudbreak-deployer_${CB_VERSION}_$(uname)_x86_64.tgz|tar -xz cbd; then
+        echo "CBD has been found with version: $CB_VERSION"
     else
         echo "Getting the latest 'snapshot' version of CBD."
         curl -Ls s3.amazonaws.com/public-repo-1.hortonworks.com/HDP/cloudbreak/cloudbreak-deployer_snapshot_$(uname)_x86_64.tgz|tar -xz cbd

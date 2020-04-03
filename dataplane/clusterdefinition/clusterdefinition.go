@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	v4cd "github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_clustertemplates"
+	v4cd "github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_cluster_templates"
 	"github.com/hortonworks/cb-cli/dataplane/api/model"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/dp-cli-common/utils"
@@ -75,7 +75,7 @@ func createClusterDefinitionImpl(c *cli.Context, template *model.ClusterTemplate
 	client := oauth.NewCloudbreakHTTPClientFromContext(c)
 	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 	log.Infof("[createClusterDefinitionImpl] sending create cluster definition request")
-	resp, err := client.Cloudbreak.V4WorkspaceIDClustertemplates.CreateClusterTemplateInWorkspace(v4cd.NewCreateClusterTemplateInWorkspaceParams().WithWorkspaceID(workspaceID).WithBody(template))
+	resp, err := client.Cloudbreak.V4WorkspaceIDClusterTemplates.CreateClusterTemplateInWorkspace(v4cd.NewCreateClusterTemplateInWorkspaceParams().WithWorkspaceID(workspaceID).WithBody(template))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -92,7 +92,7 @@ func DescribeClusterDefinition(c *cli.Context) {
 	name := c.String(fl.FlName.Name)
 	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
 
-	resp, err := cbClient.Cloudbreak.V4WorkspaceIDClustertemplates.GetClusterTemplateByNameInWorkspace(v4cd.NewGetClusterTemplateByNameInWorkspaceParams().WithName(name).WithWorkspaceID(workspaceID))
+	resp, err := cbClient.Cloudbreak.V4WorkspaceIDClusterTemplates.GetClusterTemplateByNameInWorkspace(v4cd.NewGetClusterTemplateByNameInWorkspaceParams().WithName(name).WithWorkspaceID(workspaceID))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -104,7 +104,7 @@ func DeleteClusterDefinitions(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "delete cluster definitions")
 
 	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
-	deleteClusterDefinitionsImpl(cbClient.Cloudbreak.V4WorkspaceIDClustertemplates, c.Int64(fl.FlWorkspaceOptional.Name), c.StringSlice(fl.FlNames.Name))
+	deleteClusterDefinitionsImpl(cbClient.Cloudbreak.V4WorkspaceIDClusterTemplates, c.Int64(fl.FlWorkspaceOptional.Name), c.StringSlice(fl.FlNames.Name))
 }
 
 func deleteClusterDefinitionsImpl(client clusterDefinitionClient, workspace int64, names []string) {
@@ -122,7 +122,7 @@ func ListClusterDefinitions(c *cli.Context) {
 
 	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
 	workspace := fl.FlWorkspaceOptional.Name
-	listClusterDefinitionsImpl(c, c.Int64(workspace), cbClient.Cloudbreak.V4WorkspaceIDClustertemplates)
+	listClusterDefinitionsImpl(c, c.Int64(workspace), cbClient.Cloudbreak.V4WorkspaceIDClusterTemplates)
 }
 
 func listClusterDefinitionsImpl(c *cli.Context, workspace int64, client clusterDefinitionClient) {

@@ -25,6 +25,12 @@ type FreeIpaServerV1Response struct {
 	// Pattern: (?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]
 	Domain *string `json:"domain"`
 
+	// A DNS load balanced FQDN to the FreeIPA servers
+	FreeIpaHost string `json:"freeIpaHost,omitempty"`
+
+	// The port for the load balanced FQDN to the FreeIPA servers
+	FreeIpaPort int32 `json:"freeIpaPort,omitempty"`
+
 	// Base hostname for FreeIPA servers
 	// Required: true
 	// Pattern: ^[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$
