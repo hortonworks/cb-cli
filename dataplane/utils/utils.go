@@ -2,6 +2,8 @@ package utils
 
 import (
 	"errors"
+	"strconv"
+	"strings"
 
 	"github.com/hortonworks/cb-cli/dataplane/api/model"
 
@@ -51,4 +53,16 @@ func CheckServerAddress(address string) {
 	if len(address) == 0 {
 		utils.LogErrorMessageAndExit("Server address is empty. Please set it with the `dp configure` command or the `--server` option.")
 	}
+}
+
+func ConvertToInt32Ptr(source string) *int32 {
+	if strings.TrimSpace(source) == "" {
+		return nil
+	}
+	temporaryInt, err := strconv.ParseInt(source, 10, 32)
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	result := int32(temporaryInt)
+	return &result
 }

@@ -19,6 +19,9 @@ import (
 // swagger:model SdxInternalClusterRequest
 type SdxInternalClusterRequest struct {
 
+	// aws
+	Aws *SdxAwsRequest `json:"aws,omitempty"`
+
 	// cloud storage
 	CloudStorage *SdxCloudStorageRequest `json:"cloudStorage,omitempty"`
 
@@ -48,6 +51,10 @@ type SdxInternalClusterRequest struct {
 func (m *SdxInternalClusterRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAws(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCloudStorage(formats); err != nil {
 		res = append(res, err)
 	}
@@ -71,6 +78,24 @@ func (m *SdxInternalClusterRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *SdxInternalClusterRequest) validateAws(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Aws) { // not required
+		return nil
+	}
+
+	if m.Aws != nil {
+		if err := m.Aws.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("aws")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
