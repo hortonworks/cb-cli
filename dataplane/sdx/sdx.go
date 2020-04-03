@@ -17,7 +17,7 @@ import (
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/cb-cli/dataplane/oauth"
 	"github.com/hortonworks/cb-cli/dataplane/types"
-	"github.com/hortonworks/dp-cli-common/utils"
+	"github.com/hortonworks/cb-cli/dataplane/utils"
 	commonutils "github.com/hortonworks/dp-cli-common/utils"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
@@ -89,30 +89,32 @@ func CreateSdx(c *cli.Context) {
 	runtime := c.String(fl.FlRuntimeOptional.Name)
 	withExternalDatabase := c.Bool(fl.FlWithExternalDatabaseOptional.Name)
 	withoutExternalDatabase := c.Bool(fl.FlWithoutExternalDatabaseOptional.Name)
+	spotPercentageString := c.String(fl.FlSpotPercentage.Name)
+	spotPercentage := utils.ConvertToInt32Ptr(spotPercentageString)
 
 	inputJson := assembleStackRequest(c)
 	log.Infof("[CreateSdx] Runtime: %s", runtime)
 	if inputJson != nil {
-		createInternalSdx(envName, inputJson, c, name, baseLocation, instanceProfile, managedIdentity, runtime, withoutExternalDatabase, withExternalDatabase)
+		createInternalSdx(envName, inputJson, c, name, baseLocation, instanceProfile, managedIdentity, runtime, withoutExternalDatabase, withExternalDatabase, spotPercentage)
 	} else {
-		createSdx(clusterShape, envName, c, name, baseLocation, instanceProfile, managedIdentity, runtime, withoutExternalDatabase, withExternalDatabase)
+		createSdx(clusterShape, envName, c, name, baseLocation, instanceProfile, managedIdentity, runtime, withoutExternalDatabase, withExternalDatabase, spotPercentage)
 	}
 }
 
-func createSdx(clusterShape string, envName string, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool) {
-	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, runtime, withExternalDatabase, withoutExternalDatabase)
+func createSdx(clusterShape string, envName string, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool, spotPercentage *int32) {
+	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, runtime, withExternalDatabase, withoutExternalDatabase, spotPercentage)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 	resp, err := sdxClient.Sdx.CreateSdx(sdx.NewCreateSdxParams().WithName(name).WithBody(sdxRequest))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 	sdxCluster := resp.Payload
 	log.Infof("[CreateSdx] SDX cluster created in environment: %s, with name: %s", envName, sdxCluster.Name)
 }
 
-func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withExternalDatabase bool, withoutExternalDatabase bool) *sdxModel.SdxClusterRequest {
+func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withExternalDatabase bool, withoutExternalDatabase bool, spotPercentage *int32) *sdxModel.SdxClusterRequest {
 	sdxRequest := &sdxModel.SdxClusterRequest{
 		ClusterShape:     &clusterShape,
 		Environment:      &envName,
@@ -120,15 +122,17 @@ func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocat
 		Tags:             nil,
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
+		Aws:              nil,
 	}
 	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = storage }))
 	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, &sdxRequest.ExternalDatabase)
+	setupAwsSpotParameters(spotPercentage, &sdxRequest.Aws)
 	return sdxRequest
 }
 
 func setupExternalDbIfNeeded(withExternalDatabase bool, withoutExternalDatabase bool, sdxDatabase **sdxModel.SdxDatabaseRequest) {
 	if withoutExternalDatabase && withExternalDatabase {
-		utils.LogErrorAndExit(errors.New("both withExternalDatabase and withoutExternalDatabase were set"))
+		commonutils.LogErrorAndExit(errors.New("both withExternalDatabase and withoutExternalDatabase were set"))
 	}
 	if withExternalDatabase {
 		externalDatabase := &sdxModel.SdxDatabaseRequest{
@@ -185,7 +189,18 @@ func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile 
 	}
 }
 
-func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool) {
+func setupAwsSpotParameters(spotPercentage *int32, sdxAws **sdxModel.SdxAwsRequest) {
+	if spotPercentage != nil {
+		aws := &sdxModel.SdxAwsRequest{
+			Spot: &sdxModel.SdxAwsSpotParameters{
+				Percentage: spotPercentage,
+			},
+		}
+		*sdxAws = aws
+	}
+}
+
+func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool, spotPercentage *int32) {
 	sdxInternalRequest := &sdxModel.SdxInternalClusterRequest{
 		ClusterShape:     &(&types.S{S: sdxModel.SdxClusterRequestClusterShapeCUSTOM}).S,
 		Environment:      &envName,
@@ -193,16 +208,18 @@ func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cl
 		StackV4Request:   inputJson,
 		Tags:             nil,
 		ExternalDatabase: nil,
+		Aws:              nil,
 	}
 
 	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxInternalRequest.CloudStorage = storage }))
 	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, &sdxInternalRequest.ExternalDatabase)
+	setupAwsSpotParameters(spotPercentage, &sdxInternalRequest.Aws)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 	resp, err := sdxClient.Internalsdx.CreateInternalSdx(internalsdx.NewCreateInternalSdxParams().WithName(name).WithBody(sdxInternalRequest))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 	sdxCluster := resp.Payload
 	log.Infof("[CreateInternalSdx] SDX cluster created in environment: %s, with name: %s", envName, sdxCluster.Name)
@@ -216,7 +233,7 @@ func DeleteSdx(c *cli.Context) {
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	_, err := sdxClient.Sdx.DeleteSdx(sdx.NewDeleteSdxParams().WithName(name).WithForced(&forced))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[DeleteSdx] SDX cluster deleted in environment: %s", name)
 }
@@ -233,14 +250,14 @@ func RepairSdx(c *cli.Context) {
 	checkClientVersion(sdxClient, common.Version)
 	_, err := sdxClient.Sdx.RepairSdxNode(sdx.NewRepairSdxNodeParams().WithName(name).WithBody(hostGroupToRepairRequest))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[RepairSdx] SDX cluster repair is started for: %s", name)
 }
 
 func formulateRequest(hostGroupToRepair string, hostGroupsToRepair []string) *sdxModel.SdxRepairRequest {
 	if (len(hostGroupToRepair) == 0) == (len(hostGroupsToRepair[0]) == 0) {
-		utils.LogErrorMessageAndExit(fmt.Sprintf("Please only specify either %s or %s", fl.FlHostGroupOptional.Name, fl.FlHostGroupsOptional.Name))
+		commonutils.LogErrorMessageAndExit(fmt.Sprintf("Please only specify either %s or %s", fl.FlHostGroupOptional.Name, fl.FlHostGroupsOptional.Name))
 	}
 	hostGroupToRepairRequest := &sdxModel.SdxRepairRequest{}
 
@@ -256,17 +273,17 @@ func formulateRequest(hostGroupToRepair string, hostGroupsToRepair []string) *sd
 }
 
 func ListSdx(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "List sdx clusters in environment")
+	defer commonutils.TimeTrack(time.Now(), "List sdx clusters in environment")
 	envName := c.String(fl.FlEnvironmentNameOptional.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c))
-	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	writer := output.WriteList
 	listSdxClusterImpl(sdxClient.Sdx.Sdx, envName, writer)
 	log.Infof("[ListSdx] SDX cluster list in environment: %s", envName)
 }
 
 func GetListOfSdx(c *cli.Context) []*sdxModel.SdxClusterResponse {
-	defer utils.TimeTrack(time.Now(), "List sdx clusters by environment crn")
+	defer commonutils.TimeTrack(time.Now(), "List sdx clusters by environment crn")
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c))
 	resp, err := sdxClient.Sdx.Sdx.ListSdx(sdx.NewListSdxParams())
 	if err != nil {
@@ -275,13 +292,13 @@ func GetListOfSdx(c *cli.Context) []*sdxModel.SdxClusterResponse {
 	return resp.Payload
 }
 
-func listSdxClusterImpl(client clientSdx, envName string, writer func([]string, []utils.Row)) {
+func listSdxClusterImpl(client clientSdx, envName string, writer func([]string, []commonutils.Row)) {
 	resp, err := client.ListSdx(sdx.NewListSdxParams().WithEnvName(&envName))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 
-	var tableRows []utils.Row
+	var tableRows []commonutils.Row
 	for _, sdxCluster := range resp.Payload {
 		tableRows = append(tableRows, &sdxClusterOutput{sdxCluster.Crn, sdxCluster.Name,
 			sdxCluster.EnvironmentName,
@@ -298,25 +315,25 @@ func listSdxClusterImpl(client clientSdx, envName string, writer func([]string, 
 }
 
 func SyncSdx(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "Sync sdx cluster in environment")
+	defer commonutils.TimeTrack(time.Now(), "Sync sdx cluster in environment")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 	err := sdxClient.Sdx.SyncSdx(sdx.NewSyncSdxParams().WithName(name))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[SyncSdx] SDX cluster sync started for: %s", name)
 }
 
 func RetrySdx(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "Retry sdx cluster")
+	defer commonutils.TimeTrack(time.Now(), "Retry sdx cluster")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 	_, err := sdxClient.Sdx.RetrySdx(sdx.NewRetrySdxParams().WithName(name))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[RetrySdx] SDX cluster retry started for: %s", name)
 }
@@ -326,7 +343,7 @@ func createCloudStorageRequestForSdx() {
 }
 
 func DescribeSdx(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "describe SDX cluster")
+	defer commonutils.TimeTrack(time.Now(), "describe SDX cluster")
 	name := c.String(fl.FlName.Name)
 	detailed := c.Bool(fl.FlDetailedOptional.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx.Sdx
@@ -342,9 +359,9 @@ func DescribeSdx(c *cli.Context) {
 func describeSdx(sdxClient *sdx.Client, name string, c *cli.Context) {
 	resp, err := sdxClient.GetSdx(sdx.NewGetSdxParams().WithName(name))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
-	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	sdxCluster := resp.Payload
 	output.Write(sdxClusterHeader, &sdxClusterOutput{sdxCluster.Crn,
 		sdxCluster.Name,
@@ -362,9 +379,9 @@ func describeSdx(sdxClient *sdx.Client, name string, c *cli.Context) {
 func describeSdxDetailed(sdxClient *sdx.Client, name string, c *cli.Context) {
 	resp, err := sdxClient.GetSdxDetail(sdx.NewGetSdxDetailParams().WithName(name))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
-	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	sdxCluster := resp.Payload
 
 	output.Write(sdxClusterHeader, &sdxClusterDetailedOutput{
@@ -384,29 +401,29 @@ func describeSdxDetailed(sdxClient *sdx.Client, name string, c *cli.Context) {
 }
 
 func StartSdx(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "Start sdx cluster by name")
+	defer commonutils.TimeTrack(time.Now(), "Start sdx cluster by name")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	_, err := sdxClient.Sdx.StartSdxByName(sdx.NewStartSdxByNameParams().WithName(name))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[StartSdx] SDX cluster start executed for: %s", name)
 }
 
 func StopSdx(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "Stop sdx cluster by name")
+	defer commonutils.TimeTrack(time.Now(), "Stop sdx cluster by name")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	_, err := sdxClient.Sdx.StopSdxByName(sdx.NewStopSdxByNameParams().WithName(name))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[StopSdx] SDX cluster stop executed for: %s", name)
 }
 
 func UpgradeSdx(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "Upgrade sdx cluster by name")
+	defer commonutils.TimeTrack(time.Now(), "Upgrade sdx cluster by name")
 	name := c.String(fl.FlName.Name)
 	dryRun := c.Bool(fl.FlDryRunOptional.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
@@ -414,7 +431,7 @@ func UpgradeSdx(c *cli.Context) {
 	if dryRun {
 		resp, err := sdxClient.Sdx.CheckForUpgrade(sdx.NewCheckForUpgradeParams().WithName(name))
 		if err != nil {
-			utils.LogErrorAndExit(err)
+			commonutils.LogErrorAndExit(err)
 		}
 		upgrade := resp.Payload.Upgrade
 		if upgrade != nil && len(upgrade.ImageID) > 0 {
@@ -425,20 +442,20 @@ func UpgradeSdx(c *cli.Context) {
 	} else {
 		_, err := sdxClient.Sdx.UpgradeDatalakeCluster(sdx.NewUpgradeDatalakeClusterParams().WithName(name))
 		if err != nil {
-			utils.LogErrorAndExit(err)
+			commonutils.LogErrorAndExit(err)
 		}
 	}
 	log.Infof("[UpgradeSdx] SDX cluster upgrade is in progress for: %s", name)
 }
 
 func CheckSdxClusterUpgrade(c *cli.Context) error {
-	defer utils.TimeTrack(time.Now(), "Check sdx cluster upgrade")
+	defer commonutils.TimeTrack(time.Now(), "Check sdx cluster upgrade")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 	resp, err := sdxClient.Sdx.CheckForClusterUpgradeByName(sdx.NewCheckForClusterUpgradeByNameParams().WithName(name))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 	return printResponse(resp)
 }
@@ -457,21 +474,21 @@ func printResponse(template *sdx.CheckForClusterUpgradeByNameOK) error {
 		errorMessage = err
 	}
 	if errorMessage != nil {
-		utils.LogErrorAndExit(errorMessage)
+		commonutils.LogErrorAndExit(errorMessage)
 	}
 	fmt.Printf("%s\n", string(response))
 	return nil
 }
 
 func SdxClusterkUpgrade(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "Start sdx stack upgrade")
+	defer commonutils.TimeTrack(time.Now(), "Start sdx stack upgrade")
 	name := c.String(fl.FlName.Name)
 	image := c.String(fl.FlImageId.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 	_, err := sdxClient.Sdx.UpgradeClusterByName(sdx.NewUpgradeClusterByNameParams().WithName(name).WithImage(image))
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 }
 
@@ -479,11 +496,11 @@ func checkClientVersion(client *client.Datalake, version string) {
 	versionCheckRequest := sdxutils.NewCheckClientVersionOfSdxParams().WithVersion(&version)
 	resp, err := client.Sdxutils.CheckClientVersionOfSdx(versionCheckRequest)
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		commonutils.LogErrorAndExit(err)
 	}
 	valid := resp.Payload.VersionCheckOk
 	message := resp.Payload.Message
 	if !valid {
-		utils.LogErrorAndExit(errors.New(message))
+		commonutils.LogErrorAndExit(errors.New(message))
 	}
 }

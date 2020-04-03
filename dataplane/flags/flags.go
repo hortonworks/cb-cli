@@ -1399,6 +1399,13 @@ var (
 			Usage: "checks the availability of a newer OS image",
 		},
 	}
+	FlSpotPercentage = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "with-spot-percentage",
+			Usage: "sets the percentage of spot instances launched (same for all instance groups in stack request)",
+		},
+	}
 )
 
 type RequiredFlag struct {
