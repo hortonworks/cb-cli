@@ -22,10 +22,10 @@ func init() {
 				Usage:       "creates a new SDX cluster",
 				Description: `basic SDX cluster creation`,
 				Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:       fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlEnvironmentName, fl.FlClusterShape, fl.FlCloudStorageBaseLocationOptional, fl.FlCloudStorageInstanceProfileOptional, fl.FlCloudStorageManagedIdentityOptional, fl.FlRuntimeOptional, fl.FlCidrOptional, fl.FlWithoutExternalDatabaseOptional, fl.FlWithExternalDatabaseOptional).AddAuthenticationFlags().Build(),
+				Flags:       fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlEnvironmentName, fl.FlClusterShape, fl.FlCloudStorageBaseLocationOptional, fl.FlCloudStorageInstanceProfileOptional, fl.FlCloudStorageManagedIdentityOptional, fl.FlRuntimeOptional, fl.FlCidrOptional, fl.FlWithoutExternalDatabaseOptional, fl.FlWithExternalDatabaseOptional, fl.FlSpotPercentage).AddAGlobalFlags().Build(),
 				Action:      sdx.CreateSdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlEnvironmentName, fl.FlEnvironmentName, fl.FlClusterShape, fl.FlCloudStorageBaseLocationOptional, fl.FlCloudStorageInstanceProfileOptional, fl.FlCloudStorageManagedIdentityOptional, fl.FlRuntimeOptional, fl.FlCidrOptional, fl.FlWithoutExternalDatabaseOptional, fl.FlWithExternalDatabaseOptional).AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlEnvironmentName, fl.FlEnvironmentName, fl.FlClusterShape, fl.FlCloudStorageBaseLocationOptional, fl.FlCloudStorageInstanceProfileOptional, fl.FlCloudStorageManagedIdentityOptional, fl.FlRuntimeOptional, fl.FlCidrOptional, fl.FlWithoutExternalDatabaseOptional, fl.FlWithExternalDatabaseOptional, fl.FlSpotPercentage).AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -34,10 +34,10 @@ func init() {
 				Name:   "delete",
 				Usage:  "deletes an SDX cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlForceOptional).AddNameFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlForceOptional).AddNameFlag().AddAGlobalFlags().Build(),
 				Action: sdx.DeleteSdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlForceOptional).AddNameFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlForceOptional).AddNameFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -46,10 +46,10 @@ func init() {
 				Name:   "describe",
 				Usage:  "describes an SDX cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlDetailedOptional).AddAuthenticationFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlDetailedOptional).AddAGlobalFlags().AddOutputFlag().Build(),
 				Action: sdx.DescribeSdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlDetailedOptional).AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlDetailedOptional).AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -58,10 +58,10 @@ func init() {
 				Name:   "start",
 				Usage:  "start an SDX cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddOutputFlag().Build(),
 				Action: sdx.StartSdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -70,10 +70,10 @@ func init() {
 				Name:   "stop",
 				Usage:  "stop an SDX cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddOutputFlag().Build(),
 				Action: sdx.StopSdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -82,10 +82,10 @@ func init() {
 				Name:   "list",
 				Usage:  "list SDX clusters",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentNameOptional).AddAuthenticationFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentNameOptional).AddAGlobalFlags().AddOutputFlag().Build(),
 				Action: sdx.ListSdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentNameOptional).AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentNameOptional).AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -94,10 +94,10 @@ func init() {
 				Name:   "repair",
 				Usage:  "repair SDX cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlHostGroupOptional, fl.FlHostGroupsOptional).AddNameFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlHostGroupOptional, fl.FlHostGroupsOptional).AddNameFlag().AddAGlobalFlags().Build(),
 				Action: sdx.RepairSdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlHostGroupOptional, fl.FlHostGroupsOptional).AddNameFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlHostGroupOptional, fl.FlHostGroupsOptional).AddNameFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -106,10 +106,10 @@ func init() {
 				Name:   "sync",
 				Usage:  "sync SDX cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().Build(),
 				Action: sdx.SyncSdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -118,10 +118,10 @@ func init() {
 				Name:   "retry",
 				Usage:  "retry SDX cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().Build(),
 				Action: sdx.RetrySdx,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -134,10 +134,10 @@ func init() {
 						Name:   "os",
 						Usage:  "OS upgrade for the SDX cluster",
 						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-						Flags:  fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlDryRunOptional).Build(),
+						Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlDryRunOptional).Build(),
 						Action: sdx.UpgradeSdx,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlDryRunOptional).Build() {
+							for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlDryRunOptional).Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -150,10 +150,10 @@ func init() {
 								Name:   "check",
 								Usage:  "check for cluster upgrades",
 								Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-								Flags:  fl.NewFlagBuilder().AddOutputFlag().AddNameFlag().AddAuthenticationFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddOutputFlag().AddNameFlag().AddAGlobalFlags().Build(),
 								Action: sdx.CheckSdxClusterUpgrade,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddNameFlag().AddAuthenticationFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddNameFlag().AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -162,10 +162,10 @@ func init() {
 								Name:   "upgrade",
 								Usage:  "upgrade the SDX cluster",
 								Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-								Flags:  fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlImageId).Build(),
+								Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageId).Build(),
 								Action: sdx.SdxClusterkUpgrade,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAuthenticationFlags().AddFlags(fl.FlImageId).Build() {
+									for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageId).Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},

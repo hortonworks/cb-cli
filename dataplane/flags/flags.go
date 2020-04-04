@@ -1294,6 +1294,13 @@ var (
 			Usage: "API private key",
 		},
 	}
+	FlTimeoutOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "timeout",
+			Usage: "API Timeout, e.g: 1s, 1m",
+		},
+	}
 	FlWriteToProfileOptional = BoolFlag{
 		RequiredFlag: OPTIONAL,
 		BoolFlag: cli.BoolFlag{
@@ -1390,6 +1397,13 @@ var (
 		BoolFlag: cli.BoolFlag{
 			Name:  "dry-run",
 			Usage: "checks the availability of a newer OS image",
+		},
+	}
+	FlSpotPercentage = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "with-spot-percentage",
+			Usage: "sets the percentage of spot instances launched (same for all instance groups in stack request)",
 		},
 	}
 )
@@ -1533,15 +1547,15 @@ func (fb *FlagBuilder) AddFlags(flags ...cli.Flag) *FlagBuilder {
 	return fb
 }
 
-func (fb *FlagBuilder) AddAuthenticationFlags() *FlagBuilder {
-	for _, f := range []cli.Flag{FlServerOptional, FlWorkspaceOptional, FlProfileOptional, FlApiKeyIDOptional, FlPrivateKeyOptional} {
+func (fb *FlagBuilder) AddAGlobalFlags() *FlagBuilder {
+	for _, f := range []cli.Flag{FlServerOptional, FlWorkspaceOptional, FlProfileOptional, FlApiKeyIDOptional, FlPrivateKeyOptional, FlTimeoutOptional} {
 		fb.flags = append(fb.flags, f)
 	}
 	return fb
 }
 
-func (fb *FlagBuilder) AddAuthenticationFlagsWithoutWorkspace() *FlagBuilder {
-	for _, f := range []cli.Flag{FlServerOptional, FlProfileOptional, FlApiKeyIDOptional, FlPrivateKeyOptional} {
+func (fb *FlagBuilder) AddGlobalFlagsWithoutWorkspace() *FlagBuilder {
+	for _, f := range []cli.Flag{FlServerOptional, FlProfileOptional, FlApiKeyIDOptional, FlPrivateKeyOptional, FlTimeoutOptional} {
 		fb.flags = append(fb.flags, f)
 	}
 	return fb

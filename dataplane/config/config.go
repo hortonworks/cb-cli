@@ -111,6 +111,7 @@ func configRead(c *cli.Context) error {
 	profile := c.String(fl.FlProfileOptional.Name)
 	apiKeyID := c.String(fl.FlApiKeyIDOptional.Name)
 	privateKey := c.String(fl.FlPrivateKeyOptional.Name)
+	timeout := c.String(fl.FlTimeoutOptional.Name)
 
 	if len(profile) == 0 {
 		profile = "default"
@@ -140,8 +141,15 @@ func configRead(c *cli.Context) error {
 	if len(privateKey) == 0 {
 		set(fl.FlPrivateKeyOptional.Name, config.PrivateKey)
 	}
+	var timeoutString string
 	if len(config.Timeout) != 0 {
-		timeout, parseError := time.ParseDuration(config.Timeout)
+		timeoutString = config.Timeout
+	}
+	if len(timeout) != 0 {
+		timeoutString = timeout
+	}
+	if len(timeoutString) != 0 {
+		timeout, parseError := time.ParseDuration(timeoutString)
 		if parseError != nil {
 			utils.LogErrorAndExit(parseError)
 		}

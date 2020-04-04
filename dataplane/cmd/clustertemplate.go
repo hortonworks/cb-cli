@@ -18,12 +18,12 @@ func init() {
 				Subcommands: []cli.Command{
 					{
 						Name:   "from-file",
-						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlFile).AddAuthenticationFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlFile).AddAGlobalFlags().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: cd.CreateClusterDefinitionFromFile,
 						Usage:  "creates a cluster definition by reading it from a local file",
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlFile).AddAuthenticationFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlFile).AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -33,11 +33,11 @@ func init() {
 			{
 				Name:   "delete",
 				Usage:  "deletes one or more cluster definitions",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNames).AddAuthenticationFlags().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNames).AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: cd.DeleteClusterDefinitions,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNames).AddAuthenticationFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNames).AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -46,10 +46,10 @@ func init() {
 				Name:   "describe",
 				Usage:  "describes a cluster definition",
 				Before: cf.CheckConfigAndCommandFlags,
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build(),
 				Action: cd.DescribeClusterDefinition,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -57,11 +57,11 @@ func init() {
 			{
 				Name:   "list",
 				Usage:  "lists the available cluster definitions",
-				Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: cd.ListClusterDefinitions,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

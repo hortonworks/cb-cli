@@ -20,11 +20,11 @@ func init() {
 					{
 						Name:   "by-crn",
 						Usage:  "describe the last flow by resource crn",
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().AddOutputFlag().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: flow.DescribeLastFlowByCrn,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -32,11 +32,11 @@ func init() {
 					{
 						Name:   "by-name",
 						Usage:  "describe the last flow by resource name",
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: flow.DescribeLastFlowByName,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -50,11 +50,11 @@ func init() {
 					{
 						Name:   "by-crn",
 						Usage:  "list flows by resource crn",
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().AddOutputFlag().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: flow.ListByCrn,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -62,11 +62,11 @@ func init() {
 					{
 						Name:   "by-name",
 						Usage:  "list flows by resource name",
-						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build(),
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build(),
 						Before: cf.CheckConfigAndCommandFlags,
 						Action: flow.ListByName,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAuthenticationFlags().AddOutputFlag().Build() {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},

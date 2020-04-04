@@ -25,9 +25,9 @@ func init() {
 		Usage:  "Print the version numbers of the service components",
 		Before: cf.CheckConfigAndCommandFlagsDP,
 		Action: printServiceVersions,
-		Flags:  fl.NewFlagBuilder().AddAuthenticationFlagsWithoutWorkspace().AddOutputFlag().Build(),
+		Flags:  fl.NewFlagBuilder().AddGlobalFlagsWithoutWorkspace().AddOutputFlag().Build(),
 		BashComplete: func(c *cli.Context) {
-			for _, f := range fl.NewFlagBuilder().AddAuthenticationFlagsWithoutWorkspace().AddOutputFlag().Build() {
+			for _, f := range fl.NewFlagBuilder().AddGlobalFlagsWithoutWorkspace().AddOutputFlag().Build() {
 				fl.PrintFlagCompletion(f)
 			}
 		},
