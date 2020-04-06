@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,16 +19,19 @@ import (
 // swagger:model SdxDatabaseRequest
 type SdxDatabaseRequest struct {
 
+	// availability type
+	// Enum: [NONE NON_HA HA]
+	AvailabilityType string `json:"availabilityType,omitempty"`
+
 	// create
-	// Required: true
-	Create *bool `json:"create"`
+	Create bool `json:"create,omitempty"`
 }
 
 // Validate validates this sdx database request
 func (m *SdxDatabaseRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCreate(formats); err != nil {
+	if err := m.validateAvailabilityType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -36,9 +41,46 @@ func (m *SdxDatabaseRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SdxDatabaseRequest) validateCreate(formats strfmt.Registry) error {
+var sdxDatabaseRequestTypeAvailabilityTypePropEnum []interface{}
 
-	if err := validate.Required("create", "body", m.Create); err != nil {
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["NONE","NON_HA","HA"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		sdxDatabaseRequestTypeAvailabilityTypePropEnum = append(sdxDatabaseRequestTypeAvailabilityTypePropEnum, v)
+	}
+}
+
+const (
+
+	// SdxDatabaseRequestAvailabilityTypeNONE captures enum value "NONE"
+	SdxDatabaseRequestAvailabilityTypeNONE string = "NONE"
+
+	// SdxDatabaseRequestAvailabilityTypeNONHA captures enum value "NON_HA"
+	SdxDatabaseRequestAvailabilityTypeNONHA string = "NON_HA"
+
+	// SdxDatabaseRequestAvailabilityTypeHA captures enum value "HA"
+	SdxDatabaseRequestAvailabilityTypeHA string = "HA"
+)
+
+// prop value enum
+func (m *SdxDatabaseRequest) validateAvailabilityTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, sdxDatabaseRequestTypeAvailabilityTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *SdxDatabaseRequest) validateAvailabilityType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AvailabilityType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAvailabilityTypeEnum("availabilityType", "body", m.AvailabilityType); err != nil {
 		return err
 	}
 
