@@ -1364,13 +1364,6 @@ var (
 			Usage: "skips the external database creation ",
 		},
 	}
-	FlWithNonHaExternalDatabaseOptional = BoolFlag{
-		RequiredFlag: OPTIONAL,
-		BoolFlag: cli.BoolFlag{
-			Name:  "with-non-ha-external-database",
-			Usage: "creates an external database without high availability",
-		},
-	}
 	FlDatabaseServerCreationFile = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{

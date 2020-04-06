@@ -55,25 +55,10 @@ func TestIfDatabaseNeeded(t *testing.T) {
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
 	}
-	setupExternalDbIfNeeded(true, false, false, &sdxRequest.ExternalDatabase)
+	setupExternalDbIfNeeded(true, false, &sdxRequest.ExternalDatabase)
 
-	if sdxRequest.ExternalDatabase.AvailabilityType != "HA" {
-		t.Errorf("HA external database not set")
-	}
-}
-
-func TestIfNonHaDatabaseNeeded(t *testing.T) {
-	sdxRequest := &sdxModel.SdxClusterRequest{
-		ClusterShape:     nil,
-		Environment:      nil,
-		Tags:             nil,
-		CloudStorage:     nil,
-		ExternalDatabase: nil,
-	}
-	setupExternalDbIfNeeded(false, false, true, &sdxRequest.ExternalDatabase)
-
-	if sdxRequest.ExternalDatabase.AvailabilityType != "NON_HA" {
-		t.Errorf("NON_HA external database not set")
+	if !*sdxRequest.ExternalDatabase.Create {
+		t.Errorf("external database not set")
 	}
 }
 
@@ -115,9 +100,9 @@ func TestIfDatabaseNeededFalse(t *testing.T) {
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
 	}
-	setupExternalDbIfNeeded(false, true, false, &sdxRequest.ExternalDatabase)
+	setupExternalDbIfNeeded(false, true, &sdxRequest.ExternalDatabase)
 
-	if sdxRequest.ExternalDatabase.AvailabilityType != "NONE" {
+	if *sdxRequest.ExternalDatabase.Create {
 		t.Errorf("external database set and should not be")
 	}
 }
