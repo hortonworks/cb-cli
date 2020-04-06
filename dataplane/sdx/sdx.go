@@ -144,14 +144,12 @@ func setupExternalDbIfNeeded(withExternalDatabase bool, withoutExternalDatabase 
 	if withExternalDatabase {
 		externalDatabase := &sdxModel.SdxDatabaseRequest{
 			AvailabilityType: "HA",
-			Create:           withExternalDatabase,
 		}
 		*sdxDatabase = externalDatabase
 	}
 	if withoutExternalDatabase {
 		externalDatabase := &sdxModel.SdxDatabaseRequest{
 			AvailabilityType: "NONE",
-			Create:           false,
 		}
 		*sdxDatabase = externalDatabase
 	}
