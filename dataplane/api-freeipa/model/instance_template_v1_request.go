@@ -23,6 +23,9 @@ type InstanceTemplateV1Request struct {
 	// Unique: true
 	AttachedVolumes []*VolumeV1Request `json:"attachedVolumes"`
 
+	// Aws specific FreeIpa parameters
+	Aws *AwsInstanceTemplateParameters `json:"aws,omitempty"`
+
 	// type of the instance
 	InstanceType string `json:"instanceType,omitempty"`
 }
@@ -32,6 +35,10 @@ func (m *InstanceTemplateV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttachedVolumes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAws(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -65,6 +72,24 @@ func (m *InstanceTemplateV1Request) validateAttachedVolumes(formats strfmt.Regis
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *InstanceTemplateV1Request) validateAws(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Aws) { // not required
+		return nil
+	}
+
+	if m.Aws != nil {
+		if err := m.Aws.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("aws")
+			}
+			return err
+		}
 	}
 
 	return nil
