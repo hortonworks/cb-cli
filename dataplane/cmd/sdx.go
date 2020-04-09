@@ -18,6 +18,18 @@ func init() {
 		Usage: "create SDX clusters",
 		Subcommands: []cli.Command{
 			{
+				Name:   "runtimes",
+				Usage:  "runtimes an SDX cluster",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: sdx.ListSdxAdvertisedRuntimesSdx,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:        "create",
 				Usage:       "creates a new SDX cluster",
 				Description: `basic SDX cluster creation`,
