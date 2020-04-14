@@ -2,6 +2,7 @@ package telemetry
 
 import (
 	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -51,6 +52,15 @@ func UpdateAccountTelemetry(c *cli.Context) {
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
+	if request.Rules != nil {
+		newRules := make([]*model.AnonymizationRule, 0)
+		for _, rule := range request.Rules {
+			newValue := base64.StdEncoding.EncodeToString([]byte(*rule.Value))
+			newRule := model.AnonymizationRule{Replacement: rule.Replacement, Value: &newValue}
+			newRules = append(newRules, &newRule)
+		}
+		request.Rules = newRules
+	}
 	resp, err := telemetryClient.UpdateAccountTelemetryV1(v1telemetry.NewUpdateAccountTelemetryV1Params().WithBody(&request))
 	if err != nil {
 		utils.LogErrorAndExit(err)
@@ -98,7 +108,11 @@ func getFeatures(featuresResp *model.FeaturesResponse) *features {
 func getRules(anonymizationRules []*model.AnonymizationRule) *[]anonymizationRule {
 	rules := make([]anonymizationRule, 0)
 	for _, v := range anonymizationRules {
-		rules = append(rules, anonymizationRule{Value: *v.Value, Replacement: v.Replacement})
+		decodedValue, err := base64.StdEncoding.DecodeString(*v.Value)
+		if err != nil {
+			utils.LogErrorAndExit(err)
+		}
+		rules = append(rules, anonymizationRule{Value: string(decodedValue), Replacement: v.Replacement})
 	}
 	return &rules
 }
