@@ -92,6 +92,42 @@ func DescribeAccountTelemetry(c *cli.Context) error {
 	return nil
 }
 
+func TestAnonymizationRule(c *cli.Context) error {
+	defer utils.TimeTrack(time.Now(), "test anonymization rule")
+	path := c.String(fl.FlFile.Name)
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		utils.LogErrorAndExit(err)
+	}
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	telemetryClient := envClient.Environment.V1telemetry
+	content := utils.ReadFile(path)
+	var request model.TestAnonymizationRuleRequest
+	err := json.Unmarshal(content, &request)
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	if request.Rule != nil {
+		newValue := base64.StdEncoding.EncodeToString([]byte(*request.Rule.Value))
+		newRule := model.AnonymizationRule{Replacement: request.Rule.Replacement, Value: &newValue}
+		request.Rule = &newRule
+	}
+
+	resp, err := telemetryClient.TestRuleV1(v1telemetry.NewTestRuleV1Params().WithBody(&request))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	testResponse := resp.Payload
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(testResponse); err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+	return nil
+}
+
 func getFeatures(featuresResp *model.FeaturesResponse) *features {
 	features := features{}
 	if featuresResp.ClusterLogsCollection != nil {

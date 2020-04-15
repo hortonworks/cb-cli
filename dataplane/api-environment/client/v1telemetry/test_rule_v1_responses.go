@@ -16,17 +16,17 @@ import (
 	model "github.com/hortonworks/cb-cli/dataplane/api-environment/model"
 )
 
-// TestRulesV1Reader is a Reader for the TestRulesV1 structure.
-type TestRulesV1Reader struct {
+// TestRuleV1Reader is a Reader for the TestRuleV1 structure.
+type TestRuleV1Reader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *TestRulesV1Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *TestRuleV1Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
-		result := NewTestRulesV1OK()
+		result := NewTestRuleV1OK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -37,26 +37,26 @@ func (o *TestRulesV1Reader) ReadResponse(response runtime.ClientResponse, consum
 	}
 }
 
-// NewTestRulesV1OK creates a TestRulesV1OK with default headers values
-func NewTestRulesV1OK() *TestRulesV1OK {
-	return &TestRulesV1OK{}
+// NewTestRuleV1OK creates a TestRuleV1OK with default headers values
+func NewTestRuleV1OK() *TestRuleV1OK {
+	return &TestRuleV1OK{}
 }
 
-/*TestRulesV1OK handles this case with default header values.
+/*TestRuleV1OK handles this case with default header values.
 
 successful operation
 */
-type TestRulesV1OK struct {
-	Payload *model.TestAnonymizationRulesResponse
+type TestRuleV1OK struct {
+	Payload *model.TestAnonymizationRuleResponse
 }
 
-func (o *TestRulesV1OK) Error() string {
-	return fmt.Sprintf("[GET /v1/telemetry/rules/test][%d] testRulesV1OK  %+v", 200, o.Payload)
+func (o *TestRuleV1OK) Error() string {
+	return fmt.Sprintf("[GET /v1/telemetry/rules/test][%d] testRuleV1OK  %+v", 200, o.Payload)
 }
 
-func (o *TestRulesV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *TestRuleV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.TestAnonymizationRulesResponse)
+	o.Payload = new(model.TestAnonymizationRuleResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
