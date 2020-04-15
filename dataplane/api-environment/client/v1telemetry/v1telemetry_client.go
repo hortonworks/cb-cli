@@ -145,32 +145,32 @@ func (a *Client) ListRulesV1(params *ListRulesV1Params) (*ListRulesV1OK, error) 
 }
 
 /*
-TestRulesV1 tests anonymization pattern
+TestRuleV1 tests anonymization pattern
 
-Testing anonymization patterns - check the patterns are valid and found matches
+Testing anonymization pattern - check the pattern is valid against an input and found matches
 */
-func (a *Client) TestRulesV1(params *TestRulesV1Params) (*TestRulesV1OK, error) {
+func (a *Client) TestRuleV1(params *TestRuleV1Params) (*TestRuleV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewTestRulesV1Params()
+		params = NewTestRuleV1Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "testRulesV1",
+		ID:                 "testRuleV1",
 		Method:             "GET",
 		PathPattern:        "/v1/telemetry/rules/test",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &TestRulesV1Reader{formats: a.formats},
+		Reader:             &TestRuleV1Reader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*TestRulesV1OK), nil
+	return result.(*TestRuleV1OK), nil
 
 }
 

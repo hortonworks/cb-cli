@@ -11,21 +11,21 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// TestAnonymizationRulesResponse test anonymization rules response
-// swagger:model TestAnonymizationRulesResponse
-type TestAnonymizationRulesResponse struct {
+// TestAnonymizationRuleResponse test anonymization rule response
+// swagger:model TestAnonymizationRuleResponse
+type TestAnonymizationRuleResponse struct {
 
 	// output
 	Output string `json:"output,omitempty"`
 }
 
-// Validate validates this test anonymization rules response
-func (m *TestAnonymizationRulesResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this test anonymization rule response
+func (m *TestAnonymizationRuleResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *TestAnonymizationRulesResponse) MarshalBinary() ([]byte, error) {
+func (m *TestAnonymizationRuleResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -33,8 +33,8 @@ func (m *TestAnonymizationRulesResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TestAnonymizationRulesResponse) UnmarshalBinary(b []byte) error {
-	var res TestAnonymizationRulesResponse
+func (m *TestAnonymizationRuleResponse) UnmarshalBinary(b []byte) error {
+	var res TestAnonymizationRuleResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

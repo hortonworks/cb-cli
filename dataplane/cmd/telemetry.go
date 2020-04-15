@@ -38,6 +38,19 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:        "test",
+				Usage:       "test anonymization rule",
+				Description: "test an anonymization rule against text input.",
+				Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:       fl.NewFlagBuilder().AddFlags(fl.FlFile).AddAGlobalFlags().Build(),
+				Action:      telemetry.TestAnonymizationRule,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlFile).AddAGlobalFlags().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }
