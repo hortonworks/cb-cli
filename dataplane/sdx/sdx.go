@@ -8,6 +8,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxutils"
 	"github.com/hortonworks/cb-cli/dataplane/common"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -38,6 +39,17 @@ type sdxClusterOutput struct {
 	StatusReason               string `json:"StatusReason" yaml:"StatusReason"`
 }
 
+var sdxAdvertisedRuntimesHeader = []string{"RuntimeVersion", "DefaultRuntimeVersion"}
+
+type sdxAdvertisedRuntimesOutput struct {
+	RuntimeVersion        string `json:"RuntimeVersion" yaml:"RuntimeVersion"`
+	DefaultRuntimeVersion bool   `json:"DefaultRuntimeVersion" yaml:"DefaultRuntimeVersion"`
+}
+
+func (r *sdxAdvertisedRuntimesOutput) DataAsStringArray() []string {
+	return []string{r.RuntimeVersion, strconv.FormatBool(r.DefaultRuntimeVersion)}
+}
+
 type sdxClusterDetailedOutput struct {
 	*sdxClusterOutput
 	StackV4Response sdxModel.StackV4Response `json:"StackV4Response" yaml:"StackV4Response"`
@@ -51,6 +63,10 @@ type ClientSdx oauth.Sdx
 
 type clientSdx interface {
 	ListSdx(params *sdx.ListSdxParams) (*sdx.ListSdxOK, error)
+}
+
+type clientRuntimeSdx interface {
+	Advertisedruntimes(params *sdx.AdvertisedruntimesParams) (*sdx.AdvertisedruntimesOK, error)
 }
 
 func assembleStackRequest(c *cli.Context) *sdxModel.StackV4Request {
@@ -331,6 +347,29 @@ func SyncSdx(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[SyncSdx] SDX cluster sync started for: %s", name)
+}
+
+func ListSdxAdvertisedRuntimesSdx(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "List sdx adertised runtimes")
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c))
+	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	writer := output.WriteList
+	listSdxAdvertisedRuntimesImpl(sdxClient.Sdx.Sdx, writer)
+	log.Infof("[AdvertisedRuntimesSdx] SDX advertised runtimes")
+}
+
+func listSdxAdvertisedRuntimesImpl(client clientRuntimeSdx, writer func([]string, []commonutils.Row)) {
+	resp, err := client.Advertisedruntimes(sdx.NewAdvertisedruntimesParams())
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+
+	var tableRows []commonutils.Row
+	for _, advertiseRuntime := range resp.Payload {
+		tableRows = append(tableRows, &sdxAdvertisedRuntimesOutput{advertiseRuntime.RuntimeVersion, advertiseRuntime.DefaultRuntimeVersion})
+	}
+
+	writer(sdxAdvertisedRuntimesHeader, tableRows)
 }
 
 func RetrySdx(c *cli.Context) {
