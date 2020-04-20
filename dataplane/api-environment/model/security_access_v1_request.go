@@ -18,6 +18,8 @@ import (
 type SecurityAccessV1Request struct {
 
 	// CIDR range which is allowed for inbound traffic. Either IPv4 or IPv6 is allowed.
+	// Max Length: 255
+	// Min Length: 5
 	Cidr string `json:"cidr,omitempty"`
 
 	// Security group where all other hosts are placed.
@@ -35,6 +37,10 @@ type SecurityAccessV1Request struct {
 func (m *SecurityAccessV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCidr(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateDefaultSecurityGroupID(formats); err != nil {
 		res = append(res, err)
 	}
@@ -46,6 +52,23 @@ func (m *SecurityAccessV1Request) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *SecurityAccessV1Request) validateCidr(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Cidr) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("cidr", "body", string(m.Cidr), 5); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("cidr", "body", string(m.Cidr), 255); err != nil {
+		return err
+	}
+
 	return nil
 }
 

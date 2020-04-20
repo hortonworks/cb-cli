@@ -335,6 +335,68 @@ func (a *Client) ReleaseManagedDatabaseServer(params *ReleaseManagedDatabaseServ
 }
 
 /*
+StartDatabaseServer starts database server
+
+Start a previosly stopped database server.
+*/
+func (a *Client) StartDatabaseServer(params *StartDatabaseServerParams, authInfo runtime.ClientAuthInfoWriter) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStartDatabaseServerParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "startDatabaseServer",
+		Method:             "PUT",
+		PathPattern:        "/v4/databaseservers/{crn}/start",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StartDatabaseServerReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+StopDatabaseServer stops database server
+
+Stop a running database server.
+*/
+func (a *Client) StopDatabaseServer(params *StopDatabaseServerParams, authInfo runtime.ClientAuthInfoWriter) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopDatabaseServerParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stopDatabaseServer",
+		Method:             "PUT",
+		PathPattern:        "/v4/databaseservers/{crn}/stop",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StopDatabaseServerReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 TestDatabaseServerConnection tests database server connectivity
 
 Tests connectivity to a database. Use this to verify access to the database server from this service, and also to verify authentication credentials.
