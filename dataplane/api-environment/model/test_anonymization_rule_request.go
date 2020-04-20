@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -23,9 +25,9 @@ type TestAnonymizationRuleRequest struct {
 	// Min Length: 0
 	Input *string `json:"input"`
 
-	// rule
+	// rules
 	// Required: true
-	Rule *AnonymizationRule `json:"rule"`
+	Rules []*AnonymizationRule `json:"rules"`
 }
 
 // Validate validates this test anonymization rule request
@@ -36,7 +38,7 @@ func (m *TestAnonymizationRuleRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateRule(formats); err != nil {
+	if err := m.validateRules(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -63,19 +65,26 @@ func (m *TestAnonymizationRuleRequest) validateInput(formats strfmt.Registry) er
 	return nil
 }
 
-func (m *TestAnonymizationRuleRequest) validateRule(formats strfmt.Registry) error {
+func (m *TestAnonymizationRuleRequest) validateRules(formats strfmt.Registry) error {
 
-	if err := validate.Required("rule", "body", m.Rule); err != nil {
+	if err := validate.Required("rules", "body", m.Rules); err != nil {
 		return err
 	}
 
-	if m.Rule != nil {
-		if err := m.Rule.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("rule")
-			}
-			return err
+	for i := 0; i < len(m.Rules); i++ {
+		if swag.IsZero(m.Rules[i]) { // not required
+			continue
 		}
+
+		if m.Rules[i] != nil {
+			if err := m.Rules[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("rules" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
