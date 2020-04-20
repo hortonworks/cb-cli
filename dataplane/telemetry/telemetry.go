@@ -93,7 +93,7 @@ func DescribeAccountTelemetry(c *cli.Context) error {
 }
 
 func TestAnonymizationRule(c *cli.Context) error {
-	defer utils.TimeTrack(time.Now(), "test anonymization rule")
+	defer utils.TimeTrack(time.Now(), "test anonymization rules")
 	path := c.String(fl.FlFile.Name)
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		utils.LogErrorAndExit(err)
@@ -106,10 +106,14 @@ func TestAnonymizationRule(c *cli.Context) error {
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
-	if request.Rule != nil {
-		newValue := base64.StdEncoding.EncodeToString([]byte(*request.Rule.Value))
-		newRule := model.AnonymizationRule{Replacement: request.Rule.Replacement, Value: &newValue}
-		request.Rule = &newRule
+	if request.Rules != nil {
+		newRules := make([]*model.AnonymizationRule, 0)
+		for _, rule := range request.Rules {
+			newValue := base64.StdEncoding.EncodeToString([]byte(*rule.Value))
+			newRule := model.AnonymizationRule{Replacement: rule.Replacement, Value: &newValue}
+			newRules = append(newRules, &newRule)
+		}
+		request.Rules = newRules
 	}
 
 	resp, err := telemetryClient.TestRuleV1(v1telemetry.NewTestRuleV1Params().WithBody(&request))
