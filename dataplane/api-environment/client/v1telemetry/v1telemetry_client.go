@@ -157,7 +157,7 @@ func (a *Client) TestRuleV1(params *TestRuleV1Params) (*TestRuleV1OK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "testRuleV1",
-		Method:             "GET",
+		Method:             "POST",
 		PathPattern:        "/v1/telemetry/rules/test",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},

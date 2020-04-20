@@ -51,7 +51,7 @@ type TestRuleV1OK struct {
 }
 
 func (o *TestRuleV1OK) Error() string {
-	return fmt.Sprintf("[GET /v1/telemetry/rules/test][%d] testRuleV1OK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /v1/telemetry/rules/test][%d] testRuleV1OK  %+v", 200, o.Payload)
 }
 
 func (o *TestRuleV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
