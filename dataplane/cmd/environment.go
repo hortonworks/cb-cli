@@ -186,6 +186,30 @@ func init() {
 					},
 				},
 			},
+			{
+				Name:  "telemetry",
+				Usage: "environment level telemetry related operations.",
+				Subcommands: []cli.Command{
+					{
+						Name:  "features",
+						Usage: "Environment level telemetry feature operations",
+						Subcommands: []cli.Command{
+							{
+								Name:   "edit",
+								Usage:  "Update environment level telemetry features",
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlEnvironmentEditTemplateFile).AddAGlobalFlags().Build(),
+								Before: cf.CheckConfigAndCommandFlags,
+								Action: env.EditEnvironmentTelemetryFeaturesFromTemplate,
+								BashComplete: func(c *cli.Context) {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build() {
+										fl.PrintFlagCompletion(f)
+									}
+								},
+							},
+						},
+					},
+				},
+			},
 		},
 	})
 }
