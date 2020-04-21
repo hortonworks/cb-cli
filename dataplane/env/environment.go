@@ -65,6 +65,15 @@ type environmentListJsonDescribe struct {
 	FreeIpa   model.FreeIpaResponse              `json:"FreeIpa" yaml:"FreeIpa"`
 }
 
+type features struct {
+	ClusterLogsCollection *featureSetting `json:"ClusterLogsCollection,omitempty" yaml:"ClusterLogsCollection"`
+	WorkloadAnalytics     *featureSetting `json:"WorkloadAnalytics,omitempty" yaml:"WorkloadAnalytics"`
+}
+
+type featureSetting struct {
+	Enabled bool `json:"Enabled" yaml:"Enabled"`
+}
+
 type environmentClient interface {
 	CreateEnvironmentV1(params *v1env.CreateEnvironmentV1Params) (*v1env.CreateEnvironmentV1OK, error)
 	ListEnvironmentV1(params *v1env.ListEnvironmentV1Params) (*v1env.ListEnvironmentV1OK, error)
@@ -133,6 +142,33 @@ func EditEnvironmentFromTemplate(c *cli.Context) {
 	environment := resp.Payload
 
 	log.Infof("[EditEnvironmentFromTemplate] environment has edited with name: %s, crn: %s", environment.Name, environment.Crn)
+}
+
+func EditEnvironmentTelemetryFeaturesFromTemplate(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "edit environment telemetry features from template")
+	fileLocation := c.String(fl.FlEnvironmentTemplateFile.Name)
+	log.Infof("[EditEnvironmentTelemetryFeaturesFromTemplate] read environment telemetry feature edit template JSON from file: %s", fileLocation)
+	content := utils.ReadFile(fileLocation)
+
+	var req model.FeaturesRequest
+	err := json.Unmarshal(content, &req)
+	if err != nil {
+		msg := fmt.Sprintf(`Invalid JSON format: %s. Please make sure that the json is valid (check for commas and double quotes).`, err.Error())
+		utils.LogErrorMessageAndExit(msg)
+	}
+	var name string
+	if name = c.String(fl.FlNameOptional.Name); len(name) == 0 {
+		utils.LogErrorMessageAndExit("Name of the environment must be set with the --name command line option.")
+	}
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	checkClientVersion(envClient.Environment, common.Version)
+	resp, err := envClient.Environment.V1env.ChangeTelemetryFeaturesInEnvironmentV1ByName(v1env.NewChangeTelemetryFeaturesInEnvironmentV1ByNameParams().WithBody(&req).WithName(name))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	environment := resp.Payload
+
+	log.Infof("[EditEnvironmentTelemetryFeaturesFromTemplate] environment has edited (telemetry features) with name: %s, crn: %s", environment.Name, environment.Crn)
 }
 
 func createEnvironmentImpl(c *cli.Context, EnvironmentV1Request *model.EnvironmentV1Request) {
