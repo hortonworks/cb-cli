@@ -93,7 +93,7 @@ func TestCreateCredentialPublic(t *testing.T) {
 
 	mock := mockCredentialCreate{request: make(chan *model.CredentialV1Request)}
 	go func() {
-		createCredentialImpl(mockStringFinder, &mock, false)
+		createCredentialImpl(mockStringFinder, &mock, false, true)
 	}()
 
 	actualCredential := <-mock.request
@@ -106,6 +106,9 @@ func TestCreateCredentialPublic(t *testing.T) {
 	}
 	if *actualCredential.CloudPlatform != "AWS" {
 		t.Errorf("cloud platform not match AWS == %s", *actualCredential.CloudPlatform)
+	}
+	if actualCredential.VerifyPermissions != true {
+		t.Errorf("VerifyPermissions should be true")
 	}
 }
 
@@ -206,7 +209,7 @@ func TestModifyCredentialImplForValidChange(t *testing.T) {
 		}
 	}
 
-	CredentialV1Response := modifyCredentialImpl(stringFinder, new(mockCredentialModifyClient), false)
+	CredentialV1Response := modifyCredentialImpl(stringFinder, new(mockCredentialModifyClient), false, true)
 	resultArn := CredentialV1Response.Aws.RoleBased.RoleArn
 	if resultArn == nil || *resultArn != expectedArn {
 		t.Errorf("roleArn does not match %s != %s", *resultArn, expectedArn)
@@ -236,7 +239,7 @@ func TestModifyCredentialImplForDescriptionChange(t *testing.T) {
 		}
 	}
 
-	CredentialV1Response := modifyCredentialImpl(stringFinder, new(mockCredentialModifyClient), false)
+	CredentialV1Response := modifyCredentialImpl(stringFinder, new(mockCredentialModifyClient), false, false)
 	resultArn := CredentialV1Response.Aws.RoleBased.RoleArn
 	if resultArn == nil || *resultArn != expectedArn {
 		t.Errorf("roleArn does not match %s != %s", *resultArn, expectedArn)
@@ -266,7 +269,7 @@ func TestModifyCredentialImplForDescriptionPublicChange(t *testing.T) {
 		}
 	}
 
-	CredentialV1Response := modifyCredentialImpl(stringFinder, new(mockCredentialModifyClient), false)
+	CredentialV1Response := modifyCredentialImpl(stringFinder, new(mockCredentialModifyClient), false, false)
 	resultArn := CredentialV1Response.Aws.RoleBased.RoleArn
 	if resultArn == nil || *resultArn != expectedArn {
 		t.Errorf("roleArn does not match %s != %s", *resultArn, expectedArn)
@@ -300,7 +303,7 @@ func TestModifyCredentialImplForInvalidCredential(t *testing.T) {
 		}
 	}
 
-	modifyCredentialImpl(stringFinder, new(mockCredentialModifyClient), false)
+	modifyCredentialImpl(stringFinder, new(mockCredentialModifyClient), false, false)
 	t.Error("the credential modification should fail")
 }
 
