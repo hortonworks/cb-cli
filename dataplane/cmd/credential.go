@@ -24,10 +24,10 @@ func init() {
 								Name:   "role-based",
 								Usage:  "creates a new role based aws credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlRoleARN).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlRoleARN).AddAGlobalFlags().Build(),
 								Action: credential.CreateAwsCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlRoleARN).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlRoleARN).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -36,10 +36,10 @@ func init() {
 								Name:   "key-based",
 								Usage:  "creates a new key based aws credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build(),
 								Action: credential.CreateAwsCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -54,10 +54,10 @@ func init() {
 								Name:   "key-based",
 								Usage:  "creates a new key based aws govcloud credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build(),
 								Action: credential.CreateAwsGovCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -66,10 +66,10 @@ func init() {
 								Name:   "role-based",
 								Usage:  "creates a new role based aws govcloud credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlRoleARN).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlRoleARN).AddAGlobalFlags().Build(),
 								Action: credential.CreateAwsGovCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlRoleARN).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlRoleARN).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -84,10 +84,10 @@ func init() {
 								Name:   "app-based",
 								Usage:  "creates a new app based azure credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build(),
 								Action: credential.CreateAzureCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -102,10 +102,10 @@ func init() {
 								Name:   "p12-based",
 								Usage:  "creates a new P12 based gcp credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlProjectId, fl.FlServiceAccountId, fl.FlServiceAccountPrivateKeyFile).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlProjectId, fl.FlServiceAccountId, fl.FlServiceAccountPrivateKeyFile).AddAGlobalFlags().Build(),
 								Action: credential.CreateGcpCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlProjectId, fl.FlServiceAccountId, fl.FlServiceAccountPrivateKeyFile).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlProjectId, fl.FlServiceAccountId, fl.FlServiceAccountPrivateKeyFile).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -114,10 +114,10 @@ func init() {
 								Name:   "json-based",
 								Usage:  "creates a new JSON based gcp credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlServiceAccountJsonFile).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlServiceAccountJsonFile).AddAGlobalFlags().Build(),
 								Action: credential.CreateGcpCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlServiceAccountJsonFile).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlServiceAccountJsonFile).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -132,10 +132,10 @@ func init() {
 								Name:   "keystone-v2",
 								Usage:  "creates a new keystone version 2 openstack credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlTenantUser, fl.FlTenantPassword, fl.FlTenantName, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlTenantUser, fl.FlTenantPassword, fl.FlTenantName, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build(),
 								Action: credential.CreateOpenstackCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlTenantUser, fl.FlTenantPassword, fl.FlTenantName, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlTenantUser, fl.FlTenantPassword, fl.FlTenantName, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -144,11 +144,11 @@ func init() {
 								Name:   "keystone-v3",
 								Usage:  "creates a new keystone version 3 openstack credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags: fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlTenantUser, fl.FlTenantPassword,
+								Flags: fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlTenantUser, fl.FlTenantPassword,
 									fl.FlUserDomain, fl.FlProjectDomainNameOptional, fl.FlProjectNameOptional, fl.FlDomainNameOptional, fl.FlKeystoneScopeOptional, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build(),
 								Action: credential.CreateOpenstackCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlTenantUser, fl.FlTenantPassword,
+									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlTenantUser, fl.FlTenantPassword,
 										fl.FlUserDomain, fl.FlProjectDomainNameOptional, fl.FlProjectNameOptional, fl.FlDomainNameOptional, fl.FlKeystoneScopeOptional, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
@@ -160,10 +160,10 @@ func init() {
 						Name:   "ycloud",
 						Usage:  "creates a new ycloud credential",
 						Before: cf.CheckConfigAndCommandFlags,
-						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlEndpoint).AddAGlobalFlags().Build(),
+						Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlEndpoint).AddAGlobalFlags().Build(),
 						Action: credential.CreateYarnCredential,
 						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlEndpoint).AddAGlobalFlags().Build() {
+							for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlEndpoint).AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
@@ -194,10 +194,10 @@ func init() {
 								Name:   "role-based",
 								Usage:  "modify a role based aws credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlRoleARN).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCredentialVerifyOptional, fl.FlName, fl.FlDescriptionOptional, fl.FlRoleARN).AddAGlobalFlags().Build(),
 								Action: credential.ModifyAwsCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlRoleARN).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlRoleARN).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -206,10 +206,10 @@ func init() {
 								Name:   "key-based",
 								Usage:  "modify a key based aws credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCredentialVerifyOptional, fl.FlName, fl.FlDescriptionOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build(),
 								Action: credential.ModifyAwsCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -224,10 +224,10 @@ func init() {
 								Name:   "role-based",
 								Usage:  "modify a role based aws govcloud credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlRoleARN).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlRoleARN).AddAGlobalFlags().Build(),
 								Action: credential.ModifyAwsGovCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlRoleARN).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlRoleARN).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -236,10 +236,10 @@ func init() {
 								Name:   "key-based",
 								Usage:  "modify a key based aws govcloud credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build(),
 								Action: credential.ModifyAwsGovCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlAccessKey, fl.FlSecretKey).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -254,10 +254,10 @@ func init() {
 								Name:   "app-based",
 								Usage:  "modify an app based azure credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build(),
 								Action: credential.ModifyAzureCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -272,10 +272,10 @@ func init() {
 								Name:   "p12-based",
 								Usage:  "modify a P12 based gcp credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlProjectId, fl.FlServiceAccountId, fl.FlServiceAccountPrivateKeyFile).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlProjectId, fl.FlServiceAccountId, fl.FlServiceAccountPrivateKeyFile).AddAGlobalFlags().Build(),
 								Action: credential.ModifyGcpCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlProjectId, fl.FlServiceAccountId, fl.FlServiceAccountPrivateKeyFile).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlProjectId, fl.FlServiceAccountId, fl.FlServiceAccountPrivateKeyFile).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -284,10 +284,10 @@ func init() {
 								Name:   "json-based",
 								Usage:  "modify a JSON based gcp credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlServiceAccountJsonFile).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlServiceAccountJsonFile).AddAGlobalFlags().Build(),
 								Action: credential.ModifyGcpCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlServiceAccountJsonFile).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlServiceAccountJsonFile).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -302,10 +302,10 @@ func init() {
 								Name:   "keystone-v2",
 								Usage:  "modify a keystone version 2 openstack credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlTenantUser, fl.FlTenantPassword, fl.FlTenantName, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlTenantUser, fl.FlTenantPassword, fl.FlTenantName, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build(),
 								Action: credential.ModifyOpenstackCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlTenantUser, fl.FlTenantPassword, fl.FlTenantName, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlTenantUser, fl.FlTenantPassword, fl.FlTenantName, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -314,11 +314,11 @@ func init() {
 								Name:   "keystone-v3",
 								Usage:  "modify a keystone version 3 openstack credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags: fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlTenantUser, fl.FlTenantPassword,
+								Flags: fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlTenantUser, fl.FlTenantPassword,
 									fl.FlUserDomain, fl.FlProjectDomainNameOptional, fl.FlProjectNameOptional, fl.FlDomainNameOptional, fl.FlKeystoneScopeOptional, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build(),
 								Action: credential.ModifyOpenstackCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlDescriptionOptional, fl.FlTenantUser, fl.FlTenantPassword,
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlTenantUser, fl.FlTenantPassword,
 										fl.FlUserDomain, fl.FlProjectDomainNameOptional, fl.FlProjectNameOptional, fl.FlDomainNameOptional, fl.FlKeystoneScopeOptional, fl.FlEndpoint, fl.FlFacingOptional).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}

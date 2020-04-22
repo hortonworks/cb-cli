@@ -53,6 +53,7 @@ type environmentOutJsonDescribe struct {
 	*environment
 	ProxyConfigs   []string                                  `json:"ProxyConfigs" yaml:"ProxyConfigs"`
 	Network        model.EnvironmentNetworkV1Response        `json:"Network" yaml:"Network"`
+	Tags           model.TagResponse                         `json:"Tags" yaml:"Tags"`
 	Telemetry      model.TelemetryResponse                   `json:"Telemetry" yaml:"Telemetry"`
 	Authentication model.EnvironmentAuthenticationV1Response `json:"Authentication" yaml:"Authentication"`
 	FreeIpa        model.FreeIpaResponse                     `json:"FreeIpa" yaml:"FreeIpa"`
@@ -61,6 +62,7 @@ type environmentOutJsonDescribe struct {
 type environmentListJsonDescribe struct {
 	*environment
 	Network   model.EnvironmentNetworkV1Response `json:"Network" yaml:"Network"`
+	Tags      model.TagResponse                  `json:"Tags" yaml:"Tags"`
 	Telemetry model.TelemetryResponse            `json:"Telemetry" yaml:"Telemetry"`
 	FreeIpa   model.FreeIpaResponse              `json:"FreeIpa" yaml:"FreeIpa"`
 }
@@ -301,7 +303,7 @@ func listEnvironmentsImpl(envClient environmentClient, output utils.Output, c *c
 	}
 
 	if output.Format != "table" && output.Format != "yaml" {
-		output.WriteList(append(EnvironmentHeader, "Network", "Telemetry"), tableRows)
+		output.WriteList(append(EnvironmentHeader, "Network", "Telemetry", "Tags"), tableRows)
 	} else {
 		output.WriteList(append(EnvironmentHeader, "SdxStatus", "DataHubCount"), tableRows)
 	}
@@ -454,6 +456,9 @@ func convertResponseToJsonOutput(env *model.DetailedEnvironmentV1Response) *envi
 	}
 	if env.FreeIpa != nil {
 		result.FreeIpa = *env.FreeIpa
+	}
+	if env.Tags != nil {
+		result.Tags = *env.Tags
 	}
 	return result
 }
