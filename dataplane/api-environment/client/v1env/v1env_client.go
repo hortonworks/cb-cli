@@ -85,6 +85,66 @@ func (a *Client) ChangeCredentialInEnvironmentV1ByCrn(params *ChangeCredentialIn
 }
 
 /*
+ChangeTelemetryFeaturesInEnvironmentV1ByCrn changes telemetry features s of the environment in the environment of a given c r n
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) ChangeTelemetryFeaturesInEnvironmentV1ByCrn(params *ChangeTelemetryFeaturesInEnvironmentV1ByCrnParams) (*ChangeTelemetryFeaturesInEnvironmentV1ByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewChangeTelemetryFeaturesInEnvironmentV1ByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "changeTelemetryFeaturesInEnvironmentV1ByCrn",
+		Method:             "PUT",
+		PathPattern:        "/v1/env/crn/{crn}/change_telemetry_features",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ChangeTelemetryFeaturesInEnvironmentV1ByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ChangeTelemetryFeaturesInEnvironmentV1ByCrnOK), nil
+
+}
+
+/*
+ChangeTelemetryFeaturesInEnvironmentV1ByName changes telemetry features s of the environment in the environment of a given name
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) ChangeTelemetryFeaturesInEnvironmentV1ByName(params *ChangeTelemetryFeaturesInEnvironmentV1ByNameParams) (*ChangeTelemetryFeaturesInEnvironmentV1ByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewChangeTelemetryFeaturesInEnvironmentV1ByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "changeTelemetryFeaturesInEnvironmentV1ByName",
+		Method:             "PUT",
+		PathPattern:        "/v1/env/name/{name}/change_telemetry_features",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ChangeTelemetryFeaturesInEnvironmentV1ByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ChangeTelemetryFeaturesInEnvironmentV1ByNameOK), nil
+
+}
+
+/*
 CreateEnvironmentV1 creates an environment
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
