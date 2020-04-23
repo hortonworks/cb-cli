@@ -178,7 +178,19 @@ func (s CloudStorageSetter) SetCloudStorage(req *sdxModel.SdxCloudStorageRequest
 }
 
 func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, setter CloudStorageSetter) {
-	if len(cloudStorageBaseLocation) > 0 {
+	if len(instanceProfile) > 0 && len(managedIdentity) > 0 {
+		commonutils.LogErrorMessageAndExit("Please use managed identity or instance profile, but not both")
+	}
+	if len(instanceProfile) > 0 && len(cloudStorageBaseLocation) == 0 {
+		commonutils.LogErrorMessageAndExit("Please use cloud storage base location if you define instance profile")
+	}
+	if len(managedIdentity) > 0 && len(cloudStorageBaseLocation) == 0 {
+		commonutils.LogErrorMessageAndExit("Please use cloud storage base location if you define managed identity")
+	}
+	if len(cloudStorageBaseLocation) > 0 && len(instanceProfile) == 0 && len(managedIdentity) == 0 {
+		commonutils.LogErrorMessageAndExit("Please use managed identity or instance profile if you define cloud storage")
+	}
+	if len(cloudStorageBaseLocation) > 0 && len(instanceProfile) > 0 {
 		if len(instanceProfile) > 0 {
 			s3CloudStorage := &sdxModel.S3CloudStorageV1Parameters{
 				InstanceProfile: &instanceProfile,
@@ -193,22 +205,22 @@ func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile 
 				Wasb:           nil,
 			}
 			setter.SetCloudStorage(cloudStorage)
-
-		} else if len(managedIdentity) > 0 {
-			adlsGen2Storage := &sdxModel.AdlsGen2CloudStorageV1Parameters{
-				ManagedIdentity: managedIdentity,
-			}
-			cloudStorage := &sdxModel.SdxCloudStorageRequest{
-				Adls:           nil,
-				AdlsGen2:       adlsGen2Storage,
-				BaseLocation:   cloudStorageBaseLocation,
-				FileSystemType: "ADLS_GEN_2",
-				Gcs:            nil,
-				S3:             nil,
-				Wasb:           nil,
-			}
-			setter.SetCloudStorage(cloudStorage)
 		}
+	}
+	if len(cloudStorageBaseLocation) > 0 && len(managedIdentity) > 0 {
+		adlsGen2Storage := &sdxModel.AdlsGen2CloudStorageV1Parameters{
+			ManagedIdentity: managedIdentity,
+		}
+		cloudStorage := &sdxModel.SdxCloudStorageRequest{
+			Adls:           nil,
+			AdlsGen2:       adlsGen2Storage,
+			BaseLocation:   cloudStorageBaseLocation,
+			FileSystemType: "ADLS_GEN_2",
+			Gcs:            nil,
+			S3:             nil,
+			Wasb:           nil,
+		}
+		setter.SetCloudStorage(cloudStorage)
 	}
 }
 
