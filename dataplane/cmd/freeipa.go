@@ -79,6 +79,18 @@ func init() {
 				},
 			},
 			{
+				Name:   "reboot",
+				Usage:  "reboot a FreeIpa cluster",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlNodesOptional, fl.FlForceOptional).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: freeipa.RebootFreeIpa,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlNodesOptional, fl.FlForceOptional).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:   "list",
 				Usage:  "list FreeIpa clusters",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,

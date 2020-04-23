@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
 	"os"
@@ -94,6 +95,30 @@ func StopFreeIpa(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[stopFreeIpa] FreeIpa cluster stop requested in enviornment %s", envName)
+}
+
+func RebootFreeIpa(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "stop FreeIpa cluster")
+	envName := c.String(fl.FlEnvironmentName.Name)
+	RebootInstancesV1Request := assembleRebootRequest(c)
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	err := freeIpaClient.V1freeipa.RebootV1(v1freeipa.NewRebootV1Params().WithBody(RebootInstancesV1Request))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("[rebootFreeIpa] FreeIpa cluster reboot requested in enviornment %s", envName)
+}
+
+func assembleRebootRequest(c *cli.Context) *freeIpaModel.RebootInstancesV1Request {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	force := c.Bool(fl.FlForceOptional.Name)
+	nodes := c.String(fl.FlNodesOptional.Name)
+	return &freeIpaModel.RebootInstancesV1Request{
+		EnvironmentCrn: &envCrn,
+		ForceReboot:    force,
+		InstanceIds:    strings.Split(nodes, ","),
+	}
 }
 
 func ListFreeIpa(c *cli.Context) {
