@@ -879,6 +879,13 @@ var (
 			Usage: "comma separated list of nodes that will be repaired",
 		},
 	}
+	FlNodesOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "nodes",
+			Usage: "comma separated list of nodes that will be rebooted",
+		},
+	}
 	FlDeleteVolumes = BoolFlag{
 		RequiredFlag: OPTIONAL,
 		BoolFlag: cli.BoolFlag{
