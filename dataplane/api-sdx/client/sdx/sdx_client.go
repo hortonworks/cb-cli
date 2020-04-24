@@ -53,118 +53,6 @@ func (a *Client) Advertisedruntimes(params *AdvertisedruntimesParams) (*Advertis
 }
 
 /*
-CheckForClusterUpgradeByCrn checks for cluster upgrade options by crn
-*/
-func (a *Client) CheckForClusterUpgradeByCrn(params *CheckForClusterUpgradeByCrnParams) (*CheckForClusterUpgradeByCrnOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewCheckForClusterUpgradeByCrnParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkForClusterUpgradeByCrn",
-		Method:             "GET",
-		PathPattern:        "/sdx/crn/{crn}/check_cluster_upgrade",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &CheckForClusterUpgradeByCrnReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*CheckForClusterUpgradeByCrnOK), nil
-
-}
-
-/*
-CheckForClusterUpgradeByName checks for cluster upgrade options by name
-*/
-func (a *Client) CheckForClusterUpgradeByName(params *CheckForClusterUpgradeByNameParams) (*CheckForClusterUpgradeByNameOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewCheckForClusterUpgradeByNameParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkForClusterUpgradeByName",
-		Method:             "GET",
-		PathPattern:        "/sdx/{name}/check_cluster_upgrade",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &CheckForClusterUpgradeByNameReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*CheckForClusterUpgradeByNameOK), nil
-
-}
-
-/*
-CheckForUpgrade checks for upgrade options by name
-*/
-func (a *Client) CheckForUpgrade(params *CheckForUpgradeParams) (*CheckForUpgradeOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewCheckForUpgradeParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkForUpgrade",
-		Method:             "GET",
-		PathPattern:        "/sdx/{name}/check_for_upgrade",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &CheckForUpgradeReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*CheckForUpgradeOK), nil
-
-}
-
-/*
-CheckForUpgradeByCrn checks for upgrade options by crn
-*/
-func (a *Client) CheckForUpgradeByCrn(params *CheckForUpgradeByCrnParams) (*CheckForUpgradeByCrnOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewCheckForUpgradeByCrnParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkForUpgradeByCrn",
-		Method:             "GET",
-		PathPattern:        "/sdx/crn/{crn}/check_for_upgrade",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &CheckForUpgradeByCrnReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*CheckForUpgradeByCrnOK), nil
-
-}
-
-/*
 CreateSdx creates s d x cluster
 */
 func (a *Client) CreateSdx(params *CreateSdxParams) (*CreateSdxOK, error) {
@@ -697,63 +585,7 @@ func (a *Client) SyncSdxByCrn(params *SyncSdxByCrnParams) error {
 }
 
 /*
-UpgradeClusterByCrn upgrades the datalake cluster by crn
-*/
-func (a *Client) UpgradeClusterByCrn(params *UpgradeClusterByCrnParams) (*UpgradeClusterByCrnOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUpgradeClusterByCrnParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "upgradeClusterByCrn",
-		Method:             "POST",
-		PathPattern:        "/sdx/crn/{crn}/cluster_upgrade/image/{image}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &UpgradeClusterByCrnReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*UpgradeClusterByCrnOK), nil
-
-}
-
-/*
-UpgradeClusterByName upgrades the datalake cluster by name
-*/
-func (a *Client) UpgradeClusterByName(params *UpgradeClusterByNameParams) (*UpgradeClusterByNameOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUpgradeClusterByNameParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "upgradeClusterByName",
-		Method:             "POST",
-		PathPattern:        "/sdx/{name}/cluster_upgrade/image/{image}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &UpgradeClusterByNameReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*UpgradeClusterByNameOK), nil
-
-}
-
-/*
-UpgradeDatalakeCluster upgrades the datalake cluster to the latest images
+UpgradeDatalakeCluster upgrades the datalake cluster
 */
 func (a *Client) UpgradeDatalakeCluster(params *UpgradeDatalakeClusterParams) (*UpgradeDatalakeClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -781,7 +613,7 @@ func (a *Client) UpgradeDatalakeCluster(params *UpgradeDatalakeClusterParams) (*
 }
 
 /*
-UpgradeDatalakeClusterByCrn upgrades the datalake cluster to the latest images
+UpgradeDatalakeClusterByCrn upgrades the datalake cluster
 */
 func (a *Client) UpgradeDatalakeClusterByCrn(params *UpgradeDatalakeClusterByCrnParams) (*UpgradeDatalakeClusterByCrnOK, error) {
 	// TODO: Validate the params before sending

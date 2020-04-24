@@ -47,16 +47,16 @@ func NewCheckForClusterUpgradeByNameOK() *CheckForClusterUpgradeByNameOK {
 successful operation
 */
 type CheckForClusterUpgradeByNameOK struct {
-	Payload *model.UpgradeOptionsV4Response
+	Payload *model.UpgradeV4Response
 }
 
 func (o *CheckForClusterUpgradeByNameOK) Error() string {
-	return fmt.Sprintf("[GET /v4/{workspaceId}/stacks/{name}/check_cluster_upgrade][%d] checkForClusterUpgradeByNameOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /v4/{workspaceId}/stacks/{name}/check_cluster_upgrade][%d] checkForClusterUpgradeByNameOK  %+v", 200, o.Payload)
 }
 
 func (o *CheckForClusterUpgradeByNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.UpgradeOptionsV4Response)
+	o.Payload = new(model.UpgradeV4Response)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -15,6 +15,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // NewUpgradeDatalakeClusterByCrnParams creates a new UpgradeDatalakeClusterByCrnParams object
@@ -61,6 +63,8 @@ for the upgrade datalake cluster by crn operation typically these are written to
 */
 type UpgradeDatalakeClusterByCrnParams struct {
 
+	/*Body*/
+	Body *model.SdxUpgradeRequest
 	/*Crn*/
 	Crn string
 
@@ -102,6 +106,17 @@ func (o *UpgradeDatalakeClusterByCrnParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithBody adds the body to the upgrade datalake cluster by crn params
+func (o *UpgradeDatalakeClusterByCrnParams) WithBody(body *model.SdxUpgradeRequest) *UpgradeDatalakeClusterByCrnParams {
+	o.SetBody(body)
+	return o
+}
+
+// SetBody adds the body to the upgrade datalake cluster by crn params
+func (o *UpgradeDatalakeClusterByCrnParams) SetBody(body *model.SdxUpgradeRequest) {
+	o.Body = body
+}
+
 // WithCrn adds the crn to the upgrade datalake cluster by crn params
 func (o *UpgradeDatalakeClusterByCrnParams) WithCrn(crn string) *UpgradeDatalakeClusterByCrnParams {
 	o.SetCrn(crn)
@@ -120,6 +135,12 @@ func (o *UpgradeDatalakeClusterByCrnParams) WriteToRequest(r runtime.ClientReque
 		return err
 	}
 	var res []error
+
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
+	}
 
 	// path param crn
 	if err := r.SetPathParam("crn", o.Crn); err != nil {

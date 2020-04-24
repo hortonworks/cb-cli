@@ -139,51 +139,15 @@ func init() {
 				},
 			},
 			{
-				Name:  "upgrade",
-				Usage: "OS or data platform upgrade for the SDX cluster",
-				Subcommands: []cli.Command{
-					{
-						Name:   "os",
-						Usage:  "OS upgrade for the SDX cluster",
-						Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-						Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlDryRunOptional).Build(),
-						Action: sdx.UpgradeSdx,
-						BashComplete: func(c *cli.Context) {
-							for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlDryRunOptional).Build() {
-								fl.PrintFlagCompletion(f)
-							}
-						},
-					},
-					{
-						Name:  "cluster",
-						Usage: "cluster upgrade for the SDX",
-						Subcommands: []cli.Command{
-							{
-								Name:   "check",
-								Usage:  "check for cluster upgrades",
-								Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-								Flags:  fl.NewFlagBuilder().AddOutputFlag().AddNameFlag().AddAGlobalFlags().Build(),
-								Action: sdx.CheckSdxClusterUpgrade,
-								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddOutputFlag().AddNameFlag().AddAGlobalFlags().Build() {
-										fl.PrintFlagCompletion(f)
-									}
-								},
-							},
-							{
-								Name:   "upgrade",
-								Usage:  "upgrade the SDX cluster",
-								Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-								Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageId).Build(),
-								Action: sdx.SdxClusterkUpgrade,
-								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageId).Build() {
-										fl.PrintFlagCompletion(f)
-									}
-								},
-							},
-						},
-					},
+				Name:   "upgrade",
+				Usage:  "OS or data platform upgrade for the SDX cluster. You need to specify either one of imageId, runtime or lockComponents to proceed!",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageIdOptional).AddFlags(fl.FlRuntimeOptional).AddFlags(fl.FlLockComponentsOptional).AddFlags(fl.FlDryRunOptional).Build(),
+				Action: sdx.SdxClusterkUpgrade,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageIdOptional).AddFlags(fl.FlRuntimeOptional).AddFlags(fl.FlLockComponentsOptional).AddFlags(fl.FlDryRunOptional).Build() {
+						fl.PrintFlagCompletion(f)
+					}
 				},
 			},
 		},

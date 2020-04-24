@@ -47,7 +47,7 @@ func NewUpgradeDatalakeClusterByCrnOK() *UpgradeDatalakeClusterByCrnOK {
 successful operation
 */
 type UpgradeDatalakeClusterByCrnOK struct {
-	Payload *model.FlowIdentifier
+	Payload *model.SdxUpgradeResponse
 }
 
 func (o *UpgradeDatalakeClusterByCrnOK) Error() string {
@@ -56,7 +56,7 @@ func (o *UpgradeDatalakeClusterByCrnOK) Error() string {
 
 func (o *UpgradeDatalakeClusterByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.FlowIdentifier)
+	o.Payload = new(model.SdxUpgradeResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
