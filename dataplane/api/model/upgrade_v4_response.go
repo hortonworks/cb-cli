@@ -14,12 +14,15 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// UpgradeOptionsV4Response upgrade options v4 response
-// swagger:model UpgradeOptionsV4Response
-type UpgradeOptionsV4Response struct {
+// UpgradeV4Response upgrade v4 response
+// swagger:model UpgradeV4Response
+type UpgradeV4Response struct {
 
 	// current
 	Current *ImageInfoV4Response `json:"current,omitempty"`
+
+	// flow identifier
+	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
 
 	// reason
 	Reason string `json:"reason,omitempty"`
@@ -28,11 +31,15 @@ type UpgradeOptionsV4Response struct {
 	UpgradeCandidates []*ImageInfoV4Response `json:"upgradeCandidates"`
 }
 
-// Validate validates this upgrade options v4 response
-func (m *UpgradeOptionsV4Response) Validate(formats strfmt.Registry) error {
+// Validate validates this upgrade v4 response
+func (m *UpgradeV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCurrent(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFlowIdentifier(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -46,7 +53,7 @@ func (m *UpgradeOptionsV4Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *UpgradeOptionsV4Response) validateCurrent(formats strfmt.Registry) error {
+func (m *UpgradeV4Response) validateCurrent(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Current) { // not required
 		return nil
@@ -64,7 +71,25 @@ func (m *UpgradeOptionsV4Response) validateCurrent(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *UpgradeOptionsV4Response) validateUpgradeCandidates(formats strfmt.Registry) error {
+func (m *UpgradeV4Response) validateFlowIdentifier(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.FlowIdentifier) { // not required
+		return nil
+	}
+
+	if m.FlowIdentifier != nil {
+		if err := m.FlowIdentifier.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("flowIdentifier")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *UpgradeV4Response) validateUpgradeCandidates(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.UpgradeCandidates) { // not required
 		return nil
@@ -90,7 +115,7 @@ func (m *UpgradeOptionsV4Response) validateUpgradeCandidates(formats strfmt.Regi
 }
 
 // MarshalBinary interface implementation
-func (m *UpgradeOptionsV4Response) MarshalBinary() ([]byte, error) {
+func (m *UpgradeV4Response) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -98,8 +123,8 @@ func (m *UpgradeOptionsV4Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *UpgradeOptionsV4Response) UnmarshalBinary(b []byte) error {
-	var res UpgradeOptionsV4Response
+func (m *UpgradeV4Response) UnmarshalBinary(b []byte) error {
+	var res UpgradeV4Response
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

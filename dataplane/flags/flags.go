@@ -679,7 +679,14 @@ var (
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{
 			Name:  "imageid",
-			Usage: "id of the image",
+			Usage: "UUID of the image",
+		},
+	}
+	FlImageIdOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "imageid",
+			Usage: "UUID of the image",
 		},
 	}
 	FlProxyHost = StringFlag{
@@ -1417,7 +1424,14 @@ var (
 		RequiredFlag: OPTIONAL,
 		BoolFlag: cli.BoolFlag{
 			Name:  "dry-run",
-			Usage: "checks the availability of a newer OS image",
+			Usage: "checks the eligibility of an image to upgrade",
+		},
+	}
+	FlLockComponentsOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "lock-components",
+			Usage: "upgrades to image with the same version of stack and clustermanager, if available",
 		},
 	}
 	FlSpotPercentage = StringFlag{

@@ -17,6 +17,8 @@ import (
 	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // NewCheckForClusterUpgradeByNameParams creates a new CheckForClusterUpgradeByNameParams object
@@ -63,6 +65,8 @@ for the check for cluster upgrade by name operation typically these are written 
 */
 type CheckForClusterUpgradeByNameParams struct {
 
+	/*Body*/
+	Body *model.UpgradeV4Request
 	/*Name*/
 	Name string
 	/*WorkspaceID*/
@@ -106,6 +110,17 @@ func (o *CheckForClusterUpgradeByNameParams) SetHTTPClient(client *http.Client) 
 	o.HTTPClient = client
 }
 
+// WithBody adds the body to the check for cluster upgrade by name params
+func (o *CheckForClusterUpgradeByNameParams) WithBody(body *model.UpgradeV4Request) *CheckForClusterUpgradeByNameParams {
+	o.SetBody(body)
+	return o
+}
+
+// SetBody adds the body to the check for cluster upgrade by name params
+func (o *CheckForClusterUpgradeByNameParams) SetBody(body *model.UpgradeV4Request) {
+	o.Body = body
+}
+
 // WithName adds the name to the check for cluster upgrade by name params
 func (o *CheckForClusterUpgradeByNameParams) WithName(name string) *CheckForClusterUpgradeByNameParams {
 	o.SetName(name)
@@ -135,6 +150,12 @@ func (o *CheckForClusterUpgradeByNameParams) WriteToRequest(r runtime.ClientRequ
 		return err
 	}
 	var res []error
+
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

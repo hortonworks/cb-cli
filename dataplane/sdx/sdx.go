@@ -4,13 +4,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client"
-	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxutils"
-	"github.com/hortonworks/cb-cli/dataplane/common"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxutils"
+	"github.com/hortonworks/cb-cli/dataplane/common"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/internalsdx"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdx"
@@ -468,49 +469,11 @@ func StopSdx(c *cli.Context) {
 	log.Infof("[StopSdx] SDX cluster stop executed for: %s", name)
 }
 
-func UpgradeSdx(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "Upgrade sdx cluster by name")
-	name := c.String(fl.FlName.Name)
-	dryRun := c.Bool(fl.FlDryRunOptional.Name)
-	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
-	checkClientVersion(sdxClient, common.Version)
-	if dryRun {
-		resp, err := sdxClient.Sdx.CheckForUpgrade(sdx.NewCheckForUpgradeParams().WithName(name))
-		if err != nil {
-			commonutils.LogErrorAndExit(err)
-		}
-		upgrade := resp.Payload.Upgrade
-		if upgrade != nil && len(upgrade.ImageID) > 0 {
-			fmt.Printf("There's new image for upgrade: %s\n", string(upgrade.ImageID))
-		} else {
-			log.Errorf("There's no new image for: %s", name)
-		}
-	} else {
-		_, err := sdxClient.Sdx.UpgradeDatalakeCluster(sdx.NewUpgradeDatalakeClusterParams().WithName(name))
-		if err != nil {
-			commonutils.LogErrorAndExit(err)
-		}
-	}
-	log.Infof("[UpgradeSdx] SDX cluster upgrade is in progress for: %s", name)
-}
-
-func CheckSdxClusterUpgrade(c *cli.Context) error {
-	defer commonutils.TimeTrack(time.Now(), "Check sdx cluster upgrade")
-	name := c.String(fl.FlName.Name)
-	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
-	checkClientVersion(sdxClient, common.Version)
-	resp, err := sdxClient.Sdx.CheckForClusterUpgradeByName(sdx.NewCheckForClusterUpgradeByNameParams().WithName(name))
-	if err != nil {
-		commonutils.LogErrorAndExit(err)
-	}
-	return printResponse(resp)
-}
-
-func printResponse(template *sdx.CheckForClusterUpgradeByNameOK) error {
+func printResponse(template *sdx.UpgradeDatalakeClusterOK) error {
 	var errorMessage error
 	var response []byte
 
-	if len(template.Payload.UpgradeCandidates) == 0 {
+	if template.Payload.UpgradeCandidates == nil || len(template.Payload.UpgradeCandidates) == 0 {
 		resp, err := json.MarshalIndent(template.Payload.Reason, "", "\t")
 		response = resp
 		errorMessage = err
@@ -527,15 +490,34 @@ func printResponse(template *sdx.CheckForClusterUpgradeByNameOK) error {
 }
 
 func SdxClusterkUpgrade(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "Start sdx stack upgrade")
+	defer commonutils.TimeTrack(time.Now(), "Start sdx upgrade")
+	dryRun := c.Bool(fl.FlDryRunOptional.Name)
 	name := c.String(fl.FlName.Name)
-	image := c.String(fl.FlImageId.Name)
+	image := c.String(fl.FlImageIdOptional.Name)
+	runtime := c.String(fl.FlRuntimeOptional.Name)
+	lock := c.Bool(fl.FlLockComponentsOptional.Name)
+
+	sdxRequest := createSdxUpgradeRequest(image, runtime, lock, dryRun)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
-	_, err := sdxClient.Sdx.UpgradeClusterByName(sdx.NewUpgradeClusterByNameParams().WithName(name).WithImage(image))
+
+	resp, err := sdxClient.Sdx.UpgradeDatalakeCluster(sdx.NewUpgradeDatalakeClusterParams().WithName(name).WithBody(sdxRequest))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
+		fmt.Printf("%s\n", err)
 	}
+	printResponse(resp)
+	// }
+}
+
+func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool) *sdxModel.SdxUpgradeRequest {
+	sdxRequest := &sdxModel.SdxUpgradeRequest{
+		ImageID:        imageid,
+		Runtime:        runtime,
+		LockComponents: lockComponents,
+		DryRun:         dryRun,
+	}
+	return sdxRequest
 }
 
 func checkClientVersion(client *client.Datalake, version string) {

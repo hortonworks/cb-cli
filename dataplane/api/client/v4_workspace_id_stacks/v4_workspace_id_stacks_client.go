@@ -65,7 +65,7 @@ func (a *Client) CheckForClusterUpgradeByName(params *CheckForClusterUpgradeByNa
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "checkForClusterUpgradeByName",
-		Method:             "GET",
+		Method:             "POST",
 		PathPattern:        "/v4/{workspaceId}/stacks/{name}/check_cluster_upgrade",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
