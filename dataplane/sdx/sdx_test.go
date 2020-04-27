@@ -130,7 +130,7 @@ func TestSetupCloudStorageIfNeeded(t *testing.T) {
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
 	}
-	setupCloudStorageIfNeeded("location", "instanceProfile", "managedIdentity", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
+	setupCloudStorageIfNeeded("location", "", "managedIdentity", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
 
 	if sdxRequest.CloudStorage == nil {
 		t.Errorf("CloudStorage was not set correctly")
@@ -145,7 +145,107 @@ func TestSetupCloudStorageInternalIfNeeded(t *testing.T) {
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
 	}
-	setupCloudStorageIfNeeded("location", "instanceProfile", "managedIdentity", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
+	setupCloudStorageIfNeeded("location", "", "managedIdentity", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
+
+	if sdxRequest.CloudStorage == nil {
+		t.Errorf("CloudStorage was not set correctly")
+	}
+}
+
+func TestCloudStorageIfNeededWithInstanceProfileAndManagedIdentity(t *testing.T) {
+	defer func() {
+		if r := recover(); r != nil {
+			errorMessage := r.(string)
+			if errorMessage != "Please use managed identity or instance profile, but not both" {
+				t.Error("the error message does not match")
+			}
+		}
+	}()
+
+	sdxRequest := &sdxModel.SdxClusterRequest{
+		ClusterShape:     nil,
+		Environment:      nil,
+		Tags:             nil,
+		CloudStorage:     nil,
+		ExternalDatabase: nil,
+	}
+	setupCloudStorageIfNeeded("", "instanceProfile", "managedIdentity", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
+
+	if sdxRequest.CloudStorage == nil {
+		t.Errorf("CloudStorage was not set correctly")
+	}
+}
+
+func TestCloudStorageIfNeededWithCloudStorageWithoutInstanceProfileOrManagedIdentity(t *testing.T) {
+	defer func() {
+		if r := recover(); r != nil {
+			errorMessage := r.(string)
+			if errorMessage != "Please use managed identity or instance profile if you define cloud storage" {
+				t.Error("the error message does not match")
+			}
+		}
+	}()
+
+	sdxRequest := &sdxModel.SdxClusterRequest{
+		ClusterShape:     nil,
+		Environment:      nil,
+		Tags:             nil,
+		CloudStorage:     nil,
+		ExternalDatabase: nil,
+	}
+	setupCloudStorageIfNeeded("location", "", "", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
+
+	if sdxRequest.CloudStorage == nil {
+		t.Errorf("CloudStorage was not set correctly")
+	}
+}
+
+func TestCloudStorageIfNeededWithInstanceProfileWithoutCloudStorageWithout(t *testing.T) {
+	t.Parallel()
+
+	defer func() {
+		if r := recover(); r != nil {
+			errorMessage := r.(string)
+			if errorMessage != "Please use cloud storage base location if you define instance profile" {
+				t.Error("the error message does not match")
+			}
+		}
+	}()
+
+	sdxRequest := &sdxModel.SdxClusterRequest{
+		ClusterShape:     nil,
+		Environment:      nil,
+		Tags:             nil,
+		CloudStorage:     nil,
+		ExternalDatabase: nil,
+	}
+	setupCloudStorageIfNeeded("", "instanceprofile", "", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
+
+	if sdxRequest.CloudStorage == nil {
+		t.Errorf("CloudStorage was not set correctly")
+	}
+}
+
+func TestCloudStorageIfNeededWithManagedIdentityWithoutCloudStorageWithout(t *testing.T) {
+	t.Parallel()
+
+	defer func() {
+		if r := recover(); r != nil {
+			errorMessage := r.(string)
+			if errorMessage != "Please use cloud storage base location if you define managed identity" {
+				t.Error("the error message does not match")
+			}
+		}
+	}()
+
+	sdxRequest := &sdxModel.SdxClusterRequest{
+		ClusterShape:     nil,
+		Environment:      nil,
+		Tags:             nil,
+		CloudStorage:     nil,
+		ExternalDatabase: nil,
+	}
+	setupCloudStorageIfNeeded("", "", "managedidentity", CloudStorageSetter(func(req *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = req }))
 
 	if sdxRequest.CloudStorage == nil {
 		t.Errorf("CloudStorage was not set correctly")
