@@ -22,6 +22,9 @@ type ImageInfoV4Response struct {
 	// created
 	Created int64 `json:"created,omitempty"`
 
+	// date
+	Date string `json:"date,omitempty"`
+
 	// image catalog name
 	ImageCatalogName string `json:"imageCatalogName,omitempty"`
 

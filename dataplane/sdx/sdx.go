@@ -519,7 +519,6 @@ func SdxClusterkUpgrade(c *cli.Context) {
 		fmt.Printf("%s\n", err)
 	}
 	printResponse(resp)
-	// }
 }
 
 func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool) *sdxModel.SdxUpgradeRequest {
