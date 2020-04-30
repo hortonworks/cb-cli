@@ -55,8 +55,8 @@ func UpdateAccountTelemetry(c *cli.Context) {
 	if request.Rules != nil {
 		newRules := make([]*model.AnonymizationRule, 0)
 		for _, rule := range request.Rules {
-			newValue := base64.StdEncoding.EncodeToString([]byte(*rule.Value))
-			newRule := model.AnonymizationRule{Replacement: rule.Replacement, Value: &newValue}
+			newValue := base64.StdEncoding.EncodeToString([]byte(rule.Value))
+			newRule := model.AnonymizationRule{Replacement: rule.Replacement, Value: newValue}
 			newRules = append(newRules, &newRule)
 		}
 		request.Rules = newRules
@@ -109,8 +109,8 @@ func TestAnonymizationRule(c *cli.Context) error {
 	if request.Rules != nil {
 		newRules := make([]*model.AnonymizationRule, 0)
 		for _, rule := range request.Rules {
-			newValue := base64.StdEncoding.EncodeToString([]byte(*rule.Value))
-			newRule := model.AnonymizationRule{Replacement: rule.Replacement, Value: &newValue}
+			newValue := base64.StdEncoding.EncodeToString([]byte(rule.Value))
+			newRule := model.AnonymizationRule{Replacement: rule.Replacement, Value: newValue}
 			newRules = append(newRules, &newRule)
 		}
 		request.Rules = newRules
@@ -148,7 +148,7 @@ func getFeatures(featuresResp *model.FeaturesResponse) *features {
 func getRules(anonymizationRules []*model.AnonymizationRule) *[]anonymizationRule {
 	rules := make([]anonymizationRule, 0)
 	for _, v := range anonymizationRules {
-		decodedValue, err := base64.StdEncoding.DecodeString(*v.Value)
+		decodedValue, err := base64.StdEncoding.DecodeString(v.Value)
 		if err != nil {
 			utils.LogErrorAndExit(err)
 		}

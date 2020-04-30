@@ -33,7 +33,7 @@ type NodeHealthDetails struct {
 
 	// status
 	// Required: true
-	// Enum: [REQUESTED CREATED UNREGISTERED REGISTERED DECOMMISSIONED TERMINATED DELETED_ON_PROVIDER_SIDE FAILED STOPPED REBOOTING UNREACHABLE]
+	// Enum: [REQUESTED CREATED UNREGISTERED REGISTERED DECOMMISSIONED TERMINATED DELETED_ON_PROVIDER_SIDE DELETED_BY_PROVIDER FAILED STOPPED REBOOTING UNREACHABLE]
 	Status *string `json:"status"`
 }
 
@@ -94,7 +94,7 @@ var nodeHealthDetailsTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","FAILED","STOPPED","REBOOTING","UNREACHABLE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","DELETED_BY_PROVIDER","FAILED","STOPPED","REBOOTING","UNREACHABLE"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -124,6 +124,9 @@ const (
 
 	// NodeHealthDetailsStatusDELETEDONPROVIDERSIDE captures enum value "DELETED_ON_PROVIDER_SIDE"
 	NodeHealthDetailsStatusDELETEDONPROVIDERSIDE string = "DELETED_ON_PROVIDER_SIDE"
+
+	// NodeHealthDetailsStatusDELETEDBYPROVIDER captures enum value "DELETED_BY_PROVIDER"
+	NodeHealthDetailsStatusDELETEDBYPROVIDER string = "DELETED_BY_PROVIDER"
 
 	// NodeHealthDetailsStatusFAILED captures enum value "FAILED"
 	NodeHealthDetailsStatusFAILED string = "FAILED"

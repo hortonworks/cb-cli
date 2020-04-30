@@ -17,6 +17,9 @@ import (
 // swagger:model SynchronizeAllUsersV1Request
 type SynchronizeAllUsersV1Request struct {
 
+	// The id of the account to run sync on
+	AccountID string `json:"accountId,omitempty"`
+
 	// Optional environment crns to sync
 	// Unique: true
 	Environments []string `json:"environments"`

@@ -8,9 +8,7 @@ package model
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // AnonymizationRule anonymization rule
@@ -21,30 +19,11 @@ type AnonymizationRule struct {
 	Replacement string `json:"replacement,omitempty"`
 
 	// value
-	// Required: true
-	Value *string `json:"value"`
+	Value string `json:"value,omitempty"`
 }
 
 // Validate validates this anonymization rule
 func (m *AnonymizationRule) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateValue(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *AnonymizationRule) validateValue(formats strfmt.Registry) error {
-
-	if err := validate.Required("value", "body", m.Value); err != nil {
-		return err
-	}
-
 	return nil
 }
 

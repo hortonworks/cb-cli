@@ -88,6 +88,9 @@ type SimpleEnvironmentV1Response struct {
 	// Regions of the environment.
 	Regions *CompactRegionV1Response `json:"regions,omitempty"`
 
+	// resource crn
+	ResourceCrn string `json:"resourceCrn,omitempty"`
+
 	// Security control for FreeIPA and Datalake deployment.
 	SecurityAccess *SecurityAccessV1Response `json:"securityAccess,omitempty"`
 
