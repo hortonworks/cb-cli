@@ -440,6 +440,18 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:   "update-salt",
+				Usage:  "update salt states on cluster",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: stack.UpdateSalt,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 		Hidden: true,
 	})

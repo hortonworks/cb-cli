@@ -741,6 +741,34 @@ func (a *Client) SyncStackInWorkspaceV4(params *SyncStackInWorkspaceV4Params) (*
 }
 
 /*
+UpdateSaltByName updates salt states on cluster
+*/
+func (a *Client) UpdateSaltByName(params *UpdateSaltByNameParams) (*UpdateSaltByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSaltByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateSaltByName",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/salt_update",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateSaltByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateSaltByNameOK), nil
+
+}
+
+/*
 UpgradeClusterByName upgrades a cluster to the latest c m or c d h version
 */
 func (a *Client) UpgradeClusterByName(params *UpgradeClusterByNameParams) (*UpgradeClusterByNameOK, error) {
