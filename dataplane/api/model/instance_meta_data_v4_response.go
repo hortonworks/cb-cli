@@ -40,6 +40,10 @@ type InstanceMetaDataV4Response struct {
 	// Enum: [GATEWAY GATEWAY_PRIMARY CORE]
 	InstanceType string `json:"instanceType,omitempty"`
 
+	// life cycle
+	// Enum: [NORMAL SPOT]
+	LifeCycle string `json:"lifeCycle,omitempty"`
+
 	// mounted volumes
 	MountedVolumes []*MountedVolumeV4Response `json:"mountedVolumes"`
 
@@ -68,6 +72,10 @@ func (m *InstanceMetaDataV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateInstanceType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLifeCycle(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -203,6 +211,49 @@ func (m *InstanceMetaDataV4Response) validateInstanceType(formats strfmt.Registr
 
 	// value enum
 	if err := m.validateInstanceTypeEnum("instanceType", "body", m.InstanceType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var instanceMetaDataV4ResponseTypeLifeCyclePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["NORMAL","SPOT"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		instanceMetaDataV4ResponseTypeLifeCyclePropEnum = append(instanceMetaDataV4ResponseTypeLifeCyclePropEnum, v)
+	}
+}
+
+const (
+
+	// InstanceMetaDataV4ResponseLifeCycleNORMAL captures enum value "NORMAL"
+	InstanceMetaDataV4ResponseLifeCycleNORMAL string = "NORMAL"
+
+	// InstanceMetaDataV4ResponseLifeCycleSPOT captures enum value "SPOT"
+	InstanceMetaDataV4ResponseLifeCycleSPOT string = "SPOT"
+)
+
+// prop value enum
+func (m *InstanceMetaDataV4Response) validateLifeCycleEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, instanceMetaDataV4ResponseTypeLifeCyclePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *InstanceMetaDataV4Response) validateLifeCycle(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LifeCycle) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateLifeCycleEnum("lifeCycle", "body", m.LifeCycle); err != nil {
 		return err
 	}
 
