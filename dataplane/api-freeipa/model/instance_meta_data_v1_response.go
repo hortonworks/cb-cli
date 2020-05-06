@@ -36,6 +36,10 @@ type InstanceMetaDataV1Response struct {
 	// Enum: [GATEWAY GATEWAY_PRIMARY CORE]
 	InstanceType string `json:"instanceType,omitempty"`
 
+	// life cycle
+	// Enum: [NORMAL SPOT]
+	LifeCycle string `json:"lifeCycle,omitempty"`
+
 	// private ip of the insctance
 	PrivateIP string `json:"privateIp,omitempty"`
 
@@ -58,6 +62,10 @@ func (m *InstanceMetaDataV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateInstanceType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLifeCycle(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -180,6 +188,49 @@ func (m *InstanceMetaDataV1Response) validateInstanceType(formats strfmt.Registr
 
 	// value enum
 	if err := m.validateInstanceTypeEnum("instanceType", "body", m.InstanceType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var instanceMetaDataV1ResponseTypeLifeCyclePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["NORMAL","SPOT"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		instanceMetaDataV1ResponseTypeLifeCyclePropEnum = append(instanceMetaDataV1ResponseTypeLifeCyclePropEnum, v)
+	}
+}
+
+const (
+
+	// InstanceMetaDataV1ResponseLifeCycleNORMAL captures enum value "NORMAL"
+	InstanceMetaDataV1ResponseLifeCycleNORMAL string = "NORMAL"
+
+	// InstanceMetaDataV1ResponseLifeCycleSPOT captures enum value "SPOT"
+	InstanceMetaDataV1ResponseLifeCycleSPOT string = "SPOT"
+)
+
+// prop value enum
+func (m *InstanceMetaDataV1Response) validateLifeCycleEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, instanceMetaDataV1ResponseTypeLifeCyclePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *InstanceMetaDataV1Response) validateLifeCycle(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LifeCycle) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateLifeCycleEnum("lifeCycle", "body", m.LifeCycle); err != nil {
 		return err
 	}
 
