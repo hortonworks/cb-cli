@@ -4,6 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1utils"
 	sdxModel "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
@@ -11,9 +15,6 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/common"
 	"github.com/hortonworks/cb-cli/dataplane/distrox"
 	"github.com/hortonworks/cb-cli/dataplane/sdx"
-	"strconv"
-	"strings"
-	"time"
 
 	"github.com/hortonworks/cb-cli/dataplane/cloud"
 
@@ -58,6 +59,8 @@ type environmentOutJsonDescribe struct {
 	Telemetry      model.TelemetryResponse                   `json:"Telemetry" yaml:"Telemetry"`
 	Authentication model.EnvironmentAuthenticationV1Response `json:"Authentication" yaml:"Authentication"`
 	FreeIpa        model.FreeIpaResponse                     `json:"FreeIpa" yaml:"FreeIpa"`
+	Azure          model.AzureEnvironmentParameters          `json:"azure" yaml:"azure"`
+	Aws            model.AwsEnvironmentV1Parameters          `json:"aws" yaml:"aws"`
 }
 
 type environmentListJsonDescribe struct {
@@ -475,6 +478,12 @@ func convertResponseToJsonOutput(env *model.DetailedEnvironmentV1Response) *envi
 	}
 	if env.Tags != nil {
 		result.Tags = *env.Tags
+	}
+	if env.Azure != nil {
+		result.Azure = *env.Azure
+	}
+	if env.Aws != nil {
+		result.Aws = *env.Aws
 	}
 	return result
 }

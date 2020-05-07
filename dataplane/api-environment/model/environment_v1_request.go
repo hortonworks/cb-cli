@@ -28,10 +28,8 @@ type EnvironmentV1Request struct {
 	// AWS Specific parameters.
 	Aws *AwsEnvironmentV1Parameters `json:"aws,omitempty"`
 
-	// Cloud platform of the environment.
-	// Max Length: 100
-	// Min Length: 0
-	CloudPlatform *string `json:"cloudPlatform,omitempty"`
+	// AWS Specific parameters.
+	Azure *AzureEnvironmentV1Parameters `json:"azure,omitempty"`
 
 	// Cloud storage validation enabled or not.
 	// Enum: [ENABLED DISABLED]
@@ -102,7 +100,7 @@ func (m *EnvironmentV1Request) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateCloudPlatform(formats); err != nil {
+	if err := m.validateAzure(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -192,18 +190,19 @@ func (m *EnvironmentV1Request) validateAws(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *EnvironmentV1Request) validateCloudPlatform(formats strfmt.Registry) error {
+func (m *EnvironmentV1Request) validateAzure(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.CloudPlatform) { // not required
+	if swag.IsZero(m.Azure) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("cloudPlatform", "body", string(*m.CloudPlatform), 0); err != nil {
-		return err
-	}
-
-	if err := validate.MaxLength("cloudPlatform", "body", string(*m.CloudPlatform), 100); err != nil {
-		return err
+	if m.Azure != nil {
+		if err := m.Azure.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("azure")
+			}
+			return err
+		}
 	}
 
 	return nil
