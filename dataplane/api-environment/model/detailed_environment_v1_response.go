@@ -28,6 +28,9 @@ type DetailedEnvironmentV1Response struct {
 	// AWS Specific parameters.
 	Aws *AwsEnvironmentV1Parameters `json:"aws,omitempty"`
 
+	// Azure Specific parameters.
+	Azure *AzureEnvironmentParameters `json:"azure,omitempty"`
+
 	// Cloud platform of the environment.
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
@@ -120,6 +123,10 @@ func (m *DetailedEnvironmentV1Response) Validate(formats strfmt.Registry) error 
 		res = append(res, err)
 	}
 
+	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCloudStorageValidation(formats); err != nil {
 		res = append(res, err)
 	}
@@ -206,6 +213,24 @@ func (m *DetailedEnvironmentV1Response) validateAws(formats strfmt.Registry) err
 		if err := m.Aws.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("aws")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DetailedEnvironmentV1Response) validateAzure(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Azure) { // not required
+		return nil
+	}
+
+	if m.Azure != nil {
+		if err := m.Azure.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("azure")
 			}
 			return err
 		}
