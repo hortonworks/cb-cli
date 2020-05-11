@@ -180,18 +180,6 @@ func init() {
 					}
 				},
 			},
-			{
-				Name:   "set-default",
-				Usage:  "sets the default imagecatalog",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddOutputFlag().AddAGlobalFlags().Build(),
-				Before: cf.CheckConfigAndCommandFlags,
-				Action: imagecatalog.SetDefaultImagecatalog,
-				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddOutputFlag().AddAGlobalFlags().Build() {
-						fl.PrintFlagCompletion(f)
-					}
-				},
-			},
 		},
 	})
 }

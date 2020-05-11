@@ -153,21 +153,6 @@ func DeleteImagecatalog(c *cli.Context) {
 	log.Infof("[DeleteImagecatalog] imagecatalog deleted, name: %s", name)
 }
 
-func SetDefaultImagecatalog(c *cli.Context) {
-	defer utils.TimeTrack(time.Now(), "set default imagecatalog")
-
-	cbClient := oauth.NewCloudbreakHTTPClientFromContext(c)
-	workspaceID := c.Int64(fl.FlWorkspaceOptional.Name)
-	name := c.String(fl.FlName.Name)
-	log.Infof("[SetDefautlImagecatalog] sending set default imagecatalog request with name: %s", name)
-
-	if _, err := cbClient.Cloudbreak.V4WorkspaceIDImagecatalogs.SetDefaultImageCatalogByNameInWorkspace(v4img.NewSetDefaultImageCatalogByNameInWorkspaceParams().WithWorkspaceID(workspaceID).WithName(name)); err != nil {
-		utils.LogErrorAndExit(err)
-	}
-
-	log.Infof("[SetDefaultImagecatalog] imagecatalog is set as default, name: %s", name)
-}
-
 func DescribeImagecatalog(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "describe imagecatalog")
 

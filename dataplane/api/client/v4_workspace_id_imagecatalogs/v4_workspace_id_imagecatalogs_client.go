@@ -325,36 +325,6 @@ func (a *Client) ListImageCatalogsByWorkspace(params *ListImageCatalogsByWorkspa
 }
 
 /*
-SetDefaultImageCatalogByNameInWorkspace updates image catalog by id
-
-Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
-*/
-func (a *Client) SetDefaultImageCatalogByNameInWorkspace(params *SetDefaultImageCatalogByNameInWorkspaceParams) (*SetDefaultImageCatalogByNameInWorkspaceOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSetDefaultImageCatalogByNameInWorkspaceParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "setDefaultImageCatalogByNameInWorkspace",
-		Method:             "PUT",
-		PathPattern:        "/v4/{workspaceId}/image_catalogs/{name}/set_default",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &SetDefaultImageCatalogByNameInWorkspaceReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*SetDefaultImageCatalogByNameInWorkspaceOK), nil
-
-}
-
-/*
 UpdateImageCatalogInWorkspace updates image catalog by id
 
 Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.

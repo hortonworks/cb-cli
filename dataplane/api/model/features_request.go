@@ -19,6 +19,9 @@ type FeaturesRequest struct {
 	// enable cluster logs collection
 	ClusterLogsCollection *FeatureSetting `json:"clusterLogsCollection,omitempty"`
 
+	// enable monitoring for cluster services
+	Monitoring *FeatureSetting `json:"monitoring,omitempty"`
+
 	// Workload analytics (telemetry) settings.
 	WorkloadAnalytics *FeatureSetting `json:"workloadAnalytics,omitempty"`
 }
@@ -28,6 +31,10 @@ func (m *FeaturesRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateClusterLogsCollection(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMonitoring(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -51,6 +58,24 @@ func (m *FeaturesRequest) validateClusterLogsCollection(formats strfmt.Registry)
 		if err := m.ClusterLogsCollection.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("clusterLogsCollection")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *FeaturesRequest) validateMonitoring(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Monitoring) { // not required
+		return nil
+	}
+
+	if m.Monitoring != nil {
+		if err := m.Monitoring.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("monitoring")
 			}
 			return err
 		}

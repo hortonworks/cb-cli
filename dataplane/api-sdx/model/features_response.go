@@ -22,6 +22,9 @@ type FeaturesResponse struct {
 	// Telemetry metering feature setting
 	Metering *FeatureSetting `json:"metering,omitempty"`
 
+	// enable monitoring for cluster services
+	Monitoring *FeatureSetting `json:"monitoring,omitempty"`
+
 	// enable shared Altus credential usage
 	UseSharedAltusCredential *FeatureSetting `json:"useSharedAltusCredential,omitempty"`
 
@@ -38,6 +41,10 @@ func (m *FeaturesResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMetering(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMonitoring(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -83,6 +90,24 @@ func (m *FeaturesResponse) validateMetering(formats strfmt.Registry) error {
 		if err := m.Metering.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metering")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *FeaturesResponse) validateMonitoring(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Monitoring) { // not required
+		return nil
+	}
+
+	if m.Monitoring != nil {
+		if err := m.Monitoring.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("monitoring")
 			}
 			return err
 		}
