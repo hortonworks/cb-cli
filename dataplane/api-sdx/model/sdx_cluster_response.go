@@ -51,6 +51,9 @@ type SdxClusterResponse struct {
 	// name
 	Name string `json:"name,omitempty"`
 
+	// ranger raz enabled
+	RangerRazEnabled bool `json:"rangerRazEnabled,omitempty"`
+
 	// runtime
 	Runtime string `json:"runtime,omitempty"`
 
