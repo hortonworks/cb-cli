@@ -88,6 +88,9 @@ type DetailedEnvironmentV1Response struct {
 	// ProxyConfig attached to the environment.
 	ProxyConfig *ProxyResponse `json:"proxyConfig,omitempty"`
 
+	// Ranger RAZ service enabled for ADLSv2.
+	RazEnabled bool `json:"razEnabled,omitempty"`
+
 	// Regions of the environment.
 	Regions *CompactRegionV1Response `json:"regions,omitempty"`
 
