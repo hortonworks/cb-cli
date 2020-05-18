@@ -59,7 +59,7 @@ type environmentOutJsonDescribe struct {
 	Telemetry      model.TelemetryResponse                   `json:"Telemetry" yaml:"Telemetry"`
 	Authentication model.EnvironmentAuthenticationV1Response `json:"Authentication" yaml:"Authentication"`
 	FreeIpa        model.FreeIpaResponse                     `json:"FreeIpa" yaml:"FreeIpa"`
-	Azure          model.AzureEnvironmentParameters          `json:"azure" yaml:"azure"`
+	Azure          model.AzureEnvironmentV1Parameters        `json:"azure" yaml:"azure"`
 	Aws            model.AwsEnvironmentV1Parameters          `json:"aws" yaml:"aws"`
 }
 
