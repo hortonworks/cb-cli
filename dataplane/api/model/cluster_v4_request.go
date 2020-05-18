@@ -56,6 +56,9 @@ type ClusterV4Request struct {
 	// proxy CRN for the cluster
 	ProxyConfigCrn string `json:"proxyConfigCrn,omitempty"`
 
+	// Enables Ranger Raz for the cluster on ADLSv2.
+	RangerRazEnabled bool `json:"rangerRazEnabled,omitempty"`
+
 	// ambari username
 	// Max Length: 15
 	// Min Length: 5

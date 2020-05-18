@@ -30,6 +30,9 @@ type SdxInternalClusterRequest struct {
 	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA]
 	ClusterShape *string `json:"clusterShape"`
 
+	// enable ranger raz
+	EnableRangerRaz bool `json:"enableRangerRaz,omitempty"`
+
 	// environment
 	// Required: true
 	Environment *string `json:"environment"`
