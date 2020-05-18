@@ -1441,6 +1441,13 @@ var (
 			Usage: "sets the percentage of spot instances launched (same for all instance groups in stack request)",
 		},
 	}
+	FlRangerRazEnabled = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "ranger-raz-enabled",
+			Usage: "enables Ranger Raz service for ADLSv2",
+		},
+	}
 )
 
 type RequiredFlag struct {
