@@ -106,7 +106,7 @@ func RebootFreeIpa(c *cli.Context) {
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
-	log.Infof("[rebootFreeIpa] FreeIpa cluster reboot requested in enviornment %s", envName)
+	log.Infof("[rebootFreeIpa] FreeIpa cluster reboot requested in environment %s", envName)
 }
 
 func assembleRebootRequest(c *cli.Context) *freeIpaModel.RebootInstancesV1Request {
@@ -342,4 +342,26 @@ func convertFailureDetailsModel(fd []*freeIpaModel.FailureDetailsV1) []failureDe
 		})
 	}
 	return failureDetails
+}
+
+func GetEnvironmentSyncState(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get user synchronization state for an environment")
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	resp, err := freeIpaClient.V1freeipauser.GetEnvironmentUserSyncStateV1(v1freeipauser.NewGetEnvironmentUserSyncStateV1Params().WithEnvironmentCrn(&envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("[getEnvironmentSyncState] FreeIpa cluster start requested in environment %s", envName)
+	writeEnvironmentUserSyncState(c, resp.Payload)
+}
+
+func writeEnvironmentUserSyncState(c *cli.Context, environmentUserSyncState *freeIpaModel.EnvironmentUserSyncV1State) {
+	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	syncState := &freeIpaOutEnvironmentUserSyncState{
+		State:                   *environmentUserSyncState.State,
+		LastUserSyncOperationID: environmentUserSyncState.LastUserSyncOperationID,
+	}
+	output.Write(environmentUserSyncStateHeader, syncState)
 }

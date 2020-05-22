@@ -25,6 +25,36 @@ type Client struct {
 }
 
 /*
+GetEnvironmentUserSyncStateV1 gets the synchronization status of an environment
+
+User synchronization and management operations
+*/
+func (a *Client) GetEnvironmentUserSyncStateV1(params *GetEnvironmentUserSyncStateV1Params) (*GetEnvironmentUserSyncStateV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetEnvironmentUserSyncStateV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getEnvironmentUserSyncStateV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/user/syncState",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetEnvironmentUserSyncStateV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetEnvironmentUserSyncStateV1OK), nil
+
+}
+
+/*
 GetSyncOperationStatusV1 gets the status of a sync operation
 
 User synchronization and management operations
