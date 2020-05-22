@@ -158,6 +158,19 @@ func init() {
 							}
 						},
 					},
+					{
+						Name:        "state",
+						Usage:       "gets user synchronization state for an environment",
+						Description: `gets user synchronization state for an environment`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().AddOutputFlag().Build(),
+						Action:      freeipa.GetEnvironmentSyncState,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().AddOutputFlag().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
 				},
 			},
 		},

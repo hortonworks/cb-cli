@@ -24,7 +24,7 @@ type SynchronizeAllUsersV1Request struct {
 	// Unique: true
 	Environments []string `json:"environments"`
 
-	// Optional user crns to sync
+	// Optional machine user crns to sync
 	// Unique: true
 	MachineUsers []string `json:"machineUsers"`
 
