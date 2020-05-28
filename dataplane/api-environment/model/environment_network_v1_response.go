@@ -59,6 +59,10 @@ type EnvironmentNetworkV1Response struct {
 	// Enum: [ENABLED DISABLED]
 	PrivateSubnetCreation string `json:"privateSubnetCreation,omitempty"`
 
+	// A flag to enable or disable the service endpoint creation.
+	// Enum: [ENABLED DISABLED]
+	ServiceEndpointCreation string `json:"serviceEndpointCreation,omitempty"`
+
 	// Subnet ids of the specified networks
 	// Unique: true
 	SubnetIds []string `json:"subnetIds"`
@@ -107,6 +111,10 @@ func (m *EnvironmentNetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePrivateSubnetCreation(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateServiceEndpointCreation(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -311,6 +319,49 @@ func (m *EnvironmentNetworkV1Response) validatePrivateSubnetCreation(formats str
 
 	// value enum
 	if err := m.validatePrivateSubnetCreationEnum("privateSubnetCreation", "body", m.PrivateSubnetCreation); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var environmentNetworkV1ResponseTypeServiceEndpointCreationPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		environmentNetworkV1ResponseTypeServiceEndpointCreationPropEnum = append(environmentNetworkV1ResponseTypeServiceEndpointCreationPropEnum, v)
+	}
+}
+
+const (
+
+	// EnvironmentNetworkV1ResponseServiceEndpointCreationENABLED captures enum value "ENABLED"
+	EnvironmentNetworkV1ResponseServiceEndpointCreationENABLED string = "ENABLED"
+
+	// EnvironmentNetworkV1ResponseServiceEndpointCreationDISABLED captures enum value "DISABLED"
+	EnvironmentNetworkV1ResponseServiceEndpointCreationDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *EnvironmentNetworkV1Response) validateServiceEndpointCreationEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, environmentNetworkV1ResponseTypeServiceEndpointCreationPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateServiceEndpointCreation(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ServiceEndpointCreation) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateServiceEndpointCreationEnum("serviceEndpointCreation", "body", m.ServiceEndpointCreation); err != nil {
 		return err
 	}
 
