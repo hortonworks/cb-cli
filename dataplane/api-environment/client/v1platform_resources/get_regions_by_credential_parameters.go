@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -21,8 +22,11 @@ import (
 // NewGetRegionsByCredentialParams creates a new GetRegionsByCredentialParams object
 // with the default values initialized.
 func NewGetRegionsByCredentialParams() *GetRegionsByCredentialParams {
-	var ()
+	var (
+		availabilityZonesNeededDefault = bool(true)
+	)
 	return &GetRegionsByCredentialParams{
+		AvailabilityZonesNeeded: &availabilityZonesNeededDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -31,8 +35,11 @@ func NewGetRegionsByCredentialParams() *GetRegionsByCredentialParams {
 // NewGetRegionsByCredentialParamsWithTimeout creates a new GetRegionsByCredentialParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetRegionsByCredentialParamsWithTimeout(timeout time.Duration) *GetRegionsByCredentialParams {
-	var ()
+	var (
+		availabilityZonesNeededDefault = bool(true)
+	)
 	return &GetRegionsByCredentialParams{
+		AvailabilityZonesNeeded: &availabilityZonesNeededDefault,
 
 		timeout: timeout,
 	}
@@ -41,8 +48,11 @@ func NewGetRegionsByCredentialParamsWithTimeout(timeout time.Duration) *GetRegio
 // NewGetRegionsByCredentialParamsWithContext creates a new GetRegionsByCredentialParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewGetRegionsByCredentialParamsWithContext(ctx context.Context) *GetRegionsByCredentialParams {
-	var ()
+	var (
+		availabilityZonesNeededDefault = bool(true)
+	)
 	return &GetRegionsByCredentialParams{
+		AvailabilityZonesNeeded: &availabilityZonesNeededDefault,
 
 		Context: ctx,
 	}
@@ -51,9 +61,12 @@ func NewGetRegionsByCredentialParamsWithContext(ctx context.Context) *GetRegions
 // NewGetRegionsByCredentialParamsWithHTTPClient creates a new GetRegionsByCredentialParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetRegionsByCredentialParamsWithHTTPClient(client *http.Client) *GetRegionsByCredentialParams {
-	var ()
+	var (
+		availabilityZonesNeededDefault = bool(true)
+	)
 	return &GetRegionsByCredentialParams{
-		HTTPClient: client,
+		AvailabilityZonesNeeded: &availabilityZonesNeededDefault,
+		HTTPClient:              client,
 	}
 }
 
@@ -64,6 +77,8 @@ type GetRegionsByCredentialParams struct {
 
 	/*AvailabilityZone*/
 	AvailabilityZone *string
+	/*AvailabilityZonesNeeded*/
+	AvailabilityZonesNeeded *bool
 	/*CredentialCrn*/
 	CredentialCrn *string
 	/*CredentialName*/
@@ -120,6 +135,17 @@ func (o *GetRegionsByCredentialParams) WithAvailabilityZone(availabilityZone *st
 // SetAvailabilityZone adds the availabilityZone to the get regions by credential params
 func (o *GetRegionsByCredentialParams) SetAvailabilityZone(availabilityZone *string) {
 	o.AvailabilityZone = availabilityZone
+}
+
+// WithAvailabilityZonesNeeded adds the availabilityZonesNeeded to the get regions by credential params
+func (o *GetRegionsByCredentialParams) WithAvailabilityZonesNeeded(availabilityZonesNeeded *bool) *GetRegionsByCredentialParams {
+	o.SetAvailabilityZonesNeeded(availabilityZonesNeeded)
+	return o
+}
+
+// SetAvailabilityZonesNeeded adds the availabilityZonesNeeded to the get regions by credential params
+func (o *GetRegionsByCredentialParams) SetAvailabilityZonesNeeded(availabilityZonesNeeded *bool) {
+	o.AvailabilityZonesNeeded = availabilityZonesNeeded
 }
 
 // WithCredentialCrn adds the credentialCrn to the get regions by credential params
@@ -184,6 +210,22 @@ func (o *GetRegionsByCredentialParams) WriteToRequest(r runtime.ClientRequest, r
 		qAvailabilityZone := qrAvailabilityZone
 		if qAvailabilityZone != "" {
 			if err := r.SetQueryParam("availabilityZone", qAvailabilityZone); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.AvailabilityZonesNeeded != nil {
+
+		// query param availabilityZonesNeeded
+		var qrAvailabilityZonesNeeded bool
+		if o.AvailabilityZonesNeeded != nil {
+			qrAvailabilityZonesNeeded = *o.AvailabilityZonesNeeded
+		}
+		qAvailabilityZonesNeeded := swag.FormatBool(qrAvailabilityZonesNeeded)
+		if qAvailabilityZonesNeeded != "" {
+			if err := r.SetQueryParam("availabilityZonesNeeded", qAvailabilityZonesNeeded); err != nil {
 				return err
 			}
 		}

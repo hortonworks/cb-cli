@@ -33,6 +33,10 @@ type EnvironmentNetworkV1Request struct {
 	// Min Length: 0
 	NetworkCidr *string `json:"networkCidr,omitempty"`
 
+	// A flag to enable or disable the outbound internet traffic from the instances.
+	// Enum: [ENABLED DISABLED]
+	OutboundInternetTraffic string `json:"outboundInternetTraffic,omitempty"`
+
 	// A flag to enable or disable the private subnet creation.
 	// Enum: [ENABLED DISABLED]
 	PrivateSubnetCreation string `json:"privateSubnetCreation,omitempty"`
@@ -66,6 +70,10 @@ func (m *EnvironmentNetworkV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNetworkCidr(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOutboundInternetTraffic(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -156,6 +164,49 @@ func (m *EnvironmentNetworkV1Request) validateNetworkCidr(formats strfmt.Registr
 	}
 
 	if err := validate.MaxLength("networkCidr", "body", string(*m.NetworkCidr), 255); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var environmentNetworkV1RequestTypeOutboundInternetTrafficPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		environmentNetworkV1RequestTypeOutboundInternetTrafficPropEnum = append(environmentNetworkV1RequestTypeOutboundInternetTrafficPropEnum, v)
+	}
+}
+
+const (
+
+	// EnvironmentNetworkV1RequestOutboundInternetTrafficENABLED captures enum value "ENABLED"
+	EnvironmentNetworkV1RequestOutboundInternetTrafficENABLED string = "ENABLED"
+
+	// EnvironmentNetworkV1RequestOutboundInternetTrafficDISABLED captures enum value "DISABLED"
+	EnvironmentNetworkV1RequestOutboundInternetTrafficDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *EnvironmentNetworkV1Request) validateOutboundInternetTrafficEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, environmentNetworkV1RequestTypeOutboundInternetTrafficPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Request) validateOutboundInternetTraffic(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OutboundInternetTraffic) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateOutboundInternetTrafficEnum("outboundInternetTraffic", "body", m.OutboundInternetTraffic); err != nil {
 		return err
 	}
 

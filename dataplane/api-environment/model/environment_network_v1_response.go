@@ -52,6 +52,14 @@ type EnvironmentNetworkV1Response struct {
 	// Min Length: 0
 	NetworkCidr *string `json:"networkCidr,omitempty"`
 
+	// The network cidrs for the configured vpc
+	// Unique: true
+	NetworkCidrs []string `json:"networkCidrs"`
+
+	// A flag to enable or disable the outbound internet traffic from the instances.
+	// Enum: [ENABLED DISABLED]
+	OutboundInternetTraffic string `json:"outboundInternetTraffic,omitempty"`
+
 	// The subnet in which resource should be deployed if not specified by user
 	PreferedSubnetID string `json:"preferedSubnetId,omitempty"`
 
@@ -107,6 +115,14 @@ func (m *EnvironmentNetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNetworkCidr(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetworkCidrs(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOutboundInternetTraffic(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -276,6 +292,62 @@ func (m *EnvironmentNetworkV1Response) validateNetworkCidr(formats strfmt.Regist
 	}
 
 	if err := validate.MaxLength("networkCidr", "body", string(*m.NetworkCidr), 255); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateNetworkCidrs(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NetworkCidrs) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("networkCidrs", "body", m.NetworkCidrs); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var environmentNetworkV1ResponseTypeOutboundInternetTrafficPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		environmentNetworkV1ResponseTypeOutboundInternetTrafficPropEnum = append(environmentNetworkV1ResponseTypeOutboundInternetTrafficPropEnum, v)
+	}
+}
+
+const (
+
+	// EnvironmentNetworkV1ResponseOutboundInternetTrafficENABLED captures enum value "ENABLED"
+	EnvironmentNetworkV1ResponseOutboundInternetTrafficENABLED string = "ENABLED"
+
+	// EnvironmentNetworkV1ResponseOutboundInternetTrafficDISABLED captures enum value "DISABLED"
+	EnvironmentNetworkV1ResponseOutboundInternetTrafficDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *EnvironmentNetworkV1Response) validateOutboundInternetTrafficEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, environmentNetworkV1ResponseTypeOutboundInternetTrafficPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateOutboundInternetTraffic(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OutboundInternetTraffic) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateOutboundInternetTrafficEnum("outboundInternetTraffic", "body", m.OutboundInternetTraffic); err != nil {
 		return err
 	}
 
