@@ -43,9 +43,6 @@ type EnvironmentV1Request struct {
 	// Min Length: 0
 	Description *string `json:"description,omitempty"`
 
-	// Ranger RAZ service enabled for ADLSv2.
-	EnableRaz bool `json:"enableRaz,omitempty"`
-
 	// Properties for FreeIpa which can be attached to the given environment
 	FreeIpa *AttachedFreeIpaRequest `json:"freeIpa,omitempty"`
 
