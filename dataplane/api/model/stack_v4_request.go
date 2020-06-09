@@ -74,6 +74,9 @@ type StackV4Request struct {
 	// placement configuration parameters for a cluster (e.g. 'region', 'availabilityZone')
 	Placement *PlacementSettingsV4Request `json:"placement,omitempty"`
 
+	// CRN of the cluster if there is corresponding cluster in another service (for example in SDX)
+	ResourceCrn string `json:"resourceCrn,omitempty"`
+
 	// Shared service request
 	SharedService *SharedServiceV4Request `json:"sharedService,omitempty"`
 

@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -25,6 +27,9 @@ type TelemetryResponse struct {
 	// Cloud Logging (telemetry) settings.
 	Logging *LoggingResponse `json:"logging,omitempty"`
 
+	// Telemetry anonymization rules (persistent on cluster level) that are applied on shipped logs.
+	Rules []*AnonymizationRule `json:"rules"`
+
 	// Workload analytics (telemetry) settings.
 	WorkloadAnalytics *WorkloadAnalyticsResponse `json:"workloadAnalytics,omitempty"`
 }
@@ -38,6 +43,10 @@ func (m *TelemetryResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLogging(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRules(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -82,6 +91,31 @@ func (m *TelemetryResponse) validateLogging(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *TelemetryResponse) validateRules(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Rules) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Rules); i++ {
+		if swag.IsZero(m.Rules[i]) { // not required
+			continue
+		}
+
+		if m.Rules[i] != nil {
+			if err := m.Rules[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("rules" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
