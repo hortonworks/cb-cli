@@ -25,6 +25,36 @@ type Client struct {
 }
 
 /*
+GetGeneratedTagsV1 gets generated tag configurations
+
+CDP allows you to define your tag configuration information as a shared resource so that you can provide the tag information to multiple resource that you create with CDP. This endpoint generate accountTags.
+*/
+func (a *Client) GetGeneratedTagsV1(params *GetGeneratedTagsV1Params) (*GetGeneratedTagsV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetGeneratedTagsV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getGeneratedTagsV1",
+		Method:             "GET",
+		PathPattern:        "/v1/tags/generate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetGeneratedTagsV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetGeneratedTagsV1OK), nil
+
+}
+
+/*
 ListTagsV1 lists tag configurations
 
 CDP allows you to save your tag configuration information as a shared resource so that you can provide the tag information to multiple resource that you create with CDP
