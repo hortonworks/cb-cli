@@ -781,6 +781,42 @@ var (
 			Usage: "Kubernetes config file location",
 		},
 	}
+	FlCollectionDestination = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "destination",
+			Usage: "destination of the diagnostics collection bundle (possible values: CLOUD_STORAGE,ENG,SUPPORT)",
+			Value: "CLOUD_STORAGE",
+		},
+	}
+	FlCollectionLabels = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "labels",
+			Usage: "comma separated labels of the logs that needs to be collected",
+		},
+	}
+	FlCollectionIssue = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "issue",
+			Usage: "issue or ticket number that can be used to provide a reference number for the collection ",
+		},
+	}
+	FlCollectionExtraLogsFile = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "extra-logs-file",
+			Usage: "Additional logs (list of objects with path/label fields) that needs to be collected",
+		},
+	}
+	FlCollectionOnly = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "collection-only",
+			Usage: "if it's set, diagnostics collection bundle won't be sent to its destination",
+		},
+	}
 	FLMpackURL = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{

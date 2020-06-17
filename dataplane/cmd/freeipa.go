@@ -55,6 +55,39 @@ func init() {
 				},
 			},
 			{
+				Name:  "diagnostics",
+				Usage: "manage dianostics for a FreeIpa cluster",
+				Subcommands: []cli.Command{
+					{
+						Name:        "collect",
+						Usage:       "collect FreeIpa diagnostics",
+						Description: `collect FreeIpa diagnostics`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags: fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlCollectionDestination, fl.FlCollectionOnly,
+							fl.FlCollectionLabels, fl.FlDescriptionOptional, fl.FlCollectionIssue, fl.FlCollectionExtraLogsFile).AddAGlobalFlags().Build(),
+						Action: freeipa.CollectDiagnostics,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "logs",
+						Usage:       "list default monitored vm logs for FreeIpa clusters",
+						Description: `list default monitored vm logs for FreeIpa clusters`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddAGlobalFlags().Build(),
+						Action:      freeipa.GetVmLogs,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
+			{
 				Name:   "start",
 				Usage:  "start a FreeIpa cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,

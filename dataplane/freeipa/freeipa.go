@@ -1,6 +1,7 @@
 package freeipa
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"strconv"
@@ -9,13 +10,17 @@ import (
 
 	"os"
 
+	"github.com/go-openapi/strfmt"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1diagnostics"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipa"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipauser"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1operation"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/model"
 	freeIpaModel "github.com/hortonworks/cb-cli/dataplane/api-freeipa/model"
 	"github.com/hortonworks/cb-cli/dataplane/env"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/cb-cli/dataplane/oauth"
+	"github.com/hortonworks/dp-cli-common/utils"
 	commonutils "github.com/hortonworks/dp-cli-common/utils"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
@@ -359,6 +364,74 @@ func GetSyncOperationStatus(c *cli.Context) {
 
 	operationId := c.String(fl.FlIpaSyncOperationId.Name)
 	getSyncOperationStatus(c, operationId, "getSyncOperationStatus")
+}
+
+func GetVmLogs(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get default monitored vm logs for freeipa clusters")
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	resp, err := freeIpaClient.V1diagnostics.GetFreeIpaVMLogsV1(v1diagnostics.NewGetFreeIpaVMLogsV1Params())
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	logs := resp.Payload.Logs
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(logs); err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
+func CollectDiagnostics(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get user synchronization state for an environment")
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	collectionRequest := assembleCollectionRequest(c)
+	err := freeIpaClient.V1diagnostics.CollectFreeIpaDiagnosticsV1(v1diagnostics.NewCollectFreeIpaDiagnosticsV1Params().WithBody(collectionRequest))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+}
+
+func assembleCollectionRequest(c *cli.Context) *freeIpaModel.DiagnosticsCollectionV1Request {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	collectionOnly := c.Bool(fl.FlCollectionOnly.Name)
+	destinationOption := c.String(fl.FlCollectionDestination.Name)
+	destination := "CLOUD_STORAGE"
+	labelsOption := c.String(fl.FlCollectionLabels.Name)
+	labels := make([]string, 0)
+	if len(labelsOption) > 0 {
+		labels = strings.Split(labelsOption, ",")
+	}
+	description := c.String(fl.FlDescriptionOptional.Name)
+	issue := c.String(fl.FlCollectionIssue.Name)
+	now := time.Now()
+	startTime := strfmt.DateTime(now.AddDate(-10, 0, 0))
+	endTime := strfmt.DateTime(now.AddDate(10, 0, 0))
+	additionalLogsFileOption := c.String(fl.FlCollectionExtraLogsFile.Name)
+	var additionalLogs []*model.VMLog
+	if len(additionalLogsFileOption) > 0 {
+		content := utils.ReadFile(additionalLogsFileOption)
+		err := json.Unmarshal(content, &additionalLogs)
+		if err != nil {
+			utils.LogErrorAndExit(err)
+		}
+	}
+
+	if collectionOnly {
+		destination = "LOCAL"
+	} else if len(destinationOption) > 0 {
+		if destinationOption == "ENG" {
+			destination = "ENG"
+		} else if destinationOption == "SUPPORT" {
+			destination = "SUPPORT"
+		}
+	}
+	request := freeIpaModel.DiagnosticsCollectionV1Request{Destination: &destination, EnvironmentCrn: &envCrn, Labels: labels,
+		Issue: issue, Description: description, StartTime: startTime, EndTime: endTime, AdditionalLogs: additionalLogs}
+	return &request
 }
 
 func getSyncOperationStatus(c *cli.Context, operationId string, command string) {
