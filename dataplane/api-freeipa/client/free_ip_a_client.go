@@ -13,6 +13,7 @@ import (
 
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/authorization"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/flow"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1diagnostics"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1dns"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipa"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipatest"
@@ -69,6 +70,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *FreeIPA {
 	cli.Authorization = authorization.New(transport, formats)
 
 	cli.Flow = flow.New(transport, formats)
+
+	cli.V1diagnostics = v1diagnostics.New(transport, formats)
 
 	cli.V1dns = v1dns.New(transport, formats)
 
@@ -134,6 +137,8 @@ type FreeIPA struct {
 
 	Flow *flow.Client
 
+	V1diagnostics *v1diagnostics.Client
+
 	V1dns *v1dns.Client
 
 	V1freeipa *v1freeipa.Client
@@ -160,6 +165,8 @@ func (c *FreeIPA) SetTransport(transport runtime.ClientTransport) {
 	c.Authorization.SetTransport(transport)
 
 	c.Flow.SetTransport(transport)
+
+	c.V1diagnostics.SetTransport(transport)
 
 	c.V1dns.SetTransport(transport)
 
