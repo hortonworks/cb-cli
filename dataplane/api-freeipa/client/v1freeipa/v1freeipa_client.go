@@ -385,6 +385,36 @@ func (a *Client) RebootV1(params *RebootV1Params) error {
 }
 
 /*
+RepairV1 repairs one or more instances
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) RepairV1(params *RepairV1Params) (*RepairV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRepairV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "repairV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/repair",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RepairV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RepairV1OK), nil
+
+}
+
+/*
 StartV1 starts all free IP a stacks that attached to the given environment c r n
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.

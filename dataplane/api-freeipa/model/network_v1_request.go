@@ -6,10 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // NetworkV1Request network v1 request
@@ -25,8 +28,15 @@ type NetworkV1Request struct {
 	// provider specific parameters of the specified network
 	Gcp *GcpNetworkV1Parameters `json:"gcp,omitempty"`
 
+	// the network cidrs which have to be reacheable from the instances
+	NetworkCidrs []string `json:"networkCidrs"`
+
 	// provider specific parameters of the specified network
 	Openstack *OpenStackNetworkV1Parameters `json:"openstack,omitempty"`
+
+	// A flag to enable or disable the outbound internet traffic from the instances.
+	// Enum: [ENABLED DISABLED]
+	OutboundInternetTraffic string `json:"outboundInternetTraffic,omitempty"`
 }
 
 // Validate validates this network v1 request
@@ -46,6 +56,10 @@ func (m *NetworkV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateOpenstack(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOutboundInternetTraffic(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -122,6 +136,49 @@ func (m *NetworkV1Request) validateOpenstack(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var networkV1RequestTypeOutboundInternetTrafficPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		networkV1RequestTypeOutboundInternetTrafficPropEnum = append(networkV1RequestTypeOutboundInternetTrafficPropEnum, v)
+	}
+}
+
+const (
+
+	// NetworkV1RequestOutboundInternetTrafficENABLED captures enum value "ENABLED"
+	NetworkV1RequestOutboundInternetTrafficENABLED string = "ENABLED"
+
+	// NetworkV1RequestOutboundInternetTrafficDISABLED captures enum value "DISABLED"
+	NetworkV1RequestOutboundInternetTrafficDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *NetworkV1Request) validateOutboundInternetTrafficEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, networkV1RequestTypeOutboundInternetTrafficPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *NetworkV1Request) validateOutboundInternetTraffic(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OutboundInternetTraffic) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateOutboundInternetTrafficEnum("outboundInternetTraffic", "body", m.OutboundInternetTraffic); err != nil {
+		return err
 	}
 
 	return nil

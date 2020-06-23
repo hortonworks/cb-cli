@@ -19,11 +19,11 @@ import (
 // swagger:model AutoscaleStackV4Response
 type AutoscaleStackV4Response struct {
 
-	// public ambari ip of the stack
-	AmbariServerIP string `json:"ambariServerIp,omitempty"`
-
 	// Cloudplatform of the stack
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
+
+	// public ambari ip of the stack
+	ClusterManagerIP string `json:"clusterManagerIp,omitempty"`
 
 	// Cluster manager variant
 	ClusterManagerVariant string `json:"clusterManagerVariant,omitempty"`

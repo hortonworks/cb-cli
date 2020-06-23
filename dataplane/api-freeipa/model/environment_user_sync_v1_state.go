@@ -24,7 +24,7 @@ type EnvironmentUserSyncV1State struct {
 
 	// state of user synchronization
 	// Required: true
-	// Enum: [UP_TO_DATE STALE SYNC_IN_PROGRESS]
+	// Enum: [UP_TO_DATE STALE SYNC_IN_PROGRESS SYNC_FAILED]
 	State *string `json:"state"`
 }
 
@@ -46,7 +46,7 @@ var environmentUserSyncV1StateTypeStatePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["UP_TO_DATE","STALE","SYNC_IN_PROGRESS"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["UP_TO_DATE","STALE","SYNC_IN_PROGRESS","SYNC_FAILED"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -64,6 +64,9 @@ const (
 
 	// EnvironmentUserSyncV1StateStateSYNCINPROGRESS captures enum value "SYNC_IN_PROGRESS"
 	EnvironmentUserSyncV1StateStateSYNCINPROGRESS string = "SYNC_IN_PROGRESS"
+
+	// EnvironmentUserSyncV1StateStateSYNCFAILED captures enum value "SYNC_FAILED"
+	EnvironmentUserSyncV1StateStateSYNCFAILED string = "SYNC_FAILED"
 )
 
 // prop value enum

@@ -11,6 +11,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/authorization"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1dns"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipa"
@@ -64,6 +65,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *FreeIPA {
 
 	cli := new(FreeIPA)
 	cli.Transport = transport
+
+	cli.Authorization = authorization.New(transport, formats)
 
 	cli.Flow = flow.New(transport, formats)
 
@@ -127,6 +130,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // FreeIPA is a client for free IP a
 type FreeIPA struct {
+	Authorization *authorization.Client
+
 	Flow *flow.Client
 
 	V1dns *v1dns.Client
@@ -151,6 +156,8 @@ type FreeIPA struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *FreeIPA) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
+
+	c.Authorization.SetTransport(transport)
 
 	c.Flow.SetTransport(transport)
 

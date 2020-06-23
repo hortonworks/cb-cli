@@ -11,6 +11,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/authorization"
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/database_servers"
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/databases"
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/flow"
@@ -58,6 +59,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Redbeams {
 
 	cli := new(Redbeams)
 	cli.Transport = transport
+
+	cli.Authorization = authorization.New(transport, formats)
 
 	cli.DatabaseServers = database_servers.New(transport, formats)
 
@@ -109,6 +112,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Redbeams is a client for redbeams
 type Redbeams struct {
+	Authorization *authorization.Client
+
 	DatabaseServers *database_servers.Client
 
 	Databases *databases.Client
@@ -121,6 +126,8 @@ type Redbeams struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *Redbeams) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
+
+	c.Authorization.SetTransport(transport)
 
 	c.DatabaseServers.SetTransport(transport)
 

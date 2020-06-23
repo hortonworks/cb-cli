@@ -17,7 +17,10 @@ import (
 // swagger:model EnvironmentNetworkYarnV1Params
 type EnvironmentNetworkYarnV1Params struct {
 
-	// Subnet ids of the specified networks
+	// Lifetime for Yarn deployments in seconds
+	Lifetime int32 `json:"lifetime,omitempty"`
+
+	// Queue for Yarn deployments
 	// Required: true
 	Queue *string `json:"queue"`
 }
