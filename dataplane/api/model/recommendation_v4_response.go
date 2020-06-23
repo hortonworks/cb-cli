@@ -19,6 +19,9 @@ import (
 // swagger:model RecommendationV4Response
 type RecommendationV4Response struct {
 
+	// autoscale recommendation
+	AutoscaleRecommendation *AutoscaleRecommendationV4Response `json:"autoscaleRecommendation,omitempty"`
+
 	// disk responses
 	// Unique: true
 	DiskResponses []*DiskV4Response `json:"diskResponses"`
@@ -32,6 +35,9 @@ type RecommendationV4Response struct {
 	// recommendations
 	Recommendations map[string]VMTypeV4Response `json:"recommendations,omitempty"`
 
+	// resize recommendation
+	ResizeRecommendation *ResizeRecommendationV4Response `json:"resizeRecommendation,omitempty"`
+
 	// virtual machines
 	// Unique: true
 	VirtualMachines []*VMTypeV4Response `json:"virtualMachines"`
@@ -40,6 +46,10 @@ type RecommendationV4Response struct {
 // Validate validates this recommendation v4 response
 func (m *RecommendationV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAutoscaleRecommendation(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateDiskResponses(formats); err != nil {
 		res = append(res, err)
@@ -57,6 +67,10 @@ func (m *RecommendationV4Response) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateResizeRecommendation(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateVirtualMachines(formats); err != nil {
 		res = append(res, err)
 	}
@@ -64,6 +78,24 @@ func (m *RecommendationV4Response) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *RecommendationV4Response) validateAutoscaleRecommendation(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AutoscaleRecommendation) { // not required
+		return nil
+	}
+
+	if m.AutoscaleRecommendation != nil {
+		if err := m.AutoscaleRecommendation.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("autoscaleRecommendation")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -153,6 +185,24 @@ func (m *RecommendationV4Response) validateRecommendations(formats strfmt.Regist
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *RecommendationV4Response) validateResizeRecommendation(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ResizeRecommendation) { // not required
+		return nil
+	}
+
+	if m.ResizeRecommendation != nil {
+		if err := m.ResizeRecommendation.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("resizeRecommendation")
+			}
+			return err
+		}
 	}
 
 	return nil

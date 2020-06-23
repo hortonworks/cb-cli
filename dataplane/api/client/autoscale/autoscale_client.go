@@ -113,6 +113,66 @@ func (a *Client) GetAllStackForAutoscale(params *GetAllStackForAutoscaleParams) 
 }
 
 /*
+GetAutoscaleClusterByCrn gets autoscale stack by crn in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) GetAutoscaleClusterByCrn(params *GetAutoscaleClusterByCrnParams) (*GetAutoscaleClusterByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAutoscaleClusterByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getAutoscaleClusterByCrn",
+		Method:             "GET",
+		PathPattern:        "/autoscale/autoscale_cluster/crn/{crn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetAutoscaleClusterByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetAutoscaleClusterByCrnOK), nil
+
+}
+
+/*
+GetAutoscaleClusterByName gets autoscale stack by name in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) GetAutoscaleClusterByName(params *GetAutoscaleClusterByNameParams) (*GetAutoscaleClusterByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAutoscaleClusterByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getAutoscaleClusterByName",
+		Method:             "GET",
+		PathPattern:        "/autoscale/autoscale_cluster/name/{name}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetAutoscaleClusterByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetAutoscaleClusterByNameOK), nil
+
+}
+
+/*
 GetCertificateStackForAutoscale retrieves the TLS certificate used by the gateway
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -171,32 +231,30 @@ func (a *Client) GetClusterProxyconfiguration(params *GetClusterProxyconfigurati
 }
 
 /*
-GetStackForAmbariForAutoscale retrieves stack by ambari address
-
-Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+GetRecommendation get recommendation API
 */
-func (a *Client) GetStackForAmbariForAutoscale(params *GetStackForAmbariForAutoscaleParams) (*GetStackForAmbariForAutoscaleOK, error) {
+func (a *Client) GetRecommendation(params *GetRecommendationParams) (*GetRecommendationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetStackForAmbariForAutoscaleParams()
+		params = NewGetRecommendationParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getStackForAmbariForAutoscale",
-		Method:             "POST",
-		PathPattern:        "/autoscale/ambari",
+		ID:                 "getRecommendation",
+		Method:             "GET",
+		PathPattern:        "/autoscale/stack/crn/{crn}/recommendation",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetStackForAmbariForAutoscaleReader{formats: a.formats},
+		Reader:             &GetRecommendationReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetStackForAmbariForAutoscaleOK), nil
+	return result.(*GetRecommendationOK), nil
 
 }
 

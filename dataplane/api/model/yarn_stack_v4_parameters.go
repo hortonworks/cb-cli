@@ -15,6 +15,9 @@ import (
 // swagger:model YarnStackV4Parameters
 type YarnStackV4Parameters struct {
 
+	// lifetime
+	Lifetime int32 `json:"lifetime,omitempty"`
+
 	// yarn queue
 	YarnQueue string `json:"yarnQueue,omitempty"`
 }

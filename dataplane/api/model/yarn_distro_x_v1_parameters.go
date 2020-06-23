@@ -15,6 +15,9 @@ import (
 // swagger:model YarnDistroXV1Parameters
 type YarnDistroXV1Parameters struct {
 
+	// lifetime
+	Lifetime int32 `json:"lifetime,omitempty"`
+
 	// yarn queue
 	YarnQueue string `json:"yarnQueue,omitempty"`
 }

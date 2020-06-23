@@ -11,6 +11,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/hortonworks/cb-cli/dataplane/api/client/authorization"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/autoscale"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v1distrox"
@@ -76,6 +77,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 
 	cli := new(Cloudbreak)
 	cli.Transport = transport
+
+	cli.Authorization = authorization.New(transport, formats)
 
 	cli.Autoscale = autoscale.New(transport, formats)
 
@@ -163,6 +166,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Cloudbreak is a client for cloudbreak
 type Cloudbreak struct {
+	Authorization *authorization.Client
+
 	Autoscale *autoscale.Client
 
 	Flow *flow.Client
@@ -211,6 +216,8 @@ type Cloudbreak struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
+
+	c.Authorization.SetTransport(transport)
 
 	c.Autoscale.SetTransport(transport)
 
