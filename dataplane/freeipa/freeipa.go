@@ -98,7 +98,7 @@ func StopFreeIpa(c *cli.Context) {
 }
 
 func RebootFreeIpa(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "stop FreeIpa cluster")
+	defer commonutils.TimeTrack(time.Now(), "reboot FreeIpa cluster")
 	envName := c.String(fl.FlEnvironmentName.Name)
 	RebootInstancesV1Request := assembleRebootRequest(c)
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
@@ -117,6 +117,46 @@ func assembleRebootRequest(c *cli.Context) *freeIpaModel.RebootInstancesV1Reques
 	return &freeIpaModel.RebootInstancesV1Request{
 		EnvironmentCrn: &envCrn,
 		ForceReboot:    force,
+		InstanceIds:    strings.Split(nodes, ","),
+	}
+}
+
+func RepairFreeIpa(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "repair FreeIpa cluster")
+	envName := c.String(fl.FlEnvironmentName.Name)
+	RepairInstancesV1Request := assembleRepairRequest(c)
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	resp, err := freeIpaClient.V1freeipa.RepairV1(v1freeipa.NewRepairV1Params().WithBody(RepairInstancesV1Request))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("[repairFreeIpa] FreeIpa cluster repair requested in environment %s", envName)
+
+	writeRepairOperationStatus(c, resp.Payload)
+}
+
+func writeRepairOperationStatus(c *cli.Context, operationStatus *freeIpaModel.OperationV1Status) {
+	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+	operationStatusOut := &freeIpaOutOperation{
+		ID:        *operationStatus.OperationID,
+		Status:    operationStatus.Status,
+		Success:   convertSuccessDetailsModel(operationStatus.Success),
+		Failure:   convertFailureDetailsModel(operationStatus.Failure),
+		Error:     operationStatus.Error,
+		StartTime: strconv.FormatInt(operationStatus.StartTime, 10),
+		EndTime:   strconv.FormatInt(operationStatus.EndTime, 10),
+	}
+	output.Write(operationStatusHeader, operationStatusOut)
+}
+
+func assembleRepairRequest(c *cli.Context) *freeIpaModel.RepairInstancesV1Request {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	force := c.Bool(fl.FlForceOptional.Name)
+	nodes := c.String(fl.FlNodesOptional.Name)
+	return &freeIpaModel.RepairInstancesV1Request{
+		EnvironmentCrn: &envCrn,
+		ForceRepair:    force,
 		InstanceIds:    strings.Split(nodes, ","),
 	}
 }
