@@ -4,12 +4,11 @@ import (
 	"fmt"
 )
 
-var syncStatusHeader = []string{"ID", "Status", "SyncType", "Success", "Failure", "Error", "StartTime", "EndTime"}
+var operationStatusHeader = []string{"ID", "Status", "Success", "Failure", "Error", "StartTime", "EndTime"}
 
-type freeIpaOutSyncOperation struct {
+type freeIpaOutOperation struct {
 	ID        string          `json:"ID" yaml:"ID"`
 	Status    string          `json:"Status" yaml:"Status"`
-	SyncType  string          `json:"SyncType" yaml:"SyncType"`
 	Success   []successDetail `json:"Success" yaml:"Success"`
 	Failure   []failureDetail `json:"Failure" yaml:"Failure"`
 	Error     string          `json:"Error,omitempty" yaml:"Error,omitempty"`
@@ -17,7 +16,16 @@ type freeIpaOutSyncOperation struct {
 	EndTime   string          `json:"EndTime,omitempty" yaml:"EndTime,omitempty"`
 }
 
-func (f *freeIpaOutSyncOperation) DataAsStringArray() []string {
+type successDetail struct {
+	Environment string `json:"Environment" yaml:"Environment"`
+}
+
+type failureDetail struct {
+	Environment string `json:"Environment" yaml:"Environment"`
+	Details     string `json:"Details" yaml:"Details"`
+}
+
+func (f *freeIpaOutOperation) DataAsStringArray() []string {
 	var successString string
 	for _, success := range f.Success {
 		successString += fmt.Sprintf("%s\n", success.Environment)
@@ -27,5 +35,5 @@ func (f *freeIpaOutSyncOperation) DataAsStringArray() []string {
 		failureString += fmt.Sprintf("Environment: %s\n", failure.Environment)
 		failureString += fmt.Sprintf("Details: %s\n\n", failure.Details)
 	}
-	return []string{f.ID, f.Status, f.SyncType, successString, failureString, f.Error, f.StartTime, f.EndTime}
+	return []string{f.ID, f.Status, successString, failureString, f.Error, f.StartTime, f.EndTime}
 }
