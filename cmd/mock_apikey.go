@@ -39,7 +39,7 @@ func generateMockApikeys(c *cli.Context) {
 	server := c.String(fl.FlServerOptional.Name)
 	tenant := c.String(fl.FlTenantName.Name)
 	user := c.String(fl.FlTenantUser.Name)
-	url := fmt.Sprintf("http://%s/auth/mockkey/%s/%s", server, tenant, user)
+	url := fmt.Sprintf("http://%s/thunderhead/auth/mockkey/%s/%s", server, tenant, user)
 	resp, err := http.Get(url)
 	if err != nil {
 		utils.LogErrorAndExit(err)
