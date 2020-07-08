@@ -82,10 +82,10 @@ func init() {
 				Name:   "reboot",
 				Usage:  "reboot a FreeIpa cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlNodesOptional, fl.FlForceOptional).AddAGlobalFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlNodesOptional, fl.FlForceOptional, fl.FlWaitOptional).AddAGlobalFlags().AddOutputFlag().Build(),
 				Action: freeipa.RebootFreeIpa,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlNodesOptional, fl.FlForceOptional).AddAGlobalFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlNodesOptional, fl.FlForceOptional, fl.FlWaitOptional).AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
@@ -94,10 +94,10 @@ func init() {
 				Name:   "repair",
 				Usage:  "repair a FreeIpa cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlNodesOptional, fl.FlForceOptional).AddAGlobalFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlNodesOptional, fl.FlForceOptional, fl.FlWaitOptional).AddAGlobalFlags().AddOutputFlag().Build(),
 				Action: freeipa.RepairFreeIpa,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlNodesOptional, fl.FlForceOptional).AddAGlobalFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlNodesOptional, fl.FlForceOptional, fl.FlWaitOptional).AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

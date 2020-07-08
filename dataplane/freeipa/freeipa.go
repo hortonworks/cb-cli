@@ -11,6 +11,7 @@ import (
 
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipa"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipauser"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1operation"
 	freeIpaModel "github.com/hortonworks/cb-cli/dataplane/api-freeipa/model"
 	"github.com/hortonworks/cb-cli/dataplane/env"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
@@ -102,11 +103,18 @@ func RebootFreeIpa(c *cli.Context) {
 	envName := c.String(fl.FlEnvironmentName.Name)
 	RebootInstancesV1Request := assembleRebootRequest(c)
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	err := freeIpaClient.V1freeipa.RebootV1(v1freeipa.NewRebootV1Params().WithBody(RebootInstancesV1Request))
+	resp, err := freeIpaClient.V1freeipa.RebootV1(v1freeipa.NewRebootV1Params().WithBody(RebootInstancesV1Request))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[rebootFreeIpa] FreeIpa cluster reboot requested in environment %s", envName)
+	operationStatus := resp.Payload
+
+	if c.Bool(fl.FlWaitOptional.Name) && operationStatus.Status == "RUNNING" {
+		getOperationStatus(c, *operationStatus.OperationID, "reboot")
+	} else {
+		writeOperationStatus(c, operationStatus)
+	}
 }
 
 func assembleRebootRequest(c *cli.Context) *freeIpaModel.RebootInstancesV1Request {
@@ -131,11 +139,36 @@ func RepairFreeIpa(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[repairFreeIpa] FreeIpa cluster repair requested in environment %s", envName)
+	operationStatus := resp.Payload
 
-	writeRepairOperationStatus(c, resp.Payload)
+	if c.Bool(fl.FlWaitOptional.Name) && operationStatus.Status == "RUNNING" {
+		getOperationStatus(c, *operationStatus.OperationID, "repair")
+	} else {
+		writeOperationStatus(c, operationStatus)
+	}
 }
 
-func writeRepairOperationStatus(c *cli.Context, operationStatus *freeIpaModel.OperationV1Status) {
+func getOperationStatus(c *cli.Context, operationId string, command string) {
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	resp, err := freeIpaClient.V1operation.GetOperationStatusV1(v1operation.NewGetOperationStatusV1Params().WithOperationID(operationId))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	operationStatus := resp.Payload
+	for c.Bool(fl.FlWaitOptional.Name) && operationStatus.Status == "RUNNING" {
+		log.Infof("[%s] Status is RUNNING. Sleeping", command)
+		time.Sleep(5 * time.Second)
+		resp, err := freeIpaClient.V1operation.GetOperationStatusV1(v1operation.NewGetOperationStatusV1Params().WithOperationID(operationId))
+		if err != nil {
+			commonutils.LogErrorAndExit(err)
+		}
+		operationStatus = resp.Payload
+	}
+	log.Infof("[%s] Operation completed: %s", command, operationStatus.Status)
+	writeOperationStatus(c, operationStatus)
+}
+
+func writeOperationStatus(c *cli.Context, operationStatus *freeIpaModel.OperationV1Status) {
 	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	operationStatusOut := &freeIpaOutOperation{
 		ID:        *operationStatus.OperationID,

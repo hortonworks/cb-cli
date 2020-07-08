@@ -7,10 +7,13 @@ package v1freeipa
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-freeipa/model"
 )
 
 // RebootV1Reader is a Reader for the RebootV1 structure.
@@ -20,43 +23,45 @@ type RebootV1Reader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *RebootV1Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewRebootV1Default(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewRebootV1OK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewRebootV1Default creates a RebootV1Default with default headers values
-func NewRebootV1Default(code int) *RebootV1Default {
-	return &RebootV1Default{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*RebootV1Default handles this case with default header values.
+// NewRebootV1OK creates a RebootV1OK with default headers values
+func NewRebootV1OK() *RebootV1OK {
+	return &RebootV1OK{}
+}
+
+/*RebootV1OK handles this case with default header values.
 
 successful operation
 */
-type RebootV1Default struct {
-	_statusCode int
+type RebootV1OK struct {
+	Payload *model.OperationV1Status
 }
 
-// Code gets the status code for the reboot v1 default response
-func (o *RebootV1Default) Code() int {
-	return o._statusCode
+func (o *RebootV1OK) Error() string {
+	return fmt.Sprintf("[POST /v1/freeipa/reboot][%d] rebootV1OK  %+v", 200, o.Payload)
 }
 
-func (o *RebootV1Default) Error() string {
-	return fmt.Sprintf("[POST /v1/freeipa/reboot][%d] rebootV1 default ", o._statusCode)
-}
+func (o *RebootV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *RebootV1Default) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.OperationV1Status)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
