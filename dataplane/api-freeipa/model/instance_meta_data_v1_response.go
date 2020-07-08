@@ -33,7 +33,7 @@ type InstanceMetaDataV1Response struct {
 	InstanceStatus string `json:"instanceStatus,omitempty"`
 
 	// type of the instance
-	// Enum: [GATEWAY GATEWAY_PRIMARY CORE]
+	// Enum: [GATEWAY GATEWAY_PRIMARY]
 	InstanceType string `json:"instanceType,omitempty"`
 
 	// life cycle
@@ -155,7 +155,7 @@ var instanceMetaDataV1ResponseTypeInstanceTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["GATEWAY","GATEWAY_PRIMARY","CORE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["GATEWAY","GATEWAY_PRIMARY"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -170,9 +170,6 @@ const (
 
 	// InstanceMetaDataV1ResponseInstanceTypeGATEWAYPRIMARY captures enum value "GATEWAY_PRIMARY"
 	InstanceMetaDataV1ResponseInstanceTypeGATEWAYPRIMARY string = "GATEWAY_PRIMARY"
-
-	// InstanceMetaDataV1ResponseInstanceTypeCORE captures enum value "CORE"
-	InstanceMetaDataV1ResponseInstanceTypeCORE string = "CORE"
 )
 
 // prop value enum

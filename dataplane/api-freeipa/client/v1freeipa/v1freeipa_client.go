@@ -359,13 +359,13 @@ RebootV1 reboots one or more instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) RebootV1(params *RebootV1Params) error {
+func (a *Client) RebootV1(params *RebootV1Params) (*RebootV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRebootV1Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "rebootV1",
 		Method:             "POST",
 		PathPattern:        "/v1/freeipa/reboot",
@@ -378,9 +378,9 @@ func (a *Client) RebootV1(params *RebootV1Params) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RebootV1OK), nil
 
 }
 
