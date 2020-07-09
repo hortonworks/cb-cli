@@ -599,13 +599,13 @@ PutScalingDistroXV1ByName scales the stack by name
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) PutScalingDistroXV1ByName(params *PutScalingDistroXV1ByNameParams) error {
+func (a *Client) PutScalingDistroXV1ByName(params *PutScalingDistroXV1ByNameParams) (*PutScalingDistroXV1ByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutScalingDistroXV1ByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "putScalingDistroXV1ByName",
 		Method:             "PUT",
 		PathPattern:        "/v1/distrox/name/{name}/scaling",
@@ -618,9 +618,9 @@ func (a *Client) PutScalingDistroXV1ByName(params *PutScalingDistroXV1ByNamePara
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*PutScalingDistroXV1ByNameOK), nil
 
 }
 

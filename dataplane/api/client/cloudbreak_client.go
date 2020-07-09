@@ -30,9 +30,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4events"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4info"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4user_profiles"
-	"github.com/hortonworks/cb-cli/dataplane/api/client/v4users"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4utils"
-	"github.com/hortonworks/cb-cli/dataplane/api/client/v4workspaces"
 )
 
 // Default cloudbreak HTTP client.
@@ -116,11 +114,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 
 	cli.V4userProfiles = v4user_profiles.New(transport, formats)
 
-	cli.V4users = v4users.New(transport, formats)
-
 	cli.V4utils = v4utils.New(transport, formats)
-
-	cli.V4workspaces = v4workspaces.New(transport, formats)
 
 	return cli
 }
@@ -204,11 +198,7 @@ type Cloudbreak struct {
 
 	V4userProfiles *v4user_profiles.Client
 
-	V4users *v4users.Client
-
 	V4utils *v4utils.Client
-
-	V4workspaces *v4workspaces.Client
 
 	Transport runtime.ClientTransport
 }
@@ -255,10 +245,6 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 
 	c.V4userProfiles.SetTransport(transport)
 
-	c.V4users.SetTransport(transport)
-
 	c.V4utils.SetTransport(transport)
-
-	c.V4workspaces.SetTransport(transport)
 
 }

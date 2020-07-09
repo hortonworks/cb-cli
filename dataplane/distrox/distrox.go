@@ -180,7 +180,7 @@ func ScaleDistroX(c *cli.Context) {
 	}
 	name := c.String(fl.FlName.Name)
 	log.Infof("[ScaleDistroX] scaling DistroX, name: %s", name)
-	err = dxClient.Cloudbreak.V1distrox.PutScalingDistroXV1ByName(v1distrox.NewPutScalingDistroXV1ByNameParams().WithName(name).WithBody(req))
+	_, err = dxClient.Cloudbreak.V1distrox.PutScalingDistroXV1ByName(v1distrox.NewPutScalingDistroXV1ByNameParams().WithName(name).WithBody(req))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}

@@ -56,7 +56,7 @@ type CreateFreeIpaV1Request struct {
 	Placement *PlacementV1Request `json:"placement"`
 
 	// Tags for freeipa server.
-	Tags *TagsRequest `json:"tags,omitempty"`
+	Tags map[string]string `json:"tags,omitempty"`
 
 	// telemetry setting for freeipa server
 	Telemetry *TelemetryRequest `json:"telemetry,omitempty"`
@@ -106,10 +106,6 @@ func (m *CreateFreeIpaV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePlacement(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -269,24 +265,6 @@ func (m *CreateFreeIpaV1Request) validatePlacement(formats strfmt.Registry) erro
 		if err := m.Placement.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("placement")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *CreateFreeIpaV1Request) validateTags(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Tags) { // not required
-		return nil
-	}
-
-	if m.Tags != nil {
-		if err := m.Tags.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("tags")
 			}
 			return err
 		}

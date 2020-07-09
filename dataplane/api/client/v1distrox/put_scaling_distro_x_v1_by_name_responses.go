@@ -7,10 +7,13 @@ package v1distrox
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // PutScalingDistroXV1ByNameReader is a Reader for the PutScalingDistroXV1ByName structure.
@@ -20,43 +23,45 @@ type PutScalingDistroXV1ByNameReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *PutScalingDistroXV1ByNameReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewPutScalingDistroXV1ByNameDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewPutScalingDistroXV1ByNameOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewPutScalingDistroXV1ByNameDefault creates a PutScalingDistroXV1ByNameDefault with default headers values
-func NewPutScalingDistroXV1ByNameDefault(code int) *PutScalingDistroXV1ByNameDefault {
-	return &PutScalingDistroXV1ByNameDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*PutScalingDistroXV1ByNameDefault handles this case with default header values.
+// NewPutScalingDistroXV1ByNameOK creates a PutScalingDistroXV1ByNameOK with default headers values
+func NewPutScalingDistroXV1ByNameOK() *PutScalingDistroXV1ByNameOK {
+	return &PutScalingDistroXV1ByNameOK{}
+}
+
+/*PutScalingDistroXV1ByNameOK handles this case with default header values.
 
 successful operation
 */
-type PutScalingDistroXV1ByNameDefault struct {
-	_statusCode int
+type PutScalingDistroXV1ByNameOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the put scaling distro x v1 by name default response
-func (o *PutScalingDistroXV1ByNameDefault) Code() int {
-	return o._statusCode
+func (o *PutScalingDistroXV1ByNameOK) Error() string {
+	return fmt.Sprintf("[PUT /v1/distrox/name/{name}/scaling][%d] putScalingDistroXV1ByNameOK  %+v", 200, o.Payload)
 }
 
-func (o *PutScalingDistroXV1ByNameDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/distrox/name/{name}/scaling][%d] putScalingDistroXV1ByName default ", o._statusCode)
-}
+func (o *PutScalingDistroXV1ByNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *PutScalingDistroXV1ByNameDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
