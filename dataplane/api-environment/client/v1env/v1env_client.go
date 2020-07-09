@@ -265,7 +265,7 @@ func (a *Client) DeleteEnvironmentsByCrn(params *DeleteEnvironmentsByCrnParams) 
 }
 
 /*
-DeleteEnvironmentsByName deletes multiple environment by namns only possible if no cluster is running in the environments
+DeleteEnvironmentsByName deletes multiple environment by names only possible if no cluster is running in the environments
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */

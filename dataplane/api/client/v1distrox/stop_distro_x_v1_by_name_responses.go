@@ -7,10 +7,13 @@ package v1distrox
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // StopDistroXV1ByNameReader is a Reader for the StopDistroXV1ByName structure.
@@ -20,43 +23,45 @@ type StopDistroXV1ByNameReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *StopDistroXV1ByNameReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewStopDistroXV1ByNameDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewStopDistroXV1ByNameOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewStopDistroXV1ByNameDefault creates a StopDistroXV1ByNameDefault with default headers values
-func NewStopDistroXV1ByNameDefault(code int) *StopDistroXV1ByNameDefault {
-	return &StopDistroXV1ByNameDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*StopDistroXV1ByNameDefault handles this case with default header values.
+// NewStopDistroXV1ByNameOK creates a StopDistroXV1ByNameOK with default headers values
+func NewStopDistroXV1ByNameOK() *StopDistroXV1ByNameOK {
+	return &StopDistroXV1ByNameOK{}
+}
+
+/*StopDistroXV1ByNameOK handles this case with default header values.
 
 successful operation
 */
-type StopDistroXV1ByNameDefault struct {
-	_statusCode int
+type StopDistroXV1ByNameOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the stop distro x v1 by name default response
-func (o *StopDistroXV1ByNameDefault) Code() int {
-	return o._statusCode
+func (o *StopDistroXV1ByNameOK) Error() string {
+	return fmt.Sprintf("[PUT /v1/distrox/name/{name}/stop][%d] stopDistroXV1ByNameOK  %+v", 200, o.Payload)
 }
 
-func (o *StopDistroXV1ByNameDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/distrox/name/{name}/stop][%d] stopDistroXV1ByName default ", o._statusCode)
-}
+func (o *StopDistroXV1ByNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *StopDistroXV1ByNameDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

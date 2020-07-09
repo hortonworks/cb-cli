@@ -37,7 +37,10 @@ type EnvironmentNetworkV1Response struct {
 	// The existing network is created by the user, otherwise created by the Cloudbreak.
 	ExistingNetwork bool `json:"existingNetwork,omitempty"`
 
-	// Subnet metadata of MLX subnets
+	// Subnet metadata of CB subnets, union of the DWX and public subnets
+	LiftieSubnets map[string]CloudSubnet `json:"liftieSubnets,omitempty"`
+
+	// Subnet metadata of MLX subnets (Deprecated)
 	MlxSubnets map[string]CloudSubnet `json:"mlxSubnets,omitempty"`
 
 	// Mock parameters
@@ -99,6 +102,10 @@ func (m *EnvironmentNetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDwxSubnets(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLiftieSubnets(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -222,6 +229,28 @@ func (m *EnvironmentNetworkV1Response) validateDwxSubnets(formats strfmt.Registr
 			return err
 		}
 		if val, ok := m.DwxSubnets[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateLiftieSubnets(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LiftieSubnets) { // not required
+		return nil
+	}
+
+	for k := range m.LiftieSubnets {
+
+		if err := validate.Required("liftieSubnets"+"."+k, "body", m.LiftieSubnets[k]); err != nil {
+			return err
+		}
+		if val, ok := m.LiftieSubnets[k]; ok {
 			if err := val.Validate(formats); err != nil {
 				return err
 			}

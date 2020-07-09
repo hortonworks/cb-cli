@@ -117,7 +117,11 @@ var operationV1StatusTypeOperationTypePropEnum []interface{}
 
 func init() {
 	var res []string
+<<<<<<< HEAD
 	if err := json.Unmarshal([]byte(`["USER_SYNC","SET_PASSWORD","CLEANUP","REBOOT","REPAIR","DOWNSCALE","UPSCALE"]`), &res); err != nil {
+=======
+	if err := json.Unmarshal([]byte(`["USER_SYNC","SET_PASSWORD","CLEANUP","REPAIR","DOWNSCALE","UPSCALE"]`), &res); err != nil {
+>>>>>>> origin/CB-2.25.0
 		panic(err)
 	}
 	for _, v := range res {

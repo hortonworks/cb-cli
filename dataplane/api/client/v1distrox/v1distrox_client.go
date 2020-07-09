@@ -505,62 +505,32 @@ func (a *Client) ListRetryableFlowsDistroXV1(params *ListRetryableFlowsDistroXV1
 }
 
 /*
-PostDistroXForBlueprintV1ByCrn posts stack for blueprint by crn
+PostDistroXForBlueprintV1 posts stack for blueprint
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) PostDistroXForBlueprintV1ByCrn(params *PostDistroXForBlueprintV1ByCrnParams) (*PostDistroXForBlueprintV1ByCrnOK, error) {
+func (a *Client) PostDistroXForBlueprintV1(params *PostDistroXForBlueprintV1Params) (*PostDistroXForBlueprintV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPostDistroXForBlueprintV1ByCrnParams()
+		params = NewPostDistroXForBlueprintV1Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "postDistroXForBlueprintV1ByCrn",
+		ID:                 "postDistroXForBlueprintV1",
 		Method:             "POST",
-		PathPattern:        "/v1/distrox/crn/{crn}/blueprint",
+		PathPattern:        "/v1/distrox/blueprint",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &PostDistroXForBlueprintV1ByCrnReader{formats: a.formats},
+		Reader:             &PostDistroXForBlueprintV1Reader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostDistroXForBlueprintV1ByCrnOK), nil
-
-}
-
-/*
-PostDistroXForBlueprintV1ByName posts stack for blueprint by name
-
-Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
-*/
-func (a *Client) PostDistroXForBlueprintV1ByName(params *PostDistroXForBlueprintV1ByNameParams) (*PostDistroXForBlueprintV1ByNameOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostDistroXForBlueprintV1ByNameParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "postDistroXForBlueprintV1ByName",
-		Method:             "POST",
-		PathPattern:        "/v1/distrox/name/{name}/blueprint",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PostDistroXForBlueprintV1ByNameReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*PostDistroXForBlueprintV1ByNameOK), nil
+	return result.(*PostDistroXForBlueprintV1OK), nil
 
 }
 
@@ -839,13 +809,13 @@ StartDistroXV1ByCrn starts the stack by crn
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) StartDistroXV1ByCrn(params *StartDistroXV1ByCrnParams) error {
+func (a *Client) StartDistroXV1ByCrn(params *StartDistroXV1ByCrnParams) (*StartDistroXV1ByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartDistroXV1ByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "startDistroXV1ByCrn",
 		Method:             "PUT",
 		PathPattern:        "/v1/distrox/crn/{crn}/start",
@@ -858,9 +828,9 @@ func (a *Client) StartDistroXV1ByCrn(params *StartDistroXV1ByCrnParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StartDistroXV1ByCrnOK), nil
 
 }
 
@@ -899,13 +869,13 @@ StartDistroXV1ByName starts the stack by name
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) StartDistroXV1ByName(params *StartDistroXV1ByNameParams) error {
+func (a *Client) StartDistroXV1ByName(params *StartDistroXV1ByNameParams) (*StartDistroXV1ByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartDistroXV1ByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "startDistroXV1ByName",
 		Method:             "PUT",
 		PathPattern:        "/v1/distrox/name/{name}/start",
@@ -918,9 +888,9 @@ func (a *Client) StartDistroXV1ByName(params *StartDistroXV1ByNameParams) error 
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StartDistroXV1ByNameOK), nil
 
 }
 
@@ -1019,13 +989,13 @@ StopDistroXV1ByCrn stops the stack by crn
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) StopDistroXV1ByCrn(params *StopDistroXV1ByCrnParams) error {
+func (a *Client) StopDistroXV1ByCrn(params *StopDistroXV1ByCrnParams) (*StopDistroXV1ByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopDistroXV1ByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "stopDistroXV1ByCrn",
 		Method:             "PUT",
 		PathPattern:        "/v1/distrox/crn/{crn}/stop",
@@ -1038,9 +1008,9 @@ func (a *Client) StopDistroXV1ByCrn(params *StopDistroXV1ByCrnParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StopDistroXV1ByCrnOK), nil
 
 }
 
@@ -1079,13 +1049,13 @@ StopDistroXV1ByName stops the stack by name
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) StopDistroXV1ByName(params *StopDistroXV1ByNameParams) error {
+func (a *Client) StopDistroXV1ByName(params *StopDistroXV1ByNameParams) (*StopDistroXV1ByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopDistroXV1ByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "stopDistroXV1ByName",
 		Method:             "PUT",
 		PathPattern:        "/v1/distrox/name/{name}/stop",
@@ -1098,9 +1068,9 @@ func (a *Client) StopDistroXV1ByName(params *StopDistroXV1ByNameParams) error {
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StopDistroXV1ByNameOK), nil
 
 }
 
