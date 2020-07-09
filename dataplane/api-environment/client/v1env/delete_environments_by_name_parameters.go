@@ -23,10 +23,12 @@ import (
 // with the default values initialized.
 func NewDeleteEnvironmentsByNameParams() *DeleteEnvironmentsByNameParams {
 	var (
-		forcedDefault = bool(false)
+		cascadingDefault = bool(true)
+		forcedDefault    = bool(false)
 	)
 	return &DeleteEnvironmentsByNameParams{
-		Forced: &forcedDefault,
+		Cascading: &cascadingDefault,
+		Forced:    &forcedDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -36,10 +38,12 @@ func NewDeleteEnvironmentsByNameParams() *DeleteEnvironmentsByNameParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteEnvironmentsByNameParamsWithTimeout(timeout time.Duration) *DeleteEnvironmentsByNameParams {
 	var (
-		forcedDefault = bool(false)
+		cascadingDefault = bool(true)
+		forcedDefault    = bool(false)
 	)
 	return &DeleteEnvironmentsByNameParams{
-		Forced: &forcedDefault,
+		Cascading: &cascadingDefault,
+		Forced:    &forcedDefault,
 
 		timeout: timeout,
 	}
@@ -49,10 +53,12 @@ func NewDeleteEnvironmentsByNameParamsWithTimeout(timeout time.Duration) *Delete
 // with the default values initialized, and the ability to set a context for a request
 func NewDeleteEnvironmentsByNameParamsWithContext(ctx context.Context) *DeleteEnvironmentsByNameParams {
 	var (
-		forcedDefault = bool(false)
+		cascadingDefault = bool(true)
+		forcedDefault    = bool(false)
 	)
 	return &DeleteEnvironmentsByNameParams{
-		Forced: &forcedDefault,
+		Cascading: &cascadingDefault,
+		Forced:    &forcedDefault,
 
 		Context: ctx,
 	}
@@ -62,9 +68,11 @@ func NewDeleteEnvironmentsByNameParamsWithContext(ctx context.Context) *DeleteEn
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteEnvironmentsByNameParamsWithHTTPClient(client *http.Client) *DeleteEnvironmentsByNameParams {
 	var (
-		forcedDefault = bool(false)
+		cascadingDefault = bool(true)
+		forcedDefault    = bool(false)
 	)
 	return &DeleteEnvironmentsByNameParams{
+		Cascading:  &cascadingDefault,
 		Forced:     &forcedDefault,
 		HTTPClient: client,
 	}
@@ -77,6 +85,8 @@ type DeleteEnvironmentsByNameParams struct {
 
 	/*Body*/
 	Body []string
+	/*Cascading*/
+	Cascading *bool
 	/*Forced*/
 	Forced *bool
 
@@ -129,6 +139,17 @@ func (o *DeleteEnvironmentsByNameParams) SetBody(body []string) {
 	o.Body = body
 }
 
+// WithCascading adds the cascading to the delete environments by name params
+func (o *DeleteEnvironmentsByNameParams) WithCascading(cascading *bool) *DeleteEnvironmentsByNameParams {
+	o.SetCascading(cascading)
+	return o
+}
+
+// SetCascading adds the cascading to the delete environments by name params
+func (o *DeleteEnvironmentsByNameParams) SetCascading(cascading *bool) {
+	o.Cascading = cascading
+}
+
 // WithForced adds the forced to the delete environments by name params
 func (o *DeleteEnvironmentsByNameParams) WithForced(forced *bool) *DeleteEnvironmentsByNameParams {
 	o.SetForced(forced)
@@ -152,6 +173,22 @@ func (o *DeleteEnvironmentsByNameParams) WriteToRequest(r runtime.ClientRequest,
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
 		}
+	}
+
+	if o.Cascading != nil {
+
+		// query param cascading
+		var qrCascading bool
+		if o.Cascading != nil {
+			qrCascading = *o.Cascading
+		}
+		qCascading := swag.FormatBool(qrCascading)
+		if qCascading != "" {
+			if err := r.SetQueryParam("cascading", qCascading); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if o.Forced != nil {

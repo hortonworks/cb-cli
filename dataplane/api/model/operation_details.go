@@ -25,12 +25,18 @@ type OperationDetails struct {
 	// cloudbreak version
 	CloudbreakVersion string `json:"cloudbreakVersion,omitempty"`
 
+	// environment crn
+	EnvironmentCrn string `json:"environmentCrn,omitempty"`
+
 	// event type
 	// Enum: [REST FLOW NOTIFICATION]
 	EventType string `json:"eventType,omitempty"`
 
 	// resource crn
 	ResourceCrn string `json:"resourceCrn,omitempty"`
+
+	// resource event
+	ResourceEvent string `json:"resourceEvent,omitempty"`
 
 	// resource Id
 	ResourceID int64 `json:"resourceId,omitempty"`
@@ -46,6 +52,9 @@ type OperationDetails struct {
 
 	// timestamp
 	Timestamp int64 `json:"timestamp,omitempty"`
+
+	// user crn
+	UserCrn string `json:"userCrn,omitempty"`
 
 	// user Id
 	UserID string `json:"userId,omitempty"`

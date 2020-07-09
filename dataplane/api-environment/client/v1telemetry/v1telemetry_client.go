@@ -115,6 +115,36 @@ func (a *Client) ListFeaturesV1(params *ListFeaturesV1Params) (*ListFeaturesV1OK
 }
 
 /*
+ListRulesInAccountV1 gets account specific telemetry settings
+
+Gather telemetry related settings (features and anonymization rules) these are used as global settings for environments
+*/
+func (a *Client) ListRulesInAccountV1(params *ListRulesInAccountV1Params) (*ListRulesInAccountV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListRulesInAccountV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listRulesInAccountV1",
+		Method:             "GET",
+		PathPattern:        "/v1/telemetry/rules/{accountId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListRulesInAccountV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListRulesInAccountV1OK), nil
+
+}
+
+/*
 ListRulesV1 gets account specific telemetry settings
 
 Gather telemetry related settings (features and anonymization rules) these are used as global settings for environments

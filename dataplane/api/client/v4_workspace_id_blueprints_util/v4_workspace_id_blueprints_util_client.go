@@ -55,6 +55,36 @@ func (a *Client) CreateRecommendationForWorkspace(params *CreateRecommendationFo
 }
 
 /*
+CreateScaleRecommendationForWorkspace creates a recommendation that advises cloud resources for the given blueprint
+
+Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
+*/
+func (a *Client) CreateScaleRecommendationForWorkspace(params *CreateScaleRecommendationForWorkspaceParams) (*CreateScaleRecommendationForWorkspaceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateScaleRecommendationForWorkspaceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createScaleRecommendationForWorkspace",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/blueprints_util/scalerecommendation",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateScaleRecommendationForWorkspaceReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateScaleRecommendationForWorkspaceOK), nil
+
+}
+
+/*
 GetGeneratedTemplate creates a recommendation that advises cloud resources for the given blueprint
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.

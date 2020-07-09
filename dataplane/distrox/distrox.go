@@ -197,7 +197,7 @@ func StartDistroX(c *cli.Context) {
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	name := c.String(fl.FlName.Name)
 	log.Infof("[StartDistroX] starting DistroX, name: %s", name)
-	err := dxClient.Cloudbreak.V1distrox.StartDistroXV1ByName(v1distrox.NewStartDistroXV1ByNameParams().WithName(name))
+	_, err := dxClient.Cloudbreak.V1distrox.StartDistroXV1ByName(v1distrox.NewStartDistroXV1ByNameParams().WithName(name))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -214,7 +214,7 @@ func StopDistroX(c *cli.Context) {
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 	name := c.String(fl.FlName.Name)
 	log.Infof("[StopDistroX] stopping DistroX, name: %s", name)
-	err := dxClient.Cloudbreak.V1distrox.StopDistroXV1ByName(v1distrox.NewStopDistroXV1ByNameParams().WithName(name))
+	_, err := dxClient.Cloudbreak.V1distrox.StopDistroXV1ByName(v1distrox.NewStopDistroXV1ByNameParams().WithName(name))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}

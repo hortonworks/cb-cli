@@ -7,10 +7,13 @@ package v1distrox
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // StartDistroXV1ByCrnReader is a Reader for the StartDistroXV1ByCrn structure.
@@ -20,43 +23,45 @@ type StartDistroXV1ByCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *StartDistroXV1ByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewStartDistroXV1ByCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewStartDistroXV1ByCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewStartDistroXV1ByCrnDefault creates a StartDistroXV1ByCrnDefault with default headers values
-func NewStartDistroXV1ByCrnDefault(code int) *StartDistroXV1ByCrnDefault {
-	return &StartDistroXV1ByCrnDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*StartDistroXV1ByCrnDefault handles this case with default header values.
+// NewStartDistroXV1ByCrnOK creates a StartDistroXV1ByCrnOK with default headers values
+func NewStartDistroXV1ByCrnOK() *StartDistroXV1ByCrnOK {
+	return &StartDistroXV1ByCrnOK{}
+}
+
+/*StartDistroXV1ByCrnOK handles this case with default header values.
 
 successful operation
 */
-type StartDistroXV1ByCrnDefault struct {
-	_statusCode int
+type StartDistroXV1ByCrnOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the start distro x v1 by crn default response
-func (o *StartDistroXV1ByCrnDefault) Code() int {
-	return o._statusCode
+func (o *StartDistroXV1ByCrnOK) Error() string {
+	return fmt.Sprintf("[PUT /v1/distrox/crn/{crn}/start][%d] startDistroXV1ByCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *StartDistroXV1ByCrnDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/distrox/crn/{crn}/start][%d] startDistroXV1ByCrn default ", o._statusCode)
-}
+func (o *StartDistroXV1ByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *StartDistroXV1ByCrnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

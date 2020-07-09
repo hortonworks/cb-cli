@@ -20,6 +20,10 @@ type AllocateDatabaseServerV4Request struct {
 	// AWS-specific parameters for the database stack
 	Aws AwsDBStackV4Parameters `json:"aws,omitempty"`
 
+	// CRN of the cluster of the database server
+	// Required: true
+	ClusterCrn *string `json:"clusterCrn"`
+
 	// Database server information for the database stack
 	// Required: true
 	DatabaseServer *DatabaseServerV4StackRequest `json:"databaseServer"`
@@ -42,6 +46,10 @@ type AllocateDatabaseServerV4Request struct {
 func (m *AllocateDatabaseServerV4Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateClusterCrn(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateDatabaseServer(formats); err != nil {
 		res = append(res, err)
 	}
@@ -61,6 +69,15 @@ func (m *AllocateDatabaseServerV4Request) Validate(formats strfmt.Registry) erro
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AllocateDatabaseServerV4Request) validateClusterCrn(formats strfmt.Registry) error {
+
+	if err := validate.Required("clusterCrn", "body", m.ClusterCrn); err != nil {
+		return err
+	}
+
 	return nil
 }
 
