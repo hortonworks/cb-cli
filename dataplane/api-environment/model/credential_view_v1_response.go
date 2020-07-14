@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -33,6 +35,10 @@ type CredentialViewV1Response struct {
 	// name of the resource
 	Name string `json:"name,omitempty"`
 
+	// type of credential
+	// Enum: [ENVIRONMENT AUDIT]
+	Type string `json:"type,omitempty"`
+
 	// verification status text for credential, if empty then there is no verification issue
 	VerificationStatusText string `json:"verificationStatusText,omitempty"`
 }
@@ -45,6 +51,10 @@ func (m *CredentialViewV1Response) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -54,6 +64,49 @@ func (m *CredentialViewV1Response) Validate(formats strfmt.Registry) error {
 func (m *CredentialViewV1Response) validateCloudPlatform(formats strfmt.Registry) error {
 
 	if err := validate.Required("cloudPlatform", "body", m.CloudPlatform); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var credentialViewV1ResponseTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENVIRONMENT","AUDIT"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		credentialViewV1ResponseTypeTypePropEnum = append(credentialViewV1ResponseTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CredentialViewV1ResponseTypeENVIRONMENT captures enum value "ENVIRONMENT"
+	CredentialViewV1ResponseTypeENVIRONMENT string = "ENVIRONMENT"
+
+	// CredentialViewV1ResponseTypeAUDIT captures enum value "AUDIT"
+	CredentialViewV1ResponseTypeAUDIT string = "AUDIT"
+)
+
+// prop value enum
+func (m *CredentialViewV1Response) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, credentialViewV1ResponseTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CredentialViewV1Response) validateType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
 		return err
 	}
 

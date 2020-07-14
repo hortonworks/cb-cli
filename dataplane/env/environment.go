@@ -220,7 +220,6 @@ func createEnvironmentTemplateWithNetwork(mode cloud.NetworkMode, c *cli.Context
 		Name:           new(string),
 		Description:    new(string),
 		CredentialName: "____",
-		Regions:        make([]string, 0),
 		Location: &model.LocationV1Request{
 			Name:      new(string),
 			Longitude: 0,
@@ -233,9 +232,6 @@ func createEnvironmentTemplateWithNetwork(mode cloud.NetworkMode, c *cli.Context
 	}
 	if locationName := c.String(fl.FlEnvironmentLocationNameOptional.Name); len(locationName) != 0 {
 		template.Location.Name = &locationName
-	}
-	if regions := utils.DelimitedStringToArray(c.String(fl.FlEnvironmentRegions.Name), ","); len(regions) != 0 {
-		template.Regions = regions
 	}
 	return template
 }

@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -42,6 +44,11 @@ type CredentialBase struct {
 	// custom parameters for Openstack credential
 	Openstack *OpenstackV1Parameters `json:"openstack,omitempty"`
 
+	// type of credential
+	// Required: true
+	// Enum: [ENVIRONMENT AUDIT]
+	Type *string `json:"type"`
+
 	// verification status text for credential, if empty then there is no verification issue
 	VerificationStatusText string `json:"verificationStatusText,omitempty"`
 
@@ -77,6 +84,10 @@ func (m *CredentialBase) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateOpenstack(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -186,6 +197,49 @@ func (m *CredentialBase) validateOpenstack(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var credentialBaseTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENVIRONMENT","AUDIT"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		credentialBaseTypeTypePropEnum = append(credentialBaseTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CredentialBaseTypeENVIRONMENT captures enum value "ENVIRONMENT"
+	CredentialBaseTypeENVIRONMENT string = "ENVIRONMENT"
+
+	// CredentialBaseTypeAUDIT captures enum value "AUDIT"
+	CredentialBaseTypeAUDIT string = "AUDIT"
+)
+
+// prop value enum
+func (m *CredentialBase) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, credentialBaseTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CredentialBase) validateType(formats strfmt.Registry) error {
+
+	if err := validate.Required("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
+		return err
 	}
 
 	return nil

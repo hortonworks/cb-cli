@@ -70,10 +70,6 @@ type EnvironmentV1Request struct {
 	// Name of the proxyconfig of the environment.
 	ProxyConfigName string `json:"proxyConfigName,omitempty"`
 
-	// Regions of the environment.
-	// Unique: true
-	Regions []string `json:"regions"`
-
 	// Security control for FreeIPA and Datalake deployment.
 	SecurityAccess *SecurityAccessV1Request `json:"securityAccess,omitempty"`
 
@@ -129,10 +125,6 @@ func (m *EnvironmentV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNetwork(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRegions(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -384,19 +376,6 @@ func (m *EnvironmentV1Request) validateNetwork(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *EnvironmentV1Request) validateRegions(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Regions) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("regions", "body", m.Regions); err != nil {
-		return err
 	}
 
 	return nil
