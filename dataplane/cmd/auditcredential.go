@@ -149,7 +149,7 @@ func init() {
 				Usage:  "describes a audit-credential",
 				Before: cf.CheckConfigAndCommandFlags,
 				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build(),
-				Action: auditcredential.DescribeCredential,
+				Action: auditcredential.DescribeAuditCredential,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
@@ -161,7 +161,7 @@ func init() {
 				Usage:  "lists the audit-credentials",
 				Before: cf.CheckConfigAndCommandFlags,
 				Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build(),
-				Action: auditcredential.ListCredentials,
+				Action: auditcredential.ListAuditCredentials,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
@@ -177,7 +177,7 @@ func init() {
 						Usage:  "get prerequisites for aws audit-credential creation",
 						Before: cf.CheckConfigAndCommandFlags,
 						Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build(),
-						Action: auditcredential.GetAwsCredentialPrerequisites,
+						Action: auditcredential.GetAwsAuditCredentialPrerequisites,
 						BashComplete: func(c *cli.Context) {
 							for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddOutputFlag().Build() {
 								fl.PrintFlagCompletion(f)

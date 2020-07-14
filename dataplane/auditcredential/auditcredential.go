@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/hortonworks/cb-cli/dataplane/common"
@@ -125,8 +124,8 @@ func modifyAuditCredential(c *cli.Context, govCloud bool) {
 }
 
 type modifyAuditCredentialClient interface {
-	GetAuditCredentialByResourceCrn(params *v1auditcred.GetAuditCredentialByResourceCrnV1Params) (*v1auditcred.GetAuditCredentialByResourceCrnV1OK, error)
-	PutAuditCredential(params *v1auditcred.PutAuditCredentialV1Params) (*v1auditcred.PutAuditCredentialV1OK, error)
+	GetAuditCredentialByResourceCrnV1(params *v1auditcred.GetAuditCredentialByResourceCrnV1Params) (*v1auditcred.GetAuditCredentialByResourceCrnV1OK, error)
+	PutAuditCredentialV1(params *v1auditcred.PutAuditCredentialV1Params) (*v1auditcred.PutAuditCredentialV1OK, error)
 }
 
 func modifyAuditCredentialImpl(stringFinder func(string) string, client modifyAuditCredentialClient, govCloud bool, verifyPermissions bool) *model.CredentialV1Response {
@@ -161,7 +160,7 @@ func getAuditCredential(crn string, client modifyAuditCredentialClient) *model.C
 	defer utils.TimeTrack(time.Now(), "get credential")
 
 	log.Infof("[getCredential] get credential by crn: %s", crn)
-	response, err := client.GetAuditCredentialByResourceCrn(v1auditcred.NewGetAuditCredentialByResourceCrnV1Params().WithCrn(crn))
+	response, err := client.GetAuditCredentialByResourceCrnV1(v1auditcred.NewGetAuditCredentialByResourceCrnV1Params().WithCrn(crn))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -172,7 +171,7 @@ func putAuditCredential(client modifyAuditCredentialClient, credReq *model.Crede
 	var credential *model.CredentialV1Response
 	log.Infof("[putCredential] modify public credential: %s", *credReq.Name)
 
-	resp, err := client.PutAuditCredential(v1auditcred.NewPutAuditCredentialV1Params().WithBody(credReq))
+	resp, err := client.PutAuditCredentialV1(v1auditcred.NewPutAuditCredentialV1Params().WithBody(credReq))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
