@@ -66,3 +66,15 @@ func ConvertToInt32Ptr(source string) *int32 {
 	result := int32(temporaryInt)
 	return &result
 }
+
+func ConvertToFloat64Ptr(source string) *float64 {
+	if strings.TrimSpace(source) == "" {
+		return nil
+	}
+	temporaryInt, err := strconv.ParseFloat(source, 64)
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	result := float64(temporaryInt)
+	return &result
+}
