@@ -1470,6 +1470,13 @@ var (
 			Usage: "upgrades to image with the same version of stack and clustermanager, if available",
 		},
 	}
+	FlReplaceVms = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "replace-vms",
+			Usage: "replaces the vm-s with fresh instances after the upgrade has completed, valid values: [ENABLED, DISABLED].",
+		},
+	}
 	FlSpotPercentage = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
@@ -1566,6 +1573,10 @@ func checkRequiredFlags(c *cli.Context) error {
 			}
 			strslf, ok := f.(StringSliceFlag)
 			if ok && len(c.StringSlice(strslf.GetName())) == 0 {
+				missingFlags = append(missingFlags, f.GetName())
+			}
+			boolf, ok := f.(BoolFlag)
+			if ok && !c.IsSet(boolf.GetName()) {
 				missingFlags = append(missingFlags, f.GetName())
 			}
 		}
