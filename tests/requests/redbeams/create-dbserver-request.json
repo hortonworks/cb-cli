@@ -1,4 +1,5 @@
 {
+  "clusterCrn": null,
   "databaseServer": {
     "aws": {
       "backupRetentionPeriod": 1,

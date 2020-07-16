@@ -1441,6 +1441,13 @@ var (
 			Usage: "sets the percentage of spot instances launched (same for all instance groups in stack request)",
 		},
 	}
+	FlSpotMaxPrice = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "with-spot-max-price",
+			Usage: "sets the maximum hourly price of spot instances launched (same for all instance groups in stack request)",
+		},
+	}
 	FlRangerRazEnabled = BoolFlag{
 		RequiredFlag: OPTIONAL,
 		BoolFlag: cli.BoolFlag{

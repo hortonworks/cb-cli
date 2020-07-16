@@ -17,6 +17,11 @@ import (
 // swagger:model AwsInstanceTemplateV1SpotParameters
 type AwsInstanceTemplateV1SpotParameters struct {
 
+	// max price per hour of spot instances launched in instance group
+	// Maximum: 255
+	// Minimum: 0.001
+	MaxPrice float64 `json:"maxPrice,omitempty"`
+
 	// percentage of spot instances launched in instance group
 	// Maximum: 100
 	// Minimum: 0
@@ -27,6 +32,10 @@ type AwsInstanceTemplateV1SpotParameters struct {
 func (m *AwsInstanceTemplateV1SpotParameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateMaxPrice(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePercentage(formats); err != nil {
 		res = append(res, err)
 	}
@@ -34,6 +43,23 @@ func (m *AwsInstanceTemplateV1SpotParameters) Validate(formats strfmt.Registry) 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AwsInstanceTemplateV1SpotParameters) validateMaxPrice(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.MaxPrice) { // not required
+		return nil
+	}
+
+	if err := validate.Minimum("maxPrice", "body", float64(m.MaxPrice), 0.001, false); err != nil {
+		return err
+	}
+
+	if err := validate.Maximum("maxPrice", "body", float64(m.MaxPrice), 255, false); err != nil {
+		return err
+	}
+
 	return nil
 }
 
