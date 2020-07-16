@@ -491,11 +491,16 @@ func StopSdx(c *cli.Context) {
 	log.Infof("[StopSdx] SDX cluster stop executed for: %s", name)
 }
 
-func printResponse(template *sdx.UpgradeDatalakeClusterOK) error {
+func printResponse(template *sdx.UpgradeDatalakeClusterOK, dryRun bool) error {
 	var errorMessage error
 	var response []byte
 
-	if template.Payload.UpgradeCandidates == nil || len(template.Payload.UpgradeCandidates) == 0 {
+	if dryRun {
+		resp, err := json.MarshalIndent(template.Payload, "", "\t")
+		response = resp
+		errorMessage = err
+	} else if template.Payload.UpgradeCandidates == nil || len(template.Payload.UpgradeCandidates) == 0 {
+		log.Infof("[UpgradeSDX] Reason field received: %s", template.Payload.Reason)
 		resp, err := json.MarshalIndent(template.Payload.Reason, "", "\t")
 		response = resp
 		errorMessage = err
@@ -504,22 +509,24 @@ func printResponse(template *sdx.UpgradeDatalakeClusterOK) error {
 		response = resp
 		errorMessage = err
 	}
+
 	if errorMessage != nil {
 		commonutils.LogErrorAndExit(errorMessage)
 	}
-	fmt.Printf("%s\n", string(response))
+	commonutils.Println(string(response))
 	return nil
 }
 
 func SdxClusterkUpgrade(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "Start sdx upgrade")
+	defer commonutils.TimeTrack(time.Now(), "Start SDX upgrade")
 	dryRun := c.Bool(fl.FlDryRunOptional.Name)
 	name := c.String(fl.FlName.Name)
 	image := c.String(fl.FlImageIdOptional.Name)
 	runtime := c.String(fl.FlRuntimeOptional.Name)
 	lock := c.Bool(fl.FlLockComponentsOptional.Name)
+	replaceVms := c.String(fl.FlReplaceVms.Name)
 
-	sdxRequest := createSdxUpgradeRequest(image, runtime, lock, dryRun)
+	sdxRequest := createSdxUpgradeRequest(image, runtime, lock, dryRun, replaceVms)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 
@@ -528,15 +535,16 @@ func SdxClusterkUpgrade(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 		fmt.Printf("%s\n", err)
 	}
-	printResponse(resp)
+	printResponse(resp, dryRun)
 }
 
-func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool) *sdxModel.SdxUpgradeRequest {
+func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string) *sdxModel.SdxUpgradeRequest {
 	sdxRequest := &sdxModel.SdxUpgradeRequest{
 		ImageID:        imageid,
 		Runtime:        runtime,
 		LockComponents: lockComponents,
 		DryRun:         dryRun,
+		ReplaceVms:     replaceVms,
 	}
 	return sdxRequest
 }
