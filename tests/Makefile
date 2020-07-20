@@ -1,8 +1,6 @@
-CB_VERSION = $(shell echo \${VERSION})
-ifeq ($(CB_VERSION),)
-    	CB_VERSION ?= $(shell git describe --tags --abbrev=0)-snapshot
-endif
-GIT_ACTIVE_BRANCH ?= $(shell git rev-parse HEAD)
+CB_TARGET_BRANCH ?= $(strip $(shell git remote show origin | grep "HEAD branch" | cut -d ":" -f 2))
+CB_VERSION ?= $(shell ./scripts/get-latest-version.sh)
+GIT_ACTIVE_BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD)
 BLUEPRINT_URL ?= https://raw.githubusercontent.com/hortonworks/cb-cli/$(GIT_ACTIVE_BRANCH)/tests/blueprints/test.bp
 
 all: start-mock integration-test stop-mock clean-after-tests
@@ -23,9 +21,9 @@ deps:
 
 # Start a new Mock with new Swagger JSON
 # For custom version apply as: 'GIT_FIRST_PARENT=2.8.0-dev.374 make start-mock'
-start-mock: download-s3
+start-mock:
 	CLEANUP=true scripts/mock-test-helper.sh
-	CB_VERSION=$(CB_VERSION) tmp/cbm.sh
+	CB_TARGET_BRANCH=$(CB_TARGET_BRANCH) CB_VERSION=$(CB_VERSION) tmp/cbm.sh
 
 # Stop DataPlane Mock
 stop-mock:
