@@ -398,9 +398,10 @@ func DeleteEnvironment(c *cli.Context) {
 	val := c.String(fl.FlNames.Name)
 	envNames := strings.Split(val[1:len(val)-1], ",")
 	forced := c.Bool(fl.FlForceOptional.Name)
+	cascading := c.Bool(fl.FlCascadeOptional.Name)
 	envClient := oauth.NewEnvironmentClientFromContext(c)
 	log.Infof("[DeleteEnvironment] delete environment(s) by names: %s", envNames)
-	_, err := envClient.Environment.V1env.DeleteEnvironmentsByName(v1env.NewDeleteEnvironmentsByNameParams().WithForced(&forced).WithBody(envNames))
+	_, err := envClient.Environment.V1env.DeleteEnvironmentsByName(v1env.NewDeleteEnvironmentsByNameParams().WithForced(&forced).WithCascading(&cascading).WithBody(envNames))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
