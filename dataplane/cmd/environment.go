@@ -80,12 +80,12 @@ func init() {
 			},
 			{
 				Name:   "delete",
-				Usage:  "deletes an environment or more if names are spearated by commas",
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNames).AddFlags(fl.FlForceOptional).AddOutputFlag().AddAGlobalFlags().Build(),
+				Usage:  "deletes an environment or more if names are separated by commas",
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlNames).AddFlags(fl.FlForceOptional).AddFlags(fl.FlCascadeOptional).AddOutputFlag().AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: env.DeleteEnvironment,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNames).AddFlags(fl.FlForceOptional).AddOutputFlag().AddAGlobalFlags().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlNames).AddFlags(fl.FlForceOptional).AddFlags(fl.FlCascadeOptional).AddOutputFlag().AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
