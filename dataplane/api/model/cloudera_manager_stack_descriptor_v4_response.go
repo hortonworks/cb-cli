@@ -21,8 +21,8 @@ type ClouderaManagerStackDescriptorV4Response struct {
 	// cloudera manager
 	ClouderaManager *ClouderaManagerInfoV4Response `json:"clouderaManager,omitempty"`
 
-	// min c m
-	MinCM string `json:"minCM,omitempty"`
+	// product definitions
+	ProductDefinitions []string `json:"productDefinitions"`
 
 	// products
 	Products []*ClouderaManagerProductV4Response `json:"products"`

@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+CollectDistroxCmDiagnosticsV4 initiates the collection of diagnostical data on the cloudera manager host for datahub
+*/
+func (a *Client) CollectDistroxCmDiagnosticsV4(params *CollectDistroxCmDiagnosticsV4Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCollectDistroxCmDiagnosticsV4Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "collectDistroxCmDiagnosticsV4",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/diagnostics",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CollectDistroxCmDiagnosticsV4Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 DeleteDistroXV1ByCrn deletes stack by crn
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -441,6 +469,34 @@ func (a *Client) GetDistroXV1ByName(params *GetDistroXV1ByNameParams) (*GetDistr
 		return nil, err
 	}
 	return result.(*GetDistroXV1ByNameOK), nil
+
+}
+
+/*
+GetDistroxCmVMLogsV4 returns a list of log paths on the cloudera manager VM for datahub
+*/
+func (a *Client) GetDistroxCmVMLogsV4(params *GetDistroxCmVMLogsV4Params) (*GetDistroxCmVMLogsV4OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDistroxCmVMLogsV4Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDistroxCmVmLogsV4",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/diagnostics/logs",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDistroxCmVMLogsV4Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDistroxCmVMLogsV4OK), nil
 
 }
 

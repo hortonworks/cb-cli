@@ -12,6 +12,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/authorization"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/diagnostics"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/internalsdx"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdx"
@@ -62,6 +63,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Datalake {
 	cli.Transport = transport
 
 	cli.Authorization = authorization.New(transport, formats)
+
+	cli.Diagnostics = diagnostics.New(transport, formats)
 
 	cli.Flow = flow.New(transport, formats)
 
@@ -117,6 +120,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type Datalake struct {
 	Authorization *authorization.Client
 
+	Diagnostics *diagnostics.Client
+
 	Flow *flow.Client
 
 	Internalsdx *internalsdx.Client
@@ -133,6 +138,8 @@ func (c *Datalake) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 
 	c.Authorization.SetTransport(transport)
+
+	c.Diagnostics.SetTransport(transport)
 
 	c.Flow.SetTransport(transport)
 

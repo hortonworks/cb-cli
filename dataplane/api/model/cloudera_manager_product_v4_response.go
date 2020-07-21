@@ -20,6 +20,10 @@ type ClouderaManagerProductV4Response struct {
 	// CSD (service descriptor) urls for the Cloudera manager product
 	Csd []string `json:"csd"`
 
+	// display name of the Cloudera manager product - contains the name and the version
+	// Required: true
+	DisplayName *string `json:"displayName"`
+
 	// name of the Cloudera manager product
 	// Required: true
 	Name *string `json:"name"`
@@ -35,6 +39,10 @@ type ClouderaManagerProductV4Response struct {
 func (m *ClouderaManagerProductV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDisplayName(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
@@ -42,6 +50,15 @@ func (m *ClouderaManagerProductV4Response) Validate(formats strfmt.Registry) err
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ClouderaManagerProductV4Response) validateDisplayName(formats strfmt.Registry) error {
+
+	if err := validate.Required("displayName", "body", m.DisplayName); err != nil {
+		return err
+	}
+
 	return nil
 }
 

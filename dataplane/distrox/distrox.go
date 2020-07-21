@@ -1,8 +1,11 @@
 package distrox
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/go-openapi/strfmt"
+	distroxModel "github.com/hortonworks/cb-cli/dataplane/api/model"
 	"os"
 	"strconv"
 	"strings"
@@ -392,4 +395,72 @@ func GetRequestByName(c *cli.Context) {
 	}
 	commonutils.Println(string(bytes))
 	log.Infof("[GetRequestByName] getting the CDP CLI request, name: %s", name)
+}
+
+func GetVmLogs(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get default monitored vm logs for DistroX CM clusters")
+	dxClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	result, err := dxClient.Cloudbreak.V1distrox.GetDistroxCmVMLogsV4(v1distrox.NewGetDistroxCmVMLogsV4Params())
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	logs := result.Payload.Logs
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(logs); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
+func CollectDiagnostics(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get user synchronization state for an environment")
+	dxClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	collectionRequest := assembleCollectionRequest(c)
+	err := dxClient.Cloudbreak.V1distrox.CollectDistroxCmDiagnosticsV4(v1distrox.NewCollectDistroxCmDiagnosticsV4Params().WithBody(collectionRequest))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println("Collection started")
+}
+
+func assembleCollectionRequest(c *cli.Context) *distroxModel.DiagnosticsCollectionV1Request {
+	stackCrn := c.String(fl.FlCrn.Name)
+	collectionOnly := c.Bool(fl.FlCollectionOnly.Name)
+	destinationOption := c.String(fl.FlCollectionDestination.Name)
+	destination := "CLOUD_STORAGE"
+	labelsOption := c.String(fl.FlCollectionLabels.Name)
+	labels := make([]string, 0)
+	if len(labelsOption) > 0 {
+		labels = strings.Split(labelsOption, ",")
+	}
+	description := c.String(fl.FlDescriptionOptional.Name)
+	issue := c.String(fl.FlCollectionIssue.Name)
+	now := time.Now()
+	startTime := strfmt.DateTime(now.AddDate(-10, 0, 0))
+	endTime := strfmt.DateTime(now.AddDate(10, 0, 0))
+	additionalLogsFileOption := c.String(fl.FlCollectionExtraLogsFile.Name)
+	var additionalLogs []*model.VMLog
+	if len(additionalLogsFileOption) > 0 {
+		content := commonutils.ReadFile(additionalLogsFileOption)
+		err := json.Unmarshal(content, &additionalLogs)
+		if err != nil {
+			commonutils.LogErrorAndExit(err)
+		}
+	}
+
+	if collectionOnly {
+		destination = "LOCAL"
+	} else if len(destinationOption) > 0 {
+		if destinationOption == "ENG" {
+			destination = "ENG"
+		} else if destinationOption == "SUPPORT" {
+			destination = "SUPPORT"
+		}
+	}
+	request := distroxModel.DiagnosticsCollectionV1Request{Destination: &destination, StackCrn: &stackCrn, Labels: labels,
+		Issue: issue, Description: description, StartTime: startTime, EndTime: endTime, AdditionalLogs: additionalLogs}
+	return &request
 }

@@ -13,6 +13,7 @@ import (
 
 	"github.com/hortonworks/cb-cli/dataplane/api/client/authorization"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/autoscale"
+	"github.com/hortonworks/cb-cli/dataplane/api/client/diagnostics"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v1distrox"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v1internaldistrox"
@@ -79,6 +80,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 	cli.Authorization = authorization.New(transport, formats)
 
 	cli.Autoscale = autoscale.New(transport, formats)
+
+	cli.Diagnostics = diagnostics.New(transport, formats)
 
 	cli.Flow = flow.New(transport, formats)
 
@@ -164,6 +167,8 @@ type Cloudbreak struct {
 
 	Autoscale *autoscale.Client
 
+	Diagnostics *diagnostics.Client
+
 	Flow *flow.Client
 
 	V1distrox *v1distrox.Client
@@ -210,6 +215,8 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.Authorization.SetTransport(transport)
 
 	c.Autoscale.SetTransport(transport)
+
+	c.Diagnostics.SetTransport(transport)
 
 	c.Flow.SetTransport(transport)
 

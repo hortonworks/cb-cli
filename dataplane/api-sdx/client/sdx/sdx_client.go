@@ -529,6 +529,34 @@ func (a *Client) RetrySdxByCrn(params *RetrySdxByCrnParams) (*RetrySdxByCrnOK, e
 }
 
 /*
+SetRangerCloudIdentityMapping sets ranger cloud identity mapping
+*/
+func (a *Client) SetRangerCloudIdentityMapping(params *SetRangerCloudIdentityMappingParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetRangerCloudIdentityMappingParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "setRangerCloudIdentityMapping",
+		Method:             "POST",
+		PathPattern:        "/sdx/envcrn/{envCrn}/ranger_cloud_identity_mapping",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &SetRangerCloudIdentityMappingReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 StartSdxByCrn starts sdx by crn
 */
 func (a *Client) StartSdxByCrn(params *StartSdxByCrnParams) (*StartSdxByCrnOK, error) {
