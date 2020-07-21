@@ -827,6 +827,34 @@ func (a *Client) SyncStackInWorkspaceV4(params *SyncStackInWorkspaceV4Params) (*
 }
 
 /*
+UpdatePillarConfigurationByName updates salt pillar configuration on cluster
+*/
+func (a *Client) UpdatePillarConfigurationByName(params *UpdatePillarConfigurationByNameParams) (*UpdatePillarConfigurationByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdatePillarConfigurationByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updatePillarConfigurationByName",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/pillar_config_update",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdatePillarConfigurationByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdatePillarConfigurationByNameOK), nil
+
+}
+
+/*
 UpdateSaltByName updates salt states on cluster
 */
 func (a *Client) UpdateSaltByName(params *UpdateSaltByNameParams) (*UpdateSaltByNameOK, error) {

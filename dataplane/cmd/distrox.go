@@ -205,6 +205,39 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:  "diagnostics",
+				Usage: "manage diagnostics for a DistroX CM cluster",
+				Subcommands: []cli.Command{
+					{
+						Name:        "collect",
+						Usage:       "collect DistroX CM diagnostics",
+						Description: `collect DistroX CM diagnostics`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags: fl.NewFlagBuilder().AddFlags(fl.FlCrn, fl.FlCollectionDestination, fl.FlCollectionOnly,
+							fl.FlCollectionLabels, fl.FlDescriptionOptional, fl.FlCollectionIssue, fl.FlCollectionExtraLogsFile).AddAGlobalFlags().Build(),
+						Action: distrox.CollectDiagnostics,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "logs",
+						Usage:       "list default monitored vm logs for DistroX CM clusters",
+						Description: `list default monitored vm logs for DistroX CM clusters`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddAGlobalFlags().Build(),
+						Action:      distrox.GetVmLogs,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
 		},
 	})
 }

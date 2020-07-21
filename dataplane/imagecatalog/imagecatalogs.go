@@ -227,14 +227,14 @@ func ListImagesValidForUpgrade(c *cli.Context) {
 }
 
 func toImageResponseList(images *model.ImagesV4Response) []*model.ImageV4Response {
-	var imagesList = make([]*model.ImageV4Response, 0, len(images.BaseImages)+len(images.HdfImages)+len(images.HdpImages)+len(images.CdhImages))
+	var imagesList = make([]*model.ImageV4Response, 0, len(images.BaseImages)+len(images.CdhImages)+len(images.CdhImages)+len(images.CdhImages))
 	for _, i := range images.BaseImages {
 		imagesList = append(imagesList, toImageResponse(i))
 	}
-	for _, i := range images.HdfImages {
+	for _, i := range images.CdhImages {
 		imagesList = append(imagesList, i)
 	}
-	for _, i := range images.HdpImages {
+	for _, i := range images.CdhImages {
 		imagesList = append(imagesList, i)
 	}
 	for _, i := range images.CdhImages {
@@ -291,9 +291,9 @@ func describeImageImpl(client getPublicImagesClient, writer func([]string, []uti
 func findImageByUUID(imageResponse *model.ImagesV4Response, imageID string) *model.ImageV4Response {
 	image := findBaseImage(imageResponse.BaseImages, imageID)
 	if image == nil {
-		warmupImage := findWarmupImage(imageResponse.HdpImages, imageID)
+		warmupImage := findWarmupImage(imageResponse.CdhImages, imageID)
 		if warmupImage == nil {
-			warmupImage = findWarmupImage(imageResponse.HdfImages, imageID)
+			warmupImage = findWarmupImage(imageResponse.CdhImages, imageID)
 			if warmupImage == nil {
 				warmupImage = findWarmupImage(imageResponse.CdhImages, imageID)
 			}
@@ -367,10 +367,10 @@ func listImagesImpl(client getPublicImagesClient, writer func([]string, []utils.
 	for _, i := range imageResp.Payload.CdhImages {
 		tableRows = append(tableRows, &imageOut{i.Date, i.Description, i.Version, i.UUID})
 	}
-	for _, i := range imageResp.Payload.HdpImages {
+	for _, i := range imageResp.Payload.CdhImages {
 		tableRows = append(tableRows, &imageOut{i.Date, i.Description, i.Version, i.UUID})
 	}
-	for _, i := range imageResp.Payload.HdfImages {
+	for _, i := range imageResp.Payload.CdhImages {
 		tableRows = append(tableRows, &imageOut{i.Date, i.Description, i.Version, i.UUID})
 	}
 

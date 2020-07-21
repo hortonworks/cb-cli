@@ -25,12 +25,6 @@ type ImagesV4Response struct {
 	// cdh images
 	CdhImages []*ImageV4Response `json:"cdhImages"`
 
-	// hdf images
-	HdfImages []*ImageV4Response `json:"hdfImages"`
-
-	// hdp images
-	HdpImages []*ImageV4Response `json:"hdpImages"`
-
 	// supported versions
 	// Unique: true
 	SupportedVersions []string `json:"supportedVersions"`
@@ -45,14 +39,6 @@ func (m *ImagesV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCdhImages(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateHdfImages(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateHdpImages(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -106,56 +92,6 @@ func (m *ImagesV4Response) validateCdhImages(formats strfmt.Registry) error {
 			if err := m.CdhImages[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cdhImages" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *ImagesV4Response) validateHdfImages(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.HdfImages) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.HdfImages); i++ {
-		if swag.IsZero(m.HdfImages[i]) { // not required
-			continue
-		}
-
-		if m.HdfImages[i] != nil {
-			if err := m.HdfImages[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("hdfImages" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *ImagesV4Response) validateHdpImages(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.HdpImages) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.HdpImages); i++ {
-		if swag.IsZero(m.HdpImages[i]) { // not required
-			continue
-		}
-
-		if m.HdpImages[i] != nil {
-			if err := m.HdpImages[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("hdpImages" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

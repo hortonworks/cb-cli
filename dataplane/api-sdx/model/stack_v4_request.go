@@ -90,7 +90,7 @@ type StackV4Request struct {
 	TimeToLive int64 `json:"timeToLive,omitempty"`
 
 	// type
-	// Enum: [WORKLOAD DATALAKE TEMPLATE]
+	// Enum: [WORKLOAD DATALAKE TEMPLATE LEGACY]
 	Type string `json:"type,omitempty"`
 
 	// openstack specific parameters for stack
@@ -437,7 +437,7 @@ var stackV4RequestTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["WORKLOAD","DATALAKE","TEMPLATE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["WORKLOAD","DATALAKE","TEMPLATE","LEGACY"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -455,6 +455,9 @@ const (
 
 	// StackV4RequestTypeTEMPLATE captures enum value "TEMPLATE"
 	StackV4RequestTypeTEMPLATE string = "TEMPLATE"
+
+	// StackV4RequestTypeLEGACY captures enum value "LEGACY"
+	StackV4RequestTypeLEGACY string = "LEGACY"
 )
 
 // prop value enum
