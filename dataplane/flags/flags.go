@@ -57,6 +57,13 @@ var (
 			Usage: "force the operation",
 		},
 	}
+	FlCascadeOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "cascade",
+			Usage: "enable cascading for the operation",
+		},
+	}
 	FlServerOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
