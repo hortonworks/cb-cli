@@ -6,9 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // SdxUpgradeRequest sdx upgrade request
@@ -18,14 +22,15 @@ type SdxUpgradeRequest struct {
 	// dry run
 	DryRun bool `json:"dryRun,omitempty"`
 
-	// empty
-	Empty bool `json:"empty,omitempty"`
-
 	// image Id
 	ImageID string `json:"imageId,omitempty"`
 
 	// lock components
 	LockComponents bool `json:"lockComponents,omitempty"`
+
+	// replace vms
+	// Enum: [ENABLED DISABLED]
+	ReplaceVms string `json:"replaceVms,omitempty"`
 
 	// runtime
 	Runtime string `json:"runtime,omitempty"`
@@ -33,6 +38,58 @@ type SdxUpgradeRequest struct {
 
 // Validate validates this sdx upgrade request
 func (m *SdxUpgradeRequest) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateReplaceVms(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var sdxUpgradeRequestTypeReplaceVmsPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		sdxUpgradeRequestTypeReplaceVmsPropEnum = append(sdxUpgradeRequestTypeReplaceVmsPropEnum, v)
+	}
+}
+
+const (
+
+	// SdxUpgradeRequestReplaceVmsENABLED captures enum value "ENABLED"
+	SdxUpgradeRequestReplaceVmsENABLED string = "ENABLED"
+
+	// SdxUpgradeRequestReplaceVmsDISABLED captures enum value "DISABLED"
+	SdxUpgradeRequestReplaceVmsDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *SdxUpgradeRequest) validateReplaceVmsEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, sdxUpgradeRequestTypeReplaceVmsPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *SdxUpgradeRequest) validateReplaceVms(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ReplaceVms) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateReplaceVmsEnum("replaceVms", "body", m.ReplaceVms); err != nil {
+		return err
+	}
+
 	return nil
 }
 
