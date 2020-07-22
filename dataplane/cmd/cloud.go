@@ -8,6 +8,7 @@ import (
 	_ "github.com/hortonworks/cb-cli/dataplane/cloud/yarn"
 	cf "github.com/hortonworks/cb-cli/dataplane/config"
 	cb "github.com/hortonworks/cb-cli/dataplane/connectors"
+	"github.com/hortonworks/cb-cli/dataplane/env"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/urfave/cli"
 )
@@ -25,6 +26,18 @@ func init() {
 				Action: cb.ListAvailabilityZones,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddFlags(fl.FlCredential, fl.FlRegion).AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
+				Name:   "resource-groups",
+				Usage:  "lists the available resource groups",
+				Flags:  fl.NewFlagBuilder().AddAGlobalFlags().AddFlags(fl.FlCredential).AddOutputFlag().Build(),
+				Before: cf.CheckConfigAndCommandFlags,
+				Action: env.GetResourceGroups,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().AddFlags(fl.FlCredential).AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

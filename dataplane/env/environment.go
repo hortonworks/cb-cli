@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1platform_resources"
 	"strconv"
 	"strings"
 	"time"
@@ -84,6 +85,14 @@ type featureSetting struct {
 type environmentClient interface {
 	CreateEnvironmentV1(params *v1env.CreateEnvironmentV1Params) (*v1env.CreateEnvironmentV1OK, error)
 	ListEnvironmentV1(params *v1env.ListEnvironmentV1Params) (*v1env.ListEnvironmentV1OK, error)
+}
+
+type resourceGroupOut struct {
+	Name string `json:"Name" yaml:"Name"`
+}
+
+func (r *resourceGroupOut) DataAsStringArray() []string {
+	return []string{r.Name}
 }
 
 func (e *environment) DataAsStringArray() []string {
@@ -424,6 +433,24 @@ func ChangeCredential(c *cli.Context) {
 	}
 	environment := resp.Payload
 	log.Infof("[ChangeCredential] credential of environment %s changed to: %s", environment.Name, *environment.Credential.Name)
+}
+
+func GetResourceGroups(c *cli.Context) {
+	credential := c.String(fl.FlCredential.Name)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
+
+	request := v1platform_resources.NewGetResourceGroupsParams().WithCredentialName(&credential)
+	resp, err := envClient.Environment.V1platformResources.GetResourceGroups(request)
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	resourceGroups := resp.Payload
+	var tableRows []utils.Row
+	for _, rg := range resourceGroups.ResourceGroups {
+		tableRows = append(tableRows, &resourceGroupOut{rg.Name})
+	}
+	output.WriteList([]string{"Resource Groups"}, tableRows)
 }
 
 func convertResponseToTableOutput(env *model.DetailedEnvironmentV1Response, proxyConfig string, sdxStatus string, datahubCount int) *environmentOutTableDescribe {
