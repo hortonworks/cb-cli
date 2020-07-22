@@ -14,6 +14,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/authorization"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1credentials"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1credentialsaudit"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1platform_resources"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1proxies"
@@ -70,6 +71,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Environmen
 	cli.Flow = flow.New(transport, formats)
 
 	cli.V1credentials = v1credentials.New(transport, formats)
+
+	cli.V1credentialsaudit = v1credentialsaudit.New(transport, formats)
 
 	cli.V1env = v1env.New(transport, formats)
 
@@ -133,6 +136,8 @@ type Environment struct {
 
 	V1credentials *v1credentials.Client
 
+	V1credentialsaudit *v1credentialsaudit.Client
+
 	V1env *v1env.Client
 
 	V1platformResources *v1platform_resources.Client
@@ -157,6 +162,8 @@ func (c *Environment) SetTransport(transport runtime.ClientTransport) {
 	c.Flow.SetTransport(transport)
 
 	c.V1credentials.SetTransport(transport)
+
+	c.V1credentialsaudit.SetTransport(transport)
 
 	c.V1env.SetTransport(transport)
 

@@ -325,6 +325,36 @@ func (a *Client) GetRegionsByCredential(params *GetRegionsByCredentialParams) (*
 }
 
 /*
+GetResourceGroups retrieves resource groups
+
+Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
+*/
+func (a *Client) GetResourceGroups(params *GetResourceGroupsParams) (*GetResourceGroupsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetResourceGroupsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getResourceGroups",
+		Method:             "GET",
+		PathPattern:        "/v1/platform_resources/resource_groups",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetResourceGroupsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetResourceGroupsOK), nil
+
+}
+
+/*
 GetTagSpecifications retrieves tag specifications
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.

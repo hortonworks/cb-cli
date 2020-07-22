@@ -6,10 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CredentialV1Response credential v1 response
@@ -31,6 +34,11 @@ type CredentialV1Response struct {
 
 	// global identifiers of the resource
 	Crn string `json:"crn,omitempty"`
+
+	// type of credential
+	// Required: true
+	// Enum: [ENVIRONMENT AUDIT]
+	Type *string `json:"type"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -53,6 +61,8 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 		Creator string `json:"creator,omitempty"`
 
 		Crn string `json:"crn,omitempty"`
+
+		Type *string `json:"type"`
 	}
 	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
 		return err
@@ -67,6 +77,8 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 	m.Creator = dataAO1.Creator
 
 	m.Crn = dataAO1.Crn
+
+	m.Type = dataAO1.Type
 
 	return nil
 }
@@ -91,6 +103,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 		Creator string `json:"creator,omitempty"`
 
 		Crn string `json:"crn,omitempty"`
+
+		Type *string `json:"type"`
 	}
 
 	dataAO1.Attributes = m.Attributes
@@ -102,6 +116,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 	dataAO1.Creator = m.Creator
 
 	dataAO1.Crn = m.Crn
+
+	dataAO1.Type = m.Type
 
 	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
 	if errAO1 != nil {
@@ -126,6 +142,10 @@ func (m *CredentialV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -166,6 +186,40 @@ func (m *CredentialV1Response) validateAzure(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var credentialV1ResponseTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENVIRONMENT","AUDIT"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		credentialV1ResponseTypeTypePropEnum = append(credentialV1ResponseTypeTypePropEnum, v)
+	}
+}
+
+// property enum
+func (m *CredentialV1Response) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, credentialV1ResponseTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CredentialV1Response) validateType(formats strfmt.Registry) error {
+
+	if err := validate.Required("type", "body", m.Type); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
+		return err
 	}
 
 	return nil
