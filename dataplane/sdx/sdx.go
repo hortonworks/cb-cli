@@ -237,10 +237,13 @@ func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile 
 func setupAwsSpotParameters(spotPercentage *int32, spotMaxPrice *float64, sdxAws **sdxModel.SdxAwsRequest) {
 	if spotPercentage != nil || spotMaxPrice != nil {
 		aws := &sdxModel.SdxAwsRequest{
-			Spot: &sdxModel.SdxAwsSpotParameters{
-				Percentage: spotPercentage,
-				MaxPrice:   *spotMaxPrice,
-			},
+			Spot: &sdxModel.SdxAwsSpotParameters{},
+		}
+		if spotPercentage != nil {
+			aws.Spot.Percentage = spotPercentage
+		}
+		if spotMaxPrice != nil {
+			aws.Spot.MaxPrice = *spotMaxPrice
 		}
 		*sdxAws = aws
 	}
