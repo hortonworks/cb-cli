@@ -19,9 +19,6 @@ import (
 // swagger:model FlowIdentifier
 type FlowIdentifier struct {
 
-	// flow name
-	FlowName string `json:"flowName,omitempty"`
-
 	// pollable Id
 	PollableID string `json:"pollableId,omitempty"`
 

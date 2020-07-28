@@ -23,7 +23,7 @@ type DiagnosticsCollectionV1Request struct {
 	// additional logs
 	AdditionalLogs []*VMLog `json:"additionalLogs"`
 
-	// description of the resource
+	// description of the diagnostics collection
 	Description string `json:"description,omitempty"`
 
 	// Destination for the diagnostic collection request.

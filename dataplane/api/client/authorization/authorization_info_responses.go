@@ -16,17 +16,17 @@ import (
 	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
-// Info1Reader is a Reader for the Info1 structure.
-type Info1Reader struct {
+// AuthorizationInfoReader is a Reader for the AuthorizationInfo structure.
+type AuthorizationInfoReader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *Info1Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *AuthorizationInfoReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
-		result := NewInfo1OK()
+		result := NewAuthorizationInfoOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -37,24 +37,24 @@ func (o *Info1Reader) ReadResponse(response runtime.ClientResponse, consumer run
 	}
 }
 
-// NewInfo1OK creates a Info1OK with default headers values
-func NewInfo1OK() *Info1OK {
-	return &Info1OK{}
+// NewAuthorizationInfoOK creates a AuthorizationInfoOK with default headers values
+func NewAuthorizationInfoOK() *AuthorizationInfoOK {
+	return &AuthorizationInfoOK{}
 }
 
-/*Info1OK handles this case with default header values.
+/*AuthorizationInfoOK handles this case with default header values.
 
 successful operation
 */
-type Info1OK struct {
+type AuthorizationInfoOK struct {
 	Payload []*model.APIAuthorizationInfo
 }
 
-func (o *Info1OK) Error() string {
-	return fmt.Sprintf("[GET /authorization/info][%d] info1OK  %+v", 200, o.Payload)
+func (o *AuthorizationInfoOK) Error() string {
+	return fmt.Sprintf("[GET /authorization/info][%d] authorizationInfoOK  %+v", 200, o.Payload)
 }
 
-func (o *Info1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *AuthorizationInfoOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

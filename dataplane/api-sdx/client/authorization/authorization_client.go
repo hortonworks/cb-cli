@@ -25,30 +25,30 @@ type Client struct {
 }
 
 /*
-Info1 lists of required permissions for apis
+AuthorizationInfo lists of required permissions for apis
 */
-func (a *Client) Info1(params *Info1Params) (*Info1OK, error) {
+func (a *Client) AuthorizationInfo(params *AuthorizationInfoParams) (*AuthorizationInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewInfo1Params()
+		params = NewAuthorizationInfoParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "info_1",
+		ID:                 "authorizationInfo",
 		Method:             "GET",
 		PathPattern:        "/authorization/info",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &Info1Reader{formats: a.formats},
+		Reader:             &AuthorizationInfoReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*Info1OK), nil
+	return result.(*AuthorizationInfoOK), nil
 
 }
 

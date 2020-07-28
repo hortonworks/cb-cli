@@ -13,7 +13,6 @@ import (
 
 	"github.com/hortonworks/cb-cli/dataplane/api/client/authorization"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/autoscale"
-	"github.com/hortonworks/cb-cli/dataplane/api/client/diagnostics"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v1distrox"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v1internaldistrox"
@@ -28,6 +27,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_recipes"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_stacks"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4datalake"
+	"github.com/hortonworks/cb-cli/dataplane/api/client/v4diagnostics"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4events"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4info"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4user_profiles"
@@ -81,8 +81,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 
 	cli.Autoscale = autoscale.New(transport, formats)
 
-	cli.Diagnostics = diagnostics.New(transport, formats)
-
 	cli.Flow = flow.New(transport, formats)
 
 	cli.V1distrox = v1distrox.New(transport, formats)
@@ -110,6 +108,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 	cli.V4WorkspaceIDStacks = v4_workspace_id_stacks.New(transport, formats)
 
 	cli.V4datalake = v4datalake.New(transport, formats)
+
+	cli.V4diagnostics = v4diagnostics.New(transport, formats)
 
 	cli.V4events = v4events.New(transport, formats)
 
@@ -167,8 +167,6 @@ type Cloudbreak struct {
 
 	Autoscale *autoscale.Client
 
-	Diagnostics *diagnostics.Client
-
 	Flow *flow.Client
 
 	V1distrox *v1distrox.Client
@@ -197,6 +195,8 @@ type Cloudbreak struct {
 
 	V4datalake *v4datalake.Client
 
+	V4diagnostics *v4diagnostics.Client
+
 	V4events *v4events.Client
 
 	V4info *v4info.Client
@@ -215,8 +215,6 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.Authorization.SetTransport(transport)
 
 	c.Autoscale.SetTransport(transport)
-
-	c.Diagnostics.SetTransport(transport)
 
 	c.Flow.SetTransport(transport)
 
@@ -245,6 +243,8 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.V4WorkspaceIDStacks.SetTransport(transport)
 
 	c.V4datalake.SetTransport(transport)
+
+	c.V4diagnostics.SetTransport(transport)
 
 	c.V4events.SetTransport(transport)
 

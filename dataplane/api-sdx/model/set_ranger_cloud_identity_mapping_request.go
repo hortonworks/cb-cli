@@ -17,8 +17,7 @@ import (
 type SetRangerCloudIdentityMappingRequest struct {
 
 	// azure group mapping
-	// Required: true
-	AzureGroupMapping map[string]string `json:"azureGroupMapping"`
+	AzureGroupMapping map[string]string `json:"azureGroupMapping,omitempty"`
 
 	// azure user mapping
 	// Required: true
@@ -29,10 +28,6 @@ type SetRangerCloudIdentityMappingRequest struct {
 func (m *SetRangerCloudIdentityMappingRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAzureGroupMapping(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateAzureUserMapping(formats); err != nil {
 		res = append(res, err)
 	}
@@ -40,11 +35,6 @@ func (m *SetRangerCloudIdentityMappingRequest) Validate(formats strfmt.Registry)
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *SetRangerCloudIdentityMappingRequest) validateAzureGroupMapping(formats strfmt.Registry) error {
-
 	return nil
 }
 

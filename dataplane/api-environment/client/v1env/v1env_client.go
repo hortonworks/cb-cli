@@ -684,6 +684,36 @@ func (a *Client) StopEnvironmentByNameV1(params *StopEnvironmentByNameV1Params) 
 
 }
 
+/*
+VerifyCredentialByEnvCrn verifies the credential used by the given environment
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) VerifyCredentialByEnvCrn(params *VerifyCredentialByEnvCrnParams) (*VerifyCredentialByEnvCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVerifyCredentialByEnvCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "verifyCredentialByEnvCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/env/crn/{crn}/verify_credential",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &VerifyCredentialByEnvCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*VerifyCredentialByEnvCrnOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

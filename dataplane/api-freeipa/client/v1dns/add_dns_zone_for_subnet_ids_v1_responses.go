@@ -47,7 +47,7 @@ func NewAddDNSZoneForSubnetIdsV1OK() *AddDNSZoneForSubnetIdsV1OK {
 successful operation
 */
 type AddDNSZoneForSubnetIdsV1OK struct {
-	Payload *model.AddDNSZoneForSubnetsV1Request
+	Payload *model.AddDNSZoneForSubnetsV1Response
 }
 
 func (o *AddDNSZoneForSubnetIdsV1OK) Error() string {
@@ -56,7 +56,7 @@ func (o *AddDNSZoneForSubnetIdsV1OK) Error() string {
 
 func (o *AddDNSZoneForSubnetIdsV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.AddDNSZoneForSubnetsV1Request)
+	o.Payload = new(model.AddDNSZoneForSubnetsV1Response)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
