@@ -803,6 +803,34 @@ var (
 			Usage: "comma separated labels of the logs that needs to be collected",
 		},
 	}
+	FlCollectionHosts = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "hosts",
+			Usage: "comma separated hosts filter for the logs that needs to be collected (from these dedicated hosts)",
+		},
+	}
+	FlCollectionHostGroups = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "host-groups",
+			Usage: "comma separated host group filter for the logs that needs to be collected (from these dedicated host groups)",
+		},
+	}
+	FlUpdatePackage = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "update-package",
+			Usage: "if it's set, during diagnostics collection, the required 3rd party applications will be donwloaded/updated on the VM nodes (requires network)",
+		},
+	}
+	FlIncludeSaltLogs = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "include-salt-logs",
+			Usage: "if it's  set, diagnostics collection bundle will collect salt minion/master logs",
+		},
+	}
 	FlCollectionIssue = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{

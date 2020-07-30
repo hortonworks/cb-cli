@@ -29,13 +29,13 @@ CollectFreeIpaDiagnosticsV1 initiates the collection of diagnostical data on the
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) CollectFreeIpaDiagnosticsV1(params *CollectFreeIpaDiagnosticsV1Params) error {
+func (a *Client) CollectFreeIpaDiagnosticsV1(params *CollectFreeIpaDiagnosticsV1Params) (*CollectFreeIpaDiagnosticsV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCollectFreeIpaDiagnosticsV1Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "collectFreeIpaDiagnosticsV1",
 		Method:             "POST",
 		PathPattern:        "/v1/diagnostics",
@@ -48,9 +48,9 @@ func (a *Client) CollectFreeIpaDiagnosticsV1(params *CollectFreeIpaDiagnosticsV1
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*CollectFreeIpaDiagnosticsV1OK), nil
 
 }
 

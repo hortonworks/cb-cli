@@ -7,10 +7,13 @@ package v4diagnostics
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // CollectStackCmDiagnosticsReader is a Reader for the CollectStackCmDiagnostics structure.
@@ -20,43 +23,45 @@ type CollectStackCmDiagnosticsReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *CollectStackCmDiagnosticsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewCollectStackCmDiagnosticsDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewCollectStackCmDiagnosticsOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewCollectStackCmDiagnosticsDefault creates a CollectStackCmDiagnosticsDefault with default headers values
-func NewCollectStackCmDiagnosticsDefault(code int) *CollectStackCmDiagnosticsDefault {
-	return &CollectStackCmDiagnosticsDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*CollectStackCmDiagnosticsDefault handles this case with default header values.
+// NewCollectStackCmDiagnosticsOK creates a CollectStackCmDiagnosticsOK with default headers values
+func NewCollectStackCmDiagnosticsOK() *CollectStackCmDiagnosticsOK {
+	return &CollectStackCmDiagnosticsOK{}
+}
+
+/*CollectStackCmDiagnosticsOK handles this case with default header values.
 
 successful operation
 */
-type CollectStackCmDiagnosticsDefault struct {
-	_statusCode int
+type CollectStackCmDiagnosticsOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the collect stack cm diagnostics default response
-func (o *CollectStackCmDiagnosticsDefault) Code() int {
-	return o._statusCode
+func (o *CollectStackCmDiagnosticsOK) Error() string {
+	return fmt.Sprintf("[POST /v4/diagnostics][%d] collectStackCmDiagnosticsOK  %+v", 200, o.Payload)
 }
 
-func (o *CollectStackCmDiagnosticsDefault) Error() string {
-	return fmt.Sprintf("[POST /v4/diagnostics][%d] collectStackCmDiagnostics default ", o._statusCode)
-}
+func (o *CollectStackCmDiagnosticsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *CollectStackCmDiagnosticsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

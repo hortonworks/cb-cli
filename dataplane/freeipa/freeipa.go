@@ -388,7 +388,7 @@ func CollectDiagnostics(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "get user synchronization state for an environment")
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
 	collectionRequest := assembleCollectionRequest(c)
-	err := freeIpaClient.V1diagnostics.CollectFreeIpaDiagnosticsV1(v1diagnostics.NewCollectFreeIpaDiagnosticsV1Params().WithBody(collectionRequest))
+	_, err := freeIpaClient.V1diagnostics.CollectFreeIpaDiagnosticsV1(v1diagnostics.NewCollectFreeIpaDiagnosticsV1Params().WithBody(collectionRequest))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -398,6 +398,8 @@ func assembleCollectionRequest(c *cli.Context) *freeIpaModel.DiagnosticsCollecti
 	envName := c.String(fl.FlEnvironmentName.Name)
 	envCrn := env.GetEnvirontmentCrnByName(c, envName)
 	collectionOnly := c.Bool(fl.FlCollectionOnly.Name)
+	updatePackage := c.Bool(fl.FlUpdatePackage.Name)
+	includeSaltLogs := c.Bool(fl.FlIncludeSaltLogs.Name)
 	destinationOption := c.String(fl.FlCollectionDestination.Name)
 	destination := "CLOUD_STORAGE"
 	labelsOption := c.String(fl.FlCollectionLabels.Name)
@@ -419,6 +421,16 @@ func assembleCollectionRequest(c *cli.Context) *freeIpaModel.DiagnosticsCollecti
 			utils.LogErrorAndExit(err)
 		}
 	}
+	hostsOption := c.String(fl.FlCollectionHosts.Name)
+	var hosts []string
+	if len(labelsOption) > 0 {
+		hosts = strings.Split(hostsOption, ",")
+	}
+	hostGroupsOption := c.String(fl.FlCollectionHostGroups.Name)
+	var hostGroups []string
+	if len(labelsOption) > 0 {
+		hostGroups = strings.Split(hostGroupsOption, ",")
+	}
 
 	if collectionOnly {
 		destination = "LOCAL"
@@ -430,7 +442,8 @@ func assembleCollectionRequest(c *cli.Context) *freeIpaModel.DiagnosticsCollecti
 		}
 	}
 	request := freeIpaModel.DiagnosticsCollectionV1Request{Destination: &destination, EnvironmentCrn: &envCrn, Labels: labels,
-		Issue: issue, Description: description, StartTime: startTime, EndTime: endTime, AdditionalLogs: additionalLogs}
+		Issue: issue, Description: description, StartTime: startTime, EndTime: endTime, AdditionalLogs: additionalLogs,
+		IncludeSaltLogs: includeSaltLogs, UpdatePackage: updatePackage, Hosts: hosts, HostGroups: hostGroups}
 	return &request
 }
 

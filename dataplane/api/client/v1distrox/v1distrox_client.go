@@ -27,13 +27,13 @@ type Client struct {
 /*
 CollectDistroxCmDiagnosticsV4 initiates the collection of diagnostical data on the cloudera manager host for datahub
 */
-func (a *Client) CollectDistroxCmDiagnosticsV4(params *CollectDistroxCmDiagnosticsV4Params) error {
+func (a *Client) CollectDistroxCmDiagnosticsV4(params *CollectDistroxCmDiagnosticsV4Params) (*CollectDistroxCmDiagnosticsV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCollectDistroxCmDiagnosticsV4Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "collectDistroxCmDiagnosticsV4",
 		Method:             "POST",
 		PathPattern:        "/v1/distrox/diagnostics",
@@ -46,9 +46,9 @@ func (a *Client) CollectDistroxCmDiagnosticsV4(params *CollectDistroxCmDiagnosti
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*CollectDistroxCmDiagnosticsV4OK), nil
 
 }
 

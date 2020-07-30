@@ -27,13 +27,13 @@ type Client struct {
 /*
 CollectSdxCmDiagnostics initiates the collection of diagnostical data on the cloudera manager host for s d x
 */
-func (a *Client) CollectSdxCmDiagnostics(params *CollectSdxCmDiagnosticsParams) error {
+func (a *Client) CollectSdxCmDiagnostics(params *CollectSdxCmDiagnosticsParams) (*CollectSdxCmDiagnosticsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCollectSdxCmDiagnosticsParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "collectSdxCmDiagnostics",
 		Method:             "POST",
 		PathPattern:        "/diagnostics",
@@ -46,9 +46,9 @@ func (a *Client) CollectSdxCmDiagnostics(params *CollectSdxCmDiagnosticsParams) 
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*CollectSdxCmDiagnosticsOK), nil
 
 }
 
