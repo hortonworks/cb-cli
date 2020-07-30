@@ -5,13 +5,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/go-openapi/strfmt"
-	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/diagnostics"
-	"github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/go-openapi/strfmt"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/diagnostics"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxutils"
@@ -532,8 +533,10 @@ func SdxClusterkUpgrade(c *cli.Context) {
 	runtime := c.String(fl.FlRuntimeOptional.Name)
 	lock := c.Bool(fl.FlLockComponentsOptional.Name)
 	replaceVms := c.String(fl.FlReplaceVms.Name)
+	showImages := c.Bool(fl.FlShowImagesOptional.Name)
+	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
 
-	sdxRequest := createSdxUpgradeRequest(image, runtime, lock, dryRun, replaceVms)
+	sdxRequest := createSdxUpgradeRequest(image, runtime, lock, dryRun, replaceVms, showImages, showLatestImages)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 
@@ -542,16 +545,25 @@ func SdxClusterkUpgrade(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 		fmt.Printf("%s\n", err)
 	}
-	printResponse(resp, dryRun)
+	printResponse(resp, dryRun || showImages || showLatestImages)
 }
 
-func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string) *sdxModel.SdxUpgradeRequest {
+func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string, showImages bool, showLatestImages bool) *sdxModel.SdxUpgradeRequest {
+	var showImagesString string
+	if showLatestImages {
+		showImagesString = "LATEST_ONLY"
+	} else if showImages {
+		showImagesString = "SHOW"
+	} else {
+		showImagesString = "DO_NOT_SHOW"
+	}
 	sdxRequest := &sdxModel.SdxUpgradeRequest{
-		ImageID:        imageid,
-		Runtime:        runtime,
-		LockComponents: lockComponents,
-		DryRun:         dryRun,
-		ReplaceVms:     replaceVms,
+		ImageID:             imageid,
+		Runtime:             runtime,
+		LockComponents:      lockComponents,
+		DryRun:              dryRun,
+		ReplaceVms:          replaceVms,
+		ShowAvailableImages: showImagesString,
 	}
 	return sdxRequest
 }
