@@ -603,7 +603,7 @@ func CollectDiagnostics(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "get user synchronization state for an environment")
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	collectionRequest := assembleCollectionRequest(c)
-	err := sdxClient.Diagnostics.CollectSdxCmDiagnostics(diagnostics.NewCollectSdxCmDiagnosticsParams().WithBody(collectionRequest))
+	_, err := sdxClient.Diagnostics.CollectSdxCmDiagnostics(diagnostics.NewCollectSdxCmDiagnosticsParams().WithBody(collectionRequest))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -613,6 +613,8 @@ func CollectDiagnostics(c *cli.Context) {
 func assembleCollectionRequest(c *cli.Context) *sdxModel.DiagnosticsCollectionRequest {
 	stackCrn := c.String(fl.FlCrn.Name)
 	collectionOnly := c.Bool(fl.FlCollectionOnly.Name)
+	updatePackage := c.Bool(fl.FlUpdatePackage.Name)
+	includeSaltLogs := c.Bool(fl.FlIncludeSaltLogs.Name)
 	destinationOption := c.String(fl.FlCollectionDestination.Name)
 	destination := "CLOUD_STORAGE"
 	labelsOption := c.String(fl.FlCollectionLabels.Name)
@@ -634,6 +636,16 @@ func assembleCollectionRequest(c *cli.Context) *sdxModel.DiagnosticsCollectionRe
 			commonutils.LogErrorAndExit(err)
 		}
 	}
+	hostsOption := c.String(fl.FlCollectionHosts.Name)
+	var hosts []string
+	if len(labelsOption) > 0 {
+		hosts = strings.Split(hostsOption, ",")
+	}
+	hostGroupsOption := c.String(fl.FlCollectionHostGroups.Name)
+	var hostGroups []string
+	if len(labelsOption) > 0 {
+		hostGroups = strings.Split(hostGroupsOption, ",")
+	}
 
 	if collectionOnly {
 		destination = "LOCAL"
@@ -645,6 +657,7 @@ func assembleCollectionRequest(c *cli.Context) *sdxModel.DiagnosticsCollectionRe
 		}
 	}
 	request := sdxModel.DiagnosticsCollectionRequest{Destination: &destination, StackCrn: &stackCrn, Labels: labels,
-		Issue: issue, Description: description, StartTime: startTime, EndTime: endTime, AdditionalLogs: additionalLogs}
+		Issue: issue, Description: description, StartTime: startTime, EndTime: endTime, AdditionalLogs: additionalLogs,
+		IncludeSaltLogs: includeSaltLogs, UpdatePackage: updatePackage, Hosts: hosts, HostGroups: hostGroups}
 	return &request
 }

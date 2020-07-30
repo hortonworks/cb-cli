@@ -27,13 +27,13 @@ type Client struct {
 /*
 CollectStackCmDiagnostics initiates the collection of diagnostical data on the cloudera manager host
 */
-func (a *Client) CollectStackCmDiagnostics(params *CollectStackCmDiagnosticsParams) error {
+func (a *Client) CollectStackCmDiagnostics(params *CollectStackCmDiagnosticsParams) (*CollectStackCmDiagnosticsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCollectStackCmDiagnosticsParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "collectStackCmDiagnostics",
 		Method:             "POST",
 		PathPattern:        "/v4/diagnostics",
@@ -46,9 +46,9 @@ func (a *Client) CollectStackCmDiagnostics(params *CollectStackCmDiagnosticsPara
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*CollectStackCmDiagnosticsOK), nil
 
 }
 

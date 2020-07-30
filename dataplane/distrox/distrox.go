@@ -4,12 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/go-openapi/strfmt"
-	distroxModel "github.com/hortonworks/cb-cli/dataplane/api/model"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/go-openapi/strfmt"
+	distroxModel "github.com/hortonworks/cb-cli/dataplane/api/model"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
 
@@ -419,7 +420,7 @@ func CollectDiagnostics(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "get user synchronization state for an environment")
 	dxClient := oauth.NewCloudbreakHTTPClientFromContext(c)
 	collectionRequest := assembleCollectionRequest(c)
-	err := dxClient.Cloudbreak.V1distrox.CollectDistroxCmDiagnosticsV4(v1distrox.NewCollectDistroxCmDiagnosticsV4Params().WithBody(collectionRequest))
+	_, err := dxClient.Cloudbreak.V1distrox.CollectDistroxCmDiagnosticsV4(v1distrox.NewCollectDistroxCmDiagnosticsV4Params().WithBody(collectionRequest))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -429,6 +430,8 @@ func CollectDiagnostics(c *cli.Context) {
 func assembleCollectionRequest(c *cli.Context) *distroxModel.DiagnosticsCollectionV1Request {
 	stackCrn := c.String(fl.FlCrn.Name)
 	collectionOnly := c.Bool(fl.FlCollectionOnly.Name)
+	updatePackage := c.Bool(fl.FlUpdatePackage.Name)
+	includeSaltLogs := c.Bool(fl.FlIncludeSaltLogs.Name)
 	destinationOption := c.String(fl.FlCollectionDestination.Name)
 	destination := "CLOUD_STORAGE"
 	labelsOption := c.String(fl.FlCollectionLabels.Name)
@@ -450,6 +453,16 @@ func assembleCollectionRequest(c *cli.Context) *distroxModel.DiagnosticsCollecti
 			commonutils.LogErrorAndExit(err)
 		}
 	}
+	hostsOption := c.String(fl.FlCollectionHosts.Name)
+	var hosts []string
+	if len(labelsOption) > 0 {
+		hosts = strings.Split(hostsOption, ",")
+	}
+	hostGroupsOption := c.String(fl.FlCollectionHostGroups.Name)
+	var hostGroups []string
+	if len(labelsOption) > 0 {
+		hostGroups = strings.Split(hostGroupsOption, ",")
+	}
 
 	if collectionOnly {
 		destination = "LOCAL"
@@ -461,6 +474,7 @@ func assembleCollectionRequest(c *cli.Context) *distroxModel.DiagnosticsCollecti
 		}
 	}
 	request := distroxModel.DiagnosticsCollectionV1Request{Destination: &destination, StackCrn: &stackCrn, Labels: labels,
-		Issue: issue, Description: description, StartTime: startTime, EndTime: endTime, AdditionalLogs: additionalLogs}
+		Issue: issue, Description: description, StartTime: startTime, EndTime: endTime, AdditionalLogs: additionalLogs,
+		IncludeSaltLogs: includeSaltLogs, UpdatePackage: updatePackage, Hosts: hosts, HostGroups: hostGroups}
 	return &request
 }

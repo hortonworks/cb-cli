@@ -160,7 +160,8 @@ func init() {
 						Description: `collect SDX CM diagnostics`,
 						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
 						Flags: fl.NewFlagBuilder().AddFlags(fl.FlCrn, fl.FlCollectionDestination, fl.FlCollectionOnly,
-							fl.FlCollectionLabels, fl.FlDescriptionOptional, fl.FlCollectionIssue, fl.FlCollectionExtraLogsFile).AddAGlobalFlags().Build(),
+							fl.FlCollectionLabels, fl.FlDescriptionOptional, fl.FlCollectionIssue, fl.FlCollectionExtraLogsFile,
+							fl.FlCollectionHosts, fl.FlCollectionHostGroups, fl.FlIncludeSaltLogs, fl.FlUpdatePackage).AddAGlobalFlags().Build(),
 						Action: sdx.CollectDiagnostics,
 						BashComplete: func(c *cli.Context) {
 							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build() {

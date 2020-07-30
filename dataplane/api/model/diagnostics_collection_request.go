@@ -20,7 +20,7 @@ import (
 // swagger:model DiagnosticsCollectionRequest
 type DiagnosticsCollectionRequest struct {
 
-	// additional logs
+	// Additional log path and label pairs that will be sent in the diagnostics collection
 	AdditionalLogs []*VMLog `json:"additionalLogs"`
 
 	// description of the diagnostics collection
@@ -35,6 +35,17 @@ type DiagnosticsCollectionRequest struct {
 	// Format: date-time
 	EndTime strfmt.DateTime `json:"endTime,omitempty"`
 
+	// Host groups (instance groups), used it to run diagnostics collection only those hosts that are included the specific host groups
+	// Unique: true
+	HostGroups []string `json:"hostGroups"`
+
+	// Host (fqdn) filter, use it to run diagnostics collection on only specific hosts
+	// Unique: true
+	Hosts []string `json:"hosts"`
+
+	// Include salt logs in the diagnostic collections
+	IncludeSaltLogs bool `json:"includeSaltLogs,omitempty"`
+
 	// Issue number or JIRA ticket number related to this diagnostic collection request.
 	Issue string `json:"issue,omitempty"`
 
@@ -48,6 +59,9 @@ type DiagnosticsCollectionRequest struct {
 	// Start time for the time interval of the diagnostic collection request.
 	// Format: date-time
 	StartTime strfmt.DateTime `json:"startTime,omitempty"`
+
+	// Upgrade or install required telemetry cli tool on the nodes (works only with network)
+	UpdatePackage bool `json:"updatePackage,omitempty"`
 }
 
 // Validate validates this diagnostics collection request
@@ -63,6 +77,14 @@ func (m *DiagnosticsCollectionRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateEndTime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateHostGroups(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateHosts(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -161,6 +183,32 @@ func (m *DiagnosticsCollectionRequest) validateEndTime(formats strfmt.Registry) 
 	}
 
 	if err := validate.FormatOf("endTime", "body", "date-time", m.EndTime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DiagnosticsCollectionRequest) validateHostGroups(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.HostGroups) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("hostGroups", "body", m.HostGroups); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DiagnosticsCollectionRequest) validateHosts(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Hosts) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("hosts", "body", m.Hosts); err != nil {
 		return err
 	}
 
