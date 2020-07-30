@@ -34,6 +34,10 @@ type SdxUpgradeRequest struct {
 
 	// runtime
 	Runtime string `json:"runtime,omitempty"`
+
+	// show available images
+	// Enum: [SHOW LATEST_ONLY DO_NOT_SHOW]
+	ShowAvailableImages string `json:"showAvailableImages,omitempty"`
 }
 
 // Validate validates this sdx upgrade request
@@ -41,6 +45,10 @@ func (m *SdxUpgradeRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateReplaceVms(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateShowAvailableImages(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -87,6 +95,52 @@ func (m *SdxUpgradeRequest) validateReplaceVms(formats strfmt.Registry) error {
 
 	// value enum
 	if err := m.validateReplaceVmsEnum("replaceVms", "body", m.ReplaceVms); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var sdxUpgradeRequestTypeShowAvailableImagesPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["SHOW","LATEST_ONLY","DO_NOT_SHOW"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		sdxUpgradeRequestTypeShowAvailableImagesPropEnum = append(sdxUpgradeRequestTypeShowAvailableImagesPropEnum, v)
+	}
+}
+
+const (
+
+	// SdxUpgradeRequestShowAvailableImagesSHOW captures enum value "SHOW"
+	SdxUpgradeRequestShowAvailableImagesSHOW string = "SHOW"
+
+	// SdxUpgradeRequestShowAvailableImagesLATESTONLY captures enum value "LATEST_ONLY"
+	SdxUpgradeRequestShowAvailableImagesLATESTONLY string = "LATEST_ONLY"
+
+	// SdxUpgradeRequestShowAvailableImagesDONOTSHOW captures enum value "DO_NOT_SHOW"
+	SdxUpgradeRequestShowAvailableImagesDONOTSHOW string = "DO_NOT_SHOW"
+)
+
+// prop value enum
+func (m *SdxUpgradeRequest) validateShowAvailableImagesEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, sdxUpgradeRequestTypeShowAvailableImagesPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *SdxUpgradeRequest) validateShowAvailableImages(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ShowAvailableImages) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateShowAvailableImagesEnum("showAvailableImages", "body", m.ShowAvailableImages); err != nil {
 		return err
 	}
 

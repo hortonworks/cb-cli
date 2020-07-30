@@ -1481,7 +1481,21 @@ var (
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
 			Name:  "replace-vms",
-			Usage: "replaces the vm-s with fresh instances after the upgrade has completed, valid values: [ENABLED, DISABLED].",
+			Usage: "replaces the vm-s with fresh instances after the upgrade has completed, valid values: [ENABLED, DISABLED]",
+		},
+	}
+	FlShowImagesOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "show-available-images",
+			Usage: "returns the list of images that are eligible for the upgrade",
+		},
+	}
+	FlShowLatestImagesOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "show-latest-available-image-per-runtime",
+			Usage: "returns the latest image that is eligible for the upgrade for each runtime version",
 		},
 	}
 	FlSpotPercentage = StringFlag{
