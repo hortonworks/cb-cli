@@ -455,12 +455,12 @@ func assembleCollectionRequest(c *cli.Context) *distroxModel.DiagnosticsCollecti
 	}
 	hostsOption := c.String(fl.FlCollectionHosts.Name)
 	var hosts []string
-	if len(labelsOption) > 0 {
+	if len(hostsOption) > 0 {
 		hosts = strings.Split(hostsOption, ",")
 	}
 	hostGroupsOption := c.String(fl.FlCollectionHostGroups.Name)
 	var hostGroups []string
-	if len(labelsOption) > 0 {
+	if len(hostGroupsOption) > 0 {
 		hostGroups = strings.Split(hostGroupsOption, ",")
 	}
 
