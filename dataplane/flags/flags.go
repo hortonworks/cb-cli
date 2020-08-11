@@ -828,7 +828,7 @@ var (
 		RequiredFlag: OPTIONAL,
 		BoolFlag: cli.BoolFlag{
 			Name:  "include-salt-logs",
-			Usage: "if it's  set, diagnostics collection bundle will collect salt minion/master logs",
+			Usage: "if it's set, diagnostics collection bundle will collect salt minion/master logs",
 		},
 	}
 	FlCollectionIssue = StringFlag{
