@@ -7,12 +7,17 @@ LDFLAGS=-ldflags "-X github.com/hortonworks/cb-cli/cloudbreak/common.Version=${V
 LDFLAGS_NOVER=-ldflags "-X github.com/hortonworks/cb-cli/cloudbreak/common.Version=snapshot -X github.com/hortonworks/cb-cli/cloudbreak/common.BuildTime=${BUILD_TIME} -X github.com/hortonworks/cb-cli/plugin.Enabled=${PLUGIN_ENABLED}"
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./.git/*")
 CB_IP = $(shell echo \${IP})
+AS_IP = $(shell echo \${IP})
 ifeq ($(CB_IP),)
         CB_IP = 192.168.64.1
 endif
 CB_PORT = $(shell echo \${PORT})
 ifeq ($(CB_PORT),)
         CB_PORT = 9091
+endif
+AS_PORT = $(shell echo \${PORT})
+ifeq ($(AS_PORT),)
+        AS_PORT = 8085
 endif
 
 deps: deps-errcheck
@@ -85,6 +90,17 @@ generate-swagger-docker: build-swagger-fix
 	rm -rf cloudbreak/api/client cloudbreak/api/model
 	@docker run --rm -it -v "${GOPATH}":"${GOPATH}" -w "${PWD}" -e GOPATH --net=host quay.io/goswagger/swagger:0.12.0 \
 	generate client -f http://$(CB_IP):$(CB_PORT)/cb/api/swagger.json -c client -m model -t cloudbreak/api
+	make fix-swagger
+
+generate-swagger-as: build-swagger-fix
+	rm -rf cloudbreak/api-as/client cloudbreak/api-as/model
+	swagger generate client -f http://$(AS_IP):$(AS_PORT)/as/api/swagger.json -c client -m model -t cloudbreak/api-as
+	make fix-swagger
+
+generate-swagger-as-docker: build-swagger-fix
+	rm -rf cloudbreak/api-as/client cloudbreak/api-as/model
+	@docker run --rm -it -v "${GOPATH}":"${GOPATH}" -w "${PWD}" -e GOPATH --net=host quay.io/goswagger/swagger:0.12.0 \
+	generate client -f http://$(AS_IP):$(AS_PORT)/as/api/swagger.json -c client -m model -t cloudbreak/api-as
 	make fix-swagger
 
 build-swagger-fix:
