@@ -870,6 +870,90 @@ var (
 			Usage: "id of the user",
 		},
 	}
+	FlClusterID = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "cluster-id",
+			Usage: "id of the cluster",
+		},
+	}
+	FlAsID = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "as-id",
+			Usage: "id of the autoscale cluster",
+		},
+	}
+	FlAlertID = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "alert-id",
+			Usage: "id of the alert",
+		},
+	}
+	FlPolicyID = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "policy-id",
+			Usage: "id of the policy",
+		},
+	}
+	FlAlertDefinition = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "definition",
+			Usage: "alert definition, for the possible values run the 'cb as alert metric definitions' command",
+		},
+	}
+	FlAlertStateOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "state",
+			Usage: "values: 'OK, WARN, CRITICAL', default is CRITICAL",
+		},
+	}
+	FlAlertPeriodOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "period",
+			Usage: "period in minutes, default is '5'",
+		},
+	}
+	FlCron = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "cron",
+			Usage: "quartz cron expression to trigger the alert",
+		},
+	}
+	FlTimezoneOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "timezone",
+			Usage: "timezone of the alert, default is 'Etc/Greenwich'",
+		},
+	}
+	FlHostgroup = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "hostgroup",
+			Usage: "target hostgroup for a scaling policy",
+		},
+	}
+	FlScalingAdjustment = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "adjustment",
+			Usage: "amount of change for a scaling policy (can be negative for decreasing the number of nodes)",
+		},
+	}
+	FlAdjustmentType = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "type",
+			Usage: "adjustment type for a scaling policy, possible values: [NODE_COUNT, PERCENTAGE, EXACT]",
+		},
+	}
 	FlVersion = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{

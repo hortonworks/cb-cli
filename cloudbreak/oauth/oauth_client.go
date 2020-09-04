@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/hortonworks/cb-cli/cloudbreak/common"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -14,11 +13,14 @@ import (
 	"strings"
 	"time"
 
+	"github.com/hortonworks/cb-cli/cloudbreak/common"
+
 	log "github.com/Sirupsen/logrus"
 	"github.com/ernesto-jimenez/httplogger"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	asclient "github.com/hortonworks/cb-cli/cloudbreak/api-as/client"
 	apiclient "github.com/hortonworks/cb-cli/cloudbreak/api/client"
 	fl "github.com/hortonworks/cb-cli/cloudbreak/flags"
 	"github.com/hortonworks/cb-cli/utils"
@@ -29,6 +31,10 @@ var PREFIX_TRIM = []string{"http://", "https://"}
 
 type Cloudbreak struct {
 	Cloudbreak *apiclient.Cloudbreak
+}
+
+type Autoscale struct {
+	Autoscale *asclient.AutoScaling
 }
 
 // This is nearly identical with http.DefaultTransport
@@ -47,6 +53,10 @@ var LoggedTransportConfig = httplogger.NewLoggedTransport(TransportConfig, newLo
 
 func NewCloudbreakHTTPClientFromContext(c *cli.Context) *Cloudbreak {
 	return NewCloudbreakHTTPClient(c.String(fl.FlServerOptional.Name), c.String(fl.FlUsername.Name), c.String(fl.FlPassword.Name), c.String(fl.FlAuthTypeOptional.Name))
+}
+
+func NewAutoscaleHTTPClientFromContext(c *cli.Context) *Autoscale {
+	return NewAutoscaleHTTPClient(c.String(fl.FlServerOptional.Name), c.String(fl.FlUsername.Name), c.String(fl.FlPassword.Name), c.String(fl.FlAuthTypeOptional.Name))
 }
 
 func NewCloudbreakHTTPClient(address, username, password, authType string) *Cloudbreak {
@@ -80,6 +90,39 @@ func NewCloudbreakHTTPClient(address, username, password, authType string) *Clou
 
 	cbTransport.Runtime.Transport = LoggedTransportConfig
 	return &Cloudbreak{Cloudbreak: apiclient.New(cbTransport, strfmt.Default)}
+}
+
+func NewAutoscaleHTTPClient(address, username, password, authType string) *Autoscale {
+	for _, v := range PREFIX_TRIM {
+		address = strings.TrimPrefix(address, v)
+	}
+	address = strings.TrimRight(address, "/ ")
+	basePath := ""
+	slashIndex := strings.Index(address, "/")
+	if slashIndex != -1 {
+		basePath = address[slashIndex:]
+		address = address[0:slashIndex]
+	}
+
+	cbTransport := &transport{client.New(address, basePath+"/as/api", []string{"https"})}
+
+	switch authType {
+	case common.OAUTH2:
+		token, err := getOAuth2Token("https://"+address+basePath+"/identity/oauth/authorize", username, password, "cloudbreak_shell")
+		if err != nil {
+			utils.LogErrorAndExit(err)
+		}
+		cbTransport.Runtime.DefaultAuthentication = client.BearerToken(token)
+		break
+	case common.BASIC:
+		cbTransport.Runtime.DefaultAuthentication = client.BasicAuth(username, password)
+		break
+	default:
+		utils.LogErrorAndExit(errors.New(fmt.Sprintf("invalid authentication type, accepted values: [%s, %s]", common.OAUTH2, common.BASIC)))
+	}
+
+	cbTransport.Runtime.Transport = LoggedTransportConfig
+	return &Autoscale{Autoscale: asclient.New(cbTransport, strfmt.Default)}
 }
 
 func getOAuth2Token(identityUrl string, username string, password string, clientId string) (string, error) {

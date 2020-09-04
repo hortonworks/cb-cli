@@ -3,12 +3,13 @@ package utils
 import (
 	"errors"
 	"fmt"
-	"github.com/hortonworks/cb-cli/cloudbreak/api/model"
 	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/hortonworks/cb-cli/cloudbreak/api/model"
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/hortonworks/cb-cli/cloudbreak/api/client/v1util"
@@ -47,6 +48,13 @@ func RandStr(n int) string {
 }
 
 func SafeInt32Convert(value *int32) int32 {
+	if value == nil {
+		return 0
+	}
+	return *value
+}
+
+func SafeInt64Convert(value *int64) int64 {
 	if value == nil {
 		return 0
 	}
