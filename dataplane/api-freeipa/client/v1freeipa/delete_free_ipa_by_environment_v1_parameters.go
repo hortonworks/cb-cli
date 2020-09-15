@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -21,8 +22,11 @@ import (
 // NewDeleteFreeIpaByEnvironmentV1Params creates a new DeleteFreeIpaByEnvironmentV1Params object
 // with the default values initialized.
 func NewDeleteFreeIpaByEnvironmentV1Params() *DeleteFreeIpaByEnvironmentV1Params {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteFreeIpaByEnvironmentV1Params{
+		Forced: &forcedDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -31,8 +35,11 @@ func NewDeleteFreeIpaByEnvironmentV1Params() *DeleteFreeIpaByEnvironmentV1Params
 // NewDeleteFreeIpaByEnvironmentV1ParamsWithTimeout creates a new DeleteFreeIpaByEnvironmentV1Params object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteFreeIpaByEnvironmentV1ParamsWithTimeout(timeout time.Duration) *DeleteFreeIpaByEnvironmentV1Params {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteFreeIpaByEnvironmentV1Params{
+		Forced: &forcedDefault,
 
 		timeout: timeout,
 	}
@@ -41,8 +48,11 @@ func NewDeleteFreeIpaByEnvironmentV1ParamsWithTimeout(timeout time.Duration) *De
 // NewDeleteFreeIpaByEnvironmentV1ParamsWithContext creates a new DeleteFreeIpaByEnvironmentV1Params object
 // with the default values initialized, and the ability to set a context for a request
 func NewDeleteFreeIpaByEnvironmentV1ParamsWithContext(ctx context.Context) *DeleteFreeIpaByEnvironmentV1Params {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteFreeIpaByEnvironmentV1Params{
+		Forced: &forcedDefault,
 
 		Context: ctx,
 	}
@@ -51,8 +61,11 @@ func NewDeleteFreeIpaByEnvironmentV1ParamsWithContext(ctx context.Context) *Dele
 // NewDeleteFreeIpaByEnvironmentV1ParamsWithHTTPClient creates a new DeleteFreeIpaByEnvironmentV1Params object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteFreeIpaByEnvironmentV1ParamsWithHTTPClient(client *http.Client) *DeleteFreeIpaByEnvironmentV1Params {
-	var ()
+	var (
+		forcedDefault = bool(false)
+	)
 	return &DeleteFreeIpaByEnvironmentV1Params{
+		Forced:     &forcedDefault,
 		HTTPClient: client,
 	}
 }
@@ -64,6 +77,8 @@ type DeleteFreeIpaByEnvironmentV1Params struct {
 
 	/*Environment*/
 	Environment *string
+	/*Forced*/
+	Forced *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -114,6 +129,17 @@ func (o *DeleteFreeIpaByEnvironmentV1Params) SetEnvironment(environment *string)
 	o.Environment = environment
 }
 
+// WithForced adds the forced to the delete free ipa by environment v1 params
+func (o *DeleteFreeIpaByEnvironmentV1Params) WithForced(forced *bool) *DeleteFreeIpaByEnvironmentV1Params {
+	o.SetForced(forced)
+	return o
+}
+
+// SetForced adds the forced to the delete free ipa by environment v1 params
+func (o *DeleteFreeIpaByEnvironmentV1Params) SetForced(forced *bool) {
+	o.Forced = forced
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DeleteFreeIpaByEnvironmentV1Params) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -132,6 +158,22 @@ func (o *DeleteFreeIpaByEnvironmentV1Params) WriteToRequest(r runtime.ClientRequ
 		qEnvironment := qrEnvironment
 		if qEnvironment != "" {
 			if err := r.SetQueryParam("environment", qEnvironment); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Forced != nil {
+
+		// query param forced
+		var qrForced bool
+		if o.Forced != nil {
+			qrForced = *o.Forced
+		}
+		qForced := swag.FormatBool(qrForced)
+		if qForced != "" {
+			if err := r.SetQueryParam("forced", qForced); err != nil {
 				return err
 			}
 		}

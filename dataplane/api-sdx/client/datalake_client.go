@@ -12,8 +12,10 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/authorization"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/dbconfig"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/diagnostics"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/flow"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/flow_public"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/internalsdx"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdx"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxutils"
@@ -64,9 +66,13 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Datalake {
 
 	cli.Authorization = authorization.New(transport, formats)
 
+	cli.Dbconfig = dbconfig.New(transport, formats)
+
 	cli.Diagnostics = diagnostics.New(transport, formats)
 
 	cli.Flow = flow.New(transport, formats)
+
+	cli.FlowPublic = flow_public.New(transport, formats)
 
 	cli.Internalsdx = internalsdx.New(transport, formats)
 
@@ -120,9 +126,13 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type Datalake struct {
 	Authorization *authorization.Client
 
+	Dbconfig *dbconfig.Client
+
 	Diagnostics *diagnostics.Client
 
 	Flow *flow.Client
+
+	FlowPublic *flow_public.Client
 
 	Internalsdx *internalsdx.Client
 
@@ -139,9 +149,13 @@ func (c *Datalake) SetTransport(transport runtime.ClientTransport) {
 
 	c.Authorization.SetTransport(transport)
 
+	c.Dbconfig.SetTransport(transport)
+
 	c.Diagnostics.SetTransport(transport)
 
 	c.Flow.SetTransport(transport)
+
+	c.FlowPublic.SetTransport(transport)
 
 	c.Internalsdx.SetTransport(transport)
 

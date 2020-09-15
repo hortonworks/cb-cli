@@ -64,6 +64,8 @@ for the generate service keytab v1 operation typically these are written to a ht
 */
 type GenerateServiceKeytabV1Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Body*/
 	Body *model.ServiceKeytabV1Request
 
@@ -105,6 +107,17 @@ func (o *GenerateServiceKeytabV1Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the generate service keytab v1 params
+func (o *GenerateServiceKeytabV1Params) WithAccountID(accountID *string) *GenerateServiceKeytabV1Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the generate service keytab v1 params
+func (o *GenerateServiceKeytabV1Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithBody adds the body to the generate service keytab v1 params
 func (o *GenerateServiceKeytabV1Params) WithBody(body *model.ServiceKeytabV1Request) *GenerateServiceKeytabV1Params {
 	o.SetBody(body)
@@ -123,6 +136,22 @@ func (o *GenerateServiceKeytabV1Params) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {

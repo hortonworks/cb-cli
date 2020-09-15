@@ -25,6 +25,10 @@ type ClusterTemplateV4Response struct {
 	// created
 	Created int64 `json:"created,omitempty"`
 
+	// the unique crn of the resource
+	// Required: true
+	Crn *string `json:"crn"`
+
 	// datalake required which this template is compatible with. The default is OPTIONAL
 	// Enum: [NONE OPTIONAL REQUIRED]
 	DatalakeRequired string `json:"datalakeRequired,omitempty"`
@@ -81,6 +85,10 @@ type ClusterTemplateV4Response struct {
 func (m *ClusterTemplateV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCrn(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateDatalakeRequired(formats); err != nil {
 		res = append(res, err)
 	}
@@ -112,6 +120,15 @@ func (m *ClusterTemplateV4Response) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ClusterTemplateV4Response) validateCrn(formats strfmt.Registry) error {
+
+	if err := validate.Required("crn", "body", m.Crn); err != nil {
+		return err
+	}
+
 	return nil
 }
 

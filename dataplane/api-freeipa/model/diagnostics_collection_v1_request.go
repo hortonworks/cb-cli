@@ -56,6 +56,9 @@ type DiagnosticsCollectionV1Request struct {
 	// With labels you can filter what kind of logs you'd like to collect.
 	Labels []string `json:"labels"`
 
+	// Skip cloud storage write operation testing or databus connection check (depends on the destination) during init stage.
+	SkipValidation bool `json:"skipValidation,omitempty"`
+
 	// Start time for the time interval of the diagnostic collection request.
 	// Format: date-time
 	StartTime strfmt.DateTime `json:"startTime,omitempty"`

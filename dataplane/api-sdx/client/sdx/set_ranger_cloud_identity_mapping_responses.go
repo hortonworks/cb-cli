@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // SetRangerCloudIdentityMappingReader is a Reader for the SetRangerCloudIdentityMapping structure.
@@ -20,43 +23,45 @@ type SetRangerCloudIdentityMappingReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *SetRangerCloudIdentityMappingReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewSetRangerCloudIdentityMappingDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewSetRangerCloudIdentityMappingOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewSetRangerCloudIdentityMappingDefault creates a SetRangerCloudIdentityMappingDefault with default headers values
-func NewSetRangerCloudIdentityMappingDefault(code int) *SetRangerCloudIdentityMappingDefault {
-	return &SetRangerCloudIdentityMappingDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*SetRangerCloudIdentityMappingDefault handles this case with default header values.
+// NewSetRangerCloudIdentityMappingOK creates a SetRangerCloudIdentityMappingOK with default headers values
+func NewSetRangerCloudIdentityMappingOK() *SetRangerCloudIdentityMappingOK {
+	return &SetRangerCloudIdentityMappingOK{}
+}
+
+/*SetRangerCloudIdentityMappingOK handles this case with default header values.
 
 successful operation
 */
-type SetRangerCloudIdentityMappingDefault struct {
-	_statusCode int
+type SetRangerCloudIdentityMappingOK struct {
+	Payload *model.RangerCloudIdentitySyncStatus
 }
 
-// Code gets the status code for the set ranger cloud identity mapping default response
-func (o *SetRangerCloudIdentityMappingDefault) Code() int {
-	return o._statusCode
+func (o *SetRangerCloudIdentityMappingOK) Error() string {
+	return fmt.Sprintf("[POST /sdx/envcrn/{envCrn}/ranger_cloud_identity_mapping][%d] setRangerCloudIdentityMappingOK  %+v", 200, o.Payload)
 }
 
-func (o *SetRangerCloudIdentityMappingDefault) Error() string {
-	return fmt.Sprintf("[POST /sdx/envcrn/{envCrn}/ranger_cloud_identity_mapping][%d] setRangerCloudIdentityMapping default ", o._statusCode)
-}
+func (o *SetRangerCloudIdentityMappingOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *SetRangerCloudIdentityMappingDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.RangerCloudIdentitySyncStatus)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

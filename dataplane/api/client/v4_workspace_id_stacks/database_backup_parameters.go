@@ -63,6 +63,8 @@ for the database backup operation typically these are written to a http.Request
 */
 type DatabaseBackupParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*BackupID*/
 	BackupID *string
 	/*BackupLocation*/
@@ -108,6 +110,17 @@ func (o *DatabaseBackupParams) WithHTTPClient(client *http.Client) *DatabaseBack
 // SetHTTPClient adds the HTTPClient to the database backup params
 func (o *DatabaseBackupParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithAccountID adds the accountID to the database backup params
+func (o *DatabaseBackupParams) WithAccountID(accountID *string) *DatabaseBackupParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the database backup params
+func (o *DatabaseBackupParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
 }
 
 // WithBackupID adds the backupID to the database backup params
@@ -161,6 +174,22 @@ func (o *DatabaseBackupParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.BackupID != nil {
 

@@ -23,7 +23,7 @@ import (
 // with the default values initialized.
 func NewDeleteEnvironmentsByNameParams() *DeleteEnvironmentsByNameParams {
 	var (
-		cascadingDefault = bool(true)
+		cascadingDefault = bool(false)
 		forcedDefault    = bool(false)
 	)
 	return &DeleteEnvironmentsByNameParams{
@@ -38,7 +38,7 @@ func NewDeleteEnvironmentsByNameParams() *DeleteEnvironmentsByNameParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteEnvironmentsByNameParamsWithTimeout(timeout time.Duration) *DeleteEnvironmentsByNameParams {
 	var (
-		cascadingDefault = bool(true)
+		cascadingDefault = bool(false)
 		forcedDefault    = bool(false)
 	)
 	return &DeleteEnvironmentsByNameParams{
@@ -53,7 +53,7 @@ func NewDeleteEnvironmentsByNameParamsWithTimeout(timeout time.Duration) *Delete
 // with the default values initialized, and the ability to set a context for a request
 func NewDeleteEnvironmentsByNameParamsWithContext(ctx context.Context) *DeleteEnvironmentsByNameParams {
 	var (
-		cascadingDefault = bool(true)
+		cascadingDefault = bool(false)
 		forcedDefault    = bool(false)
 	)
 	return &DeleteEnvironmentsByNameParams{
@@ -68,7 +68,7 @@ func NewDeleteEnvironmentsByNameParamsWithContext(ctx context.Context) *DeleteEn
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteEnvironmentsByNameParamsWithHTTPClient(client *http.Client) *DeleteEnvironmentsByNameParams {
 	var (
-		cascadingDefault = bool(true)
+		cascadingDefault = bool(false)
 		forcedDefault    = bool(false)
 	)
 	return &DeleteEnvironmentsByNameParams{

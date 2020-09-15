@@ -25,7 +25,35 @@ type Client struct {
 }
 
 /*
-CollectSdxCmDiagnostics initiates the collection of diagnostical data on the cloudera manager host for s d x
+CollectSdxCmBasedDiagnostics initiates the collection of diagnostical data through c m API requires a running c m server
+*/
+func (a *Client) CollectSdxCmBasedDiagnostics(params *CollectSdxCmBasedDiagnosticsParams) (*CollectSdxCmBasedDiagnosticsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCollectSdxCmBasedDiagnosticsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "collectSdxCmBasedDiagnostics",
+		Method:             "POST",
+		PathPattern:        "/diagnostics/cm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CollectSdxCmBasedDiagnosticsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CollectSdxCmBasedDiagnosticsOK), nil
+
+}
+
+/*
+CollectSdxCmDiagnostics initiates the collection of diagnostical data on the hosts of the s d x
 */
 func (a *Client) CollectSdxCmDiagnostics(params *CollectSdxCmDiagnosticsParams) (*CollectSdxCmDiagnosticsOK, error) {
 	// TODO: Validate the params before sending
@@ -53,7 +81,35 @@ func (a *Client) CollectSdxCmDiagnostics(params *CollectSdxCmDiagnosticsParams) 
 }
 
 /*
-GetSdxCmVMLogs returns a list of log paths on the cloudera manager VM for s d x
+GetSdxCmRoles returns a list of c m roles that can be used for filtering the diagnostics results roles are immutable based on the deployment details
+*/
+func (a *Client) GetSdxCmRoles(params *GetSdxCmRolesParams) (*GetSdxCmRolesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSdxCmRolesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getSdxCmRoles",
+		Method:             "GET",
+		PathPattern:        "/diagnostics/cm/{stackCrn}/roles",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetSdxCmRolesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSdxCmRolesOK), nil
+
+}
+
+/*
+GetSdxCmVMLogs returns a list of log paths on the hosts of the s d x
 */
 func (a *Client) GetSdxCmVMLogs(params *GetSdxCmVMLogsParams) (*GetSdxCmVMLogsOK, error) {
 	// TODO: Validate the params before sending

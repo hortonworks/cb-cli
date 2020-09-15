@@ -63,6 +63,8 @@ for the check for os upgrade in workspace v4 operation typically these are writt
 */
 type CheckForOsUpgradeInWorkspaceV4Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Name*/
 	Name string
 	/*WorkspaceID*/
@@ -106,6 +108,17 @@ func (o *CheckForOsUpgradeInWorkspaceV4Params) SetHTTPClient(client *http.Client
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the check for os upgrade in workspace v4 params
+func (o *CheckForOsUpgradeInWorkspaceV4Params) WithAccountID(accountID *string) *CheckForOsUpgradeInWorkspaceV4Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the check for os upgrade in workspace v4 params
+func (o *CheckForOsUpgradeInWorkspaceV4Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithName adds the name to the check for os upgrade in workspace v4 params
 func (o *CheckForOsUpgradeInWorkspaceV4Params) WithName(name string) *CheckForOsUpgradeInWorkspaceV4Params {
 	o.SetName(name)
@@ -135,6 +148,22 @@ func (o *CheckForOsUpgradeInWorkspaceV4Params) WriteToRequest(r runtime.ClientRe
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

@@ -685,6 +685,36 @@ func (a *Client) StopEnvironmentByNameV1(params *StopEnvironmentByNameV1Params) 
 }
 
 /*
+UpdateConfigsInEnvironmentByCrnV1 updates the configuration for all stacks in the environment by the environment c r n
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) UpdateConfigsInEnvironmentByCrnV1(params *UpdateConfigsInEnvironmentByCrnV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateConfigsInEnvironmentByCrnV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateConfigsInEnvironmentByCrnV1",
+		Method:             "POST",
+		PathPattern:        "/v1/env/crn/{crn}/update_config",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateConfigsInEnvironmentByCrnV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 VerifyCredentialByEnvCrn verifies the credential used by the given environment
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.

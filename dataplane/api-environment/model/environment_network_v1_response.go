@@ -63,7 +63,7 @@ type EnvironmentNetworkV1Response struct {
 	// Enum: [ENABLED DISABLED]
 	OutboundInternetTraffic string `json:"outboundInternetTraffic,omitempty"`
 
-	// The subnet in which resource should be deployed if not specified by user
+	// The subnet in which resource should be deployed if not specified by user. It's a null in case of environment list
 	PreferedSubnetID string `json:"preferedSubnetId,omitempty"`
 
 	// A flag to enable or disable the private subnet creation.

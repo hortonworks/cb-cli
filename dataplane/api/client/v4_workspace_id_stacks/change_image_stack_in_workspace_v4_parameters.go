@@ -65,6 +65,8 @@ for the change image stack in workspace v4 operation typically these are written
 */
 type ChangeImageStackInWorkspaceV4Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Body*/
 	Body *model.StackImageChangeV4Request
 	/*Name*/
@@ -110,6 +112,17 @@ func (o *ChangeImageStackInWorkspaceV4Params) SetHTTPClient(client *http.Client)
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the change image stack in workspace v4 params
+func (o *ChangeImageStackInWorkspaceV4Params) WithAccountID(accountID *string) *ChangeImageStackInWorkspaceV4Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the change image stack in workspace v4 params
+func (o *ChangeImageStackInWorkspaceV4Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithBody adds the body to the change image stack in workspace v4 params
 func (o *ChangeImageStackInWorkspaceV4Params) WithBody(body *model.StackImageChangeV4Request) *ChangeImageStackInWorkspaceV4Params {
 	o.SetBody(body)
@@ -150,6 +163,22 @@ func (o *ChangeImageStackInWorkspaceV4Params) WriteToRequest(r runtime.ClientReq
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {

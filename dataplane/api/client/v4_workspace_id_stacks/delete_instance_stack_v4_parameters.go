@@ -75,6 +75,8 @@ for the delete instance stack v4 operation typically these are written to a http
 */
 type DeleteInstanceStackV4Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Forced*/
 	Forced *bool
 	/*InstanceID*/
@@ -120,6 +122,17 @@ func (o *DeleteInstanceStackV4Params) WithHTTPClient(client *http.Client) *Delet
 // SetHTTPClient adds the HTTPClient to the delete instance stack v4 params
 func (o *DeleteInstanceStackV4Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithAccountID adds the accountID to the delete instance stack v4 params
+func (o *DeleteInstanceStackV4Params) WithAccountID(accountID *string) *DeleteInstanceStackV4Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the delete instance stack v4 params
+func (o *DeleteInstanceStackV4Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
 }
 
 // WithForced adds the forced to the delete instance stack v4 params
@@ -173,6 +186,22 @@ func (o *DeleteInstanceStackV4Params) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Forced != nil {
 

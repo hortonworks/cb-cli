@@ -23,7 +23,7 @@ type AzureResourceGroupV1Parameters struct {
 	Name string `json:"name,omitempty"`
 
 	// Resource group usage: single resource group for all resources where possible or use multiple resource groups.
-	// Enum: [SINGLE MULTIPLE]
+	// Enum: [SINGLE MULTIPLE SINGLE_WITH_DEDICATED_STORAGE_ACCOUNT]
 	ResourceGroupUsage string `json:"resourceGroupUsage,omitempty"`
 }
 
@@ -45,7 +45,7 @@ var azureResourceGroupV1ParametersTypeResourceGroupUsagePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["SINGLE","MULTIPLE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["SINGLE","MULTIPLE","SINGLE_WITH_DEDICATED_STORAGE_ACCOUNT"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -60,6 +60,9 @@ const (
 
 	// AzureResourceGroupV1ParametersResourceGroupUsageMULTIPLE captures enum value "MULTIPLE"
 	AzureResourceGroupV1ParametersResourceGroupUsageMULTIPLE string = "MULTIPLE"
+
+	// AzureResourceGroupV1ParametersResourceGroupUsageSINGLEWITHDEDICATEDSTORAGEACCOUNT captures enum value "SINGLE_WITH_DEDICATED_STORAGE_ACCOUNT"
+	AzureResourceGroupV1ParametersResourceGroupUsageSINGLEWITHDEDICATEDSTORAGEACCOUNT string = "SINGLE_WITH_DEDICATED_STORAGE_ACCOUNT"
 )
 
 // prop value enum

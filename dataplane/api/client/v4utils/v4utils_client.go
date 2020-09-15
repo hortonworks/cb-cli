@@ -53,32 +53,62 @@ func (a *Client) CheckClientVersionV4(params *CheckClientVersionV4Params) (*Chec
 }
 
 /*
-CheckRight checkings rights from UI
+CheckRightByCrn checkings rights from UI by resource c r n
 
 Check right from UI
 */
-func (a *Client) CheckRight(params *CheckRightParams) (*CheckRightOK, error) {
+func (a *Client) CheckRightByCrn(params *CheckRightByCrnParams) (*CheckRightByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewCheckRightParams()
+		params = NewCheckRightByCrnParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "checkRight",
+		ID:                 "checkRightByCrn",
 		Method:             "POST",
-		PathPattern:        "/v4/utils/check_right",
+		PathPattern:        "/v4/utils/check_right_by_crn",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &CheckRightReader{formats: a.formats},
+		Reader:             &CheckRightByCrnReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CheckRightOK), nil
+	return result.(*CheckRightByCrnOK), nil
+
+}
+
+/*
+CheckRightInAccount checkings rights from UI in account
+
+Check right from UI
+*/
+func (a *Client) CheckRightInAccount(params *CheckRightInAccountParams) (*CheckRightInAccountOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCheckRightInAccountParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "checkRightInAccount",
+		Method:             "POST",
+		PathPattern:        "/v4/utils/check_right",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CheckRightInAccountReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CheckRightInAccountOK), nil
 
 }
 

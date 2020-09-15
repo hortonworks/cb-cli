@@ -63,6 +63,8 @@ for the start stack in workspace v4 operation typically these are written to a h
 */
 type StartStackInWorkspaceV4Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Name*/
 	Name string
 	/*WorkspaceID*/
@@ -106,6 +108,17 @@ func (o *StartStackInWorkspaceV4Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the start stack in workspace v4 params
+func (o *StartStackInWorkspaceV4Params) WithAccountID(accountID *string) *StartStackInWorkspaceV4Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the start stack in workspace v4 params
+func (o *StartStackInWorkspaceV4Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithName adds the name to the start stack in workspace v4 params
 func (o *StartStackInWorkspaceV4Params) WithName(name string) *StartStackInWorkspaceV4Params {
 	o.SetName(name)
@@ -135,6 +148,22 @@ func (o *StartStackInWorkspaceV4Params) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

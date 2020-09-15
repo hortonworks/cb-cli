@@ -325,6 +325,36 @@ func (a *Client) HealthV1(params *HealthV1Params) (*HealthV1OK, error) {
 }
 
 /*
+InternalCleanupV1 cleans out users hosts and related DNS entries using internal actor
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) InternalCleanupV1(params *InternalCleanupV1Params) (*InternalCleanupV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewInternalCleanupV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "internalCleanupV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/internal_cleanup",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &InternalCleanupV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*InternalCleanupV1OK), nil
+
+}
+
+/*
 ListFreeIpaClustersByAccountV1 lists all free IP a stacks by account
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.

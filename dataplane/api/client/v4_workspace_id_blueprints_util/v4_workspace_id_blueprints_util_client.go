@@ -55,6 +55,36 @@ func (a *Client) CreateRecommendationForWorkspace(params *CreateRecommendationFo
 }
 
 /*
+CreateRecommendationForWorkspaceByCredCrn creates a recommendation that advises cloud resources for the given blueprint based on the given credential crn
+
+Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
+*/
+func (a *Client) CreateRecommendationForWorkspaceByCredCrn(params *CreateRecommendationForWorkspaceByCredCrnParams) (*CreateRecommendationForWorkspaceByCredCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateRecommendationForWorkspaceByCredCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createRecommendationForWorkspaceByCredCrn",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/blueprints_util/recommendation_by_cred_crn",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateRecommendationForWorkspaceByCredCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateRecommendationForWorkspaceByCredCrnOK), nil
+
+}
+
+/*
 CreateScaleRecommendationForWorkspace creates a recommendation that advises cloud resources for the given blueprint
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.

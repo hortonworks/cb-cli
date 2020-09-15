@@ -42,7 +42,7 @@ var checkRightV4RequestRightsItemsEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["DISTROX_READ","DISTROX_WRITE","SDX_READ","SDX_WRITE","ENVIRONMENT_READ","ENVIRONMENT_WRITE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["ENV_CREATE","ENV_START","ENV_STOP","ENV_DELETE","DH_CREATE","DH_START","DH_STOP","DH_DELETE","SDX_UPGRADE","CHANGE_CRED","DISTROX_READ","DISTROX_WRITE","SDX_READ","SDX_WRITE","ENVIRONMENT_READ","ENVIRONMENT_WRITE"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

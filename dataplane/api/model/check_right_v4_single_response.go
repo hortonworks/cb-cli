@@ -23,7 +23,7 @@ type CheckRightV4SingleResponse struct {
 	Result bool `json:"result,omitempty"`
 
 	// right
-	// Enum: [DISTROX_READ DISTROX_WRITE SDX_READ SDX_WRITE ENVIRONMENT_READ ENVIRONMENT_WRITE]
+	// Enum: [ENV_CREATE ENV_START ENV_STOP ENV_DELETE DH_CREATE DH_START DH_STOP DH_DELETE SDX_UPGRADE CHANGE_CRED DISTROX_READ DISTROX_WRITE SDX_READ SDX_WRITE ENVIRONMENT_READ ENVIRONMENT_WRITE]
 	Right string `json:"right,omitempty"`
 }
 
@@ -45,7 +45,7 @@ var checkRightV4SingleResponseTypeRightPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["DISTROX_READ","DISTROX_WRITE","SDX_READ","SDX_WRITE","ENVIRONMENT_READ","ENVIRONMENT_WRITE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["ENV_CREATE","ENV_START","ENV_STOP","ENV_DELETE","DH_CREATE","DH_START","DH_STOP","DH_DELETE","SDX_UPGRADE","CHANGE_CRED","DISTROX_READ","DISTROX_WRITE","SDX_READ","SDX_WRITE","ENVIRONMENT_READ","ENVIRONMENT_WRITE"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -54,6 +54,36 @@ func init() {
 }
 
 const (
+
+	// CheckRightV4SingleResponseRightENVCREATE captures enum value "ENV_CREATE"
+	CheckRightV4SingleResponseRightENVCREATE string = "ENV_CREATE"
+
+	// CheckRightV4SingleResponseRightENVSTART captures enum value "ENV_START"
+	CheckRightV4SingleResponseRightENVSTART string = "ENV_START"
+
+	// CheckRightV4SingleResponseRightENVSTOP captures enum value "ENV_STOP"
+	CheckRightV4SingleResponseRightENVSTOP string = "ENV_STOP"
+
+	// CheckRightV4SingleResponseRightENVDELETE captures enum value "ENV_DELETE"
+	CheckRightV4SingleResponseRightENVDELETE string = "ENV_DELETE"
+
+	// CheckRightV4SingleResponseRightDHCREATE captures enum value "DH_CREATE"
+	CheckRightV4SingleResponseRightDHCREATE string = "DH_CREATE"
+
+	// CheckRightV4SingleResponseRightDHSTART captures enum value "DH_START"
+	CheckRightV4SingleResponseRightDHSTART string = "DH_START"
+
+	// CheckRightV4SingleResponseRightDHSTOP captures enum value "DH_STOP"
+	CheckRightV4SingleResponseRightDHSTOP string = "DH_STOP"
+
+	// CheckRightV4SingleResponseRightDHDELETE captures enum value "DH_DELETE"
+	CheckRightV4SingleResponseRightDHDELETE string = "DH_DELETE"
+
+	// CheckRightV4SingleResponseRightSDXUPGRADE captures enum value "SDX_UPGRADE"
+	CheckRightV4SingleResponseRightSDXUPGRADE string = "SDX_UPGRADE"
+
+	// CheckRightV4SingleResponseRightCHANGECRED captures enum value "CHANGE_CRED"
+	CheckRightV4SingleResponseRightCHANGECRED string = "CHANGE_CRED"
 
 	// CheckRightV4SingleResponseRightDISTROXREAD captures enum value "DISTROX_READ"
 	CheckRightV4SingleResponseRightDISTROXREAD string = "DISTROX_READ"

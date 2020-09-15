@@ -16,17 +16,17 @@ import (
 	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
-// CheckRightReader is a Reader for the CheckRight structure.
-type CheckRightReader struct {
+// CheckRightInAccountReader is a Reader for the CheckRightInAccount structure.
+type CheckRightInAccountReader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *CheckRightReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *CheckRightInAccountReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
-		result := NewCheckRightOK()
+		result := NewCheckRightInAccountOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -37,24 +37,24 @@ func (o *CheckRightReader) ReadResponse(response runtime.ClientResponse, consume
 	}
 }
 
-// NewCheckRightOK creates a CheckRightOK with default headers values
-func NewCheckRightOK() *CheckRightOK {
-	return &CheckRightOK{}
+// NewCheckRightInAccountOK creates a CheckRightInAccountOK with default headers values
+func NewCheckRightInAccountOK() *CheckRightInAccountOK {
+	return &CheckRightInAccountOK{}
 }
 
-/*CheckRightOK handles this case with default header values.
+/*CheckRightInAccountOK handles this case with default header values.
 
 successful operation
 */
-type CheckRightOK struct {
+type CheckRightInAccountOK struct {
 	Payload *model.CheckRightV4Response
 }
 
-func (o *CheckRightOK) Error() string {
-	return fmt.Sprintf("[POST /v4/utils/check_right][%d] checkRightOK  %+v", 200, o.Payload)
+func (o *CheckRightInAccountOK) Error() string {
+	return fmt.Sprintf("[POST /v4/utils/check_right][%d] checkRightInAccountOK  %+v", 200, o.Payload)
 }
 
-func (o *CheckRightOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CheckRightInAccountOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(model.CheckRightV4Response)
 

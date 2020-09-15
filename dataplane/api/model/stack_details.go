@@ -81,6 +81,9 @@ type StackDetails struct {
 	// status reason
 	StatusReason string `json:"statusReason,omitempty"`
 
+	// tunnel
+	Tunnel string `json:"tunnel,omitempty"`
+
 	// type
 	Type string `json:"type,omitempty"`
 }

@@ -20,13 +20,13 @@ type AccountTagRequest struct {
 	// key of the tag configurations
 	// Required: true
 	// Max Length: 127
-	// Min Length: 4
+	// Min Length: 3
 	Key *string `json:"key"`
 
 	// value of the tag configurations
 	// Required: true
 	// Max Length: 255
-	// Min Length: 4
+	// Min Length: 3
 	Value *string `json:"value"`
 }
 
@@ -54,7 +54,7 @@ func (m *AccountTagRequest) validateKey(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MinLength("key", "body", string(*m.Key), 4); err != nil {
+	if err := validate.MinLength("key", "body", string(*m.Key), 3); err != nil {
 		return err
 	}
 
@@ -71,7 +71,7 @@ func (m *AccountTagRequest) validateValue(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MinLength("value", "body", string(*m.Value), 4); err != nil {
+	if err := validate.MinLength("value", "body", string(*m.Value), 3); err != nil {
 		return err
 	}
 

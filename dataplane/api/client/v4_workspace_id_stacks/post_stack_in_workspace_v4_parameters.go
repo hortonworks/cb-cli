@@ -65,6 +65,8 @@ for the post stack in workspace v4 operation typically these are written to a ht
 */
 type PostStackInWorkspaceV4Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Body*/
 	Body *model.StackV4Request
 	/*WorkspaceID*/
@@ -108,6 +110,17 @@ func (o *PostStackInWorkspaceV4Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the post stack in workspace v4 params
+func (o *PostStackInWorkspaceV4Params) WithAccountID(accountID *string) *PostStackInWorkspaceV4Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the post stack in workspace v4 params
+func (o *PostStackInWorkspaceV4Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithBody adds the body to the post stack in workspace v4 params
 func (o *PostStackInWorkspaceV4Params) WithBody(body *model.StackV4Request) *PostStackInWorkspaceV4Params {
 	o.SetBody(body)
@@ -137,6 +150,22 @@ func (o *PostStackInWorkspaceV4Params) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {

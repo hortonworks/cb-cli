@@ -63,6 +63,8 @@ for the status stack v4 operation typically these are written to a http.Request
 */
 type StatusStackV4Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Name*/
 	Name string
 	/*WorkspaceID*/
@@ -106,6 +108,17 @@ func (o *StatusStackV4Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the status stack v4 params
+func (o *StatusStackV4Params) WithAccountID(accountID *string) *StatusStackV4Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the status stack v4 params
+func (o *StatusStackV4Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithName adds the name to the status stack v4 params
 func (o *StatusStackV4Params) WithName(name string) *StatusStackV4Params {
 	o.SetName(name)
@@ -135,6 +148,22 @@ func (o *StatusStackV4Params) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

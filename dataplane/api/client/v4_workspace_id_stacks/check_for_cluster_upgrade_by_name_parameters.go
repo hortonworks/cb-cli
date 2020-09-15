@@ -65,6 +65,8 @@ for the check for cluster upgrade by name operation typically these are written 
 */
 type CheckForClusterUpgradeByNameParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Body*/
 	Body *model.UpgradeV4Request
 	/*Name*/
@@ -110,6 +112,17 @@ func (o *CheckForClusterUpgradeByNameParams) SetHTTPClient(client *http.Client) 
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the check for cluster upgrade by name params
+func (o *CheckForClusterUpgradeByNameParams) WithAccountID(accountID *string) *CheckForClusterUpgradeByNameParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the check for cluster upgrade by name params
+func (o *CheckForClusterUpgradeByNameParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithBody adds the body to the check for cluster upgrade by name params
 func (o *CheckForClusterUpgradeByNameParams) WithBody(body *model.UpgradeV4Request) *CheckForClusterUpgradeByNameParams {
 	o.SetBody(body)
@@ -150,6 +163,22 @@ func (o *CheckForClusterUpgradeByNameParams) WriteToRequest(r runtime.ClientRequ
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {

@@ -65,6 +65,8 @@ for the put cluster v4 operation typically these are written to a http.Request
 */
 type PutClusterV4Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Body*/
 	Body *model.UpdateClusterV4Request
 	/*Name*/
@@ -110,6 +112,17 @@ func (o *PutClusterV4Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the put cluster v4 params
+func (o *PutClusterV4Params) WithAccountID(accountID *string) *PutClusterV4Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the put cluster v4 params
+func (o *PutClusterV4Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithBody adds the body to the put cluster v4 params
 func (o *PutClusterV4Params) WithBody(body *model.UpdateClusterV4Request) *PutClusterV4Params {
 	o.SetBody(body)
@@ -150,6 +163,22 @@ func (o *PutClusterV4Params) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {

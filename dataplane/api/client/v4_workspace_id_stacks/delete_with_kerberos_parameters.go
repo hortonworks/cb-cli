@@ -75,6 +75,8 @@ for the delete with kerberos operation typically these are written to a http.Req
 */
 type DeleteWithKerberosParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Forced*/
 	Forced *bool
 	/*Name*/
@@ -120,6 +122,17 @@ func (o *DeleteWithKerberosParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the delete with kerberos params
+func (o *DeleteWithKerberosParams) WithAccountID(accountID *string) *DeleteWithKerberosParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the delete with kerberos params
+func (o *DeleteWithKerberosParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithForced adds the forced to the delete with kerberos params
 func (o *DeleteWithKerberosParams) WithForced(forced *bool) *DeleteWithKerberosParams {
 	o.SetForced(forced)
@@ -160,6 +173,22 @@ func (o *DeleteWithKerberosParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Forced != nil {
 

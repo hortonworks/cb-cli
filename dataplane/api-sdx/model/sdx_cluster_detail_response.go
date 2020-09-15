@@ -69,6 +69,9 @@ type SdxClusterDetailResponse struct {
 
 	// status reason
 	StatusReason string `json:"statusReason,omitempty"`
+
+	// tags
+	Tags map[string]string `json:"tags,omitempty"`
 }
 
 // Validate validates this sdx cluster detail response

@@ -235,6 +235,36 @@ func (a *Client) GetProxyConfigByNameV1(params *GetProxyConfigByNameV1Params) (*
 }
 
 /*
+GetProxyConfigCrnByNameV1 gets crn by name
+
+An proxy Configuration describe a connection to an external proxy server which provides internet access cluster members. It's applied for package manager and Ambari too
+*/
+func (a *Client) GetProxyConfigCrnByNameV1(params *GetProxyConfigCrnByNameV1Params) (*GetProxyConfigCrnByNameV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetProxyConfigCrnByNameV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getProxyConfigCrnByNameV1",
+		Method:             "GET",
+		PathPattern:        "/v1/proxies/account/{accountId}/name/{name}/crn",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetProxyConfigCrnByNameV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetProxyConfigCrnByNameV1OK), nil
+
+}
+
+/*
 GetProxyRequestFromNameV1 gets request by name
 
 An proxy Configuration describe a connection to an external proxy server which provides internet access cluster members. It's applied for package manager and Ambari too

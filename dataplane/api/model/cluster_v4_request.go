@@ -56,7 +56,7 @@ type ClusterV4Request struct {
 	// proxy CRN for the cluster
 	ProxyConfigCrn string `json:"proxyConfigCrn,omitempty"`
 
-	// Enables Ranger Raz for the cluster on ADLSv2.
+	// Enables Ranger Raz for the cluster on S3 and ADLSv2.
 	RangerRazEnabled bool `json:"rangerRazEnabled,omitempty"`
 
 	// ambari username

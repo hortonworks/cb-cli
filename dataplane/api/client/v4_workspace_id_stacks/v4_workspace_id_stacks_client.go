@@ -55,6 +55,36 @@ func (a *Client) ChangeImageStackInWorkspaceV4(params *ChangeImageStackInWorkspa
 }
 
 /*
+ChangeImageStackInWorkspaceV4Internal checks image in stack by name in workspace internal only
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) ChangeImageStackInWorkspaceV4Internal(params *ChangeImageStackInWorkspaceV4InternalParams) (*ChangeImageStackInWorkspaceV4InternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewChangeImageStackInWorkspaceV4InternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "changeImageStackInWorkspaceV4Internal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/change_image",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ChangeImageStackInWorkspaceV4InternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ChangeImageStackInWorkspaceV4InternalOK), nil
+
+}
+
+/*
 CheckForClusterUpgradeByName checks for upgrade options by name
 */
 func (a *Client) CheckForClusterUpgradeByName(params *CheckForClusterUpgradeByNameParams) (*CheckForClusterUpgradeByNameOK, error) {
@@ -141,6 +171,34 @@ func (a *Client) DatabaseBackup(params *DatabaseBackupParams) (*DatabaseBackupOK
 }
 
 /*
+DatabaseBackupInternal performs a backup of the database to a provided location internal only
+*/
+func (a *Client) DatabaseBackupInternal(params *DatabaseBackupInternalParams) (*DatabaseBackupInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDatabaseBackupInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "databaseBackupInternal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/database_backup",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DatabaseBackupInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DatabaseBackupInternalOK), nil
+
+}
+
+/*
 DatabaseRestore performs a restore of the database from a provided location
 */
 func (a *Client) DatabaseRestore(params *DatabaseRestoreParams) (*DatabaseRestoreOK, error) {
@@ -165,6 +223,34 @@ func (a *Client) DatabaseRestore(params *DatabaseRestoreParams) (*DatabaseRestor
 		return nil, err
 	}
 	return result.(*DatabaseRestoreOK), nil
+
+}
+
+/*
+DatabaseRestoreInternal performs a restore of the database from a provided location internal only
+*/
+func (a *Client) DatabaseRestoreInternal(params *DatabaseRestoreInternalParams) (*DatabaseRestoreInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDatabaseRestoreInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "databaseRestoreInternal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/database_restore",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DatabaseRestoreInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DatabaseRestoreInternalOK), nil
 
 }
 
@@ -248,6 +334,36 @@ func (a *Client) DeleteStackInWorkspaceV4(params *DeleteStackInWorkspaceV4Params
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteStackInWorkspaceV4Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+DeleteStackInWorkspaceV4Internal deletes stack by name in workspace internal only
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) DeleteStackInWorkspaceV4Internal(params *DeleteStackInWorkspaceV4InternalParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteStackInWorkspaceV4InternalParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteStackInWorkspaceV4Internal",
+		Method:             "DELETE",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteStackInWorkspaceV4InternalReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -527,6 +643,36 @@ func (a *Client) PostStackInWorkspaceV4(params *PostStackInWorkspaceV4Params) (*
 }
 
 /*
+PostStackInWorkspaceV4Internal creates stack in workspace internal only
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) PostStackInWorkspaceV4Internal(params *PostStackInWorkspaceV4InternalParams) (*PostStackInWorkspaceV4InternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostStackInWorkspaceV4InternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "postStackInWorkspaceV4Internal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PostStackInWorkspaceV4InternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostStackInWorkspaceV4InternalOK), nil
+
+}
+
+/*
 PutClusterV4 updates cluster by stack id
 
 Clusters are materialised Hadoop services on a given infrastructure. They are built based on a blueprint (running the components and services specified) and on a configured infrastructure Stack. Once a cluster is created and launched, it can be used the usual way as any Hadoop cluster. We suggest to start with the Cluster's Ambari UI for an overview of your cluster.
@@ -647,6 +793,36 @@ func (a *Client) RepairStackInWorkspaceV4(params *RepairStackInWorkspaceV4Params
 }
 
 /*
+RepairStackInWorkspaceV4Internal repairs the stack by name in workspace internal only
+
+Removing the failed nodes and starting new nodes to substitute them.
+*/
+func (a *Client) RepairStackInWorkspaceV4Internal(params *RepairStackInWorkspaceV4InternalParams) (*RepairStackInWorkspaceV4InternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRepairStackInWorkspaceV4InternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "repairStackInWorkspaceV4Internal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/manual_repair",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RepairStackInWorkspaceV4InternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RepairStackInWorkspaceV4InternalOK), nil
+
+}
+
+/*
 RetryStackInWorkspaceV4 retries the stack by name in workspace
 
 Failed or interrupted stack and cluster operations can be retried, after the cause of the failure was eliminated. The operations will continue at the state, where the previous process failed.
@@ -737,6 +913,36 @@ func (a *Client) StartStackInWorkspaceV4(params *StartStackInWorkspaceV4Params) 
 }
 
 /*
+StartStackInWorkspaceV4Internal starts the stack by name in workspace internal only
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) StartStackInWorkspaceV4Internal(params *StartStackInWorkspaceV4InternalParams) (*StartStackInWorkspaceV4InternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStartStackInWorkspaceV4InternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "startStackInWorkspaceV4Internal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/start",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StartStackInWorkspaceV4InternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StartStackInWorkspaceV4InternalOK), nil
+
+}
+
+/*
 StatusStackV4 retrieves stack status by stack name
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -797,6 +1003,36 @@ func (a *Client) StopStackInWorkspaceV4(params *StopStackInWorkspaceV4Params) (*
 }
 
 /*
+StopStackInWorkspaceV4Internal stops the stack by name in workspace internal only
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) StopStackInWorkspaceV4Internal(params *StopStackInWorkspaceV4InternalParams) (*StopStackInWorkspaceV4InternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopStackInWorkspaceV4InternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stopStackInWorkspaceV4Internal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/stop",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StopStackInWorkspaceV4InternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StopStackInWorkspaceV4InternalOK), nil
+
+}
+
+/*
 SyncStackInWorkspaceV4 syncs the stack by name in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -823,6 +1059,34 @@ func (a *Client) SyncStackInWorkspaceV4(params *SyncStackInWorkspaceV4Params) (*
 		return nil, err
 	}
 	return result.(*SyncStackInWorkspaceV4OK), nil
+
+}
+
+/*
+UpdatePillarConfigurationByCrn updates salt pillar configuration on cluster
+*/
+func (a *Client) UpdatePillarConfigurationByCrn(params *UpdatePillarConfigurationByCrnParams) (*UpdatePillarConfigurationByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdatePillarConfigurationByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updatePillarConfigurationByCrn",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/crn/{crn}/pillar_config_update",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdatePillarConfigurationByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdatePillarConfigurationByCrnOK), nil
 
 }
 
@@ -911,6 +1175,34 @@ func (a *Client) UpgradeClusterByName(params *UpgradeClusterByNameParams) (*Upgr
 }
 
 /*
+UpgradeClusterByNameInternal upgrades a cluster to the latest c m or c d h version internal only
+*/
+func (a *Client) UpgradeClusterByNameInternal(params *UpgradeClusterByNameInternalParams) (*UpgradeClusterByNameInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeClusterByNameInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeClusterByNameInternal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/cluster_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeClusterByNameInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeClusterByNameInternalOK), nil
+
+}
+
+/*
 UpgradeOsInWorkspaceV4 upgrades the stack by name in workspace
 
 Removing all nodes and starting new nodes with the latest image. If the cluster already uses the the latest image then no remove/restart will happen.
@@ -937,6 +1229,36 @@ func (a *Client) UpgradeOsInWorkspaceV4(params *UpgradeOsInWorkspaceV4Params) (*
 		return nil, err
 	}
 	return result.(*UpgradeOsInWorkspaceV4OK), nil
+
+}
+
+/*
+UpgradeOsInWorkspaceV4Internal upgrades the stack by name in workspace
+
+Removing all nodes and starting new nodes with the latest image. If the cluster already uses the the latest image then no remove/restart will happen.
+*/
+func (a *Client) UpgradeOsInWorkspaceV4Internal(params *UpgradeOsInWorkspaceV4InternalParams) (*UpgradeOsInWorkspaceV4InternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeOsInWorkspaceV4InternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeOsInWorkspaceV4Internal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeOsInWorkspaceV4InternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeOsInWorkspaceV4InternalOK), nil
 
 }
 

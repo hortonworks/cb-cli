@@ -33,6 +33,9 @@ type RdsDetails struct {
 	// description
 	Description string `json:"description,omitempty"`
 
+	// external
+	External bool `json:"external,omitempty"`
+
 	// id
 	ID int64 `json:"id,omitempty"`
 

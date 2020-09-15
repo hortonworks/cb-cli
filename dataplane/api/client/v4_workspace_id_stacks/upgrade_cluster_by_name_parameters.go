@@ -63,6 +63,8 @@ for the upgrade cluster by name operation typically these are written to a http.
 */
 type UpgradeClusterByNameParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Body*/
 	Body string
 	/*Name*/
@@ -108,6 +110,17 @@ func (o *UpgradeClusterByNameParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the upgrade cluster by name params
+func (o *UpgradeClusterByNameParams) WithAccountID(accountID *string) *UpgradeClusterByNameParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the upgrade cluster by name params
+func (o *UpgradeClusterByNameParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithBody adds the body to the upgrade cluster by name params
 func (o *UpgradeClusterByNameParams) WithBody(body string) *UpgradeClusterByNameParams {
 	o.SetBody(body)
@@ -148,6 +161,22 @@ func (o *UpgradeClusterByNameParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

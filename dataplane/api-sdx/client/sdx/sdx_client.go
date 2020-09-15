@@ -193,6 +193,34 @@ func (a *Client) DeleteSdxByCrn(params *DeleteSdxByCrnParams) (*DeleteSdxByCrnOK
 }
 
 /*
+GetRangerCloudIdentitySyncStatus gets status of a ranger cloud identity sync
+*/
+func (a *Client) GetRangerCloudIdentitySyncStatus(params *GetRangerCloudIdentitySyncStatusParams) (*GetRangerCloudIdentitySyncStatusOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRangerCloudIdentitySyncStatusParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getRangerCloudIdentitySyncStatus",
+		Method:             "GET",
+		PathPattern:        "/sdx/envcrn/{envCrn}/ranger_cloud_identity_sync_status",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRangerCloudIdentitySyncStatusReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRangerCloudIdentitySyncStatusOK), nil
+
+}
+
+/*
 GetSdx gets s d x cluster
 */
 func (a *Client) GetSdx(params *GetSdxParams) (*GetSdxOK, error) {
@@ -531,13 +559,13 @@ func (a *Client) RetrySdxByCrn(params *RetrySdxByCrnParams) (*RetrySdxByCrnOK, e
 /*
 SetRangerCloudIdentityMapping sets ranger cloud identity mapping
 */
-func (a *Client) SetRangerCloudIdentityMapping(params *SetRangerCloudIdentityMappingParams) error {
+func (a *Client) SetRangerCloudIdentityMapping(params *SetRangerCloudIdentityMappingParams) (*SetRangerCloudIdentityMappingOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetRangerCloudIdentityMappingParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "setRangerCloudIdentityMapping",
 		Method:             "POST",
 		PathPattern:        "/sdx/envcrn/{envCrn}/ranger_cloud_identity_mapping",
@@ -550,9 +578,9 @@ func (a *Client) SetRangerCloudIdentityMapping(params *SetRangerCloudIdentityMap
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*SetRangerCloudIdentityMappingOK), nil
 
 }
 

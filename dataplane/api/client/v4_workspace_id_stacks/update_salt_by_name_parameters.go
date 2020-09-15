@@ -63,6 +63,8 @@ for the update salt by name operation typically these are written to a http.Requ
 */
 type UpdateSaltByNameParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Name*/
 	Name string
 	/*WorkspaceID*/
@@ -106,6 +108,17 @@ func (o *UpdateSaltByNameParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the update salt by name params
+func (o *UpdateSaltByNameParams) WithAccountID(accountID *string) *UpdateSaltByNameParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the update salt by name params
+func (o *UpdateSaltByNameParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithName adds the name to the update salt by name params
 func (o *UpdateSaltByNameParams) WithName(name string) *UpdateSaltByNameParams {
 	o.SetName(name)
@@ -135,6 +148,22 @@ func (o *UpdateSaltByNameParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

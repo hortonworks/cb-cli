@@ -75,6 +75,8 @@ for the delete stack in workspace v4 operation typically these are written to a 
 */
 type DeleteStackInWorkspaceV4Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Forced*/
 	Forced *bool
 	/*Name*/
@@ -120,6 +122,17 @@ func (o *DeleteStackInWorkspaceV4Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the delete stack in workspace v4 params
+func (o *DeleteStackInWorkspaceV4Params) WithAccountID(accountID *string) *DeleteStackInWorkspaceV4Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the delete stack in workspace v4 params
+func (o *DeleteStackInWorkspaceV4Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithForced adds the forced to the delete stack in workspace v4 params
 func (o *DeleteStackInWorkspaceV4Params) WithForced(forced *bool) *DeleteStackInWorkspaceV4Params {
 	o.SetForced(forced)
@@ -160,6 +173,22 @@ func (o *DeleteStackInWorkspaceV4Params) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Forced != nil {
 

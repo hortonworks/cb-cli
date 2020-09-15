@@ -65,6 +65,8 @@ for the repair stack in workspace v4 operation typically these are written to a 
 */
 type RepairStackInWorkspaceV4Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Body*/
 	Body *model.ClusterRepairV4Request
 	/*Name*/
@@ -110,6 +112,17 @@ func (o *RepairStackInWorkspaceV4Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the repair stack in workspace v4 params
+func (o *RepairStackInWorkspaceV4Params) WithAccountID(accountID *string) *RepairStackInWorkspaceV4Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the repair stack in workspace v4 params
+func (o *RepairStackInWorkspaceV4Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithBody adds the body to the repair stack in workspace v4 params
 func (o *RepairStackInWorkspaceV4Params) WithBody(body *model.ClusterRepairV4Request) *RepairStackInWorkspaceV4Params {
 	o.SetBody(body)
@@ -150,6 +163,22 @@ func (o *RepairStackInWorkspaceV4Params) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {

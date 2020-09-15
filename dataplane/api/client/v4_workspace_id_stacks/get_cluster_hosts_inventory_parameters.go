@@ -63,6 +63,8 @@ for the get cluster hosts inventory operation typically these are written to a h
 */
 type GetClusterHostsInventoryParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Name*/
 	Name string
 	/*WorkspaceID*/
@@ -106,6 +108,17 @@ func (o *GetClusterHostsInventoryParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the get cluster hosts inventory params
+func (o *GetClusterHostsInventoryParams) WithAccountID(accountID *string) *GetClusterHostsInventoryParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the get cluster hosts inventory params
+func (o *GetClusterHostsInventoryParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithName adds the name to the get cluster hosts inventory params
 func (o *GetClusterHostsInventoryParams) WithName(name string) *GetClusterHostsInventoryParams {
 	o.SetName(name)
@@ -135,6 +148,22 @@ func (o *GetClusterHostsInventoryParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

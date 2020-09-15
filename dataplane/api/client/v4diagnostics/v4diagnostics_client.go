@@ -25,7 +25,35 @@ type Client struct {
 }
 
 /*
-CollectStackCmDiagnostics initiates the collection of diagnostical data on the cloudera manager host
+CollectCmDiagnostics initiates the collection of diagnostical data through c m API requires a running c m server
+*/
+func (a *Client) CollectCmDiagnostics(params *CollectCmDiagnosticsParams) (*CollectCmDiagnosticsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCollectCmDiagnosticsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "collectCmDiagnostics",
+		Method:             "POST",
+		PathPattern:        "/v4/diagnostics/cm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CollectCmDiagnosticsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CollectCmDiagnosticsOK), nil
+
+}
+
+/*
+CollectStackCmDiagnostics initiates the collection of diagnostical data on the hosts of the stack
 */
 func (a *Client) CollectStackCmDiagnostics(params *CollectStackCmDiagnosticsParams) (*CollectStackCmDiagnosticsOK, error) {
 	// TODO: Validate the params before sending
@@ -53,7 +81,35 @@ func (a *Client) CollectStackCmDiagnostics(params *CollectStackCmDiagnosticsPara
 }
 
 /*
-GetStackCmVMLogs returns a list of log paths on the cloudera manager VM
+GetCmRoles returns a list of c m roles that can be used for filtering the diagnostics results roles are immutable based on the deployment details
+*/
+func (a *Client) GetCmRoles(params *GetCmRolesParams) (*GetCmRolesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCmRolesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getCmRoles",
+		Method:             "GET",
+		PathPattern:        "/v4/diagnostics/cm/{stackCrn}/roles",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetCmRolesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetCmRolesOK), nil
+
+}
+
+/*
+GetStackCmVMLogs returns a list of log paths on the hosts of the stack
 */
 func (a *Client) GetStackCmVMLogs(params *GetStackCmVMLogsParams) (*GetStackCmVMLogsOK, error) {
 	// TODO: Validate the params before sending

@@ -52,6 +52,9 @@ type DiagnosticsCollectionV1Request struct {
 	// With labels you can filter what kind of logs you'd like to collect.
 	Labels []string `json:"labels"`
 
+	// Skip cloud storage write operation testing or databus connection check (depends on the destination) during init stage.
+	SkipValidation bool `json:"skipValidation,omitempty"`
+
 	// the unique crn of the resource
 	// Required: true
 	StackCrn *string `json:"stackCrn"`

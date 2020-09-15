@@ -25,7 +25,35 @@ type Client struct {
 }
 
 /*
-CollectDistroxCmDiagnosticsV4 initiates the collection of diagnostical data on the cloudera manager host for datahub
+CollectDistroxCmBasedDiagnosticsV1 initiates the collection of diagnostical data on datahub cloudera manager
+*/
+func (a *Client) CollectDistroxCmBasedDiagnosticsV1(params *CollectDistroxCmBasedDiagnosticsV1Params) (*CollectDistroxCmBasedDiagnosticsV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCollectDistroxCmBasedDiagnosticsV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "collectDistroxCmBasedDiagnosticsV1",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/diagnostics/cm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CollectDistroxCmBasedDiagnosticsV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CollectDistroxCmBasedDiagnosticsV1OK), nil
+
+}
+
+/*
+CollectDistroxCmDiagnosticsV4 initiates the collection of diagnostical data on the hosts of datahub
 */
 func (a *Client) CollectDistroxCmDiagnosticsV4(params *CollectDistroxCmDiagnosticsV4Params) (*CollectDistroxCmDiagnosticsV4OK, error) {
 	// TODO: Validate the params before sending
@@ -473,7 +501,35 @@ func (a *Client) GetDistroXV1ByName(params *GetDistroXV1ByNameParams) (*GetDistr
 }
 
 /*
-GetDistroxCmVMLogsV4 returns a list of log paths on the cloudera manager VM for datahub
+GetDistroxCmRoles returns a list of cloudera manager service roles that can be used for cloudera manager based diagnostics
+*/
+func (a *Client) GetDistroxCmRoles(params *GetDistroxCmRolesParams) (*GetDistroxCmRolesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDistroxCmRolesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDistroxCmRoles",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/diagnostics/cm/{stackCrn}/roles",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDistroxCmRolesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDistroxCmRolesOK), nil
+
+}
+
+/*
+GetDistroxCmVMLogsV4 returns a list of log paths on the hosts of datahub
 */
 func (a *Client) GetDistroxCmVMLogsV4(params *GetDistroxCmVMLogsV4Params) (*GetDistroxCmVMLogsV4OK, error) {
 	// TODO: Validate the params before sending

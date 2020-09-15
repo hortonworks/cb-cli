@@ -63,6 +63,8 @@ for the database restore operation typically these are written to a http.Request
 */
 type DatabaseRestoreParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*BackupID*/
 	BackupID *string
 	/*BackupLocation*/
@@ -108,6 +110,17 @@ func (o *DatabaseRestoreParams) WithHTTPClient(client *http.Client) *DatabaseRes
 // SetHTTPClient adds the HTTPClient to the database restore params
 func (o *DatabaseRestoreParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithAccountID adds the accountID to the database restore params
+func (o *DatabaseRestoreParams) WithAccountID(accountID *string) *DatabaseRestoreParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the database restore params
+func (o *DatabaseRestoreParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
 }
 
 // WithBackupID adds the backupID to the database restore params
@@ -161,6 +174,22 @@ func (o *DatabaseRestoreParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.BackupID != nil {
 
