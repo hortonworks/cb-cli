@@ -661,3 +661,63 @@ func assembleCollectionRequest(c *cli.Context) *sdxModel.DiagnosticsCollectionRe
 		IncludeSaltLogs: includeSaltLogs, UpdatePackage: updatePackage, Hosts: hosts, HostGroups: hostGroups}
 	return &request
 }
+
+func GetCMRoles(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get CM roles for sdx cluster")
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	stackCrn := c.String(fl.FlCrn.Name)
+	result, err := sdxClient.Diagnostics.GetSdxCmRoles(diagnostics.NewGetSdxCmRolesParams().WithStackCrn(stackCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(result.Payload); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
+func CollectCmDiagnostics(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "collect CM based distrox diagnostics")
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	cmCollectionRequest := assembleCMCollectionRequest(c)
+	_, err := sdxClient.Diagnostics.CollectSdxCmBasedDiagnostics(diagnostics.NewCollectSdxCmBasedDiagnosticsParams().WithBody(cmCollectionRequest))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println("CM based collection started")
+}
+
+func assembleCMCollectionRequest(c *cli.Context) *sdxModel.CmDiagnosticsCollectionRequest {
+	stackCrn := c.String(fl.FlCrn.Name)
+	collectionOnly := c.Bool(fl.FlCollectionOnly.Name)
+	updatePackage := c.Bool(fl.FlUpdatePackage.Name)
+	monitorMetricsCollection := c.Bool(fl.FlMonitorMetricsCollection.Name)
+	destinationOption := c.String(fl.FlCollectionDestination.Name)
+	destination := "CLOUD_STORAGE"
+	if collectionOnly {
+		destination = "LOCAL"
+	} else if len(destinationOption) > 0 {
+		if destinationOption == "ENG" {
+			destination = "ENG"
+		} else if destinationOption == "SUPPORT" {
+			destination = "SUPPORT"
+		}
+	}
+	rolesOption := c.String(fl.FlCollectionRoles.Name)
+	roles := make([]string, 0)
+	if len(rolesOption) > 0 {
+		roles = strings.Split(rolesOption, ",")
+	}
+	description := c.String(fl.FlDescriptionOptional.Name)
+	issue := c.String(fl.FlCollectionIssue.Name)
+	now := time.Now()
+	startTime := strfmt.DateTime(now.AddDate(-10, 0, 0))
+	endTime := strfmt.DateTime(now.AddDate(10, 0, 0))
+	request := sdxModel.CmDiagnosticsCollectionRequest{Destination: &destination, StackCrn: &stackCrn, UpdatePackage: updatePackage,
+		Roles: roles, StartTime: startTime, EndTime: endTime, Ticket: issue, Comments: description, EnableMonitorMetricsCollection: monitorMetricsCollection}
+	return &request
+}

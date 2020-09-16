@@ -211,8 +211,8 @@ func init() {
 				Subcommands: []cli.Command{
 					{
 						Name:        "collect",
-						Usage:       "collect DistroX CM diagnostics",
-						Description: `collect DistroX CM diagnostics`,
+						Usage:       "collect DistroX cluster diagnostics",
+						Description: `collect DistroX cluster diagnostics`,
 						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
 						Flags: fl.NewFlagBuilder().AddFlags(fl.FlCrn, fl.FlCollectionDestination, fl.FlCollectionOnly,
 							fl.FlCollectionLabels, fl.FlDescriptionOptional, fl.FlCollectionIssue, fl.FlCollectionExtraLogsFile,
@@ -233,6 +233,33 @@ func init() {
 						Action:      distrox.GetVmLogs,
 						BashComplete: func(c *cli.Context) {
 							for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "create-cm-bundle",
+						Usage:       "start CM based diagnostics collection for DistroX",
+						Description: `start CM based diagnostics collection for DistroX`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags: fl.NewFlagBuilder().AddFlags(fl.FlCrn, fl.FlCollectionDestination, fl.FlDescriptionOptional, fl.FlCollectionIssue, fl.FlCollectionOnly,
+							fl.FlCollectionRoles, fl.FlMonitorMetricsCollection, fl.FlUpdatePackage).AddAGlobalFlags().Build(),
+						Action: distrox.CollectCmDiagnostics,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "cm-roles",
+						Usage:       "get available roles for DistroX CM cluster",
+						Description: `get available roles for DistroX CM cluster`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build(),
+						Action:      distrox.GetCMRoles,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
