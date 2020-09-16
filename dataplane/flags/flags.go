@@ -817,6 +817,20 @@ var (
 			Usage: "comma separated host group filter for the logs that needs to be collected (from these dedicated host groups)",
 		},
 	}
+	FlCollectionRoles = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "roles",
+			Usage: "comma separated Cloudera Manager roles for diagnostics filtering",
+		},
+	}
+	FlMonitorMetricsCollection = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "monitor-metrics-collection",
+			Usage: "Flag to enable collection of metrics for chart display in CM based diagnostics collection.",
+		},
+	}
 	FlUpdatePackage = BoolFlag{
 		RequiredFlag: OPTIONAL,
 		BoolFlag: cli.BoolFlag{

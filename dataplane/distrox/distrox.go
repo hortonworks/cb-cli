@@ -416,8 +416,37 @@ func GetVmLogs(c *cli.Context) {
 	fmt.Println(buf.String())
 }
 
+func GetCMRoles(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get CM roles for distrox cluster")
+	dxClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	stackCrn := c.String(fl.FlCrn.Name)
+	result, err := dxClient.Cloudbreak.V1distrox.GetDistroxCmRoles(v1distrox.NewGetDistroxCmRolesParams().WithStackCrn(stackCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(result.Payload); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
+func CollectCmDiagnostics(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "collect CM based distrox diagnostics")
+	dxClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	cmCollectionRequest := assembleCMCollectionRequest(c)
+	_, err := dxClient.Cloudbreak.V1distrox.CollectDistroxCmBasedDiagnosticsV1(v1distrox.NewCollectDistroxCmBasedDiagnosticsV1Params().WithBody(cmCollectionRequest))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println("CM based collection started")
+}
+
 func CollectDiagnostics(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "get user synchronization state for an environment")
+	defer commonutils.TimeTrack(time.Now(), "collect distrox diagnostics")
 	dxClient := oauth.NewCloudbreakHTTPClientFromContext(c)
 	collectionRequest := assembleCollectionRequest(c)
 	_, err := dxClient.Cloudbreak.V1distrox.CollectDistroxCmDiagnosticsV4(v1distrox.NewCollectDistroxCmDiagnosticsV4Params().WithBody(collectionRequest))
@@ -476,5 +505,36 @@ func assembleCollectionRequest(c *cli.Context) *distroxModel.DiagnosticsCollecti
 	request := distroxModel.DiagnosticsCollectionV1Request{Destination: &destination, StackCrn: &stackCrn, Labels: labels,
 		Issue: issue, Description: description, StartTime: startTime, EndTime: endTime, AdditionalLogs: additionalLogs,
 		IncludeSaltLogs: includeSaltLogs, UpdatePackage: updatePackage, Hosts: hosts, HostGroups: hostGroups}
+	return &request
+}
+
+func assembleCMCollectionRequest(c *cli.Context) *distroxModel.CmDiagnosticsCollectionV1Request {
+	stackCrn := c.String(fl.FlCrn.Name)
+	collectionOnly := c.Bool(fl.FlCollectionOnly.Name)
+	updatePackage := c.Bool(fl.FlUpdatePackage.Name)
+	monitorMetricsCollection := c.Bool(fl.FlMonitorMetricsCollection.Name)
+	destinationOption := c.String(fl.FlCollectionDestination.Name)
+	destination := "CLOUD_STORAGE"
+	if collectionOnly {
+		destination = "LOCAL"
+	} else if len(destinationOption) > 0 {
+		if destinationOption == "ENG" {
+			destination = "ENG"
+		} else if destinationOption == "SUPPORT" {
+			destination = "SUPPORT"
+		}
+	}
+	rolesOption := c.String(fl.FlCollectionRoles.Name)
+	roles := make([]string, 0)
+	if len(rolesOption) > 0 {
+		roles = strings.Split(rolesOption, ",")
+	}
+	description := c.String(fl.FlDescriptionOptional.Name)
+	issue := c.String(fl.FlCollectionIssue.Name)
+	now := time.Now()
+	startTime := strfmt.DateTime(now.AddDate(-10, 0, 0))
+	endTime := strfmt.DateTime(now.AddDate(10, 0, 0))
+	request := distroxModel.CmDiagnosticsCollectionV1Request{Destination: &destination, StackCrn: &stackCrn, UpdatePackage: updatePackage,
+		Roles: roles, StartTime: startTime, EndTime: endTime, Ticket: issue, Comments: description, EnableMonitorMetricsCollection: monitorMetricsCollection}
 	return &request
 }

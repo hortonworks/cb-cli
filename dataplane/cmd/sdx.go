@@ -156,8 +156,8 @@ func init() {
 				Subcommands: []cli.Command{
 					{
 						Name:        "collect",
-						Usage:       "collect SDX CM diagnostics",
-						Description: `collect SDX CM diagnostics`,
+						Usage:       "collect SDX diagnostics",
+						Description: `collect SDX diagnostics`,
 						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
 						Flags: fl.NewFlagBuilder().AddFlags(fl.FlCrn, fl.FlCollectionDestination, fl.FlCollectionOnly,
 							fl.FlCollectionLabels, fl.FlDescriptionOptional, fl.FlCollectionIssue, fl.FlCollectionExtraLogsFile,
@@ -178,6 +178,33 @@ func init() {
 						Action:      sdx.GetVmLogs,
 						BashComplete: func(c *cli.Context) {
 							for _, f := range fl.NewFlagBuilder().AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "create-cm-bundle",
+						Usage:       "start CM based diagnostics collection for SDX",
+						Description: `start CM based diagnostics collection for SDX`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags: fl.NewFlagBuilder().AddFlags(fl.FlCrn, fl.FlCollectionDestination, fl.FlDescriptionOptional, fl.FlCollectionIssue, fl.FlCollectionOnly,
+							fl.FlCollectionRoles, fl.FlMonitorMetricsCollection, fl.FlUpdatePackage).AddAGlobalFlags().Build(),
+						Action: sdx.CollectCmDiagnostics,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "cm-roles",
+						Usage:       "get available roles for SDX CM cluster",
+						Description: `get available roles for SDX CM cluster`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build(),
+						Action:      sdx.GetCMRoles,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build() {
 								fl.PrintFlagCompletion(f)
 							}
 						},
