@@ -37,6 +37,9 @@ type EnvironmentNetworkV1Response struct {
 	// The existing network is created by the user, otherwise created by the Cloudbreak.
 	ExistingNetwork bool `json:"existingNetwork,omitempty"`
 
+	// Subnet ids of the specified networks
+	Gcp *EnvironmentNetworkGcpV1Params `json:"gcp,omitempty"`
+
 	// Subnet metadata of CB subnets, union of the DWX and public subnets
 	LiftieSubnets map[string]CloudSubnet `json:"liftieSubnets,omitempty"`
 
@@ -102,6 +105,10 @@ func (m *EnvironmentNetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDwxSubnets(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcp(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -234,6 +241,24 @@ func (m *EnvironmentNetworkV1Response) validateDwxSubnets(formats strfmt.Registr
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateGcp(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Gcp) { // not required
+		return nil
+	}
+
+	if m.Gcp != nil {
+		if err := m.Gcp.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -6,14 +6,14 @@ package autoscale
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"net/http"
 	"time"
-
-	"golang.org/x/net/context"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -62,8 +62,10 @@ for the get recommendation operation typically these are written to a http.Reque
 */
 type GetRecommendationParams struct {
 
-	/*Crn*/
-	Crn string
+	/*BlueprintName*/
+	BlueprintName *string
+	/*WorkspaceID*/
+	WorkspaceID *int64
 
 	timeout    time.Duration
 	Context    context.Context
@@ -103,15 +105,26 @@ func (o *GetRecommendationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCrn adds the crn to the get recommendation params
-func (o *GetRecommendationParams) WithCrn(crn string) *GetRecommendationParams {
-	o.SetCrn(crn)
+// WithBlueprintName adds the blueprintName to the get recommendation params
+func (o *GetRecommendationParams) WithBlueprintName(blueprintName *string) *GetRecommendationParams {
+	o.SetBlueprintName(blueprintName)
 	return o
 }
 
-// SetCrn adds the crn to the get recommendation params
-func (o *GetRecommendationParams) SetCrn(crn string) {
-	o.Crn = crn
+// SetBlueprintName adds the blueprintName to the get recommendation params
+func (o *GetRecommendationParams) SetBlueprintName(blueprintName *string) {
+	o.BlueprintName = blueprintName
+}
+
+// WithWorkspaceID adds the workspaceID to the get recommendation params
+func (o *GetRecommendationParams) WithWorkspaceID(workspaceID *int64) *GetRecommendationParams {
+	o.SetWorkspaceID(workspaceID)
+	return o
+}
+
+// SetWorkspaceID adds the workspaceId to the get recommendation params
+func (o *GetRecommendationParams) SetWorkspaceID(workspaceID *int64) {
+	o.WorkspaceID = workspaceID
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -122,9 +135,36 @@ func (o *GetRecommendationParams) WriteToRequest(r runtime.ClientRequest, reg st
 	}
 	var res []error
 
-	// path param crn
-	if err := r.SetPathParam("crn", o.Crn); err != nil {
-		return err
+	if o.BlueprintName != nil {
+
+		// query param blueprintName
+		var qrBlueprintName string
+		if o.BlueprintName != nil {
+			qrBlueprintName = *o.BlueprintName
+		}
+		qBlueprintName := qrBlueprintName
+		if qBlueprintName != "" {
+			if err := r.SetQueryParam("blueprintName", qBlueprintName); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.WorkspaceID != nil {
+
+		// query param workspaceId
+		var qrWorkspaceID int64
+		if o.WorkspaceID != nil {
+			qrWorkspaceID = *o.WorkspaceID
+		}
+		qWorkspaceID := swag.FormatInt64(qrWorkspaceID)
+		if qWorkspaceID != "" {
+			if err := r.SetQueryParam("workspaceId", qWorkspaceID); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

@@ -20,9 +20,15 @@ type AttachedFreeIpaRequest struct {
 	// Aws specific FreeIpa parameters
 	Aws *AttachedFreeIpaRequestAwsParameters `json:"aws,omitempty"`
 
+	// Azure specific FreeIpa parameters
+	Azure AttachedFreeIpaRequestAzureParameters `json:"azure,omitempty"`
+
 	// Create freeipa in environment
 	// Required: true
 	Create *bool `json:"create"`
+
+	// Gcp specific FreeIpa parameters
+	Gcp AttachedFreeIpaRequestGcpParameters `json:"gcp,omitempty"`
 
 	// The number of FreeIPA instances to create per group when creating freeipa in environment
 	InstanceCountByGroup int32 `json:"instanceCountByGroup,omitempty"`

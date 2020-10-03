@@ -21,6 +21,9 @@ type NetworkV4StackRequest struct {
 
 	// Azure-specific parameters for the network
 	Azure *AzureNetworkV4Parameters `json:"azure,omitempty"`
+
+	// GCP-specific parameters for the network
+	Gcp *GcpNetworkV4Parameters `json:"gcp,omitempty"`
 }
 
 // Validate validates this network v4 stack request
@@ -32,6 +35,10 @@ func (m *NetworkV4StackRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcp(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -69,6 +76,24 @@ func (m *NetworkV4StackRequest) validateAzure(formats strfmt.Registry) error {
 		if err := m.Azure.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azure")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *NetworkV4StackRequest) validateGcp(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Gcp) { // not required
+		return nil
+	}
+
+	if m.Gcp != nil {
+		if err := m.Gcp.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp")
 			}
 			return err
 		}

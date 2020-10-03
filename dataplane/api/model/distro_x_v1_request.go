@@ -39,6 +39,9 @@ type DistroXV1Request struct {
 	// external database
 	ExternalDatabase *DistroXDatabaseRequest `json:"externalDatabase,omitempty"`
 
+	// gcp
+	Gcp GcpDistroXV1Parameters `json:"gcp,omitempty"`
+
 	// image
 	Image *DistroXImageV1Request `json:"image,omitempty"`
 

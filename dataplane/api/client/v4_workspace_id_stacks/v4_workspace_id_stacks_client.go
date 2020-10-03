@@ -853,6 +853,34 @@ func (a *Client) RetryStackInWorkspaceV4(params *RetryStackInWorkspaceV4Params) 
 }
 
 /*
+RotateCertificates rotates the certificates of the cluster
+*/
+func (a *Client) RotateCertificates(params *RotateCertificatesParams) (*RotateCertificatesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateCertificatesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateCertificates",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/rotate_certificates",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateCertificatesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RotateCertificatesOK), nil
+
+}
+
+/*
 SetClusterMaintenanceMode sets maintenance mode for the cluster by name
 
 Setting maintenance mode for the cluster in order to be able to update Ambari and/or the Hadoop stack.

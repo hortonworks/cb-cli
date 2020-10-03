@@ -16,6 +16,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/flow_public"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1diagnostics"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1dns"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1events"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipa"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipatest"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipauser"
@@ -23,6 +24,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1kerberosmgmt"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1ldaps"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1operation"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1structured_events"
 )
 
 // Default free IP a HTTP client.
@@ -78,6 +80,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *FreeIPA {
 
 	cli.V1dns = v1dns.New(transport, formats)
 
+	cli.V1events = v1events.New(transport, formats)
+
 	cli.V1freeipa = v1freeipa.New(transport, formats)
 
 	cli.V1freeipatest = v1freeipatest.New(transport, formats)
@@ -91,6 +95,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *FreeIPA {
 	cli.V1ldaps = v1ldaps.New(transport, formats)
 
 	cli.V1operation = v1operation.New(transport, formats)
+
+	cli.V1structuredEvents = v1structured_events.New(transport, formats)
 
 	return cli
 }
@@ -146,6 +152,8 @@ type FreeIPA struct {
 
 	V1dns *v1dns.Client
 
+	V1events *v1events.Client
+
 	V1freeipa *v1freeipa.Client
 
 	V1freeipatest *v1freeipatest.Client
@@ -159,6 +167,8 @@ type FreeIPA struct {
 	V1ldaps *v1ldaps.Client
 
 	V1operation *v1operation.Client
+
+	V1structuredEvents *v1structured_events.Client
 
 	Transport runtime.ClientTransport
 }
@@ -177,6 +187,8 @@ func (c *FreeIPA) SetTransport(transport runtime.ClientTransport) {
 
 	c.V1dns.SetTransport(transport)
 
+	c.V1events.SetTransport(transport)
+
 	c.V1freeipa.SetTransport(transport)
 
 	c.V1freeipatest.SetTransport(transport)
@@ -190,5 +202,7 @@ func (c *FreeIPA) SetTransport(transport runtime.ClientTransport) {
 	c.V1ldaps.SetTransport(transport)
 
 	c.V1operation.SetTransport(transport)
+
+	c.V1structuredEvents.SetTransport(transport)
 
 }
