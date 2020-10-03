@@ -25,6 +25,9 @@ type EnvironmentNetworkV1Request struct {
 	// Subnet ids of the specified networks
 	Azure *EnvironmentNetworkAzureV1Params `json:"azure,omitempty"`
 
+	// Subnet ids of the specified networks
+	Gcp *EnvironmentNetworkGcpV1Params `json:"gcp,omitempty"`
+
 	// Mock parameters
 	Mock *EnvironmentNetworkMockV1Params `json:"mock,omitempty"`
 
@@ -62,6 +65,10 @@ func (m *EnvironmentNetworkV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcp(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -127,6 +134,24 @@ func (m *EnvironmentNetworkV1Request) validateAzure(formats strfmt.Registry) err
 		if err := m.Azure.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azure")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Request) validateGcp(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Gcp) { // not required
+		return nil
+	}
+
+	if m.Gcp != nil {
+		if err := m.Gcp.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp")
 			}
 			return err
 		}

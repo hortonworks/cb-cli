@@ -28,7 +28,7 @@ type DetailedEnvironmentV1Response struct {
 	// AWS Specific parameters.
 	Aws *AwsEnvironmentV1Parameters `json:"aws,omitempty"`
 
-	// Azure Specific parameters.
+	// AZURE Specific parameters.
 	Azure *AzureEnvironmentV1Parameters `json:"azure,omitempty"`
 
 	// Cloud platform of the environment.
@@ -62,6 +62,9 @@ type DetailedEnvironmentV1Response struct {
 
 	// The FreeIPA paramaters
 	FreeIpa *FreeIpaResponse `json:"freeIpa,omitempty"`
+
+	// GCP Specific parameters.
+	Gcp GcpEnvironmentV1Parameters `json:"gcp,omitempty"`
 
 	// IDBroker mapping source.
 	// Enum: [NONE MOCK IDBMMS]
@@ -106,6 +109,9 @@ type DetailedEnvironmentV1Response struct {
 	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
 	// Enum: [DIRECT CCM CLUSTER_PROXY]
 	Tunnel string `json:"tunnel,omitempty"`
+
+	// YARN Specific parameters.
+	Yarn YarnEnvironmentV1Parameters `json:"yarn,omitempty"`
 }
 
 // Validate validates this detailed environment v1 response

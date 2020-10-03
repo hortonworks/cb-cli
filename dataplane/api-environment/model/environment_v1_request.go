@@ -28,7 +28,7 @@ type EnvironmentV1Request struct {
 	// AWS Specific parameters.
 	Aws *AwsEnvironmentV1Parameters `json:"aws,omitempty"`
 
-	// AWS Specific parameters.
+	// AZURE Specific parameters.
 	Azure *AzureEnvironmentV1Parameters `json:"azure,omitempty"`
 
 	// Cloud storage validation enabled or not.
@@ -45,6 +45,9 @@ type EnvironmentV1Request struct {
 
 	// Properties for FreeIpa which can be attached to the given environment
 	FreeIpa *AttachedFreeIpaRequest `json:"freeIpa,omitempty"`
+
+	// GCP Specific parameters.
+	Gcp GcpEnvironmentV1Parameters `json:"gcp,omitempty"`
 
 	// IDBroker mapping source.
 	// Enum: [NONE MOCK IDBMMS]

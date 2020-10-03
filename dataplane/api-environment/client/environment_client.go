@@ -18,8 +18,10 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1credentialsaudit"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1envplatform_resources"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1events"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1platform_resources"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1proxies"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1structured_events"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1tags"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1telemetry"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1utils"
@@ -82,9 +84,13 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Environmen
 
 	cli.V1envplatformResources = v1envplatform_resources.New(transport, formats)
 
+	cli.V1events = v1events.New(transport, formats)
+
 	cli.V1platformResources = v1platform_resources.New(transport, formats)
 
 	cli.V1proxies = v1proxies.New(transport, formats)
+
+	cli.V1structuredEvents = v1structured_events.New(transport, formats)
 
 	cli.V1tags = v1tags.New(transport, formats)
 
@@ -150,9 +156,13 @@ type Environment struct {
 
 	V1envplatformResources *v1envplatform_resources.Client
 
+	V1events *v1events.Client
+
 	V1platformResources *v1platform_resources.Client
 
 	V1proxies *v1proxies.Client
+
+	V1structuredEvents *v1structured_events.Client
 
 	V1tags *v1tags.Client
 
@@ -181,9 +191,13 @@ func (c *Environment) SetTransport(transport runtime.ClientTransport) {
 
 	c.V1envplatformResources.SetTransport(transport)
 
+	c.V1events.SetTransport(transport)
+
 	c.V1platformResources.SetTransport(transport)
 
 	c.V1proxies.SetTransport(transport)
+
+	c.V1structuredEvents.SetTransport(transport)
 
 	c.V1tags.SetTransport(transport)
 

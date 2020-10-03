@@ -29,6 +29,9 @@ type DatabaseServerV4StackRequest struct {
 	// Name of the database vendor (MYSQL, POSTGRES, ...)
 	DatabaseVendor string `json:"databaseVendor,omitempty"`
 
+	// GCP-specific parameters for the database server
+	Gcp *GcpDatabaseServerV4Parameters `json:"gcp,omitempty"`
+
 	// Instance type of the database server
 	InstanceType string `json:"instanceType,omitempty"`
 
@@ -59,6 +62,10 @@ func (m *DatabaseServerV4StackRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcp(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -104,6 +111,24 @@ func (m *DatabaseServerV4StackRequest) validateAzure(formats strfmt.Registry) er
 		if err := m.Azure.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azure")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DatabaseServerV4StackRequest) validateGcp(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Gcp) { // not required
+		return nil
+	}
+
+	if m.Gcp != nil {
+		if err := m.Gcp.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp")
 			}
 			return err
 		}

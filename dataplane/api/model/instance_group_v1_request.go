@@ -29,6 +29,9 @@ type InstanceGroupV1Request struct {
 	// Enum: [AWS GCP AZURE OPENSTACK YARN MOCK]
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
+	// gcp
+	Gcp GcpInstanceGroupV1Parameters `json:"gcp,omitempty"`
+
 	// name of the instance group
 	// Required: true
 	Name *string `json:"name"`

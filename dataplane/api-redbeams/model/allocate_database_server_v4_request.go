@@ -32,6 +32,9 @@ type AllocateDatabaseServerV4Request struct {
 	// Required: true
 	EnvironmentCrn *string `json:"environmentCrn"`
 
+	// Azure-specific parameters for the database stack
+	Gcp GcpDBStackV4Parameters `json:"gcp,omitempty"`
+
 	// Name of the database stack
 	// Max Length: 40
 	// Min Length: 5

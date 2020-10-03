@@ -20,6 +20,10 @@ type SynchronizeAllUsersV1Request struct {
 	// The id of the account to run sync on
 	AccountID string `json:"accountId,omitempty"`
 
+	// Optional workload user name to be deleted. Currently only 1 deleted user is supported. When this is included, there should also be exactly 1 crn in the machineUsers or users set that corresponds to the deleted workload user.
+	// Unique: true
+	DeletedWorkloadUsers []string `json:"deletedWorkloadUsers"`
+
 	// Optional environment crns to sync
 	// Unique: true
 	Environments []string `json:"environments"`
@@ -37,6 +41,10 @@ type SynchronizeAllUsersV1Request struct {
 func (m *SynchronizeAllUsersV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDeletedWorkloadUsers(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateEnvironments(formats); err != nil {
 		res = append(res, err)
 	}
@@ -52,6 +60,19 @@ func (m *SynchronizeAllUsersV1Request) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *SynchronizeAllUsersV1Request) validateDeletedWorkloadUsers(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DeletedWorkloadUsers) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("deletedWorkloadUsers", "body", m.DeletedWorkloadUsers); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -44,9 +44,9 @@ github.com/hortonworks/dp-cli-common/utils
 # github.com/konsorten/go-windows-terminal-sequences v1.0.2
 github.com/konsorten/go-windows-terminal-sequences
 # github.com/mailru/easyjson v0.0.0-20190312143242-1de009706dbe
+github.com/mailru/easyjson/buffer
 github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
-github.com/mailru/easyjson/buffer
 # github.com/mattn/go-runewidth v0.0.4
 github.com/mattn/go-runewidth
 # github.com/mitchellh/go-homedir v1.0.0
@@ -60,27 +60,26 @@ github.com/sirupsen/logrus
 # github.com/urfave/cli v1.20.0
 github.com/urfave/cli
 # golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4
-golang.org/x/crypto/ssh/terminal
 golang.org/x/crypto/ed25519
 golang.org/x/crypto/ed25519/internal/edwards25519
+golang.org/x/crypto/ssh/terminal
 # golang.org/x/net v0.0.0-20190628185345-da137c7871d7
-golang.org/x/net/context
 golang.org/x/net/idna
 # golang.org/x/sys v0.0.0-20190626221950-04f50cda93cb
 golang.org/x/sys/unix
 golang.org/x/sys/windows
 # golang.org/x/text v0.3.2
-golang.org/x/text/encoding/unicode
 golang.org/x/text/encoding
 golang.org/x/text/encoding/internal
 golang.org/x/text/encoding/internal/identifier
+golang.org/x/text/encoding/unicode
 golang.org/x/text/internal/utf8internal
 golang.org/x/text/runes
+golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
+golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/width
-golang.org/x/text/secure/bidirule
-golang.org/x/text/unicode/bidi
 # gopkg.in/asn1-ber.v1 v1.0.0-20170511165959-379148ca0225
 gopkg.in/asn1-ber.v1
 # gopkg.in/ldap.v2 v2.5.1

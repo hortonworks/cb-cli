@@ -28,6 +28,9 @@ type EnvironmentEditV1Request struct {
 	// AWS Specific parameters.
 	Aws *AwsEnvironmentV1Parameters `json:"aws,omitempty"`
 
+	// AZURE Specific parameters.
+	Azure *AzureEnvironmentV1Parameters `json:"azure,omitempty"`
+
 	// Cloud storage validation enabled or not.
 	// Enum: [ENABLED DISABLED]
 	CloudStorageValidation string `json:"cloudStorageValidation,omitempty"`
@@ -36,6 +39,9 @@ type EnvironmentEditV1Request struct {
 	// Max Length: 1000
 	// Min Length: 0
 	Description *string `json:"description,omitempty"`
+
+	// GCP Specific parameters.
+	Gcp GcpEnvironmentV1Parameters `json:"gcp,omitempty"`
 
 	// IDBroker mapping source.
 	// Enum: [NONE MOCK IDBMMS]
@@ -60,6 +66,10 @@ func (m *EnvironmentEditV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAws(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAzure(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -121,6 +131,24 @@ func (m *EnvironmentEditV1Request) validateAws(formats strfmt.Registry) error {
 		if err := m.Aws.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("aws")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EnvironmentEditV1Request) validateAzure(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Azure) { // not required
+		return nil
+	}
+
+	if m.Azure != nil {
+		if err := m.Azure.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("azure")
 			}
 			return err
 		}
