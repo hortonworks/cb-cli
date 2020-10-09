@@ -23,7 +23,7 @@ type CheckRightV4SingleResponse struct {
 	Result bool `json:"result,omitempty"`
 
 	// right
-	// Enum: [ENV_CREATE ENV_START ENV_STOP ENV_DELETE DH_CREATE DH_START DH_STOP DH_DELETE SDX_UPGRADE CHANGE_CRED DISTROX_READ DISTROX_WRITE SDX_READ SDX_WRITE ENVIRONMENT_READ ENVIRONMENT_WRITE]
+	// Enum: [ENV_CREATE ENV_START ENV_STOP ENV_DELETE ENV_DESCRIBE CHANGE_CRED DH_CREATE DH_START DH_STOP DH_DELETE DH_REPAIR DH_RESIZE DH_RETRY SDX_UPGRADE SDX_REPAIR SDX_RETRY LIST_ASSIGNED_ROLES DISTROX_READ DISTROX_WRITE SDX_READ SDX_WRITE ENVIRONMENT_READ ENVIRONMENT_WRITE]
 	Right string `json:"right,omitempty"`
 }
 
@@ -45,7 +45,7 @@ var checkRightV4SingleResponseTypeRightPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["ENV_CREATE","ENV_START","ENV_STOP","ENV_DELETE","DH_CREATE","DH_START","DH_STOP","DH_DELETE","SDX_UPGRADE","CHANGE_CRED","DISTROX_READ","DISTROX_WRITE","SDX_READ","SDX_WRITE","ENVIRONMENT_READ","ENVIRONMENT_WRITE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["ENV_CREATE","ENV_START","ENV_STOP","ENV_DELETE","ENV_DESCRIBE","CHANGE_CRED","DH_CREATE","DH_START","DH_STOP","DH_DELETE","DH_REPAIR","DH_RESIZE","DH_RETRY","SDX_UPGRADE","SDX_REPAIR","SDX_RETRY","LIST_ASSIGNED_ROLES","DISTROX_READ","DISTROX_WRITE","SDX_READ","SDX_WRITE","ENVIRONMENT_READ","ENVIRONMENT_WRITE"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -67,6 +67,12 @@ const (
 	// CheckRightV4SingleResponseRightENVDELETE captures enum value "ENV_DELETE"
 	CheckRightV4SingleResponseRightENVDELETE string = "ENV_DELETE"
 
+	// CheckRightV4SingleResponseRightENVDESCRIBE captures enum value "ENV_DESCRIBE"
+	CheckRightV4SingleResponseRightENVDESCRIBE string = "ENV_DESCRIBE"
+
+	// CheckRightV4SingleResponseRightCHANGECRED captures enum value "CHANGE_CRED"
+	CheckRightV4SingleResponseRightCHANGECRED string = "CHANGE_CRED"
+
 	// CheckRightV4SingleResponseRightDHCREATE captures enum value "DH_CREATE"
 	CheckRightV4SingleResponseRightDHCREATE string = "DH_CREATE"
 
@@ -79,11 +85,26 @@ const (
 	// CheckRightV4SingleResponseRightDHDELETE captures enum value "DH_DELETE"
 	CheckRightV4SingleResponseRightDHDELETE string = "DH_DELETE"
 
+	// CheckRightV4SingleResponseRightDHREPAIR captures enum value "DH_REPAIR"
+	CheckRightV4SingleResponseRightDHREPAIR string = "DH_REPAIR"
+
+	// CheckRightV4SingleResponseRightDHRESIZE captures enum value "DH_RESIZE"
+	CheckRightV4SingleResponseRightDHRESIZE string = "DH_RESIZE"
+
+	// CheckRightV4SingleResponseRightDHRETRY captures enum value "DH_RETRY"
+	CheckRightV4SingleResponseRightDHRETRY string = "DH_RETRY"
+
 	// CheckRightV4SingleResponseRightSDXUPGRADE captures enum value "SDX_UPGRADE"
 	CheckRightV4SingleResponseRightSDXUPGRADE string = "SDX_UPGRADE"
 
-	// CheckRightV4SingleResponseRightCHANGECRED captures enum value "CHANGE_CRED"
-	CheckRightV4SingleResponseRightCHANGECRED string = "CHANGE_CRED"
+	// CheckRightV4SingleResponseRightSDXREPAIR captures enum value "SDX_REPAIR"
+	CheckRightV4SingleResponseRightSDXREPAIR string = "SDX_REPAIR"
+
+	// CheckRightV4SingleResponseRightSDXRETRY captures enum value "SDX_RETRY"
+	CheckRightV4SingleResponseRightSDXRETRY string = "SDX_RETRY"
+
+	// CheckRightV4SingleResponseRightLISTASSIGNEDROLES captures enum value "LIST_ASSIGNED_ROLES"
+	CheckRightV4SingleResponseRightLISTASSIGNEDROLES string = "LIST_ASSIGNED_ROLES"
 
 	// CheckRightV4SingleResponseRightDISTROXREAD captures enum value "DISTROX_READ"
 	CheckRightV4SingleResponseRightDISTROXREAD string = "DISTROX_READ"

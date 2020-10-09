@@ -211,6 +211,18 @@ func init() {
 					},
 				},
 			},
+			{
+				Name:   "rotate-certificates",
+				Usage:  "rotate SDX AutoTLS certificates",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().Build(),
+				Action: sdx.RotateCertificates,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }

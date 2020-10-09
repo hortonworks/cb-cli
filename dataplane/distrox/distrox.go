@@ -538,3 +538,15 @@ func assembleCMCollectionRequest(c *cli.Context) *distroxModel.CmDiagnosticsColl
 		Roles: roles, StartTime: startTime, EndTime: endTime, Ticket: issue, Comments: description, EnableMonitorMetricsCollection: monitorMetricsCollection}
 	return &request
 }
+
+func RotateCertificates(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "Rotate AutoTLS certificates for distrox cluster")
+	name := c.String(fl.FlName.Name)
+	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
+	body := model.CertificatesRotationV4Request{RotateCertificatesType: model.CertificatesRotationV4RequestRotateCertificatesTypeHOSTCERTS}
+	_, err := dxClient.Cloudbreak.V1distrox.RotateAutoTLSCertificatesByName(v1distrox.NewRotateAutoTLSCertificatesByNameParams().WithName(name).WithBody(&body))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("[RotateCerts] Distrox cluster certificate rotation started for: %s", name)
+}

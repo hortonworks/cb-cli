@@ -165,7 +165,7 @@ generate-swagger-environment:
 generate-swagger-docker-all: generate-swagger-docker generate-swagger-sdx-docker generate-swagger-freeipa-docker generate-swagger-redbeams-docker generate-swagger-environment-docker
 
 generate-swagger-docker: _init-swagger-generation
-	@docker run --rm -it -v "${GOPATH}":"${GOPATH}" -v ${PWD}/build/swagger.json:${PWD}/build/swagger.json  -w "${PWD}" -e GOPATH --net=host quay.io/goswagger/swagger:v0.17.2 \
+	@docker run --rm -it -v "${GOPATH}":"${GOPATH}" -v ${PWD}/build/swagger.json:${PWD}/build/swagger.json  -w "${PWD}" -e GOPATH --net=host quay.io/goswagger/swagger:v0.19.0 \
 	generate client -f ${PWD}/build/swagger.json -c client -m model -t dataplane/api
 
 generate-swagger-sdx-docker: _init-swagger-generation-sdx

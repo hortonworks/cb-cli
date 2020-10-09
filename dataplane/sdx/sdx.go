@@ -721,3 +721,15 @@ func assembleCMCollectionRequest(c *cli.Context) *sdxModel.CmDiagnosticsCollecti
 		Roles: roles, StartTime: startTime, EndTime: endTime, Ticket: issue, Comments: description, EnableMonitorMetricsCollection: monitorMetricsCollection}
 	return &request
 }
+
+func RotateCertificates(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "Rotate AutoTLS certificates for sdx cluster")
+	name := c.String(fl.FlName.Name)
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	body := model.CertificatesRotationV4Request{RotateCertificatesType: model.CertificatesRotationV4RequestRotateCertificatesTypeHOSTCERTS}
+	_, err := sdxClient.Sdx.RotateAutoTLSCertificatesByName(sdx.NewRotateAutoTLSCertificatesByNameParams().WithName(name).WithBody(&body))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("[RotateCerts] SDX cluster certificate rotation started for: %s", name)
+}
