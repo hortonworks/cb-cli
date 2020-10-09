@@ -389,6 +389,34 @@ func (a *Client) ListSdx(params *ListSdxParams) (*ListSdxOK, error) {
 }
 
 /*
+RenewCertificateOnSdxByCrn renews certificate on s d x cluster by crn
+*/
+func (a *Client) RenewCertificateOnSdxByCrn(params *RenewCertificateOnSdxByCrnParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRenewCertificateOnSdxByCrnParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "renewCertificateOnSdxByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/crn/{crn}/renew_certificate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RenewCertificateOnSdxByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 RepairSdxNode repairs an sdx node in the specified hostgroup
 */
 func (a *Client) RepairSdxNode(params *RepairSdxNodeParams) (*RepairSdxNodeOK, error) {
@@ -553,6 +581,62 @@ func (a *Client) RetrySdxByCrn(params *RetrySdxByCrnParams) (*RetrySdxByCrnOK, e
 		return nil, err
 	}
 	return result.(*RetrySdxByCrnOK), nil
+
+}
+
+/*
+RotateAutoTLSCertificatesByCrn rotates the certificates of the cluster
+*/
+func (a *Client) RotateAutoTLSCertificatesByCrn(params *RotateAutoTLSCertificatesByCrnParams) (*RotateAutoTLSCertificatesByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateAutoTLSCertificatesByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateAutoTlsCertificatesByCrn",
+		Method:             "PUT",
+		PathPattern:        "/sdx/crn/{crn}/rotate_autotls_certificates",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateAutoTLSCertificatesByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RotateAutoTLSCertificatesByCrnOK), nil
+
+}
+
+/*
+RotateAutoTLSCertificatesByName rotates the certificates of the cluster
+*/
+func (a *Client) RotateAutoTLSCertificatesByName(params *RotateAutoTLSCertificatesByNameParams) (*RotateAutoTLSCertificatesByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateAutoTLSCertificatesByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateAutoTlsCertificatesByName",
+		Method:             "PUT",
+		PathPattern:        "/sdx/{name}/rotate_autotls_certificates",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateAutoTLSCertificatesByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RotateAutoTLSCertificatesByNameOK), nil
 
 }
 

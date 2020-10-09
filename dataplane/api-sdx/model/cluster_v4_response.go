@@ -26,6 +26,10 @@ type ClusterV4Response struct {
 	// blueprint for the cluster
 	Blueprint *BlueprintV4Response `json:"blueprint,omitempty"`
 
+	// Indicates the certificate status on the cluster
+	// Enum: [VALID HOST_CERT_EXPIRING]
+	CertExpirationState string `json:"certExpirationState,omitempty"`
+
 	// filesystem for a specific stack
 	CloudStorage *CloudStorageResponse `json:"cloudStorage,omitempty"`
 
@@ -117,6 +121,10 @@ func (m *ClusterV4Response) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateCertExpirationState(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCloudStorage(formats); err != nil {
 		res = append(res, err)
 	}
@@ -176,6 +184,49 @@ func (m *ClusterV4Response) validateBlueprint(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var clusterV4ResponseTypeCertExpirationStatePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["VALID","HOST_CERT_EXPIRING"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		clusterV4ResponseTypeCertExpirationStatePropEnum = append(clusterV4ResponseTypeCertExpirationStatePropEnum, v)
+	}
+}
+
+const (
+
+	// ClusterV4ResponseCertExpirationStateVALID captures enum value "VALID"
+	ClusterV4ResponseCertExpirationStateVALID string = "VALID"
+
+	// ClusterV4ResponseCertExpirationStateHOSTCERTEXPIRING captures enum value "HOST_CERT_EXPIRING"
+	ClusterV4ResponseCertExpirationStateHOSTCERTEXPIRING string = "HOST_CERT_EXPIRING"
+)
+
+// prop value enum
+func (m *ClusterV4Response) validateCertExpirationStateEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, clusterV4ResponseTypeCertExpirationStatePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *ClusterV4Response) validateCertExpirationState(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CertExpirationState) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCertExpirationStateEnum("certExpirationState", "body", m.CertExpirationState); err != nil {
+		return err
 	}
 
 	return nil

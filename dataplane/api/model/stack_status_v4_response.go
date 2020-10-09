@@ -19,6 +19,10 @@ import (
 // swagger:model StackStatusV4Response
 type StackStatusV4Response struct {
 
+	// Indicates the certificate status on the cluster
+	// Enum: [VALID HOST_CERT_EXPIRING]
+	CertExpirationState string `json:"certExpirationState,omitempty"`
+
 	// cluster status
 	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED BACKUP_IN_PROGRESS BACKUP_FAILED BACKUP_FINISHED RESTORE_IN_PROGRESS RESTORE_FAILED RESTORE_FINISHED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETED_ON_PROVIDER_SIDE DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED AMBIGUOUS EXTERNAL_DATABASE_CREATION_IN_PROGRESS EXTERNAL_DATABASE_CREATION_FAILED EXTERNAL_DATABASE_DELETION_IN_PROGRESS EXTERNAL_DATABASE_DELETION_FINISHED EXTERNAL_DATABASE_DELETION_FAILED]
 	ClusterStatus string `json:"clusterStatus,omitempty"`
@@ -44,6 +48,10 @@ type StackStatusV4Response struct {
 func (m *StackStatusV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCertExpirationState(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateClusterStatus(formats); err != nil {
 		res = append(res, err)
 	}
@@ -55,6 +63,49 @@ func (m *StackStatusV4Response) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var stackStatusV4ResponseTypeCertExpirationStatePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["VALID","HOST_CERT_EXPIRING"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		stackStatusV4ResponseTypeCertExpirationStatePropEnum = append(stackStatusV4ResponseTypeCertExpirationStatePropEnum, v)
+	}
+}
+
+const (
+
+	// StackStatusV4ResponseCertExpirationStateVALID captures enum value "VALID"
+	StackStatusV4ResponseCertExpirationStateVALID string = "VALID"
+
+	// StackStatusV4ResponseCertExpirationStateHOSTCERTEXPIRING captures enum value "HOST_CERT_EXPIRING"
+	StackStatusV4ResponseCertExpirationStateHOSTCERTEXPIRING string = "HOST_CERT_EXPIRING"
+)
+
+// prop value enum
+func (m *StackStatusV4Response) validateCertExpirationStateEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, stackStatusV4ResponseTypeCertExpirationStatePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *StackStatusV4Response) validateCertExpirationState(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CertExpirationState) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCertExpirationStateEnum("certExpirationState", "body", m.CertExpirationState); err != nil {
+		return err
+	}
+
 	return nil
 }
 

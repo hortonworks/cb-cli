@@ -737,6 +737,36 @@ func (a *Client) PutScalingDistroXV1ByName(params *PutScalingDistroXV1ByNamePara
 }
 
 /*
+RenewDistroXCertificate triggers a certificate renewal on the desired cluster which is identified via crn
+
+Trigger a certificate renewal on the specified cluster.
+*/
+func (a *Client) RenewDistroXCertificate(params *RenewDistroXCertificateParams) (*RenewDistroXCertificateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRenewDistroXCertificateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "renewDistroXCertificate",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/crn/{crn}/renew_certificate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RenewDistroXCertificateReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RenewDistroXCertificateOK), nil
+
+}
+
+/*
 RepairDistroXV1ByCrn repairs the stack by crn
 
 Removing the failed nodes and starting new nodes to substitute them.
@@ -853,6 +883,62 @@ func (a *Client) RetryDistroXV1ByName(params *RetryDistroXV1ByNameParams) error 
 		return err
 	}
 	return nil
+
+}
+
+/*
+RotateAutoTLSCertificatesByCrn rotates the certificates of the cluster
+*/
+func (a *Client) RotateAutoTLSCertificatesByCrn(params *RotateAutoTLSCertificatesByCrnParams) (*RotateAutoTLSCertificatesByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateAutoTLSCertificatesByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateAutoTlsCertificatesByCrn",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/crn/{crn}/rotate_autotls_certificates",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateAutoTLSCertificatesByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RotateAutoTLSCertificatesByCrnOK), nil
+
+}
+
+/*
+RotateAutoTLSCertificatesByName rotates the certificates of the cluster
+*/
+func (a *Client) RotateAutoTLSCertificatesByName(params *RotateAutoTLSCertificatesByNameParams) (*RotateAutoTLSCertificatesByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateAutoTLSCertificatesByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateAutoTlsCertificatesByName",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/name/{name}/rotate_autotls_certificates",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateAutoTLSCertificatesByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RotateAutoTLSCertificatesByNameOK), nil
 
 }
 

@@ -19,6 +19,10 @@ import (
 // swagger:model SdxClusterDetailResponse
 type SdxClusterDetailResponse struct {
 
+	// Indicates the certificate status on the cluster
+	// Enum: [VALID HOST_CERT_EXPIRING]
+	CertExpirationState string `json:"certExpirationState,omitempty"`
+
 	// cloud storage base location
 	CloudStorageBaseLocation string `json:"cloudStorageBaseLocation,omitempty"`
 
@@ -64,7 +68,7 @@ type SdxClusterDetailResponse struct {
 	StackV4Response *StackV4Response `json:"stackV4Response,omitempty"`
 
 	// status
-	// Enum: [REQUESTED WAIT_FOR_ENVIRONMENT ENVIRONMENT_CREATED STACK_CREATION_IN_PROGRESS STACK_CREATION_FINISHED STACK_DELETED STACK_DELETION_IN_PROGRESS EXTERNAL_DATABASE_CREATION_IN_PROGRESS EXTERNAL_DATABASE_DELETION_IN_PROGRESS EXTERNAL_DATABASE_START_IN_PROGRESS EXTERNAL_DATABASE_STARTED EXTERNAL_DATABASE_STOP_IN_PROGRESS EXTERNAL_DATABASE_STOPPED EXTERNAL_DATABASE_CREATED RUNNING PROVISIONING_FAILED REPAIR_IN_PROGRESS REPAIR_FAILED CHANGE_IMAGE_IN_PROGRESS DATALAKE_UPGRADE_IN_PROGRESS DATALAKE_UPGRADE_FAILED DELETE_REQUESTED DELETED DELETE_FAILED DELETED_ON_PROVIDER_SIDE START_IN_PROGRESS START_FAILED STOP_IN_PROGRESS STOP_FAILED STOPPED CLUSTER_AMBIGUOUS SYNC_FAILED]
+	// Enum: [REQUESTED WAIT_FOR_ENVIRONMENT ENVIRONMENT_CREATED STACK_CREATION_IN_PROGRESS STACK_CREATION_FINISHED STACK_DELETED STACK_DELETION_IN_PROGRESS EXTERNAL_DATABASE_CREATION_IN_PROGRESS EXTERNAL_DATABASE_DELETION_IN_PROGRESS EXTERNAL_DATABASE_START_IN_PROGRESS EXTERNAL_DATABASE_STARTED EXTERNAL_DATABASE_STOP_IN_PROGRESS EXTERNAL_DATABASE_STOPPED EXTERNAL_DATABASE_CREATED RUNNING PROVISIONING_FAILED REPAIR_IN_PROGRESS REPAIR_FAILED CHANGE_IMAGE_IN_PROGRESS DATALAKE_UPGRADE_IN_PROGRESS DATALAKE_UPGRADE_FAILED DELETE_REQUESTED DELETED DELETE_FAILED DELETED_ON_PROVIDER_SIDE START_IN_PROGRESS START_FAILED STOP_IN_PROGRESS STOP_FAILED STOPPED CLUSTER_AMBIGUOUS SYNC_FAILED CERT_ROTATION_IN_PROGRESS CERT_ROTATION_FAILED CERT_ROTATION_FINISHED]
 	Status string `json:"status,omitempty"`
 
 	// status reason
@@ -77,6 +81,10 @@ type SdxClusterDetailResponse struct {
 // Validate validates this sdx cluster detail response
 func (m *SdxClusterDetailResponse) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateCertExpirationState(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateCloudStorageFileSystemType(formats); err != nil {
 		res = append(res, err)
@@ -101,6 +109,49 @@ func (m *SdxClusterDetailResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var sdxClusterDetailResponseTypeCertExpirationStatePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["VALID","HOST_CERT_EXPIRING"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		sdxClusterDetailResponseTypeCertExpirationStatePropEnum = append(sdxClusterDetailResponseTypeCertExpirationStatePropEnum, v)
+	}
+}
+
+const (
+
+	// SdxClusterDetailResponseCertExpirationStateVALID captures enum value "VALID"
+	SdxClusterDetailResponseCertExpirationStateVALID string = "VALID"
+
+	// SdxClusterDetailResponseCertExpirationStateHOSTCERTEXPIRING captures enum value "HOST_CERT_EXPIRING"
+	SdxClusterDetailResponseCertExpirationStateHOSTCERTEXPIRING string = "HOST_CERT_EXPIRING"
+)
+
+// prop value enum
+func (m *SdxClusterDetailResponse) validateCertExpirationStateEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, sdxClusterDetailResponseTypeCertExpirationStatePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *SdxClusterDetailResponse) validateCertExpirationState(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CertExpirationState) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCertExpirationStateEnum("certExpirationState", "body", m.CertExpirationState); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -245,7 +296,7 @@ var sdxClusterDetailResponseTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","WAIT_FOR_ENVIRONMENT","ENVIRONMENT_CREATED","STACK_CREATION_IN_PROGRESS","STACK_CREATION_FINISHED","STACK_DELETED","STACK_DELETION_IN_PROGRESS","EXTERNAL_DATABASE_CREATION_IN_PROGRESS","EXTERNAL_DATABASE_DELETION_IN_PROGRESS","EXTERNAL_DATABASE_START_IN_PROGRESS","EXTERNAL_DATABASE_STARTED","EXTERNAL_DATABASE_STOP_IN_PROGRESS","EXTERNAL_DATABASE_STOPPED","EXTERNAL_DATABASE_CREATED","RUNNING","PROVISIONING_FAILED","REPAIR_IN_PROGRESS","REPAIR_FAILED","CHANGE_IMAGE_IN_PROGRESS","DATALAKE_UPGRADE_IN_PROGRESS","DATALAKE_UPGRADE_FAILED","DELETE_REQUESTED","DELETED","DELETE_FAILED","DELETED_ON_PROVIDER_SIDE","START_IN_PROGRESS","START_FAILED","STOP_IN_PROGRESS","STOP_FAILED","STOPPED","CLUSTER_AMBIGUOUS","SYNC_FAILED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","WAIT_FOR_ENVIRONMENT","ENVIRONMENT_CREATED","STACK_CREATION_IN_PROGRESS","STACK_CREATION_FINISHED","STACK_DELETED","STACK_DELETION_IN_PROGRESS","EXTERNAL_DATABASE_CREATION_IN_PROGRESS","EXTERNAL_DATABASE_DELETION_IN_PROGRESS","EXTERNAL_DATABASE_START_IN_PROGRESS","EXTERNAL_DATABASE_STARTED","EXTERNAL_DATABASE_STOP_IN_PROGRESS","EXTERNAL_DATABASE_STOPPED","EXTERNAL_DATABASE_CREATED","RUNNING","PROVISIONING_FAILED","REPAIR_IN_PROGRESS","REPAIR_FAILED","CHANGE_IMAGE_IN_PROGRESS","DATALAKE_UPGRADE_IN_PROGRESS","DATALAKE_UPGRADE_FAILED","DELETE_REQUESTED","DELETED","DELETE_FAILED","DELETED_ON_PROVIDER_SIDE","START_IN_PROGRESS","START_FAILED","STOP_IN_PROGRESS","STOP_FAILED","STOPPED","CLUSTER_AMBIGUOUS","SYNC_FAILED","CERT_ROTATION_IN_PROGRESS","CERT_ROTATION_FAILED","CERT_ROTATION_FINISHED"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -350,6 +401,15 @@ const (
 
 	// SdxClusterDetailResponseStatusSYNCFAILED captures enum value "SYNC_FAILED"
 	SdxClusterDetailResponseStatusSYNCFAILED string = "SYNC_FAILED"
+
+	// SdxClusterDetailResponseStatusCERTROTATIONINPROGRESS captures enum value "CERT_ROTATION_IN_PROGRESS"
+	SdxClusterDetailResponseStatusCERTROTATIONINPROGRESS string = "CERT_ROTATION_IN_PROGRESS"
+
+	// SdxClusterDetailResponseStatusCERTROTATIONFAILED captures enum value "CERT_ROTATION_FAILED"
+	SdxClusterDetailResponseStatusCERTROTATIONFAILED string = "CERT_ROTATION_FAILED"
+
+	// SdxClusterDetailResponseStatusCERTROTATIONFINISHED captures enum value "CERT_ROTATION_FINISHED"
+	SdxClusterDetailResponseStatusCERTROTATIONFINISHED string = "CERT_ROTATION_FINISHED"
 )
 
 // prop value enum
