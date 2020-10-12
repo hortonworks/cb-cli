@@ -325,6 +325,13 @@ var (
 			Usage: "in case of AWS storage it specifies the instanceProfile",
 		},
 	}
+	FlCloudStorageServiceAccountOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "cloud-storage-gcp-service-account",
+			Usage: "in case of GCP storage it specifies the service account",
+		},
+	}
 	FlRuntimeOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{

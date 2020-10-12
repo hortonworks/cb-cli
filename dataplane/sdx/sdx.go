@@ -108,6 +108,7 @@ func CreateSdx(c *cli.Context) {
 	clusterShape := c.String(fl.FlClusterShape.Name)
 	baseLocation := c.String(fl.FlCloudStorageBaseLocationOptional.Name)
 	instanceProfile := c.String(fl.FlCloudStorageInstanceProfileOptional.Name)
+	serviceAccount := c.String(fl.FlCloudStorageServiceAccountOptional.Name)
 	managedIdentity := c.String(fl.FlCloudStorageManagedIdentityOptional.Name)
 	runtime := c.String(fl.FlRuntimeOptional.Name)
 	withExternalDatabase := c.Bool(fl.FlWithExternalDatabaseOptional.Name)
@@ -122,14 +123,14 @@ func CreateSdx(c *cli.Context) {
 	inputJson := assembleStackRequest(c)
 	log.Infof("[CreateSdx] Runtime: %s", runtime)
 	if inputJson != nil {
-		createInternalSdx(envName, inputJson, c, name, baseLocation, instanceProfile, managedIdentity, runtime, withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled)
+		createInternalSdx(envName, inputJson, c, name, baseLocation, instanceProfile, managedIdentity, serviceAccount, runtime, withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled)
 	} else {
-		createSdx(clusterShape, envName, c, name, baseLocation, instanceProfile, managedIdentity, runtime, withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled)
+		createSdx(clusterShape, envName, c, name, baseLocation, instanceProfile, managedIdentity, serviceAccount, runtime, withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled)
 	}
 }
 
-func createSdx(clusterShape string, envName string, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool) {
-	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, runtime, withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled)
+func createSdx(clusterShape string, envName string, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, serviceAccount string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool) {
+	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, runtime, withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
@@ -141,7 +142,7 @@ func createSdx(clusterShape string, envName string, c *cli.Context, name string,
 	log.Infof("[CreateSdx] SDX cluster created in environment: %s, with name: %s", envName, sdxCluster.Name)
 }
 
-func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withExternalDatabase bool, withoutExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool) *sdxModel.SdxClusterRequest {
+func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, serviceAccount string, runtime string, withExternalDatabase bool, withoutExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool) *sdxModel.SdxClusterRequest {
 	sdxRequest := &sdxModel.SdxClusterRequest{
 		ClusterShape:     &clusterShape,
 		Environment:      &envName,
@@ -152,7 +153,7 @@ func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocat
 		Aws:              nil,
 		EnableRangerRaz:  withRangerRazEnabled,
 	}
-	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = storage }))
+	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = storage }))
 	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, &sdxRequest.ExternalDatabase)
 	setupAwsSpotParameters(spotPercentage, spotMaxPrice, &sdxRequest.Aws)
 	return sdxRequest
@@ -188,7 +189,7 @@ func (s CloudStorageSetter) SetCloudStorage(req *sdxModel.SdxCloudStorageRequest
 	s(req)
 }
 
-func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, setter CloudStorageSetter) {
+func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, serviceAccount string, setter CloudStorageSetter) {
 	if len(instanceProfile) > 0 && len(managedIdentity) > 0 {
 		commonutils.LogErrorMessageAndExit("Please use managed identity or instance profile, but not both")
 	}
@@ -198,7 +199,10 @@ func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile 
 	if len(managedIdentity) > 0 && len(cloudStorageBaseLocation) == 0 {
 		commonutils.LogErrorMessageAndExit("Please use cloud storage base location if you define managed identity")
 	}
-	if len(cloudStorageBaseLocation) > 0 && len(instanceProfile) == 0 && len(managedIdentity) == 0 {
+	if len(serviceAccount) > 0 && len(cloudStorageBaseLocation) == 0 {
+		commonutils.LogErrorMessageAndExit("Please use cloud storage base location if you define service account")
+	}
+	if len(cloudStorageBaseLocation) > 0 && len(instanceProfile) == 0 && len(managedIdentity) == 0 && len(serviceAccount) == 0 {
 		commonutils.LogErrorMessageAndExit("Please use managed identity or instance profile if you define cloud storage")
 	}
 	if len(cloudStorageBaseLocation) > 0 && len(instanceProfile) > 0 {
@@ -233,6 +237,21 @@ func setupCloudStorageIfNeeded(cloudStorageBaseLocation string, instanceProfile 
 		}
 		setter.SetCloudStorage(cloudStorage)
 	}
+	if len(cloudStorageBaseLocation) > 0 && len(serviceAccount) > 0 {
+		gcsStorage := &sdxModel.GcsCloudStorageV1Parameters{
+			ServiceAccountEmail: &serviceAccount,
+		}
+		cloudStorage := &sdxModel.SdxCloudStorageRequest{
+			Adls:           nil,
+			AdlsGen2:       nil,
+			BaseLocation:   cloudStorageBaseLocation,
+			FileSystemType: "GCS",
+			Gcs:            gcsStorage,
+			S3:             nil,
+			Wasb:           nil,
+		}
+		setter.SetCloudStorage(cloudStorage)
+	}
 }
 
 func setupAwsSpotParameters(spotPercentage *int32, spotMaxPrice *float64, sdxAws **sdxModel.SdxAwsRequest) {
@@ -250,7 +269,7 @@ func setupAwsSpotParameters(spotPercentage *int32, spotMaxPrice *float64, sdxAws
 	}
 }
 
-func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool) {
+func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, serviceAccount string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool) {
 	sdxInternalRequest := &sdxModel.SdxInternalClusterRequest{
 		ClusterShape:     &(&types.S{S: sdxModel.SdxClusterRequestClusterShapeCUSTOM}).S,
 		Environment:      &envName,
@@ -262,7 +281,7 @@ func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cl
 		EnableRangerRaz:  withRangerRazEnabled,
 	}
 
-	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxInternalRequest.CloudStorage = storage }))
+	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxInternalRequest.CloudStorage = storage }))
 	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, &sdxInternalRequest.ExternalDatabase)
 	setupAwsSpotParameters(spotPercentage, spotMaxPrice, &sdxInternalRequest.Aws)
 
