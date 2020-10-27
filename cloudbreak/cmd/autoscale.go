@@ -37,13 +37,13 @@ func init() {
 				},
 			},
 			{
-				Name:   "clusters",
-				Usage:  "lists autoscale clusters",
-				Flags:  fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build(),
+				Name:   "cluster",
+				Usage:  "get autoscale cluster details",
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlClusterID).AddAuthenticationFlags().AddOutputFlag().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
-				Action: as.ListClusters,
+				Action: as.GetCluster,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddAuthenticationFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlClusterID).AddAuthenticationFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

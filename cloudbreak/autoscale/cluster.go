@@ -5,7 +5,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/hortonworks/cb-cli/cloudbreak/api-as/client/v1clusters"
 	"github.com/hortonworks/cb-cli/cloudbreak/api-as/client/v2clusters"
 	"github.com/hortonworks/cb-cli/cloudbreak/oauth"
 
@@ -29,21 +28,22 @@ func (r *clusterOut) DataAsStringArray() []string {
 	return []string{r.AsID, r.ClusterID, r.Host, r.Port, strconv.FormatBool(r.Enabled)}
 }
 
-type autoscaleListClient interface {
-	GetClusters(params *v1clusters.GetClustersParams) (*v1clusters.GetClustersOK, error)
-}
-
 type autoscaleClient interface {
 	EnableAutoscaleStateByCloudbreakCluster(params *v2clusters.EnableAutoscaleStateByCloudbreakClusterParams) (*v2clusters.EnableAutoscaleStateByCloudbreakClusterOK, error)
 	DisableAutoscaleStateByCloudbreakCluster(params *v2clusters.DisableAutoscaleStateByCloudbreakClusterParams) (*v2clusters.DisableAutoscaleStateByCloudbreakClusterOK, error)
+	GetByCloudbreakCluster(params *v2clusters.GetByCloudbreakClusterParams) (*v2clusters.GetByCloudbreakClusterOK, error)
 }
 
-func ListClusters(c *cli.Context) {
+func GetCluster(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "list clusters")
 
 	asClient := oauth.NewAutoscaleHTTPClientFromContext(c)
 	output := utils.Output{Format: c.String(fl.FlOutputOptional.Name)}
-	listClustersImpl(asClient.Autoscale.V1clusters, output.WriteList)
+	clusterID, err := strconv.ParseInt(c.String(fl.FlClusterID.Name), 10, 64)
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	getClusterImpl(asClient.Autoscale.V2clusters, output.Write, clusterID)
 }
 
 func Enable(c *cli.Context) {
@@ -70,18 +70,14 @@ func Disable(c *cli.Context) {
 	disableImpl(asClient.Autoscale.V2clusters, output.Write, clusterID)
 }
 
-func listClustersImpl(client autoscaleListClient, writer func([]string, []utils.Row)) {
-	log.Infof("[listClustersImpl] sending autoscale cluster list request")
-	clusterResp, err := client.GetClusters(v1clusters.NewGetClustersParams())
+func getClusterImpl(client autoscaleClient, writer func([]string, utils.Row), clusterID int64) {
+	log.Infof("[getClusterImpl] sending get autoscale cluster details request")
+	clusterResp, err := client.GetByCloudbreakCluster(v2clusters.NewGetByCloudbreakClusterParams().WithCbClusterID(clusterID))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
-
-	tableRows := []utils.Row{}
-	for _, cluster := range clusterResp.Payload {
-		tableRows = append(tableRows, &clusterOut{fmt.Sprintf("%v", cluster.ID), fmt.Sprintf("%v", *cluster.StackID), cluster.Host, cluster.Port, *cluster.AutoscalingEnabled})
-	}
-
+	cluster := clusterResp.Payload
+	tableRows := &clusterOut{fmt.Sprintf("%v", cluster.ID), fmt.Sprintf("%v", *cluster.StackID), cluster.Host, cluster.Port, *cluster.AutoscalingEnabled}
 	writer(clusterHeader, tableRows)
 }
 
