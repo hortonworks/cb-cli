@@ -23,6 +23,9 @@ type LoggingRequest struct {
 	// telemetry - logging cloudwatch attributes
 	Cloudwatch *CloudwatchParams `json:"cloudwatch,omitempty"`
 
+	// telemetry - logging gcs attributes
+	Gcs *GcsCloudStorageV1Parameters `json:"gcs,omitempty"`
+
 	// telemetry - logging s3 attributes
 	S3 *S3CloudStorageV1Parameters `json:"s3,omitempty"`
 
@@ -40,6 +43,10 @@ func (m *LoggingRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCloudwatch(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcs(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -85,6 +92,24 @@ func (m *LoggingRequest) validateCloudwatch(formats strfmt.Registry) error {
 		if err := m.Cloudwatch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cloudwatch")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *LoggingRequest) validateGcs(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Gcs) { // not required
+		return nil
+	}
+
+	if m.Gcs != nil {
+		if err := m.Gcs.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcs")
 			}
 			return err
 		}

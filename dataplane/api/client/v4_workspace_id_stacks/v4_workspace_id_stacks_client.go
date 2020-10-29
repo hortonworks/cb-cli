@@ -763,6 +763,36 @@ func (a *Client) PutpasswordStackV4(params *PutpasswordStackV4Params) (*Putpassw
 }
 
 /*
+RenewStackCertificate triggers a certificate renewal on the desired cluster which is identified via stack s name
+
+Trigger a certificate renewal on the specified cluster.
+*/
+func (a *Client) RenewStackCertificate(params *RenewStackCertificateParams) (*RenewStackCertificateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRenewStackCertificateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "renewStackCertificate",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/renew_certificate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RenewStackCertificateReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RenewStackCertificateOK), nil
+
+}
+
+/*
 RepairStackInWorkspaceV4 repairs the stack by name in workspace
 
 Removing the failed nodes and starting new nodes to substitute them.
