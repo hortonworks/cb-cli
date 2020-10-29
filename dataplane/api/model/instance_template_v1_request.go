@@ -37,6 +37,9 @@ type InstanceTemplateV1Request struct {
 	// ephemeral volume
 	EphemeralVolume *VolumeV1Request `json:"ephemeralVolume,omitempty"`
 
+	// gcp specific parameters for template
+	Gcp GcpInstanceTemplateV1Parameters `json:"gcp,omitempty"`
+
 	// type of the instance
 	InstanceType string `json:"instanceType,omitempty"`
 

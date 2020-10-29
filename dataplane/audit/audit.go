@@ -15,14 +15,16 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var auditListHeader = []string{"AuditID", "EventType", "TimeStamp", "ResourceId", "ResourceName", "ResourceType", "UserName", "Status", "Duration"}
+var auditListHeader = []string{"AuditID", "EventType", "TimeStamp", "ResourceId", "ResourceName", "ResourceType", "UserCrn"}
 
 type auditListOut struct {
 	Audit *model.AuditEventV4Response `json:"Audit" yaml:"Audit"`
 }
 
 func (a *auditListOut) DataAsStringArray() []string {
-	return []string{strconv.FormatInt(a.Audit.AuditID, 10), a.Audit.Operation.EventType, convertToDateTimeString(a.Audit.Operation.Timestamp), strconv.FormatInt(a.Audit.Operation.ResourceID, 10), a.Audit.Operation.ResourceName, a.Audit.Operation.ResourceType, a.Audit.Operation.UserName, a.Audit.Status, strconv.FormatInt(a.Audit.Duration, 10)}
+	return []string{strconv.FormatInt(a.Audit.AuditID, 10), a.Audit.StructuredEvent.Operation.EventType, convertToDateTimeString(a.Audit.StructuredEvent.Operation.Timestamp),
+		strconv.FormatInt(a.Audit.StructuredEvent.Operation.ResourceID, 10), a.Audit.StructuredEvent.Operation.ResourceName, a.Audit.StructuredEvent.Operation.ResourceType,
+		a.Audit.StructuredEvent.Operation.UserCrn}
 }
 
 func convertToDateTimeString(t int64) string {
@@ -42,9 +44,6 @@ type auditClient interface {
 }
 
 func (a *auditOut) DataAsStringArray() []string {
-	if a.Audit.RawFlowEvent != nil && a.Audit.RawFlowEvent.BlueprintDetails != nil {
-		a.Audit.RawFlowEvent.BlueprintDetails.BlueprintJSON = "---TRUNCATED---"
-	}
 	auditYAML, err := yaml.Marshal(a.Audit)
 	if err != nil {
 		return []string{err.Error()}
