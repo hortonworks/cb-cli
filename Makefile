@@ -162,6 +162,8 @@ generate-swagger-environment:
 	mkdir -p dataplane/api-environment/model
 	swagger generate client -f http://$(ENVIRONMENT_IP):$(ENVIRONMENT_PORT)/environmentservice/api/swagger.json -c client -m model -t dataplane/api-environment
 
+generate-swagger-all: generate-swagger generate-swagger-sdx generate-swagger-freeipa generate-swagger-redbeams generate-swagger-environment
+
 generate-swagger-docker-all: generate-swagger-docker generate-swagger-sdx-docker generate-swagger-freeipa-docker generate-swagger-redbeams-docker generate-swagger-environment-docker
 
 generate-swagger-docker: _init-swagger-generation

@@ -61,6 +61,9 @@ type SdxClusterDetailResponse struct {
 	// runtime
 	Runtime string `json:"runtime,omitempty"`
 
+	// sdx cluster service version
+	SdxClusterServiceVersion string `json:"sdxClusterServiceVersion,omitempty"`
+
 	// stack crn
 	StackCrn string `json:"stackCrn,omitempty"`
 

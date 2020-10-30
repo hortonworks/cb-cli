@@ -87,6 +87,37 @@ func (a *Client) CreateDatabaseServer(params *CreateDatabaseServerParams, authIn
 }
 
 /*
+CreateDatabaseServerInternal creates and register a database server in a cloud provider with internal actor
+
+Creates a new database server. The database server starts out with only default databases.
+*/
+func (a *Client) CreateDatabaseServerInternal(params *CreateDatabaseServerInternalParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDatabaseServerInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateDatabaseServerInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createDatabaseServerInternal",
+		Method:             "POST",
+		PathPattern:        "/v4/databaseservers/internal/managed",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateDatabaseServerInternalReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateDatabaseServerInternalOK), nil
+
+}
+
+/*
 DeleteDatabaseServerByCrn terminates and or deregister a database server by c r n
 
 Terminates and/or deregisters a database server by its CRN.

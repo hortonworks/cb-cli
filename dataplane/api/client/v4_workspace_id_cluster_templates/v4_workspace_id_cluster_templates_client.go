@@ -205,6 +205,36 @@ func (a *Client) GetClusterTemplateByNameInWorkspace(params *GetClusterTemplateB
 }
 
 /*
+ListClusterTemplatesByEnv lists cluster templates by environment crn
+
+A template gives developers and systems administrators an easy way to create and manage a collection of cloud infrastructure related resources, maintaining and updating them in an orderly and predictable fashion. Templates are cloud specific - and on top of the infrastructural setup they collect the information such as the used machine images, the datacenter location, instance types, and can capture and control region-specific infrastructure variations. We support heterogenous clusters - this one Hadoop cluster can be built by combining different templates.
+*/
+func (a *Client) ListClusterTemplatesByEnv(params *ListClusterTemplatesByEnvParams) (*ListClusterTemplatesByEnvOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListClusterTemplatesByEnvParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listClusterTemplatesByEnv",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/cluster_templates/env/{environmentCrn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListClusterTemplatesByEnvReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListClusterTemplatesByEnvOK), nil
+
+}
+
+/*
 ListClusterTemplatesByWorkspace lists cluster templates for the given workspace
 
 A template gives developers and systems administrators an easy way to create and manage a collection of cloud infrastructure related resources, maintaining and updating them in an orderly and predictable fashion. Templates are cloud specific - and on top of the infrastructural setup they collect the information such as the used machine images, the datacenter location, instance types, and can capture and control region-specific infrastructure variations. We support heterogenous clusters - this one Hadoop cluster can be built by combining different templates.

@@ -19,6 +19,9 @@ type AwsInstanceTemplateV1Parameters struct {
 	// encryption for vm
 	Encryption *AwsEncryptionV1Parameters `json:"encryption,omitempty"`
 
+	// aws specific placement group parameter for vm
+	PlacementGroup *AwsPlacementGroupV1Parameters `json:"placementGroup,omitempty"`
+
 	// aws specific spot instance parameters for template
 	Spot *AwsInstanceTemplateV1SpotParameters `json:"spot,omitempty"`
 }
@@ -28,6 +31,10 @@ func (m *AwsInstanceTemplateV1Parameters) Validate(formats strfmt.Registry) erro
 	var res []error
 
 	if err := m.validateEncryption(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePlacementGroup(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -51,6 +58,24 @@ func (m *AwsInstanceTemplateV1Parameters) validateEncryption(formats strfmt.Regi
 		if err := m.Encryption.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("encryption")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AwsInstanceTemplateV1Parameters) validatePlacementGroup(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PlacementGroup) { // not required
+		return nil
+	}
+
+	if m.PlacementGroup != nil {
+		if err := m.PlacementGroup.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("placementGroup")
 			}
 			return err
 		}

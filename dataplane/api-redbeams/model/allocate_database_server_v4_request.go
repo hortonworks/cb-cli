@@ -43,6 +43,9 @@ type AllocateDatabaseServerV4Request struct {
 
 	// Network information for the database stack
 	Network *NetworkV4StackRequest `json:"network,omitempty"`
+
+	// SSL config of the database server
+	SslConfig *SslConfigV4Request `json:"sslConfig,omitempty"`
 }
 
 // Validate validates this allocate database server v4 request
@@ -66,6 +69,10 @@ func (m *AllocateDatabaseServerV4Request) Validate(formats strfmt.Registry) erro
 	}
 
 	if err := m.validateNetwork(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSslConfig(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -142,6 +149,24 @@ func (m *AllocateDatabaseServerV4Request) validateNetwork(formats strfmt.Registr
 		if err := m.Network.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("network")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AllocateDatabaseServerV4Request) validateSslConfig(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SslConfig) { // not required
+		return nil
+	}
+
+	if m.SslConfig != nil {
+		if err := m.SslConfig.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("sslConfig")
 			}
 			return err
 		}

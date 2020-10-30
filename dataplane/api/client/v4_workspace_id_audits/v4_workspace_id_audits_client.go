@@ -55,7 +55,7 @@ func (a *Client) GetAuditEventByWorkspace(params *GetAuditEventByWorkspaceParams
 }
 
 /*
-GetAuditEventsInWorkspace lists audit events for the given workspace
+GetAuditEventsInWorkspace lists audit events for the given workspace please use the API filter by resource crn because the resource type and id combination is deprecated
 
 Audit event operations
 */
@@ -85,7 +85,7 @@ func (a *Client) GetAuditEventsInWorkspace(params *GetAuditEventsInWorkspacePara
 }
 
 /*
-GetAuditEventsZipInWorkspace lists audit events for the given workspace in zip file
+GetAuditEventsZipInWorkspace lists audit events for the given workspace in zip file please use the API filter by resource crn because the resource type and id combination is deprecated
 
 Audit event operations
 */

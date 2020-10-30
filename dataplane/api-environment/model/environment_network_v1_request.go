@@ -45,7 +45,7 @@ type EnvironmentNetworkV1Request struct {
 	PrivateSubnetCreation string `json:"privateSubnetCreation,omitempty"`
 
 	// A flag to enable or disable the service endpoint creation.
-	// Enum: [ENABLED DISABLED]
+	// Enum: [ENABLED DISABLED ENABLED_PRIVATE_ENDPOINT]
 	ServiceEndpointCreation string `json:"serviceEndpointCreation,omitempty"`
 
 	// Subnet ids of the specified networks
@@ -285,7 +285,7 @@ var environmentNetworkV1RequestTypeServiceEndpointCreationPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED","ENABLED_PRIVATE_ENDPOINT"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -300,6 +300,9 @@ const (
 
 	// EnvironmentNetworkV1RequestServiceEndpointCreationDISABLED captures enum value "DISABLED"
 	EnvironmentNetworkV1RequestServiceEndpointCreationDISABLED string = "DISABLED"
+
+	// EnvironmentNetworkV1RequestServiceEndpointCreationENABLEDPRIVATEENDPOINT captures enum value "ENABLED_PRIVATE_ENDPOINT"
+	EnvironmentNetworkV1RequestServiceEndpointCreationENABLEDPRIVATEENDPOINT string = "ENABLED_PRIVATE_ENDPOINT"
 )
 
 // prop value enum

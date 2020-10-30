@@ -37,6 +37,9 @@ type CloudSubnet struct {
 	// name
 	Name string `json:"name,omitempty"`
 
+	// parameters
+	Parameters map[string]interface{} `json:"parameters,omitempty"`
+
 	// private subnet
 	PrivateSubnet bool `json:"privateSubnet,omitempty"`
 

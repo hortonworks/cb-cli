@@ -20,6 +20,9 @@ import (
 type CredentialV1Response struct {
 	CredentialBase
 
+	// provider specific identifier of the account/subscription/project that is used by Cloudbreak
+	AccountID string `json:"accountId,omitempty"`
+
 	// provider specific attributes of the credential
 	Attributes *SecretResponse `json:"attributes,omitempty"`
 
@@ -34,6 +37,10 @@ type CredentialV1Response struct {
 
 	// global identifiers of the resource
 	Crn string `json:"crn,omitempty"`
+
+	// name of the resource
+	// Required: true
+	Name *string `json:"name"`
 
 	// type of credential
 	// Required: true
@@ -52,6 +59,8 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 
 	// AO1
 	var dataAO1 struct {
+		AccountID string `json:"accountId,omitempty"`
+
 		Attributes *SecretResponse `json:"attributes,omitempty"`
 
 		Azure *AzureCredentialV1ResponseParameters `json:"azure,omitempty"`
@@ -62,11 +71,15 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 
 		Crn string `json:"crn,omitempty"`
 
+		Name *string `json:"name"`
+
 		Type *string `json:"type"`
 	}
 	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
+
+	m.AccountID = dataAO1.AccountID
 
 	m.Attributes = dataAO1.Attributes
 
@@ -77,6 +90,8 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 	m.Creator = dataAO1.Creator
 
 	m.Crn = dataAO1.Crn
+
+	m.Name = dataAO1.Name
 
 	m.Type = dataAO1.Type
 
@@ -94,6 +109,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 	_parts = append(_parts, aO0)
 
 	var dataAO1 struct {
+		AccountID string `json:"accountId,omitempty"`
+
 		Attributes *SecretResponse `json:"attributes,omitempty"`
 
 		Azure *AzureCredentialV1ResponseParameters `json:"azure,omitempty"`
@@ -104,8 +121,12 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 
 		Crn string `json:"crn,omitempty"`
 
+		Name *string `json:"name"`
+
 		Type *string `json:"type"`
 	}
+
+	dataAO1.AccountID = m.AccountID
 
 	dataAO1.Attributes = m.Attributes
 
@@ -116,6 +137,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 	dataAO1.Creator = m.Creator
 
 	dataAO1.Crn = m.Crn
+
+	dataAO1.Name = m.Name
 
 	dataAO1.Type = m.Type
 
@@ -142,6 +165,10 @@ func (m *CredentialV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -186,6 +213,15 @@ func (m *CredentialV1Response) validateAzure(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *CredentialV1Response) validateName(formats strfmt.Registry) error {
+
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
 	}
 
 	return nil

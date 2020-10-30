@@ -25,8 +25,8 @@ type mockCredentialVerify struct{}
 
 func (m *mockCredentialVerify) VerifyCredentialByName(params *v1cred.VerifyCredentialByNameParams) (*v1cred.VerifyCredentialByNameOK, error) {
 	resp := &model.CredentialV1Response{
+		Name: &(&types.S{S: "name"}).S,
 		CredentialBase: model.CredentialBase{
-			Name:                   &(&types.S{S: "name"}).S,
 			Description:            &(&types.S{S: "desc"}).S,
 			CloudPlatform:          &(&types.S{S: "AWS"}).S,
 			VerificationStatusText: "Okay",
@@ -37,8 +37,8 @@ func (m *mockCredentialVerify) VerifyCredentialByName(params *v1cred.VerifyCrede
 
 func (m *mockCredentialVerify) VerifyCredentialByCrn(params *v1cred.VerifyCredentialByCrnParams) (*v1cred.VerifyCredentialByCrnOK, error) {
 	resp := &model.CredentialV1Response{
+		Name: &(&types.S{S: "name"}).S,
 		CredentialBase: model.CredentialBase{
-			Name:                   &(&types.S{S: "name"}).S,
 			Description:            &(&types.S{S: "desc"}).S,
 			CloudPlatform:          &(&types.S{S: "AWS"}).S,
 			VerificationStatusText: "Okay",
@@ -74,7 +74,7 @@ type mockCredentialCreate struct {
 func (m *mockCredentialCreate) CreateCredentialV1(params *v1cred.CreateCredentialV1Params) (*v1cred.CreateCredentialV1OK, error) {
 	m.request <- params.Body
 	defer close(m.request)
-	return &v1cred.CreateCredentialV1OK{Payload: &model.CredentialV1Response{Crn: "crn", CredentialBase: model.CredentialBase{Name: &(&types.S{S: ""}).S}}}, nil
+	return &v1cred.CreateCredentialV1OK{Payload: &model.CredentialV1Response{Crn: "crn", Name: &(&types.S{S: ""}).S, CredentialBase: model.CredentialBase{}}}, nil
 }
 
 func TestCreateCredentialPublic(t *testing.T) {
@@ -119,8 +119,8 @@ func (m *mockListCredentials) ListCredentialsV1(params *v1cred.ListCredentialsV1
 	resp := make([]*model.CredentialV1Response, 0)
 	for i := 0; i < 3; i++ {
 		resp = append(resp, &model.CredentialV1Response{
+			Name: &(&types.S{S: "name" + strconv.Itoa(i)}).S,
 			CredentialBase: model.CredentialBase{
-				Name:          &(&types.S{S: "name" + strconv.Itoa(i)}).S,
 				Description:   &(&types.S{S: "desc" + strconv.Itoa(i)}).S,
 				CloudPlatform: &(&types.S{S: "AWS"}).S,
 			},
@@ -154,9 +154,9 @@ type mockCredentialModifyClient struct {
 
 func (m *mockCredentialModifyClient) PutCredentialV1(params *v1cred.PutCredentialV1Params) (*v1cred.PutCredentialV1OK, error) {
 	return &v1cred.PutCredentialV1OK{Payload: &model.CredentialV1Response{
-		Crn: "crn",
+		Crn:  "crn",
+		Name: params.Body.Name,
 		CredentialBase: model.CredentialBase{
-			Name:          params.Body.Name,
 			Description:   params.Body.Description,
 			CloudPlatform: params.Body.CloudPlatform,
 			Aws:           params.Body.Aws,
@@ -175,9 +175,9 @@ func (m *mockCredentialModifyClient) GetCredentialByNameV1(params *v1cred.GetCre
 	}
 
 	return &v1cred.GetCredentialByNameV1OK{Payload: &model.CredentialV1Response{
-		Crn: "crn",
+		Crn:  "crn",
+		Name: &(&types.S{S: "name"}).S,
 		CredentialBase: model.CredentialBase{
-			Name:          &(&types.S{S: "name"}).S,
 			Description:   &(&types.S{S: "default description"}).S,
 			CloudPlatform: &(&types.S{S: "AWS"}).S,
 			Aws: &model.AwsCredentialV1Parameters{

@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CredentialV1Request credential v1 request
@@ -19,6 +20,13 @@ type CredentialV1Request struct {
 
 	// custom parameters for Azure credential
 	Azure *AzureCredentialV1RequestParameters `json:"azure,omitempty"`
+
+	// name of the resource
+	// Required: true
+	// Max Length: 100
+	// Min Length: 5
+	// Pattern: (^[a-z][-a-z0-9]*[a-z0-9]$)
+	Name *string `json:"name"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -33,12 +41,16 @@ func (m *CredentialV1Request) UnmarshalJSON(raw []byte) error {
 	// AO1
 	var dataAO1 struct {
 		Azure *AzureCredentialV1RequestParameters `json:"azure,omitempty"`
+
+		Name *string `json:"name"`
 	}
 	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
 	m.Azure = dataAO1.Azure
+
+	m.Name = dataAO1.Name
 
 	return nil
 }
@@ -55,9 +67,13 @@ func (m CredentialV1Request) MarshalJSON() ([]byte, error) {
 
 	var dataAO1 struct {
 		Azure *AzureCredentialV1RequestParameters `json:"azure,omitempty"`
+
+		Name *string `json:"name"`
 	}
 
 	dataAO1.Azure = m.Azure
+
+	dataAO1.Name = m.Name
 
 	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
 	if errAO1 != nil {
@@ -81,6 +97,10 @@ func (m *CredentialV1Request) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -100,6 +120,27 @@ func (m *CredentialV1Request) validateAzure(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *CredentialV1Request) validateName(formats strfmt.Registry) error {
+
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	if err := validate.MinLength("name", "body", string(*m.Name), 5); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("name", "body", string(*m.Name), 100); err != nil {
+		return err
+	}
+
+	if err := validate.Pattern("name", "body", string(*m.Name), `(^[a-z][-a-z0-9]*[a-z0-9]$)`); err != nil {
+		return err
 	}
 
 	return nil

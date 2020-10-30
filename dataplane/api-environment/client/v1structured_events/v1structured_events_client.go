@@ -39,7 +39,7 @@ func (a *Client) GetAuditEventsZipForResource(params *GetAuditEventsZipForResour
 		ID:                 "getAuditEventsZipForResource",
 		Method:             "GET",
 		PathPattern:        "/v1/structured_events/zip",
-		ProducesMediaTypes: []string{"application/octet-stream"},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,

@@ -55,6 +55,36 @@ func (a *Client) GetEnvironmentUserSyncStateV1(params *GetEnvironmentUserSyncSta
 }
 
 /*
+GetLastSyncOperationStatusV1 gets the status of the last environment sync operation
+
+User synchronization and management operations
+*/
+func (a *Client) GetLastSyncOperationStatusV1(params *GetLastSyncOperationStatusV1Params) (*GetLastSyncOperationStatusV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLastSyncOperationStatusV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getLastSyncOperationStatusV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/user/lastStatus",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetLastSyncOperationStatusV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetLastSyncOperationStatusV1OK), nil
+
+}
+
+/*
 GetSyncOperationStatusV1 gets the status of a sync operation
 
 User synchronization and management operations

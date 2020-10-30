@@ -29,7 +29,7 @@ type InstanceMetaDataV1Response struct {
 	InstanceID string `json:"instanceId,omitempty"`
 
 	// status of the instance
-	// Enum: [REQUESTED CREATED UNREGISTERED REGISTERED DECOMMISSIONED TERMINATED DELETED_ON_PROVIDER_SIDE DELETED_BY_PROVIDER FAILED STOPPED REBOOTING UNREACHABLE DELETE_REQUESTED]
+	// Enum: [REQUESTED CREATED UNREGISTERED REGISTERED DECOMMISSIONED TERMINATED DELETED_ON_PROVIDER_SIDE DELETED_BY_PROVIDER FAILED STOPPED REBOOTING UNREACHABLE UNHEALTHY DELETE_REQUESTED]
 	InstanceStatus string `json:"instanceStatus,omitempty"`
 
 	// type of the instance
@@ -79,7 +79,7 @@ var instanceMetaDataV1ResponseTypeInstanceStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","DELETED_BY_PROVIDER","FAILED","STOPPED","REBOOTING","UNREACHABLE","DELETE_REQUESTED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REQUESTED","CREATED","UNREGISTERED","REGISTERED","DECOMMISSIONED","TERMINATED","DELETED_ON_PROVIDER_SIDE","DELETED_BY_PROVIDER","FAILED","STOPPED","REBOOTING","UNREACHABLE","UNHEALTHY","DELETE_REQUESTED"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -124,6 +124,9 @@ const (
 
 	// InstanceMetaDataV1ResponseInstanceStatusUNREACHABLE captures enum value "UNREACHABLE"
 	InstanceMetaDataV1ResponseInstanceStatusUNREACHABLE string = "UNREACHABLE"
+
+	// InstanceMetaDataV1ResponseInstanceStatusUNHEALTHY captures enum value "UNHEALTHY"
+	InstanceMetaDataV1ResponseInstanceStatusUNHEALTHY string = "UNHEALTHY"
 
 	// InstanceMetaDataV1ResponseInstanceStatusDELETEREQUESTED captures enum value "DELETE_REQUESTED"
 	InstanceMetaDataV1ResponseInstanceStatusDELETEREQUESTED string = "DELETE_REQUESTED"

@@ -43,6 +43,9 @@ type EnvironmentV1Request struct {
 	// Min Length: 0
 	Description *string `json:"description,omitempty"`
 
+	// The version of the Cloudbreak build used to create the environment.
+	EnvironmentServiceVersion string `json:"environmentServiceVersion,omitempty"`
+
 	// Properties for FreeIpa which can be attached to the given environment
 	FreeIpa *AttachedFreeIpaRequest `json:"freeIpa,omitempty"`
 

@@ -42,6 +42,9 @@ type RdsDetails struct {
 	// name
 	Name string `json:"name,omitempty"`
 
+	// ssl mode
+	SslMode string `json:"sslMode,omitempty"`
+
 	// stack version
 	StackVersion string `json:"stackVersion,omitempty"`
 

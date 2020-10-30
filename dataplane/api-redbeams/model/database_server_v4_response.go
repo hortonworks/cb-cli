@@ -74,6 +74,9 @@ type DatabaseServerV4Response struct {
 	// Enum: [UNKNOWN SERVICE_MANAGED USER_MANAGED]
 	ResourceStatus string `json:"resourceStatus,omitempty"`
 
+	// SSL config of the database server
+	SslConfig *SslConfigV4Response `json:"sslConfig,omitempty"`
+
 	// Status of the database server stack
 	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED CREATE_FAILED ENABLE_SECURITY_FAILED DELETE_REQUESTED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED UNKNOWN]
 	Status string `json:"status,omitempty"`
@@ -127,6 +130,10 @@ func (m *DatabaseServerV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateResourceStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSslConfig(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -309,6 +316,24 @@ func (m *DatabaseServerV4Response) validateResourceStatus(formats strfmt.Registr
 	// value enum
 	if err := m.validateResourceStatusEnum("resourceStatus", "body", m.ResourceStatus); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DatabaseServerV4Response) validateSslConfig(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SslConfig) { // not required
+		return nil
+	}
+
+	if m.SslConfig != nil {
+		if err := m.SslConfig.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("sslConfig")
+			}
+			return err
+		}
 	}
 
 	return nil
