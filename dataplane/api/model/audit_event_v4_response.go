@@ -19,24 +19,6 @@ type AuditEventV4Response struct {
 	// audit Id
 	AuditID int64 `json:"auditId,omitempty"`
 
-	// duration
-	Duration int64 `json:"duration,omitempty"`
-
-	// operation
-	Operation *OperationDetails `json:"operation,omitempty"`
-
-	// raw flow event
-	RawFlowEvent *StructuredFlowEvent `json:"rawFlowEvent,omitempty"`
-
-	// raw notification
-	RawNotification *StructuredNotificationEvent `json:"rawNotification,omitempty"`
-
-	// raw rest event
-	RawRestEvent *StructuredRestCallEvent `json:"rawRestEvent,omitempty"`
-
-	// status
-	Status string `json:"status,omitempty"`
-
 	// structured event
 	StructuredEvent *StructuredEvent `json:"structuredEvent,omitempty"`
 }
@@ -45,22 +27,6 @@ type AuditEventV4Response struct {
 func (m *AuditEventV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateOperation(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRawFlowEvent(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRawNotification(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRawRestEvent(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateStructuredEvent(formats); err != nil {
 		res = append(res, err)
 	}
@@ -68,78 +34,6 @@ func (m *AuditEventV4Response) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *AuditEventV4Response) validateOperation(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Operation) { // not required
-		return nil
-	}
-
-	if m.Operation != nil {
-		if err := m.Operation.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("operation")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *AuditEventV4Response) validateRawFlowEvent(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RawFlowEvent) { // not required
-		return nil
-	}
-
-	if m.RawFlowEvent != nil {
-		if err := m.RawFlowEvent.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("rawFlowEvent")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *AuditEventV4Response) validateRawNotification(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RawNotification) { // not required
-		return nil
-	}
-
-	if m.RawNotification != nil {
-		if err := m.RawNotification.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("rawNotification")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *AuditEventV4Response) validateRawRestEvent(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RawRestEvent) { // not required
-		return nil
-	}
-
-	if m.RawRestEvent != nil {
-		if err := m.RawRestEvent.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("rawRestEvent")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 

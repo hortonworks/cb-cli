@@ -59,9 +59,6 @@ type OperationDetails struct {
 	// user Id
 	UserID string `json:"userId,omitempty"`
 
-	// user name
-	UserName string `json:"userName,omitempty"`
-
 	// utcdate time
 	UtcdateTime string `json:"utcdateTime,omitempty"`
 

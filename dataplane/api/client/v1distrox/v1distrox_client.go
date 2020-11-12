@@ -1362,6 +1362,62 @@ func (a *Client) SyncDistroXV1ByName(params *SyncDistroXV1ByNameParams) error {
 
 }
 
+/*
+UpgradeDistroxCluster upgrades the distrox cluster
+*/
+func (a *Client) UpgradeDistroxCluster(params *UpgradeDistroxClusterParams) (*UpgradeDistroxClusterOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDistroxClusterParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDistroxCluster",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/{name}/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDistroxClusterReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDistroxClusterOK), nil
+
+}
+
+/*
+UpgradeDistroxClusterByCrn upgrades the distrox cluster
+*/
+func (a *Client) UpgradeDistroxClusterByCrn(params *UpgradeDistroxClusterByCrnParams) (*UpgradeDistroxClusterByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDistroxClusterByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDistroxClusterByCrn",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/crn/{crn}/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDistroxClusterByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDistroxClusterByCrnOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

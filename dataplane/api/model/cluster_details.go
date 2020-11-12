@@ -27,6 +27,12 @@ type ClusterDetails struct {
 	// cluster version
 	ClusterVersion string `json:"clusterVersion,omitempty"`
 
+	// creation finished
+	CreationFinished int64 `json:"creationFinished,omitempty"`
+
+	// creation started
+	CreationStarted int64 `json:"creationStarted,omitempty"`
+
 	// database type
 	DatabaseType string `json:"databaseType,omitempty"`
 
@@ -68,6 +74,9 @@ type ClusterDetails struct {
 
 	// status reason
 	StatusReason string `json:"statusReason,omitempty"`
+
+	// up since
+	UpSince int64 `json:"upSince,omitempty"`
 }
 
 // Validate validates this cluster details

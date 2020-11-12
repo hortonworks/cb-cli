@@ -550,3 +550,71 @@ func RotateCertificates(c *cli.Context) {
 	}
 	log.Infof("[RotateCerts] Distrox cluster certificate rotation started for: %s", name)
 }
+
+func DistroxClusterkUpgrade(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "Start DistroX upgrade")
+	dryRun := c.Bool(fl.FlDryRunOptional.Name)
+	name := c.String(fl.FlName.Name)
+	image := c.String(fl.FlImageIdOptional.Name)
+	runtime := c.String(fl.FlRuntimeOptional.Name)
+	lock := c.Bool(fl.FlLockComponentsOptional.Name)
+	replaceVms := c.String(fl.FlReplaceVms.Name)
+	showImages := c.Bool(fl.FlShowImagesOptional.Name)
+	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
+
+	dxRequest := createDistroxUpgradeRequest(image, runtime, lock, dryRun, replaceVms, showImages, showLatestImages)
+	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
+
+	resp, err := dxClient.Cloudbreak.V1distrox.UpgradeDistroxCluster(v1distrox.NewUpgradeDistroxClusterParams().WithName(name).WithBody(dxRequest))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+		fmt.Printf("%s\n", err)
+	}
+	printResponse(resp, dryRun || showImages || showLatestImages)
+}
+
+func createDistroxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string, showImages bool, showLatestImages bool) *distroxModel.DistroxUpgradeV1Request {
+	var showImagesString string
+	if showLatestImages {
+		showImagesString = "LATEST_ONLY"
+	} else if showImages {
+		showImagesString = "SHOW"
+	} else {
+		showImagesString = "DO_NOT_SHOW"
+	}
+	dxRequest := &distroxModel.DistroxUpgradeV1Request{
+		ImageID:             imageid,
+		Runtime:             runtime,
+		LockComponents:      lockComponents,
+		DryRun:              dryRun,
+		ReplaceVms:          replaceVms,
+		ShowAvailableImages: showImagesString,
+	}
+	return dxRequest
+}
+
+func printResponse(template *v1distrox.UpgradeDistroxClusterOK, dryRun bool) error {
+	var errorMessage error
+	var response []byte
+
+	if dryRun {
+		resp, err := json.MarshalIndent(template.Payload, "", "\t")
+		response = resp
+		errorMessage = err
+	} else if template.Payload.UpgradeCandidates == nil || len(template.Payload.UpgradeCandidates) == 0 {
+		log.Infof("[UpgradeDX] Reason field received: %s", template.Payload.Reason)
+		resp, err := json.MarshalIndent(template.Payload.Reason, "", "\t")
+		response = resp
+		errorMessage = err
+	} else {
+		resp, err := json.MarshalIndent(template.Payload, "", "\t")
+		response = resp
+		errorMessage = err
+	}
+
+	if errorMessage != nil {
+		commonutils.LogErrorAndExit(errorMessage)
+	}
+	commonutils.Println(string(response))
+	return nil
+}
