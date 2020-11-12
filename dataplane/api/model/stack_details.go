@@ -57,6 +57,9 @@ type StackDetails struct {
 	// id
 	ID int64 `json:"id,omitempty"`
 
+	// image
+	Image *ImageDetails `json:"image,omitempty"`
+
 	// image identifier
 	ImageIdentifier string `json:"imageIdentifier,omitempty"`
 
@@ -92,6 +95,10 @@ type StackDetails struct {
 func (m *StackDetails) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateImage(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateInstanceGroups(formats); err != nil {
 		res = append(res, err)
 	}
@@ -99,6 +106,24 @@ func (m *StackDetails) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *StackDetails) validateImage(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Image) { // not required
+		return nil
+	}
+
+	if m.Image != nil {
+		if err := m.Image.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("image")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

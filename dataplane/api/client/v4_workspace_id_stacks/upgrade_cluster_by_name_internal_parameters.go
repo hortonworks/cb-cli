@@ -62,8 +62,8 @@ for the upgrade cluster by name internal operation typically these are written t
 */
 type UpgradeClusterByNameInternalParams struct {
 
-	/*Body*/
-	Body string
+	/*ImageID*/
+	ImageID *string
 	/*InitiatorUserCrn*/
 	InitiatorUserCrn *string
 	/*Name*/
@@ -109,15 +109,15 @@ func (o *UpgradeClusterByNameInternalParams) SetHTTPClient(client *http.Client) 
 	o.HTTPClient = client
 }
 
-// WithBody adds the body to the upgrade cluster by name internal params
-func (o *UpgradeClusterByNameInternalParams) WithBody(body string) *UpgradeClusterByNameInternalParams {
-	o.SetBody(body)
+// WithImageID adds the imageID to the upgrade cluster by name internal params
+func (o *UpgradeClusterByNameInternalParams) WithImageID(imageID *string) *UpgradeClusterByNameInternalParams {
+	o.SetImageID(imageID)
 	return o
 }
 
-// SetBody adds the body to the upgrade cluster by name internal params
-func (o *UpgradeClusterByNameInternalParams) SetBody(body string) {
-	o.Body = body
+// SetImageID adds the imageId to the upgrade cluster by name internal params
+func (o *UpgradeClusterByNameInternalParams) SetImageID(imageID *string) {
+	o.ImageID = imageID
 }
 
 // WithInitiatorUserCrn adds the initiatorUserCrn to the upgrade cluster by name internal params
@@ -161,8 +161,20 @@ func (o *UpgradeClusterByNameInternalParams) WriteToRequest(r runtime.ClientRequ
 	}
 	var res []error
 
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.ImageID != nil {
+
+		// query param imageId
+		var qrImageID string
+		if o.ImageID != nil {
+			qrImageID = *o.ImageID
+		}
+		qImageID := qrImageID
+		if qImageID != "" {
+			if err := r.SetQueryParam("imageId", qImageID); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if o.InitiatorUserCrn != nil {
