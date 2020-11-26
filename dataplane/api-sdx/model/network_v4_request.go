@@ -25,6 +25,9 @@ type NetworkV4Request struct {
 	// provider specific parameters of the specified network
 	Gcp *GcpNetworkV4Parameters `json:"gcp,omitempty"`
 
+	// mock
+	Mock *MockNetworkV4Parameters `json:"mock,omitempty"`
+
 	// provider specific parameters of the specified network
 	Openstack *OpenStackNetworkV4Parameters `json:"openstack,omitempty"`
 
@@ -45,6 +48,10 @@ func (m *NetworkV4Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateGcp(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMock(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -104,6 +111,24 @@ func (m *NetworkV4Request) validateGcp(formats strfmt.Registry) error {
 		if err := m.Gcp.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("gcp")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *NetworkV4Request) validateMock(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Mock) { // not required
+		return nil
+	}
+
+	if m.Mock != nil {
+		if err := m.Mock.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("mock")
 			}
 			return err
 		}

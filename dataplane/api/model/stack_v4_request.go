@@ -57,9 +57,12 @@ type StackV4Request struct {
 	// dynamic properties
 	Inputs map[string]interface{} `json:"inputs,omitempty"`
 
-	// collection of instance groupst
+	// collection of instance groups
 	// Required: true
 	InstanceGroups []*InstanceGroupV4Request `json:"instanceGroups"`
+
+	// mock
+	Mock MockStackV4Parameters `json:"mock,omitempty"`
 
 	// name of the stack
 	// Required: true

@@ -31,6 +31,9 @@ type UpgradeV4Request struct {
 	// Upgrades to image with the same version of stack and clustermanager, if available
 	LockComponents bool `json:"lockComponents,omitempty"`
 
+	// replace vms
+	ReplaceVms bool `json:"replaceVms,omitempty"`
+
 	// Cloudera Runtime version
 	Runtime string `json:"runtime,omitempty"`
 

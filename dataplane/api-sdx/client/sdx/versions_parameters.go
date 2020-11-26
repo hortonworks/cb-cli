@@ -20,7 +20,7 @@ import (
 // NewVersionsParams creates a new VersionsParams object
 // with the default values initialized.
 func NewVersionsParams() *VersionsParams {
-
+	var ()
 	return &VersionsParams{
 
 		timeout: cr.DefaultTimeout,
@@ -30,7 +30,7 @@ func NewVersionsParams() *VersionsParams {
 // NewVersionsParamsWithTimeout creates a new VersionsParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewVersionsParamsWithTimeout(timeout time.Duration) *VersionsParams {
-
+	var ()
 	return &VersionsParams{
 
 		timeout: timeout,
@@ -40,7 +40,7 @@ func NewVersionsParamsWithTimeout(timeout time.Duration) *VersionsParams {
 // NewVersionsParamsWithContext creates a new VersionsParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewVersionsParamsWithContext(ctx context.Context) *VersionsParams {
-
+	var ()
 	return &VersionsParams{
 
 		Context: ctx,
@@ -50,7 +50,7 @@ func NewVersionsParamsWithContext(ctx context.Context) *VersionsParams {
 // NewVersionsParamsWithHTTPClient creates a new VersionsParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewVersionsParamsWithHTTPClient(client *http.Client) *VersionsParams {
-
+	var ()
 	return &VersionsParams{
 		HTTPClient: client,
 	}
@@ -60,6 +60,10 @@ func NewVersionsParamsWithHTTPClient(client *http.Client) *VersionsParams {
 for the versions operation typically these are written to a http.Request
 */
 type VersionsParams struct {
+
+	/*CloudPlatform*/
+	CloudPlatform *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -98,6 +102,17 @@ func (o *VersionsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithCloudPlatform adds the cloudPlatform to the versions params
+func (o *VersionsParams) WithCloudPlatform(cloudPlatform *string) *VersionsParams {
+	o.SetCloudPlatform(cloudPlatform)
+	return o
+}
+
+// SetCloudPlatform adds the cloudPlatform to the versions params
+func (o *VersionsParams) SetCloudPlatform(cloudPlatform *string) {
+	o.CloudPlatform = cloudPlatform
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *VersionsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -105,6 +120,22 @@ func (o *VersionsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		return err
 	}
 	var res []error
+
+	if o.CloudPlatform != nil {
+
+		// query param cloudPlatform
+		var qrCloudPlatform string
+		if o.CloudPlatform != nil {
+			qrCloudPlatform = *o.CloudPlatform
+		}
+		qCloudPlatform := qrCloudPlatform
+		if qCloudPlatform != "" {
+			if err := r.SetQueryParam("cloudPlatform", qCloudPlatform); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

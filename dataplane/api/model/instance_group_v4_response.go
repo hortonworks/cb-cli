@@ -36,6 +36,9 @@ type InstanceGroupV4Response struct {
 	// Unique: true
 	Metadata []*InstanceMetaDataV4Response `json:"metadata"`
 
+	// mock
+	Mock MockInstanceGroupV4Parameters `json:"mock,omitempty"`
+
 	// name of the instance group
 	// Required: true
 	Name *string `json:"name"`

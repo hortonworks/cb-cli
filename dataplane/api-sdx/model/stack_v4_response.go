@@ -88,6 +88,9 @@ type StackV4Response struct {
 	// instance groups
 	InstanceGroups []*InstanceGroupV4Response `json:"instanceGroups"`
 
+	// mock
+	Mock MockStackV4Parameters `json:"mock,omitempty"`
+
 	// name of the stack
 	// Required: true
 	Name *string `json:"name"`

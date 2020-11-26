@@ -20,7 +20,7 @@ import (
 // NewAdvertisedruntimesParams creates a new AdvertisedruntimesParams object
 // with the default values initialized.
 func NewAdvertisedruntimesParams() *AdvertisedruntimesParams {
-
+	var ()
 	return &AdvertisedruntimesParams{
 
 		timeout: cr.DefaultTimeout,
@@ -30,7 +30,7 @@ func NewAdvertisedruntimesParams() *AdvertisedruntimesParams {
 // NewAdvertisedruntimesParamsWithTimeout creates a new AdvertisedruntimesParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewAdvertisedruntimesParamsWithTimeout(timeout time.Duration) *AdvertisedruntimesParams {
-
+	var ()
 	return &AdvertisedruntimesParams{
 
 		timeout: timeout,
@@ -40,7 +40,7 @@ func NewAdvertisedruntimesParamsWithTimeout(timeout time.Duration) *Advertisedru
 // NewAdvertisedruntimesParamsWithContext creates a new AdvertisedruntimesParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewAdvertisedruntimesParamsWithContext(ctx context.Context) *AdvertisedruntimesParams {
-
+	var ()
 	return &AdvertisedruntimesParams{
 
 		Context: ctx,
@@ -50,7 +50,7 @@ func NewAdvertisedruntimesParamsWithContext(ctx context.Context) *Advertisedrunt
 // NewAdvertisedruntimesParamsWithHTTPClient creates a new AdvertisedruntimesParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewAdvertisedruntimesParamsWithHTTPClient(client *http.Client) *AdvertisedruntimesParams {
-
+	var ()
 	return &AdvertisedruntimesParams{
 		HTTPClient: client,
 	}
@@ -60,6 +60,10 @@ func NewAdvertisedruntimesParamsWithHTTPClient(client *http.Client) *Advertisedr
 for the advertisedruntimes operation typically these are written to a http.Request
 */
 type AdvertisedruntimesParams struct {
+
+	/*CloudPlatform*/
+	CloudPlatform *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -98,6 +102,17 @@ func (o *AdvertisedruntimesParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithCloudPlatform adds the cloudPlatform to the advertisedruntimes params
+func (o *AdvertisedruntimesParams) WithCloudPlatform(cloudPlatform *string) *AdvertisedruntimesParams {
+	o.SetCloudPlatform(cloudPlatform)
+	return o
+}
+
+// SetCloudPlatform adds the cloudPlatform to the advertisedruntimes params
+func (o *AdvertisedruntimesParams) SetCloudPlatform(cloudPlatform *string) {
+	o.CloudPlatform = cloudPlatform
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *AdvertisedruntimesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -105,6 +120,22 @@ func (o *AdvertisedruntimesParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
+
+	if o.CloudPlatform != nil {
+
+		// query param cloudPlatform
+		var qrCloudPlatform string
+		if o.CloudPlatform != nil {
+			qrCloudPlatform = *o.CloudPlatform
+		}
+		qCloudPlatform := qrCloudPlatform
+		if qCloudPlatform != "" {
+			if err := r.SetQueryParam("cloudPlatform", qCloudPlatform); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

@@ -18,19 +18,19 @@ import (
 type SecurityAccessV1Response struct {
 
 	// CIDR range which is allowed for inbound traffic. Either IPv4 or IPv6 is allowed.
-	// Max Length: 255
+	// Max Length: 4000
 	// Min Length: 5
 	Cidr string `json:"cidr,omitempty"`
 
 	// Security group where all other hosts are placed.
 	// Max Length: 255
-	// Min Length: 0
-	DefaultSecurityGroupID *string `json:"defaultSecurityGroupId,omitempty"`
+	// Min Length: 1
+	DefaultSecurityGroupID string `json:"defaultSecurityGroupId,omitempty"`
 
 	// Security group where Knox-enabled hosts are placed.
 	// Max Length: 255
-	// Min Length: 0
-	SecurityGroupIDForKnox *string `json:"securityGroupIdForKnox,omitempty"`
+	// Min Length: 1
+	SecurityGroupIDForKnox string `json:"securityGroupIdForKnox,omitempty"`
 }
 
 // Validate validates this security access v1 response
@@ -65,7 +65,7 @@ func (m *SecurityAccessV1Response) validateCidr(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MaxLength("cidr", "body", string(m.Cidr), 255); err != nil {
+	if err := validate.MaxLength("cidr", "body", string(m.Cidr), 4000); err != nil {
 		return err
 	}
 
@@ -78,11 +78,11 @@ func (m *SecurityAccessV1Response) validateDefaultSecurityGroupID(formats strfmt
 		return nil
 	}
 
-	if err := validate.MinLength("defaultSecurityGroupId", "body", string(*m.DefaultSecurityGroupID), 0); err != nil {
+	if err := validate.MinLength("defaultSecurityGroupId", "body", string(m.DefaultSecurityGroupID), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("defaultSecurityGroupId", "body", string(*m.DefaultSecurityGroupID), 255); err != nil {
+	if err := validate.MaxLength("defaultSecurityGroupId", "body", string(m.DefaultSecurityGroupID), 255); err != nil {
 		return err
 	}
 
@@ -95,11 +95,11 @@ func (m *SecurityAccessV1Response) validateSecurityGroupIDForKnox(formats strfmt
 		return nil
 	}
 
-	if err := validate.MinLength("securityGroupIdForKnox", "body", string(*m.SecurityGroupIDForKnox), 0); err != nil {
+	if err := validate.MinLength("securityGroupIdForKnox", "body", string(m.SecurityGroupIDForKnox), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("securityGroupIdForKnox", "body", string(*m.SecurityGroupIDForKnox), 255); err != nil {
+	if err := validate.MaxLength("securityGroupIdForKnox", "body", string(m.SecurityGroupIDForKnox), 255); err != nil {
 		return err
 	}
 

@@ -28,6 +28,9 @@ type InstanceGroupV4Request struct {
 	// gcp specific parameters for instance group
 	Gcp *GcpInstanceGroupV4Parameters `json:"gcp,omitempty"`
 
+	// mock
+	Mock MockInstanceGroupV4Parameters `json:"mock,omitempty"`
+
 	// name of the instance group
 	// Required: true
 	Name *string `json:"name"`

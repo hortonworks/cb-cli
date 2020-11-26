@@ -28,6 +28,9 @@ type NetworkV1Response struct {
 	// provider specific parameters of the specified network
 	Gcp *GcpNetworkV1Parameters `json:"gcp,omitempty"`
 
+	// mock
+	Mock *MockNetworkV1Parameters `json:"mock,omitempty"`
+
 	// the network cidrs which have to be reacheable from the instances
 	NetworkCidrs []string `json:"networkCidrs"`
 
@@ -52,6 +55,10 @@ func (m *NetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateGcp(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMock(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -115,6 +122,24 @@ func (m *NetworkV1Response) validateGcp(formats strfmt.Registry) error {
 		if err := m.Gcp.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("gcp")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *NetworkV1Response) validateMock(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Mock) { // not required
+		return nil
+	}
+
+	if m.Mock != nil {
+		if err := m.Mock.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("mock")
 			}
 			return err
 		}

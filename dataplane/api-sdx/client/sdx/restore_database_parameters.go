@@ -67,6 +67,8 @@ type RestoreDatabaseParams struct {
 	BackupLocation *string
 	/*Name*/
 	Name string
+	/*RestoreID*/
+	RestoreID *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -139,6 +141,17 @@ func (o *RestoreDatabaseParams) SetName(name string) {
 	o.Name = name
 }
 
+// WithRestoreID adds the restoreID to the restore database params
+func (o *RestoreDatabaseParams) WithRestoreID(restoreID *string) *RestoreDatabaseParams {
+	o.SetRestoreID(restoreID)
+	return o
+}
+
+// SetRestoreID adds the restoreId to the restore database params
+func (o *RestoreDatabaseParams) SetRestoreID(restoreID *string) {
+	o.RestoreID = restoreID
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *RestoreDatabaseParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -182,6 +195,22 @@ func (o *RestoreDatabaseParams) WriteToRequest(r runtime.ClientRequest, reg strf
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {
 		return err
+	}
+
+	if o.RestoreID != nil {
+
+		// query param restoreId
+		var qrRestoreID string
+		if o.RestoreID != nil {
+			qrRestoreID = *o.RestoreID
+		}
+		qRestoreID := qrRestoreID
+		if qRestoreID != "" {
+			if err := r.SetQueryParam("restoreId", qRestoreID); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {
