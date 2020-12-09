@@ -25,6 +25,66 @@ type Client struct {
 }
 
 /*
+AddDNSARecordV1 creates a DNS a record with the value in the defined zone if zone exists if zone not specified default zone will be used reverse pointer created if requested and reverse zone exists
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) AddDNSARecordV1(params *AddDNSARecordV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAddDNSARecordV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "addDnsARecordV1",
+		Method:             "POST",
+		PathPattern:        "/v1/dns/record/a",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AddDNSARecordV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+AddDNSCnameRecordV1 creates a DNS a record with the value in the defined zone if zone exists if zone not specified default zone will be used reverse pointer created if requested and reverse zone exists
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) AddDNSCnameRecordV1(params *AddDNSCnameRecordV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAddDNSCnameRecordV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "addDnsCnameRecordV1",
+		Method:             "POST",
+		PathPattern:        "/v1/dns/record/cname",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AddDNSCnameRecordV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 AddDNSZoneForSubnetIdsV1 creates reverse DNS zone entry for subnet ids
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -81,6 +141,66 @@ func (a *Client) AddDNSZoneForSubnetsV1(params *AddDNSZoneForSubnetsV1Params) (*
 		return nil, err
 	}
 	return result.(*AddDNSZoneForSubnetsV1OK), nil
+
+}
+
+/*
+DeleteDNSARecordV1 deletes the a record in DNS zone and tries to delete p t r if exists
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) DeleteDNSARecordV1(params *DeleteDNSARecordV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteDNSARecordV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteDnsARecordV1",
+		Method:             "DELETE",
+		PathPattern:        "/v1/dns/record/a",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteDNSARecordV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+DeleteDNSCnameRecordV1 deletes the c n a m e record in DNS zone
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) DeleteDNSCnameRecordV1(params *DeleteDNSCnameRecordV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteDNSCnameRecordV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteDnsCnameRecordV1",
+		Method:             "DELETE",
+		PathPattern:        "/v1/dns/record/cname",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteDNSCnameRecordV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 
 }
 

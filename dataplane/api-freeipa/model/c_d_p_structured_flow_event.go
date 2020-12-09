@@ -29,7 +29,7 @@ type CDPStructuredFlowEvent struct {
 	Operation *CDPOperationDetails `json:"operation,omitempty"`
 
 	// payload
-	Payload Serializable `json:"payload,omitempty"`
+	Payload interface{} `json:"payload,omitempty"`
 
 	// status
 	Status string `json:"status,omitempty"`

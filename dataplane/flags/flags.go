@@ -1568,6 +1568,49 @@ var (
 			Usage: "enables Ranger Raz service for ADLSv2",
 		},
 	}
+	FlDnsHostname = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "hostname",
+			Usage: "Hostname name without the domain. eg. 'ipaserver' from 'ipaserver.clouder.site'",
+		},
+	}
+	FlDnsIp = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "ip",
+			Usage: "The IP address of the host the A record should point to. Only IPv4",
+		},
+	}
+	FlDnsZone = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name: "zone",
+			Usage: "It's the domain. Like if your FQDN is ipaserver.clouder.site, it's 'cloudera.site'. " +
+				"'168.192.in-addr.arpa' for a reverse record like '5.1.168.192.in-addr.arpa'",
+		},
+	}
+	FlDnsCreateReverse = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "create-reverse",
+			Usage: "Tries to create a reverse pointer for the record (PTR). Only if reverse zone already exists",
+		},
+	}
+	FlDnsCname = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "cname",
+			Usage: "DNS name without the domain. eg. 'ipaserver' from 'ipaserver.clouder.site'",
+		},
+	}
+	FlDnsTargetFqdn = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "target",
+			Usage: "The fully qualified domain name of the host the CNAME should point to.",
+		},
+	}
 )
 
 type RequiredFlag struct {

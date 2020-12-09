@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1dns"
 	"strconv"
 	"strings"
 	"time"
@@ -523,4 +524,67 @@ func writeEnvironmentUserSyncState(c *cli.Context, environmentUserSyncState *fre
 		LastUserSyncOperationID: environmentUserSyncState.LastUserSyncOperationID,
 	}
 	output.Write(environmentUserSyncStateHeader, syncState)
+}
+
+func AddDnsARecord(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	hostName := c.String(fl.FlDnsHostname.Name)
+	zone := c.String(fl.FlDnsZone.Name)
+	ip := c.String(fl.FlDnsIp.Name)
+	addDNSARecordV1Request := freeIpaModel.AddDNSARecordV1Request{
+		EnvironmentCrn: &envCrn,
+		DNSZone:        zone,
+		Hostname:       &hostName,
+		IP:             &ip,
+		CreateReverse:  c.Bool(fl.FlDnsCreateReverse.Name),
+	}
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	err := freeIpaClient.V1dns.AddDNSARecordV1(v1dns.NewAddDNSARecordV1Params().WithBody(&addDNSARecordV1Request))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+}
+
+func DeleteDnsARecord(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	hostName := c.String(fl.FlDnsHostname.Name)
+	zone := c.String(fl.FlDnsZone.Name)
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	err := freeIpaClient.V1dns.DeleteDNSARecordV1(v1dns.NewDeleteDNSARecordV1Params().WithHostname(&hostName).WithDNSZone(&zone).WithEnvironment(&envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+}
+
+func AddDnsCnameRecord(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	cname := c.String(fl.FlDnsCname.Name)
+	zone := c.String(fl.FlDnsZone.Name)
+	target := c.String(fl.FlDnsTargetFqdn.Name)
+	addDNSCnameRecordV1Request := freeIpaModel.AddDNSCnameRecordV1Request{
+		EnvironmentCrn: &envCrn,
+		DNSZone:        zone,
+		Cname:          &cname,
+		TargetFqdn:     &target,
+	}
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	err := freeIpaClient.V1dns.AddDNSCnameRecordV1(v1dns.NewAddDNSCnameRecordV1Params().WithBody(&addDNSCnameRecordV1Request))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+}
+
+func DeleteDnsCnameRecord(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	cname := c.String(fl.FlDnsCname.Name)
+	zone := c.String(fl.FlDnsZone.Name)
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	err := freeIpaClient.V1dns.DeleteDNSCnameRecordV1(v1dns.NewDeleteDNSCnameRecordV1Params().WithCname(&cname).WithDNSZone(&zone).WithEnvironment(&envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
 }

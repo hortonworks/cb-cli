@@ -219,6 +219,64 @@ func init() {
 					},
 				},
 			},
+			{
+				Name:  "dns",
+				Usage: "Manages DNS related resources",
+				Subcommands: []cli.Command{
+					{
+						Name:        "add-a-record",
+						Usage:       "Adds an A record to FreeIPA",
+						Description: "Adds an A record to FreeIPA",
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlDnsZone, fl.FlDnsHostname, fl.FlDnsIp, fl.FlDnsCreateReverse).AddAGlobalFlags().AddOutputFlag().Build(),
+						Action:      freeipa.AddDnsARecord,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlDnsZone, fl.FlDnsHostname, fl.FlDnsIp, fl.FlDnsCreateReverse).AddAGlobalFlags().AddOutputFlag().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "add-cname-record",
+						Usage:       "Adds a CNAME record to FreeIPA",
+						Description: "Adds a CNAME record to FreeIPA",
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlDnsZone, fl.FlDnsCname, fl.FlDnsTargetFqdn).AddAGlobalFlags().AddOutputFlag().Build(),
+						Action:      freeipa.AddDnsCnameRecord,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlDnsZone, fl.FlDnsCname, fl.FlDnsTargetFqdn).AddAGlobalFlags().AddOutputFlag().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "delete-a-record",
+						Usage:       "Deletes an A record from FreeIPA",
+						Description: "Deletes an A record from FreeIPA",
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlDnsZone, fl.FlDnsHostname).AddAGlobalFlags().AddOutputFlag().Build(),
+						Action:      freeipa.DeleteDnsARecord,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlDnsZone, fl.FlDnsHostname).AddAGlobalFlags().AddOutputFlag().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "delete-cname-record",
+						Usage:       "Deletes a CNAME record from FreeIPA",
+						Description: "Deletes a CNAME record from FreeIPA",
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlDnsZone, fl.FlDnsCname).AddAGlobalFlags().AddOutputFlag().Build(),
+						Action:      freeipa.DeleteDnsCnameRecord,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlDnsZone, fl.FlDnsCname).AddAGlobalFlags().AddOutputFlag().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
 		},
 	})
 }
