@@ -175,7 +175,7 @@ generate-swagger-sdx-docker: _init-swagger-generation-sdx
 	generate client -f ${PWD}/build/swagger.json -c client -m model -t dataplane/api-sdx
 
 generate-swagger-freeipa-docker: _init-swagger-generation-freeipa
-	@docker run --rm -it -v "${GOPATH}":"${GOPATH}" -v ${PWD}/build/swagger.json:${PWD}/build/swagger.json  -w "${PWD}" -e GOPATH --net=host quay.io/goswagger/swagger:v0.17.2 \
+	@docker run --rm -it -v "${GOPATH}":"${GOPATH}" -v ${PWD}/build/swagger.json:${PWD}/build/swagger.json  -w "${PWD}" -e GOPATH --net=host quay.io/goswagger/swagger:v0.19.0 \
 	generate client -f ${PWD}/build/swagger.json -c client -m model -t dataplane/api-freeipa
 
 generate-swagger-redbeams-docker: _init-swagger-generation-redbeams
