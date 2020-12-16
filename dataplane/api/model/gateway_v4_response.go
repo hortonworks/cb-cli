@@ -25,7 +25,7 @@ type GatewayV4Response struct {
 	GatewayType string `json:"gatewayType,omitempty"`
 
 	// Knox SSO type
-	// Enum: [SSO_PROVIDER NONE]
+	// Enum: [SSO_PROVIDER SSO_PROVIDER_FROM_UMS NONE PAM]
 	SsoType string `json:"ssoType,omitempty"`
 
 	// SSO Provider certificate
@@ -104,7 +104,7 @@ var gatewayV4ResponseTypeSsoTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["SSO_PROVIDER","NONE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["SSO_PROVIDER","SSO_PROVIDER_FROM_UMS","NONE","PAM"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -117,8 +117,14 @@ const (
 	// GatewayV4ResponseSsoTypeSSOPROVIDER captures enum value "SSO_PROVIDER"
 	GatewayV4ResponseSsoTypeSSOPROVIDER string = "SSO_PROVIDER"
 
+	// GatewayV4ResponseSsoTypeSSOPROVIDERFROMUMS captures enum value "SSO_PROVIDER_FROM_UMS"
+	GatewayV4ResponseSsoTypeSSOPROVIDERFROMUMS string = "SSO_PROVIDER_FROM_UMS"
+
 	// GatewayV4ResponseSsoTypeNONE captures enum value "NONE"
 	GatewayV4ResponseSsoTypeNONE string = "NONE"
+
+	// GatewayV4ResponseSsoTypePAM captures enum value "PAM"
+	GatewayV4ResponseSsoTypePAM string = "PAM"
 )
 
 // prop value enum

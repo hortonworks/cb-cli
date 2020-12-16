@@ -20,8 +20,11 @@ import (
 // NewStartEnvironmentByCrnV1Params creates a new StartEnvironmentByCrnV1Params object
 // with the default values initialized.
 func NewStartEnvironmentByCrnV1Params() *StartEnvironmentByCrnV1Params {
-	var ()
+	var (
+		dataHubStartActionDefault = string("START_ALL")
+	)
 	return &StartEnvironmentByCrnV1Params{
+		DataHubStartAction: &dataHubStartActionDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -30,8 +33,11 @@ func NewStartEnvironmentByCrnV1Params() *StartEnvironmentByCrnV1Params {
 // NewStartEnvironmentByCrnV1ParamsWithTimeout creates a new StartEnvironmentByCrnV1Params object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewStartEnvironmentByCrnV1ParamsWithTimeout(timeout time.Duration) *StartEnvironmentByCrnV1Params {
-	var ()
+	var (
+		dataHubStartActionDefault = string("START_ALL")
+	)
 	return &StartEnvironmentByCrnV1Params{
+		DataHubStartAction: &dataHubStartActionDefault,
 
 		timeout: timeout,
 	}
@@ -40,8 +46,11 @@ func NewStartEnvironmentByCrnV1ParamsWithTimeout(timeout time.Duration) *StartEn
 // NewStartEnvironmentByCrnV1ParamsWithContext creates a new StartEnvironmentByCrnV1Params object
 // with the default values initialized, and the ability to set a context for a request
 func NewStartEnvironmentByCrnV1ParamsWithContext(ctx context.Context) *StartEnvironmentByCrnV1Params {
-	var ()
+	var (
+		dataHubStartActionDefault = string("START_ALL")
+	)
 	return &StartEnvironmentByCrnV1Params{
+		DataHubStartAction: &dataHubStartActionDefault,
 
 		Context: ctx,
 	}
@@ -50,9 +59,12 @@ func NewStartEnvironmentByCrnV1ParamsWithContext(ctx context.Context) *StartEnvi
 // NewStartEnvironmentByCrnV1ParamsWithHTTPClient creates a new StartEnvironmentByCrnV1Params object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewStartEnvironmentByCrnV1ParamsWithHTTPClient(client *http.Client) *StartEnvironmentByCrnV1Params {
-	var ()
+	var (
+		dataHubStartActionDefault = string("START_ALL")
+	)
 	return &StartEnvironmentByCrnV1Params{
-		HTTPClient: client,
+		DataHubStartAction: &dataHubStartActionDefault,
+		HTTPClient:         client,
 	}
 }
 
@@ -63,6 +75,8 @@ type StartEnvironmentByCrnV1Params struct {
 
 	/*Crn*/
 	Crn string
+	/*DataHubStartAction*/
+	DataHubStartAction *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -113,6 +127,17 @@ func (o *StartEnvironmentByCrnV1Params) SetCrn(crn string) {
 	o.Crn = crn
 }
 
+// WithDataHubStartAction adds the dataHubStartAction to the start environment by crn v1 params
+func (o *StartEnvironmentByCrnV1Params) WithDataHubStartAction(dataHubStartAction *string) *StartEnvironmentByCrnV1Params {
+	o.SetDataHubStartAction(dataHubStartAction)
+	return o
+}
+
+// SetDataHubStartAction adds the dataHubStartAction to the start environment by crn v1 params
+func (o *StartEnvironmentByCrnV1Params) SetDataHubStartAction(dataHubStartAction *string) {
+	o.DataHubStartAction = dataHubStartAction
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *StartEnvironmentByCrnV1Params) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -124,6 +149,22 @@ func (o *StartEnvironmentByCrnV1Params) WriteToRequest(r runtime.ClientRequest, 
 	// path param crn
 	if err := r.SetPathParam("crn", o.Crn); err != nil {
 		return err
+	}
+
+	if o.DataHubStartAction != nil {
+
+		// query param dataHubStartAction
+		var qrDataHubStartAction string
+		if o.DataHubStartAction != nil {
+			qrDataHubStartAction = *o.DataHubStartAction
+		}
+		qDataHubStartAction := qrDataHubStartAction
+		if qDataHubStartAction != "" {
+			if err := r.SetQueryParam("dataHubStartAction", qDataHubStartAction); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

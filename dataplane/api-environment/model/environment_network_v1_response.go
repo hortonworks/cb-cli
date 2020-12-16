@@ -34,8 +34,15 @@ type EnvironmentNetworkV1Response struct {
 	// Subnet metadata of DWX subnets
 	DwxSubnets map[string]CloudSubnet `json:"dwxSubnets,omitempty"`
 
+	// Subnet ids for the Public Endpoint Access Gateway. If provided, these are the subnets that will be used to create a public Knox endpoint for out-of-network UI/API access. If not provided, public subnets will be selected from the subnet list provided for environment creation. (Optional)
+	// Unique: true
+	EndpointGatewaySubnetIds []string `json:"endpointGatewaySubnetIds"`
+
 	// The existing network is created by the user, otherwise created by the Cloudbreak.
 	ExistingNetwork bool `json:"existingNetwork,omitempty"`
+
+	// Subnet metadata for the Public Endpoint Access Gateway. If provided, these are the subnets that will be used to create a public Knox endpoint for out-of-network UI/API access. If not provided, public subnets will be selected from the subnet list provided for environment creation. (Optional)
+	GatewayEndpointSubnetMetas map[string]CloudSubnet `json:"gatewayEndpointSubnetMetas,omitempty"`
 
 	// Subnet ids of the specified networks
 	Gcp *EnvironmentNetworkGcpV1Params `json:"gcp,omitempty"`
@@ -73,6 +80,10 @@ type EnvironmentNetworkV1Response struct {
 	// Enum: [ENABLED DISABLED]
 	PrivateSubnetCreation string `json:"privateSubnetCreation,omitempty"`
 
+	// A flag to enable the Public Endpoint Access Gateway, which provides public UI/API access to private data lakes and data hubs.
+	// Enum: [ENABLED DISABLED]
+	PublicEndpointAccessGateway string `json:"publicEndpointAccessGateway,omitempty"`
+
 	// A flag to enable or disable the service endpoint creation.
 	// Enum: [ENABLED DISABLED ENABLED_PRIVATE_ENDPOINT]
 	ServiceEndpointCreation string `json:"serviceEndpointCreation,omitempty"`
@@ -105,6 +116,14 @@ func (m *EnvironmentNetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDwxSubnets(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEndpointGatewaySubnetIds(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGatewayEndpointSubnetMetas(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -141,6 +160,10 @@ func (m *EnvironmentNetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePrivateSubnetCreation(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePublicEndpointAccessGateway(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -236,6 +259,41 @@ func (m *EnvironmentNetworkV1Response) validateDwxSubnets(formats strfmt.Registr
 			return err
 		}
 		if val, ok := m.DwxSubnets[k]; ok {
+			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateEndpointGatewaySubnetIds(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.EndpointGatewaySubnetIds) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("endpointGatewaySubnetIds", "body", m.EndpointGatewaySubnetIds); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateGatewayEndpointSubnetMetas(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.GatewayEndpointSubnetMetas) { // not required
+		return nil
+	}
+
+	for k := range m.GatewayEndpointSubnetMetas {
+
+		if err := validate.Required("gatewayEndpointSubnetMetas"+"."+k, "body", m.GatewayEndpointSubnetMetas[k]); err != nil {
+			return err
+		}
+		if val, ok := m.GatewayEndpointSubnetMetas[k]; ok {
 			if err := val.Validate(formats); err != nil {
 				return err
 			}
@@ -445,6 +503,49 @@ func (m *EnvironmentNetworkV1Response) validatePrivateSubnetCreation(formats str
 
 	// value enum
 	if err := m.validatePrivateSubnetCreationEnum("privateSubnetCreation", "body", m.PrivateSubnetCreation); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var environmentNetworkV1ResponseTypePublicEndpointAccessGatewayPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		environmentNetworkV1ResponseTypePublicEndpointAccessGatewayPropEnum = append(environmentNetworkV1ResponseTypePublicEndpointAccessGatewayPropEnum, v)
+	}
+}
+
+const (
+
+	// EnvironmentNetworkV1ResponsePublicEndpointAccessGatewayENABLED captures enum value "ENABLED"
+	EnvironmentNetworkV1ResponsePublicEndpointAccessGatewayENABLED string = "ENABLED"
+
+	// EnvironmentNetworkV1ResponsePublicEndpointAccessGatewayDISABLED captures enum value "DISABLED"
+	EnvironmentNetworkV1ResponsePublicEndpointAccessGatewayDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *EnvironmentNetworkV1Response) validatePublicEndpointAccessGatewayEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, environmentNetworkV1ResponseTypePublicEndpointAccessGatewayPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validatePublicEndpointAccessGateway(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PublicEndpointAccessGateway) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validatePublicEndpointAccessGatewayEnum("publicEndpointAccessGateway", "body", m.PublicEndpointAccessGateway); err != nil {
 		return err
 	}
 

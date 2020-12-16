@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-AddDNSARecordV1 creates a DNS a record with the value in the defined zone if zone exists if zone not specified default zone will be used reverse pointer created if requested and reverse zone exists
+AddDNSARecordV1 creates a DNS a record with the value in the defined zone if zone exists if zone not specified default zone will be used reverse pointer is created if requested and reverse zone exists
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
@@ -55,7 +55,7 @@ func (a *Client) AddDNSARecordV1(params *AddDNSARecordV1Params) error {
 }
 
 /*
-AddDNSCnameRecordV1 creates a DNS a record with the value in the defined zone if zone exists if zone not specified default zone will be used reverse pointer created if requested and reverse zone exists
+AddDNSCnameRecordV1 creates a DNS c n a m e record with the value in the defined zone if zone exists if zone not specified default zone will be used
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */

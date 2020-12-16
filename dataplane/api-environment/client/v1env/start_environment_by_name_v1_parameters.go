@@ -20,8 +20,11 @@ import (
 // NewStartEnvironmentByNameV1Params creates a new StartEnvironmentByNameV1Params object
 // with the default values initialized.
 func NewStartEnvironmentByNameV1Params() *StartEnvironmentByNameV1Params {
-	var ()
+	var (
+		dataHubStartActionDefault = string("START_ALL")
+	)
 	return &StartEnvironmentByNameV1Params{
+		DataHubStartAction: &dataHubStartActionDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -30,8 +33,11 @@ func NewStartEnvironmentByNameV1Params() *StartEnvironmentByNameV1Params {
 // NewStartEnvironmentByNameV1ParamsWithTimeout creates a new StartEnvironmentByNameV1Params object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewStartEnvironmentByNameV1ParamsWithTimeout(timeout time.Duration) *StartEnvironmentByNameV1Params {
-	var ()
+	var (
+		dataHubStartActionDefault = string("START_ALL")
+	)
 	return &StartEnvironmentByNameV1Params{
+		DataHubStartAction: &dataHubStartActionDefault,
 
 		timeout: timeout,
 	}
@@ -40,8 +46,11 @@ func NewStartEnvironmentByNameV1ParamsWithTimeout(timeout time.Duration) *StartE
 // NewStartEnvironmentByNameV1ParamsWithContext creates a new StartEnvironmentByNameV1Params object
 // with the default values initialized, and the ability to set a context for a request
 func NewStartEnvironmentByNameV1ParamsWithContext(ctx context.Context) *StartEnvironmentByNameV1Params {
-	var ()
+	var (
+		dataHubStartActionDefault = string("START_ALL")
+	)
 	return &StartEnvironmentByNameV1Params{
+		DataHubStartAction: &dataHubStartActionDefault,
 
 		Context: ctx,
 	}
@@ -50,9 +59,12 @@ func NewStartEnvironmentByNameV1ParamsWithContext(ctx context.Context) *StartEnv
 // NewStartEnvironmentByNameV1ParamsWithHTTPClient creates a new StartEnvironmentByNameV1Params object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewStartEnvironmentByNameV1ParamsWithHTTPClient(client *http.Client) *StartEnvironmentByNameV1Params {
-	var ()
+	var (
+		dataHubStartActionDefault = string("START_ALL")
+	)
 	return &StartEnvironmentByNameV1Params{
-		HTTPClient: client,
+		DataHubStartAction: &dataHubStartActionDefault,
+		HTTPClient:         client,
 	}
 }
 
@@ -61,6 +73,8 @@ for the start environment by name v1 operation typically these are written to a 
 */
 type StartEnvironmentByNameV1Params struct {
 
+	/*DataHubStartAction*/
+	DataHubStartAction *string
 	/*Name*/
 	Name string
 
@@ -102,6 +116,17 @@ func (o *StartEnvironmentByNameV1Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithDataHubStartAction adds the dataHubStartAction to the start environment by name v1 params
+func (o *StartEnvironmentByNameV1Params) WithDataHubStartAction(dataHubStartAction *string) *StartEnvironmentByNameV1Params {
+	o.SetDataHubStartAction(dataHubStartAction)
+	return o
+}
+
+// SetDataHubStartAction adds the dataHubStartAction to the start environment by name v1 params
+func (o *StartEnvironmentByNameV1Params) SetDataHubStartAction(dataHubStartAction *string) {
+	o.DataHubStartAction = dataHubStartAction
+}
+
 // WithName adds the name to the start environment by name v1 params
 func (o *StartEnvironmentByNameV1Params) WithName(name string) *StartEnvironmentByNameV1Params {
 	o.SetName(name)
@@ -120,6 +145,22 @@ func (o *StartEnvironmentByNameV1Params) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
+
+	if o.DataHubStartAction != nil {
+
+		// query param dataHubStartAction
+		var qrDataHubStartAction string
+		if o.DataHubStartAction != nil {
+			qrDataHubStartAction = *o.DataHubStartAction
+		}
+		qDataHubStartAction := qrDataHubStartAction
+		if qDataHubStartAction != "" {
+			if err := r.SetQueryParam("dataHubStartAction", qDataHubStartAction); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

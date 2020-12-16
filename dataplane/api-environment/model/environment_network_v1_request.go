@@ -25,6 +25,10 @@ type EnvironmentNetworkV1Request struct {
 	// Subnet ids of the specified networks
 	Azure *EnvironmentNetworkAzureV1Params `json:"azure,omitempty"`
 
+	// Subnet ids for the Public Endpoint Access Gateway. If provided, these are the subnets that will be used to create a public Knox endpoint for out-of-network UI/API access. If not provided, public subnets will be selected from the subnet list provided for environment creation. (Optional)
+	// Unique: true
+	EndpointGatewaySubnetIds []string `json:"endpointGatewaySubnetIds"`
+
 	// Subnet ids of the specified networks
 	Gcp *EnvironmentNetworkGcpV1Params `json:"gcp,omitempty"`
 
@@ -43,6 +47,10 @@ type EnvironmentNetworkV1Request struct {
 	// A flag to enable or disable the private subnet creation.
 	// Enum: [ENABLED DISABLED]
 	PrivateSubnetCreation string `json:"privateSubnetCreation,omitempty"`
+
+	// A flag to enable the Public Endpoint Access Gateway, which provides public UI/API access to private data lakes and data hubs.
+	// Enum: [ENABLED DISABLED]
+	PublicEndpointAccessGateway string `json:"publicEndpointAccessGateway,omitempty"`
 
 	// A flag to enable or disable the service endpoint creation.
 	// Enum: [ENABLED DISABLED ENABLED_PRIVATE_ENDPOINT]
@@ -68,6 +76,10 @@ func (m *EnvironmentNetworkV1Request) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateEndpointGatewaySubnetIds(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateGcp(formats); err != nil {
 		res = append(res, err)
 	}
@@ -85,6 +97,10 @@ func (m *EnvironmentNetworkV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePrivateSubnetCreation(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePublicEndpointAccessGateway(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -137,6 +153,19 @@ func (m *EnvironmentNetworkV1Request) validateAzure(formats strfmt.Registry) err
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Request) validateEndpointGatewaySubnetIds(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.EndpointGatewaySubnetIds) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("endpointGatewaySubnetIds", "body", m.EndpointGatewaySubnetIds); err != nil {
+		return err
 	}
 
 	return nil
@@ -275,6 +304,49 @@ func (m *EnvironmentNetworkV1Request) validatePrivateSubnetCreation(formats strf
 
 	// value enum
 	if err := m.validatePrivateSubnetCreationEnum("privateSubnetCreation", "body", m.PrivateSubnetCreation); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var environmentNetworkV1RequestTypePublicEndpointAccessGatewayPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		environmentNetworkV1RequestTypePublicEndpointAccessGatewayPropEnum = append(environmentNetworkV1RequestTypePublicEndpointAccessGatewayPropEnum, v)
+	}
+}
+
+const (
+
+	// EnvironmentNetworkV1RequestPublicEndpointAccessGatewayENABLED captures enum value "ENABLED"
+	EnvironmentNetworkV1RequestPublicEndpointAccessGatewayENABLED string = "ENABLED"
+
+	// EnvironmentNetworkV1RequestPublicEndpointAccessGatewayDISABLED captures enum value "DISABLED"
+	EnvironmentNetworkV1RequestPublicEndpointAccessGatewayDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *EnvironmentNetworkV1Request) validatePublicEndpointAccessGatewayEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, environmentNetworkV1RequestTypePublicEndpointAccessGatewayPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Request) validatePublicEndpointAccessGateway(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PublicEndpointAccessGateway) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validatePublicEndpointAccessGatewayEnum("publicEndpointAccessGateway", "body", m.PublicEndpointAccessGateway); err != nil {
 		return err
 	}
 

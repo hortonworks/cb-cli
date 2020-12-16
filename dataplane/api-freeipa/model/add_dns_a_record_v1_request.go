@@ -20,15 +20,15 @@ type AddDNSARecordV1Request struct {
 	// Tries to create a reverse pointer for the record (PTR). Only if reverse zone already exists
 	CreateReverse bool `json:"createReverse,omitempty"`
 
-	// It's the domain. Like if your FQDN is ipaserver.clouder.site, it's 'cloudera.site'. '168.192.in-addr.arpa' for a reverse record like '5.1.168.192.in-addr.arpa'
-	// Pattern: ^[a-zA-Z0-9-\.]+$
+	// It's the domain. Eg if your FQDN is ipaserver.cloudera.site, it's 'cloudera.site'. '168.192.in-addr.arpa' for a reverse record like '5.1.168.192.in-addr.arpa'
+	// Pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9\.]+$
 	DNSZone string `json:"dnsZone,omitempty"`
 
 	// CRN of the environment
 	// Required: true
 	EnvironmentCrn *string `json:"environmentCrn"`
 
-	// Hostname name without the domain. eg. 'ipaserver' from 'ipaserver.clouder.site'
+	// Hostname name without the domain. eg. 'ipaserver' from 'ipaserver.cloudera.site'
 	// Required: true
 	// Pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9]+$
 	Hostname *string `json:"hostname"`
@@ -71,7 +71,7 @@ func (m *AddDNSARecordV1Request) validateDNSZone(formats strfmt.Registry) error 
 		return nil
 	}
 
-	if err := validate.Pattern("dnsZone", "body", string(m.DNSZone), `^[a-zA-Z0-9-\.]+$`); err != nil {
+	if err := validate.Pattern("dnsZone", "body", string(m.DNSZone), `^[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9\.]+$`); err != nil {
 		return err
 	}
 
