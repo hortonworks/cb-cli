@@ -17,7 +17,7 @@ import (
 // swagger:model AzureCredentialPrerequisites
 type AzureCredentialPrerequisites struct {
 
-	// Azure CLI command to create Azure AD Application as prerequisite for credential creation.The field is base64 encoded.
+	// Azure CLI command to create Azure AD Application as prerequisite for credential creation. The field is base64 encoded.
 	// Required: true
 	AppCreationCommand *string `json:"appCreationCommand"`
 

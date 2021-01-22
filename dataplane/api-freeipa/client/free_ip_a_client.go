@@ -25,6 +25,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1ldaps"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1operation"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1structured_events"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v4utils"
 )
 
 // Default free IP a HTTP client.
@@ -98,6 +99,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *FreeIPA {
 
 	cli.V1structuredEvents = v1structured_events.New(transport, formats)
 
+	cli.V4utils = v4utils.New(transport, formats)
+
 	return cli
 }
 
@@ -170,6 +173,8 @@ type FreeIPA struct {
 
 	V1structuredEvents *v1structured_events.Client
 
+	V4utils *v4utils.Client
+
 	Transport runtime.ClientTransport
 }
 
@@ -204,5 +209,7 @@ func (c *FreeIPA) SetTransport(transport runtime.ClientTransport) {
 	c.V1operation.SetTransport(transport)
 
 	c.V1structuredEvents.SetTransport(transport)
+
+	c.V4utils.SetTransport(transport)
 
 }

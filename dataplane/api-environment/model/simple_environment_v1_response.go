@@ -110,7 +110,7 @@ type SimpleEnvironmentV1Response struct {
 	Telemetry *TelemetryResponse `json:"telemetry,omitempty"`
 
 	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
-	// Enum: [DIRECT CCM CLUSTER_PROXY]
+	// Enum: [DIRECT CCM CLUSTER_PROXY CCMV2]
 	Tunnel string `json:"tunnel,omitempty"`
 
 	// YARN Specific parameters.
@@ -657,7 +657,7 @@ var simpleEnvironmentV1ResponseTypeTunnelPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY","CCMV2"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -675,6 +675,9 @@ const (
 
 	// SimpleEnvironmentV1ResponseTunnelCLUSTERPROXY captures enum value "CLUSTER_PROXY"
 	SimpleEnvironmentV1ResponseTunnelCLUSTERPROXY string = "CLUSTER_PROXY"
+
+	// SimpleEnvironmentV1ResponseTunnelCCMV2 captures enum value "CCMV2"
+	SimpleEnvironmentV1ResponseTunnelCCMV2 string = "CCMV2"
 )
 
 // prop value enum

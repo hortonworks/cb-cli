@@ -55,6 +55,36 @@ func (a *Client) AddDNSARecordV1(params *AddDNSARecordV1Params) error {
 }
 
 /*
+AddDNSARecordV1Internal creates a DNS a record with the value in the defined zone if zone exists if zone not specified default zone will be used reverse pointer is created if requested and reverse zone exists
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) AddDNSARecordV1Internal(params *AddDNSARecordV1InternalParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAddDNSARecordV1InternalParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "addDnsARecordV1Internal",
+		Method:             "POST",
+		PathPattern:        "/v1/dns/record/a/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AddDNSARecordV1InternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 AddDNSCnameRecordV1 creates a DNS c n a m e record with the value in the defined zone if zone exists if zone not specified default zone will be used
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -74,6 +104,36 @@ func (a *Client) AddDNSCnameRecordV1(params *AddDNSCnameRecordV1Params) error {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AddDNSCnameRecordV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+AddDNSCnameRecordV1Internal creates a DNS c n a m e record with the value in the defined zone if zone exists if zone not specified default zone will be used
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) AddDNSCnameRecordV1Internal(params *AddDNSCnameRecordV1InternalParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAddDNSCnameRecordV1InternalParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "addDnsCnameRecordV1Internal",
+		Method:             "POST",
+		PathPattern:        "/v1/dns/record/cname/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AddDNSCnameRecordV1InternalReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

@@ -25,6 +25,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1tags"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1telemetry"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1utils"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v4utils"
 )
 
 // Default environment HTTP client.
@@ -98,6 +99,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Environmen
 
 	cli.V1utils = v1utils.New(transport, formats)
 
+	cli.V4utils = v4utils.New(transport, formats)
+
 	return cli
 }
 
@@ -170,6 +173,8 @@ type Environment struct {
 
 	V1utils *v1utils.Client
 
+	V4utils *v4utils.Client
+
 	Transport runtime.ClientTransport
 }
 
@@ -204,5 +209,7 @@ func (c *Environment) SetTransport(transport runtime.ClientTransport) {
 	c.V1telemetry.SetTransport(transport)
 
 	c.V1utils.SetTransport(transport)
+
+	c.V4utils.SetTransport(transport)
 
 }

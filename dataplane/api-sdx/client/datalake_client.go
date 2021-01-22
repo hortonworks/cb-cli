@@ -19,6 +19,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/internalsdx"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdx"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxutils"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/v4utils"
 )
 
 // Default datalake HTTP client.
@@ -80,6 +81,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Datalake {
 
 	cli.Sdxutils = sdxutils.New(transport, formats)
 
+	cli.V4utils = v4utils.New(transport, formats)
+
 	return cli
 }
 
@@ -140,6 +143,8 @@ type Datalake struct {
 
 	Sdxutils *sdxutils.Client
 
+	V4utils *v4utils.Client
+
 	Transport runtime.ClientTransport
 }
 
@@ -162,5 +167,7 @@ func (c *Datalake) SetTransport(transport runtime.ClientTransport) {
 	c.Sdx.SetTransport(transport)
 
 	c.Sdxutils.SetTransport(transport)
+
+	c.V4utils.SetTransport(transport)
 
 }

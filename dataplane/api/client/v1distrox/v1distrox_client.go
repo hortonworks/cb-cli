@@ -381,6 +381,34 @@ func (a *Client) GetCreateClusterForCli(params *GetCreateClusterForCliParams) (*
 }
 
 /*
+GetDatabaseServerByClusterCrn gets database server for distrox cluster by cluster crn
+*/
+func (a *Client) GetDatabaseServerByClusterCrn(params *GetDatabaseServerByClusterCrnParams) (*GetDatabaseServerByClusterCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDatabaseServerByClusterCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDatabaseServerByClusterCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/crn/{clusterCrn}/dbserver",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDatabaseServerByClusterCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDatabaseServerByClusterCrnOK), nil
+
+}
+
+/*
 GetDistroXRequestV1ByCrn gets stack request by crn
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.

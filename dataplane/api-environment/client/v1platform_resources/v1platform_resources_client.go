@@ -295,7 +295,7 @@ func (a *Client) GetPlatformSecurityGroups(params *GetPlatformSecurityGroupsPara
 }
 
 /*
-GetRegionsByCredential retrieves regions by type
+GetRegionsByCredential retrieves regions by credential
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */

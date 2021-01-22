@@ -16,6 +16,9 @@ import (
 // swagger:model FeaturesRequest
 type FeaturesRequest struct {
 
+	// enable uploading daemon service logs to cloud storage from the cluster nodes. (default: enabled)
+	CloudStorageLogging *FeatureSetting `json:"cloudStorageLogging,omitempty"`
+
 	// enable cluster logs collection
 	ClusterLogsCollection *FeatureSetting `json:"clusterLogsCollection,omitempty"`
 
@@ -29,6 +32,10 @@ type FeaturesRequest struct {
 // Validate validates this features request
 func (m *FeaturesRequest) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateCloudStorageLogging(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateClusterLogsCollection(formats); err != nil {
 		res = append(res, err)
@@ -45,6 +52,24 @@ func (m *FeaturesRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *FeaturesRequest) validateCloudStorageLogging(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CloudStorageLogging) { // not required
+		return nil
+	}
+
+	if m.CloudStorageLogging != nil {
+		if err := m.CloudStorageLogging.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cloudStorageLogging")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

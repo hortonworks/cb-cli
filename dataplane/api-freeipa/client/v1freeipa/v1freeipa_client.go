@@ -355,6 +355,66 @@ func (a *Client) InternalCleanupV1(params *InternalCleanupV1Params) (*InternalCl
 }
 
 /*
+InternalGetFreeIpaByEnvironmentV1 gets free IP a stack by envid and account id
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) InternalGetFreeIpaByEnvironmentV1(params *InternalGetFreeIpaByEnvironmentV1Params) (*InternalGetFreeIpaByEnvironmentV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewInternalGetFreeIpaByEnvironmentV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "internalGetFreeIpaByEnvironmentV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &InternalGetFreeIpaByEnvironmentV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*InternalGetFreeIpaByEnvironmentV1OK), nil
+
+}
+
+/*
+InternalListFreeIpaClustersByAccountV1 lists all free IP a stacks by account using the internal actor
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) InternalListFreeIpaClustersByAccountV1(params *InternalListFreeIpaClustersByAccountV1Params) (*InternalListFreeIpaClustersByAccountV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewInternalListFreeIpaClustersByAccountV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "internalListFreeIpaClustersByAccountV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/internal/list",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &InternalListFreeIpaClustersByAccountV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*InternalListFreeIpaClustersByAccountV1OK), nil
+
+}
+
+/*
 ListFreeIpaClustersByAccountV1 lists all free IP a stacks by account
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.

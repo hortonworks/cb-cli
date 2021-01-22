@@ -30,14 +30,14 @@ type CmDiagnosticsCollectionRequest struct {
 	// Enum: [LOCAL CLOUD_STORAGE SUPPORT ENG]
 	Destination *string `json:"destination"`
 
-	// Flag to enable collection of metrics for chart display in CM based diagnostics collection..
+	// Flag to enable collection of metrics for chart display in CM based diagnostics collection.
 	EnableMonitorMetricsCollection bool `json:"enableMonitorMetricsCollection,omitempty"`
 
 	// END time for the time interval of the diagnostic collection request.
 	// Format: date-time
 	EndTime strfmt.DateTime `json:"endTime,omitempty"`
 
-	// List of roles for which to get logs and metrics. If set, this restricts the roles for log and metrics collection to the list specified. If empty, the default is to get logs for all roles
+	// List of roles for which to get logs and metrics. If set, this restricts the roles for log and metrics collection to the list specified. If empty, the default is to get logs for all roles.
 	Roles []string `json:"roles"`
 
 	// Skip cloud storage write operation testing or databus connection check (depends on the destination) during init stage.

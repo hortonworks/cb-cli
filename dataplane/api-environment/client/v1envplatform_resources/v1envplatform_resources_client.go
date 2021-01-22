@@ -265,7 +265,7 @@ func (a *Client) GetPlatformSecurityGroupsByEnv(params *GetPlatformSecurityGroup
 }
 
 /*
-GetRegionsByEnv retrieves regions by type by environment
+GetRegionsByEnv retrieves regions by environment
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
 */

@@ -50,6 +50,9 @@ type StackViewV4Response struct {
 	// node count of the stack
 	NodeCount int32 `json:"nodeCount,omitempty"`
 
+	// Runtime version of the cluster
+	StackVersion string `json:"stackVersion,omitempty"`
+
 	// status of the stack
 	// Enum: [REQUESTED CREATE_IN_PROGRESS AVAILABLE UPDATE_IN_PROGRESS UPDATE_REQUESTED UPDATE_FAILED BACKUP_IN_PROGRESS BACKUP_FAILED BACKUP_FINISHED RESTORE_IN_PROGRESS RESTORE_FAILED RESTORE_FINISHED CREATE_FAILED ENABLE_SECURITY_FAILED PRE_DELETE_IN_PROGRESS DELETE_IN_PROGRESS DELETE_FAILED DELETED_ON_PROVIDER_SIDE DELETE_COMPLETED STOPPED STOP_REQUESTED START_REQUESTED STOP_IN_PROGRESS START_IN_PROGRESS START_FAILED STOP_FAILED WAIT_FOR_SYNC MAINTENANCE_MODE_ENABLED AMBIGUOUS EXTERNAL_DATABASE_CREATION_IN_PROGRESS EXTERNAL_DATABASE_CREATION_FAILED EXTERNAL_DATABASE_DELETION_IN_PROGRESS EXTERNAL_DATABASE_DELETION_FINISHED EXTERNAL_DATABASE_DELETION_FAILED EXTERNAL_DATABASE_START_IN_PROGRESS EXTERNAL_DATABASE_START_FINISHED EXTERNAL_DATABASE_START_FAILED EXTERNAL_DATABASE_STOP_IN_PROGRESS EXTERNAL_DATABASE_STOP_FINISHED EXTERNAL_DATABASE_STOP_FAILED]
 	Status string `json:"status,omitempty"`
@@ -58,7 +61,7 @@ type StackViewV4Response struct {
 	Terminated int64 `json:"terminated,omitempty"`
 
 	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
-	// Enum: [DIRECT CCM CLUSTER_PROXY]
+	// Enum: [DIRECT CCM CLUSTER_PROXY CCMV2]
 	Tunnel string `json:"tunnel,omitempty"`
 
 	// the related user
@@ -283,7 +286,7 @@ var stackViewV4ResponseTypeTunnelPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY","CCMV2"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -301,6 +304,9 @@ const (
 
 	// StackViewV4ResponseTunnelCLUSTERPROXY captures enum value "CLUSTER_PROXY"
 	StackViewV4ResponseTunnelCLUSTERPROXY string = "CLUSTER_PROXY"
+
+	// StackViewV4ResponseTunnelCCMV2 captures enum value "CCMV2"
+	StackViewV4ResponseTunnelCCMV2 string = "CCMV2"
 )
 
 // prop value enum

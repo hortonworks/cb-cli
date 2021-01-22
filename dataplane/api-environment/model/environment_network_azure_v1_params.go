@@ -17,17 +17,17 @@ import (
 // swagger:model EnvironmentNetworkAzureV1Params
 type EnvironmentNetworkAzureV1Params struct {
 
-	// Subnet ids of the specified networks
+	// Azure Network ID of the specified network
 	// Required: true
 	// Max Length: 255
 	// Min Length: 0
 	NetworkID *string `json:"networkId"`
 
-	// Subnet ids of the specified networks
+	// Azure Network is private if this flag is true
 	// Required: true
 	NoPublicIP *bool `json:"noPublicIp"`
 
-	// Subnet ids of the specified networks
+	// Azure Resource Group Name of the specified network
 	// Required: true
 	// Max Length: 255
 	// Min Length: 0

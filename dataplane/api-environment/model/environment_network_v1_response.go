@@ -19,10 +19,10 @@ import (
 // swagger:model EnvironmentNetworkV1Response
 type EnvironmentNetworkV1Response struct {
 
-	// Subnet ids of the specified networks
+	// AWS-specific properties of the network
 	Aws *EnvironmentNetworkAwsV1Params `json:"aws,omitempty"`
 
-	// Subnet ids of the specified networks
+	// Azure-specific properties of the network
 	Azure *EnvironmentNetworkAzureV1Params `json:"azure,omitempty"`
 
 	// Subnet metadata of CB subnets, union of the DWX and public subnets
@@ -44,7 +44,7 @@ type EnvironmentNetworkV1Response struct {
 	// Subnet metadata for the Public Endpoint Access Gateway. If provided, these are the subnets that will be used to create a public Knox endpoint for out-of-network UI/API access. If not provided, public subnets will be selected from the subnet list provided for environment creation. (Optional)
 	GatewayEndpointSubnetMetas map[string]CloudSubnet `json:"gatewayEndpointSubnetMetas,omitempty"`
 
-	// Subnet ids of the specified networks
+	// GCP-specific properties of the network
 	Gcp *EnvironmentNetworkGcpV1Params `json:"gcp,omitempty"`
 
 	// Subnet metadata of CB subnets, union of the DWX and public subnets
@@ -53,7 +53,7 @@ type EnvironmentNetworkV1Response struct {
 	// Subnet metadata of MLX subnets (Deprecated)
 	MlxSubnets map[string]CloudSubnet `json:"mlxSubnets,omitempty"`
 
-	// Mock parameters
+	// Mock-specific properties of the network
 	Mock *EnvironmentNetworkMockV1Params `json:"mock,omitempty"`
 
 	// name of the resource
@@ -95,7 +95,7 @@ type EnvironmentNetworkV1Response struct {
 	// Subnet metadata of the specified networks
 	SubnetMetas map[string]CloudSubnet `json:"subnetMetas,omitempty"`
 
-	// Yarn parameters
+	// Yarn-specific properties of the network
 	Yarn *EnvironmentNetworkYarnV1Params `json:"yarn,omitempty"`
 }
 

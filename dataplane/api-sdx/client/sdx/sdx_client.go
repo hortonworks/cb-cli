@@ -193,6 +193,34 @@ func (a *Client) DeleteSdxByCrn(params *DeleteSdxByCrnParams) (*DeleteSdxByCrnOK
 }
 
 /*
+GetDatabaseServerByClusterCrn gets database server for s d x cluster by cluster crn
+*/
+func (a *Client) GetDatabaseServerByClusterCrn(params *GetDatabaseServerByClusterCrnParams) (*GetDatabaseServerByClusterCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDatabaseServerByClusterCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDatabaseServerByClusterCrn",
+		Method:             "GET",
+		PathPattern:        "/sdx/crn/{clusterCrn}/dbserver",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDatabaseServerByClusterCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDatabaseServerByClusterCrnOK), nil
+
+}
+
+/*
 GetRangerCloudIdentitySyncStatus gets status of a ranger cloud identity sync
 */
 func (a *Client) GetRangerCloudIdentitySyncStatus(params *GetRangerCloudIdentitySyncStatusParams) (*GetRangerCloudIdentitySyncStatusOK, error) {

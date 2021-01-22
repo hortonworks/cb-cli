@@ -32,7 +32,7 @@ type AddDNSCnameRecordV1Request struct {
 
 	// The fully qualified domain name of the host the CNAME should point to.
 	// Required: true
-	// Pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9]+$
+	// Pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9]+[.]?$
 	TargetFqdn *string `json:"targetFqdn"`
 }
 
@@ -103,7 +103,7 @@ func (m *AddDNSCnameRecordV1Request) validateTargetFqdn(formats strfmt.Registry)
 		return err
 	}
 
-	if err := validate.Pattern("targetFqdn", "body", string(*m.TargetFqdn), `^[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9]+$`); err != nil {
+	if err := validate.Pattern("targetFqdn", "body", string(*m.TargetFqdn), `^[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9]+[.]?$`); err != nil {
 		return err
 	}
 

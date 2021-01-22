@@ -535,6 +535,36 @@ func (a *Client) GetEnvironmentV1ByName(params *GetEnvironmentV1ByNameParams) (*
 }
 
 /*
+InternalListEnvironmentV1 lists all environments by account ID using the internal actor
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) InternalListEnvironmentV1(params *InternalListEnvironmentV1Params) (*InternalListEnvironmentV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewInternalListEnvironmentV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "internalListEnvironmentV1",
+		Method:             "GET",
+		PathPattern:        "/v1/env/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &InternalListEnvironmentV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*InternalListEnvironmentV1OK), nil
+
+}
+
+/*
 ListEnvironmentV1 lists all environments
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.

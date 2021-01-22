@@ -30,7 +30,7 @@ type AddDNSARecordV1Request struct {
 
 	// Hostname name without the domain. eg. 'ipaserver' from 'ipaserver.cloudera.site'
 	// Required: true
-	// Pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9]+$
+	// Pattern: ^(\*\.)?[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9]+$
 	Hostname *string `json:"hostname"`
 
 	// The IP address of the host the A record should point to. Only IPv4
@@ -93,7 +93,7 @@ func (m *AddDNSARecordV1Request) validateHostname(formats strfmt.Registry) error
 		return err
 	}
 
-	if err := validate.Pattern("hostname", "body", string(*m.Hostname), `^[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9]+$`); err != nil {
+	if err := validate.Pattern("hostname", "body", string(*m.Hostname), `^(\*\.)?[a-zA-Z0-9]+[a-zA-Z0-9-\.]*[a-zA-Z0-9]+$`); err != nil {
 		return err
 	}
 

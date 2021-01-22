@@ -16,6 +16,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/databases"
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/flow_public"
+	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/v4utils"
 )
 
 // Default redbeams HTTP client.
@@ -71,6 +72,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Redbeams {
 
 	cli.FlowPublic = flow_public.New(transport, formats)
 
+	cli.V4utils = v4utils.New(transport, formats)
+
 	return cli
 }
 
@@ -125,6 +128,8 @@ type Redbeams struct {
 
 	FlowPublic *flow_public.Client
 
+	V4utils *v4utils.Client
+
 	Transport runtime.ClientTransport
 }
 
@@ -141,5 +146,7 @@ func (c *Redbeams) SetTransport(transport runtime.ClientTransport) {
 	c.Flow.SetTransport(transport)
 
 	c.FlowPublic.SetTransport(transport)
+
+	c.V4utils.SetTransport(transport)
 
 }

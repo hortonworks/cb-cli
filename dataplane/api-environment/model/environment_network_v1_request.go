@@ -19,20 +19,20 @@ import (
 // swagger:model EnvironmentNetworkV1Request
 type EnvironmentNetworkV1Request struct {
 
-	// Subnet ids of the specified networks
+	// AWS-specific properties of the network
 	Aws *EnvironmentNetworkAwsV1Params `json:"aws,omitempty"`
 
-	// Subnet ids of the specified networks
+	// Azure-specific properties of the network
 	Azure *EnvironmentNetworkAzureV1Params `json:"azure,omitempty"`
 
 	// Subnet ids for the Public Endpoint Access Gateway. If provided, these are the subnets that will be used to create a public Knox endpoint for out-of-network UI/API access. If not provided, public subnets will be selected from the subnet list provided for environment creation. (Optional)
 	// Unique: true
 	EndpointGatewaySubnetIds []string `json:"endpointGatewaySubnetIds"`
 
-	// Subnet ids of the specified networks
+	// GCP-specific properties of the network
 	Gcp *EnvironmentNetworkGcpV1Params `json:"gcp,omitempty"`
 
-	// Mock parameters
+	// Mock-specific properties of the network
 	Mock *EnvironmentNetworkMockV1Params `json:"mock,omitempty"`
 
 	// network cidr
@@ -60,7 +60,7 @@ type EnvironmentNetworkV1Request struct {
 	// Unique: true
 	SubnetIds []string `json:"subnetIds"`
 
-	// Yarn parameters
+	// Yarn-specific properties of the network
 	Yarn *EnvironmentNetworkYarnV1Params `json:"yarn,omitempty"`
 }
 

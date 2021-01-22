@@ -115,6 +115,36 @@ func (a *Client) GetSyncOperationStatusV1(params *GetSyncOperationStatusV1Params
 }
 
 /*
+InternalGetSyncOperationStatusV1 gets the status of a sync operation by account and id used by internal actors
+
+User synchronization and management operations
+*/
+func (a *Client) InternalGetSyncOperationStatusV1(params *InternalGetSyncOperationStatusV1Params) (*InternalGetSyncOperationStatusV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewInternalGetSyncOperationStatusV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "internalGetSyncOperationStatusV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/user/internal/status",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &InternalGetSyncOperationStatusV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*InternalGetSyncOperationStatusV1OK), nil
+
+}
+
+/*
 SetPasswordV1 sets the user s password in the free IP a servers
 
 User synchronization and management operations

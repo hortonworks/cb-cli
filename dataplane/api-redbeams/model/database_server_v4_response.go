@@ -19,6 +19,9 @@ import (
 // swagger:model DatabaseServerV4Response
 type DatabaseServerV4Response struct {
 
+	// CRN of the cluster of the database server
+	ClusterCrn string `json:"clusterCrn,omitempty"`
+
 	// Name of the JDBC connection driver (for example: 'org.postgresql.Driver')
 	// Required: true
 	ConnectionDriver *string `json:"connectionDriver"`

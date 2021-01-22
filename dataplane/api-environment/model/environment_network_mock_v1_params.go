@@ -20,7 +20,7 @@ type EnvironmentNetworkMockV1Params struct {
 	// internet gateway Id
 	InternetGatewayID string `json:"internetGatewayId,omitempty"`
 
-	// Subnet ids of the specified networks
+	// AWS VPC id of the specified networks
 	// Required: true
 	// Max Length: 255
 	// Min Length: 0

@@ -18,7 +18,7 @@ type InteractiveV1Credential struct {
 	// The user code what has to be used for the sign-in process on the Azure portal
 	UserCode string `json:"userCode,omitempty"`
 
-	// The url provided by Azure where the user have to use the given user code to sign in
+	// The url provided by Azure where the user has to use the given user code to sign in
 	VerificationURL string `json:"verificationUrl,omitempty"`
 }
 

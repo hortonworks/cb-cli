@@ -30,7 +30,7 @@ type AttachedFreeIpaRequest struct {
 	// Gcp specific FreeIpa parameters
 	Gcp AttachedFreeIpaRequestGcpParameters `json:"gcp,omitempty"`
 
-	// The number of FreeIPA instances to create per group when creating freeipa in environment
+	// The number of FreeIPA instances to create per group when creating FreeIPA in environment
 	InstanceCountByGroup int32 `json:"instanceCountByGroup,omitempty"`
 }
 

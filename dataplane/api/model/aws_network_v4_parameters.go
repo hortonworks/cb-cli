@@ -15,6 +15,9 @@ import (
 // swagger:model AwsNetworkV4Parameters
 type AwsNetworkV4Parameters struct {
 
+	// endpoint gateway subnet Id
+	EndpointGatewaySubnetID string `json:"endpointGatewaySubnetId,omitempty"`
+
 	// internet gateway Id
 	InternetGatewayID string `json:"internetGatewayId,omitempty"`
 
