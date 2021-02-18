@@ -43,6 +43,6 @@ RSpec.shared_context "e2e shared vars", :a => :b do
   @proxy_password = "fakepwd"
 
   @mpack_name = "cli-mpack"
-  @mpack_url = "http://public-repo-1.hortonworks.com/HDF/centos6/3.x/updates/3.1.1.0/tars/hdf_ambari_mp/hdf-ambari-mpack-3.1.1.0-35.tar.gz"
+  @mpack_url = "https://archive.cloudera.com/p/HDF/3.x/3.1.2.0/centos6/tars/hdf_ambari_mp/hdf-ambari-mpack-3.1.2.0-7.tar.gz"
   }
 end
