@@ -25,6 +25,36 @@ type Client struct {
 }
 
 /*
+CancelDiagnosticsCollectionsV1 cancels the not finished diagnostics collections
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) CancelDiagnosticsCollectionsV1(params *CancelDiagnosticsCollectionsV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCancelDiagnosticsCollectionsV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "cancelDiagnosticsCollectionsV1",
+		Method:             "POST",
+		PathPattern:        "/v1/diagnostics/{environmentCrn}/collections/cancel",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CancelDiagnosticsCollectionsV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 CollectFreeIpaDiagnosticsV1 initiates the collection of diagnostical data on the free IP a host
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -81,6 +111,36 @@ func (a *Client) GetFreeIpaVMLogsV1(params *GetFreeIpaVMLogsV1Params) (*GetFreeI
 		return nil, err
 	}
 	return result.(*GetFreeIpaVMLogsV1OK), nil
+
+}
+
+/*
+ListDiagnosticsCollectionsV1 returns a list of diagnostics collections for the specified free ipa cluster
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) ListDiagnosticsCollectionsV1(params *ListDiagnosticsCollectionsV1Params) (*ListDiagnosticsCollectionsV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListDiagnosticsCollectionsV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listDiagnosticsCollectionsV1",
+		Method:             "GET",
+		PathPattern:        "/v1/diagnostics/{environmentCrn}/collections",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListDiagnosticsCollectionsV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListDiagnosticsCollectionsV1OK), nil
 
 }
 

@@ -1,6 +1,7 @@
 package env
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -547,4 +548,52 @@ func checkClientVersion(client *client.Environment, version string) {
 	if !valid {
 		utils.LogErrorAndExit(errors.New(message))
 	}
+}
+
+func GetLastFlowLogProgress(c *cli.Context) {
+	envName := c.String(fl.FlName.Name)
+	log.Infof("[GetLastFlowLogProgress] get last flow log progression by name: %s", envName)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	envNameResp, envNameErr := envClient.Environment.V1env.GetEnvironmentV1ByName(v1env.NewGetEnvironmentV1ByNameParams().WithName(envName))
+	if envNameErr != nil {
+		utils.LogErrorAndExit(envNameErr)
+	}
+	env := envNameResp.Payload
+	resp, err := envClient.Environment.V1env.GetEnvironmentLastFlowLogProgressByResourceCrn(v1env.NewGetEnvironmentLastFlowLogProgressByResourceCrnParams().WithResourceCrn(env.Crn))
+	if err != nil {
+		utils.LogErrorAndExit(envNameErr)
+	}
+	pl := resp.Payload
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(pl); err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
+func GetRecentFlowLogsProgress(c *cli.Context) {
+	envName := c.String(fl.FlName.Name)
+	log.Infof("[GetRecentFlowLogsProgress] get recent flow logs progression by name: %s", envName)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	envNameResp, envNameErr := envClient.Environment.V1env.GetEnvironmentV1ByName(v1env.NewGetEnvironmentV1ByNameParams().WithName(envName))
+	if envNameErr != nil {
+		utils.LogErrorAndExit(envNameErr)
+	}
+	env := envNameResp.Payload
+	resp, err := envClient.Environment.V1env.GetEnvironmentFlowLogsProgressByResourceCrn(v1env.NewGetEnvironmentFlowLogsProgressByResourceCrnParams().WithResourceCrn(env.Crn))
+	if err != nil {
+		utils.LogErrorAndExit(envNameErr)
+	}
+	pl := resp.Payload
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(pl); err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
 }

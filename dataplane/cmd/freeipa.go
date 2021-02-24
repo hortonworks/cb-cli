@@ -89,6 +89,38 @@ func init() {
 				},
 			},
 			{
+				Name:  "flow-progress",
+				Usage: "check flow progress of freeipa cluster",
+				Subcommands: []cli.Command{
+					{
+						Name:        "latest",
+						Usage:       "get latest flow progress details for freeipa cluster resource",
+						Description: `get latest flow progress details for freeipa cluster resource`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().Build(),
+						Action:      freeipa.GetFreeIpaLastFlowLogProgress,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "all",
+						Usage:       "get all recent flow progress details for freeipa cluster resource",
+						Description: `get all recent flow progress details for freeipa cluster resource`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().Build(),
+						Action:      freeipa.GetFreeIpaRecentFlowLogsProgress,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
+			{
 				Name:   "start",
 				Usage:  "start a FreeIpa cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,

@@ -16,6 +16,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipa"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipauser"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1operation"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1progress"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/model"
 	freeIpaModel "github.com/hortonworks/cb-cli/dataplane/api-freeipa/model"
 	"github.com/hortonworks/cb-cli/dataplane/env"
@@ -365,6 +366,46 @@ func GetSyncOperationStatus(c *cli.Context) {
 
 	operationId := c.String(fl.FlIpaSyncOperationId.Name)
 	getSyncOperationStatus(c, operationId, "getSyncOperationStatus")
+}
+
+func GetFreeIpaLastFlowLogProgress(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get latest freeipa flow progress details")
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	resp, err := freeIpaClient.V1progress.GetFreeIpaLastFlowLogProgressByEnvironmentCrn(v1progress.NewGetFreeIpaLastFlowLogProgressByEnvironmentCrnParams().WithEnvironmentCrn(envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	pl := resp.Payload
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(pl); err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
+func GetFreeIpaRecentFlowLogsProgress(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get all recent freeipa flows progress details")
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	resp, err := freeIpaClient.V1progress.GetFreeIpaFlowLogsProgressByEnvironmentCrn(v1progress.NewGetFreeIpaFlowLogsProgressByEnvironmentCrnParams().WithEnvironmentCrn(envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	pl := resp.Payload
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(pl); err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
 }
 
 func GetVmLogs(c *cli.Context) {

@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-openapi/strfmt"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/diagnostics"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/progress"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client"
@@ -751,4 +752,40 @@ func RotateCertificates(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[RotateCerts] SDX cluster certificate rotation started for: %s", name)
+}
+
+func GetSdxLastFlowLogProgress(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get last flow log progress details for sdx cluster")
+	stackCrn := c.String(fl.FlCrn.Name)
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	response, err := sdxClient.Progress.GetSdxLastFlowLogProgressByResourceCrn(progress.NewGetSdxLastFlowLogProgressByResourceCrnParams().WithResourceCrn(stackCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(response.Payload); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
+func GetSdxRecentFlowLogsProgress(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get all recent flow log progress details for sdx cluster")
+	stackCrn := c.String(fl.FlCrn.Name)
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	response, err := sdxClient.Progress.GetSdxFlowLogsProgressByResourceCrn(progress.NewGetSdxFlowLogsProgressByResourceCrnParams().WithResourceCrn(stackCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(response.Payload); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
 }

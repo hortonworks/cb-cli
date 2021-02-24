@@ -47,7 +47,7 @@ func NewUpgradeDistroxClusterOK() *UpgradeDistroxClusterOK {
 successful operation
 */
 type UpgradeDistroxClusterOK struct {
-	Payload *model.DistroxUpgradeV1Response
+	Payload *model.DistroXUpgradeV1Response
 }
 
 func (o *UpgradeDistroxClusterOK) Error() string {
@@ -56,7 +56,7 @@ func (o *UpgradeDistroxClusterOK) Error() string {
 
 func (o *UpgradeDistroxClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.DistroxUpgradeV1Response)
+	o.Payload = new(model.DistroXUpgradeV1Response)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -14,9 +14,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// DistroxUpgradeV1Response distrox upgrade v1 response
-// swagger:model DistroxUpgradeV1Response
-type DistroxUpgradeV1Response struct {
+// DistroXUpgradeV1Response distro x upgrade v1 response
+// swagger:model DistroXUpgradeV1Response
+type DistroXUpgradeV1Response struct {
 
 	// current
 	Current *ImageInfoV4Response `json:"current,omitempty"`
@@ -31,8 +31,8 @@ type DistroxUpgradeV1Response struct {
 	UpgradeCandidates []*ImageInfoV4Response `json:"upgradeCandidates"`
 }
 
-// Validate validates this distrox upgrade v1 response
-func (m *DistroxUpgradeV1Response) Validate(formats strfmt.Registry) error {
+// Validate validates this distro x upgrade v1 response
+func (m *DistroXUpgradeV1Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCurrent(formats); err != nil {
@@ -53,7 +53,7 @@ func (m *DistroxUpgradeV1Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DistroxUpgradeV1Response) validateCurrent(formats strfmt.Registry) error {
+func (m *DistroXUpgradeV1Response) validateCurrent(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Current) { // not required
 		return nil
@@ -71,7 +71,7 @@ func (m *DistroxUpgradeV1Response) validateCurrent(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *DistroxUpgradeV1Response) validateFlowIdentifier(formats strfmt.Registry) error {
+func (m *DistroXUpgradeV1Response) validateFlowIdentifier(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.FlowIdentifier) { // not required
 		return nil
@@ -89,7 +89,7 @@ func (m *DistroxUpgradeV1Response) validateFlowIdentifier(formats strfmt.Registr
 	return nil
 }
 
-func (m *DistroxUpgradeV1Response) validateUpgradeCandidates(formats strfmt.Registry) error {
+func (m *DistroXUpgradeV1Response) validateUpgradeCandidates(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.UpgradeCandidates) { // not required
 		return nil
@@ -115,7 +115,7 @@ func (m *DistroxUpgradeV1Response) validateUpgradeCandidates(formats strfmt.Regi
 }
 
 // MarshalBinary interface implementation
-func (m *DistroxUpgradeV1Response) MarshalBinary() ([]byte, error) {
+func (m *DistroXUpgradeV1Response) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -123,8 +123,8 @@ func (m *DistroxUpgradeV1Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DistroxUpgradeV1Response) UnmarshalBinary(b []byte) error {
-	var res DistroxUpgradeV1Response
+func (m *DistroXUpgradeV1Response) UnmarshalBinary(b []byte) error {
+	var res DistroXUpgradeV1Response
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

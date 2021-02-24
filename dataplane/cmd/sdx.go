@@ -151,6 +151,38 @@ func init() {
 				},
 			},
 			{
+				Name:  "flow-progress",
+				Usage: "check flow progress of sdx cluster",
+				Subcommands: []cli.Command{
+					{
+						Name:        "latest",
+						Usage:       "get latest flow progress details for sdx cluster resource",
+						Description: `get latest flow progress details for sdx cluster resource`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build(),
+						Action:      sdx.GetSdxLastFlowLogProgress,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "all",
+						Usage:       "get all recent flow progress details for sdx cluster resource",
+						Description: `get all recent flow progress details for sdx cluster resource`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build(),
+						Action:      sdx.GetSdxRecentFlowLogsProgress,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
+			{
 				Name:  "diagnostics",
 				Usage: "manage diagnostics for an SDX CM cluster",
 				Subcommands: []cli.Command{

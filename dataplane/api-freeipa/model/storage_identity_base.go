@@ -25,6 +25,9 @@ type StorageIdentityBase struct {
 	// adls gen2
 	AdlsGen2 *AdlsGen2CloudStorageV1Parameters `json:"adlsGen2,omitempty"`
 
+	// efs
+	Efs *EfsCloudStorageV1Parameters `json:"efs,omitempty"`
+
 	// gcs
 	Gcs *GcsCloudStorageV1Parameters `json:"gcs,omitempty"`
 
@@ -48,6 +51,10 @@ func (m *StorageIdentityBase) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAdlsGen2(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEfs(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -101,6 +108,24 @@ func (m *StorageIdentityBase) validateAdlsGen2(formats strfmt.Registry) error {
 		if err := m.AdlsGen2.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("adlsGen2")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StorageIdentityBase) validateEfs(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Efs) { // not required
+		return nil
+	}
+
+	if m.Efs != nil {
+		if err := m.Efs.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("efs")
 			}
 			return err
 		}

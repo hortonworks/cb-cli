@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+CancelStackDiagnosticsCollections cancels the not finished diagnostics collections
+*/
+func (a *Client) CancelStackDiagnosticsCollections(params *CancelStackDiagnosticsCollectionsParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCancelStackDiagnosticsCollectionsParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "cancelStackDiagnosticsCollections",
+		Method:             "POST",
+		PathPattern:        "/v4/diagnostics/{crn}/collections/cancel",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CancelStackDiagnosticsCollectionsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 CollectCmDiagnostics initiates the collection of diagnostical data through c m API requires a running c m server
 */
 func (a *Client) CollectCmDiagnostics(params *CollectCmDiagnosticsParams) (*CollectCmDiagnosticsOK, error) {
@@ -133,6 +161,34 @@ func (a *Client) GetStackCmVMLogs(params *GetStackCmVMLogsParams) (*GetStackCmVM
 		return nil, err
 	}
 	return result.(*GetStackCmVMLogsOK), nil
+
+}
+
+/*
+ListStackDiagnosticsCollections returns a list of the recent diagnostics collections
+*/
+func (a *Client) ListStackDiagnosticsCollections(params *ListStackDiagnosticsCollectionsParams) (*ListStackDiagnosticsCollectionsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListStackDiagnosticsCollectionsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listStackDiagnosticsCollections",
+		Method:             "GET",
+		PathPattern:        "/v4/diagnostics/{crn}/collections",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListStackDiagnosticsCollectionsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListStackDiagnosticsCollectionsOK), nil
 
 }
 

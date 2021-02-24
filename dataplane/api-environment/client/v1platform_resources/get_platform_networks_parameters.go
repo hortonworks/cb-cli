@@ -6,9 +6,10 @@ package v1platform_resources
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"net/http"
 	"time"
+
+	"context"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
@@ -67,10 +68,16 @@ type GetPlatformNetworksParams struct {
 	CredentialCrn *string
 	/*CredentialName*/
 	CredentialName *string
+	/*NetworkID*/
+	NetworkID *string
 	/*PlatformVariant*/
 	PlatformVariant *string
 	/*Region*/
 	Region *string
+	/*SharedProjectID*/
+	SharedProjectID *string
+	/*SubnetIds*/
+	SubnetIds *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -143,6 +150,17 @@ func (o *GetPlatformNetworksParams) SetCredentialName(credentialName *string) {
 	o.CredentialName = credentialName
 }
 
+// WithNetworkID adds the networkID to the get platform networks params
+func (o *GetPlatformNetworksParams) WithNetworkID(networkID *string) *GetPlatformNetworksParams {
+	o.SetNetworkID(networkID)
+	return o
+}
+
+// SetNetworkID adds the networkId to the get platform networks params
+func (o *GetPlatformNetworksParams) SetNetworkID(networkID *string) {
+	o.NetworkID = networkID
+}
+
 // WithPlatformVariant adds the platformVariant to the get platform networks params
 func (o *GetPlatformNetworksParams) WithPlatformVariant(platformVariant *string) *GetPlatformNetworksParams {
 	o.SetPlatformVariant(platformVariant)
@@ -163,6 +181,28 @@ func (o *GetPlatformNetworksParams) WithRegion(region *string) *GetPlatformNetwo
 // SetRegion adds the region to the get platform networks params
 func (o *GetPlatformNetworksParams) SetRegion(region *string) {
 	o.Region = region
+}
+
+// WithSharedProjectID adds the sharedProjectID to the get platform networks params
+func (o *GetPlatformNetworksParams) WithSharedProjectID(sharedProjectID *string) *GetPlatformNetworksParams {
+	o.SetSharedProjectID(sharedProjectID)
+	return o
+}
+
+// SetSharedProjectID adds the sharedProjectId to the get platform networks params
+func (o *GetPlatformNetworksParams) SetSharedProjectID(sharedProjectID *string) {
+	o.SharedProjectID = sharedProjectID
+}
+
+// WithSubnetIds adds the subnetIds to the get platform networks params
+func (o *GetPlatformNetworksParams) WithSubnetIds(subnetIds *string) *GetPlatformNetworksParams {
+	o.SetSubnetIds(subnetIds)
+	return o
+}
+
+// SetSubnetIds adds the subnetIds to the get platform networks params
+func (o *GetPlatformNetworksParams) SetSubnetIds(subnetIds *string) {
+	o.SubnetIds = subnetIds
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -221,6 +261,22 @@ func (o *GetPlatformNetworksParams) WriteToRequest(r runtime.ClientRequest, reg 
 
 	}
 
+	if o.NetworkID != nil {
+
+		// query param networkId
+		var qrNetworkID string
+		if o.NetworkID != nil {
+			qrNetworkID = *o.NetworkID
+		}
+		qNetworkID := qrNetworkID
+		if qNetworkID != "" {
+			if err := r.SetQueryParam("networkId", qNetworkID); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	if o.PlatformVariant != nil {
 
 		// query param platformVariant
@@ -247,6 +303,38 @@ func (o *GetPlatformNetworksParams) WriteToRequest(r runtime.ClientRequest, reg 
 		qRegion := qrRegion
 		if qRegion != "" {
 			if err := r.SetQueryParam("region", qRegion); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.SharedProjectID != nil {
+
+		// query param sharedProjectId
+		var qrSharedProjectID string
+		if o.SharedProjectID != nil {
+			qrSharedProjectID = *o.SharedProjectID
+		}
+		qSharedProjectID := qrSharedProjectID
+		if qSharedProjectID != "" {
+			if err := r.SetQueryParam("sharedProjectId", qSharedProjectID); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.SubnetIds != nil {
+
+		// query param subnetIds
+		var qrSubnetIds string
+		if o.SubnetIds != nil {
+			qrSubnetIds = *o.SubnetIds
+		}
+		qSubnetIds := qrSubnetIds
+		if qSubnetIds != "" {
+			if err := r.SetQueryParam("subnetIds", qSubnetIds); err != nil {
 				return err
 			}
 		}

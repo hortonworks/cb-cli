@@ -28,8 +28,11 @@ type SdxCloudStorageRequest struct {
 	// base location
 	BaseLocation string `json:"baseLocation,omitempty"`
 
+	// efs
+	Efs *EfsCloudStorageV1Parameters `json:"efs,omitempty"`
+
 	// file system type
-	// Enum: [WASB_INTEGRATED GCS WASB ADLS ADLS_GEN_2 S3]
+	// Enum: [WASB_INTEGRATED GCS WASB ADLS ADLS_GEN_2 S3 EFS]
 	FileSystemType string `json:"fileSystemType,omitempty"`
 
 	// gcs
@@ -51,6 +54,10 @@ func (m *SdxCloudStorageRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAdlsGen2(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEfs(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -112,11 +119,29 @@ func (m *SdxCloudStorageRequest) validateAdlsGen2(formats strfmt.Registry) error
 	return nil
 }
 
+func (m *SdxCloudStorageRequest) validateEfs(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Efs) { // not required
+		return nil
+	}
+
+	if m.Efs != nil {
+		if err := m.Efs.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("efs")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 var sdxCloudStorageRequestTypeFileSystemTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["WASB_INTEGRATED","GCS","WASB","ADLS","ADLS_GEN_2","S3"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["WASB_INTEGRATED","GCS","WASB","ADLS","ADLS_GEN_2","S3","EFS"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -143,6 +168,9 @@ const (
 
 	// SdxCloudStorageRequestFileSystemTypeS3 captures enum value "S3"
 	SdxCloudStorageRequestFileSystemTypeS3 string = "S3"
+
+	// SdxCloudStorageRequestFileSystemTypeEFS captures enum value "EFS"
+	SdxCloudStorageRequestFileSystemTypeEFS string = "EFS"
 )
 
 // prop value enum

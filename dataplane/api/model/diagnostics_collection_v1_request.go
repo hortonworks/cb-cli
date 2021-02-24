@@ -35,6 +35,10 @@ type DiagnosticsCollectionV1Request struct {
 	// Format: date-time
 	EndTime strfmt.DateTime `json:"endTime,omitempty"`
 
+	// Host (fqdn) filter, skip diagnostics on the specified hosts
+	// Unique: true
+	ExcludeHosts []string `json:"excludeHosts"`
+
 	// Host groups (instance groups), used it to run diagnostics collection only those hosts that are included the specific host groups
 	// Unique: true
 	HostGroups []string `json:"hostGroups"`
@@ -52,8 +56,14 @@ type DiagnosticsCollectionV1Request struct {
 	// With labels you can filter what kind of logs you'd like to collect.
 	Labels []string `json:"labels"`
 
+	// Skip unresponsive VM hosts from diagnostics
+	SkipUnresponsiveHosts bool `json:"skipUnresponsiveHosts,omitempty"`
+
 	// Skip cloud storage write operation testing or databus connection check (depends on the destination) during init stage.
 	SkipValidation bool `json:"skipValidation,omitempty"`
+
+	// Skip workspace cleanup on the VM nodes at the start of the diagnostic
+	SkipWorkspaceCleanupOnStartup bool `json:"skipWorkspaceCleanupOnStartup,omitempty"`
 
 	// the unique crn of the resource
 	// Required: true
@@ -80,6 +90,10 @@ func (m *DiagnosticsCollectionV1Request) Validate(formats strfmt.Registry) error
 	}
 
 	if err := m.validateEndTime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExcludeHosts(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -186,6 +200,19 @@ func (m *DiagnosticsCollectionV1Request) validateEndTime(formats strfmt.Registry
 	}
 
 	if err := validate.FormatOf("endTime", "body", "date-time", m.EndTime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DiagnosticsCollectionV1Request) validateExcludeHosts(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ExcludeHosts) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("excludeHosts", "body", m.ExcludeHosts); err != nil {
 		return err
 	}
 

@@ -15,9 +15,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// DistroxUpgradeV1Request distrox upgrade v1 request
-// swagger:model DistroxUpgradeV1Request
-type DistroxUpgradeV1Request struct {
+// DistroXUpgradeV1Request distro x upgrade v1 request
+// swagger:model DistroXUpgradeV1Request
+type DistroXUpgradeV1Request struct {
 
 	// dry run
 	DryRun bool `json:"dryRun,omitempty"`
@@ -40,8 +40,8 @@ type DistroxUpgradeV1Request struct {
 	ShowAvailableImages string `json:"showAvailableImages,omitempty"`
 }
 
-// Validate validates this distrox upgrade v1 request
-func (m *DistroxUpgradeV1Request) Validate(formats strfmt.Registry) error {
+// Validate validates this distro x upgrade v1 request
+func (m *DistroXUpgradeV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateReplaceVms(formats); err != nil {
@@ -58,7 +58,7 @@ func (m *DistroxUpgradeV1Request) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var distroxUpgradeV1RequestTypeReplaceVmsPropEnum []interface{}
+var distroXUpgradeV1RequestTypeReplaceVmsPropEnum []interface{}
 
 func init() {
 	var res []string
@@ -66,28 +66,28 @@ func init() {
 		panic(err)
 	}
 	for _, v := range res {
-		distroxUpgradeV1RequestTypeReplaceVmsPropEnum = append(distroxUpgradeV1RequestTypeReplaceVmsPropEnum, v)
+		distroXUpgradeV1RequestTypeReplaceVmsPropEnum = append(distroXUpgradeV1RequestTypeReplaceVmsPropEnum, v)
 	}
 }
 
 const (
 
-	// DistroxUpgradeV1RequestReplaceVmsENABLED captures enum value "ENABLED"
-	DistroxUpgradeV1RequestReplaceVmsENABLED string = "ENABLED"
+	// DistroXUpgradeV1RequestReplaceVmsENABLED captures enum value "ENABLED"
+	DistroXUpgradeV1RequestReplaceVmsENABLED string = "ENABLED"
 
-	// DistroxUpgradeV1RequestReplaceVmsDISABLED captures enum value "DISABLED"
-	DistroxUpgradeV1RequestReplaceVmsDISABLED string = "DISABLED"
+	// DistroXUpgradeV1RequestReplaceVmsDISABLED captures enum value "DISABLED"
+	DistroXUpgradeV1RequestReplaceVmsDISABLED string = "DISABLED"
 )
 
 // prop value enum
-func (m *DistroxUpgradeV1Request) validateReplaceVmsEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, distroxUpgradeV1RequestTypeReplaceVmsPropEnum); err != nil {
+func (m *DistroXUpgradeV1Request) validateReplaceVmsEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, distroXUpgradeV1RequestTypeReplaceVmsPropEnum); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *DistroxUpgradeV1Request) validateReplaceVms(formats strfmt.Registry) error {
+func (m *DistroXUpgradeV1Request) validateReplaceVms(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ReplaceVms) { // not required
 		return nil
@@ -101,7 +101,7 @@ func (m *DistroxUpgradeV1Request) validateReplaceVms(formats strfmt.Registry) er
 	return nil
 }
 
-var distroxUpgradeV1RequestTypeShowAvailableImagesPropEnum []interface{}
+var distroXUpgradeV1RequestTypeShowAvailableImagesPropEnum []interface{}
 
 func init() {
 	var res []string
@@ -109,31 +109,31 @@ func init() {
 		panic(err)
 	}
 	for _, v := range res {
-		distroxUpgradeV1RequestTypeShowAvailableImagesPropEnum = append(distroxUpgradeV1RequestTypeShowAvailableImagesPropEnum, v)
+		distroXUpgradeV1RequestTypeShowAvailableImagesPropEnum = append(distroXUpgradeV1RequestTypeShowAvailableImagesPropEnum, v)
 	}
 }
 
 const (
 
-	// DistroxUpgradeV1RequestShowAvailableImagesSHOW captures enum value "SHOW"
-	DistroxUpgradeV1RequestShowAvailableImagesSHOW string = "SHOW"
+	// DistroXUpgradeV1RequestShowAvailableImagesSHOW captures enum value "SHOW"
+	DistroXUpgradeV1RequestShowAvailableImagesSHOW string = "SHOW"
 
-	// DistroxUpgradeV1RequestShowAvailableImagesLATESTONLY captures enum value "LATEST_ONLY"
-	DistroxUpgradeV1RequestShowAvailableImagesLATESTONLY string = "LATEST_ONLY"
+	// DistroXUpgradeV1RequestShowAvailableImagesLATESTONLY captures enum value "LATEST_ONLY"
+	DistroXUpgradeV1RequestShowAvailableImagesLATESTONLY string = "LATEST_ONLY"
 
-	// DistroxUpgradeV1RequestShowAvailableImagesDONOTSHOW captures enum value "DO_NOT_SHOW"
-	DistroxUpgradeV1RequestShowAvailableImagesDONOTSHOW string = "DO_NOT_SHOW"
+	// DistroXUpgradeV1RequestShowAvailableImagesDONOTSHOW captures enum value "DO_NOT_SHOW"
+	DistroXUpgradeV1RequestShowAvailableImagesDONOTSHOW string = "DO_NOT_SHOW"
 )
 
 // prop value enum
-func (m *DistroxUpgradeV1Request) validateShowAvailableImagesEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, distroxUpgradeV1RequestTypeShowAvailableImagesPropEnum); err != nil {
+func (m *DistroXUpgradeV1Request) validateShowAvailableImagesEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, distroXUpgradeV1RequestTypeShowAvailableImagesPropEnum); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *DistroxUpgradeV1Request) validateShowAvailableImages(formats strfmt.Registry) error {
+func (m *DistroXUpgradeV1Request) validateShowAvailableImages(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ShowAvailableImages) { // not required
 		return nil
@@ -148,7 +148,7 @@ func (m *DistroxUpgradeV1Request) validateShowAvailableImages(formats strfmt.Reg
 }
 
 // MarshalBinary interface implementation
-func (m *DistroxUpgradeV1Request) MarshalBinary() ([]byte, error) {
+func (m *DistroXUpgradeV1Request) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -156,8 +156,8 @@ func (m *DistroxUpgradeV1Request) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DistroxUpgradeV1Request) UnmarshalBinary(b []byte) error {
-	var res DistroxUpgradeV1Request
+func (m *DistroXUpgradeV1Request) UnmarshalBinary(b []byte) error {
+	var res DistroXUpgradeV1Request
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

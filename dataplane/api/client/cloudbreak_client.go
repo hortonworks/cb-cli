@@ -32,6 +32,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4diagnostics"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4events"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4info"
+	"github.com/hortonworks/cb-cli/dataplane/api/client/v4progress"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4user_profiles"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4utils"
 )
@@ -120,6 +121,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 	cli.V4events = v4events.New(transport, formats)
 
 	cli.V4info = v4info.New(transport, formats)
+
+	cli.V4progress = v4progress.New(transport, formats)
 
 	cli.V4userProfiles = v4user_profiles.New(transport, formats)
 
@@ -211,6 +214,8 @@ type Cloudbreak struct {
 
 	V4info *v4info.Client
 
+	V4progress *v4progress.Client
+
 	V4userProfiles *v4user_profiles.Client
 
 	V4utils *v4utils.Client
@@ -263,6 +268,8 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.V4events.SetTransport(transport)
 
 	c.V4info.SetTransport(transport)
+
+	c.V4progress.SetTransport(transport)
 
 	c.V4userProfiles.SetTransport(transport)
 

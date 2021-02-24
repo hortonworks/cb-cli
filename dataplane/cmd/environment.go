@@ -121,6 +121,38 @@ func init() {
 				},
 			},
 			{
+				Name:  "flow-progress",
+				Usage: "check flow progress of environment resource",
+				Subcommands: []cli.Command{
+					{
+						Name:        "latest",
+						Usage:       "get latest flow progress details for environment resource",
+						Description: `get latest flow progress details for environment resource`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build(),
+						Action:      env.GetLastFlowLogProgress,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+					{
+						Name:        "all",
+						Usage:       "get all recent flow progress details for environment resource",
+						Description: `get all recent flow progress details for environment resource`,
+						Before:      cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+						Flags:       fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build(),
+						Action:      env.GetRecentFlowLogsProgress,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
+			{
 				Name:  "generate-template",
 				Usage: "creates an environment JSON template",
 				Subcommands: []cli.Command{

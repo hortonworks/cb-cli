@@ -1121,6 +1121,34 @@ func (a *Client) SyncStackInWorkspaceV4(params *SyncStackInWorkspaceV4Params) (*
 }
 
 /*
+UpdateLoadBalancersInternal updates an existing cluster with load balancers including adding the endpoint gateway if it s enabled
+*/
+func (a *Client) UpdateLoadBalancersInternal(params *UpdateLoadBalancersInternalParams) (*UpdateLoadBalancersInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateLoadBalancersInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateLoadBalancersInternal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/update_load_balancers",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateLoadBalancersInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateLoadBalancersInternalOK), nil
+
+}
+
+/*
 UpdatePillarConfigurationByCrn updates salt pillar configuration on cluster
 */
 func (a *Client) UpdatePillarConfigurationByCrn(params *UpdatePillarConfigurationByCrnParams) (*UpdatePillarConfigurationByCrnOK, error) {

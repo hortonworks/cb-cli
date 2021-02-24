@@ -16,6 +16,9 @@ import (
 // swagger:model AwsStorageParameters
 type AwsStorageParameters struct {
 
+	// efs parameters
+	EfsParameters *AwsEfsParameters `json:"efsParameters,omitempty"`
+
 	// s3 guard
 	S3Guard *S3Guard `json:"s3Guard,omitempty"`
 }
@@ -24,6 +27,10 @@ type AwsStorageParameters struct {
 func (m *AwsStorageParameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateEfsParameters(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateS3Guard(formats); err != nil {
 		res = append(res, err)
 	}
@@ -31,6 +38,24 @@ func (m *AwsStorageParameters) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AwsStorageParameters) validateEfsParameters(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.EfsParameters) { // not required
+		return nil
+	}
+
+	if m.EfsParameters != nil {
+		if err := m.EfsParameters.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("efsParameters")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

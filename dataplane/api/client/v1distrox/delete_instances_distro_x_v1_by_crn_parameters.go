@@ -16,6 +16,8 @@ import (
 	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // NewDeleteInstancesDistroXV1ByCrnParams creates a new DeleteInstancesDistroXV1ByCrnParams object
@@ -74,6 +76,8 @@ for the delete instances distro x v1 by crn operation typically these are writte
 */
 type DeleteInstancesDistroXV1ByCrnParams struct {
 
+	/*Body*/
+	Body *model.MultipleInstanceDeleteRequest
 	/*Crn*/
 	Crn string
 	/*Forced*/
@@ -119,6 +123,17 @@ func (o *DeleteInstancesDistroXV1ByCrnParams) SetHTTPClient(client *http.Client)
 	o.HTTPClient = client
 }
 
+// WithBody adds the body to the delete instances distro x v1 by crn params
+func (o *DeleteInstancesDistroXV1ByCrnParams) WithBody(body *model.MultipleInstanceDeleteRequest) *DeleteInstancesDistroXV1ByCrnParams {
+	o.SetBody(body)
+	return o
+}
+
+// SetBody adds the body to the delete instances distro x v1 by crn params
+func (o *DeleteInstancesDistroXV1ByCrnParams) SetBody(body *model.MultipleInstanceDeleteRequest) {
+	o.Body = body
+}
+
 // WithCrn adds the crn to the delete instances distro x v1 by crn params
 func (o *DeleteInstancesDistroXV1ByCrnParams) WithCrn(crn string) *DeleteInstancesDistroXV1ByCrnParams {
 	o.SetCrn(crn)
@@ -159,6 +174,12 @@ func (o *DeleteInstancesDistroXV1ByCrnParams) WriteToRequest(r runtime.ClientReq
 		return err
 	}
 	var res []error
+
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
+	}
 
 	// path param crn
 	if err := r.SetPathParam("crn", o.Crn); err != nil {

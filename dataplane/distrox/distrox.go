@@ -573,7 +573,7 @@ func DistroxClusterkUpgrade(c *cli.Context) {
 	printResponse(resp, dryRun || showImages || showLatestImages)
 }
 
-func createDistroxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string, showImages bool, showLatestImages bool) *distroxModel.DistroxUpgradeV1Request {
+func createDistroxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string, showImages bool, showLatestImages bool) *distroxModel.DistroXUpgradeV1Request {
 	var showImagesString string
 	if showLatestImages {
 		showImagesString = "LATEST_ONLY"
@@ -582,7 +582,7 @@ func createDistroxUpgradeRequest(imageid string, runtime string, lockComponents 
 	} else {
 		showImagesString = "DO_NOT_SHOW"
 	}
-	dxRequest := &distroxModel.DistroxUpgradeV1Request{
+	dxRequest := &distroxModel.DistroXUpgradeV1Request{
 		ImageID:             imageid,
 		Runtime:             runtime,
 		LockComponents:      lockComponents,
@@ -617,4 +617,40 @@ func printResponse(template *v1distrox.UpgradeDistroxClusterOK, dryRun bool) err
 	}
 	commonutils.Println(string(response))
 	return nil
+}
+
+func GetDistroXLastFlowLogProgress(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get last flow log progress details for distrox cluster")
+	stackCrn := c.String(fl.FlCrn.Name)
+	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
+	response, err := dxClient.Cloudbreak.V1distrox.GetDistroXLastFlowLogProgressByResourceCrn(v1distrox.NewGetDistroXLastFlowLogProgressByResourceCrnParams().WithResourceCrn(stackCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(response.Payload); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
+func GetDistroXRecentFlowLogsProgress(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get all recent flow log progress details for distrox cluster")
+	stackCrn := c.String(fl.FlCrn.Name)
+	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
+	response, err := dxClient.Cloudbreak.V1distrox.GetDistroXFlowLogsProgressByResourceCrn(v1distrox.NewGetDistroXFlowLogsProgressByResourceCrnParams().WithResourceCrn(stackCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(response.Payload); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
 }

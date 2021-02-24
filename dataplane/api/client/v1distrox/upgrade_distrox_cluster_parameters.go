@@ -64,7 +64,7 @@ for the upgrade distrox cluster operation typically these are written to a http.
 type UpgradeDistroxClusterParams struct {
 
 	/*Body*/
-	Body *model.DistroxUpgradeV1Request
+	Body *model.DistroXUpgradeV1Request
 	/*Name*/
 	Name string
 
@@ -107,13 +107,13 @@ func (o *UpgradeDistroxClusterParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the upgrade distrox cluster params
-func (o *UpgradeDistroxClusterParams) WithBody(body *model.DistroxUpgradeV1Request) *UpgradeDistroxClusterParams {
+func (o *UpgradeDistroxClusterParams) WithBody(body *model.DistroXUpgradeV1Request) *UpgradeDistroxClusterParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the upgrade distrox cluster params
-func (o *UpgradeDistroxClusterParams) SetBody(body *model.DistroxUpgradeV1Request) {
+func (o *UpgradeDistroxClusterParams) SetBody(body *model.DistroXUpgradeV1Request) {
 	o.Body = body
 }
 

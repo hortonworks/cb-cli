@@ -475,6 +475,66 @@ func (a *Client) GetCrnByNameV1(params *GetCrnByNameV1Params) (*GetCrnByNameV1OK
 }
 
 /*
+GetEnvironmentFlowLogsProgressByResourceCrn lists recent flow operations progress details for resource by resource crn
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) GetEnvironmentFlowLogsProgressByResourceCrn(params *GetEnvironmentFlowLogsProgressByResourceCrnParams) (*GetEnvironmentFlowLogsProgressByResourceCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetEnvironmentFlowLogsProgressByResourceCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getEnvironmentFlowLogsProgressByResourceCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/env/progress/resource/crn/{resourceCrn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetEnvironmentFlowLogsProgressByResourceCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetEnvironmentFlowLogsProgressByResourceCrnOK), nil
+
+}
+
+/*
+GetEnvironmentLastFlowLogProgressByResourceCrn gets last flow operation progress details for resource by resource crn
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) GetEnvironmentLastFlowLogProgressByResourceCrn(params *GetEnvironmentLastFlowLogProgressByResourceCrnParams) (*GetEnvironmentLastFlowLogProgressByResourceCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetEnvironmentLastFlowLogProgressByResourceCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getEnvironmentLastFlowLogProgressByResourceCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/env/progress/resource/crn/{resourceCrn}/last",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetEnvironmentLastFlowLogProgressByResourceCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetEnvironmentLastFlowLogProgressByResourceCrnOK), nil
+
+}
+
+/*
 GetEnvironmentV1ByCrn gets an environment by c r n
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
@@ -734,6 +794,66 @@ func (a *Client) UpdateConfigsInEnvironmentByCrnV1(params *UpdateConfigsInEnviro
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UpdateConfigsInEnvironmentByCrnV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+UpdateEnvironmentLoadBalancersByCrnV1 updates all cluster in an environment with load balancers including adding the endpoint access gateway if it s enabled environment is specified by c r n
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) UpdateEnvironmentLoadBalancersByCrnV1(params *UpdateEnvironmentLoadBalancersByCrnV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateEnvironmentLoadBalancersByCrnV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateEnvironmentLoadBalancersByCrnV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/env/crn/{crn}/update_load_balancers",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateEnvironmentLoadBalancersByCrnV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+UpdateEnvironmentLoadBalancersByNameV11 updates all cluster in an environment with load balancers including adding the endpoint access gateway if it s enabled environment is specified by name
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) UpdateEnvironmentLoadBalancersByNameV11(params *UpdateEnvironmentLoadBalancersByNameV11Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateEnvironmentLoadBalancersByNameV11Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateEnvironmentLoadBalancersByNameV11",
+		Method:             "PUT",
+		PathPattern:        "/v1/env/name/{name}/update_load_balancers",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateEnvironmentLoadBalancersByNameV11Reader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
