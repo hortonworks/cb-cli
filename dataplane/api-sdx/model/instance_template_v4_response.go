@@ -29,6 +29,9 @@ type InstanceTemplateV4Response struct {
 	// azure specific parameters for template
 	Azure *AzureInstanceTemplateV4Parameters `json:"azure,omitempty"`
 
+	// database volume
+	DatabaseVolume *DatabaseVolumeV4Response `json:"databaseVolume,omitempty"`
+
 	// ephemeral volume
 	EphemeralVolume *VolumeV4Response `json:"ephemeralVolume,omitempty"`
 
@@ -67,6 +70,10 @@ func (m *InstanceTemplateV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDatabaseVolume(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -149,6 +156,24 @@ func (m *InstanceTemplateV4Response) validateAzure(formats strfmt.Registry) erro
 		if err := m.Azure.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azure")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *InstanceTemplateV4Response) validateDatabaseVolume(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DatabaseVolume) { // not required
+		return nil
+	}
+
+	if m.DatabaseVolume != nil {
+		if err := m.DatabaseVolume.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("databaseVolume")
 			}
 			return err
 		}

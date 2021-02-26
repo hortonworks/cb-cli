@@ -27,7 +27,7 @@ type SdxClusterDetailResponse struct {
 	CloudStorageBaseLocation string `json:"cloudStorageBaseLocation,omitempty"`
 
 	// cloud storage file system type
-	// Enum: [WASB_INTEGRATED GCS WASB ADLS ADLS_GEN_2 S3]
+	// Enum: [WASB_INTEGRATED GCS WASB ADLS ADLS_GEN_2 S3 EFS]
 	CloudStorageFileSystemType string `json:"cloudStorageFileSystemType,omitempty"`
 
 	// cluster shape
@@ -162,7 +162,7 @@ var sdxClusterDetailResponseTypeCloudStorageFileSystemTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["WASB_INTEGRATED","GCS","WASB","ADLS","ADLS_GEN_2","S3"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["WASB_INTEGRATED","GCS","WASB","ADLS","ADLS_GEN_2","S3","EFS"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -189,6 +189,9 @@ const (
 
 	// SdxClusterDetailResponseCloudStorageFileSystemTypeS3 captures enum value "S3"
 	SdxClusterDetailResponseCloudStorageFileSystemTypeS3 string = "S3"
+
+	// SdxClusterDetailResponseCloudStorageFileSystemTypeEFS captures enum value "EFS"
+	SdxClusterDetailResponseCloudStorageFileSystemTypeEFS string = "EFS"
 )
 
 // prop value enum

@@ -64,7 +64,7 @@ for the upgrade distrox cluster by crn operation typically these are written to 
 type UpgradeDistroxClusterByCrnParams struct {
 
 	/*Body*/
-	Body *model.DistroxUpgradeV1Request
+	Body *model.DistroXUpgradeV1Request
 	/*Crn*/
 	Crn string
 
@@ -107,13 +107,13 @@ func (o *UpgradeDistroxClusterByCrnParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the upgrade distrox cluster by crn params
-func (o *UpgradeDistroxClusterByCrnParams) WithBody(body *model.DistroxUpgradeV1Request) *UpgradeDistroxClusterByCrnParams {
+func (o *UpgradeDistroxClusterByCrnParams) WithBody(body *model.DistroXUpgradeV1Request) *UpgradeDistroxClusterByCrnParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the upgrade distrox cluster by crn params
-func (o *UpgradeDistroxClusterByCrnParams) SetBody(body *model.DistroxUpgradeV1Request) {
+func (o *UpgradeDistroxClusterByCrnParams) SetBody(body *model.DistroXUpgradeV1Request) {
 	o.Body = body
 }
 

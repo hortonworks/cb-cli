@@ -69,6 +69,8 @@ type GetPlatformNetworksByEnvParams struct {
 	PlatformVariant *string
 	/*Region*/
 	Region *string
+	/*SharedProjectID*/
+	SharedProjectID *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -152,6 +154,17 @@ func (o *GetPlatformNetworksByEnvParams) SetRegion(region *string) {
 	o.Region = region
 }
 
+// WithSharedProjectID adds the sharedProjectID to the get platform networks by env params
+func (o *GetPlatformNetworksByEnvParams) WithSharedProjectID(sharedProjectID *string) *GetPlatformNetworksByEnvParams {
+	o.SetSharedProjectID(sharedProjectID)
+	return o
+}
+
+// SetSharedProjectID adds the sharedProjectId to the get platform networks by env params
+func (o *GetPlatformNetworksByEnvParams) SetSharedProjectID(sharedProjectID *string) {
+	o.SharedProjectID = sharedProjectID
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetPlatformNetworksByEnvParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -218,6 +231,22 @@ func (o *GetPlatformNetworksByEnvParams) WriteToRequest(r runtime.ClientRequest,
 		qRegion := qrRegion
 		if qRegion != "" {
 			if err := r.SetQueryParam("region", qRegion); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.SharedProjectID != nil {
+
+		// query param sharedProjectId
+		var qrSharedProjectID string
+		if o.SharedProjectID != nil {
+			qrSharedProjectID = *o.SharedProjectID
+		}
+		qSharedProjectID := qrSharedProjectID
+		if qSharedProjectID != "" {
+			if err := r.SetQueryParam("sharedProjectId", qSharedProjectID); err != nil {
 				return err
 			}
 		}

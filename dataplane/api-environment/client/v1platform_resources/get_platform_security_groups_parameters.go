@@ -71,6 +71,8 @@ type GetPlatformSecurityGroupsParams struct {
 	PlatformVariant *string
 	/*Region*/
 	Region *string
+	/*SharedProjectID*/
+	SharedProjectID *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -165,6 +167,17 @@ func (o *GetPlatformSecurityGroupsParams) SetRegion(region *string) {
 	o.Region = region
 }
 
+// WithSharedProjectID adds the sharedProjectID to the get platform security groups params
+func (o *GetPlatformSecurityGroupsParams) WithSharedProjectID(sharedProjectID *string) *GetPlatformSecurityGroupsParams {
+	o.SetSharedProjectID(sharedProjectID)
+	return o
+}
+
+// SetSharedProjectID adds the sharedProjectId to the get platform security groups params
+func (o *GetPlatformSecurityGroupsParams) SetSharedProjectID(sharedProjectID *string) {
+	o.SharedProjectID = sharedProjectID
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetPlatformSecurityGroupsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -247,6 +260,22 @@ func (o *GetPlatformSecurityGroupsParams) WriteToRequest(r runtime.ClientRequest
 		qRegion := qrRegion
 		if qRegion != "" {
 			if err := r.SetQueryParam("region", qRegion); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.SharedProjectID != nil {
+
+		// query param sharedProjectId
+		var qrSharedProjectID string
+		if o.SharedProjectID != nil {
+			qrSharedProjectID = *o.SharedProjectID
+		}
+		qSharedProjectID := qrSharedProjectID
+		if qSharedProjectID != "" {
+			if err := r.SetQueryParam("sharedProjectId", qSharedProjectID); err != nil {
 				return err
 			}
 		}
