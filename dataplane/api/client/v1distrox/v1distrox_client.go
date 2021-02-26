@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+CancelDistroxDiagnosticsCollectionsV1 cancels the not finished diagnostics collections
+*/
+func (a *Client) CancelDistroxDiagnosticsCollectionsV1(params *CancelDistroxDiagnosticsCollectionsV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCancelDistroxDiagnosticsCollectionsV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "cancelDistroxDiagnosticsCollectionsV1",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/diagnostics/{crn}/collections/cancel",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CancelDistroxDiagnosticsCollectionsV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 CollectDistroxCmBasedDiagnosticsV1 initiates the collection of diagnostical data on datahub cloudera manager
 */
 func (a *Client) CollectDistroxCmBasedDiagnosticsV1(params *CollectDistroxCmBasedDiagnosticsV1Params) (*CollectDistroxCmBasedDiagnosticsV1OK, error) {
@@ -409,6 +437,66 @@ func (a *Client) GetDatabaseServerByClusterCrn(params *GetDatabaseServerByCluste
 }
 
 /*
+GetDistroXFlowLogsProgressByResourceCrn lists recent flow operations progress details for resource by resource crn
+
+Flow operation progress
+*/
+func (a *Client) GetDistroXFlowLogsProgressByResourceCrn(params *GetDistroXFlowLogsProgressByResourceCrnParams) (*GetDistroXFlowLogsProgressByResourceCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDistroXFlowLogsProgressByResourceCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDistroXFlowLogsProgressByResourceCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/progress/resource/crn/{resourceCrn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDistroXFlowLogsProgressByResourceCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDistroXFlowLogsProgressByResourceCrnOK), nil
+
+}
+
+/*
+GetDistroXLastFlowLogProgressByResourceCrn gets last flow operation progress details for resource by resource crn
+
+Flow operation progress
+*/
+func (a *Client) GetDistroXLastFlowLogProgressByResourceCrn(params *GetDistroXLastFlowLogProgressByResourceCrnParams) (*GetDistroXLastFlowLogProgressByResourceCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDistroXLastFlowLogProgressByResourceCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDistroXLastFlowLogProgressByResourceCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/progress/resource/crn/{resourceCrn}/last",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDistroXLastFlowLogProgressByResourceCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDistroXLastFlowLogProgressByResourceCrnOK), nil
+
+}
+
+/*
 GetDistroXRequestV1ByCrn gets stack request by crn
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -611,6 +699,34 @@ func (a *Client) ListDistroXV1(params *ListDistroXV1Params) (*ListDistroXV1OK, e
 		return nil, err
 	}
 	return result.(*ListDistroXV1OK), nil
+
+}
+
+/*
+ListDistroxDiagnosticsCollectionsV1 returns a list of the recent diagnostics collections
+*/
+func (a *Client) ListDistroxDiagnosticsCollectionsV1(params *ListDistroxDiagnosticsCollectionsV1Params) (*ListDistroxDiagnosticsCollectionsV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListDistroxDiagnosticsCollectionsV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listDistroxDiagnosticsCollectionsV1",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/diagnostics/{crn}/collections",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListDistroxDiagnosticsCollectionsV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListDistroxDiagnosticsCollectionsV1OK), nil
 
 }
 

@@ -19,15 +19,21 @@ import (
 // swagger:model SslConfigV4Response
 type SslConfigV4Response struct {
 
+	// Version number of the SSL certificate currently active for the database server
+	SslCertificateActiveVersion int32 `json:"sslCertificateActiveVersion,omitempty"`
+
+	// Highest version number of the SSL certificate available for the database server; does not necessarily equal the active version
+	SslCertificateHighestAvailableVersion int32 `json:"sslCertificateHighestAvailableVersion,omitempty"`
+
 	// SSL certificate type
 	// Enum: [CLOUD_PROVIDER_OWNED BRING_YOUR_OWN NONE]
 	SslCertificateType string `json:"sslCertificateType,omitempty"`
 
-	// Set of SSL certificates for the actual database server
+	// Set of relevant SSL certificates for the database server, including the active one
 	// Unique: true
 	SslCertificates []string `json:"sslCertificates"`
 
-	// SSL enforcement mode for the actual database server
+	// SSL enforcement mode for the database server
 	// Enum: [ENABLED DISABLED]
 	SslMode string `json:"sslMode,omitempty"`
 }

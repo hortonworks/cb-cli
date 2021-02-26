@@ -19,7 +19,7 @@ import (
 // swagger:model SslConfigV4Request
 type SslConfigV4Request struct {
 
-	// SSL enforcement mode for the actual database server
+	// SSL enforcement mode for the database server
 	// Enum: [ENABLED DISABLED]
 	SslMode string `json:"sslMode,omitempty"`
 }

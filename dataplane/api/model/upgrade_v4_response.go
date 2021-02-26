@@ -27,6 +27,9 @@ type UpgradeV4Response struct {
 	// reason
 	Reason string `json:"reason,omitempty"`
 
+	// replace vms
+	ReplaceVms bool `json:"replaceVms,omitempty"`
+
 	// upgrade candidates
 	UpgradeCandidates []*ImageInfoV4Response `json:"upgradeCandidates"`
 }

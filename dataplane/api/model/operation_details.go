@@ -29,7 +29,7 @@ type OperationDetails struct {
 	EnvironmentCrn string `json:"environmentCrn,omitempty"`
 
 	// event type
-	// Enum: [REST FLOW NOTIFICATION]
+	// Enum: [REST FLOW NOTIFICATION SYNC]
 	EventType string `json:"eventType,omitempty"`
 
 	// resource crn
@@ -87,7 +87,7 @@ var operationDetailsTypeEventTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["REST","FLOW","NOTIFICATION"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["REST","FLOW","NOTIFICATION","SYNC"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -105,6 +105,9 @@ const (
 
 	// OperationDetailsEventTypeNOTIFICATION captures enum value "NOTIFICATION"
 	OperationDetailsEventTypeNOTIFICATION string = "NOTIFICATION"
+
+	// OperationDetailsEventTypeSYNC captures enum value "SYNC"
+	OperationDetailsEventTypeSYNC string = "SYNC"
 )
 
 // prop value enum

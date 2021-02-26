@@ -24,6 +24,9 @@ type CreateFreeIpaV1Request struct {
 	// Required: true
 	Authentication *StackAuthenticationV1Request `json:"authentication"`
 
+	// backup setting for freeipa server
+	Backup *BackupRequest `json:"backup,omitempty"`
+
 	// CRN of the environment
 	// Required: true
 	EnvironmentCrn *string `json:"environmentCrn"`
@@ -74,6 +77,10 @@ func (m *CreateFreeIpaV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAuthentication(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBackup(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -133,6 +140,24 @@ func (m *CreateFreeIpaV1Request) validateAuthentication(formats strfmt.Registry)
 		if err := m.Authentication.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("authentication")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CreateFreeIpaV1Request) validateBackup(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Backup) { // not required
+		return nil
+	}
+
+	if m.Backup != nil {
+		if err := m.Backup.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("backup")
 			}
 			return err
 		}

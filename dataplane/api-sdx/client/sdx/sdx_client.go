@@ -109,6 +109,62 @@ func (a *Client) BackupDatabaseStatus(params *BackupDatabaseStatusParams) (*Back
 }
 
 /*
+BackupDatalake backups the datalake
+*/
+func (a *Client) BackupDatalake(params *BackupDatalakeParams) (*BackupDatalakeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewBackupDatalakeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "backupDatalake",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/backupDatalake",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &BackupDatalakeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*BackupDatalakeOK), nil
+
+}
+
+/*
+BackupDatalakeStatus backups status of the datalake
+*/
+func (a *Client) BackupDatalakeStatus(params *BackupDatalakeStatusParams) (*BackupDatalakeStatusOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewBackupDatalakeStatusParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "backupDatalakeStatus",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/backupDatalakeStatus",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &BackupDatalakeStatusReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*BackupDatalakeStatusOK), nil
+
+}
+
+/*
 CreateSdx creates s d x cluster
 */
 func (a *Client) CreateSdx(params *CreateSdxParams) (*CreateSdxOK, error) {

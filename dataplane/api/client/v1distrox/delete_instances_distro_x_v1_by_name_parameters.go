@@ -16,6 +16,8 @@ import (
 	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // NewDeleteInstancesDistroXV1ByNameParams creates a new DeleteInstancesDistroXV1ByNameParams object
@@ -74,6 +76,8 @@ for the delete instances distro x v1 by name operation typically these are writt
 */
 type DeleteInstancesDistroXV1ByNameParams struct {
 
+	/*Body*/
+	Body *model.MultipleInstanceDeleteRequest
 	/*Forced*/
 	Forced *bool
 	/*ID*/
@@ -119,6 +123,17 @@ func (o *DeleteInstancesDistroXV1ByNameParams) SetHTTPClient(client *http.Client
 	o.HTTPClient = client
 }
 
+// WithBody adds the body to the delete instances distro x v1 by name params
+func (o *DeleteInstancesDistroXV1ByNameParams) WithBody(body *model.MultipleInstanceDeleteRequest) *DeleteInstancesDistroXV1ByNameParams {
+	o.SetBody(body)
+	return o
+}
+
+// SetBody adds the body to the delete instances distro x v1 by name params
+func (o *DeleteInstancesDistroXV1ByNameParams) SetBody(body *model.MultipleInstanceDeleteRequest) {
+	o.Body = body
+}
+
 // WithForced adds the forced to the delete instances distro x v1 by name params
 func (o *DeleteInstancesDistroXV1ByNameParams) WithForced(forced *bool) *DeleteInstancesDistroXV1ByNameParams {
 	o.SetForced(forced)
@@ -159,6 +174,12 @@ func (o *DeleteInstancesDistroXV1ByNameParams) WriteToRequest(r runtime.ClientRe
 		return err
 	}
 	var res []error
+
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
+	}
 
 	if o.Forced != nil {
 

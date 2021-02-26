@@ -46,6 +46,9 @@
     "workloadAnalytics": null
   },
   "network": {
+    "endpointGatewaySubnetIds": [
+      "subnet-323456789abcdefgh"
+    ],
     "subnetIds": [
       "subnet-123456789abcdefgh",
       "subnet-223456789abcdefgh",

@@ -31,6 +31,9 @@ type EnvironmentEditV1Request struct {
 	// AZURE Specific parameters.
 	Azure *AzureEnvironmentV1Parameters `json:"azure,omitempty"`
 
+	// Backup related specifics of the environment.
+	Backup *BackupRequest `json:"backup,omitempty"`
+
 	// Cloud storage validation enabled or not.
 	// Enum: [ENABLED DISABLED]
 	CloudStorageValidation string `json:"cloudStorageValidation,omitempty"`
@@ -70,6 +73,10 @@ func (m *EnvironmentEditV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBackup(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -149,6 +156,24 @@ func (m *EnvironmentEditV1Request) validateAzure(formats strfmt.Registry) error 
 		if err := m.Azure.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azure")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EnvironmentEditV1Request) validateBackup(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Backup) { // not required
+		return nil
+	}
+
+	if m.Backup != nil {
+		if err := m.Backup.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("backup")
 			}
 			return err
 		}
