@@ -36,6 +36,9 @@ type StackV4Request struct {
 	// settings related to custom domain names
 	CustomDomain *CustomDomainSettingsV4Request `json:"customDomain,omitempty"`
 
+	// Enable load balancer.
+	EnableLoadBalancer bool `json:"enableLoadBalancer,omitempty"`
+
 	// CRN of the environment which the stack is assigned to
 	// Required: true
 	EnvironmentCrn *string `json:"environmentCrn"`

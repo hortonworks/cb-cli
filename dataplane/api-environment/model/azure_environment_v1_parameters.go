@@ -16,6 +16,9 @@ import (
 // swagger:model AzureEnvironmentV1Parameters
 type AzureEnvironmentV1Parameters struct {
 
+	// Parameter: keyUrl - to encrypt Azure resources.
+	ResourceEncryptionParameters *AzureResourceEncryptionV1Parameters `json:"resourceEncryptionParameters,omitempty"`
+
 	// Azure resource group parameters.
 	ResourceGroup *AzureResourceGroupV1Parameters `json:"resourceGroup,omitempty"`
 }
@@ -24,6 +27,10 @@ type AzureEnvironmentV1Parameters struct {
 func (m *AzureEnvironmentV1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateResourceEncryptionParameters(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateResourceGroup(formats); err != nil {
 		res = append(res, err)
 	}
@@ -31,6 +38,24 @@ func (m *AzureEnvironmentV1Parameters) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AzureEnvironmentV1Parameters) validateResourceEncryptionParameters(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ResourceEncryptionParameters) { // not required
+		return nil
+	}
+
+	if m.ResourceEncryptionParameters != nil {
+		if err := m.ResourceEncryptionParameters.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("resourceEncryptionParameters")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

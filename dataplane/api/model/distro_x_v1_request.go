@@ -33,6 +33,9 @@ type DistroXV1Request struct {
 	// cluster
 	Cluster *DistroXClusterV1Request `json:"cluster,omitempty"`
 
+	// enable load balancer
+	EnableLoadBalancer bool `json:"enableLoadBalancer,omitempty"`
+
 	// environment name
 	EnvironmentName string `json:"environmentName,omitempty"`
 
