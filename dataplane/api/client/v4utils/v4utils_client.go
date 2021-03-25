@@ -320,6 +320,34 @@ func (a *Client) RepositoryConfigsValidationV4(params *RepositoryConfigsValidati
 
 }
 
+/*
+UsedImages lists the images that are in use
+*/
+func (a *Client) UsedImages(params *UsedImagesParams) (*UsedImagesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsedImagesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "usedImages",
+		Method:             "GET",
+		PathPattern:        "/v4/utils/used_images",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UsedImagesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UsedImagesOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

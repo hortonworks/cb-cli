@@ -21,7 +21,7 @@ type DatabaseRequest struct {
 
 	// availability type
 	// Required: true
-	// Enum: [NONE NON_HA HA]
+	// Enum: [NONE NON_HA HA ON_ROOT_VOLUME]
 	AvailabilityType *string `json:"availabilityType"`
 }
 
@@ -43,7 +43,7 @@ var databaseRequestTypeAvailabilityTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["NONE","NON_HA","HA"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["NONE","NON_HA","HA","ON_ROOT_VOLUME"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -61,6 +61,9 @@ const (
 
 	// DatabaseRequestAvailabilityTypeHA captures enum value "HA"
 	DatabaseRequestAvailabilityTypeHA string = "HA"
+
+	// DatabaseRequestAvailabilityTypeONROOTVOLUME captures enum value "ON_ROOT_VOLUME"
+	DatabaseRequestAvailabilityTypeONROOTVOLUME string = "ON_ROOT_VOLUME"
 )
 
 // prop value enum

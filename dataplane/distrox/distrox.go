@@ -339,7 +339,7 @@ func repairDistroX(c *cli.Context, request model.DistroXRepairV1Request) {
 	name := c.String(fl.FlName.Name)
 	log.Infof("[RepairDistroX] repairing DistroX, id: %s, removeOnly: %t", name, removeOnly)
 
-	err := dxClient.Cloudbreak.V1distrox.RepairDistroXV1ByName(v1distrox.NewRepairDistroXV1ByNameParams().WithName(name).WithBody(&request))
+	_, err := dxClient.Cloudbreak.V1distrox.RepairDistroXV1ByName(v1distrox.NewRepairDistroXV1ByNameParams().WithName(name).WithBody(&request))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}

@@ -21,7 +21,7 @@ type DistroXDatabaseRequest struct {
 
 	// availability type
 	// Required: true
-	// Enum: [NONE NON_HA HA]
+	// Enum: [NONE NON_HA HA ON_ROOT_VOLUME]
 	AvailabilityType *string `json:"availabilityType"`
 }
 
@@ -43,7 +43,7 @@ var distroXDatabaseRequestTypeAvailabilityTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["NONE","NON_HA","HA"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["NONE","NON_HA","HA","ON_ROOT_VOLUME"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -61,6 +61,9 @@ const (
 
 	// DistroXDatabaseRequestAvailabilityTypeHA captures enum value "HA"
 	DistroXDatabaseRequestAvailabilityTypeHA string = "HA"
+
+	// DistroXDatabaseRequestAvailabilityTypeONROOTVOLUME captures enum value "ON_ROOT_VOLUME"
+	DistroXDatabaseRequestAvailabilityTypeONROOTVOLUME string = "ON_ROOT_VOLUME"
 )
 
 // prop value enum

@@ -145,6 +145,36 @@ func (a *Client) DeleteImageCatalogsInWorkspace(params *DeleteImageCatalogsInWor
 }
 
 /*
+GetImageByNameAndID determines the image for the image uuidfrom the given imagecatalog name
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) GetImageByNameAndID(params *GetImageByNameAndIDParams) (*GetImageByNameAndIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetImageByNameAndIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getImageByNameAndId",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/{name}/image",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetImageByNameAndIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetImageByNameAndIDOK), nil
+
+}
+
+/*
 GetImageCatalogByCrnInWorkspace gets image catalog by crn in workspace
 
 Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.

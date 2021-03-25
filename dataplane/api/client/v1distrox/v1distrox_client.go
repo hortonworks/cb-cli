@@ -915,13 +915,13 @@ RepairDistroXV1ByCrn repairs the stack by crn
 
 Removing the failed nodes and starting new nodes to substitute them.
 */
-func (a *Client) RepairDistroXV1ByCrn(params *RepairDistroXV1ByCrnParams) error {
+func (a *Client) RepairDistroXV1ByCrn(params *RepairDistroXV1ByCrnParams) (*RepairDistroXV1ByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRepairDistroXV1ByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "repairDistroXV1ByCrn",
 		Method:             "POST",
 		PathPattern:        "/v1/distrox/crn/{crn}/manual_repair",
@@ -934,9 +934,9 @@ func (a *Client) RepairDistroXV1ByCrn(params *RepairDistroXV1ByCrnParams) error 
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RepairDistroXV1ByCrnOK), nil
 
 }
 
@@ -945,13 +945,13 @@ RepairDistroXV1ByName repairs the stack by name
 
 Removing the failed nodes and starting new nodes to substitute them.
 */
-func (a *Client) RepairDistroXV1ByName(params *RepairDistroXV1ByNameParams) error {
+func (a *Client) RepairDistroXV1ByName(params *RepairDistroXV1ByNameParams) (*RepairDistroXV1ByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRepairDistroXV1ByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "repairDistroXV1ByName",
 		Method:             "POST",
 		PathPattern:        "/v1/distrox/name/{name}/manual_repair",
@@ -964,9 +964,9 @@ func (a *Client) RepairDistroXV1ByName(params *RepairDistroXV1ByNameParams) erro
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RepairDistroXV1ByNameOK), nil
 
 }
 
