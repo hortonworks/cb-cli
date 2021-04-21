@@ -19,6 +19,9 @@ type FreeIpaResponse struct {
 	// Aws specific FreeIpa parameters
 	Aws *AttachedFreeIpaRequestAwsParameters `json:"aws,omitempty"`
 
+	// Image parameters for FreeIpa instance creation.
+	Image *FreeIpaImageResponse `json:"image,omitempty"`
+
 	// The number of FreeIPA instances to create per group when creating FreeIPA in environment
 	InstanceCountByGroup int32 `json:"instanceCountByGroup,omitempty"`
 }
@@ -28,6 +31,10 @@ func (m *FreeIpaResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAws(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateImage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -47,6 +54,24 @@ func (m *FreeIpaResponse) validateAws(formats strfmt.Registry) error {
 		if err := m.Aws.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("aws")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *FreeIpaResponse) validateImage(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Image) { // not required
+		return nil
+	}
+
+	if m.Image != nil {
+		if err := m.Image.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("image")
 			}
 			return err
 		}

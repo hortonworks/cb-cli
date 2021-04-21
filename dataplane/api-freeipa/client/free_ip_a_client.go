@@ -26,6 +26,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1operation"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1progress"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1structured_events"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1utils"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v4utils"
 )
 
@@ -101,6 +102,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *FreeIPA {
 	cli.V1progress = v1progress.New(transport, formats)
 
 	cli.V1structuredEvents = v1structured_events.New(transport, formats)
+
+	cli.V1utils = v1utils.New(transport, formats)
 
 	cli.V4utils = v4utils.New(transport, formats)
 
@@ -178,6 +181,8 @@ type FreeIPA struct {
 
 	V1structuredEvents *v1structured_events.Client
 
+	V1utils *v1utils.Client
+
 	V4utils *v4utils.Client
 
 	Transport runtime.ClientTransport
@@ -216,6 +221,8 @@ func (c *FreeIPA) SetTransport(transport runtime.ClientTransport) {
 	c.V1progress.SetTransport(transport)
 
 	c.V1structuredEvents.SetTransport(transport)
+
+	c.V1utils.SetTransport(transport)
 
 	c.V4utils.SetTransport(transport)
 

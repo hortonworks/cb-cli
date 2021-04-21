@@ -62,10 +62,14 @@ for the get images by name in workspace operation typically these are written to
 */
 type GetImagesByNameInWorkspaceParams struct {
 
+	/*ImageType*/
+	ImageType *string
 	/*Name*/
 	Name string
 	/*Platform*/
 	Platform *string
+	/*RuntimeVersion*/
+	RuntimeVersion *string
 	/*StackName*/
 	StackName *string
 	/*WorkspaceID*/
@@ -109,6 +113,17 @@ func (o *GetImagesByNameInWorkspaceParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithImageType adds the imageType to the get images by name in workspace params
+func (o *GetImagesByNameInWorkspaceParams) WithImageType(imageType *string) *GetImagesByNameInWorkspaceParams {
+	o.SetImageType(imageType)
+	return o
+}
+
+// SetImageType adds the imageType to the get images by name in workspace params
+func (o *GetImagesByNameInWorkspaceParams) SetImageType(imageType *string) {
+	o.ImageType = imageType
+}
+
 // WithName adds the name to the get images by name in workspace params
 func (o *GetImagesByNameInWorkspaceParams) WithName(name string) *GetImagesByNameInWorkspaceParams {
 	o.SetName(name)
@@ -129,6 +144,17 @@ func (o *GetImagesByNameInWorkspaceParams) WithPlatform(platform *string) *GetIm
 // SetPlatform adds the platform to the get images by name in workspace params
 func (o *GetImagesByNameInWorkspaceParams) SetPlatform(platform *string) {
 	o.Platform = platform
+}
+
+// WithRuntimeVersion adds the runtimeVersion to the get images by name in workspace params
+func (o *GetImagesByNameInWorkspaceParams) WithRuntimeVersion(runtimeVersion *string) *GetImagesByNameInWorkspaceParams {
+	o.SetRuntimeVersion(runtimeVersion)
+	return o
+}
+
+// SetRuntimeVersion adds the runtimeVersion to the get images by name in workspace params
+func (o *GetImagesByNameInWorkspaceParams) SetRuntimeVersion(runtimeVersion *string) {
+	o.RuntimeVersion = runtimeVersion
 }
 
 // WithStackName adds the stackName to the get images by name in workspace params
@@ -161,6 +187,22 @@ func (o *GetImagesByNameInWorkspaceParams) WriteToRequest(r runtime.ClientReques
 	}
 	var res []error
 
+	if o.ImageType != nil {
+
+		// query param imageType
+		var qrImageType string
+		if o.ImageType != nil {
+			qrImageType = *o.ImageType
+		}
+		qImageType := qrImageType
+		if qImageType != "" {
+			if err := r.SetQueryParam("imageType", qImageType); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {
 		return err
@@ -176,6 +218,22 @@ func (o *GetImagesByNameInWorkspaceParams) WriteToRequest(r runtime.ClientReques
 		qPlatform := qrPlatform
 		if qPlatform != "" {
 			if err := r.SetQueryParam("platform", qPlatform); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.RuntimeVersion != nil {
+
+		// query param runtimeVersion
+		var qrRuntimeVersion string
+		if o.RuntimeVersion != nil {
+			qrRuntimeVersion = *o.RuntimeVersion
+		}
+		qRuntimeVersion := qrRuntimeVersion
+		if qRuntimeVersion != "" {
+			if err := r.SetQueryParam("runtimeVersion", qRuntimeVersion); err != nil {
 				return err
 			}
 		}

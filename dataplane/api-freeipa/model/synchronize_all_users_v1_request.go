@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -35,6 +37,10 @@ type SynchronizeAllUsersV1Request struct {
 	// Optional user crns to sync
 	// Unique: true
 	Users []string `json:"users"`
+
+	// Type of workload credentials update to perform
+	// Enum: [UPDATE_IF_CHANGED FORCE_UPDATE]
+	WorkloadCredentialsUpdateType string `json:"workloadCredentialsUpdateType,omitempty"`
 }
 
 // Validate validates this synchronize all users v1 request
@@ -54,6 +60,10 @@ func (m *SynchronizeAllUsersV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUsers(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWorkloadCredentialsUpdateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -109,6 +119,49 @@ func (m *SynchronizeAllUsersV1Request) validateUsers(formats strfmt.Registry) er
 	}
 
 	if err := validate.UniqueItems("users", "body", m.Users); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var synchronizeAllUsersV1RequestTypeWorkloadCredentialsUpdateTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["UPDATE_IF_CHANGED","FORCE_UPDATE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		synchronizeAllUsersV1RequestTypeWorkloadCredentialsUpdateTypePropEnum = append(synchronizeAllUsersV1RequestTypeWorkloadCredentialsUpdateTypePropEnum, v)
+	}
+}
+
+const (
+
+	// SynchronizeAllUsersV1RequestWorkloadCredentialsUpdateTypeUPDATEIFCHANGED captures enum value "UPDATE_IF_CHANGED"
+	SynchronizeAllUsersV1RequestWorkloadCredentialsUpdateTypeUPDATEIFCHANGED string = "UPDATE_IF_CHANGED"
+
+	// SynchronizeAllUsersV1RequestWorkloadCredentialsUpdateTypeFORCEUPDATE captures enum value "FORCE_UPDATE"
+	SynchronizeAllUsersV1RequestWorkloadCredentialsUpdateTypeFORCEUPDATE string = "FORCE_UPDATE"
+)
+
+// prop value enum
+func (m *SynchronizeAllUsersV1Request) validateWorkloadCredentialsUpdateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, synchronizeAllUsersV1RequestTypeWorkloadCredentialsUpdateTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *SynchronizeAllUsersV1Request) validateWorkloadCredentialsUpdateType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.WorkloadCredentialsUpdateType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateWorkloadCredentialsUpdateTypeEnum("workloadCredentialsUpdateType", "body", m.WorkloadCredentialsUpdateType); err != nil {
 		return err
 	}
 

@@ -113,6 +113,36 @@ func (a *Client) CheckRightInAccount(params *CheckRightInAccountParams) (*CheckR
 }
 
 /*
+CheckRightOnResources checkings right from uluwatu by resource c r ns
+
+Check right from Uluwatu
+*/
+func (a *Client) CheckRightOnResources(params *CheckRightOnResourcesParams) (*CheckRightOnResourcesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCheckRightOnResourcesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "checkRightOnResources",
+		Method:             "POST",
+		PathPattern:        "/v4/utils/check_right_on_resources",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CheckRightOnResourcesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CheckRightOnResourcesOK), nil
+
+}
+
+/*
 GetCloudStorageMatrixV4 returns supported cloud storage for stack version
 
 Define stack version at least at patch level eg. 2.6.0

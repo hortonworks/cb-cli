@@ -62,8 +62,12 @@ for the get images in workspace operation typically these are written to a http.
 */
 type GetImagesInWorkspaceParams struct {
 
+	/*ImageType*/
+	ImageType *string
 	/*Platform*/
 	Platform *string
+	/*RuntimeVersion*/
+	RuntimeVersion *string
 	/*StackName*/
 	StackName *string
 	/*WorkspaceID*/
@@ -107,6 +111,17 @@ func (o *GetImagesInWorkspaceParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithImageType adds the imageType to the get images in workspace params
+func (o *GetImagesInWorkspaceParams) WithImageType(imageType *string) *GetImagesInWorkspaceParams {
+	o.SetImageType(imageType)
+	return o
+}
+
+// SetImageType adds the imageType to the get images in workspace params
+func (o *GetImagesInWorkspaceParams) SetImageType(imageType *string) {
+	o.ImageType = imageType
+}
+
 // WithPlatform adds the platform to the get images in workspace params
 func (o *GetImagesInWorkspaceParams) WithPlatform(platform *string) *GetImagesInWorkspaceParams {
 	o.SetPlatform(platform)
@@ -116,6 +131,17 @@ func (o *GetImagesInWorkspaceParams) WithPlatform(platform *string) *GetImagesIn
 // SetPlatform adds the platform to the get images in workspace params
 func (o *GetImagesInWorkspaceParams) SetPlatform(platform *string) {
 	o.Platform = platform
+}
+
+// WithRuntimeVersion adds the runtimeVersion to the get images in workspace params
+func (o *GetImagesInWorkspaceParams) WithRuntimeVersion(runtimeVersion *string) *GetImagesInWorkspaceParams {
+	o.SetRuntimeVersion(runtimeVersion)
+	return o
+}
+
+// SetRuntimeVersion adds the runtimeVersion to the get images in workspace params
+func (o *GetImagesInWorkspaceParams) SetRuntimeVersion(runtimeVersion *string) {
+	o.RuntimeVersion = runtimeVersion
 }
 
 // WithStackName adds the stackName to the get images in workspace params
@@ -148,6 +174,22 @@ func (o *GetImagesInWorkspaceParams) WriteToRequest(r runtime.ClientRequest, reg
 	}
 	var res []error
 
+	if o.ImageType != nil {
+
+		// query param imageType
+		var qrImageType string
+		if o.ImageType != nil {
+			qrImageType = *o.ImageType
+		}
+		qImageType := qrImageType
+		if qImageType != "" {
+			if err := r.SetQueryParam("imageType", qImageType); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	if o.Platform != nil {
 
 		// query param platform
@@ -158,6 +200,22 @@ func (o *GetImagesInWorkspaceParams) WriteToRequest(r runtime.ClientRequest, reg
 		qPlatform := qrPlatform
 		if qPlatform != "" {
 			if err := r.SetQueryParam("platform", qPlatform); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.RuntimeVersion != nil {
+
+		// query param runtimeVersion
+		var qrRuntimeVersion string
+		if o.RuntimeVersion != nil {
+			qrRuntimeVersion = *o.RuntimeVersion
+		}
+		qRuntimeVersion := qrRuntimeVersion
+		if qRuntimeVersion != "" {
+			if err := r.SetQueryParam("runtimeVersion", qRuntimeVersion); err != nil {
 				return err
 			}
 		}

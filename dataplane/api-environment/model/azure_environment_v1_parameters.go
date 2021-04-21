@@ -16,7 +16,7 @@ import (
 // swagger:model AzureEnvironmentV1Parameters
 type AzureEnvironmentV1Parameters struct {
 
-	// Parameter: keyUrl - to encrypt Azure resources.
+	// Parameter 'encryptionKeyUrl' - to encrypt Azure resources.
 	ResourceEncryptionParameters *AzureResourceEncryptionV1Parameters `json:"resourceEncryptionParameters,omitempty"`
 
 	// Azure resource group parameters.

@@ -21,7 +21,7 @@ func (*mockListImageCatalogsByWorkspaceClient) ListImageCatalogsByWorkspace(para
 			Name:          &(&types.S{S: "test"}).S,
 			Description:   &(&types.S{S: "description"}).S,
 			UsedAsDefault: &(&types.B{B: true}).B,
-			URL:           &(&types.S{S: "testurl"}).S,
+			URL:           "testurl",
 		},
 	}
 	return &v4img.ListImageCatalogsByWorkspaceOK{Payload: &model.ImageCatalogV4Responses{Responses: resp}}, nil

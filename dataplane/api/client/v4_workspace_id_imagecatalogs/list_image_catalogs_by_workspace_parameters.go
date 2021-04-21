@@ -62,6 +62,8 @@ for the list image catalogs by workspace operation typically these are written t
 */
 type ListImageCatalogsByWorkspaceParams struct {
 
+	/*Custom*/
+	Custom *bool
 	/*WorkspaceID*/
 	WorkspaceID int64
 
@@ -103,6 +105,17 @@ func (o *ListImageCatalogsByWorkspaceParams) SetHTTPClient(client *http.Client) 
 	o.HTTPClient = client
 }
 
+// WithCustom adds the custom to the list image catalogs by workspace params
+func (o *ListImageCatalogsByWorkspaceParams) WithCustom(custom *bool) *ListImageCatalogsByWorkspaceParams {
+	o.SetCustom(custom)
+	return o
+}
+
+// SetCustom adds the custom to the list image catalogs by workspace params
+func (o *ListImageCatalogsByWorkspaceParams) SetCustom(custom *bool) {
+	o.Custom = custom
+}
+
 // WithWorkspaceID adds the workspaceID to the list image catalogs by workspace params
 func (o *ListImageCatalogsByWorkspaceParams) WithWorkspaceID(workspaceID int64) *ListImageCatalogsByWorkspaceParams {
 	o.SetWorkspaceID(workspaceID)
@@ -121,6 +134,22 @@ func (o *ListImageCatalogsByWorkspaceParams) WriteToRequest(r runtime.ClientRequ
 		return err
 	}
 	var res []error
+
+	if o.Custom != nil {
+
+		// query param custom
+		var qrCustom bool
+		if o.Custom != nil {
+			qrCustom = *o.Custom
+		}
+		qCustom := swag.FormatBool(qrCustom)
+		if qCustom != "" {
+			if err := r.SetQueryParam("custom", qCustom); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param workspaceId
 	if err := r.SetPathParam("workspaceId", swag.FormatInt64(o.WorkspaceID)); err != nil {

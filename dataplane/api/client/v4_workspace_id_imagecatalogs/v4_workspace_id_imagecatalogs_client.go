@@ -55,6 +55,36 @@ func (a *Client) CreateImageCatalogInWorkspace(params *CreateImageCatalogInWorks
 }
 
 /*
+CreateImageInCatalog creates a new image in an already existing custom catalog
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) CreateImageInCatalog(params *CreateImageInCatalogParams) (*CreateImageInCatalogOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateImageInCatalogParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createImageInCatalog",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/{name}/image",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateImageInCatalogReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateImageInCatalogOK), nil
+
+}
+
+/*
 DeleteImageCatalogByCrnInWorkspace deletes image catalog by crn in workspace
 
 Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
@@ -141,6 +171,66 @@ func (a *Client) DeleteImageCatalogsInWorkspace(params *DeleteImageCatalogsInWor
 		return nil, err
 	}
 	return result.(*DeleteImageCatalogsInWorkspaceOK), nil
+
+}
+
+/*
+DeleteImageFromCatalog deletes an existing image from a custom catalog
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) DeleteImageFromCatalog(params *DeleteImageFromCatalogParams) (*DeleteImageFromCatalogOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteImageFromCatalogParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteImageFromCatalog",
+		Method:             "DELETE",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/{name}/image/{imageId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteImageFromCatalogReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteImageFromCatalogOK), nil
+
+}
+
+/*
+GetImageByID determines the image for the image UUID using a default imagecatalog name
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) GetImageByID(params *GetImageByIDParams) (*GetImageByIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetImageByIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getImageById",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/image",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetImageByIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetImageByIDOK), nil
 
 }
 
@@ -265,6 +355,66 @@ func (a *Client) GetImageCatalogRequestFromNameInWorkspace(params *GetImageCatal
 }
 
 /*
+GetImageFromDefault returns an image from the default catalog based on the provided filter
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) GetImageFromDefault(params *GetImageFromDefaultParams) (*GetImageFromDefaultOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetImageFromDefaultParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getImageFromDefault",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/image/type/{type}/provider/{provider}/runtime/{runtime}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetImageFromDefaultReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetImageFromDefaultOK), nil
+
+}
+
+/*
+GetImageFromDefaultByID returns an image from the default catalog by id
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) GetImageFromDefaultByID(params *GetImageFromDefaultByIDParams) (*GetImageFromDefaultByIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetImageFromDefaultByIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getImageFromDefaultById",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/image/{imageId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetImageFromDefaultByIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetImageFromDefaultByIDOK), nil
+
+}
+
+/*
 GetImagesByNameInWorkspace determines available images for the given stack or platformfrom the given imagecatalog name
 
 Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
@@ -325,6 +475,36 @@ func (a *Client) GetImagesInWorkspace(params *GetImagesInWorkspaceParams) (*GetI
 }
 
 /*
+GetSingleImageByNameAndID determines the image for the image uuidfrom the given imagecatalog name
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) GetSingleImageByNameAndID(params *GetSingleImageByNameAndIDParams) (*GetSingleImageByNameAndIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSingleImageByNameAndIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getSingleImageByNameAndId",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/{name}/singleimage",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetSingleImageByNameAndIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSingleImageByNameAndIDOK), nil
+
+}
+
+/*
 ListImageCatalogsByWorkspace lists image catalogs for the given workspace
 
 Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
@@ -381,6 +561,36 @@ func (a *Client) UpdateImageCatalogInWorkspace(params *UpdateImageCatalogInWorks
 		return nil, err
 	}
 	return result.(*UpdateImageCatalogInWorkspaceOK), nil
+
+}
+
+/*
+UpdateImageInCatalog updates an existing image in a custom catalog
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) UpdateImageInCatalog(params *UpdateImageInCatalogParams) (*UpdateImageInCatalogOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateImageInCatalogParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateImageInCatalog",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/{name}/image/{imageId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateImageInCatalogReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateImageInCatalogOK), nil
 
 }
 

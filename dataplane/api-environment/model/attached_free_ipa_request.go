@@ -30,6 +30,9 @@ type AttachedFreeIpaRequest struct {
 	// Gcp specific FreeIpa parameters
 	Gcp AttachedFreeIpaRequestGcpParameters `json:"gcp,omitempty"`
 
+	// Image parameters for FreeIpa instance creation.
+	Image *FreeIpaImageRequest `json:"image,omitempty"`
+
 	// The number of FreeIPA instances to create per group when creating FreeIPA in environment
 	InstanceCountByGroup int32 `json:"instanceCountByGroup,omitempty"`
 }
@@ -43,6 +46,10 @@ func (m *AttachedFreeIpaRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCreate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateImage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -74,6 +81,24 @@ func (m *AttachedFreeIpaRequest) validateCreate(formats strfmt.Registry) error {
 
 	if err := validate.Required("create", "body", m.Create); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *AttachedFreeIpaRequest) validateImage(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Image) { // not required
+		return nil
+	}
+
+	if m.Image != nil {
+		if err := m.Image.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("image")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -25,6 +25,90 @@ type Client struct {
 }
 
 /*
+CheckGroups checks if groups exists in free IP a of the environment
+*/
+func (a *Client) CheckGroups(params *CheckGroupsParams) (*CheckGroupsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCheckGroupsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "checkGroups",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/test/check_groups",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CheckGroupsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CheckGroupsOK), nil
+
+}
+
+/*
+CheckUsers checks if users exists in free IP a of the environment
+*/
+func (a *Client) CheckUsers(params *CheckUsersParams) (*CheckUsersOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCheckUsersParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "checkUsers",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/test/check_users",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CheckUsersReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CheckUsersOK), nil
+
+}
+
+/*
+CheckUsersInGroup checks if users exists in specific group of free IP a of the environment
+*/
+func (a *Client) CheckUsersInGroup(params *CheckUsersInGroupParams) (*CheckUsersInGroupOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCheckUsersInGroupParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "checkUsersInGroup",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/test/check_users_in_group",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CheckUsersInGroupReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CheckUsersInGroupOK), nil
+
+}
+
+/*
 UserShowV1 retrieves user information
 */
 func (a *Client) UserShowV1(params *UserShowV1Params) (*UserShowV1OK, error) {

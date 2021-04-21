@@ -67,7 +67,6 @@ type EnvironmentV1Request struct {
 	// Required: true
 	// Max Length: 28
 	// Min Length: 5
-	// Pattern: (^[a-z][-a-z0-9]*[a-z0-9]$)
 	Name *string `json:"name"`
 
 	// Network related specifics of the environment.
@@ -392,10 +391,6 @@ func (m *EnvironmentV1Request) validateName(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("name", "body", string(*m.Name), 28); err != nil {
-		return err
-	}
-
-	if err := validate.Pattern("name", "body", string(*m.Name), `(^[a-z][-a-z0-9]*[a-z0-9]$)`); err != nil {
 		return err
 	}
 

@@ -165,6 +165,34 @@ func (a *Client) BackupDatalakeStatus(params *BackupDatalakeStatusParams) (*Back
 }
 
 /*
+CreateCustomSdx creates custom s d x cluster
+*/
+func (a *Client) CreateCustomSdx(params *CreateCustomSdxParams) (*CreateCustomSdxOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateCustomSdxParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createCustomSdx",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/custom_image",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateCustomSdxReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateCustomSdxOK), nil
+
+}
+
+/*
 CreateSdx creates s d x cluster
 */
 func (a *Client) CreateSdx(params *CreateSdxParams) (*CreateSdxOK, error) {

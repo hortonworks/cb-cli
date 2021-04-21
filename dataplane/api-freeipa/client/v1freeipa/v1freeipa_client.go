@@ -145,6 +145,36 @@ func (a *Client) ClusterProxyRegisterV1(params *ClusterProxyRegisterV1Params) (*
 }
 
 /*
+CreateBindUserV1 creates kerberos and ldap bind users for cluster
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) CreateBindUserV1(params *CreateBindUserV1Params) (*CreateBindUserV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateBindUserV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createBindUserV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/binduser/create",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateBindUserV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateBindUserV1OK), nil
+
+}
+
+/*
 CreateFreeIpaV1 creates free ipa stack
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.

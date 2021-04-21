@@ -231,6 +231,36 @@ func (a *Client) GetClusterProxyconfiguration(params *GetClusterProxyconfigurati
 }
 
 /*
+GetInternalAutoscaleClusterByName gets internal autoscale stack by name in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) GetInternalAutoscaleClusterByName(params *GetInternalAutoscaleClusterByNameParams) (*GetInternalAutoscaleClusterByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetInternalAutoscaleClusterByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getInternalAutoscaleClusterByName",
+		Method:             "GET",
+		PathPattern:        "/autoscale/autoscale_cluster/name/{name}/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetInternalAutoscaleClusterByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetInternalAutoscaleClusterByNameOK), nil
+
+}
+
+/*
 GetRecommendation get recommendation API
 */
 func (a *Client) GetRecommendation(params *GetRecommendationParams) (*GetRecommendationOK, error) {

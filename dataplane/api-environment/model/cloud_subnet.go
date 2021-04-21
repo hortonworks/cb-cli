@@ -43,9 +43,6 @@ type CloudSubnet struct {
 	// private subnet
 	PrivateSubnet bool `json:"privateSubnet,omitempty"`
 
-	// routable to internet
-	RoutableToInternet bool `json:"routableToInternet,omitempty"`
-
 	// type
 	// Enum: [PUBLIC MLX DWX PRIVATE]
 	Type string `json:"type,omitempty"`

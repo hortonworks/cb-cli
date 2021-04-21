@@ -18,6 +18,9 @@ import (
 // swagger:model BaseImageV4Response
 type BaseImageV4Response struct {
 
+	// base parcel Url
+	BaseParcelURL string `json:"baseParcelUrl,omitempty"`
+
 	// cdh stacks
 	CdhStacks []*ClouderaManagerStackDetailsV4Response `json:"cdhStacks"`
 
@@ -59,6 +62,9 @@ type BaseImageV4Response struct {
 
 	// repository
 	Repository map[string]string `json:"repository,omitempty"`
+
+	// source image Id
+	SourceImageID string `json:"sourceImageId,omitempty"`
 
 	// stack details
 	StackDetails *BaseStackDetailsV4Response `json:"stackDetails,omitempty"`

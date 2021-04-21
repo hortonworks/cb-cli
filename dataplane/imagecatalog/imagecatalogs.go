@@ -101,7 +101,7 @@ func createImagecatalogImpl(client imageCatalogClient, workspaceID int64, name s
 	imageCatalogRequest := &model.ImageCatalogV4Request{
 		Name:        &name,
 		Description: &description,
-		URL:         &imagecatalogURL,
+		URL:         imagecatalogURL,
 	}
 	log.Infof("[createImagecatalogImpl] sending create imagecatalog request")
 	resp, err := client.CreateImageCatalogInWorkspace(v4img.NewCreateImageCatalogInWorkspaceParams().WithWorkspaceID(workspaceID).WithBody(imageCatalogRequest))
@@ -134,7 +134,7 @@ func listImagecatalogsImpl(client listImageCatalogsByWorkspaceClient, workspaceI
 
 	var tableRows []utils.Row
 	for _, ic := range imagecatalogResp.Payload.Responses {
-		tableRows = append(tableRows, &imagecatalogOut{*ic.Name, utils.SafeStringConvert(ic.Description), *ic.UsedAsDefault, *ic.URL})
+		tableRows = append(tableRows, &imagecatalogOut{*ic.Name, utils.SafeStringConvert(ic.Description), *ic.UsedAsDefault, ic.URL})
 	}
 
 	writer(imagecatalogHeader, tableRows)
@@ -166,9 +166,9 @@ func DescribeImagecatalog(c *cli.Context) {
 
 	imgc := resp.Payload
 	if len(imgc.Crn) == 0 {
-		output.Write(imagecatalogHeader, &imagecatalogOut{*imgc.Name, utils.SafeStringConvert(imgc.Description), *imgc.UsedAsDefault, *imgc.URL})
+		output.Write(imagecatalogHeader, &imagecatalogOut{*imgc.Name, utils.SafeStringConvert(imgc.Description), *imgc.UsedAsDefault, imgc.URL})
 	} else {
-		output.Write(append(imagecatalogHeader, "CRN"), &imagecatalogOutDescribe{&imagecatalogOut{*imgc.Name, utils.SafeStringConvert(imgc.Description), *imgc.UsedAsDefault, *imgc.URL}, imgc.Crn})
+		output.Write(append(imagecatalogHeader, "CRN"), &imagecatalogOutDescribe{&imagecatalogOut{*imgc.Name, utils.SafeStringConvert(imgc.Description), *imgc.UsedAsDefault, imgc.URL}, imgc.Crn})
 	}
 }
 

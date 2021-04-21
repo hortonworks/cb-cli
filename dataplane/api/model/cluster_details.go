@@ -66,6 +66,9 @@ type ClusterDetails struct {
 	// name
 	Name string `json:"name,omitempty"`
 
+	// raz enabled
+	RazEnabled bool `json:"razEnabled,omitempty"`
+
 	// sso type
 	SsoType string `json:"ssoType,omitempty"`
 

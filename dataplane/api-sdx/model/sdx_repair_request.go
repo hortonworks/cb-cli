@@ -20,6 +20,9 @@ type SdxRepairRequest struct {
 
 	// host group names
 	HostGroupNames []string `json:"hostGroupNames"`
+
+	// nodes ids
+	NodesIds []string `json:"nodesIds"`
 }
 
 // Validate validates this sdx repair request

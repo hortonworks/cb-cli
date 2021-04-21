@@ -37,8 +37,7 @@ type UpdateImageCatalogV4Request struct {
 	Name *string `json:"name"`
 
 	// custom image catalog's URL
-	// Required: true
-	URL *string `json:"url"`
+	URL string `json:"url,omitempty"`
 }
 
 // Validate validates this update image catalog v4 request
@@ -54,10 +53,6 @@ func (m *UpdateImageCatalogV4Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -108,15 +103,6 @@ func (m *UpdateImageCatalogV4Request) validateName(formats strfmt.Registry) erro
 	}
 
 	if err := validate.Pattern("name", "body", string(*m.Name), `(^[a-z][-a-z0-9]*[a-z0-9]$)`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *UpdateImageCatalogV4Request) validateURL(formats strfmt.Registry) error {
-
-	if err := validate.Required("url", "body", m.URL); err != nil {
 		return err
 	}
 

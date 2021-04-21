@@ -8,6 +8,7 @@ package model
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -18,6 +19,9 @@ type AzureInstanceTemplateV4Parameters struct {
 	// encrypted
 	Encrypted bool `json:"encrypted,omitempty"`
 
+	// encryption for vm
+	Encryption *AzureEncryptionV4Parameters `json:"encryption,omitempty"`
+
 	// managed disk
 	ManagedDisk bool `json:"managedDisk,omitempty"`
 
@@ -27,6 +31,33 @@ type AzureInstanceTemplateV4Parameters struct {
 
 // Validate validates this azure instance template v4 parameters
 func (m *AzureInstanceTemplateV4Parameters) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateEncryption(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AzureInstanceTemplateV4Parameters) validateEncryption(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Encryption) { // not required
+		return nil
+	}
+
+	if m.Encryption != nil {
+		if err := m.Encryption.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("encryption")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

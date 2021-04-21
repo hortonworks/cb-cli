@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -20,7 +21,7 @@ import (
 // NewUsedImagesParams creates a new UsedImagesParams object
 // with the default values initialized.
 func NewUsedImagesParams() *UsedImagesParams {
-
+	var ()
 	return &UsedImagesParams{
 
 		timeout: cr.DefaultTimeout,
@@ -30,7 +31,7 @@ func NewUsedImagesParams() *UsedImagesParams {
 // NewUsedImagesParamsWithTimeout creates a new UsedImagesParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewUsedImagesParamsWithTimeout(timeout time.Duration) *UsedImagesParams {
-
+	var ()
 	return &UsedImagesParams{
 
 		timeout: timeout,
@@ -40,7 +41,7 @@ func NewUsedImagesParamsWithTimeout(timeout time.Duration) *UsedImagesParams {
 // NewUsedImagesParamsWithContext creates a new UsedImagesParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewUsedImagesParamsWithContext(ctx context.Context) *UsedImagesParams {
-
+	var ()
 	return &UsedImagesParams{
 
 		Context: ctx,
@@ -50,7 +51,7 @@ func NewUsedImagesParamsWithContext(ctx context.Context) *UsedImagesParams {
 // NewUsedImagesParamsWithHTTPClient creates a new UsedImagesParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUsedImagesParamsWithHTTPClient(client *http.Client) *UsedImagesParams {
-
+	var ()
 	return &UsedImagesParams{
 		HTTPClient: client,
 	}
@@ -60,6 +61,10 @@ func NewUsedImagesParamsWithHTTPClient(client *http.Client) *UsedImagesParams {
 for the used images operation typically these are written to a http.Request
 */
 type UsedImagesParams struct {
+
+	/*ThresholdInDays*/
+	ThresholdInDays *int32
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -98,6 +103,17 @@ func (o *UsedImagesParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithThresholdInDays adds the thresholdInDays to the used images params
+func (o *UsedImagesParams) WithThresholdInDays(thresholdInDays *int32) *UsedImagesParams {
+	o.SetThresholdInDays(thresholdInDays)
+	return o
+}
+
+// SetThresholdInDays adds the thresholdInDays to the used images params
+func (o *UsedImagesParams) SetThresholdInDays(thresholdInDays *int32) {
+	o.ThresholdInDays = thresholdInDays
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UsedImagesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -105,6 +121,22 @@ func (o *UsedImagesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
+
+	if o.ThresholdInDays != nil {
+
+		// query param thresholdInDays
+		var qrThresholdInDays int32
+		if o.ThresholdInDays != nil {
+			qrThresholdInDays = *o.ThresholdInDays
+		}
+		qThresholdInDays := swag.FormatInt32(qrThresholdInDays)
+		if qThresholdInDays != "" {
+			if err := r.SetQueryParam("thresholdInDays", qThresholdInDays); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

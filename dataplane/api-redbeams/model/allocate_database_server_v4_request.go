@@ -46,6 +46,9 @@ type AllocateDatabaseServerV4Request struct {
 
 	// SSL config of the database server
 	SslConfig *SslConfigV4Request `json:"sslConfig,omitempty"`
+
+	// UserDefined tags for the DB
+	Tags map[string]string `json:"tags,omitempty"`
 }
 
 // Validate validates this allocate database server v4 request

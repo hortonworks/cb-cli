@@ -16,6 +16,9 @@ import (
 // swagger:model ImageV4Response
 type ImageV4Response struct {
 
+	// base parcel Url
+	BaseParcelURL string `json:"baseParcelUrl,omitempty"`
+
 	// cm build number
 	CmBuildNumber string `json:"cmBuildNumber,omitempty"`
 
@@ -51,6 +54,9 @@ type ImageV4Response struct {
 
 	// repository
 	Repository map[string]string `json:"repository,omitempty"`
+
+	// source image Id
+	SourceImageID string `json:"sourceImageId,omitempty"`
 
 	// stack details
 	StackDetails *BaseStackDetailsV4Response `json:"stackDetails,omitempty"`

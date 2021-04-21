@@ -19,6 +19,9 @@ import (
 // swagger:model SslConfigV4Response
 type SslConfigV4Response struct {
 
+	// Cloud provider specific identifier of the SSL certificate currently active for the database server
+	SslCertificateActiveCloudProviderIdentifier string `json:"sslCertificateActiveCloudProviderIdentifier,omitempty"`
+
 	// Version number of the SSL certificate currently active for the database server
 	SslCertificateActiveVersion int32 `json:"sslCertificateActiveVersion,omitempty"`
 
