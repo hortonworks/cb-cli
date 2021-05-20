@@ -16,12 +16,12 @@ func init() {
 				Name:  "create",
 				Usage: "creates a new proxy",
 				Flags: fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlProxyHost, fl.FlProxyPort,
-					fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword).AddAGlobalFlags().Build(),
+					fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword, fl.FlProxyNoProxyHosts).AddAGlobalFlags().Build(),
 				Before: cf.CheckConfigAndCommandFlags,
 				Action: proxy.CreateProxy,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlProxyHost, fl.FlProxyPort,
-						fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword).AddAGlobalFlags().Build() {
+						fl.FlProxyProtocol, fl.FlProxyUser, fl.FlProxyPassword, fl.FlProxyNoProxyHosts).AddAGlobalFlags().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

@@ -42,6 +42,9 @@ type ProxyViewResponse struct {
 	// Pattern: (^[a-z][-a-z0-9]*[a-z0-9]$)
 	Name *string `json:"name"`
 
+	// comma-separated list of host[:port] and IP[:port] entries that should not be proxied
+	NoProxyHosts string `json:"noProxyHosts,omitempty"`
+
 	// port of proxy server (typically: 3128 or 8080)
 	// Required: true
 	// Maximum: 65535

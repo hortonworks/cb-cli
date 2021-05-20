@@ -865,6 +865,34 @@ func (a *Client) UpdateEnvironmentLoadBalancersByNameV11(params *UpdateEnvironme
 }
 
 /*
+ValidateCloudStorage validate cloud storage API
+*/
+func (a *Client) ValidateCloudStorage(params *ValidateCloudStorageParams) (*ValidateCloudStorageOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewValidateCloudStorageParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "validateCloudStorage",
+		Method:             "POST",
+		PathPattern:        "/v1/env/validate_cloud_storage",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ValidateCloudStorageReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ValidateCloudStorageOK), nil
+
+}
+
+/*
 VerifyCredentialByEnvCrn verifies the credential used by the given environment
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
