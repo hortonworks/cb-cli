@@ -42,6 +42,9 @@ type ProxyResponse struct {
 	// Pattern: (^[a-z][-a-z0-9]*[a-z0-9]$)
 	Name *string `json:"name"`
 
+	// comma-separated list of host[:port] and IP[:port] entries that should not be proxied
+	NoProxyHosts string `json:"noProxyHosts,omitempty"`
+
 	// Password to use for basic authentication
 	Password *SecretResponse `json:"password,omitempty"`
 

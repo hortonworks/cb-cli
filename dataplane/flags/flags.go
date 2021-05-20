@@ -739,6 +739,13 @@ var (
 			Usage: "password for the proxy if basic auth is required",
 		},
 	}
+	FlProxyNoProxyHosts = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "no-proxy-hosts",
+			Usage: "comma-separated list of 'host[:port]' and 'IP[:port]' elements for which traffic should not be proxied",
+		},
+	}
 	FlRdsUserName = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{

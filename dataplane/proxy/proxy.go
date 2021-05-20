@@ -22,11 +22,12 @@ type proxyClient interface {
 var Header = []string{"Name", "Host", "Port", "Protocol", "Crn"}
 
 type proxy struct {
-	Name     string `json:"Name" yaml:"Name"`
-	Host     string `json:"Host" yaml:"Host"`
-	Port     string `json:"Port" yaml:"Port"`
-	Protocol string `json:"Protocol" yaml:"Protocol"`
-	Crn      string `json:"Crn" yaml:"Crn"`
+	Name         string `json:"Name" yaml:"Name"`
+	Host         string `json:"Host" yaml:"Host"`
+	Port         string `json:"Port" yaml:"Port"`
+	Protocol     string `json:"Protocol" yaml:"Protocol"`
+	Crn          string `json:"Crn" yaml:"Crn"`
+	NoProxyHosts string `json:"NoProxyHosts" yaml:"NoProxyHosts"`
 }
 
 func (p *proxy) DataAsStringArray() []string {
@@ -42,6 +43,7 @@ func CreateProxy(c *cli.Context) error {
 	protocol := c.String(fl.FlProxyProtocol.Name)
 	user := c.String(fl.FlProxyUser.Name)
 	password := c.String(fl.FlProxyPassword.Name)
+	noproxyhosts := c.String(fl.FlProxyNoProxyHosts.Name)
 
 	if protocol != "http" && protocol != "https" {
 		utils.LogErrorMessageAndExit("Proxy protocol must be either http or https")
@@ -50,17 +52,18 @@ func CreateProxy(c *cli.Context) error {
 
 	envClient := oauth.NewEnvironmentClientFromContext(c)
 
-	return createProxy(envClient.Environment.V1proxies, name, host, int32(serverPort), protocol, user, password)
+	return createProxy(envClient.Environment.V1proxies, name, host, int32(serverPort), protocol, user, password, noproxyhosts)
 }
 
-func createProxy(proxyClient proxyClient, name, host string, port int32, protocol, user, password string) error {
+func createProxy(proxyClient proxyClient, name, host string, port int32, protocol, user, password, noproxyhosts string) error {
 	proxyRequest := &model.ProxyRequest{
-		Name:     &name,
-		Host:     &host,
-		Port:     &port,
-		Protocol: &protocol,
-		UserName: user,
-		Password: password,
+		Name:         &name,
+		Host:         &host,
+		Port:         &port,
+		Protocol:     &protocol,
+		UserName:     user,
+		Password:     password,
+		NoProxyHosts: noproxyhosts,
 	}
 
 	log.Infof("[createProxy] create proxy with name: %s", name)
@@ -93,11 +96,12 @@ func listProxiesImpl(proxyClient proxyClient, writer func([]string, []utils.Row)
 	var tableRows []utils.Row
 	for _, p := range resp.Payload.Responses {
 		row := &proxy{
-			Name:     *p.Name,
-			Host:     *p.Host,
-			Port:     strconv.Itoa(int(*p.Port)),
-			Protocol: *p.Protocol,
-			Crn:      p.Crn,
+			Name:         *p.Name,
+			Host:         *p.Host,
+			Port:         strconv.Itoa(int(*p.Port)),
+			Protocol:     *p.Protocol,
+			NoProxyHosts: p.NoProxyHosts,
+			Crn:          p.Crn,
 		}
 		tableRows = append(tableRows, row)
 	}
