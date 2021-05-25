@@ -92,8 +92,8 @@ mock-start() {
 
     mv docker-compose.yml docker-compose-mocks.yml
     echo "Starting CBD with minimal set:"
+    PUBLIC_IP=`echo $DOCKER_HOST | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'`
     cat <<EOF > Profile
-export PUBLIC_IP=$(hostname -i)
 export CB_LOCAL_DEV_LIST=cloudbreak,periscope,datalake,freeipa,redbeams,environment,uluwatu,cluster-proxy,core-gateway
 export VAULT_AUTO_UNSEAL=true
 export COMMON_DB_VOL=mock-common
@@ -102,6 +102,7 @@ export CB_ENABLEDPLATFORMS=AZURE,OPENSTACK,AWS,GCP,YARN,MOCK
 export ENVIRONMENT_ENABLEDPLATFORMS=AZURE,OPENSTACK,AWS,GCP,YARN,MOCK
 export UMS_HOST=''
 EOF
+    echo "export PUBLIC_IP=$PUBLIC_IP" >> integcb/Profile
     ./cbd generate
     ./cbd start
     ./.deps/bin/docker-compose -f docker-compose-mocks.yml -p cbreak up -d
