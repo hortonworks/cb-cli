@@ -19,6 +19,10 @@ import (
 // swagger:model ListFreeIpaV1Response
 type ListFreeIpaV1Response struct {
 
+	// availability status
+	// Enum: [UNKNOWN AVAILABLE UNAVAILABLE]
+	AvailabilityStatus string `json:"availabilityStatus,omitempty"`
+
 	// crn
 	// Required: true
 	Crn *string `json:"crn"`
@@ -46,6 +50,10 @@ type ListFreeIpaV1Response struct {
 func (m *ListFreeIpaV1Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAvailabilityStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCrn(formats); err != nil {
 		res = append(res, err)
 	}
@@ -65,6 +73,52 @@ func (m *ListFreeIpaV1Response) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var listFreeIpaV1ResponseTypeAvailabilityStatusPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["UNKNOWN","AVAILABLE","UNAVAILABLE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		listFreeIpaV1ResponseTypeAvailabilityStatusPropEnum = append(listFreeIpaV1ResponseTypeAvailabilityStatusPropEnum, v)
+	}
+}
+
+const (
+
+	// ListFreeIpaV1ResponseAvailabilityStatusUNKNOWN captures enum value "UNKNOWN"
+	ListFreeIpaV1ResponseAvailabilityStatusUNKNOWN string = "UNKNOWN"
+
+	// ListFreeIpaV1ResponseAvailabilityStatusAVAILABLE captures enum value "AVAILABLE"
+	ListFreeIpaV1ResponseAvailabilityStatusAVAILABLE string = "AVAILABLE"
+
+	// ListFreeIpaV1ResponseAvailabilityStatusUNAVAILABLE captures enum value "UNAVAILABLE"
+	ListFreeIpaV1ResponseAvailabilityStatusUNAVAILABLE string = "UNAVAILABLE"
+)
+
+// prop value enum
+func (m *ListFreeIpaV1Response) validateAvailabilityStatusEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, listFreeIpaV1ResponseTypeAvailabilityStatusPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *ListFreeIpaV1Response) validateAvailabilityStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AvailabilityStatus) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAvailabilityStatusEnum("availabilityStatus", "body", m.AvailabilityStatus); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -27,6 +27,10 @@ type DescribeFreeIpaV1Response struct {
 	// Required: true
 	Authentication *StackAuthenticationV1Response `json:"authentication"`
 
+	// availability status
+	// Enum: [UNKNOWN AVAILABLE UNAVAILABLE]
+	AvailabilityStatus string `json:"availabilityStatus,omitempty"`
+
 	// Cloud Platform for FreeIPA
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
@@ -85,6 +89,10 @@ func (m *DescribeFreeIpaV1Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAuthentication(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAvailabilityStatus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -155,6 +163,52 @@ func (m *DescribeFreeIpaV1Response) validateAuthentication(formats strfmt.Regist
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var describeFreeIpaV1ResponseTypeAvailabilityStatusPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["UNKNOWN","AVAILABLE","UNAVAILABLE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		describeFreeIpaV1ResponseTypeAvailabilityStatusPropEnum = append(describeFreeIpaV1ResponseTypeAvailabilityStatusPropEnum, v)
+	}
+}
+
+const (
+
+	// DescribeFreeIpaV1ResponseAvailabilityStatusUNKNOWN captures enum value "UNKNOWN"
+	DescribeFreeIpaV1ResponseAvailabilityStatusUNKNOWN string = "UNKNOWN"
+
+	// DescribeFreeIpaV1ResponseAvailabilityStatusAVAILABLE captures enum value "AVAILABLE"
+	DescribeFreeIpaV1ResponseAvailabilityStatusAVAILABLE string = "AVAILABLE"
+
+	// DescribeFreeIpaV1ResponseAvailabilityStatusUNAVAILABLE captures enum value "UNAVAILABLE"
+	DescribeFreeIpaV1ResponseAvailabilityStatusUNAVAILABLE string = "UNAVAILABLE"
+)
+
+// prop value enum
+func (m *DescribeFreeIpaV1Response) validateAvailabilityStatusEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, describeFreeIpaV1ResponseTypeAvailabilityStatusPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DescribeFreeIpaV1Response) validateAvailabilityStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AvailabilityStatus) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAvailabilityStatusEnum("availabilityStatus", "body", m.AvailabilityStatus); err != nil {
+		return err
 	}
 
 	return nil
