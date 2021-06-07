@@ -588,3 +588,20 @@ func DeleteDnsCnameRecord(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 }
+
+func ChangeImage(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	imageId := c.String(fl.FlImageId.Name)
+	imageCatalogName := c.String(fl.FlImageCatalog.Name)
+	osType := ""
+
+	imageSettingsV1Request := model.ImageSettingsV1Request{Catalog: imageCatalogName, ID: imageId, Os: osType}
+	request := model.ImageChangeV1Request{EnvironmentCrn: &envCrn, ImageSettings: &imageSettingsV1Request}
+
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	_, err := freeIpaClient.V1freeipa.ChangeImageV1(v1freeipa.NewChangeImageV1Params().WithBody(&request))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+}

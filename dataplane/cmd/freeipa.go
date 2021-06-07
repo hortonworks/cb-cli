@@ -277,6 +277,18 @@ func init() {
 					},
 				},
 			},
+			{
+				Name:   "change-image",
+				Usage:  "changes image of freeipa - will be used when creating new instances or repairing failed ones",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlImageIdOptional, fl.FlImageCatalogOptional).AddAGlobalFlags().Build(),
+				Action: freeipa.ChangeImage,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlImageIdOptional, fl.FlImageCatalogOptional).AddAGlobalFlags().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }

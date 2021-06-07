@@ -55,6 +55,36 @@ func (a *Client) AttachChildEnvironmentV1(params *AttachChildEnvironmentV1Params
 }
 
 /*
+ChangeImageV1 creates kerberos and ldap bind users for cluster
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) ChangeImageV1(params *ChangeImageV1Params) (*ChangeImageV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewChangeImageV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "changeImageV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/freeipa/change_image",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ChangeImageV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ChangeImageV1OK), nil
+
+}
+
+/*
 CleanupV1 cleans out users hosts and related DNS entries
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.

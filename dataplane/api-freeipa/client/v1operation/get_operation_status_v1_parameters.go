@@ -61,6 +61,8 @@ for the get operation status v1 operation typically these are written to a http.
 */
 type GetOperationStatusV1Params struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*OperationID*/
 	OperationID string
 
@@ -102,6 +104,17 @@ func (o *GetOperationStatusV1Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the get operation status v1 params
+func (o *GetOperationStatusV1Params) WithAccountID(accountID *string) *GetOperationStatusV1Params {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the get operation status v1 params
+func (o *GetOperationStatusV1Params) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithOperationID adds the operationID to the get operation status v1 params
 func (o *GetOperationStatusV1Params) WithOperationID(operationID string) *GetOperationStatusV1Params {
 	o.SetOperationID(operationID)
@@ -120,6 +133,22 @@ func (o *GetOperationStatusV1Params) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// query param operationId
 	qrOperationID := o.OperationID
