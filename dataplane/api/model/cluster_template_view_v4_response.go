@@ -67,7 +67,7 @@ type ClusterTemplateViewV4Response struct {
 	StackVersion string `json:"stackVersion,omitempty"`
 
 	// status
-	// Enum: [DEFAULT DEFAULT_DELETED USER_MANAGED OUTDATED]
+	// Enum: [DEFAULT DEFAULT_DELETED USER_MANAGED SERVICE_MANAGED OUTDATED]
 	Status string `json:"status,omitempty"`
 
 	// type of the cluster template
@@ -240,7 +240,7 @@ var clusterTemplateViewV4ResponseTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["DEFAULT","DEFAULT_DELETED","USER_MANAGED","OUTDATED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["DEFAULT","DEFAULT_DELETED","USER_MANAGED","SERVICE_MANAGED","OUTDATED"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -258,6 +258,9 @@ const (
 
 	// ClusterTemplateViewV4ResponseStatusUSERMANAGED captures enum value "USER_MANAGED"
 	ClusterTemplateViewV4ResponseStatusUSERMANAGED string = "USER_MANAGED"
+
+	// ClusterTemplateViewV4ResponseStatusSERVICEMANAGED captures enum value "SERVICE_MANAGED"
+	ClusterTemplateViewV4ResponseStatusSERVICEMANAGED string = "SERVICE_MANAGED"
 
 	// ClusterTemplateViewV4ResponseStatusOUTDATED captures enum value "OUTDATED"
 	ClusterTemplateViewV4ResponseStatusOUTDATED string = "OUTDATED"

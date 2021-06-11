@@ -55,6 +55,36 @@ func (a *Client) CreateRecipeInWorkspace(params *CreateRecipeInWorkspaceParams) 
 }
 
 /*
+CreateRecipeInWorkspaceInternal creates recipe in workspace internal
+
+Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.
+*/
+func (a *Client) CreateRecipeInWorkspaceInternal(params *CreateRecipeInWorkspaceInternalParams) (*CreateRecipeInWorkspaceInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateRecipeInWorkspaceInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createRecipeInWorkspaceInternal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/recipes/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateRecipeInWorkspaceInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateRecipeInWorkspaceInternalOK), nil
+
+}
+
+/*
 DeleteRecipeByCrnInWorkspace deletes recipe by crn in workspace
 
 Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.
@@ -231,6 +261,36 @@ func (a *Client) GetRecipeInWorkspace(params *GetRecipeInWorkspaceParams) (*GetR
 		return nil, err
 	}
 	return result.(*GetRecipeInWorkspaceOK), nil
+
+}
+
+/*
+GetRecipeInWorkspaceInternal gets recipe by name in workspace internal
+
+Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.
+*/
+func (a *Client) GetRecipeInWorkspaceInternal(params *GetRecipeInWorkspaceInternalParams) (*GetRecipeInWorkspaceInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRecipeInWorkspaceInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getRecipeInWorkspaceInternal",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/recipes/name/{name}/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRecipeInWorkspaceInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRecipeInWorkspaceInternalOK), nil
 
 }
 

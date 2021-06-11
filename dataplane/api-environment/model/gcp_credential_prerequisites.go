@@ -20,6 +20,9 @@ type GcpCredentialPrerequisites struct {
 	// GCP specific 'gcloud' CLI based commands to create prerequisites for Cloudbreak credential creation. The field is base64 encoded.
 	// Required: true
 	CreationCommand *string `json:"creationCommand"`
+
+	// Policies for experiences.
+	Policies map[string]string `json:"policies,omitempty"`
 }
 
 // Validate validates this gcp credential prerequisites

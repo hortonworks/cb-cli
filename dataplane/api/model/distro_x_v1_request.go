@@ -71,6 +71,9 @@ type DistroXV1Request struct {
 	// time to live
 	TimeToLive int64 `json:"timeToLive,omitempty"`
 
+	// variant
+	Variant string `json:"variant,omitempty"`
+
 	// yarn
 	Yarn *YarnDistroXV1Parameters `json:"yarn,omitempty"`
 }

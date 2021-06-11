@@ -28,6 +28,9 @@ type InstanceGroupV4Request struct {
 	// gcp specific parameters for instance group
 	Gcp *GcpInstanceGroupV4Parameters `json:"gcp,omitempty"`
 
+	// minimum nodecount in an instancegroup
+	MinimumNodeCount int32 `json:"minimumNodeCount,omitempty"`
+
 	// mock
 	Mock MockInstanceGroupV4Parameters `json:"mock,omitempty"`
 
@@ -51,6 +54,10 @@ type InstanceGroupV4Request struct {
 	// recovery mode of the hostgroup's nodes
 	// Enum: [MANUAL AUTO]
 	RecoveryMode string `json:"recoveryMode,omitempty"`
+
+	// type of the instance group scalability, default value is ALLOWED
+	// Enum: [ALLOWED FORBIDDEN ONLY_UPSCALE ONLY_DOWNSCALE]
+	ScalabilityOption string `json:"scalabilityOption,omitempty"`
 
 	// instancegroup related securitygroup
 	SecurityGroup *SecurityGroupV4Request `json:"securityGroup,omitempty"`
@@ -93,6 +100,10 @@ func (m *InstanceGroupV4Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRecoveryMode(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateScalabilityOption(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -244,6 +255,55 @@ func (m *InstanceGroupV4Request) validateRecoveryMode(formats strfmt.Registry) e
 
 	// value enum
 	if err := m.validateRecoveryModeEnum("recoveryMode", "body", m.RecoveryMode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var instanceGroupV4RequestTypeScalabilityOptionPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ALLOWED","FORBIDDEN","ONLY_UPSCALE","ONLY_DOWNSCALE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		instanceGroupV4RequestTypeScalabilityOptionPropEnum = append(instanceGroupV4RequestTypeScalabilityOptionPropEnum, v)
+	}
+}
+
+const (
+
+	// InstanceGroupV4RequestScalabilityOptionALLOWED captures enum value "ALLOWED"
+	InstanceGroupV4RequestScalabilityOptionALLOWED string = "ALLOWED"
+
+	// InstanceGroupV4RequestScalabilityOptionFORBIDDEN captures enum value "FORBIDDEN"
+	InstanceGroupV4RequestScalabilityOptionFORBIDDEN string = "FORBIDDEN"
+
+	// InstanceGroupV4RequestScalabilityOptionONLYUPSCALE captures enum value "ONLY_UPSCALE"
+	InstanceGroupV4RequestScalabilityOptionONLYUPSCALE string = "ONLY_UPSCALE"
+
+	// InstanceGroupV4RequestScalabilityOptionONLYDOWNSCALE captures enum value "ONLY_DOWNSCALE"
+	InstanceGroupV4RequestScalabilityOptionONLYDOWNSCALE string = "ONLY_DOWNSCALE"
+)
+
+// prop value enum
+func (m *InstanceGroupV4Request) validateScalabilityOptionEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, instanceGroupV4RequestTypeScalabilityOptionPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *InstanceGroupV4Request) validateScalabilityOption(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ScalabilityOption) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateScalabilityOptionEnum("scalabilityOption", "body", m.ScalabilityOption); err != nil {
 		return err
 	}
 

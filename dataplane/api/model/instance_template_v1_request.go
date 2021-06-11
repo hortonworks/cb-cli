@@ -46,6 +46,10 @@ type InstanceTemplateV1Request struct {
 	// root volume
 	RootVolume *RootVolumeV1Request `json:"rootVolume,omitempty"`
 
+	// temporary storage
+	// Enum: [ATTACHED_VOLUMES EPHEMERAL_VOLUMES]
+	TemporaryStorage string `json:"temporaryStorage,omitempty"`
+
 	// yarn specific parameters for template
 	Yarn *YarnInstanceTemplateV1Parameters `json:"yarn,omitempty"`
 }
@@ -75,6 +79,10 @@ func (m *InstanceTemplateV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRootVolume(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTemporaryStorage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -239,6 +247,49 @@ func (m *InstanceTemplateV1Request) validateRootVolume(formats strfmt.Registry) 
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var instanceTemplateV1RequestTypeTemporaryStoragePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ATTACHED_VOLUMES","EPHEMERAL_VOLUMES"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		instanceTemplateV1RequestTypeTemporaryStoragePropEnum = append(instanceTemplateV1RequestTypeTemporaryStoragePropEnum, v)
+	}
+}
+
+const (
+
+	// InstanceTemplateV1RequestTemporaryStorageATTACHEDVOLUMES captures enum value "ATTACHED_VOLUMES"
+	InstanceTemplateV1RequestTemporaryStorageATTACHEDVOLUMES string = "ATTACHED_VOLUMES"
+
+	// InstanceTemplateV1RequestTemporaryStorageEPHEMERALVOLUMES captures enum value "EPHEMERAL_VOLUMES"
+	InstanceTemplateV1RequestTemporaryStorageEPHEMERALVOLUMES string = "EPHEMERAL_VOLUMES"
+)
+
+// prop value enum
+func (m *InstanceTemplateV1Request) validateTemporaryStorageEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, instanceTemplateV1RequestTypeTemporaryStoragePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *InstanceTemplateV1Request) validateTemporaryStorage(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.TemporaryStorage) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTemporaryStorageEnum("temporaryStorage", "body", m.TemporaryStorage); err != nil {
+		return err
 	}
 
 	return nil

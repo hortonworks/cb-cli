@@ -21,6 +21,9 @@ type AzureCredentialPrerequisites struct {
 	// Required: true
 	AppCreationCommand *string `json:"appCreationCommand"`
 
+	// Policies for experiences.
+	Policies map[string]string `json:"policies,omitempty"`
+
 	// Azure specific JSON file that is base64 encoded and describes the necessary Azure role for cloud resource provisioning.
 	// Required: true
 	RoleDefitionJSON *string `json:"roleDefitionJson"`

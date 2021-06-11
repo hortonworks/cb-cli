@@ -33,6 +33,9 @@ type InstanceGroupDetails struct {
 	// security group
 	SecurityGroup *SecurityGroupDetails `json:"securityGroup,omitempty"`
 
+	// temporary storage
+	TemporaryStorage string `json:"temporaryStorage,omitempty"`
+
 	// volumes
 	Volumes []*VolumeDetails `json:"volumes"`
 }

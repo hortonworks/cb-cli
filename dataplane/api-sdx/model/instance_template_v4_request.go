@@ -6,6 +6,7 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"strconv"
 
 	strfmt "github.com/go-openapi/strfmt"
@@ -47,6 +48,10 @@ type InstanceTemplateV4Request struct {
 	// root volume
 	RootVolume *RootVolumeV4Request `json:"rootVolume,omitempty"`
 
+	// temporary storage
+	// Enum: [ATTACHED_VOLUMES EPHEMERAL_VOLUMES]
+	TemporaryStorage string `json:"temporaryStorage,omitempty"`
+
 	// yarn specific parameters for template
 	Yarn *YarnInstanceTemplateV4Parameters `json:"yarn,omitempty"`
 }
@@ -76,6 +81,10 @@ func (m *InstanceTemplateV4Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRootVolume(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTemporaryStorage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -203,6 +212,49 @@ func (m *InstanceTemplateV4Request) validateRootVolume(formats strfmt.Registry) 
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var instanceTemplateV4RequestTypeTemporaryStoragePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ATTACHED_VOLUMES","EPHEMERAL_VOLUMES"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		instanceTemplateV4RequestTypeTemporaryStoragePropEnum = append(instanceTemplateV4RequestTypeTemporaryStoragePropEnum, v)
+	}
+}
+
+const (
+
+	// InstanceTemplateV4RequestTemporaryStorageATTACHEDVOLUMES captures enum value "ATTACHED_VOLUMES"
+	InstanceTemplateV4RequestTemporaryStorageATTACHEDVOLUMES string = "ATTACHED_VOLUMES"
+
+	// InstanceTemplateV4RequestTemporaryStorageEPHEMERALVOLUMES captures enum value "EPHEMERAL_VOLUMES"
+	InstanceTemplateV4RequestTemporaryStorageEPHEMERALVOLUMES string = "EPHEMERAL_VOLUMES"
+)
+
+// prop value enum
+func (m *InstanceTemplateV4Request) validateTemporaryStorageEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, instanceTemplateV4RequestTypeTemporaryStoragePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *InstanceTemplateV4Request) validateTemporaryStorage(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.TemporaryStorage) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTemporaryStorageEnum("temporaryStorage", "body", m.TemporaryStorage); err != nil {
+		return err
 	}
 
 	return nil

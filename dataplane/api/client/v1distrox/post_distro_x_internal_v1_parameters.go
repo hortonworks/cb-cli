@@ -67,6 +67,8 @@ type PostDistroXInternalV1Params struct {
 	AccountID *string
 	/*Body*/
 	Body *model.DistroXV1Request
+	/*InitiatorUserCrn*/
+	InitiatorUserCrn *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -128,6 +130,17 @@ func (o *PostDistroXInternalV1Params) SetBody(body *model.DistroXV1Request) {
 	o.Body = body
 }
 
+// WithInitiatorUserCrn adds the initiatorUserCrn to the post distro x internal v1 params
+func (o *PostDistroXInternalV1Params) WithInitiatorUserCrn(initiatorUserCrn *string) *PostDistroXInternalV1Params {
+	o.SetInitiatorUserCrn(initiatorUserCrn)
+	return o
+}
+
+// SetInitiatorUserCrn adds the initiatorUserCrn to the post distro x internal v1 params
+func (o *PostDistroXInternalV1Params) SetInitiatorUserCrn(initiatorUserCrn *string) {
+	o.InitiatorUserCrn = initiatorUserCrn
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *PostDistroXInternalV1Params) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -156,6 +169,22 @@ func (o *PostDistroXInternalV1Params) WriteToRequest(r runtime.ClientRequest, re
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
 		}
+	}
+
+	if o.InitiatorUserCrn != nil {
+
+		// query param initiatorUserCrn
+		var qrInitiatorUserCrn string
+		if o.InitiatorUserCrn != nil {
+			qrInitiatorUserCrn = *o.InitiatorUserCrn
+		}
+		qInitiatorUserCrn := qrInitiatorUserCrn
+		if qInitiatorUserCrn != "" {
+			if err := r.SetQueryParam("initiatorUserCrn", qInitiatorUserCrn); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

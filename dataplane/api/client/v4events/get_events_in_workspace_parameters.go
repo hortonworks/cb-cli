@@ -62,6 +62,8 @@ for the get events in workspace operation typically these are written to a http.
 */
 type GetEventsInWorkspaceParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Since*/
 	Since *int64
 
@@ -103,6 +105,17 @@ func (o *GetEventsInWorkspaceParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the get events in workspace params
+func (o *GetEventsInWorkspaceParams) WithAccountID(accountID *string) *GetEventsInWorkspaceParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the get events in workspace params
+func (o *GetEventsInWorkspaceParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithSince adds the since to the get events in workspace params
 func (o *GetEventsInWorkspaceParams) WithSince(since *int64) *GetEventsInWorkspaceParams {
 	o.SetSince(since)
@@ -121,6 +134,22 @@ func (o *GetEventsInWorkspaceParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Since != nil {
 

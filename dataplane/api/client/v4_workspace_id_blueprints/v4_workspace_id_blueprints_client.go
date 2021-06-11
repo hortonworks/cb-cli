@@ -55,6 +55,36 @@ func (a *Client) CreateBlueprintInWorkspace(params *CreateBlueprintInWorkspacePa
 }
 
 /*
+CreateBlueprintInWorkspaceInternal creates blueprint in workspace internal
+
+Cluster definitions are a declarative definition of a Hadoop cluster. With a blueprint, you specify a stack, the component layout and the configurations to materialize a Hadoop cluster instance. Hostgroups defined in blueprints can be associated to different templates, thus you can spin up a highly available cluster running on different instance types. This will give you the option to group your Hadoop services based on resource needs (e.g. high I/O, CPU or memory) and create an infrastructure which fits your workload best.
+*/
+func (a *Client) CreateBlueprintInWorkspaceInternal(params *CreateBlueprintInWorkspaceInternalParams) (*CreateBlueprintInWorkspaceInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateBlueprintInWorkspaceInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createBlueprintInWorkspaceInternal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/blueprints/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateBlueprintInWorkspaceInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateBlueprintInWorkspaceInternalOK), nil
+
+}
+
+/*
 DeleteBlueprintByCrn deletes blueprint by crn
 
 Cluster definitions are a declarative definition of a Hadoop cluster. With a blueprint, you specify a stack, the component layout and the configurations to materialize a Hadoop cluster instance. Hostgroups defined in blueprints can be associated to different templates, thus you can spin up a highly available cluster running on different instance types. This will give you the option to group your Hadoop services based on resource needs (e.g. high I/O, CPU or memory) and create an infrastructure which fits your workload best.
@@ -229,6 +259,36 @@ func (a *Client) GetBlueprintInWorkspace(params *GetBlueprintInWorkspaceParams) 
 		return nil, err
 	}
 	return result.(*GetBlueprintInWorkspaceOK), nil
+
+}
+
+/*
+GetBlueprintInWorkspaceInternal gets blueprint by name in workspace internal
+
+Cluster definitions are a declarative definition of a Hadoop cluster. With a blueprint, you specify a stack, the component layout and the configurations to materialize a Hadoop cluster instance. Hostgroups defined in blueprints can be associated to different templates, thus you can spin up a highly available cluster running on different instance types. This will give you the option to group your Hadoop services based on resource needs (e.g. high I/O, CPU or memory) and create an infrastructure which fits your workload best.
+*/
+func (a *Client) GetBlueprintInWorkspaceInternal(params *GetBlueprintInWorkspaceInternalParams) (*GetBlueprintInWorkspaceInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetBlueprintInWorkspaceInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getBlueprintInWorkspaceInternal",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/blueprints/name/{name}/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetBlueprintInWorkspaceInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetBlueprintInWorkspaceInternalOK), nil
 
 }
 

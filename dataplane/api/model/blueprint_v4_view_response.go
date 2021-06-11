@@ -50,7 +50,7 @@ type BlueprintV4ViewResponse struct {
 	StackVersion string `json:"stackVersion,omitempty"`
 
 	// status of the blueprint
-	// Enum: [DEFAULT DEFAULT_DELETED USER_MANAGED OUTDATED]
+	// Enum: [DEFAULT DEFAULT_DELETED USER_MANAGED SERVICE_MANAGED OUTDATED]
 	Status string `json:"status,omitempty"`
 
 	// user defined tags for blueprint
@@ -121,7 +121,7 @@ var blueprintV4ViewResponseTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["DEFAULT","DEFAULT_DELETED","USER_MANAGED","OUTDATED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["DEFAULT","DEFAULT_DELETED","USER_MANAGED","SERVICE_MANAGED","OUTDATED"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -139,6 +139,9 @@ const (
 
 	// BlueprintV4ViewResponseStatusUSERMANAGED captures enum value "USER_MANAGED"
 	BlueprintV4ViewResponseStatusUSERMANAGED string = "USER_MANAGED"
+
+	// BlueprintV4ViewResponseStatusSERVICEMANAGED captures enum value "SERVICE_MANAGED"
+	BlueprintV4ViewResponseStatusSERVICEMANAGED string = "SERVICE_MANAGED"
 
 	// BlueprintV4ViewResponseStatusOUTDATED captures enum value "OUTDATED"
 	BlueprintV4ViewResponseStatusOUTDATED string = "OUTDATED"

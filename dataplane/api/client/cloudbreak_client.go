@@ -27,6 +27,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_imagecatalogs"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_recipes"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_stacks"
+	"github.com/hortonworks/cb-cli/dataplane/api/client/v4customimagecatalogs"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4datalake"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4dbconfig"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4diagnostics"
@@ -111,6 +112,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 	cli.V4WorkspaceIDRecipes = v4_workspace_id_recipes.New(transport, formats)
 
 	cli.V4WorkspaceIDStacks = v4_workspace_id_stacks.New(transport, formats)
+
+	cli.V4customimagecatalogs = v4customimagecatalogs.New(transport, formats)
 
 	cli.V4datalake = v4datalake.New(transport, formats)
 
@@ -204,6 +207,8 @@ type Cloudbreak struct {
 
 	V4WorkspaceIDStacks *v4_workspace_id_stacks.Client
 
+	V4customimagecatalogs *v4customimagecatalogs.Client
+
 	V4datalake *v4datalake.Client
 
 	V4dbconfig *v4dbconfig.Client
@@ -258,6 +263,8 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.V4WorkspaceIDRecipes.SetTransport(transport)
 
 	c.V4WorkspaceIDStacks.SetTransport(transport)
+
+	c.V4customimagecatalogs.SetTransport(transport)
 
 	c.V4datalake.SetTransport(transport)
 

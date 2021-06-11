@@ -82,6 +82,8 @@ for the get events by stack name in workspace operation typically these are writ
 */
 type GetEventsByStackNameInWorkspaceParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Name*/
 	Name string
 	/*Page*/
@@ -127,6 +129,17 @@ func (o *GetEventsByStackNameInWorkspaceParams) SetHTTPClient(client *http.Clien
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the get events by stack name in workspace params
+func (o *GetEventsByStackNameInWorkspaceParams) WithAccountID(accountID *string) *GetEventsByStackNameInWorkspaceParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the get events by stack name in workspace params
+func (o *GetEventsByStackNameInWorkspaceParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithName adds the name to the get events by stack name in workspace params
 func (o *GetEventsByStackNameInWorkspaceParams) WithName(name string) *GetEventsByStackNameInWorkspaceParams {
 	o.SetName(name)
@@ -167,6 +180,22 @@ func (o *GetEventsByStackNameInWorkspaceParams) WriteToRequest(r runtime.ClientR
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

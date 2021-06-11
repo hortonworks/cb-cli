@@ -78,11 +78,17 @@ type StackDetails struct {
 	// region
 	Region string `json:"region,omitempty"`
 
+	// stack tags
+	StackTags *StackTags `json:"stackTags,omitempty"`
+
 	// status
 	Status string `json:"status,omitempty"`
 
 	// status reason
 	StatusReason string `json:"statusReason,omitempty"`
+
+	// tags
+	Tags *JSON `json:"tags,omitempty"`
 
 	// tunnel
 	Tunnel string `json:"tunnel,omitempty"`
@@ -100,6 +106,14 @@ func (m *StackDetails) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateInstanceGroups(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStackTags(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -147,6 +161,42 @@ func (m *StackDetails) validateInstanceGroups(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *StackDetails) validateStackTags(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.StackTags) { // not required
+		return nil
+	}
+
+	if m.StackTags != nil {
+		if err := m.StackTags.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("stackTags")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackDetails) validateTags(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Tags) { // not required
+		return nil
+	}
+
+	if m.Tags != nil {
+		if err := m.Tags.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("tags")
+			}
+			return err
+		}
 	}
 
 	return nil

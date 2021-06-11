@@ -83,6 +83,36 @@ func (a *Client) DecommissionInstancesForClusterCrn(params *DecommissionInstance
 }
 
 /*
+DecommissionInternalInstancesForClusterCrn deletes multiple instances from the stack s cluster in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) DecommissionInternalInstancesForClusterCrn(params *DecommissionInternalInstancesForClusterCrnParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDecommissionInternalInstancesForClusterCrnParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "decommissionInternalInstancesForClusterCrn",
+		Method:             "DELETE",
+		PathPattern:        "/autoscale/stack/crn/{crn}/instances/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DecommissionInternalInstancesForClusterCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 GetAllStackForAutoscale retrieves all stacks
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.

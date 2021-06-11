@@ -99,6 +99,9 @@ type StackV4Request struct {
 	// Enum: [WORKLOAD DATALAKE TEMPLATE LEGACY]
 	Type string `json:"type,omitempty"`
 
+	// variant
+	Variant string `json:"variant,omitempty"`
+
 	// openstack specific parameters for stack
 	Yarn *YarnStackV4Parameters `json:"yarn,omitempty"`
 }

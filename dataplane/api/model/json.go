@@ -11,21 +11,27 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ImageBasicInfoV4Response image basic info v4 response
-// swagger:model ImageBasicInfoV4Response
-type ImageBasicInfoV4Response struct {
+// JSON Json
+// swagger:model Json
+type JSON struct {
 
-	// uuid
-	UUID string `json:"uuid,omitempty"`
+	// array
+	Array bool `json:"array,omitempty"`
+
+	// object
+	Object bool `json:"object,omitempty"`
+
+	// value
+	Value string `json:"value,omitempty"`
 }
 
-// Validate validates this image basic info v4 response
-func (m *ImageBasicInfoV4Response) Validate(formats strfmt.Registry) error {
+// Validate validates this Json
+func (m *JSON) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *ImageBasicInfoV4Response) MarshalBinary() ([]byte, error) {
+func (m *JSON) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -33,8 +39,8 @@ func (m *ImageBasicInfoV4Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ImageBasicInfoV4Response) UnmarshalBinary(b []byte) error {
-	var res ImageBasicInfoV4Response
+func (m *JSON) UnmarshalBinary(b []byte) error {
+	var res JSON
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

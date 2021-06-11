@@ -64,8 +64,6 @@ type GetImageFromDefaultParams struct {
 
 	/*Provider*/
 	Provider string
-	/*Runtime*/
-	Runtime string
 	/*Type*/
 	Type string
 	/*WorkspaceID*/
@@ -120,17 +118,6 @@ func (o *GetImageFromDefaultParams) SetProvider(provider string) {
 	o.Provider = provider
 }
 
-// WithRuntime adds the runtime to the get image from default params
-func (o *GetImageFromDefaultParams) WithRuntime(runtime string) *GetImageFromDefaultParams {
-	o.SetRuntime(runtime)
-	return o
-}
-
-// SetRuntime adds the runtime to the get image from default params
-func (o *GetImageFromDefaultParams) SetRuntime(runtime string) {
-	o.Runtime = runtime
-}
-
 // WithType adds the typeVar to the get image from default params
 func (o *GetImageFromDefaultParams) WithType(typeVar string) *GetImageFromDefaultParams {
 	o.SetType(typeVar)
@@ -163,11 +150,6 @@ func (o *GetImageFromDefaultParams) WriteToRequest(r runtime.ClientRequest, reg 
 
 	// path param provider
 	if err := r.SetPathParam("provider", o.Provider); err != nil {
-		return err
-	}
-
-	// path param runtime
-	if err := r.SetPathParam("runtime", o.Runtime); err != nil {
 		return err
 	}
 

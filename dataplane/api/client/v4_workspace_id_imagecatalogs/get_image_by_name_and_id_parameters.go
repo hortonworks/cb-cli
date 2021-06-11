@@ -62,6 +62,8 @@ for the get image by name and Id operation typically these are written to a http
 */
 type GetImageByNameAndIDParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*ImageID*/
 	ImageID *string
 	/*Name*/
@@ -107,6 +109,17 @@ func (o *GetImageByNameAndIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the get image by name and Id params
+func (o *GetImageByNameAndIDParams) WithAccountID(accountID *string) *GetImageByNameAndIDParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the get image by name and Id params
+func (o *GetImageByNameAndIDParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithImageID adds the imageID to the get image by name and Id params
 func (o *GetImageByNameAndIDParams) WithImageID(imageID *string) *GetImageByNameAndIDParams {
 	o.SetImageID(imageID)
@@ -147,6 +160,22 @@ func (o *GetImageByNameAndIDParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.ImageID != nil {
 

@@ -61,6 +61,8 @@ for the get structured events in workspace operation typically these are written
 */
 type GetStructuredEventsInWorkspaceParams struct {
 
+	/*AccountID*/
+	AccountID *string
 	/*Name*/
 	Name string
 
@@ -102,6 +104,17 @@ func (o *GetStructuredEventsInWorkspaceParams) SetHTTPClient(client *http.Client
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the get structured events in workspace params
+func (o *GetStructuredEventsInWorkspaceParams) WithAccountID(accountID *string) *GetStructuredEventsInWorkspaceParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the get structured events in workspace params
+func (o *GetStructuredEventsInWorkspaceParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WithName adds the name to the get structured events in workspace params
 func (o *GetStructuredEventsInWorkspaceParams) WithName(name string) *GetStructuredEventsInWorkspaceParams {
 	o.SetName(name)
@@ -120,6 +133,22 @@ func (o *GetStructuredEventsInWorkspaceParams) WriteToRequest(r runtime.ClientRe
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {

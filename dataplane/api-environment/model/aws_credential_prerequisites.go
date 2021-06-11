@@ -21,6 +21,9 @@ type AwsCredentialPrerequisites struct {
 	// Required: true
 	ExternalID *string `json:"externalId"`
 
+	// Policies for experiences.
+	Policies map[string]string `json:"policies,omitempty"`
+
 	// AWS specific JSON file that is base64 encoded and describes the necessary AWS policies for cloud resource provisioning.
 	// Required: true
 	PolicyJSON *string `json:"policyJson"`

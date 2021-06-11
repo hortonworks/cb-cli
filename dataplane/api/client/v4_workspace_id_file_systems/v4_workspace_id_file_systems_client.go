@@ -52,6 +52,34 @@ func (a *Client) GetFileSystemParameters(params *GetFileSystemParametersParams) 
 
 }
 
+/*
+GetFileSystemParametersInternal returns filesystem parameters using internal actor
+*/
+func (a *Client) GetFileSystemParametersInternal(params *GetFileSystemParametersInternalParams) (*GetFileSystemParametersInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFileSystemParametersInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getFileSystemParametersInternal",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/file_systems/parameters_internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetFileSystemParametersInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetFileSystemParametersInternalOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport
