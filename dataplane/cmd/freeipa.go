@@ -289,6 +289,18 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:   "update-salt",
+				Usage:  "update salt states on freeipa",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: freeipa.UpdateSalt,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }
