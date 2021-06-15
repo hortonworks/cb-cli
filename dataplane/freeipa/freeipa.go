@@ -605,3 +605,14 @@ func ChangeImage(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 }
+
+func UpdateSalt(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	_, err := freeIpaClient.V1freeipa.UpdateSaltV1(v1freeipa.NewUpdateSaltV1Params().WithEnvironment(&envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+}

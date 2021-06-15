@@ -55,7 +55,7 @@ func (a *Client) AttachChildEnvironmentV1(params *AttachChildEnvironmentV1Params
 }
 
 /*
-ChangeImageV1 creates kerberos and ldap bind users for cluster
+ChangeImageV1 changes the image used for creating instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
@@ -621,6 +621,34 @@ func (a *Client) StopV1(params *StopV1Params) error {
 		return err
 	}
 	return nil
+
+}
+
+/*
+UpdateSaltV1 updates salt states on free IP a instances
+*/
+func (a *Client) UpdateSaltV1(params *UpdateSaltV1Params) (*UpdateSaltV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSaltV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateSaltV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/freeipa/salt_update",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateSaltV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateSaltV1OK), nil
 
 }
 
