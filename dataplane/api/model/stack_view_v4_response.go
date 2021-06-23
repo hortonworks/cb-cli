@@ -61,7 +61,7 @@ type StackViewV4Response struct {
 	Terminated int64 `json:"terminated,omitempty"`
 
 	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
-	// Enum: [DIRECT CCM CLUSTER_PROXY CCMV2]
+	// Enum: [DIRECT CCM CLUSTER_PROXY CCMV2 CCMV2_JUMPGATE]
 	Tunnel string `json:"tunnel,omitempty"`
 
 	// the related user
@@ -295,7 +295,7 @@ var stackViewV4ResponseTypeTunnelPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY","CCMV2"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY","CCMV2","CCMV2_JUMPGATE"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -316,6 +316,9 @@ const (
 
 	// StackViewV4ResponseTunnelCCMV2 captures enum value "CCMV2"
 	StackViewV4ResponseTunnelCCMV2 string = "CCMV2"
+
+	// StackViewV4ResponseTunnelCCMV2JUMPGATE captures enum value "CCMV2_JUMPGATE"
+	StackViewV4ResponseTunnelCCMV2JUMPGATE string = "CCMV2_JUMPGATE"
 )
 
 // prop value enum

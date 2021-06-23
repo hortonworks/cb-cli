@@ -12,31 +12,31 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NetworkV1Request network v1 request
-// swagger:model NetworkV1Request
-type NetworkV1Request struct {
+// InstanceGroupNetworkV1Request instance group network v1 request
+// swagger:model InstanceGroupNetworkV1Request
+type InstanceGroupNetworkV1Request struct {
 
 	// provider specific parameters of the specified network
-	Aws *AwsNetworkV1Parameters `json:"aws,omitempty"`
+	Aws *InstanceGroupAwsNetworkV1Parameters `json:"aws,omitempty"`
 
 	// provider specific parameters of the specified network
-	Azure *AzureNetworkV1Parameters `json:"azure,omitempty"`
+	Azure *InstanceGroupAzureNetworkV1Parameters `json:"azure,omitempty"`
 
 	// provider specific parameters of the specified network
-	Gcp *GcpNetworkV1Parameters `json:"gcp,omitempty"`
+	Gcp *InstanceGroupGcpNetworkV1Parameters `json:"gcp,omitempty"`
 
 	// mock network parameters
-	Mock *MockNetworkV1Parameters `json:"mock,omitempty"`
+	Mock *InstanceGroupMockNetworkV1Parameters `json:"mock,omitempty"`
 
 	// provider specific parameters of the specified network
-	Openstack *OpenstackNetworkV1Parameters `json:"openstack,omitempty"`
+	Openstack *InstanceGroupOpenstackNetworkV1Parameters `json:"openstack,omitempty"`
 
 	// provider specific parameters of the specified network
-	Yarn YarnNetworkV1Parameters `json:"yarn,omitempty"`
+	Yarn InstanceGroupYarnNetworkV1Parameters `json:"yarn,omitempty"`
 }
 
-// Validate validates this network v1 request
-func (m *NetworkV1Request) Validate(formats strfmt.Registry) error {
+// Validate validates this instance group network v1 request
+func (m *InstanceGroupNetworkV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAws(formats); err != nil {
@@ -65,7 +65,7 @@ func (m *NetworkV1Request) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *NetworkV1Request) validateAws(formats strfmt.Registry) error {
+func (m *InstanceGroupNetworkV1Request) validateAws(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Aws) { // not required
 		return nil
@@ -83,7 +83,7 @@ func (m *NetworkV1Request) validateAws(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *NetworkV1Request) validateAzure(formats strfmt.Registry) error {
+func (m *InstanceGroupNetworkV1Request) validateAzure(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Azure) { // not required
 		return nil
@@ -101,7 +101,7 @@ func (m *NetworkV1Request) validateAzure(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *NetworkV1Request) validateGcp(formats strfmt.Registry) error {
+func (m *InstanceGroupNetworkV1Request) validateGcp(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Gcp) { // not required
 		return nil
@@ -119,7 +119,7 @@ func (m *NetworkV1Request) validateGcp(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *NetworkV1Request) validateMock(formats strfmt.Registry) error {
+func (m *InstanceGroupNetworkV1Request) validateMock(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Mock) { // not required
 		return nil
@@ -137,7 +137,7 @@ func (m *NetworkV1Request) validateMock(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *NetworkV1Request) validateOpenstack(formats strfmt.Registry) error {
+func (m *InstanceGroupNetworkV1Request) validateOpenstack(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Openstack) { // not required
 		return nil
@@ -156,7 +156,7 @@ func (m *NetworkV1Request) validateOpenstack(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *NetworkV1Request) MarshalBinary() ([]byte, error) {
+func (m *InstanceGroupNetworkV1Request) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -164,8 +164,8 @@ func (m *NetworkV1Request) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *NetworkV1Request) UnmarshalBinary(b []byte) error {
-	var res NetworkV1Request
+func (m *InstanceGroupNetworkV1Request) UnmarshalBinary(b []byte) error {
+	var res InstanceGroupNetworkV1Request
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

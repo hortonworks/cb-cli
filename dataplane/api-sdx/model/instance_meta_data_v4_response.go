@@ -23,13 +23,16 @@ type InstanceMetaDataV4Response struct {
 	// ambari server address
 	AmbariServer bool `json:"ambariServer,omitempty"`
 
+	// name of the availability zone the instance is deployed in
+	AvailabilityZone string `json:"availabilityZone,omitempty"`
+
 	// the fully qualified domain name of the node in the service discovery cluster
 	DiscoveryFQDN string `json:"discoveryFQDN,omitempty"`
 
 	// name of the instance group
 	InstanceGroup string `json:"instanceGroup,omitempty"`
 
-	// id of the instance
+	// ID of the instance
 	InstanceID string `json:"instanceId,omitempty"`
 
 	// status of the instance
@@ -47,11 +50,14 @@ type InstanceMetaDataV4Response struct {
 	// mounted volumes
 	MountedVolumes []*MountedVolumeV4Response `json:"mountedVolumes"`
 
-	// private ip of the insctance
+	// private IP of the instance
 	PrivateIP string `json:"privateIp,omitempty"`
 
-	// public ip of the instance
+	// public IP of the instance
 	PublicIP string `json:"publicIp,omitempty"`
+
+	// ID of the virtual network rack the instance is deployed in
+	RackID string `json:"rackId,omitempty"`
 
 	// ssh port
 	SSHPort int32 `json:"sshPort,omitempty"`
@@ -61,6 +67,9 @@ type InstanceMetaDataV4Response struct {
 
 	// reason of the state
 	StatusReason string `json:"statusReason,omitempty"`
+
+	// ID of the subnet the instance is deployed in
+	SubnetID string `json:"subnetId,omitempty"`
 }
 
 // Validate validates this instance meta data v4 response

@@ -20,6 +20,10 @@ import (
 // swagger:model InstanceGroupV4Response
 type InstanceGroupV4Response struct {
 
+	// instancegroup related availability zones
+	// Unique: true
+	AvailabilityZones []string `json:"availabilityZones"`
+
 	// aws specific parameters for instance group
 	Aws AwsInstanceGroupV4Parameters `json:"aws,omitempty"`
 
@@ -45,6 +49,9 @@ type InstanceGroupV4Response struct {
 	// name of the instance group
 	// Required: true
 	Name *string `json:"name"`
+
+	// instancegroup related network
+	Network *InstanceGroupNetworkV4Response `json:"network,omitempty"`
 
 	// number of nodes
 	// Required: true
@@ -81,6 +88,10 @@ type InstanceGroupV4Response struct {
 func (m *InstanceGroupV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAvailabilityZones(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateAzure(formats); err != nil {
 		res = append(res, err)
 	}
@@ -94,6 +105,10 @@ func (m *InstanceGroupV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetwork(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -132,6 +147,19 @@ func (m *InstanceGroupV4Response) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *InstanceGroupV4Response) validateAvailabilityZones(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AvailabilityZones) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("availabilityZones", "body", m.AvailabilityZones); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -204,6 +232,24 @@ func (m *InstanceGroupV4Response) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *InstanceGroupV4Response) validateNetwork(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Network) { // not required
+		return nil
+	}
+
+	if m.Network != nil {
+		if err := m.Network.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("network")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -38,6 +38,9 @@ type InstanceGroupV4Request struct {
 	// Required: true
 	Name *string `json:"name"`
 
+	// instancegroup related network
+	Network *InstanceGroupNetworkV4Request `json:"network,omitempty"`
+
 	// number of nodes
 	// Required: true
 	// Maximum: 100000
@@ -84,6 +87,10 @@ func (m *InstanceGroupV4Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetwork(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -165,6 +172,24 @@ func (m *InstanceGroupV4Request) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *InstanceGroupV4Request) validateNetwork(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Network) { // not required
+		return nil
+	}
+
+	if m.Network != nil {
+		if err := m.Network.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("network")
+			}
+			return err
+		}
 	}
 
 	return nil

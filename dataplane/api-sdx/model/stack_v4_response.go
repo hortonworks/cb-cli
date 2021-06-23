@@ -131,7 +131,7 @@ type StackV4Response struct {
 	TimeToLive int64 `json:"timeToLive,omitempty"`
 
 	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
-	// Enum: [DIRECT CCM CLUSTER_PROXY CCMV2]
+	// Enum: [DIRECT CCM CLUSTER_PROXY CCMV2 CCMV2_JUMPGATE]
 	Tunnel string `json:"tunnel,omitempty"`
 
 	// workspace of the resource
@@ -786,7 +786,7 @@ var stackV4ResponseTypeTunnelPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY","CCMV2"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY","CCMV2","CCMV2_JUMPGATE"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -807,6 +807,9 @@ const (
 
 	// StackV4ResponseTunnelCCMV2 captures enum value "CCMV2"
 	StackV4ResponseTunnelCCMV2 string = "CCMV2"
+
+	// StackV4ResponseTunnelCCMV2JUMPGATE captures enum value "CCMV2_JUMPGATE"
+	StackV4ResponseTunnelCCMV2JUMPGATE string = "CCMV2_JUMPGATE"
 )
 
 // prop value enum
