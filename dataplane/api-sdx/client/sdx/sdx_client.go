@@ -641,6 +641,62 @@ func (a *Client) RestoreDatabaseStatus(params *RestoreDatabaseStatusParams) (*Re
 }
 
 /*
+RestoreDatalake restores the datalake
+*/
+func (a *Client) RestoreDatalake(params *RestoreDatalakeParams) (*RestoreDatalakeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRestoreDatalakeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "restoreDatalake",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/restoreDatalake",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RestoreDatalakeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RestoreDatalakeOK), nil
+
+}
+
+/*
+RestoreDatalakeStatus restores status of the datalake
+*/
+func (a *Client) RestoreDatalakeStatus(params *RestoreDatalakeStatusParams) (*RestoreDatalakeStatusOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRestoreDatalakeStatusParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "restoreDatalakeStatus",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/restoreDatalakeStatus",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RestoreDatalakeStatusReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RestoreDatalakeStatusOK), nil
+
+}
+
+/*
 RetrySdx retries sdx
 */
 func (a *Client) RetrySdx(params *RetrySdxParams) (*RetrySdxOK, error) {

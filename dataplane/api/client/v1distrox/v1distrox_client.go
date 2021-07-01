@@ -1592,6 +1592,62 @@ func (a *Client) UpgradeDistroxClusterByCrn(params *UpgradeDistroxClusterByCrnPa
 
 }
 
+/*
+UpgradeDistroxClusterByCrnInternal upgrades the distrox cluster internal
+*/
+func (a *Client) UpgradeDistroxClusterByCrnInternal(params *UpgradeDistroxClusterByCrnInternalParams) (*UpgradeDistroxClusterByCrnInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDistroxClusterByCrnInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDistroxClusterByCrnInternal",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/internal/crn/{crn}/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDistroxClusterByCrnInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDistroxClusterByCrnInternalOK), nil
+
+}
+
+/*
+UpgradeDistroxClusterInternal upgrades the distrox cluster internal
+*/
+func (a *Client) UpgradeDistroxClusterInternal(params *UpgradeDistroxClusterInternalParams) (*UpgradeDistroxClusterInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDistroxClusterInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDistroxClusterInternal",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/internal/{name}/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDistroxClusterInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDistroxClusterInternalOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

@@ -22,6 +22,12 @@ type CustomImageCatalogV4GetImageResponse struct {
 	// base parcel Url
 	BaseParcelURL string `json:"baseParcelUrl,omitempty"`
 
+	// cloud provider
+	CloudProvider string `json:"cloudProvider,omitempty"`
+
+	// image date
+	ImageDate int64 `json:"imageDate,omitempty"`
+
 	// image Id
 	ImageID string `json:"imageId,omitempty"`
 
@@ -33,6 +39,9 @@ type CustomImageCatalogV4GetImageResponse struct {
 
 	// source image Id
 	SourceImageID string `json:"sourceImageId,omitempty"`
+
+	// versions
+	Versions map[string]string `json:"versions,omitempty"`
 
 	// vm images
 	// Unique: true

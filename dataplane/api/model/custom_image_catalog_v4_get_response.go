@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -24,6 +26,10 @@ type CustomImageCatalogV4GetResponse struct {
 	// Unique: true
 	ImageIds []string `json:"imageIds"`
 
+	// images
+	// Unique: true
+	Images []*CustomImageCatalogV4ImageListItemResponse `json:"images"`
+
 	// name
 	Name string `json:"name,omitempty"`
 }
@@ -33,6 +39,10 @@ func (m *CustomImageCatalogV4GetResponse) Validate(formats strfmt.Registry) erro
 	var res []error
 
 	if err := m.validateImageIds(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateImages(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -50,6 +60,35 @@ func (m *CustomImageCatalogV4GetResponse) validateImageIds(formats strfmt.Regist
 
 	if err := validate.UniqueItems("imageIds", "body", m.ImageIds); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *CustomImageCatalogV4GetResponse) validateImages(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Images) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("images", "body", m.Images); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Images); i++ {
+		if swag.IsZero(m.Images[i]) { // not required
+			continue
+		}
+
+		if m.Images[i] != nil {
+			if err := m.Images[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("images" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
