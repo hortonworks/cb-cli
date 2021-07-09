@@ -319,6 +319,18 @@ func init() {
 					},
 				},
 			},
+			{
+				Name:   "upgrade",
+				Usage:  "upgrades freeipa to new image",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlImageCatalogOptional, fl.FlImageIdOptional).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: freeipa.Upgrade,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlImageCatalogOptional, fl.FlImageIdOptional).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }
