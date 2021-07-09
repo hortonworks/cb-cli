@@ -18,6 +18,9 @@ import (
 // swagger:model InstanceGroupDetails
 type InstanceGroupDetails struct {
 
+	// attributes
+	Attributes map[string]interface{} `json:"attributes,omitempty"`
+
 	// group name
 	GroupName string `json:"groupName,omitempty"`
 
@@ -29,6 +32,9 @@ type InstanceGroupDetails struct {
 
 	// node count
 	NodeCount int32 `json:"nodeCount,omitempty"`
+
+	// root volume size
+	RootVolumeSize int32 `json:"rootVolumeSize,omitempty"`
 
 	// security group
 	SecurityGroup *SecurityGroupDetails `json:"securityGroup,omitempty"`

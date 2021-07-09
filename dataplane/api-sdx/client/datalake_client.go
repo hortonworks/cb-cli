@@ -17,6 +17,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/flow_public"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/internalsdx"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/operation"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/progress"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdx"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxutils"
@@ -77,6 +78,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Datalake {
 	cli.FlowPublic = flow_public.New(transport, formats)
 
 	cli.Internalsdx = internalsdx.New(transport, formats)
+
+	cli.Operation = operation.New(transport, formats)
 
 	cli.Progress = progress.New(transport, formats)
 
@@ -142,6 +145,8 @@ type Datalake struct {
 
 	Internalsdx *internalsdx.Client
 
+	Operation *operation.Client
+
 	Progress *progress.Client
 
 	Sdx *sdx.Client
@@ -168,6 +173,8 @@ func (c *Datalake) SetTransport(transport runtime.ClientTransport) {
 	c.FlowPublic.SetTransport(transport)
 
 	c.Internalsdx.SetTransport(transport)
+
+	c.Operation.SetTransport(transport)
 
 	c.Progress.SetTransport(transport)
 

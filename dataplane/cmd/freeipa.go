@@ -301,6 +301,24 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:  "operations",
+				Usage: "check environment operations",
+				Subcommands: []cli.Command{
+					{
+						Name:   "last",
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().Build(),
+						Usage:  "check progress of last freeipa operation",
+						Before: cf.CheckConfigAndCommandFlags,
+						Action: freeipa.OperationProgress,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
 		},
 	})
 }

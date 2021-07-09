@@ -1,13 +1,16 @@
 package env
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1platform_resources"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1operation"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1platform_resources"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1utils"
@@ -185,6 +188,26 @@ func EditEnvironmentTelemetryFeaturesFromTemplate(c *cli.Context) {
 	environment := resp.Payload
 
 	log.Infof("[EditEnvironmentTelemetryFeaturesFromTemplate] environment has edited (telemetry features) with name: %s, crn: %s", environment.Name, environment.Crn)
+}
+
+func OperationProgress(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "check environment operation")
+	envName := c.String(fl.FlName.Name)
+	envCrn := GetEnvCrnByName(envName, c)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	resp, err := envClient.Environment.V1operation.GetOperationProgressByResourceCrn(v1operation.NewGetOperationProgressByResourceCrnParams().WithResourceCrn(envCrn))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	provisionResp := resp.Payload
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(provisionResp); err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
 }
 
 func createEnvironmentImpl(c *cli.Context, EnvironmentV1Request *model.EnvironmentV1Request) {

@@ -23,6 +23,9 @@ type FlowCheckResponse struct {
 
 	// has active flow
 	HasActiveFlow bool `json:"hasActiveFlow,omitempty"`
+
+	// latest flow finalized and failed
+	LatestFlowFinalizedAndFailed bool `json:"latestFlowFinalizedAndFailed,omitempty"`
 }
 
 // Validate validates this flow check response

@@ -616,3 +616,22 @@ func UpdateSalt(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 }
+
+func OperationProgress(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	result, err := freeIpaClient.V1operation.GetOperationProgressByEnvironmentCrn(v1operation.NewGetOperationProgressByEnvironmentCrnParams().WithEnvironmentCrn(envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(result.Payload); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+
+}

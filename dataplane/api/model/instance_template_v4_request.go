@@ -49,7 +49,7 @@ type InstanceTemplateV4Request struct {
 	RootVolume *RootVolumeV4Request `json:"rootVolume,omitempty"`
 
 	// temporary storage
-	// Enum: [ATTACHED_VOLUMES EPHEMERAL_VOLUMES]
+	// Enum: [ATTACHED_VOLUMES EPHEMERAL_VOLUMES EPHEMERAL_VOLUMES_ONLY]
 	TemporaryStorage string `json:"temporaryStorage,omitempty"`
 
 	// yarn specific parameters for template
@@ -221,7 +221,7 @@ var instanceTemplateV4RequestTypeTemporaryStoragePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["ATTACHED_VOLUMES","EPHEMERAL_VOLUMES"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["ATTACHED_VOLUMES","EPHEMERAL_VOLUMES","EPHEMERAL_VOLUMES_ONLY"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -236,6 +236,9 @@ const (
 
 	// InstanceTemplateV4RequestTemporaryStorageEPHEMERALVOLUMES captures enum value "EPHEMERAL_VOLUMES"
 	InstanceTemplateV4RequestTemporaryStorageEPHEMERALVOLUMES string = "EPHEMERAL_VOLUMES"
+
+	// InstanceTemplateV4RequestTemporaryStorageEPHEMERALVOLUMESONLY captures enum value "EPHEMERAL_VOLUMES_ONLY"
+	InstanceTemplateV4RequestTemporaryStorageEPHEMERALVOLUMESONLY string = "EPHEMERAL_VOLUMES_ONLY"
 )
 
 // prop value enum
