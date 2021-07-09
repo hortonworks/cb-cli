@@ -633,5 +633,19 @@ func OperationProgress(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 	fmt.Println(buf.String())
+}
 
+func Upgrade(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	imageId := c.String(fl.FlImageIdOptional.Name)
+	imageCatalog := c.String(fl.FlImageCatalogOptional.Name)
+	imageSetting := model.ImageSettingsV1Request{Catalog: imageCatalog, ID: imageId}
+	request := model.FreeIpaUpgradeV1Request{EnvironmentCrn: &envCrn, Image: &imageSetting}
+	_, err := freeIpaClient.V1freeipa.UpgradeFreeIpaV1(v1freeipa.NewUpgradeFreeIpaV1Params().WithBody(&request))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
 }
