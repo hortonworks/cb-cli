@@ -187,6 +187,24 @@ func init() {
 				},
 			},
 			{
+				Name:  "operations",
+				Usage: "check environment operations",
+				Subcommands: []cli.Command{
+					{
+						Name:   "last",
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build(),
+						Usage:  "check progress of last environment operation",
+						Before: cf.CheckConfigAndCommandFlags,
+						Action: env.OperationProgress,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
+			{
 				Name:  "telemetry",
 				Usage: "environment level telemetry related operations.",
 				Subcommands: []cli.Command{

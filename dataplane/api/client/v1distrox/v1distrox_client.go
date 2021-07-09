@@ -497,6 +497,36 @@ func (a *Client) GetDistroXLastFlowLogProgressByResourceCrn(params *GetDistroXLa
 }
 
 /*
+GetDistroXOperationProgressByResourceCrn gets flow operation progress details for resource by resource crn
+
+Flow operation progress
+*/
+func (a *Client) GetDistroXOperationProgressByResourceCrn(params *GetDistroXOperationProgressByResourceCrnParams) (*GetDistroXOperationProgressByResourceCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDistroXOperationProgressByResourceCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDistroXOperationProgressByResourceCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/operation/resource/crn/{resourceCrn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDistroXOperationProgressByResourceCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDistroXOperationProgressByResourceCrnOK), nil
+
+}
+
+/*
 GetDistroXRequestV1ByCrn gets stack request by crn
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.

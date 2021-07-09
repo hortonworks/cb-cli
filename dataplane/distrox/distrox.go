@@ -539,6 +539,24 @@ func assembleCMCollectionRequest(c *cli.Context) *distroxModel.CmDiagnosticsColl
 	return &request
 }
 
+func OperationProgress(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "check distrox provisioning flow")
+	stackCrn := c.String(fl.FlCrn.Name)
+	dxClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	result, err := dxClient.Cloudbreak.V1distrox.GetDistroXOperationProgressByResourceCrn(v1distrox.NewGetDistroXOperationProgressByResourceCrnParams().WithResourceCrn(stackCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(result.Payload); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
 func RotateCertificates(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Rotate AutoTLS certificates for distrox cluster")
 	name := c.String(fl.FlName.Name)

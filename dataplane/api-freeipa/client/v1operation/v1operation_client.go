@@ -25,6 +25,36 @@ type Client struct {
 }
 
 /*
+GetOperationProgressByEnvironmentCrn gets flow operation progress details for resource by resource crn
+
+Operation management endpoint
+*/
+func (a *Client) GetOperationProgressByEnvironmentCrn(params *GetOperationProgressByEnvironmentCrnParams) (*GetOperationProgressByEnvironmentCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetOperationProgressByEnvironmentCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getOperationProgressByEnvironmentCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/operation/resource/crn/{environmentCrn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetOperationProgressByEnvironmentCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetOperationProgressByEnvironmentCrnOK), nil
+
+}
+
+/*
 GetOperationStatusV1 gets the status of an operation
 
 Operation management endpoint

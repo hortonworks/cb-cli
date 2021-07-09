@@ -212,6 +212,24 @@ func init() {
 				},
 			},
 			{
+				Name:  "operations",
+				Usage: "check sdx operations",
+				Subcommands: []cli.Command{
+					{
+						Name:   "last",
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build(),
+						Usage:  "check progress of the last sdx operation",
+						Before: cf.CheckConfigAndCommandFlags,
+						Action: sdx.OperationProgress,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
+			{
 				Name:   "rotate-certificates",
 				Usage:  "rotate SDX AutoTLS certificates",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,

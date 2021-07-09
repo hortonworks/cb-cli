@@ -267,6 +267,24 @@ func init() {
 				},
 			},
 			{
+				Name:  "operations",
+				Usage: "check distrox operations",
+				Subcommands: []cli.Command{
+					{
+						Name:   "last",
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build(),
+						Usage:  "check progress of the last distrox operation",
+						Before: cf.CheckConfigAndCommandFlags,
+						Action: distrox.OperationProgress,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
+			{
 				Name:   "rotate-certificates",
 				Usage:  "rotate distrox AutoTLS certificates",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,

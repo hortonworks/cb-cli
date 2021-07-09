@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-openapi/strfmt"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/diagnostics"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/operation"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client"
@@ -739,6 +740,24 @@ func assembleCMCollectionRequest(c *cli.Context) *sdxModel.CmDiagnosticsCollecti
 	request := sdxModel.CmDiagnosticsCollectionRequest{Destination: &destination, StackCrn: &stackCrn, UpdatePackage: updatePackage,
 		Roles: roles, StartTime: startTime, EndTime: endTime, Ticket: issue, Comments: description, EnableMonitorMetricsCollection: monitorMetricsCollection}
 	return &request
+}
+
+func OperationProgress(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "check sdx provisioning flow")
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	stackCrn := c.String(fl.FlCrn.Name)
+	result, err := sdxClient.Operation.GetOperationProgressByResourceCrn(operation.NewGetOperationProgressByResourceCrnParams().WithResourceCrn(stackCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(result.Payload); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
 }
 
 func RotateCertificates(c *cli.Context) {

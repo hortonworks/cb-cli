@@ -277,6 +277,34 @@ func (a *Client) DeleteSdxByCrn(params *DeleteSdxByCrnParams) (*DeleteSdxByCrnOK
 }
 
 /*
+GetBackupDatalakeStatus backups status of the datalake by datalake name
+*/
+func (a *Client) GetBackupDatalakeStatus(params *GetBackupDatalakeStatusParams) (*GetBackupDatalakeStatusOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetBackupDatalakeStatusParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getBackupDatalakeStatus",
+		Method:             "GET",
+		PathPattern:        "/sdx/{name}/getBackupDatalakeStatus",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetBackupDatalakeStatusReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetBackupDatalakeStatusOK), nil
+
+}
+
+/*
 GetDatabaseServerByClusterCrn gets database server for s d x cluster by cluster crn
 */
 func (a *Client) GetDatabaseServerByClusterCrn(params *GetDatabaseServerByClusterCrnParams) (*GetDatabaseServerByClusterCrnOK, error) {

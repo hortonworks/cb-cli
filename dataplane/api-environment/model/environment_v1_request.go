@@ -72,6 +72,9 @@ type EnvironmentV1Request struct {
 	// Network related specifics of the environment.
 	Network *EnvironmentNetworkV1Request `json:"network,omitempty"`
 
+	// Flag that marks that the request was intented to set the tunnel version by hand and it will not be overwritten by Cloudbreak
+	OverrideTunnel bool `json:"overrideTunnel,omitempty"`
+
 	// Parent environment name
 	ParentEnvironmentName string `json:"parentEnvironmentName,omitempty"`
 

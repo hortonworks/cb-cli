@@ -355,6 +355,36 @@ func (a *Client) GetFreeIpaRootCertificateByEnvironmentV1(params *GetFreeIpaRoot
 }
 
 /*
+GetFreeIpaUpgradeOptionsV1 gets available images for free IP a upgrade if catalog is defined use the catalog as image source
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) GetFreeIpaUpgradeOptionsV1(params *GetFreeIpaUpgradeOptionsV1Params) (*GetFreeIpaUpgradeOptionsV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFreeIpaUpgradeOptionsV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getFreeIpaUpgradeOptionsV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/upgrade/options",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetFreeIpaUpgradeOptionsV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetFreeIpaUpgradeOptionsV1OK), nil
+
+}
+
+/*
 HealthV1 provides a detailed health of the free IP a stack
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -649,6 +679,36 @@ func (a *Client) UpdateSaltV1(params *UpdateSaltV1Params) (*UpdateSaltV1OK, erro
 		return nil, err
 	}
 	return result.(*UpdateSaltV1OK), nil
+
+}
+
+/*
+UpgradeFreeIpaV1 upgrades free IP a to the latest or defined image
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) UpgradeFreeIpaV1(params *UpgradeFreeIpaV1Params) (*UpgradeFreeIpaV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeFreeIpaV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeFreeIpaV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeFreeIpaV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeFreeIpaV1OK), nil
 
 }
 

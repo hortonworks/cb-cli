@@ -61,8 +61,6 @@ for the get flow logs by resource name operation typically these are written to 
 */
 type GetFlowLogsByResourceNameParams struct {
 
-	/*AccountID*/
-	AccountID *string
 	/*ResourceName*/
 	ResourceName string
 
@@ -104,17 +102,6 @@ func (o *GetFlowLogsByResourceNameParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithAccountID adds the accountID to the get flow logs by resource name params
-func (o *GetFlowLogsByResourceNameParams) WithAccountID(accountID *string) *GetFlowLogsByResourceNameParams {
-	o.SetAccountID(accountID)
-	return o
-}
-
-// SetAccountID adds the accountId to the get flow logs by resource name params
-func (o *GetFlowLogsByResourceNameParams) SetAccountID(accountID *string) {
-	o.AccountID = accountID
-}
-
 // WithResourceName adds the resourceName to the get flow logs by resource name params
 func (o *GetFlowLogsByResourceNameParams) WithResourceName(resourceName string) *GetFlowLogsByResourceNameParams {
 	o.SetResourceName(resourceName)
@@ -133,22 +120,6 @@ func (o *GetFlowLogsByResourceNameParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
-
-	if o.AccountID != nil {
-
-		// query param accountId
-		var qrAccountID string
-		if o.AccountID != nil {
-			qrAccountID = *o.AccountID
-		}
-		qAccountID := qrAccountID
-		if qAccountID != "" {
-			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
-				return err
-			}
-		}
-
-	}
 
 	// path param resourceName
 	if err := r.SetPathParam("resourceName", o.ResourceName); err != nil {
