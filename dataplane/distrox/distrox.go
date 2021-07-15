@@ -456,6 +456,34 @@ func CollectDiagnostics(c *cli.Context) {
 	fmt.Println("Collection started")
 }
 
+func ListDiagnosticsCollections(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get latest DistroX diagnostics collection flows")
+	dxClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	resp, err := dxClient.Cloudbreak.V1distrox.ListDistroxDiagnosticsCollectionsV1(v1distrox.NewListDistroxDiagnosticsCollectionsV1Params().WithCrn(c.String(fl.FlCrn.Name)))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	collections := resp.Payload.Collections
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(collections); err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
+func CancelDiagnosticsCollections(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "cancel running DistroX diagnostics collection flows")
+	dxClient := oauth.NewCloudbreakHTTPClientFromContext(c)
+	err := dxClient.Cloudbreak.V1distrox.CancelDistroxDiagnosticsCollectionsV1(v1distrox.NewCancelDistroxDiagnosticsCollectionsV1Params().WithCrn(c.String(fl.FlCrn.Name)))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println("Cancel running DistroX diagnostics collections...")
+}
+
 func assembleCollectionRequest(c *cli.Context) *distroxModel.DiagnosticsCollectionV1Request {
 	stackCrn := c.String(fl.FlCrn.Name)
 	collectionOnly := c.Bool(fl.FlCollectionOnly.Name)
