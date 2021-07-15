@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1dns"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1dns"
 
 	"os"
 
@@ -393,6 +394,38 @@ func CollectDiagnostics(c *cli.Context) {
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
+}
+
+func ListDiagnosticsCollections(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "get latest freeipa diagnostics collection flows")
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	resp, err := freeIpaClient.V1diagnostics.ListDiagnosticsCollectionsV1(v1diagnostics.NewListDiagnosticsCollectionsV1Params().WithEnvironmentCrn(envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	collections := resp.Payload.Collections
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(collections); err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	fmt.Println(buf.String())
+}
+
+func CancelDiagnosticsCollections(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "cancel running freeipa diagnostics collection flows")
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	err := freeIpaClient.V1diagnostics.CancelDiagnosticsCollectionsV1(v1diagnostics.NewCancelDiagnosticsCollectionsV1Params().WithEnvironmentCrn(envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	fmt.Println("Cancel running freeipa diagnostics collections...")
 }
 
 func assembleCollectionRequest(c *cli.Context) *freeIpaModel.DiagnosticsCollectionV1Request {
