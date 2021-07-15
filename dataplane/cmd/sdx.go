@@ -77,6 +77,7 @@ func init() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
+				Hidden: true,
 			},
 			{
 				Name:   "stop",
@@ -89,6 +90,7 @@ func init() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
+				Hidden: true,
 			},
 			{
 				Name:   "list",
