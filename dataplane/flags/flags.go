@@ -1119,6 +1119,13 @@ var (
 			Usage: "ldap config names delimited by comma",
 		},
 	}
+	FlServiceNames = StringSliceFlag{
+		RequiredFlag: OPTIONAL,
+		StringSliceFlag: cli.StringSliceFlag{
+			Name:  "service-names",
+			Usage: "proservice names delimited by comma",
+		},
+	}
 	FlProxyNamesOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{

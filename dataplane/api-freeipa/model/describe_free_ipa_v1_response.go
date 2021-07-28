@@ -82,6 +82,9 @@ type DescribeFreeIpaV1Response struct {
 
 	// user sync status details for the environment
 	UserSyncStatus *UserSyncStatusV1Response `json:"userSyncStatus,omitempty"`
+
+	// Configuration of cloudplatform variant.
+	Variant string `json:"variant,omitempty"`
 }
 
 // Validate validates this describe free ipa v1 response

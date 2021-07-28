@@ -16,6 +16,9 @@ import (
 // swagger:model AwsEnvironmentV1Parameters
 type AwsEnvironmentV1Parameters struct {
 
+	// AWS Disk encryption parameters
+	AwsDiskEncryptionParameters *AwsDiskEncryptionV1Parameters `json:"awsDiskEncryptionParameters,omitempty"`
+
 	// S3Guard parameters.
 	S3guard *S3GuardV1Parameters `json:"s3guard,omitempty"`
 }
@@ -24,6 +27,10 @@ type AwsEnvironmentV1Parameters struct {
 func (m *AwsEnvironmentV1Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAwsDiskEncryptionParameters(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateS3guard(formats); err != nil {
 		res = append(res, err)
 	}
@@ -31,6 +38,24 @@ func (m *AwsEnvironmentV1Parameters) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AwsEnvironmentV1Parameters) validateAwsDiskEncryptionParameters(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AwsDiskEncryptionParameters) { // not required
+		return nil
+	}
+
+	if m.AwsDiskEncryptionParameters != nil {
+		if err := m.AwsDiskEncryptionParameters.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("awsDiskEncryptionParameters")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

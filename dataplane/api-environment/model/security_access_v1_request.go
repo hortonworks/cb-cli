@@ -22,13 +22,13 @@ type SecurityAccessV1Request struct {
 	// Min Length: 5
 	Cidr string `json:"cidr,omitempty"`
 
-	// Security group where all other hosts are placed.
-	// Max Length: 255
+	// Security group where all other hosts are placed. Comma separated list.
+	// Max Length: 4000
 	// Min Length: 1
 	DefaultSecurityGroupID string `json:"defaultSecurityGroupId,omitempty"`
 
-	// Security group where Knox-enabled hosts are placed.
-	// Max Length: 255
+	// Security group where Knox-enabled hosts are placed. Comma separated list.
+	// Max Length: 4000
 	// Min Length: 1
 	SecurityGroupIDForKnox string `json:"securityGroupIdForKnox,omitempty"`
 }
@@ -82,7 +82,7 @@ func (m *SecurityAccessV1Request) validateDefaultSecurityGroupID(formats strfmt.
 		return err
 	}
 
-	if err := validate.MaxLength("defaultSecurityGroupId", "body", string(m.DefaultSecurityGroupID), 255); err != nil {
+	if err := validate.MaxLength("defaultSecurityGroupId", "body", string(m.DefaultSecurityGroupID), 4000); err != nil {
 		return err
 	}
 
@@ -99,7 +99,7 @@ func (m *SecurityAccessV1Request) validateSecurityGroupIDForKnox(formats strfmt.
 		return err
 	}
 
-	if err := validate.MaxLength("securityGroupIdForKnox", "body", string(m.SecurityGroupIDForKnox), 255); err != nil {
+	if err := validate.MaxLength("securityGroupIdForKnox", "body", string(m.SecurityGroupIDForKnox), 4000); err != nil {
 		return err
 	}
 
