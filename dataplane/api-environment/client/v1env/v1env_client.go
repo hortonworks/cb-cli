@@ -655,6 +655,36 @@ func (a *Client) ListEnvironmentV1(params *ListEnvironmentV1Params) (*ListEnviro
 }
 
 /*
+PolicyValidationByEnvironmentCrn changes telemetry features s of the environment in the environment of a given c r n
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) PolicyValidationByEnvironmentCrn(params *PolicyValidationByEnvironmentCrnParams) (*PolicyValidationByEnvironmentCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPolicyValidationByEnvironmentCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "policyValidationByEnvironmentCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/env/crn/{crn}/policy_validation",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PolicyValidationByEnvironmentCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PolicyValidationByEnvironmentCrnOK), nil
+
+}
+
+/*
 StartEnvironmentByCrnV1 starts an environment by c r n the freeipa datalake and datahubs will be started in this order
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.

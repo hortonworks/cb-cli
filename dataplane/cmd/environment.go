@@ -91,6 +91,18 @@ func init() {
 				},
 			},
 			{
+				Name:   "verify-policy",
+				Usage:  "verify policy an environment or more if names are separated by commas",
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddFlags(fl.FlServiceNames).AddOutputFlag().AddAGlobalFlags().Build(),
+				Before: cf.CheckConfigAndCommandFlags,
+				Action: env.VerifyPolicyForEnvironment,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlCrn).AddFlags(fl.FlServiceNames).AddOutputFlag().AddAGlobalFlags().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:   "change-cred",
 				Usage:  "change the credential of an environment. also changes the credential of the clusters in the environment.",
 				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredential).AddOutputFlag().AddAGlobalFlags().Build(),

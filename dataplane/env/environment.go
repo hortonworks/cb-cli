@@ -439,6 +439,19 @@ func DeleteEnvironment(c *cli.Context) {
 	}
 }
 
+func VerifyPolicyForEnvironment(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "verify policy environment")
+	envCrn := c.String(fl.FlCrn.Name)
+	val := c.String(fl.FlServiceNames.Name)
+	services := strings.Split(val[1:len(val)-1], ",")
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	log.Infof("[VerifyPolicyForEnvironment] verify policy environment(s) by services: %s", services)
+	_, err := envClient.Environment.V1env.PolicyValidationByEnvironmentCrn(v1env.NewPolicyValidationByEnvironmentCrnParams().WithCrn(envCrn).WithService(services))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+}
+
 func ChangeCredential(c *cli.Context) {
 	defer utils.TimeTrack(time.Now(), "change credential of environment")
 	envName := c.String(fl.FlName.Name)
