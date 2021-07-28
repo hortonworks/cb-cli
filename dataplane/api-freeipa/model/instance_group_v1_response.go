@@ -32,6 +32,10 @@ type InstanceGroupV1Response struct {
 	// Required: true
 	Name *string `json:"name"`
 
+	// referenced network
+	// Required: true
+	Network *InstanceGroupNetworkV1Request `json:"network"`
+
 	// number of nodes
 	// Required: true
 	// Maximum: 100000
@@ -59,6 +63,10 @@ func (m *InstanceGroupV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetwork(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -131,6 +139,24 @@ func (m *InstanceGroupV1Response) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *InstanceGroupV1Response) validateNetwork(formats strfmt.Registry) error {
+
+	if err := validate.Required("network", "body", m.Network); err != nil {
+		return err
+	}
+
+	if m.Network != nil {
+		if err := m.Network.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("network")
+			}
+			return err
+		}
 	}
 
 	return nil

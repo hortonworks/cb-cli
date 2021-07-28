@@ -22,15 +22,23 @@ type SecurityAccessV1Response struct {
 	// Min Length: 5
 	Cidr string `json:"cidr,omitempty"`
 
-	// Security group where all other hosts are placed.
-	// Max Length: 255
+	// Security group where all other hosts are placed. Comma separated list.
+	// Max Length: 4000
 	// Min Length: 1
 	DefaultSecurityGroupID string `json:"defaultSecurityGroupId,omitempty"`
 
-	// Security group where Knox-enabled hosts are placed.
-	// Max Length: 255
+	// Security groups where all other hosts are placed. Comma separated list.
+	// Unique: true
+	DefaultSecurityGroupIds []string `json:"defaultSecurityGroupIds"`
+
+	// Security group where Knox-enabled hosts are placed. Comma separated list.
+	// Max Length: 4000
 	// Min Length: 1
 	SecurityGroupIDForKnox string `json:"securityGroupIdForKnox,omitempty"`
+
+	// Security groups where Knox-enabled hosts are placed. Comma separated list.
+	// Unique: true
+	SecurityGroupIdsForKnox []string `json:"securityGroupIdsForKnox"`
 }
 
 // Validate validates this security access v1 response
@@ -45,7 +53,15 @@ func (m *SecurityAccessV1Response) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateDefaultSecurityGroupIds(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSecurityGroupIDForKnox(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSecurityGroupIdsForKnox(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -82,7 +98,20 @@ func (m *SecurityAccessV1Response) validateDefaultSecurityGroupID(formats strfmt
 		return err
 	}
 
-	if err := validate.MaxLength("defaultSecurityGroupId", "body", string(m.DefaultSecurityGroupID), 255); err != nil {
+	if err := validate.MaxLength("defaultSecurityGroupId", "body", string(m.DefaultSecurityGroupID), 4000); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SecurityAccessV1Response) validateDefaultSecurityGroupIds(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DefaultSecurityGroupIds) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("defaultSecurityGroupIds", "body", m.DefaultSecurityGroupIds); err != nil {
 		return err
 	}
 
@@ -99,7 +128,20 @@ func (m *SecurityAccessV1Response) validateSecurityGroupIDForKnox(formats strfmt
 		return err
 	}
 
-	if err := validate.MaxLength("securityGroupIdForKnox", "body", string(m.SecurityGroupIDForKnox), 255); err != nil {
+	if err := validate.MaxLength("securityGroupIdForKnox", "body", string(m.SecurityGroupIDForKnox), 4000); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SecurityAccessV1Response) validateSecurityGroupIdsForKnox(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SecurityGroupIdsForKnox) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("securityGroupIdsForKnox", "body", m.SecurityGroupIdsForKnox); err != nil {
 		return err
 	}
 

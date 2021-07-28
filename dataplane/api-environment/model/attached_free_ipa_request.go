@@ -27,6 +27,9 @@ type AttachedFreeIpaRequest struct {
 	// Required: true
 	Create *bool `json:"create"`
 
+	// The FreeIPA multi az
+	EnableMultiAz bool `json:"enableMultiAz,omitempty"`
+
 	// Gcp specific FreeIpa parameters
 	Gcp AttachedFreeIpaRequestGcpParameters `json:"gcp,omitempty"`
 
