@@ -22,6 +22,9 @@ type HardwareInfoV4Response struct {
 	// ambari server address
 	AmbariServer bool `json:"ambariServer,omitempty"`
 
+	// availability zone
+	AvailabilityZone string `json:"availabilityZone,omitempty"`
+
 	// the fully qualified domain name of the node in the service discovery cluster
 	DiscoveryFQDN string `json:"discoveryFQDN,omitempty"`
 
@@ -79,6 +82,9 @@ type HardwareInfoV4Response struct {
 
 	// state of the host
 	State string `json:"state,omitempty"`
+
+	// subnet Id
+	SubnetID string `json:"subnetId,omitempty"`
 
 	// instancegroup related template
 	Template *InstanceTemplateV4Response `json:"template,omitempty"`

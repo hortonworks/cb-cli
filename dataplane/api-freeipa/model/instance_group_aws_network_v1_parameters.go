@@ -11,21 +11,21 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// InstanceGroupAwsNetworkParameters instance group aws network parameters
-// swagger:model InstanceGroupAwsNetworkParameters
-type InstanceGroupAwsNetworkParameters struct {
+// InstanceGroupAwsNetworkV1Parameters instance group aws network v1 parameters
+// swagger:model InstanceGroupAwsNetworkV1Parameters
+type InstanceGroupAwsNetworkV1Parameters struct {
 
 	// subnet ids
 	SubnetIds []string `json:"subnetIds"`
 }
 
-// Validate validates this instance group aws network parameters
-func (m *InstanceGroupAwsNetworkParameters) Validate(formats strfmt.Registry) error {
+// Validate validates this instance group aws network v1 parameters
+func (m *InstanceGroupAwsNetworkV1Parameters) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *InstanceGroupAwsNetworkParameters) MarshalBinary() ([]byte, error) {
+func (m *InstanceGroupAwsNetworkV1Parameters) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -33,8 +33,8 @@ func (m *InstanceGroupAwsNetworkParameters) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *InstanceGroupAwsNetworkParameters) UnmarshalBinary(b []byte) error {
-	var res InstanceGroupAwsNetworkParameters
+func (m *InstanceGroupAwsNetworkV1Parameters) UnmarshalBinary(b []byte) error {
+	var res InstanceGroupAwsNetworkV1Parameters
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

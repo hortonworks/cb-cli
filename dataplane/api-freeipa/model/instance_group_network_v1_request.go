@@ -17,7 +17,7 @@ import (
 type InstanceGroupNetworkV1Request struct {
 
 	// provider specific parameters of the specified network
-	Aws *InstanceGroupAwsNetworkParameters `json:"aws,omitempty"`
+	Aws *InstanceGroupAwsNetworkV1Parameters `json:"aws,omitempty"`
 }
 
 // Validate validates this instance group network v1 request

@@ -71,7 +71,7 @@ type CreateFreeIpaV1Request struct {
 	// whether to use CCM for communicating with the freeipa instance
 	UseCcm bool `json:"useCcm,omitempty"`
 
-	// Configuration of cloudplatform variant.
+	// Configuration of cloud platform variant.
 	Variant string `json:"variant,omitempty"`
 }
 

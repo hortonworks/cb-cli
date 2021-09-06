@@ -211,6 +211,37 @@ func (a *Client) DeleteMultipleDatabaseServersByCrn(params *DeleteMultipleDataba
 }
 
 /*
+GetDatabaseServerByClusterCrn gets a database server by cluster c r n
+
+Gets information on a database server by cluster CRN
+*/
+func (a *Client) GetDatabaseServerByClusterCrn(params *GetDatabaseServerByClusterCrnParams, authInfo runtime.ClientAuthInfoWriter) (*GetDatabaseServerByClusterCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDatabaseServerByClusterCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDatabaseServerByClusterCrn",
+		Method:             "GET",
+		PathPattern:        "/v4/databaseservers/clusterCrn/{clusterCrn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDatabaseServerByClusterCrnReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDatabaseServerByClusterCrnOK), nil
+
+}
+
+/*
 GetDatabaseServerByCrn gets a database server by c r n
 
 Gets information on a database server by its CRN.

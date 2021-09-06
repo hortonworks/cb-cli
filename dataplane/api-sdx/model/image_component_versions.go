@@ -6,8 +6,11 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -32,10 +35,47 @@ type ImageComponentVersions struct {
 
 	// os patch level
 	OsPatchLevel string `json:"osPatchLevel,omitempty"`
+
+	// parcel info response list
+	ParcelInfoResponseList []*ParcelInfoResponse `json:"parcelInfoResponseList"`
 }
 
 // Validate validates this image component versions
 func (m *ImageComponentVersions) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateParcelInfoResponseList(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ImageComponentVersions) validateParcelInfoResponseList(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ParcelInfoResponseList) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.ParcelInfoResponseList); i++ {
+		if swag.IsZero(m.ParcelInfoResponseList[i]) { // not required
+			continue
+		}
+
+		if m.ParcelInfoResponseList[i] != nil {
+			if err := m.ParcelInfoResponseList[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("parcelInfoResponseList" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

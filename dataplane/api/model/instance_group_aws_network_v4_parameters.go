@@ -15,6 +15,9 @@ import (
 // swagger:model InstanceGroupAwsNetworkV4Parameters
 type InstanceGroupAwsNetworkV4Parameters struct {
 
+	// endpoint gateway subnet ids
+	EndpointGatewaySubnetIds []string `json:"endpointGatewaySubnetIds"`
+
 	// subnet ids
 	SubnetIds []string `json:"subnetIds"`
 }

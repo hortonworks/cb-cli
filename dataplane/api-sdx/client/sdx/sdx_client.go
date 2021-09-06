@@ -81,6 +81,34 @@ func (a *Client) BackupDatabase(params *BackupDatabaseParams) (*BackupDatabaseOK
 }
 
 /*
+BackupDatabaseInternal backups the database with the option of closing or not closing connections to the database
+*/
+func (a *Client) BackupDatabaseInternal(params *BackupDatabaseInternalParams) (*BackupDatabaseInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewBackupDatabaseInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "backupDatabaseInternal",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/backupDatabaseInternal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &BackupDatabaseInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*BackupDatabaseInternalOK), nil
+
+}
+
+/*
 BackupDatabaseStatus gets the status of datalake database backup operation
 */
 func (a *Client) BackupDatabaseStatus(params *BackupDatabaseStatusParams) (*BackupDatabaseStatusOK, error) {
@@ -333,6 +361,62 @@ func (a *Client) GetDatabaseServerByClusterCrn(params *GetDatabaseServerByCluste
 }
 
 /*
+GetDatalakeBackupID backups Id of the datalake backup by datalake name
+*/
+func (a *Client) GetDatalakeBackupID(params *GetDatalakeBackupIDParams) (*GetDatalakeBackupIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDatalakeBackupIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDatalakeBackupId",
+		Method:             "GET",
+		PathPattern:        "/sdx/{name}/getDatalakeBackupId",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDatalakeBackupIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDatalakeBackupIDOK), nil
+
+}
+
+/*
+GetDatalakeRestoreID restores Id of the datalake restore by datalake name
+*/
+func (a *Client) GetDatalakeRestoreID(params *GetDatalakeRestoreIDParams) (*GetDatalakeRestoreIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDatalakeRestoreIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDatalakeRestoreId",
+		Method:             "GET",
+		PathPattern:        "/sdx/{name}/getDatalakeRestoreId",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDatalakeRestoreIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDatalakeRestoreIDOK), nil
+
+}
+
+/*
 GetRangerCloudIdentitySyncStatus gets status of a ranger cloud identity sync
 */
 func (a *Client) GetRangerCloudIdentitySyncStatus(params *GetRangerCloudIdentitySyncStatusParams) (*GetRangerCloudIdentitySyncStatusOK, error) {
@@ -357,6 +441,34 @@ func (a *Client) GetRangerCloudIdentitySyncStatus(params *GetRangerCloudIdentity
 		return nil, err
 	}
 	return result.(*GetRangerCloudIdentitySyncStatusOK), nil
+
+}
+
+/*
+GetRestoreDatalakeStatus restores status of the datalake by datalake name
+*/
+func (a *Client) GetRestoreDatalakeStatus(params *GetRestoreDatalakeStatusParams) (*GetRestoreDatalakeStatusOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRestoreDatalakeStatusParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getRestoreDatalakeStatus",
+		Method:             "GET",
+		PathPattern:        "/sdx/{name}/getRestoreDatalakeStatus",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRestoreDatalakeStatusReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRestoreDatalakeStatusOK), nil
 
 }
 
@@ -529,15 +641,99 @@ func (a *Client) ListSdx(params *ListSdxParams) (*ListSdxOK, error) {
 }
 
 /*
+ListSdxInternal lists s d x clusters internally
+*/
+func (a *Client) ListSdxInternal(params *ListSdxInternalParams) (*ListSdxInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListSdxInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listSdxInternal",
+		Method:             "GET",
+		PathPattern:        "/sdx/list/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListSdxInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListSdxInternalOK), nil
+
+}
+
+/*
+RecoverDatalakeCluster recovers the datalake upgrade
+*/
+func (a *Client) RecoverDatalakeCluster(params *RecoverDatalakeClusterParams) (*RecoverDatalakeClusterOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRecoverDatalakeClusterParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "recoverDatalakeCluster",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/recover",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RecoverDatalakeClusterReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RecoverDatalakeClusterOK), nil
+
+}
+
+/*
+RecoverDatalakeClusterByCrn recovers the datalake upgrade
+*/
+func (a *Client) RecoverDatalakeClusterByCrn(params *RecoverDatalakeClusterByCrnParams) (*RecoverDatalakeClusterByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRecoverDatalakeClusterByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "recoverDatalakeClusterByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/crn/{crn}/recover",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RecoverDatalakeClusterByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RecoverDatalakeClusterByCrnOK), nil
+
+}
+
+/*
 RenewCertificateOnSdxByCrn renews certificate on s d x cluster by crn
 */
-func (a *Client) RenewCertificateOnSdxByCrn(params *RenewCertificateOnSdxByCrnParams) error {
+func (a *Client) RenewCertificateOnSdxByCrn(params *RenewCertificateOnSdxByCrnParams) (*RenewCertificateOnSdxByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRenewCertificateOnSdxByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "renewCertificateOnSdxByCrn",
 		Method:             "POST",
 		PathPattern:        "/sdx/crn/{crn}/renew_certificate",
@@ -550,9 +746,9 @@ func (a *Client) RenewCertificateOnSdxByCrn(params *RenewCertificateOnSdxByCrnPa
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RenewCertificateOnSdxByCrnOK), nil
 
 }
 
@@ -609,6 +805,34 @@ func (a *Client) RepairSdxNodeByCrn(params *RepairSdxNodeByCrnParams) (*RepairSd
 		return nil, err
 	}
 	return result.(*RepairSdxNodeByCrnOK), nil
+
+}
+
+/*
+ResizeSdx res size s d x cluster
+*/
+func (a *Client) ResizeSdx(params *ResizeSdxParams) (*ResizeSdxOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewResizeSdxParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "resizeSdx",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/resize",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ResizeSdxReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ResizeSdxOK), nil
 
 }
 

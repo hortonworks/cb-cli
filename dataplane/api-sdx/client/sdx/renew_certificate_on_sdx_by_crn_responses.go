@@ -7,10 +7,13 @@ package sdx
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // RenewCertificateOnSdxByCrnReader is a Reader for the RenewCertificateOnSdxByCrn structure.
@@ -20,16 +23,54 @@ type RenewCertificateOnSdxByCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *RenewCertificateOnSdxByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewRenewCertificateOnSdxByCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewRenewCertificateOnSdxByCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
+	default:
+		result := NewRenewCertificateOnSdxByCrnDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
+	}
+}
+
+// NewRenewCertificateOnSdxByCrnOK creates a RenewCertificateOnSdxByCrnOK with default headers values
+func NewRenewCertificateOnSdxByCrnOK() *RenewCertificateOnSdxByCrnOK {
+	return &RenewCertificateOnSdxByCrnOK{}
+}
+
+/*RenewCertificateOnSdxByCrnOK handles this case with default header values.
+
+successful operation
+*/
+type RenewCertificateOnSdxByCrnOK struct {
+	Payload *model.FlowIdentifier
+}
+
+func (o *RenewCertificateOnSdxByCrnOK) Error() string {
+	return fmt.Sprintf("[POST /sdx/crn/{crn}/renew_certificate][%d] renewCertificateOnSdxByCrnOK  %+v", 200, o.Payload)
+}
+
+func (o *RenewCertificateOnSdxByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
 }
 
 // NewRenewCertificateOnSdxByCrnDefault creates a RenewCertificateOnSdxByCrnDefault with default headers values
@@ -41,7 +82,7 @@ func NewRenewCertificateOnSdxByCrnDefault(code int) *RenewCertificateOnSdxByCrnD
 
 /*RenewCertificateOnSdxByCrnDefault handles this case with default header values.
 
-successful operation
+unsuccessful operation
 */
 type RenewCertificateOnSdxByCrnDefault struct {
 	_statusCode int

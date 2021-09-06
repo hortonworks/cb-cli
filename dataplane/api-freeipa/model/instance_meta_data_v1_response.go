@@ -19,7 +19,7 @@ import (
 // swagger:model InstanceMetaDataV1Response
 type InstanceMetaDataV1Response struct {
 
-	// avaiability zone of instance
+	// availability zone of instance
 	AvailabilityZone string `json:"availabilityZone,omitempty"`
 
 	// the fully qualified domain name of the node in the service discovery cluster
@@ -55,7 +55,7 @@ type InstanceMetaDataV1Response struct {
 	// state of the host
 	State string `json:"state,omitempty"`
 
-	// subnet id of instance
+	// subnet ID of instance
 	SubnetID string `json:"subnetId,omitempty"`
 }
 

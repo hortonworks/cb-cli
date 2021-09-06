@@ -763,6 +763,34 @@ func (a *Client) PutpasswordStackV4(params *PutpasswordStackV4Params) (*Putpassw
 }
 
 /*
+RecoverClusterInternal recovers the stack by name in workspace internal only
+*/
+func (a *Client) RecoverClusterInternal(params *RecoverClusterInternalParams) (*RecoverClusterInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRecoverClusterInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "recoverClusterInternal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/cluster_recover",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RecoverClusterInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RecoverClusterInternalOK), nil
+
+}
+
+/*
 RenewStackCertificate triggers a certificate renewal on the desired cluster which is identified via stack s name
 
 Trigger a certificate renewal on the specified cluster.
@@ -1087,6 +1115,36 @@ func (a *Client) StopStackInWorkspaceV4Internal(params *StopStackInWorkspaceV4In
 		return nil, err
 	}
 	return result.(*StopStackInWorkspaceV4InternalOK), nil
+
+}
+
+/*
+SyncCmInWorkspaceV4 syncs from c m the parcel and c m versions by name in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) SyncCmInWorkspaceV4(params *SyncCmInWorkspaceV4Params) (*SyncCmInWorkspaceV4OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSyncCmInWorkspaceV4Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "syncCmInWorkspaceV4",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/sync_cm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &SyncCmInWorkspaceV4Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SyncCmInWorkspaceV4OK), nil
 
 }
 

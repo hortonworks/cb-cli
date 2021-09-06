@@ -66,6 +66,8 @@ type DatabaseBackupInternalParams struct {
 	BackupID *string
 	/*BackupLocation*/
 	BackupLocation *string
+	/*CloseConnections*/
+	CloseConnections *bool
 	/*InitiatorUserCrn*/
 	InitiatorUserCrn *string
 	/*Name*/
@@ -131,6 +133,17 @@ func (o *DatabaseBackupInternalParams) WithBackupLocation(backupLocation *string
 // SetBackupLocation adds the backupLocation to the database backup internal params
 func (o *DatabaseBackupInternalParams) SetBackupLocation(backupLocation *string) {
 	o.BackupLocation = backupLocation
+}
+
+// WithCloseConnections adds the closeConnections to the database backup internal params
+func (o *DatabaseBackupInternalParams) WithCloseConnections(closeConnections *bool) *DatabaseBackupInternalParams {
+	o.SetCloseConnections(closeConnections)
+	return o
+}
+
+// SetCloseConnections adds the closeConnections to the database backup internal params
+func (o *DatabaseBackupInternalParams) SetCloseConnections(closeConnections *bool) {
+	o.CloseConnections = closeConnections
 }
 
 // WithInitiatorUserCrn adds the initiatorUserCrn to the database backup internal params
@@ -200,6 +213,22 @@ func (o *DatabaseBackupInternalParams) WriteToRequest(r runtime.ClientRequest, r
 		qBackupLocation := qrBackupLocation
 		if qBackupLocation != "" {
 			if err := r.SetQueryParam("backupLocation", qBackupLocation); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.CloseConnections != nil {
+
+		// query param closeConnections
+		var qrCloseConnections bool
+		if o.CloseConnections != nil {
+			qrCloseConnections = *o.CloseConnections
+		}
+		qCloseConnections := swag.FormatBool(qrCloseConnections)
+		if qCloseConnections != "" {
+			if err := r.SetQueryParam("closeConnections", qCloseConnections); err != nil {
 				return err
 			}
 		}

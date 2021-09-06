@@ -33,6 +33,9 @@ type FlowProgressResponse struct {
 	// flow Id
 	FlowID string `json:"flowId,omitempty"`
 
+	// max number of transitions
+	MaxNumberOfTransitions int32 `json:"maxNumberOfTransitions,omitempty"`
+
 	// progress
 	Progress int32 `json:"progress,omitempty"`
 

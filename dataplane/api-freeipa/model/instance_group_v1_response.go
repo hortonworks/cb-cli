@@ -34,7 +34,7 @@ type InstanceGroupV1Response struct {
 
 	// referenced network
 	// Required: true
-	Network *InstanceGroupNetworkV1Request `json:"network"`
+	Network *InstanceGroupNetworkV1Response `json:"network"`
 
 	// number of nodes
 	// Required: true
