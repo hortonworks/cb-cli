@@ -18,6 +18,9 @@ import (
 // swagger:model FreeIpaUpgradeOptionsV1
 type FreeIpaUpgradeOptionsV1 struct {
 
+	// current image
+	CurrentImage *ImageInfoResponse `json:"currentImage,omitempty"`
+
 	// images
 	Images []*ImageInfoResponse `json:"images"`
 }
@@ -26,6 +29,10 @@ type FreeIpaUpgradeOptionsV1 struct {
 func (m *FreeIpaUpgradeOptionsV1) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCurrentImage(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateImages(formats); err != nil {
 		res = append(res, err)
 	}
@@ -33,6 +40,24 @@ func (m *FreeIpaUpgradeOptionsV1) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *FreeIpaUpgradeOptionsV1) validateCurrentImage(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CurrentImage) { // not required
+		return nil
+	}
+
+	if m.CurrentImage != nil {
+		if err := m.CurrentImage.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("currentImage")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

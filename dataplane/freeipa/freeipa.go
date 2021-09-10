@@ -677,8 +677,30 @@ func Upgrade(c *cli.Context) {
 	imageCatalog := c.String(fl.FlImageCatalogOptional.Name)
 	imageSetting := model.ImageSettingsV1Request{Catalog: imageCatalog, ID: imageId}
 	request := model.FreeIpaUpgradeV1Request{EnvironmentCrn: &envCrn, Image: &imageSetting}
-	_, err := freeIpaClient.V1freeipa.UpgradeFreeIpaV1(v1freeipa.NewUpgradeFreeIpaV1Params().WithBody(&request))
+	resp, err := freeIpaClient.V1freeipa.UpgradeFreeIpaV1(v1freeipa.NewUpgradeFreeIpaV1Params().WithBody(&request))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
+	printFormattedJsonResponse(resp.Payload)
+}
+
+func UpgradeOptions(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	imageCatalog := c.String(fl.FlImageCatalogOptional.Name)
+	resp, err := freeIpaClient.V1freeipa.GetFreeIpaUpgradeOptionsV1(v1freeipa.NewGetFreeIpaUpgradeOptionsV1Params().WithEnvironmentCrn(&envCrn).WithCatalog(&imageCatalog))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	printFormattedJsonResponse(resp.Payload)
+}
+
+func printFormattedJsonResponse(v interface{}) {
+	response, err := json.MarshalIndent(v, "", "\t")
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	commonutils.Println(string(response))
 }
