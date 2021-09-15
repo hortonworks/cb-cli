@@ -697,6 +697,30 @@ func UpgradeOptions(c *cli.Context) {
 	printFormattedJsonResponse(resp.Payload)
 }
 
+func Retry(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	resp, err := freeIpaClient.V1freeipa.RetryV1(v1freeipa.NewRetryV1Params().WithEnvironment(&envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	printFormattedJsonResponse(resp.Payload)
+}
+
+func ListRetryableFlows(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	resp, err := freeIpaClient.V1freeipa.ListRetryableFlowsV1(v1freeipa.NewListRetryableFlowsV1Params().WithEnvironment(&envCrn))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	printFormattedJsonResponse(resp.Payload)
+}
+
 func printFormattedJsonResponse(v interface{}) {
 	response, err := json.MarshalIndent(v, "", "\t")
 	if err != nil {

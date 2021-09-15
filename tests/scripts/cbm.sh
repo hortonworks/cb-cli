@@ -12,7 +12,8 @@ determine-versions() {
 
     echo "Checking latest available MOCK for"${CB_VERSION}
     if [[ -n "$GITHUB_TOKEN" ]]; then
-        access_token="access_token=$GITHUB_TOKEN"
+        echo "Github token is present"
+        #access_token="access_token=$GITHUB_TOKEN"
     fi
     BRANCH_VERSION=$(echo $CB_VERSION | cut -d'-' -f1)
     versions=($(curl https://api.github.com/repos/hortonworks/cloudbreak-deployer/git/refs/tags\?$access_token | jq -rc ".[] | select(.ref | contains(\"$BRANCH_VERSION\")) | .ref"))
