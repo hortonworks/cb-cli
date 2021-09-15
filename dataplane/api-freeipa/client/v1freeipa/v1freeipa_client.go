@@ -535,6 +535,36 @@ func (a *Client) ListFreeIpaClustersByAccountV1(params *ListFreeIpaClustersByAcc
 }
 
 /*
+ListRetryableFlowsV1 lists retryable failed flows
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) ListRetryableFlowsV1(params *ListRetryableFlowsV1Params) (*ListRetryableFlowsV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListRetryableFlowsV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listRetryableFlowsV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/retry",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListRetryableFlowsV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListRetryableFlowsV1OK), nil
+
+}
+
+/*
 RebootV1 reboots one or more instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -591,6 +621,36 @@ func (a *Client) RepairV1(params *RepairV1Params) (*RepairV1OK, error) {
 		return nil, err
 	}
 	return result.(*RepairV1OK), nil
+
+}
+
+/*
+RetryV1 retries the latest failed operation
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) RetryV1(params *RetryV1Params) (*RetryV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRetryV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "retryV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/freeipa/retry",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RetryV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RetryV1OK), nil
 
 }
 
@@ -656,6 +716,8 @@ func (a *Client) StopV1(params *StopV1Params) error {
 
 /*
 UpdateSaltV1 updates salt states on free IP a instances
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
 func (a *Client) UpdateSaltV1(params *UpdateSaltV1Params) (*UpdateSaltV1OK, error) {
 	// TODO: Validate the params before sending

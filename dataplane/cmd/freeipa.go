@@ -359,12 +359,36 @@ func init() {
 			},
 			{
 				Name:   "upgrade-options",
-				Usage:  "upgrades freeipa to new image",
+				Usage:  "list available images for upgrade",
 				Before: cf.CheckConfigAndCommandFlags,
 				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlImageCatalogOptional).AddAGlobalFlags().AddOutputFlag().Build(),
 				Action: freeipa.UpgradeOptions,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlImageCatalogOptional).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
+				Name:   "retry",
+				Usage:  "retry last failed flow if it's retryable",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: freeipa.Retry,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
+				Name:   "list-retryable-flows",
+				Usage:  "List retryable failed flows",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: freeipa.ListRetryableFlows,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName).AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
