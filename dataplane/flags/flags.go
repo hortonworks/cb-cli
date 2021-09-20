@@ -1582,6 +1582,13 @@ var (
 			Usage: "enables Ranger Raz service for ADLSv2",
 		},
 	}
+	FlEnableMultiAz = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "multiaz-enabled",
+			Usage: "enables multiaz on AWS Data Lakes",
+		},
+	}
 	FlDnsHostname = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{

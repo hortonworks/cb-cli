@@ -20,6 +20,9 @@ type AzureCredentialV1RequestParameters struct {
 	// app based
 	AppBased *AppBasedV1Request `json:"appBased,omitempty"`
 
+	// light house based
+	LightHouseBased *AppBasedV1Request `json:"lightHouseBased,omitempty"`
+
 	// role based
 	RoleBased *RoleBasedV1Request `json:"roleBased,omitempty"`
 
@@ -37,6 +40,10 @@ func (m *AzureCredentialV1RequestParameters) Validate(formats strfmt.Registry) e
 	var res []error
 
 	if err := m.validateAppBased(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLightHouseBased(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -68,6 +75,24 @@ func (m *AzureCredentialV1RequestParameters) validateAppBased(formats strfmt.Reg
 		if err := m.AppBased.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("appBased")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AzureCredentialV1RequestParameters) validateLightHouseBased(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LightHouseBased) { // not required
+		return nil
+	}
+
+	if m.LightHouseBased != nil {
+		if err := m.LightHouseBased.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("lightHouseBased")
 			}
 			return err
 		}

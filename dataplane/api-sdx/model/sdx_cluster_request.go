@@ -27,8 +27,11 @@ type SdxClusterRequest struct {
 
 	// cluster shape
 	// Required: true
-	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA]
+	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA MICRO_DUTY]
 	ClusterShape *string `json:"clusterShape"`
+
+	// enable multi az
+	EnableMultiAz bool `json:"enableMultiAz,omitempty"`
 
 	// enable ranger raz
 	EnableRangerRaz bool `json:"enableRangerRaz,omitempty"`
@@ -117,7 +120,7 @@ var sdxClusterRequestTypeClusterShapePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA","MICRO_DUTY"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -135,6 +138,9 @@ const (
 
 	// SdxClusterRequestClusterShapeMEDIUMDUTYHA captures enum value "MEDIUM_DUTY_HA"
 	SdxClusterRequestClusterShapeMEDIUMDUTYHA string = "MEDIUM_DUTY_HA"
+
+	// SdxClusterRequestClusterShapeMICRODUTY captures enum value "MICRO_DUTY"
+	SdxClusterRequestClusterShapeMICRODUTY string = "MICRO_DUTY"
 )
 
 // prop value enum
