@@ -31,7 +31,7 @@ import (
 	"github.com/urfave/cli"
 )
 
-var sdxClusterHeader = []string{"Crn", "Name", "EnvironmentName", "EnvironmentCrn", "StackCrn", "DatabaseServerCrn", "CludStorageLocation", "CloudStorageFileSystemType", "Status", "StatusReason", "RangerRazEnabled"}
+var sdxClusterHeader = []string{"Crn", "Name", "EnvironmentName", "EnvironmentCrn", "StackCrn", "DatabaseServerCrn", "CludStorageLocation", "CloudStorageFileSystemType", "Status", "StatusReason", "RangerRazEnabled", "EnableMultiAz"}
 
 type sdxClusterOutput struct {
 	Crn                        string `json:"Crn" yaml:"Crn"`
@@ -45,6 +45,7 @@ type sdxClusterOutput struct {
 	Status                     string `json:"Status" yaml:"Status"`
 	StatusReason               string `json:"StatusReason" yaml:"StatusReason"`
 	RangerRazEnabled           bool   `json:"RangerRazEnabled" yaml:"RangerRazEnabled"`
+	EnableMultiAz              bool   `json:"EnableMultiAz" yaml:"EnableMultiAz"`
 }
 
 var sdxAdvertisedRuntimesHeader = []string{"RuntimeVersion", "DefaultRuntimeVersion"}
@@ -120,18 +121,19 @@ func CreateSdx(c *cli.Context) {
 	spotMaxPriceString := c.String(fl.FlSpotMaxPrice.Name)
 	spotMaxPrice := utils.ConvertToFloat64Ptr(spotMaxPriceString)
 	withRangerRazEnabled := c.Bool(fl.FlRangerRazEnabled.Name)
+	withEnableMultiAz := c.Bool(fl.FlEnableMultiAz.Name)
 
 	inputJson := assembleStackRequest(c)
 	log.Infof("[CreateSdx] Runtime: %s", runtime)
 	if inputJson != nil {
-		createInternalSdx(envName, inputJson, c, name, baseLocation, instanceProfile, managedIdentity, serviceAccount, runtime, withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled)
+		createInternalSdx(envName, inputJson, c, name, baseLocation, instanceProfile, managedIdentity, serviceAccount, runtime, withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz)
 	} else {
-		createSdx(clusterShape, envName, c, name, baseLocation, instanceProfile, managedIdentity, serviceAccount, runtime, withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled)
+		createSdx(clusterShape, envName, c, name, baseLocation, instanceProfile, managedIdentity, serviceAccount, runtime, withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz)
 	}
 }
 
-func createSdx(clusterShape string, envName string, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, serviceAccount string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool) {
-	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, runtime, withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled)
+func createSdx(clusterShape string, envName string, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, serviceAccount string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool, withEnableMultiAz bool) {
+	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, runtime, withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
@@ -143,7 +145,7 @@ func createSdx(clusterShape string, envName string, c *cli.Context, name string,
 	log.Infof("[CreateSdx] SDX cluster created in environment: %s, with name: %s", envName, sdxCluster.Name)
 }
 
-func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, serviceAccount string, runtime string, withExternalDatabase bool, withoutExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool) *sdxModel.SdxClusterRequest {
+func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, serviceAccount string, runtime string, withExternalDatabase bool, withoutExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool, withEnableMultiAz bool) *sdxModel.SdxClusterRequest {
 	sdxRequest := &sdxModel.SdxClusterRequest{
 		ClusterShape:     &clusterShape,
 		Environment:      &envName,
@@ -153,6 +155,7 @@ func createSdxRequest(clusterShape string, envName string, cloudStorageBaseLocat
 		ExternalDatabase: nil,
 		Aws:              nil,
 		EnableRangerRaz:  withRangerRazEnabled,
+		EnableMultiAz:    withEnableMultiAz,
 	}
 	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = storage }))
 	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, &sdxRequest.ExternalDatabase)
@@ -270,7 +273,7 @@ func setupAwsSpotParameters(spotPercentage *int32, spotMaxPrice *float64, sdxAws
 	}
 }
 
-func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, serviceAccount string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool) {
+func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context, name string, cloudStorageBaseLocation string, instanceProfile string, managedIdentity string, serviceAccount string, runtime string, withoutExternalDatabase bool, withExternalDatabase bool, withNonHaExternalDatabase bool, spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool, withEnableMultiAz bool) {
 	sdxInternalRequest := &sdxModel.SdxInternalClusterRequest{
 		ClusterShape:     &(&types.S{S: sdxModel.SdxClusterRequestClusterShapeCUSTOM}).S,
 		Environment:      &envName,
@@ -280,6 +283,7 @@ func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cl
 		ExternalDatabase: nil,
 		Aws:              nil,
 		EnableRangerRaz:  withRangerRazEnabled,
+		EnableMultiAz:    withEnableMultiAz,
 	}
 
 	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxInternalRequest.CloudStorage = storage }))
@@ -380,7 +384,8 @@ func listSdxClusterImpl(client clientSdx, envName string, writer func([]string, 
 			sdxCluster.CloudStorageFileSystemType,
 			sdxCluster.Status,
 			sdxCluster.StatusReason,
-			sdxCluster.RangerRazEnabled})
+			sdxCluster.RangerRazEnabled,
+			sdxCluster.EnableMultiAz})
 	}
 
 	writer(sdxClusterHeader, tableRows)
@@ -468,7 +473,8 @@ func describeSdx(sdxClient *sdx.Client, name string, c *cli.Context) {
 		sdxCluster.CloudStorageFileSystemType,
 		sdxCluster.Status,
 		sdxCluster.StatusReason,
-		sdxCluster.RangerRazEnabled})
+		sdxCluster.RangerRazEnabled,
+		sdxCluster.EnableMultiAz})
 	log.Infof("[DescribeSdx] Describe a particular SDX cluster")
 }
 
@@ -491,7 +497,8 @@ func describeSdxDetailed(sdxClient *sdx.Client, name string, c *cli.Context) {
 			sdxCluster.CloudStorageFileSystemType,
 			sdxCluster.Status,
 			sdxCluster.StatusReason,
-			sdxCluster.RangerRazEnabled},
+			sdxCluster.RangerRazEnabled,
+			sdxCluster.EnableMultiAz},
 		StackV4Response: *sdxCluster.StackV4Response,
 	})
 	log.Infof("[DescribeSdxDetailed] Describe a particular SDX cluster")
