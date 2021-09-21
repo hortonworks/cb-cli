@@ -17,6 +17,9 @@ import (
 // swagger:model EnvironmentCloudStorageValidationRequest
 type EnvironmentCloudStorageValidationRequest struct {
 
+	// Telemetry related specifics of the environment.
+	Backup *BackupRequest `json:"backup,omitempty"`
+
 	// Credential CRN
 	// Required: true
 	CredentialCrn *string `json:"credentialCrn"`
@@ -30,6 +33,10 @@ type EnvironmentCloudStorageValidationRequest struct {
 func (m *EnvironmentCloudStorageValidationRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBackup(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCredentialCrn(formats); err != nil {
 		res = append(res, err)
 	}
@@ -41,6 +48,24 @@ func (m *EnvironmentCloudStorageValidationRequest) Validate(formats strfmt.Regis
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *EnvironmentCloudStorageValidationRequest) validateBackup(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Backup) { // not required
+		return nil
+	}
+
+	if m.Backup != nil {
+		if err := m.Backup.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("backup")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

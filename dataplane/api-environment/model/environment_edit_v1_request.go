@@ -44,7 +44,7 @@ type EnvironmentEditV1Request struct {
 	Description *string `json:"description,omitempty"`
 
 	// GCP Specific parameters.
-	Gcp GcpEnvironmentV1Parameters `json:"gcp,omitempty"`
+	Gcp *GcpEnvironmentV1Parameters `json:"gcp,omitempty"`
 
 	// IDBroker mapping source.
 	// Enum: [NONE MOCK IDBMMS]
@@ -85,6 +85,10 @@ func (m *EnvironmentEditV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcp(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -237,6 +241,24 @@ func (m *EnvironmentEditV1Request) validateDescription(formats strfmt.Registry) 
 
 	if err := validate.MaxLength("description", "body", string(*m.Description), 1000); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *EnvironmentEditV1Request) validateGcp(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Gcp) { // not required
+		return nil
+	}
+
+	if m.Gcp != nil {
+		if err := m.Gcp.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp")
+			}
+			return err
+		}
 	}
 
 	return nil
