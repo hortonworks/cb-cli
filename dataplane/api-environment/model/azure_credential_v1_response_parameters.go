@@ -19,9 +19,6 @@ type AzureCredentialV1ResponseParameters struct {
 	// access key
 	AccessKey string `json:"accessKey,omitempty"`
 
-	// light house based
-	LightHouseBased *RoleBasedV1Response `json:"lightHouseBased,omitempty"`
-
 	// role based
 	RoleBased *RoleBasedV1Response `json:"roleBased,omitempty"`
 
@@ -36,10 +33,6 @@ type AzureCredentialV1ResponseParameters struct {
 func (m *AzureCredentialV1ResponseParameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateLightHouseBased(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateRoleBased(formats); err != nil {
 		res = append(res, err)
 	}
@@ -47,24 +40,6 @@ func (m *AzureCredentialV1ResponseParameters) Validate(formats strfmt.Registry) 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *AzureCredentialV1ResponseParameters) validateLightHouseBased(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.LightHouseBased) { // not required
-		return nil
-	}
-
-	if m.LightHouseBased != nil {
-		if err := m.LightHouseBased.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("lightHouseBased")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 

@@ -34,6 +34,10 @@ type EnvironmentV1Request struct {
 	// Backup related specifics of the environment.
 	Backup *BackupRequest `json:"backup,omitempty"`
 
+	// ccm v2 Tls type
+	// Enum: [ONE_WAY_TLS TWO_WAY_TLS]
+	CcmV2TLSType string `json:"ccmV2TlsType,omitempty"`
+
 	// Cloud storage validation enabled or not.
 	// Enum: [ENABLED DISABLED]
 	CloudStorageValidation string `json:"cloudStorageValidation,omitempty"`
@@ -53,7 +57,7 @@ type EnvironmentV1Request struct {
 	FreeIpa *AttachedFreeIpaRequest `json:"freeIpa,omitempty"`
 
 	// GCP Specific parameters.
-	Gcp GcpEnvironmentV1Parameters `json:"gcp,omitempty"`
+	Gcp *GcpEnvironmentV1Parameters `json:"gcp,omitempty"`
 
 	// IDBroker mapping source.
 	// Enum: [NONE MOCK IDBMMS]
@@ -119,6 +123,10 @@ func (m *EnvironmentV1Request) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateCcmV2TLSType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCloudStorageValidation(formats); err != nil {
 		res = append(res, err)
 	}
@@ -128,6 +136,10 @@ func (m *EnvironmentV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateFreeIpa(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcp(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -241,6 +253,49 @@ func (m *EnvironmentV1Request) validateBackup(formats strfmt.Registry) error {
 	return nil
 }
 
+var environmentV1RequestTypeCcmV2TLSTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ONE_WAY_TLS","TWO_WAY_TLS"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		environmentV1RequestTypeCcmV2TLSTypePropEnum = append(environmentV1RequestTypeCcmV2TLSTypePropEnum, v)
+	}
+}
+
+const (
+
+	// EnvironmentV1RequestCcmV2TLSTypeONEWAYTLS captures enum value "ONE_WAY_TLS"
+	EnvironmentV1RequestCcmV2TLSTypeONEWAYTLS string = "ONE_WAY_TLS"
+
+	// EnvironmentV1RequestCcmV2TLSTypeTWOWAYTLS captures enum value "TWO_WAY_TLS"
+	EnvironmentV1RequestCcmV2TLSTypeTWOWAYTLS string = "TWO_WAY_TLS"
+)
+
+// prop value enum
+func (m *EnvironmentV1Request) validateCcmV2TLSTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, environmentV1RequestTypeCcmV2TLSTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *EnvironmentV1Request) validateCcmV2TLSType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CcmV2TLSType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateCcmV2TLSTypeEnum("ccmV2TlsType", "body", m.CcmV2TLSType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 var environmentV1RequestTypeCloudStorageValidationPropEnum []interface{}
 
 func init() {
@@ -311,6 +366,24 @@ func (m *EnvironmentV1Request) validateFreeIpa(formats strfmt.Registry) error {
 		if err := m.FreeIpa.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("freeIpa")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EnvironmentV1Request) validateGcp(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Gcp) { // not required
+		return nil
+	}
+
+	if m.Gcp != nil {
+		if err := m.Gcp.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcp")
 			}
 			return err
 		}

@@ -76,6 +76,10 @@ type EnvironmentNetworkV1Response struct {
 	// The subnet in which resource should be deployed if not specified by user. It's a null in case of environment list
 	PreferedSubnetID string `json:"preferedSubnetId,omitempty"`
 
+	// The subnets in which resource should be deployed if not specified by user. It's a null in case of environment list
+	// Unique: true
+	PreferedSubnetIds []string `json:"preferedSubnetIds"`
+
 	// A flag to enable or disable the private subnet creation.
 	// Enum: [ENABLED DISABLED]
 	PrivateSubnetCreation string `json:"privateSubnetCreation,omitempty"`
@@ -156,6 +160,10 @@ func (m *EnvironmentNetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateOutboundInternetTraffic(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePreferedSubnetIds(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -460,6 +468,19 @@ func (m *EnvironmentNetworkV1Response) validateOutboundInternetTraffic(formats s
 
 	// value enum
 	if err := m.validateOutboundInternetTrafficEnum("outboundInternetTraffic", "body", m.OutboundInternetTraffic); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validatePreferedSubnetIds(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PreferedSubnetIds) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("preferedSubnetIds", "body", m.PreferedSubnetIds); err != nil {
 		return err
 	}
 
