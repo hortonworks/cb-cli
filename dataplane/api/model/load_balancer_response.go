@@ -32,6 +32,9 @@ type LoadBalancerResponse struct {
 	// The registered FQDN of the load balancer.
 	Fqdn string `json:"fqdn,omitempty"`
 
+	// The GCP load balancer information
+	GcpResourceID *GcpLoadBalancerResponse `json:"gcpResourceId,omitempty"`
+
 	// The frontend ip address for the load balancer.
 	IP string `json:"ip,omitempty"`
 
@@ -54,6 +57,10 @@ func (m *LoadBalancerResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzureResourceID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcpResourceID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -99,6 +106,24 @@ func (m *LoadBalancerResponse) validateAzureResourceID(formats strfmt.Registry) 
 		if err := m.AzureResourceID.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azureResourceId")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *LoadBalancerResponse) validateGcpResourceID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.GcpResourceID) { // not required
+		return nil
+	}
+
+	if m.GcpResourceID != nil {
+		if err := m.GcpResourceID.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcpResourceId")
 			}
 			return err
 		}

@@ -291,6 +291,34 @@ func (a *Client) GetInternalAutoscaleClusterByName(params *GetInternalAutoscaleC
 }
 
 /*
+GetLimitsConfiguration get limits configuration API
+*/
+func (a *Client) GetLimitsConfiguration(params *GetLimitsConfigurationParams) (*GetLimitsConfigurationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLimitsConfigurationParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getLimitsConfiguration",
+		Method:             "GET",
+		PathPattern:        "/autoscale/limits_configuration",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetLimitsConfigurationReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetLimitsConfigurationOK), nil
+
+}
+
+/*
 GetRecommendation get recommendation API
 */
 func (a *Client) GetRecommendation(params *GetRecommendationParams) (*GetRecommendationOK, error) {

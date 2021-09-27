@@ -24,6 +24,9 @@ type DistroXScaleV1Request struct {
 	// name of the instance group
 	// Required: true
 	Group *string `json:"group"`
+
+	// request to support scaling operations in multi-availability zone environments
+	NetworkScaleRequest *NetworkScaleV1Request `json:"networkScaleRequest,omitempty"`
 }
 
 // Validate validates this distro x scale v1 request
@@ -35,6 +38,10 @@ func (m *DistroXScaleV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateGroup(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetworkScaleRequest(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -57,6 +64,24 @@ func (m *DistroXScaleV1Request) validateGroup(formats strfmt.Registry) error {
 
 	if err := validate.Required("group", "body", m.Group); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DistroXScaleV1Request) validateNetworkScaleRequest(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NetworkScaleRequest) { // not required
+		return nil
+	}
+
+	if m.NetworkScaleRequest != nil {
+		if err := m.NetworkScaleRequest.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("networkScaleRequest")
+			}
+			return err
+		}
 	}
 
 	return nil

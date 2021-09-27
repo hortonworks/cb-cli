@@ -25,6 +25,9 @@ type ImagesV4Response struct {
 	// cdh images
 	CdhImages []*ImageV4Response `json:"cdhImages"`
 
+	// freeipa images
+	FreeipaImages []*ImageV4Response `json:"freeipaImages"`
+
 	// supported versions
 	// Unique: true
 	SupportedVersions []string `json:"supportedVersions"`
@@ -39,6 +42,10 @@ func (m *ImagesV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCdhImages(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFreeipaImages(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -92,6 +99,31 @@ func (m *ImagesV4Response) validateCdhImages(formats strfmt.Registry) error {
 			if err := m.CdhImages[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cdhImages" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ImagesV4Response) validateFreeipaImages(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.FreeipaImages) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.FreeipaImages); i++ {
+		if swag.IsZero(m.FreeipaImages[i]) { // not required
+			continue
+		}
+
+		if m.FreeipaImages[i] != nil {
+			if err := m.FreeipaImages[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("freeipaImages" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

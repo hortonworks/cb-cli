@@ -23,6 +23,9 @@ type TargetGroupResponse struct {
 	// The Azure target availability set information.
 	AzureResourceID *AzureTargetGroupResponse `json:"azureResourceId,omitempty"`
 
+	// gcp resource Id
+	GcpResourceID *GcpTargetGroupResponse `json:"gcpResourceId,omitempty"`
+
 	// The port where the load balancer receives traffic and forward it to the associated targets.
 	// Required: true
 	Port *int64 `json:"port"`
@@ -42,6 +45,10 @@ func (m *TargetGroupResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAzureResourceID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGcpResourceID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -87,6 +94,24 @@ func (m *TargetGroupResponse) validateAzureResourceID(formats strfmt.Registry) e
 		if err := m.AzureResourceID.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("azureResourceId")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *TargetGroupResponse) validateGcpResourceID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.GcpResourceID) { // not required
+		return nil
+	}
+
+	if m.GcpResourceID != nil {
+		if err := m.GcpResourceID.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("gcpResourceId")
 			}
 			return err
 		}
