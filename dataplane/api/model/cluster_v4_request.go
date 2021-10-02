@@ -28,6 +28,9 @@ type ClusterV4Request struct {
 	// cloudera manager specific requests
 	Cm *ClouderaManagerV4Request `json:"cm,omitempty"`
 
+	// custom configurations name for the stack
+	CustomConfigurationsName string `json:"customConfigurationsName,omitempty"`
+
 	// custom containers
 	CustomContainer *CustomContainerV4Request `json:"customContainer,omitempty"`
 

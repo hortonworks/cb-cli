@@ -437,6 +437,13 @@ var (
 			Usage: "desired number of nodes",
 		},
 	}
+	FlPreferredSubnetIds = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "preferred-subnets",
+			Usage: "comma separated list of subnet ids where the new nodes need to be provisioned into",
+		},
+	}
 	FlOldPassword = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{

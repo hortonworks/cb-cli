@@ -174,6 +174,7 @@ func ScaleDistroX(c *cli.Context) {
 	if err != nil {
 		commonutils.LogErrorMessageAndExit("Unable to parse as number: " + c.String(fl.FlDesiredNodeCount.Name))
 	}
+	preferredSubnetIds := strings.Split(c.String(fl.FlPreferredSubnetIds.Name), ",")
 	defer commonutils.TimeTrack(time.Now(), "scale DistroX")
 
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
@@ -181,6 +182,9 @@ func ScaleDistroX(c *cli.Context) {
 	req := &model.DistroXScaleV1Request{
 		DesiredCount: &(&types.I32{I: int32(desiredCount)}).I,
 		Group:        &(&types.S{S: c.String(fl.FlGroupName.Name)}).S,
+		NetworkScaleRequest: &model.NetworkScaleV1Request{
+			PreferredSubnetIds: preferredSubnetIds,
+		},
 	}
 	name := c.String(fl.FlName.Name)
 	log.Infof("[ScaleDistroX] scaling DistroX, name: %s", name)

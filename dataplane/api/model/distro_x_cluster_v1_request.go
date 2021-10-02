@@ -27,6 +27,9 @@ type DistroXClusterV1Request struct {
 	// cloudera manager specific requests
 	Cm *ClouderaManagerV1Request `json:"cm,omitempty"`
 
+	// custom configurations name for the stack
+	CustomConfigurationsName string `json:"customConfigurationsName,omitempty"`
+
 	// RDS configuration names for the cluster
 	// Unique: true
 	Databases []string `json:"databases"`

@@ -21,6 +21,9 @@ type InstanceGroupAdjustmentV4Request struct {
 	// Required: true
 	InstanceGroup *string `json:"instanceGroup"`
 
+	// request to support scaling operations in multi-availability zone environments
+	NetworkScaleRequest *NetworkScaleV4Request `json:"networkScaleRequest,omitempty"`
+
 	// scaling adjustment of the instance groups
 	// Required: true
 	ScalingAdjustment *int32 `json:"scalingAdjustment"`
@@ -31,6 +34,10 @@ func (m *InstanceGroupAdjustmentV4Request) Validate(formats strfmt.Registry) err
 	var res []error
 
 	if err := m.validateInstanceGroup(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetworkScaleRequest(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -48,6 +55,24 @@ func (m *InstanceGroupAdjustmentV4Request) validateInstanceGroup(formats strfmt.
 
 	if err := validate.Required("instanceGroup", "body", m.InstanceGroup); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *InstanceGroupAdjustmentV4Request) validateNetworkScaleRequest(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NetworkScaleRequest) { // not required
+		return nil
+	}
+
+	if m.NetworkScaleRequest != nil {
+		if err := m.NetworkScaleRequest.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("networkScaleRequest")
+			}
+			return err
+		}
 	}
 
 	return nil

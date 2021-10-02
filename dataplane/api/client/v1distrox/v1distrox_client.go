@@ -1567,6 +1567,62 @@ func (a *Client) SyncDistroXV1ByName(params *SyncDistroXV1ByNameParams) error {
 }
 
 /*
+SyncDistroxCm syncs from distrox cluster c m the c m and parcel versions
+*/
+func (a *Client) SyncDistroxCm(params *SyncDistroxCmParams) (*SyncDistroxCmOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSyncDistroxCmParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "syncDistroxCm",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/{name}/sync_component_versions_from_cm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &SyncDistroxCmReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SyncDistroxCmOK), nil
+
+}
+
+/*
+SyncDistroxCmByCrn syncs from distrox cluster c m the c m and parcel versions
+*/
+func (a *Client) SyncDistroxCmByCrn(params *SyncDistroxCmByCrnParams) (*SyncDistroxCmByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSyncDistroxCmByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "syncDistroxCmByCrn",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/crn/{crn}/sync_component_versions_from_cm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &SyncDistroxCmByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SyncDistroxCmByCrnOK), nil
+
+}
+
+/*
 UpgradeDistroxCluster upgrades the distrox cluster
 */
 func (a *Client) UpgradeDistroxCluster(params *UpgradeDistroxClusterParams) (*UpgradeDistroxClusterOK, error) {

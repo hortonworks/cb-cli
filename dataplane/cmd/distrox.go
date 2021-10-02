@@ -149,10 +149,10 @@ func init() {
 				Name:   "scale",
 				Usage:  "scales a DistroX cluster",
 				Before: cf.CheckConfigAndCommandFlags,
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlGroupName, fl.FlDesiredNodeCount, fl.FlWaitOptional).AddAGlobalFlags().AddOutputFlag().Build(),
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlGroupName, fl.FlDesiredNodeCount, fl.FlWaitOptional, fl.FlPreferredSubnetIds).AddAGlobalFlags().AddOutputFlag().Build(),
 				Action: distrox.ScaleDistroX,
 				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlGroupName, fl.FlDesiredNodeCount, fl.FlWaitOptional).AddAGlobalFlags().AddOutputFlag().Build() {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlGroupName, fl.FlDesiredNodeCount, fl.FlWaitOptional, fl.FlPreferredSubnetIds).AddAGlobalFlags().AddOutputFlag().Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},

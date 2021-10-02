@@ -27,6 +27,9 @@ type StackScaleV4Request struct {
 	// name of the instance group
 	// Required: true
 	Group *string `json:"group"`
+
+	// stack network scale v4 request
+	StackNetworkScaleV4Request *NetworkScaleV4Request `json:"stackNetworkScaleV4Request,omitempty"`
 }
 
 // Validate validates this stack scale v4 request
@@ -38,6 +41,10 @@ func (m *StackScaleV4Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateGroup(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStackNetworkScaleV4Request(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -60,6 +67,24 @@ func (m *StackScaleV4Request) validateGroup(formats strfmt.Registry) error {
 
 	if err := validate.Required("group", "body", m.Group); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *StackScaleV4Request) validateStackNetworkScaleV4Request(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.StackNetworkScaleV4Request) { // not required
+		return nil
+	}
+
+	if m.StackNetworkScaleV4Request != nil {
+		if err := m.StackNetworkScaleV4Request.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("stackNetworkScaleV4Request")
+			}
+			return err
+		}
 	}
 
 	return nil
