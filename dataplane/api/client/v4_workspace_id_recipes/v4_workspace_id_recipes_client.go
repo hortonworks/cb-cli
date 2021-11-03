@@ -354,6 +354,36 @@ func (a *Client) ListRecipesByWorkspace(params *ListRecipesByWorkspaceParams) (*
 
 }
 
+/*
+ListRecipesByWorkspaceInternal lists recipes for the given workspace internal
+
+Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.
+*/
+func (a *Client) ListRecipesByWorkspaceInternal(params *ListRecipesByWorkspaceInternalParams) (*ListRecipesByWorkspaceInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListRecipesByWorkspaceInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listRecipesByWorkspaceInternal",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/recipes/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListRecipesByWorkspaceInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListRecipesByWorkspaceInternalOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

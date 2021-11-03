@@ -47,9 +47,6 @@ type InstanceTemplateV4Response struct {
 	// yarn specific parameters for template
 	Mock MockInstanceTemplateV4Parameters `json:"mock,omitempty"`
 
-	// openstack specific parameters for template
-	Openstack OpenStackInstanceTemplateV4Parameters `json:"openstack,omitempty"`
-
 	// root volume
 	RootVolume *RootVolumeV4Response `json:"rootVolume,omitempty"`
 

@@ -19,6 +19,9 @@ type FreeIpaResponse struct {
 	// Aws specific FreeIpa parameters
 	Aws *AttachedFreeIpaRequestAwsParameters `json:"aws,omitempty"`
 
+	// The FreeIPA multi-AZ enabled or not
+	EnableMultiAz bool `json:"enableMultiAz,omitempty"`
+
 	// Image parameters for FreeIpa instance creation.
 	Image *FreeIpaImageResponse `json:"image,omitempty"`
 

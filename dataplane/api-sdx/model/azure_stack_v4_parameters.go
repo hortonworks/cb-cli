@@ -6,9 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AzureStackV4Parameters azure stack v4 parameters
@@ -18,12 +22,71 @@ type AzureStackV4Parameters struct {
 	// encrypt storage
 	EncryptStorage bool `json:"encryptStorage,omitempty"`
 
+	// The SKU to be used for the Azure load balancer.
+	// Enum: [BASIC STANDARD NONE]
+	LoadBalancerSku string `json:"loadBalancerSku,omitempty"`
+
 	// resource group name
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
 }
 
 // Validate validates this azure stack v4 parameters
 func (m *AzureStackV4Parameters) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLoadBalancerSku(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var azureStackV4ParametersTypeLoadBalancerSkuPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["BASIC","STANDARD","NONE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		azureStackV4ParametersTypeLoadBalancerSkuPropEnum = append(azureStackV4ParametersTypeLoadBalancerSkuPropEnum, v)
+	}
+}
+
+const (
+
+	// AzureStackV4ParametersLoadBalancerSkuBASIC captures enum value "BASIC"
+	AzureStackV4ParametersLoadBalancerSkuBASIC string = "BASIC"
+
+	// AzureStackV4ParametersLoadBalancerSkuSTANDARD captures enum value "STANDARD"
+	AzureStackV4ParametersLoadBalancerSkuSTANDARD string = "STANDARD"
+
+	// AzureStackV4ParametersLoadBalancerSkuNONE captures enum value "NONE"
+	AzureStackV4ParametersLoadBalancerSkuNONE string = "NONE"
+)
+
+// prop value enum
+func (m *AzureStackV4Parameters) validateLoadBalancerSkuEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, azureStackV4ParametersTypeLoadBalancerSkuPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *AzureStackV4Parameters) validateLoadBalancerSku(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LoadBalancerSku) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateLoadBalancerSkuEnum("loadBalancerSku", "body", m.LoadBalancerSku); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -74,9 +74,6 @@ type StackV4Request struct {
 	// stack related network
 	Network *NetworkV4Request `json:"network,omitempty"`
 
-	// openstack specific parameters for stack
-	Openstack OpenStackStackV4Parameters `json:"openstack,omitempty"`
-
 	// placement configuration parameters for a cluster (e.g. 'region', 'availabilityZone')
 	Placement *PlacementSettingsV4Request `json:"placement,omitempty"`
 
@@ -102,7 +99,7 @@ type StackV4Request struct {
 	// variant
 	Variant string `json:"variant,omitempty"`
 
-	// openstack specific parameters for stack
+	// yarn specific parameters for stack
 	Yarn *YarnStackV4Parameters `json:"yarn,omitempty"`
 }
 

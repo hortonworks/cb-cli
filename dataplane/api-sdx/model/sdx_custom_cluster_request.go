@@ -22,6 +22,9 @@ type SdxCustomClusterRequest struct {
 	// aws
 	Aws *SdxAwsRequest `json:"aws,omitempty"`
 
+	// azure
+	Azure *SdxAzureRequest `json:"azure,omitempty"`
+
 	// cloud storage
 	CloudStorage *SdxCloudStorageRequest `json:"cloudStorage,omitempty"`
 
@@ -61,6 +64,10 @@ func (m *SdxCustomClusterRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCloudStorage(formats); err != nil {
 		res = append(res, err)
 	}
@@ -97,6 +104,24 @@ func (m *SdxCustomClusterRequest) validateAws(formats strfmt.Registry) error {
 		if err := m.Aws.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("aws")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *SdxCustomClusterRequest) validateAzure(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Azure) { // not required
+		return nil
+	}
+
+	if m.Azure != nil {
+		if err := m.Azure.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("azure")
 			}
 			return err
 		}

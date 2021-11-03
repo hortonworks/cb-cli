@@ -59,9 +59,6 @@ type InstanceGroupV4Response struct {
 	// Minimum: 0
 	NodeCount *int32 `json:"nodeCount"`
 
-	// openstack specific parameters for instance group
-	Openstack *OpenStackInstanceGroupV4Parameters `json:"openstack,omitempty"`
-
 	// recipes
 	Recipes []*RecipeV4Response `json:"recipes"`
 
@@ -113,10 +110,6 @@ func (m *InstanceGroupV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNodeCount(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOpenstack(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -267,24 +260,6 @@ func (m *InstanceGroupV4Response) validateNodeCount(formats strfmt.Registry) err
 
 	if err := validate.MaximumInt("nodeCount", "body", int64(*m.NodeCount), 100000, false); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-func (m *InstanceGroupV4Response) validateOpenstack(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Openstack) { // not required
-		return nil
-	}
-
-	if m.Openstack != nil {
-		if err := m.Openstack.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("openstack")
-			}
-			return err
-		}
 	}
 
 	return nil

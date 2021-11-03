@@ -25,6 +25,62 @@ type Client struct {
 }
 
 /*
+AttachRecipesByCrn attaches recipe to the cluster by stack crn
+*/
+func (a *Client) AttachRecipesByCrn(params *AttachRecipesByCrnParams) (*AttachRecipesByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAttachRecipesByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "attachRecipesByCrn",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/crn/{crn}/attach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AttachRecipesByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AttachRecipesByCrnOK), nil
+
+}
+
+/*
+AttachRecipesByName attaches recipe to the cluster by stack crn
+*/
+func (a *Client) AttachRecipesByName(params *AttachRecipesByNameParams) (*AttachRecipesByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAttachRecipesByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "attachRecipesByName",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/name/{name}/attach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AttachRecipesByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AttachRecipesByNameOK), nil
+
+}
+
+/*
 CancelDistroxDiagnosticsCollectionsV1 cancels the not finished diagnostics collections
 */
 func (a *Client) CancelDistroxDiagnosticsCollectionsV1(params *CancelDistroxDiagnosticsCollectionsV1Params) error {
@@ -42,6 +98,34 @@ func (a *Client) CancelDistroxDiagnosticsCollectionsV1(params *CancelDistroxDiag
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CancelDistroxDiagnosticsCollectionsV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+ChangeImageCatalog changes image catalog of the cluster
+*/
+func (a *Client) ChangeImageCatalog(params *ChangeImageCatalogParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewChangeImageCatalogParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "changeImageCatalog",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/name/{name}/change_image_catalog",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ChangeImageCatalogReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -375,6 +459,118 @@ func (a *Client) DeleteWithKerberosDistroXV1ByName(params *DeleteWithKerberosDis
 		return err
 	}
 	return nil
+
+}
+
+/*
+DetachRecipesByCrn detaches recipe from the cluster by stack crn
+*/
+func (a *Client) DetachRecipesByCrn(params *DetachRecipesByCrnParams) (*DetachRecipesByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDetachRecipesByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "detachRecipesByCrn",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/crn/{crn}/detach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DetachRecipesByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DetachRecipesByCrnOK), nil
+
+}
+
+/*
+DetachRecipesByName detaches recipe from the cluster by stack crn
+*/
+func (a *Client) DetachRecipesByName(params *DetachRecipesByNameParams) (*DetachRecipesByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDetachRecipesByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "detachRecipesByName",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/name/{name}/detach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DetachRecipesByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DetachRecipesByNameOK), nil
+
+}
+
+/*
+GetClusterRecoverableByCrn validates if the distrox cluster is recoverable or not
+*/
+func (a *Client) GetClusterRecoverableByCrn(params *GetClusterRecoverableByCrnParams) (*GetClusterRecoverableByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetClusterRecoverableByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getClusterRecoverableByCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/crn/{crn}/get_cluster_recoverable",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetClusterRecoverableByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetClusterRecoverableByCrnOK), nil
+
+}
+
+/*
+GetClusterRecoverableByName validates if the distrox cluster is recoverable or not
+*/
+func (a *Client) GetClusterRecoverableByName(params *GetClusterRecoverableByNameParams) (*GetClusterRecoverableByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetClusterRecoverableByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getClusterRecoverableByName",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/{name}/get_cluster_recoverable",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetClusterRecoverableByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetClusterRecoverableByNameOK), nil
 
 }
 
@@ -937,6 +1133,62 @@ func (a *Client) PutScalingDistroXV1ByName(params *PutScalingDistroXV1ByNamePara
 		return nil, err
 	}
 	return result.(*PutScalingDistroXV1ByNameOK), nil
+
+}
+
+/*
+RefreshRecipesByCrn refreshes recipes on the cluster by stack crn
+*/
+func (a *Client) RefreshRecipesByCrn(params *RefreshRecipesByCrnParams) (*RefreshRecipesByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRefreshRecipesByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "refreshRecipesByCrn",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/crn/{crn}/refresh_recipes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RefreshRecipesByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RefreshRecipesByCrnOK), nil
+
+}
+
+/*
+RefreshRecipesByName refreshes recipes on the cluster by stack name
+*/
+func (a *Client) RefreshRecipesByName(params *RefreshRecipesByNameParams) (*RefreshRecipesByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRefreshRecipesByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "refreshRecipesByName",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/name/{name}/refresh_recipes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RefreshRecipesByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RefreshRecipesByNameOK), nil
 
 }
 

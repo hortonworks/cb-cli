@@ -32,9 +32,6 @@ type NetworkV4Response struct {
 	// mock
 	Mock *MockNetworkV4Parameters `json:"mock,omitempty"`
 
-	// provider specific parameters of the specified network
-	Openstack *OpenStackNetworkV4Parameters `json:"openstack,omitempty"`
-
 	// the subnet definition of the network in CIDR format
 	SubnetCIDR string `json:"subnetCIDR,omitempty"`
 
@@ -59,10 +56,6 @@ func (m *NetworkV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMock(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOpenstack(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -140,24 +133,6 @@ func (m *NetworkV4Response) validateMock(formats strfmt.Registry) error {
 		if err := m.Mock.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("mock")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *NetworkV4Response) validateOpenstack(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Openstack) { // not required
-		return nil
-	}
-
-	if m.Openstack != nil {
-		if err := m.Openstack.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("openstack")
 			}
 			return err
 		}

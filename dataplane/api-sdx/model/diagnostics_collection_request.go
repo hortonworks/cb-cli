@@ -47,8 +47,14 @@ type DiagnosticsCollectionRequest struct {
 	// Unique: true
 	Hosts []string `json:"hosts"`
 
+	// Include nginx html reports in the diagnostics collections
+	IncludeNginxReport bool `json:"includeNginxReport,omitempty"`
+
 	// Include salt logs in the diagnostic collections
 	IncludeSaltLogs bool `json:"includeSaltLogs,omitempty"`
+
+	// Include sar outputs in the diagnostics collections
+	IncludeSarOutput bool `json:"includeSarOutput,omitempty"`
 
 	// Issue number or JIRA ticket number related to this diagnostic collection request.
 	Issue string `json:"issue,omitempty"`

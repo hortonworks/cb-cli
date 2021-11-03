@@ -6,9 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AzureDistroXV1Parameters azure distro x v1 parameters
@@ -18,12 +22,71 @@ type AzureDistroXV1Parameters struct {
 	// encrypt storage
 	EncryptStorage bool `json:"encryptStorage,omitempty"`
 
+	// The SKU to be used for the Azure load balancer.
+	// Enum: [BASIC STANDARD NONE]
+	LoadBalancerSku string `json:"loadBalancerSku,omitempty"`
+
 	// resource group name
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
 }
 
 // Validate validates this azure distro x v1 parameters
 func (m *AzureDistroXV1Parameters) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLoadBalancerSku(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var azureDistroXV1ParametersTypeLoadBalancerSkuPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["BASIC","STANDARD","NONE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		azureDistroXV1ParametersTypeLoadBalancerSkuPropEnum = append(azureDistroXV1ParametersTypeLoadBalancerSkuPropEnum, v)
+	}
+}
+
+const (
+
+	// AzureDistroXV1ParametersLoadBalancerSkuBASIC captures enum value "BASIC"
+	AzureDistroXV1ParametersLoadBalancerSkuBASIC string = "BASIC"
+
+	// AzureDistroXV1ParametersLoadBalancerSkuSTANDARD captures enum value "STANDARD"
+	AzureDistroXV1ParametersLoadBalancerSkuSTANDARD string = "STANDARD"
+
+	// AzureDistroXV1ParametersLoadBalancerSkuNONE captures enum value "NONE"
+	AzureDistroXV1ParametersLoadBalancerSkuNONE string = "NONE"
+)
+
+// prop value enum
+func (m *AzureDistroXV1Parameters) validateLoadBalancerSkuEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, azureDistroXV1ParametersTypeLoadBalancerSkuPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *AzureDistroXV1Parameters) validateLoadBalancerSku(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LoadBalancerSku) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateLoadBalancerSkuEnum("loadBalancerSku", "body", m.LoadBalancerSku); err != nil {
+		return err
+	}
+
 	return nil
 }
 

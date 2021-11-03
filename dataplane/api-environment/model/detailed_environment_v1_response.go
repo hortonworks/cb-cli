@@ -60,6 +60,10 @@ type DetailedEnvironmentV1Response struct {
 	// id of the resource
 	Crn string `json:"crn,omitempty"`
 
+	// Deletion type of environment.
+	// Enum: [NONE SIMPLE FORCE]
+	DeletionType string `json:"deletionType,omitempty"`
+
 	// description of the resource
 	Description string `json:"description,omitempty"`
 
@@ -153,6 +157,10 @@ func (m *DetailedEnvironmentV1Response) Validate(formats strfmt.Registry) error 
 	}
 
 	if err := m.validateCredential(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDeletionType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -381,6 +389,52 @@ func (m *DetailedEnvironmentV1Response) validateCredential(formats strfmt.Regist
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var detailedEnvironmentV1ResponseTypeDeletionTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["NONE","SIMPLE","FORCE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		detailedEnvironmentV1ResponseTypeDeletionTypePropEnum = append(detailedEnvironmentV1ResponseTypeDeletionTypePropEnum, v)
+	}
+}
+
+const (
+
+	// DetailedEnvironmentV1ResponseDeletionTypeNONE captures enum value "NONE"
+	DetailedEnvironmentV1ResponseDeletionTypeNONE string = "NONE"
+
+	// DetailedEnvironmentV1ResponseDeletionTypeSIMPLE captures enum value "SIMPLE"
+	DetailedEnvironmentV1ResponseDeletionTypeSIMPLE string = "SIMPLE"
+
+	// DetailedEnvironmentV1ResponseDeletionTypeFORCE captures enum value "FORCE"
+	DetailedEnvironmentV1ResponseDeletionTypeFORCE string = "FORCE"
+)
+
+// prop value enum
+func (m *DetailedEnvironmentV1Response) validateDeletionTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, detailedEnvironmentV1ResponseTypeDeletionTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DetailedEnvironmentV1Response) validateDeletionType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DeletionType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateDeletionTypeEnum("deletionType", "body", m.DeletionType); err != nil {
+		return err
 	}
 
 	return nil

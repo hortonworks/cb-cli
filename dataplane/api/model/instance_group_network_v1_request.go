@@ -29,9 +29,6 @@ type InstanceGroupNetworkV1Request struct {
 	Mock *InstanceGroupMockNetworkV1Parameters `json:"mock,omitempty"`
 
 	// provider specific parameters of the specified network
-	Openstack *InstanceGroupOpenstackNetworkV1Parameters `json:"openstack,omitempty"`
-
-	// provider specific parameters of the specified network
 	Yarn InstanceGroupYarnNetworkV1Parameters `json:"yarn,omitempty"`
 }
 
@@ -52,10 +49,6 @@ func (m *InstanceGroupNetworkV1Request) Validate(formats strfmt.Registry) error 
 	}
 
 	if err := m.validateMock(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOpenstack(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -129,24 +122,6 @@ func (m *InstanceGroupNetworkV1Request) validateMock(formats strfmt.Registry) er
 		if err := m.Mock.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("mock")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *InstanceGroupNetworkV1Request) validateOpenstack(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Openstack) { // not required
-		return nil
-	}
-
-	if m.Openstack != nil {
-		if err := m.Openstack.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("openstack")
 			}
 			return err
 		}

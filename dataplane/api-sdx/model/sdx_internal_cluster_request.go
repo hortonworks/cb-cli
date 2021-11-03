@@ -7,6 +7,7 @@ package model
 
 import (
 	"encoding/json"
+	"strconv"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -21,6 +22,9 @@ type SdxInternalClusterRequest struct {
 
 	// aws
 	Aws *SdxAwsRequest `json:"aws,omitempty"`
+
+	// azure
+	Azure *SdxAzureRequest `json:"azure,omitempty"`
 
 	// cloud storage
 	CloudStorage *SdxCloudStorageRequest `json:"cloudStorage,omitempty"`
@@ -43,6 +47,10 @@ type SdxInternalClusterRequest struct {
 	// external database
 	ExternalDatabase *SdxDatabaseRequest `json:"externalDatabase,omitempty"`
 
+	// recipes
+	// Unique: true
+	Recipes []*SdxRecipe `json:"recipes"`
+
 	// runtime
 	Runtime string `json:"runtime,omitempty"`
 
@@ -61,6 +69,10 @@ func (m *SdxInternalClusterRequest) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCloudStorage(formats); err != nil {
 		res = append(res, err)
 	}
@@ -74,6 +86,10 @@ func (m *SdxInternalClusterRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateExternalDatabase(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecipes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -97,6 +113,24 @@ func (m *SdxInternalClusterRequest) validateAws(formats strfmt.Registry) error {
 		if err := m.Aws.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("aws")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *SdxInternalClusterRequest) validateAzure(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Azure) { // not required
+		return nil
+	}
+
+	if m.Azure != nil {
+		if err := m.Azure.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("azure")
 			}
 			return err
 		}
@@ -194,6 +228,35 @@ func (m *SdxInternalClusterRequest) validateExternalDatabase(formats strfmt.Regi
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *SdxInternalClusterRequest) validateRecipes(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Recipes) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("recipes", "body", m.Recipes); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Recipes); i++ {
+		if swag.IsZero(m.Recipes[i]) { // not required
+			continue
+		}
+
+		if m.Recipes[i] != nil {
+			if err := m.Recipes[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("recipes" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

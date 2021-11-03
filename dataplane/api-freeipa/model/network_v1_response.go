@@ -34,9 +34,6 @@ type NetworkV1Response struct {
 	// the network cidrs which have to be reacheable from the instances
 	NetworkCidrs []string `json:"networkCidrs"`
 
-	// provider specific parameters of the specified network
-	Openstack *OpenStackNetworkV1Parameters `json:"openstack,omitempty"`
-
 	// A flag to enable or disable the outbound internet traffic from the instances.
 	// Enum: [ENABLED DISABLED]
 	OutboundInternetTraffic string `json:"outboundInternetTraffic,omitempty"`
@@ -59,10 +56,6 @@ func (m *NetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMock(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOpenstack(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -140,24 +133,6 @@ func (m *NetworkV1Response) validateMock(formats strfmt.Registry) error {
 		if err := m.Mock.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("mock")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *NetworkV1Response) validateOpenstack(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Openstack) { // not required
-		return nil
-	}
-
-	if m.Openstack != nil {
-		if err := m.Openstack.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("openstack")
 			}
 			return err
 		}

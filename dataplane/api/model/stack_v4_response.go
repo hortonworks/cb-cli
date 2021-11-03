@@ -30,7 +30,7 @@ type StackV4Response struct {
 	Azure *AzureStackV4Parameters `json:"azure,omitempty"`
 
 	// Cloudplatform of the stack
-	// Enum: [AWS GCP AZURE OPENSTACK YARN MOCK]
+	// Enum: [AWS GCP AZURE YARN MOCK OPENSTACK]
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
 	// details of the Cloudbreak that provisioned the stack
@@ -104,9 +104,6 @@ type StackV4Response struct {
 	// node count of the stack
 	NodeCount int32 `json:"nodeCount,omitempty"`
 
-	// openstack specific parameters for stack
-	Openstack OpenStackStackV4Parameters `json:"openstack,omitempty"`
-
 	// placement configuration parameters for a cluster (e.g. 'region', 'availabilityZone')
 	// Required: true
 	Placement *PlacementSettingsV4Response `json:"placement"`
@@ -143,7 +140,7 @@ type StackV4Response struct {
 	// workspace of the resource
 	Workspace *WorkspaceResourceV4Response `json:"workspace,omitempty"`
 
-	// openstack specific parameters for stack
+	// yarn specific parameters for stack
 	Yarn *YarnStackV4Parameters `json:"yarn,omitempty"`
 }
 
@@ -289,7 +286,7 @@ var stackV4ResponseTypeCloudPlatformPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","YARN","MOCK"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","YARN","MOCK","OPENSTACK"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -308,14 +305,14 @@ const (
 	// StackV4ResponseCloudPlatformAZURE captures enum value "AZURE"
 	StackV4ResponseCloudPlatformAZURE string = "AZURE"
 
-	// StackV4ResponseCloudPlatformOPENSTACK captures enum value "OPENSTACK"
-	StackV4ResponseCloudPlatformOPENSTACK string = "OPENSTACK"
-
 	// StackV4ResponseCloudPlatformYARN captures enum value "YARN"
 	StackV4ResponseCloudPlatformYARN string = "YARN"
 
 	// StackV4ResponseCloudPlatformMOCK captures enum value "MOCK"
 	StackV4ResponseCloudPlatformMOCK string = "MOCK"
+
+	// StackV4ResponseCloudPlatformOPENSTACK captures enum value "OPENSTACK"
+	StackV4ResponseCloudPlatformOPENSTACK string = "OPENSTACK"
 )
 
 // prop value enum

@@ -32,9 +32,6 @@ type CredentialBase struct {
 	// custom parameters for GCP credential
 	Gcp *GcpV1Parameters `json:"gcp,omitempty"`
 
-	// custom parameters for Openstack credential
-	Openstack *OpenstackV1Parameters `json:"openstack,omitempty"`
-
 	// verification status text for credential, if empty then there is no verification issue
 	VerificationStatusText string `json:"verificationStatusText,omitempty"`
 
@@ -62,10 +59,6 @@ func (m *CredentialBase) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateGcp(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOpenstack(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -133,24 +126,6 @@ func (m *CredentialBase) validateGcp(formats strfmt.Registry) error {
 		if err := m.Gcp.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("gcp")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *CredentialBase) validateOpenstack(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Openstack) { // not required
-		return nil
-	}
-
-	if m.Openstack != nil {
-		if err := m.Openstack.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("openstack")
 			}
 			return err
 		}

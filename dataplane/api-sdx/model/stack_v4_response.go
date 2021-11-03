@@ -30,7 +30,7 @@ type StackV4Response struct {
 	Azure *AzureStackV4Parameters `json:"azure,omitempty"`
 
 	// Cloudplatform of the stack
-	// Enum: [AWS GCP AZURE OPENSTACK YARN MOCK]
+	// Enum: [AWS GCP AZURE YARN MOCK OPENSTACK]
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
 	// details of the Cloudbreak that provisioned the stack
@@ -104,9 +104,6 @@ type StackV4Response struct {
 	// node count of the stack
 	NodeCount int32 `json:"nodeCount,omitempty"`
 
-	// openstack specific parameters for stack
-	Openstack OpenStackStackV4Parameters `json:"openstack,omitempty"`
-
 	// placement configuration parameters for a cluster (e.g. 'region', 'availabilityZone')
 	// Required: true
 	Placement *PlacementSettingsV4Response `json:"placement"`
@@ -143,7 +140,7 @@ type StackV4Response struct {
 	// workspace of the resource
 	Workspace *WorkspaceResourceV4Response `json:"workspace,omitempty"`
 
-	// openstack specific parameters for stack
+	// yarn specific parameters for stack
 	Yarn *YarnStackV4Parameters `json:"yarn,omitempty"`
 }
 
@@ -289,7 +286,7 @@ var stackV4ResponseTypeCloudPlatformPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","YARN","MOCK"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","YARN","MOCK","OPENSTACK"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -308,14 +305,14 @@ const (
 	// StackV4ResponseCloudPlatformAZURE captures enum value "AZURE"
 	StackV4ResponseCloudPlatformAZURE string = "AZURE"
 
-	// StackV4ResponseCloudPlatformOPENSTACK captures enum value "OPENSTACK"
-	StackV4ResponseCloudPlatformOPENSTACK string = "OPENSTACK"
-
 	// StackV4ResponseCloudPlatformYARN captures enum value "YARN"
 	StackV4ResponseCloudPlatformYARN string = "YARN"
 
 	// StackV4ResponseCloudPlatformMOCK captures enum value "MOCK"
 	StackV4ResponseCloudPlatformMOCK string = "MOCK"
+
+	// StackV4ResponseCloudPlatformOPENSTACK captures enum value "OPENSTACK"
+	StackV4ResponseCloudPlatformOPENSTACK string = "OPENSTACK"
 )
 
 // prop value enum
@@ -619,7 +616,6 @@ var stackV4ResponseTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-
 	if err := json.Unmarshal([]byte(`["REQUESTED","CREATE_IN_PROGRESS","AVAILABLE","UPDATE_IN_PROGRESS","UPDATE_REQUESTED","UPDATE_FAILED","BACKUP_IN_PROGRESS","BACKUP_FAILED","BACKUP_FINISHED","RESTORE_IN_PROGRESS","RESTORE_FAILED","RESTORE_FINISHED","RECOVERY_IN_PROGRESS","RECOVERY_REQUESTED","RECOVERY_FAILED","CREATE_FAILED","ENABLE_SECURITY_FAILED","PRE_DELETE_IN_PROGRESS","DELETE_IN_PROGRESS","DELETE_FAILED","DELETED_ON_PROVIDER_SIDE","DELETE_COMPLETED","STOPPED","STOP_REQUESTED","START_REQUESTED","STOP_IN_PROGRESS","START_IN_PROGRESS","START_FAILED","STOP_FAILED","WAIT_FOR_SYNC","MAINTENANCE_MODE_ENABLED","AMBIGUOUS","UNREACHABLE","NODE_FAILURE","EXTERNAL_DATABASE_CREATION_IN_PROGRESS","EXTERNAL_DATABASE_CREATION_FAILED","EXTERNAL_DATABASE_DELETION_IN_PROGRESS","EXTERNAL_DATABASE_DELETION_FINISHED","EXTERNAL_DATABASE_DELETION_FAILED","EXTERNAL_DATABASE_START_IN_PROGRESS","EXTERNAL_DATABASE_START_FINISHED","EXTERNAL_DATABASE_START_FAILED","EXTERNAL_DATABASE_STOP_IN_PROGRESS","EXTERNAL_DATABASE_STOP_FINISHED","EXTERNAL_DATABASE_STOP_FAILED","LOAD_BALANCER_UPDATE_IN_PROGRESS","LOAD_BALANCER_UPDATE_FINISHED","LOAD_BALANCER_UPDATE_FAILED"]`), &res); err != nil {
 		panic(err)
 	}

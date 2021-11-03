@@ -26,7 +26,7 @@ type InstanceGroupV1Request struct {
 	Azure *AzureInstanceGroupV1Parameters `json:"azure,omitempty"`
 
 	// cloud platform
-	// Enum: [AWS GCP AZURE OPENSTACK YARN MOCK]
+	// Enum: [AWS GCP AZURE YARN MOCK OPENSTACK]
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
 	// gcp
@@ -144,7 +144,7 @@ var instanceGroupV1RequestTypeCloudPlatformPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","YARN","MOCK"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","YARN","MOCK","OPENSTACK"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -163,14 +163,14 @@ const (
 	// InstanceGroupV1RequestCloudPlatformAZURE captures enum value "AZURE"
 	InstanceGroupV1RequestCloudPlatformAZURE string = "AZURE"
 
-	// InstanceGroupV1RequestCloudPlatformOPENSTACK captures enum value "OPENSTACK"
-	InstanceGroupV1RequestCloudPlatformOPENSTACK string = "OPENSTACK"
-
 	// InstanceGroupV1RequestCloudPlatformYARN captures enum value "YARN"
 	InstanceGroupV1RequestCloudPlatformYARN string = "YARN"
 
 	// InstanceGroupV1RequestCloudPlatformMOCK captures enum value "MOCK"
 	InstanceGroupV1RequestCloudPlatformMOCK string = "MOCK"
+
+	// InstanceGroupV1RequestCloudPlatformOPENSTACK captures enum value "OPENSTACK"
+	InstanceGroupV1RequestCloudPlatformOPENSTACK string = "OPENSTACK"
 )
 
 // prop value enum

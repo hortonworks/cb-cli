@@ -24,9 +24,6 @@ type InstanceGroupNetworkV4Request struct {
 
 	// provider specific parameters of the specified network
 	Gcp *InstanceGroupGcpNetworkV4Parameters `json:"gcp,omitempty"`
-
-	// provider specific parameters of the specified network
-	Openstack *InstanceGroupOpenstackNetworkV4Parameters `json:"openstack,omitempty"`
 }
 
 // Validate validates this instance group network v4 request
@@ -42,10 +39,6 @@ func (m *InstanceGroupNetworkV4Request) Validate(formats strfmt.Registry) error 
 	}
 
 	if err := m.validateGcp(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOpenstack(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -101,24 +94,6 @@ func (m *InstanceGroupNetworkV4Request) validateGcp(formats strfmt.Registry) err
 		if err := m.Gcp.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("gcp")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *InstanceGroupNetworkV4Request) validateOpenstack(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Openstack) { // not required
-		return nil
-	}
-
-	if m.Openstack != nil {
-		if err := m.Openstack.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("openstack")
 			}
 			return err
 		}

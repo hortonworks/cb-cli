@@ -18,9 +18,6 @@ type SdxRecoveryResponse struct {
 
 	// flow identifier
 	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
-
-	// reason
-	Reason string `json:"reason,omitempty"`
 }
 
 // Validate validates this sdx recovery response

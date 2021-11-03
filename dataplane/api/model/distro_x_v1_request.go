@@ -27,7 +27,7 @@ type DistroXV1Request struct {
 	Azure *AzureDistroXV1Parameters `json:"azure,omitempty"`
 
 	// cloud platform
-	// Enum: [AWS GCP AZURE OPENSTACK YARN MOCK]
+	// Enum: [AWS GCP AZURE YARN MOCK OPENSTACK]
 	CloudPlatform string `json:"cloudPlatform,omitempty"`
 
 	// cluster
@@ -154,7 +154,7 @@ var distroXV1RequestTypeCloudPlatformPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","OPENSTACK","YARN","MOCK"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["AWS","GCP","AZURE","YARN","MOCK","OPENSTACK"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -173,14 +173,14 @@ const (
 	// DistroXV1RequestCloudPlatformAZURE captures enum value "AZURE"
 	DistroXV1RequestCloudPlatformAZURE string = "AZURE"
 
-	// DistroXV1RequestCloudPlatformOPENSTACK captures enum value "OPENSTACK"
-	DistroXV1RequestCloudPlatformOPENSTACK string = "OPENSTACK"
-
 	// DistroXV1RequestCloudPlatformYARN captures enum value "YARN"
 	DistroXV1RequestCloudPlatformYARN string = "YARN"
 
 	// DistroXV1RequestCloudPlatformMOCK captures enum value "MOCK"
 	DistroXV1RequestCloudPlatformMOCK string = "MOCK"
+
+	// DistroXV1RequestCloudPlatformOPENSTACK captures enum value "OPENSTACK"
+	DistroXV1RequestCloudPlatformOPENSTACK string = "OPENSTACK"
 )
 
 // prop value enum

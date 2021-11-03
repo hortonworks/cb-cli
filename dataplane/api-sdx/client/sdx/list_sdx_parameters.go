@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -20,8 +21,11 @@ import (
 // NewListSdxParams creates a new ListSdxParams object
 // with the default values initialized.
 func NewListSdxParams() *ListSdxParams {
-	var ()
+	var (
+		includeDetachedDefault = bool(false)
+	)
 	return &ListSdxParams{
+		IncludeDetached: &includeDetachedDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -30,8 +34,11 @@ func NewListSdxParams() *ListSdxParams {
 // NewListSdxParamsWithTimeout creates a new ListSdxParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewListSdxParamsWithTimeout(timeout time.Duration) *ListSdxParams {
-	var ()
+	var (
+		includeDetachedDefault = bool(false)
+	)
 	return &ListSdxParams{
+		IncludeDetached: &includeDetachedDefault,
 
 		timeout: timeout,
 	}
@@ -40,8 +47,11 @@ func NewListSdxParamsWithTimeout(timeout time.Duration) *ListSdxParams {
 // NewListSdxParamsWithContext creates a new ListSdxParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewListSdxParamsWithContext(ctx context.Context) *ListSdxParams {
-	var ()
+	var (
+		includeDetachedDefault = bool(false)
+	)
 	return &ListSdxParams{
+		IncludeDetached: &includeDetachedDefault,
 
 		Context: ctx,
 	}
@@ -50,9 +60,12 @@ func NewListSdxParamsWithContext(ctx context.Context) *ListSdxParams {
 // NewListSdxParamsWithHTTPClient creates a new ListSdxParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewListSdxParamsWithHTTPClient(client *http.Client) *ListSdxParams {
-	var ()
+	var (
+		includeDetachedDefault = bool(false)
+	)
 	return &ListSdxParams{
-		HTTPClient: client,
+		IncludeDetached: &includeDetachedDefault,
+		HTTPClient:      client,
 	}
 }
 
@@ -63,6 +76,8 @@ type ListSdxParams struct {
 
 	/*EnvName*/
 	EnvName *string
+	/*IncludeDetached*/
+	IncludeDetached *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -113,6 +128,17 @@ func (o *ListSdxParams) SetEnvName(envName *string) {
 	o.EnvName = envName
 }
 
+// WithIncludeDetached adds the includeDetached to the list sdx params
+func (o *ListSdxParams) WithIncludeDetached(includeDetached *bool) *ListSdxParams {
+	o.SetIncludeDetached(includeDetached)
+	return o
+}
+
+// SetIncludeDetached adds the includeDetached to the list sdx params
+func (o *ListSdxParams) SetIncludeDetached(includeDetached *bool) {
+	o.IncludeDetached = includeDetached
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *ListSdxParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -131,6 +157,22 @@ func (o *ListSdxParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 		qEnvName := qrEnvName
 		if qEnvName != "" {
 			if err := r.SetQueryParam("envName", qEnvName); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.IncludeDetached != nil {
+
+		// query param includeDetached
+		var qrIncludeDetached bool
+		if o.IncludeDetached != nil {
+			qrIncludeDetached = *o.IncludeDetached
+		}
+		qIncludeDetached := swag.FormatBool(qrIncludeDetached)
+		if qIncludeDetached != "" {
+			if err := r.SetQueryParam("includeDetached", qIncludeDetached); err != nil {
 				return err
 			}
 		}

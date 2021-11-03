@@ -51,7 +51,6 @@ var sdxClusterResizeRequestTypeClusterShapePropEnum []interface{}
 
 func init() {
 	var res []string
-
 	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA","MICRO_DUTY"]`), &res); err != nil {
 		panic(err)
 	}

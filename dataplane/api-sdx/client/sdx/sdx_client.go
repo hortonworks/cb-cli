@@ -53,6 +53,62 @@ func (a *Client) Advertisedruntimes(params *AdvertisedruntimesParams) (*Advertis
 }
 
 /*
+AttachRecipesByCrn attaches recipe to the cluster by stack crn
+*/
+func (a *Client) AttachRecipesByCrn(params *AttachRecipesByCrnParams) (*AttachRecipesByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAttachRecipesByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "attachRecipesByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/crn/{crn}/attach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AttachRecipesByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AttachRecipesByCrnOK), nil
+
+}
+
+/*
+AttachRecipesByName attaches recipe to the cluster by stack crn
+*/
+func (a *Client) AttachRecipesByName(params *AttachRecipesByNameParams) (*AttachRecipesByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAttachRecipesByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "attachRecipesByName",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/attach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AttachRecipesByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AttachRecipesByNameOK), nil
+
+}
+
+/*
 BackupDatabase backups the database backing datalake
 */
 func (a *Client) BackupDatabase(params *BackupDatabaseParams) (*BackupDatabaseOK, error) {
@@ -193,6 +249,34 @@ func (a *Client) BackupDatalakeStatus(params *BackupDatalakeStatusParams) (*Back
 }
 
 /*
+ChangeImageCatalog changes image catalog of the cluster
+*/
+func (a *Client) ChangeImageCatalog(params *ChangeImageCatalogParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewChangeImageCatalogParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "changeImageCatalog",
+		Method:             "PUT",
+		PathPattern:        "/sdx/{name}/change_image_catalog",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ChangeImageCatalogReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 CreateCustomSdx creates custom s d x cluster
 */
 func (a *Client) CreateCustomSdx(params *CreateCustomSdxParams) (*CreateCustomSdxOK, error) {
@@ -305,6 +389,118 @@ func (a *Client) DeleteSdxByCrn(params *DeleteSdxByCrnParams) (*DeleteSdxByCrnOK
 }
 
 /*
+DetachRecipesByCrn detaches recipe from the cluster by stack crn
+*/
+func (a *Client) DetachRecipesByCrn(params *DetachRecipesByCrnParams) (*DetachRecipesByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDetachRecipesByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "detachRecipesByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/crn/{crn}/detach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DetachRecipesByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DetachRecipesByCrnOK), nil
+
+}
+
+/*
+DetachRecipesByName detaches recipe from the cluster by stack crn
+*/
+func (a *Client) DetachRecipesByName(params *DetachRecipesByNameParams) (*DetachRecipesByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDetachRecipesByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "detachRecipesByName",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/detach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DetachRecipesByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DetachRecipesByNameOK), nil
+
+}
+
+/*
+EnableRangerRazByCrn sets the ranger raz enabled flag of the cluster if raz is installed manually
+*/
+func (a *Client) EnableRangerRazByCrn(params *EnableRangerRazByCrnParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEnableRangerRazByCrnParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "enableRangerRazByCrn",
+		Method:             "PUT",
+		PathPattern:        "/sdx/crn/{crn}/enable_ranger_raz",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &EnableRangerRazByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+EnableRangerRazByName sets the ranger raz enabled flag of the cluster if raz is installed manually
+*/
+func (a *Client) EnableRangerRazByName(params *EnableRangerRazByNameParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEnableRangerRazByNameParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "enableRangerRazByName",
+		Method:             "PUT",
+		PathPattern:        "/sdx/name/{name}/enable_ranger_raz",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &EnableRangerRazByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 GetBackupDatalakeStatus backups status of the datalake by datalake name
 */
 func (a *Client) GetBackupDatalakeStatus(params *GetBackupDatalakeStatusParams) (*GetBackupDatalakeStatusOK, error) {
@@ -329,6 +525,62 @@ func (a *Client) GetBackupDatalakeStatus(params *GetBackupDatalakeStatusParams) 
 		return nil, err
 	}
 	return result.(*GetBackupDatalakeStatusOK), nil
+
+}
+
+/*
+GetClusterRecoverableByCrn validates if the data lake is recoverable or not
+*/
+func (a *Client) GetClusterRecoverableByCrn(params *GetClusterRecoverableByCrnParams) (*GetClusterRecoverableByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetClusterRecoverableByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getClusterRecoverableByCrn",
+		Method:             "GET",
+		PathPattern:        "/sdx/crn/{crn}/recoverable",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetClusterRecoverableByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetClusterRecoverableByCrnOK), nil
+
+}
+
+/*
+GetClusterRecoverableByName validates if the data lake is recoverable or not
+*/
+func (a *Client) GetClusterRecoverableByName(params *GetClusterRecoverableByNameParams) (*GetClusterRecoverableByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetClusterRecoverableByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getClusterRecoverableByName",
+		Method:             "GET",
+		PathPattern:        "/sdx/{name}/recoverable",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetClusterRecoverableByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetClusterRecoverableByNameOK), nil
 
 }
 
@@ -413,6 +665,34 @@ func (a *Client) GetDatalakeRestoreID(params *GetDatalakeRestoreIDParams) (*GetD
 		return nil, err
 	}
 	return result.(*GetDatalakeRestoreIDOK), nil
+
+}
+
+/*
+GetInstanceGroupNamesBySdxDetails gathers available instance group names by s d x cluster attributes
+*/
+func (a *Client) GetInstanceGroupNamesBySdxDetails(params *GetInstanceGroupNamesBySdxDetailsParams) (*GetInstanceGroupNamesBySdxDetailsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetInstanceGroupNamesBySdxDetailsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getInstanceGroupNamesBySdxDetails",
+		Method:             "GET",
+		PathPattern:        "/sdx/instance_group_names",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetInstanceGroupNamesBySdxDetailsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetInstanceGroupNamesBySdxDetailsOK), nil
 
 }
 
@@ -721,6 +1001,62 @@ func (a *Client) RecoverDatalakeClusterByCrn(params *RecoverDatalakeClusterByCrn
 		return nil, err
 	}
 	return result.(*RecoverDatalakeClusterByCrnOK), nil
+
+}
+
+/*
+RefreshRecipesByCrn refreshes recipes on the cluster by stack crn
+*/
+func (a *Client) RefreshRecipesByCrn(params *RefreshRecipesByCrnParams) (*RefreshRecipesByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRefreshRecipesByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "refreshRecipesByCrn",
+		Method:             "PUT",
+		PathPattern:        "/sdx/crn/{crn}/refresh_recipes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RefreshRecipesByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RefreshRecipesByCrnOK), nil
+
+}
+
+/*
+RefreshRecipesByName refreshes recipes on the cluster by stack name
+*/
+func (a *Client) RefreshRecipesByName(params *RefreshRecipesByNameParams) (*RefreshRecipesByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRefreshRecipesByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "refreshRecipesByName",
+		Method:             "PUT",
+		PathPattern:        "/sdx/name/{name}/refresh_recipes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RefreshRecipesByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RefreshRecipesByNameOK), nil
 
 }
 
@@ -1201,6 +1537,62 @@ func (a *Client) StopSdxByName(params *StopSdxByNameParams) (*StopSdxByNameOK, e
 }
 
 /*
+SyncCmOnDatalakeCluster syncs c m and parcel versions from c m and updates s d x cluster version
+*/
+func (a *Client) SyncCmOnDatalakeCluster(params *SyncCmOnDatalakeClusterParams) (*SyncCmOnDatalakeClusterOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSyncCmOnDatalakeClusterParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "syncCmOnDatalakeCluster",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/sync_component_versions_from_cm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &SyncCmOnDatalakeClusterReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SyncCmOnDatalakeClusterOK), nil
+
+}
+
+/*
+SyncCmOnDatalakeClusterByCrn syncs c m and parcel versions from c m and updates s d x cluster version
+*/
+func (a *Client) SyncCmOnDatalakeClusterByCrn(params *SyncCmOnDatalakeClusterByCrnParams) (*SyncCmOnDatalakeClusterByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSyncCmOnDatalakeClusterByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "syncCmOnDatalakeClusterByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/crn/{crn}/sync_component_versions_from_cm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &SyncCmOnDatalakeClusterByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SyncCmOnDatalakeClusterByCrnOK), nil
+
+}
+
+/*
 SyncSdx syncs s d x cluster by name
 */
 func (a *Client) SyncSdx(params *SyncSdxParams) error {
@@ -1257,7 +1649,7 @@ func (a *Client) SyncSdxByCrn(params *SyncSdxByCrnParams) error {
 }
 
 /*
-UpgradeDatalakeCluster upgrades the datalake cluster
+UpgradeDatalakeCluster upgrades the data lake cluster
 */
 func (a *Client) UpgradeDatalakeCluster(params *UpgradeDatalakeClusterParams) (*UpgradeDatalakeClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -1285,7 +1677,7 @@ func (a *Client) UpgradeDatalakeCluster(params *UpgradeDatalakeClusterParams) (*
 }
 
 /*
-UpgradeDatalakeClusterByCrn upgrades the datalake cluster
+UpgradeDatalakeClusterByCrn upgrades the data lake cluster
 */
 func (a *Client) UpgradeDatalakeClusterByCrn(params *UpgradeDatalakeClusterByCrnParams) (*UpgradeDatalakeClusterByCrnOK, error) {
 	// TODO: Validate the params before sending

@@ -25,6 +25,90 @@ type Client struct {
 }
 
 /*
+AttachRecipeInternal attaches recipe to the cluster by name in workspace internal only
+*/
+func (a *Client) AttachRecipeInternal(params *AttachRecipeInternalParams) (*AttachRecipeInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAttachRecipeInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "attachRecipeInternal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/attach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AttachRecipeInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AttachRecipeInternalOK), nil
+
+}
+
+/*
+AttachStackRecipe attaches recipe to the cluster by name in workspace
+*/
+func (a *Client) AttachStackRecipe(params *AttachStackRecipeParams) (*AttachStackRecipeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAttachStackRecipeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "attachStackRecipe",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/attach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AttachStackRecipeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AttachStackRecipeOK), nil
+
+}
+
+/*
+ChangeImageCatalogInternal changes image catalog of the cluster
+*/
+func (a *Client) ChangeImageCatalogInternal(params *ChangeImageCatalogInternalParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewChangeImageCatalogInternalParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "changeImageCatalogInternal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/change_image_catalog",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ChangeImageCatalogInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 ChangeImageStackInWorkspaceV4 checks image in stack by name in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -405,6 +489,62 @@ func (a *Client) DeleteWithKerberos(params *DeleteWithKerberosParams) error {
 }
 
 /*
+DetachRecipeInternal detaches recipe from the cluster by name in workspace internal only
+*/
+func (a *Client) DetachRecipeInternal(params *DetachRecipeInternalParams) (*DetachRecipeInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDetachRecipeInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "detachRecipeInternal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/detach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DetachRecipeInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DetachRecipeInternalOK), nil
+
+}
+
+/*
+DetachStackRecipe detaches recipe from the cluster by name in workspace
+*/
+func (a *Client) DetachStackRecipe(params *DetachStackRecipeParams) (*DetachStackRecipeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDetachStackRecipeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "detachStackRecipe",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/detach_recipe",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DetachStackRecipeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DetachStackRecipeOK), nil
+
+}
+
+/*
 GetClusterHostsInventory generates hosts inventory
 */
 func (a *Client) GetClusterHostsInventory(params *GetClusterHostsInventoryParams) (*GetClusterHostsInventoryOK, error) {
@@ -429,6 +569,34 @@ func (a *Client) GetClusterHostsInventory(params *GetClusterHostsInventoryParams
 		return nil, err
 	}
 	return result.(*GetClusterHostsInventoryOK), nil
+
+}
+
+/*
+GetClusterRecoverableByNameInternal validates if the cluster is recoverable or not
+*/
+func (a *Client) GetClusterRecoverableByNameInternal(params *GetClusterRecoverableByNameInternalParams) (*GetClusterRecoverableByNameInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetClusterRecoverableByNameInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getClusterRecoverableByNameInternal",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/cluster_recoverable",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetClusterRecoverableByNameInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetClusterRecoverableByNameInternalOK), nil
 
 }
 
@@ -763,6 +931,34 @@ func (a *Client) PutpasswordStackV4(params *PutpasswordStackV4Params) (*Putpassw
 }
 
 /*
+RangerRazEnabled determines if ranger raz is present in the cluster
+*/
+func (a *Client) RangerRazEnabled(params *RangerRazEnabledParams) (*RangerRazEnabledOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRangerRazEnabledParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rangerRazEnabled",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{crn}/ranger_raz_enabled",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RangerRazEnabledReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RangerRazEnabledOK), nil
+
+}
+
+/*
 RecoverClusterInternal recovers the stack by name in workspace internal only
 */
 func (a *Client) RecoverClusterInternal(params *RecoverClusterInternalParams) (*RecoverClusterInternalOK, error) {
@@ -787,6 +983,62 @@ func (a *Client) RecoverClusterInternal(params *RecoverClusterInternalParams) (*
 		return nil, err
 	}
 	return result.(*RecoverClusterInternalOK), nil
+
+}
+
+/*
+RefreshRecipesInternal refreshes recipes on the cluster by name in workspace internal only
+*/
+func (a *Client) RefreshRecipesInternal(params *RefreshRecipesInternalParams) (*RefreshRecipesInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRefreshRecipesInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "refreshRecipesInternal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/refresh_recipes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RefreshRecipesInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RefreshRecipesInternalOK), nil
+
+}
+
+/*
+RefreshStackRecipes refreshes recipes on the cluster by name in workspace
+*/
+func (a *Client) RefreshStackRecipes(params *RefreshStackRecipesParams) (*RefreshStackRecipesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRefreshStackRecipesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "refreshStackRecipes",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/refresh_recipes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RefreshStackRecipesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RefreshStackRecipesOK), nil
 
 }
 
@@ -1203,6 +1455,36 @@ func (a *Client) UpdateLoadBalancersInternal(params *UpdateLoadBalancersInternal
 		return nil, err
 	}
 	return result.(*UpdateLoadBalancersInternalOK), nil
+
+}
+
+/*
+UpdateNameCrnAndType updates stack by name in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) UpdateNameCrnAndType(params *UpdateNameCrnAndTypeParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateNameCrnAndTypeParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateNameCrnAndType",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/update_name_crn_type",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateNameCrnAndTypeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 
 }
 

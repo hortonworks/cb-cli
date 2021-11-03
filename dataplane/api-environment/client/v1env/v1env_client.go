@@ -25,6 +25,66 @@ type Client struct {
 }
 
 /*
+UpdateAzureResourceEncryptionParametersV1 updates the customer managed key of the azure environment of a given name
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) UpdateAzureResourceEncryptionParametersV1(params *UpdateAzureResourceEncryptionParametersV1Params) (*UpdateAzureResourceEncryptionParametersV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateAzureResourceEncryptionParametersV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "UpdateAzureResourceEncryptionParametersV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/env/name/{name}/update_azure_encryption_resources",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateAzureResourceEncryptionParametersV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateAzureResourceEncryptionParametersV1OK), nil
+
+}
+
+/*
+UpdateAzureResourceEncryptionParametersV1ByCrn updates the customer managed key of the azure environment of a given c r n
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) UpdateAzureResourceEncryptionParametersV1ByCrn(params *UpdateAzureResourceEncryptionParametersV1ByCrnParams) (*UpdateAzureResourceEncryptionParametersV1ByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateAzureResourceEncryptionParametersV1ByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "UpdateAzureResourceEncryptionParametersV1ByCrn",
+		Method:             "PUT",
+		PathPattern:        "/v1/env/crn/{crn}/update_azure_encryption_resources",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateAzureResourceEncryptionParametersV1ByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateAzureResourceEncryptionParametersV1ByCrnOK), nil
+
+}
+
+/*
 ChangeCredentialInEnvironmentV1 changes the credential of the environment and the clusters in the environment of a given name
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
