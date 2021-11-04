@@ -101,6 +101,9 @@ dev-debug-darwin:
 build-linux:
 	GOOS=linux GO111MODULE=on CGO_ENABLED=0 go build -mod=vendor -a ${LDFLAGS_NOVER} -o build/Linux/${BINARY} main.go
 
+dev-debug-linux:
+	GOOS=linux GO111MODULE=on CGO_ENABLED=0 go build -a ${LDFLAGS_NOVER} -o ~/.local/bin/${BINARY} main.go
+
 build-windows:
 	GOOS=windows GO111MODULE=on CGO_ENABLED=0 go build -mod=vendor -a ${LDFLAGS_NOVER} -o build/Windows/${BINARY}.exe main.go
 
@@ -113,8 +116,9 @@ build-linux-version:
 build-windows-version:
 	GOOS=windows GO111MODULE=on CGO_ENABLED=0 go build -a ${LDFLAGS} -o build/Windows/${BINARY}.exe main.go
 
-install: build ## Installs OS specific binary into: /usr/local/bin
-	install build/$(shell uname -s)/$(BINARY) /usr/local/bin
+install: build ## Installs OS specific binary into: /usr/local/bin and ~/.local/bin
+	install build/$(shell uname -s)/$(BINARY) /usr/local/bin || true
+	install build/$(shell uname -s)/$(BINARY) ~/.local/bin || true
 
 _init-swagger-generation:
 	rm -rf dataplane/api/client dataplane/api/model
