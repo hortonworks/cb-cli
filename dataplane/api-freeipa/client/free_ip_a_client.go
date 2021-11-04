@@ -39,7 +39,7 @@ const (
 	DefaultHost string = "localhost"
 	// DefaultBasePath is the default BasePath
 	// found in Meta (info) section of spec file
-	DefaultBasePath string = "/api"
+	DefaultBasePath string = "/freeipa/api"
 )
 
 // DefaultSchemes are the default schemes found in Meta (info) section of spec file

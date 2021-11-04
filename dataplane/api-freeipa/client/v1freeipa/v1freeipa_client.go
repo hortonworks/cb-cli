@@ -29,7 +29,7 @@ AttachChildEnvironmentV1 registers a child environment
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) AttachChildEnvironmentV1(params *AttachChildEnvironmentV1Params) error {
+func (a *Client) AttachChildEnvironmentV1(params *AttachChildEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) error {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAttachChildEnvironmentV1Params()
@@ -44,6 +44,7 @@ func (a *Client) AttachChildEnvironmentV1(params *AttachChildEnvironmentV1Params
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AttachChildEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -59,7 +60,7 @@ ChangeImageCatalog changes the image catalog used for creating instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) ChangeImageCatalog(params *ChangeImageCatalogParams) error {
+func (a *Client) ChangeImageCatalog(params *ChangeImageCatalogParams, authInfo runtime.ClientAuthInfoWriter) error {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewChangeImageCatalogParams()
@@ -74,6 +75,7 @@ func (a *Client) ChangeImageCatalog(params *ChangeImageCatalogParams) error {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ChangeImageCatalogReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -89,7 +91,7 @@ ChangeImageV1 changes the image used for creating instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) ChangeImageV1(params *ChangeImageV1Params) (*ChangeImageV1OK, error) {
+func (a *Client) ChangeImageV1(params *ChangeImageV1Params, authInfo runtime.ClientAuthInfoWriter) (*ChangeImageV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewChangeImageV1Params()
@@ -104,6 +106,7 @@ func (a *Client) ChangeImageV1(params *ChangeImageV1Params) (*ChangeImageV1OK, e
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ChangeImageV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -119,7 +122,7 @@ CleanupV1 cleans out users hosts and related DNS entries
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) CleanupV1(params *CleanupV1Params) (*CleanupV1OK, error) {
+func (a *Client) CleanupV1(params *CleanupV1Params, authInfo runtime.ClientAuthInfoWriter) (*CleanupV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCleanupV1Params()
@@ -134,6 +137,7 @@ func (a *Client) CleanupV1(params *CleanupV1Params) (*CleanupV1OK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CleanupV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -149,7 +153,7 @@ ClusterProxyDeregisterV1 deregisters free IP a stack with given environment c r 
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) ClusterProxyDeregisterV1(params *ClusterProxyDeregisterV1Params) error {
+func (a *Client) ClusterProxyDeregisterV1(params *ClusterProxyDeregisterV1Params, authInfo runtime.ClientAuthInfoWriter) error {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewClusterProxyDeregisterV1Params()
@@ -164,6 +168,7 @@ func (a *Client) ClusterProxyDeregisterV1(params *ClusterProxyDeregisterV1Params
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ClusterProxyDeregisterV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -179,7 +184,7 @@ ClusterProxyRegisterV1 registers free IP a stack with given environment c r n wi
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) ClusterProxyRegisterV1(params *ClusterProxyRegisterV1Params) (*ClusterProxyRegisterV1OK, error) {
+func (a *Client) ClusterProxyRegisterV1(params *ClusterProxyRegisterV1Params, authInfo runtime.ClientAuthInfoWriter) (*ClusterProxyRegisterV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewClusterProxyRegisterV1Params()
@@ -194,6 +199,7 @@ func (a *Client) ClusterProxyRegisterV1(params *ClusterProxyRegisterV1Params) (*
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ClusterProxyRegisterV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -209,7 +215,7 @@ CreateBindUserV1 creates kerberos and ldap bind users for cluster
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) CreateBindUserV1(params *CreateBindUserV1Params) (*CreateBindUserV1OK, error) {
+func (a *Client) CreateBindUserV1(params *CreateBindUserV1Params, authInfo runtime.ClientAuthInfoWriter) (*CreateBindUserV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateBindUserV1Params()
@@ -224,6 +230,7 @@ func (a *Client) CreateBindUserV1(params *CreateBindUserV1Params) (*CreateBindUs
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateBindUserV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -239,7 +246,7 @@ CreateFreeIpaV1 creates free ipa stack
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) CreateFreeIpaV1(params *CreateFreeIpaV1Params) (*CreateFreeIpaV1OK, error) {
+func (a *Client) CreateFreeIpaV1(params *CreateFreeIpaV1Params, authInfo runtime.ClientAuthInfoWriter) (*CreateFreeIpaV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateFreeIpaV1Params()
@@ -254,6 +261,7 @@ func (a *Client) CreateFreeIpaV1(params *CreateFreeIpaV1Params) (*CreateFreeIpaV
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateFreeIpaV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -269,7 +277,7 @@ DeleteFreeIpaByEnvironmentV1 deletes free IP a stack by envid
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) DeleteFreeIpaByEnvironmentV1(params *DeleteFreeIpaByEnvironmentV1Params) error {
+func (a *Client) DeleteFreeIpaByEnvironmentV1(params *DeleteFreeIpaByEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) error {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteFreeIpaByEnvironmentV1Params()
@@ -284,6 +292,7 @@ func (a *Client) DeleteFreeIpaByEnvironmentV1(params *DeleteFreeIpaByEnvironment
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteFreeIpaByEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -299,7 +308,7 @@ DetachChildEnvironmentV1 deregisters a child environment
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) DetachChildEnvironmentV1(params *DetachChildEnvironmentV1Params) error {
+func (a *Client) DetachChildEnvironmentV1(params *DetachChildEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) error {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDetachChildEnvironmentV1Params()
@@ -314,6 +323,7 @@ func (a *Client) DetachChildEnvironmentV1(params *DetachChildEnvironmentV1Params
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DetachChildEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -329,7 +339,7 @@ GenerateImageCatalog generates an image catalog that only contains the currently
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) GenerateImageCatalog(params *GenerateImageCatalogParams) (*GenerateImageCatalogOK, error) {
+func (a *Client) GenerateImageCatalog(params *GenerateImageCatalogParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateImageCatalogOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGenerateImageCatalogParams()
@@ -344,6 +354,7 @@ func (a *Client) GenerateImageCatalog(params *GenerateImageCatalogParams) (*Gene
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GenerateImageCatalogReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -359,7 +370,7 @@ GetFreeIpaByEnvironmentV1 gets free IP a stack by envid
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) GetFreeIpaByEnvironmentV1(params *GetFreeIpaByEnvironmentV1Params) (*GetFreeIpaByEnvironmentV1OK, error) {
+func (a *Client) GetFreeIpaByEnvironmentV1(params *GetFreeIpaByEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) (*GetFreeIpaByEnvironmentV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetFreeIpaByEnvironmentV1Params()
@@ -374,6 +385,7 @@ func (a *Client) GetFreeIpaByEnvironmentV1(params *GetFreeIpaByEnvironmentV1Para
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFreeIpaByEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -389,7 +401,7 @@ GetFreeIpaRootCertificateByEnvironmentV1 gets free IP a root certificate by envi
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) GetFreeIpaRootCertificateByEnvironmentV1(params *GetFreeIpaRootCertificateByEnvironmentV1Params) (*GetFreeIpaRootCertificateByEnvironmentV1OK, error) {
+func (a *Client) GetFreeIpaRootCertificateByEnvironmentV1(params *GetFreeIpaRootCertificateByEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) (*GetFreeIpaRootCertificateByEnvironmentV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetFreeIpaRootCertificateByEnvironmentV1Params()
@@ -404,6 +416,7 @@ func (a *Client) GetFreeIpaRootCertificateByEnvironmentV1(params *GetFreeIpaRoot
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFreeIpaRootCertificateByEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -449,7 +462,7 @@ HealthV1 provides a detailed health of the free IP a stack
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) HealthV1(params *HealthV1Params) (*HealthV1OK, error) {
+func (a *Client) HealthV1(params *HealthV1Params, authInfo runtime.ClientAuthInfoWriter) (*HealthV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewHealthV1Params()
@@ -464,6 +477,7 @@ func (a *Client) HealthV1(params *HealthV1Params) (*HealthV1OK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &HealthV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -479,7 +493,7 @@ InternalCleanupV1 cleans out users hosts and related DNS entries using internal 
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) InternalCleanupV1(params *InternalCleanupV1Params) (*InternalCleanupV1OK, error) {
+func (a *Client) InternalCleanupV1(params *InternalCleanupV1Params, authInfo runtime.ClientAuthInfoWriter) (*InternalCleanupV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInternalCleanupV1Params()
@@ -494,6 +508,7 @@ func (a *Client) InternalCleanupV1(params *InternalCleanupV1Params) (*InternalCl
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &InternalCleanupV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -509,7 +524,7 @@ InternalGetFreeIpaByEnvironmentV1 gets free IP a stack by envid and account id
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) InternalGetFreeIpaByEnvironmentV1(params *InternalGetFreeIpaByEnvironmentV1Params) (*InternalGetFreeIpaByEnvironmentV1OK, error) {
+func (a *Client) InternalGetFreeIpaByEnvironmentV1(params *InternalGetFreeIpaByEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) (*InternalGetFreeIpaByEnvironmentV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInternalGetFreeIpaByEnvironmentV1Params()
@@ -524,6 +539,7 @@ func (a *Client) InternalGetFreeIpaByEnvironmentV1(params *InternalGetFreeIpaByE
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &InternalGetFreeIpaByEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -539,7 +555,7 @@ InternalListFreeIpaClustersByAccountV1 lists all free IP a stacks by account usi
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) InternalListFreeIpaClustersByAccountV1(params *InternalListFreeIpaClustersByAccountV1Params) (*InternalListFreeIpaClustersByAccountV1OK, error) {
+func (a *Client) InternalListFreeIpaClustersByAccountV1(params *InternalListFreeIpaClustersByAccountV1Params, authInfo runtime.ClientAuthInfoWriter) (*InternalListFreeIpaClustersByAccountV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInternalListFreeIpaClustersByAccountV1Params()
@@ -554,6 +570,7 @@ func (a *Client) InternalListFreeIpaClustersByAccountV1(params *InternalListFree
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &InternalListFreeIpaClustersByAccountV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -569,7 +586,7 @@ ListFreeIpaClustersByAccountV1 lists all free IP a stacks by account
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) ListFreeIpaClustersByAccountV1(params *ListFreeIpaClustersByAccountV1Params) (*ListFreeIpaClustersByAccountV1OK, error) {
+func (a *Client) ListFreeIpaClustersByAccountV1(params *ListFreeIpaClustersByAccountV1Params, authInfo runtime.ClientAuthInfoWriter) (*ListFreeIpaClustersByAccountV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListFreeIpaClustersByAccountV1Params()
@@ -584,6 +601,7 @@ func (a *Client) ListFreeIpaClustersByAccountV1(params *ListFreeIpaClustersByAcc
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ListFreeIpaClustersByAccountV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -599,7 +617,7 @@ ListRetryableFlowsV1 lists retryable failed flows
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) ListRetryableFlowsV1(params *ListRetryableFlowsV1Params) (*ListRetryableFlowsV1OK, error) {
+func (a *Client) ListRetryableFlowsV1(params *ListRetryableFlowsV1Params, authInfo runtime.ClientAuthInfoWriter) (*ListRetryableFlowsV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListRetryableFlowsV1Params()
@@ -614,6 +632,7 @@ func (a *Client) ListRetryableFlowsV1(params *ListRetryableFlowsV1Params) (*List
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ListRetryableFlowsV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -629,7 +648,7 @@ RebootV1 reboots one or more instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) RebootV1(params *RebootV1Params) (*RebootV1OK, error) {
+func (a *Client) RebootV1(params *RebootV1Params, authInfo runtime.ClientAuthInfoWriter) (*RebootV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRebootV1Params()
@@ -644,6 +663,7 @@ func (a *Client) RebootV1(params *RebootV1Params) (*RebootV1OK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &RebootV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -659,7 +679,7 @@ RepairV1 repairs one or more instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) RepairV1(params *RepairV1Params) (*RepairV1OK, error) {
+func (a *Client) RepairV1(params *RepairV1Params, authInfo runtime.ClientAuthInfoWriter) (*RepairV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRepairV1Params()
@@ -674,6 +694,7 @@ func (a *Client) RepairV1(params *RepairV1Params) (*RepairV1OK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &RepairV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -689,7 +710,7 @@ RetryV1 retries the latest failed operation
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) RetryV1(params *RetryV1Params) (*RetryV1OK, error) {
+func (a *Client) RetryV1(params *RetryV1Params, authInfo runtime.ClientAuthInfoWriter) (*RetryV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRetryV1Params()
@@ -704,6 +725,7 @@ func (a *Client) RetryV1(params *RetryV1Params) (*RetryV1OK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &RetryV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -719,7 +741,7 @@ StartV1 starts all free IP a stacks that attached to the given environment c r n
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) StartV1(params *StartV1Params) error {
+func (a *Client) StartV1(params *StartV1Params, authInfo runtime.ClientAuthInfoWriter) error {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartV1Params()
@@ -734,6 +756,7 @@ func (a *Client) StartV1(params *StartV1Params) error {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &StartV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -749,7 +772,7 @@ StopV1 stops all free IP a stacks that attached to the given environment c r n
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) StopV1(params *StopV1Params) error {
+func (a *Client) StopV1(params *StopV1Params, authInfo runtime.ClientAuthInfoWriter) error {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopV1Params()
@@ -764,6 +787,7 @@ func (a *Client) StopV1(params *StopV1Params) error {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &StopV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -779,7 +803,7 @@ UpdateSaltV1 updates salt states on free IP a instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) UpdateSaltV1(params *UpdateSaltV1Params) (*UpdateSaltV1OK, error) {
+func (a *Client) UpdateSaltV1(params *UpdateSaltV1Params, authInfo runtime.ClientAuthInfoWriter) (*UpdateSaltV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateSaltV1Params()
@@ -794,6 +818,7 @@ func (a *Client) UpdateSaltV1(params *UpdateSaltV1Params) (*UpdateSaltV1OK, erro
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UpdateSaltV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
