@@ -80,6 +80,10 @@ type DescribeFreeIpaV1Response struct {
 	// telemetry setting for freeipa server
 	Telemetry *TelemetryResponse `json:"telemetry,omitempty"`
 
+	// Configuration that the connection going directly or with cluster proxy or with CCM and cluster proxy.
+	// Enum: [DIRECT CCM CLUSTER_PROXY CCMV2 CCMV2_JUMPGATE]
+	Tunnel string `json:"tunnel,omitempty"`
+
 	// user sync status details for the environment
 	UserSyncStatus *UserSyncStatusV1Response `json:"userSyncStatus,omitempty"`
 
@@ -140,6 +144,10 @@ func (m *DescribeFreeIpaV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTelemetry(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTunnel(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -493,6 +501,58 @@ func (m *DescribeFreeIpaV1Response) validateTelemetry(formats strfmt.Registry) e
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var describeFreeIpaV1ResponseTypeTunnelPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["DIRECT","CCM","CLUSTER_PROXY","CCMV2","CCMV2_JUMPGATE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		describeFreeIpaV1ResponseTypeTunnelPropEnum = append(describeFreeIpaV1ResponseTypeTunnelPropEnum, v)
+	}
+}
+
+const (
+
+	// DescribeFreeIpaV1ResponseTunnelDIRECT captures enum value "DIRECT"
+	DescribeFreeIpaV1ResponseTunnelDIRECT string = "DIRECT"
+
+	// DescribeFreeIpaV1ResponseTunnelCCM captures enum value "CCM"
+	DescribeFreeIpaV1ResponseTunnelCCM string = "CCM"
+
+	// DescribeFreeIpaV1ResponseTunnelCLUSTERPROXY captures enum value "CLUSTER_PROXY"
+	DescribeFreeIpaV1ResponseTunnelCLUSTERPROXY string = "CLUSTER_PROXY"
+
+	// DescribeFreeIpaV1ResponseTunnelCCMV2 captures enum value "CCMV2"
+	DescribeFreeIpaV1ResponseTunnelCCMV2 string = "CCMV2"
+
+	// DescribeFreeIpaV1ResponseTunnelCCMV2JUMPGATE captures enum value "CCMV2_JUMPGATE"
+	DescribeFreeIpaV1ResponseTunnelCCMV2JUMPGATE string = "CCMV2_JUMPGATE"
+)
+
+// prop value enum
+func (m *DescribeFreeIpaV1Response) validateTunnelEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, describeFreeIpaV1ResponseTypeTunnelPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DescribeFreeIpaV1Response) validateTunnel(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Tunnel) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTunnelEnum("tunnel", "body", m.Tunnel); err != nil {
+		return err
 	}
 
 	return nil
