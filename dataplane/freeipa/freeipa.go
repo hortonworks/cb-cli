@@ -40,7 +40,7 @@ func CreateFreeIpa(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "create FreeIpa cluster")
 	FreeIpaRequest := assembleFreeIpaRequest(c)
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	resp, err := freeIpaClient.V1freeipa.CreateFreeIpaV1(v1freeipa.NewCreateFreeIpaV1Params().WithBody(FreeIpaRequest))
+	resp, err := freeIpaClient.V1freeipa.CreateFreeIpaV1(v1freeipa.NewCreateFreeIpaV1Params().WithBody(FreeIpaRequest), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -55,7 +55,7 @@ func DeleteFreeIpa(c *cli.Context) {
 	envName := c.String(fl.FlEnvironmentName.Name)
 	envCrn := env.GetEnvirontmentCrnByName(c, envName)
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	err := freeIpaClient.V1freeipa.DeleteFreeIpaByEnvironmentV1(v1freeipa.NewDeleteFreeIpaByEnvironmentV1Params().WithEnvironment(&envCrn))
+	err := freeIpaClient.V1freeipa.DeleteFreeIpaByEnvironmentV1(v1freeipa.NewDeleteFreeIpaByEnvironmentV1Params().WithEnvironment(&envCrn), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -67,7 +67,7 @@ func DescribeFreeIpa(c *cli.Context) {
 	envName := c.String(fl.FlEnvironmentName.Name)
 	envCrn := env.GetEnvirontmentCrnByName(c, envName)
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	resp, err := freeIpaClient.V1freeipa.GetFreeIpaByEnvironmentV1(v1freeipa.NewGetFreeIpaByEnvironmentV1Params().WithEnvironment(&envCrn))
+	resp, err := freeIpaClient.V1freeipa.GetFreeIpaByEnvironmentV1(v1freeipa.NewGetFreeIpaByEnvironmentV1Params().WithEnvironment(&envCrn), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -86,7 +86,7 @@ func StartFreeIpa(c *cli.Context) {
 	envName := c.String(fl.FlEnvironmentName.Name)
 	envCrn := env.GetEnvirontmentCrnByName(c, envName)
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	err := freeIpaClient.V1freeipa.StartV1(v1freeipa.NewStartV1Params().WithEnvironment(&envCrn))
+	err := freeIpaClient.V1freeipa.StartV1(v1freeipa.NewStartV1Params().WithEnvironment(&envCrn), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -98,7 +98,7 @@ func StopFreeIpa(c *cli.Context) {
 	envName := c.String(fl.FlEnvironmentName.Name)
 	envCrn := env.GetEnvirontmentCrnByName(c, envName)
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	err := freeIpaClient.V1freeipa.StopV1(v1freeipa.NewStopV1Params().WithEnvironment(&envCrn))
+	err := freeIpaClient.V1freeipa.StopV1(v1freeipa.NewStopV1Params().WithEnvironment(&envCrn), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -110,7 +110,7 @@ func RebootFreeIpa(c *cli.Context) {
 	envName := c.String(fl.FlEnvironmentName.Name)
 	RebootInstancesV1Request := assembleRebootRequest(c)
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	resp, err := freeIpaClient.V1freeipa.RebootV1(v1freeipa.NewRebootV1Params().WithBody(RebootInstancesV1Request))
+	resp, err := freeIpaClient.V1freeipa.RebootV1(v1freeipa.NewRebootV1Params().WithBody(RebootInstancesV1Request), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -141,7 +141,7 @@ func RepairFreeIpa(c *cli.Context) {
 	envName := c.String(fl.FlEnvironmentName.Name)
 	RepairInstancesV1Request := assembleRepairRequest(c)
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	resp, err := freeIpaClient.V1freeipa.RepairV1(v1freeipa.NewRepairV1Params().WithBody(RepairInstancesV1Request))
+	resp, err := freeIpaClient.V1freeipa.RepairV1(v1freeipa.NewRepairV1Params().WithBody(RepairInstancesV1Request), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -204,7 +204,7 @@ func assembleRepairRequest(c *cli.Context) *freeIpaModel.RepairInstancesV1Reques
 func ListFreeIpa(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "list FreeIpa clusters")
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	resp, err := freeIpaClient.V1freeipa.ListFreeIpaClustersByAccountV1(v1freeipa.NewListFreeIpaClustersByAccountV1Params())
+	resp, err := freeIpaClient.V1freeipa.ListFreeIpaClustersByAccountV1(v1freeipa.NewListFreeIpaClustersByAccountV1Params(), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -633,7 +633,7 @@ func ChangeImage(c *cli.Context) {
 	request := model.ImageChangeV1Request{EnvironmentCrn: &envCrn, ImageSettings: &imageSettingsV1Request}
 
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	_, err := freeIpaClient.V1freeipa.ChangeImageV1(v1freeipa.NewChangeImageV1Params().WithBody(&request))
+	_, err := freeIpaClient.V1freeipa.ChangeImageV1(v1freeipa.NewChangeImageV1Params().WithBody(&request), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -644,7 +644,7 @@ func UpdateSalt(c *cli.Context) {
 	envCrn := env.GetEnvirontmentCrnByName(c, envName)
 
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	_, err := freeIpaClient.V1freeipa.UpdateSaltV1(v1freeipa.NewUpdateSaltV1Params().WithEnvironment(&envCrn))
+	_, err := freeIpaClient.V1freeipa.UpdateSaltV1(v1freeipa.NewUpdateSaltV1Params().WithEnvironment(&envCrn), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -702,7 +702,7 @@ func Retry(c *cli.Context) {
 	envCrn := env.GetEnvirontmentCrnByName(c, envName)
 
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	resp, err := freeIpaClient.V1freeipa.RetryV1(v1freeipa.NewRetryV1Params().WithEnvironment(&envCrn))
+	resp, err := freeIpaClient.V1freeipa.RetryV1(v1freeipa.NewRetryV1Params().WithEnvironment(&envCrn), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -714,7 +714,7 @@ func ListRetryableFlows(c *cli.Context) {
 	envCrn := env.GetEnvirontmentCrnByName(c, envName)
 
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	resp, err := freeIpaClient.V1freeipa.ListRetryableFlowsV1(v1freeipa.NewListRetryableFlowsV1Params().WithEnvironment(&envCrn))
+	resp, err := freeIpaClient.V1freeipa.ListRetryableFlowsV1(v1freeipa.NewListRetryableFlowsV1Params().WithEnvironment(&envCrn), nil)
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}

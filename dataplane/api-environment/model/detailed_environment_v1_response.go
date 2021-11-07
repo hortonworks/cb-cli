@@ -120,7 +120,7 @@ type DetailedEnvironmentV1Response struct {
 	// Telemetry related specifics of the environment.
 	Telemetry *TelemetryResponse `json:"telemetry,omitempty"`
 
-	// Configuration that the connection going directly or with cluster proxy or with ccm and cluster proxy.
+	// Configuration that the connection going directly or with cluster proxy or with CCM and cluster proxy.
 	// Enum: [DIRECT CCM CLUSTER_PROXY CCMV2 CCMV2_JUMPGATE]
 	Tunnel string `json:"tunnel,omitempty"`
 
