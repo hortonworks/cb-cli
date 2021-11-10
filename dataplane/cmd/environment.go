@@ -228,6 +228,24 @@ func init() {
 					},
 				},
 			},
+			{
+				Name:  "upgrade",
+				Usage: "upgrade operations on an environment",
+				Subcommands: []cli.Command{
+					{
+						Name:   "ccm",
+						Usage:  "upgrade CCM version on an environment to the latest version available",
+						Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build(),
+						Before: cf.CheckConfigAndCommandFlags,
+						Action: env.UpgradeCcm,
+						BashComplete: func(c *cli.Context) {
+							for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().Build() {
+								fl.PrintFlagCompletion(f)
+							}
+						},
+					},
+				},
+			},
 		},
 	})
 }
