@@ -925,6 +925,66 @@ func (a *Client) UpdateEnvironmentLoadBalancersByNameV11(params *UpdateEnvironme
 }
 
 /*
+UpgradeCcmByEnvironmentCrnV1 initiates the c c m tunnel type upgrade to the latest available version
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) UpgradeCcmByEnvironmentCrnV1(params *UpgradeCcmByEnvironmentCrnV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeCcmByEnvironmentCrnV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeCcmByEnvironmentCrnV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/env/crn/{crn}/upgrade_ccm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeCcmByEnvironmentCrnV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+UpgradeCcmByEnvironmentNameV1 initiates the c c m tunnel type upgrade to the latest available version
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) UpgradeCcmByEnvironmentNameV1(params *UpgradeCcmByEnvironmentNameV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeCcmByEnvironmentNameV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeCcmByEnvironmentNameV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/env/name/{name}/upgrade_ccm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeCcmByEnvironmentNameV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 ValidateCloudStorage validate cloud storage API
 */
 func (a *Client) ValidateCloudStorage(params *ValidateCloudStorageParams) (*ValidateCloudStorageOK, error) {

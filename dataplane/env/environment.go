@@ -458,6 +458,18 @@ func ChangeCredential(c *cli.Context) {
 	log.Infof("[ChangeCredential] credential of environment %s changed to: %s", environment.Name, *environment.Credential.Name)
 }
 
+func UpgradeCcm(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "upgrade CCM in an environment")
+	envName := c.String(fl.FlName.Name)
+	log.Infof("[UpgradeCcm] upgrade CCM in environment by name: %s", envName)
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+
+	err := envClient.Environment.V1env.UpgradeCcmByEnvironmentNameV1(v1env.NewUpgradeCcmByEnvironmentNameV1Params().WithName(envName))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+}
+
 func GetResourceGroups(c *cli.Context) {
 	credential := c.String(fl.FlCredential.Name)
 	envClient := oauth.NewEnvironmentClientFromContext(c)
