@@ -1,5 +1,7 @@
 module github.com/hortonworks/cb-cli
 
+go 1.16
+
 require (
 	github.com/PuerkitoBio/purell v1.1.0 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
@@ -30,11 +32,12 @@ require (
 	github.com/sirupsen/logrus v1.0.6 // indirect
 	github.com/stretchr/testify v1.2.2 // indirect
 	github.com/urfave/cli v1.20.0
-	golang.org/x/crypto v0.0.0-20180910181607-0e37d006457b
-	golang.org/x/net v0.0.0-20180921000356-2f5d2388922f
-	golang.org/x/sys v0.0.0-20180920110915-d641721ec2de // indirect
-	golang.org/x/text v0.3.0
-	golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
+	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
+	golang.org/x/mod v0.5.1 // indirect
+	golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d
+	golang.org/x/sys v0.0.0-20211123173158-ef496fb156ab // indirect
+	golang.org/x/text v0.3.6
+	golang.org/x/tools v0.1.7
 	gopkg.in/airbrake/gobrake.v2 v2.0.9 // indirect
 	gopkg.in/asn1-ber.v1 v1.0.0-20170511165959-379148ca0225 // indirect
 	gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2 // indirect
