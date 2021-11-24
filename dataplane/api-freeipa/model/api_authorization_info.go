@@ -19,9 +19,6 @@ type APIAuthorizationInfo struct {
 	// http method
 	HTTPMethod string `json:"httpMethod,omitempty"`
 
-	// legacy authorization
-	LegacyAuthorization *LegacyAuthorizationInfo `json:"legacyAuthorization,omitempty"`
-
 	// message
 	Message string `json:"message,omitempty"`
 
@@ -36,10 +33,6 @@ type APIAuthorizationInfo struct {
 func (m *APIAuthorizationInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateLegacyAuthorization(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateNewAuthorization(formats); err != nil {
 		res = append(res, err)
 	}
@@ -47,24 +40,6 @@ func (m *APIAuthorizationInfo) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *APIAuthorizationInfo) validateLegacyAuthorization(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.LegacyAuthorization) { // not required
-		return nil
-	}
-
-	if m.LegacyAuthorization != nil {
-		if err := m.LegacyAuthorization.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("legacyAuthorization")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 

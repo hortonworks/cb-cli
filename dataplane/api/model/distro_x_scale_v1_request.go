@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,6 +19,10 @@ import (
 // swagger:model DistroXScaleV1Request
 type DistroXScaleV1Request struct {
 
+	// scaling adjustment type
+	// Enum: [EXACT PERCENTAGE BEST_EFFORT]
+	AdjustmentType string `json:"adjustmentType,omitempty"`
+
 	// scaling adjustment of the instance groups
 	// Required: true
 	DesiredCount *int32 `json:"desiredCount"`
@@ -27,11 +33,18 @@ type DistroXScaleV1Request struct {
 
 	// request to support scaling operations in multi-availability zone environments
 	NetworkScaleRequest *NetworkScaleV1Request `json:"networkScaleRequest,omitempty"`
+
+	// scaling threshold
+	Threshold int64 `json:"threshold,omitempty"`
 }
 
 // Validate validates this distro x scale v1 request
 func (m *DistroXScaleV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAdjustmentType(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateDesiredCount(formats); err != nil {
 		res = append(res, err)
@@ -48,6 +61,52 @@ func (m *DistroXScaleV1Request) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var distroXScaleV1RequestTypeAdjustmentTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["EXACT","PERCENTAGE","BEST_EFFORT"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		distroXScaleV1RequestTypeAdjustmentTypePropEnum = append(distroXScaleV1RequestTypeAdjustmentTypePropEnum, v)
+	}
+}
+
+const (
+
+	// DistroXScaleV1RequestAdjustmentTypeEXACT captures enum value "EXACT"
+	DistroXScaleV1RequestAdjustmentTypeEXACT string = "EXACT"
+
+	// DistroXScaleV1RequestAdjustmentTypePERCENTAGE captures enum value "PERCENTAGE"
+	DistroXScaleV1RequestAdjustmentTypePERCENTAGE string = "PERCENTAGE"
+
+	// DistroXScaleV1RequestAdjustmentTypeBESTEFFORT captures enum value "BEST_EFFORT"
+	DistroXScaleV1RequestAdjustmentTypeBESTEFFORT string = "BEST_EFFORT"
+)
+
+// prop value enum
+func (m *DistroXScaleV1Request) validateAdjustmentTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, distroXScaleV1RequestTypeAdjustmentTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DistroXScaleV1Request) validateAdjustmentType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AdjustmentType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAdjustmentTypeEnum("adjustmentType", "body", m.AdjustmentType); err != nil {
+		return err
+	}
+
 	return nil
 }
 

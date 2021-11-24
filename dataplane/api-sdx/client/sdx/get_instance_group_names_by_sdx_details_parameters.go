@@ -15,8 +15,6 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
-
-	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
 // NewGetInstanceGroupNamesBySdxDetailsParams creates a new GetInstanceGroupNamesBySdxDetailsParams object
@@ -63,8 +61,12 @@ for the get instance group names by sdx details operation typically these are wr
 */
 type GetInstanceGroupNamesBySdxDetailsParams struct {
 
-	/*Body*/
-	Body *model.SdxInstanceGroupNamesRequest
+	/*CloudPlatform*/
+	CloudPlatform *string
+	/*ClusterShape*/
+	ClusterShape *string
+	/*RuntimeVersion*/
+	RuntimeVersion *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -104,15 +106,37 @@ func (o *GetInstanceGroupNamesBySdxDetailsParams) SetHTTPClient(client *http.Cli
 	o.HTTPClient = client
 }
 
-// WithBody adds the body to the get instance group names by sdx details params
-func (o *GetInstanceGroupNamesBySdxDetailsParams) WithBody(body *model.SdxInstanceGroupNamesRequest) *GetInstanceGroupNamesBySdxDetailsParams {
-	o.SetBody(body)
+// WithCloudPlatform adds the cloudPlatform to the get instance group names by sdx details params
+func (o *GetInstanceGroupNamesBySdxDetailsParams) WithCloudPlatform(cloudPlatform *string) *GetInstanceGroupNamesBySdxDetailsParams {
+	o.SetCloudPlatform(cloudPlatform)
 	return o
 }
 
-// SetBody adds the body to the get instance group names by sdx details params
-func (o *GetInstanceGroupNamesBySdxDetailsParams) SetBody(body *model.SdxInstanceGroupNamesRequest) {
-	o.Body = body
+// SetCloudPlatform adds the cloudPlatform to the get instance group names by sdx details params
+func (o *GetInstanceGroupNamesBySdxDetailsParams) SetCloudPlatform(cloudPlatform *string) {
+	o.CloudPlatform = cloudPlatform
+}
+
+// WithClusterShape adds the clusterShape to the get instance group names by sdx details params
+func (o *GetInstanceGroupNamesBySdxDetailsParams) WithClusterShape(clusterShape *string) *GetInstanceGroupNamesBySdxDetailsParams {
+	o.SetClusterShape(clusterShape)
+	return o
+}
+
+// SetClusterShape adds the clusterShape to the get instance group names by sdx details params
+func (o *GetInstanceGroupNamesBySdxDetailsParams) SetClusterShape(clusterShape *string) {
+	o.ClusterShape = clusterShape
+}
+
+// WithRuntimeVersion adds the runtimeVersion to the get instance group names by sdx details params
+func (o *GetInstanceGroupNamesBySdxDetailsParams) WithRuntimeVersion(runtimeVersion *string) *GetInstanceGroupNamesBySdxDetailsParams {
+	o.SetRuntimeVersion(runtimeVersion)
+	return o
+}
+
+// SetRuntimeVersion adds the runtimeVersion to the get instance group names by sdx details params
+func (o *GetInstanceGroupNamesBySdxDetailsParams) SetRuntimeVersion(runtimeVersion *string) {
+	o.RuntimeVersion = runtimeVersion
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -123,10 +147,52 @@ func (o *GetInstanceGroupNamesBySdxDetailsParams) WriteToRequest(r runtime.Clien
 	}
 	var res []error
 
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
+	if o.CloudPlatform != nil {
+
+		// query param cloudPlatform
+		var qrCloudPlatform string
+		if o.CloudPlatform != nil {
+			qrCloudPlatform = *o.CloudPlatform
 		}
+		qCloudPlatform := qrCloudPlatform
+		if qCloudPlatform != "" {
+			if err := r.SetQueryParam("cloudPlatform", qCloudPlatform); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.ClusterShape != nil {
+
+		// query param clusterShape
+		var qrClusterShape string
+		if o.ClusterShape != nil {
+			qrClusterShape = *o.ClusterShape
+		}
+		qClusterShape := qrClusterShape
+		if qClusterShape != "" {
+			if err := r.SetQueryParam("clusterShape", qClusterShape); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.RuntimeVersion != nil {
+
+		// query param runtimeVersion
+		var qrRuntimeVersion string
+		if o.RuntimeVersion != nil {
+			qrRuntimeVersion = *o.RuntimeVersion
+		}
+		qRuntimeVersion := qrRuntimeVersion
+		if qRuntimeVersion != "" {
+			if err := r.SetQueryParam("runtimeVersion", qRuntimeVersion); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

@@ -31,7 +31,7 @@ type NetworkV1Request struct {
 	// mock
 	Mock *MockNetworkV1Parameters `json:"mock,omitempty"`
 
-	// the network cidrs which have to be reacheable from the instances
+	// the network CIDRs which have to be reachable from the instances
 	NetworkCidrs []string `json:"networkCidrs"`
 
 	// A flag to enable or disable the outbound internet traffic from the instances.

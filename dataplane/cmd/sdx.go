@@ -267,6 +267,18 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:   "recover",
+				Usage:  "recover command after failed upgrade to the original version",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlRecoverWithoutDataOptional).Build(),
+				Action: sdx.SdxClusterRecover,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlRecoverWithoutDataOptional).Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }

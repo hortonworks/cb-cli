@@ -28,7 +28,7 @@ type InstanceMetaDataV1Response struct {
 	// name of the instance group
 	InstanceGroup string `json:"instanceGroup,omitempty"`
 
-	// id of the instance
+	// ID of the instance
 	InstanceID string `json:"instanceId,omitempty"`
 
 	// status of the instance
@@ -43,10 +43,10 @@ type InstanceMetaDataV1Response struct {
 	// Enum: [NORMAL SPOT]
 	LifeCycle string `json:"lifeCycle,omitempty"`
 
-	// private ip of the insctance
+	// private IP of the instance
 	PrivateIP string `json:"privateIp,omitempty"`
 
-	// public ip of the instance
+	// public IP of the instance
 	PublicIP string `json:"publicIp,omitempty"`
 
 	// ssh port

@@ -18,6 +18,9 @@ import (
 // swagger:model BaseImageV4Response
 type BaseImageV4Response struct {
 
+	// advertised
+	Advertised bool `json:"advertised,omitempty"`
+
 	// base parcel Url
 	BaseParcelURL string `json:"baseParcelUrl,omitempty"`
 

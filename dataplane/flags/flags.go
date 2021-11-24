@@ -1639,6 +1639,13 @@ var (
 			Usage: "The fully qualified domain name of the host the CNAME should point to.",
 		},
 	}
+	FlRecoverWithoutDataOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "recover-without-data",
+			Usage: "if it's set, recover will happen without data restore",
+		},
+	}
 )
 
 type RequiredFlag struct {

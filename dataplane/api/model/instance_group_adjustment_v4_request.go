@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,6 +19,10 @@ import (
 // swagger:model InstanceGroupAdjustmentV4Request
 type InstanceGroupAdjustmentV4Request struct {
 
+	// scaling adjustment type
+	// Enum: [EXACT PERCENTAGE BEST_EFFORT]
+	AdjustmentType string `json:"adjustmentType,omitempty"`
+
 	// name of the instance group
 	// Required: true
 	InstanceGroup *string `json:"instanceGroup"`
@@ -27,11 +33,18 @@ type InstanceGroupAdjustmentV4Request struct {
 	// scaling adjustment of the instance groups
 	// Required: true
 	ScalingAdjustment *int32 `json:"scalingAdjustment"`
+
+	// scaling threshold
+	Threshold int64 `json:"threshold,omitempty"`
 }
 
 // Validate validates this instance group adjustment v4 request
 func (m *InstanceGroupAdjustmentV4Request) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAdjustmentType(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateInstanceGroup(formats); err != nil {
 		res = append(res, err)
@@ -48,6 +61,52 @@ func (m *InstanceGroupAdjustmentV4Request) Validate(formats strfmt.Registry) err
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var instanceGroupAdjustmentV4RequestTypeAdjustmentTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["EXACT","PERCENTAGE","BEST_EFFORT"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		instanceGroupAdjustmentV4RequestTypeAdjustmentTypePropEnum = append(instanceGroupAdjustmentV4RequestTypeAdjustmentTypePropEnum, v)
+	}
+}
+
+const (
+
+	// InstanceGroupAdjustmentV4RequestAdjustmentTypeEXACT captures enum value "EXACT"
+	InstanceGroupAdjustmentV4RequestAdjustmentTypeEXACT string = "EXACT"
+
+	// InstanceGroupAdjustmentV4RequestAdjustmentTypePERCENTAGE captures enum value "PERCENTAGE"
+	InstanceGroupAdjustmentV4RequestAdjustmentTypePERCENTAGE string = "PERCENTAGE"
+
+	// InstanceGroupAdjustmentV4RequestAdjustmentTypeBESTEFFORT captures enum value "BEST_EFFORT"
+	InstanceGroupAdjustmentV4RequestAdjustmentTypeBESTEFFORT string = "BEST_EFFORT"
+)
+
+// prop value enum
+func (m *InstanceGroupAdjustmentV4Request) validateAdjustmentTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, instanceGroupAdjustmentV4RequestTypeAdjustmentTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *InstanceGroupAdjustmentV4Request) validateAdjustmentType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AdjustmentType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAdjustmentTypeEnum("adjustmentType", "body", m.AdjustmentType); err != nil {
+		return err
+	}
+
 	return nil
 }
 

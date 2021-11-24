@@ -545,6 +545,34 @@ func (a *Client) DetachStackRecipe(params *DetachStackRecipeParams) (*DetachStac
 }
 
 /*
+GenerateImageCatalogInternal generates an image catalog that only contains the currently used image for creating instances
+*/
+func (a *Client) GenerateImageCatalogInternal(params *GenerateImageCatalogInternalParams) (*GenerateImageCatalogInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGenerateImageCatalogInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "generateImageCatalogInternal",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/generate_image_catalog",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GenerateImageCatalogInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GenerateImageCatalogInternalOK), nil
+
+}
+
+/*
 GetClusterHostsInventory generates hosts inventory
 */
 func (a *Client) GetClusterHostsInventory(params *GetClusterHostsInventoryParams) (*GetClusterHostsInventoryOK, error) {
