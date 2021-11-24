@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -16,6 +18,10 @@ import (
 // StackScaleV4Request stack scale v4 request
 // swagger:model StackScaleV4Request
 type StackScaleV4Request struct {
+
+	// scaling adjustment type
+	// Enum: [EXACT PERCENTAGE BEST_EFFORT]
+	AdjustmentType string `json:"adjustmentType,omitempty"`
 
 	// scaling adjustment of the instance groups
 	// Required: true
@@ -30,11 +36,18 @@ type StackScaleV4Request struct {
 
 	// stack network scale v4 request
 	StackNetworkScaleV4Request *NetworkScaleV4Request `json:"stackNetworkScaleV4Request,omitempty"`
+
+	// scaling threshold
+	Threshold int64 `json:"threshold,omitempty"`
 }
 
 // Validate validates this stack scale v4 request
 func (m *StackScaleV4Request) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAdjustmentType(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateDesiredCount(formats); err != nil {
 		res = append(res, err)
@@ -51,6 +64,52 @@ func (m *StackScaleV4Request) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var stackScaleV4RequestTypeAdjustmentTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["EXACT","PERCENTAGE","BEST_EFFORT"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		stackScaleV4RequestTypeAdjustmentTypePropEnum = append(stackScaleV4RequestTypeAdjustmentTypePropEnum, v)
+	}
+}
+
+const (
+
+	// StackScaleV4RequestAdjustmentTypeEXACT captures enum value "EXACT"
+	StackScaleV4RequestAdjustmentTypeEXACT string = "EXACT"
+
+	// StackScaleV4RequestAdjustmentTypePERCENTAGE captures enum value "PERCENTAGE"
+	StackScaleV4RequestAdjustmentTypePERCENTAGE string = "PERCENTAGE"
+
+	// StackScaleV4RequestAdjustmentTypeBESTEFFORT captures enum value "BEST_EFFORT"
+	StackScaleV4RequestAdjustmentTypeBESTEFFORT string = "BEST_EFFORT"
+)
+
+// prop value enum
+func (m *StackScaleV4Request) validateAdjustmentTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, stackScaleV4RequestTypeAdjustmentTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *StackScaleV4Request) validateAdjustmentType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AdjustmentType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAdjustmentTypeEnum("adjustmentType", "body", m.AdjustmentType); err != nil {
+		return err
+	}
+
 	return nil
 }
 

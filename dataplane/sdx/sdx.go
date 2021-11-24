@@ -806,3 +806,28 @@ func RotateCertificates(c *cli.Context) {
 	}
 	log.Infof("[RotateCerts] SDX cluster certificate rotation started for: %s", name)
 }
+
+func SdxClusterRecover(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "Start SDX recovery")
+	FlRecoverWithoutData := c.Bool(fl.FlRecoverWithoutDataOptional.Name)
+	var recoverWithoutData string
+	if FlRecoverWithoutData {
+		recoverWithoutData = "RECOVER_WITHOUT_DATA"
+	} else {
+		recoverWithoutData = "RECOVER_WITH_DATA"
+	}
+	name := c.String(fl.FlName.Name)
+
+	recoverSdxRequest := &sdxModel.SdxRecoveryRequest{
+		Type: recoverWithoutData,
+	}
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	checkClientVersion(sdxClient, common.Version)
+
+	_, err := sdxClient.Sdx.RecoverDatalakeCluster(sdx.NewRecoverDatalakeClusterParams().WithName(name).WithBody(recoverSdxRequest))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+		fmt.Printf("%s\n", err)
+	}
+	log.Infof("[SdxClusterRecover] SDX cluster recover started for: %s", name)
+}

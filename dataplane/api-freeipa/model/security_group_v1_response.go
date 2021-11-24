@@ -19,7 +19,7 @@ import (
 // swagger:model SecurityGroupV1Response
 type SecurityGroupV1Response struct {
 
-	// Exisiting security group ids
+	// Existing security group IDs
 	// Unique: true
 	SecurityGroupIds []string `json:"securityGroupIds"`
 

@@ -519,6 +519,34 @@ func (a *Client) DetachRecipesByName(params *DetachRecipesByNameParams) (*Detach
 }
 
 /*
+GenerateImageCatalog generates an image catalog that only contains the currently used image for creating instances
+*/
+func (a *Client) GenerateImageCatalog(params *GenerateImageCatalogParams) (*GenerateImageCatalogOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGenerateImageCatalogParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "generateImageCatalog",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/name/{name}/generate_image_catalog",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GenerateImageCatalogReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GenerateImageCatalogOK), nil
+
+}
+
+/*
 GetClusterRecoverableByCrn validates if the distrox cluster is recoverable or not
 */
 func (a *Client) GetClusterRecoverableByCrn(params *GetClusterRecoverableByCrnParams) (*GetClusterRecoverableByCrnOK, error) {

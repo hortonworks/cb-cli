@@ -43,7 +43,7 @@ type CreateFreeIpaV1Request struct {
 	// settings for custom images
 	Image *ImageSettingsV1Request `json:"image,omitempty"`
 
-	// collection of instance groupst
+	// collection of instance groups
 	// Required: true
 	InstanceGroups []*InstanceGroupV1Request `json:"instanceGroups"`
 

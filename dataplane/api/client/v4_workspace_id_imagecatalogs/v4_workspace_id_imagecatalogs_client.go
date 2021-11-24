@@ -265,6 +265,36 @@ func (a *Client) GetImageCatalogInWorkspace(params *GetImageCatalogInWorkspacePa
 }
 
 /*
+GetImageCatalogInWorkspaceInternal gets image catalog by name in workspace internal
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) GetImageCatalogInWorkspaceInternal(params *GetImageCatalogInWorkspaceInternalParams) (*GetImageCatalogInWorkspaceInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetImageCatalogInWorkspaceInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getImageCatalogInWorkspaceInternal",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/name/{name}/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetImageCatalogInWorkspaceInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetImageCatalogInWorkspaceInternalOK), nil
+
+}
+
+/*
 GetImageCatalogRequestFromNameInWorkspace retrieves imagecatalog request by imagecatalog name
 
 Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.

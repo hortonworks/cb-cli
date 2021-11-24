@@ -12,67 +12,73 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ImageV4Response image v4 response
-// swagger:model ImageV4Response
-type ImageV4Response struct {
+// Image image
+// swagger:model Image
+type Image struct {
 
 	// advertised
-	Advertised bool `json:"advertised,omitempty"`
+	// Read Only: true
+	Advertised *bool `json:"advertised,omitempty"`
 
-	// base parcel Url
-	BaseParcelURL string `json:"baseParcelUrl,omitempty"`
-
-	// cm build number
-	CmBuildNumber string `json:"cmBuildNumber,omitempty"`
+	// build number
+	// Read Only: true
+	BuildNumber string `json:"build-number,omitempty"`
 
 	// created
+	// Read Only: true
 	Created int64 `json:"created,omitempty"`
 
 	// date
+	// Read Only: true
 	Date string `json:"date,omitempty"`
 
-	// default image
-	DefaultImage bool `json:"defaultImage,omitempty"`
-
 	// description
+	// Read Only: true
 	Description string `json:"description,omitempty"`
 
 	// images
+	// Read Only: true
 	Images map[string]map[string]string `json:"images,omitempty"`
 
 	// os
+	// Read Only: true
 	Os string `json:"os,omitempty"`
 
 	// os type
-	OsType string `json:"osType,omitempty"`
+	// Read Only: true
+	OsType string `json:"os_type,omitempty"`
 
 	// package versions
-	PackageVersions map[string]string `json:"packageVersions,omitempty"`
+	// Read Only: true
+	PackageVersions map[string]string `json:"package-versions,omitempty"`
 
 	// pre warm csd
-	PreWarmCsd []string `json:"preWarmCsd"`
+	// Read Only: true
+	PreWarmCsd []string `json:"pre_warm_csd"`
 
 	// pre warm parcels
-	PreWarmParcels [][]string `json:"preWarmParcels"`
+	// Read Only: true
+	PreWarmParcels [][]string `json:"pre_warm_parcels"`
 
-	// repository
-	Repository map[string]string `json:"repository,omitempty"`
-
-	// source image Id
-	SourceImageID string `json:"sourceImageId,omitempty"`
+	// repo
+	// Read Only: true
+	Repo map[string]string `json:"repo,omitempty"`
 
 	// stack details
-	StackDetails *BaseStackDetailsV4Response `json:"stackDetails,omitempty"`
+	// Read Only: true
+	StackDetails *ImageStackDetails `json:"stack-details,omitempty"`
 
 	// uuid
+	// Read Only: true
 	UUID string `json:"uuid,omitempty"`
 
 	// version
+	// Read Only: true
 	Version string `json:"version,omitempty"`
 }
 
-// Validate validates this image v4 response
-func (m *ImageV4Response) Validate(formats strfmt.Registry) error {
+// Validate validates this image
+func (m *Image) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateStackDetails(formats); err != nil {
@@ -85,7 +91,7 @@ func (m *ImageV4Response) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ImageV4Response) validateStackDetails(formats strfmt.Registry) error {
+func (m *Image) validateStackDetails(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.StackDetails) { // not required
 		return nil
@@ -94,7 +100,7 @@ func (m *ImageV4Response) validateStackDetails(formats strfmt.Registry) error {
 	if m.StackDetails != nil {
 		if err := m.StackDetails.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("stackDetails")
+				return ve.ValidateName("stack-details")
 			}
 			return err
 		}
@@ -104,7 +110,7 @@ func (m *ImageV4Response) validateStackDetails(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *ImageV4Response) MarshalBinary() ([]byte, error) {
+func (m *Image) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -112,8 +118,8 @@ func (m *ImageV4Response) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ImageV4Response) UnmarshalBinary(b []byte) error {
-	var res ImageV4Response
+func (m *Image) UnmarshalBinary(b []byte) error {
+	var res Image
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

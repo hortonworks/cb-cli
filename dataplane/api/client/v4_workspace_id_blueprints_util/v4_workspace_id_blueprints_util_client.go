@@ -115,6 +115,36 @@ func (a *Client) CreateScaleRecommendationForWorkspace(params *CreateScaleRecomm
 }
 
 /*
+CreateScaleRecommendationForWorkspaceByDatahubCrn creates a recommendation that advises cloud resources for the given blueprint based on the given datahub crn
+
+Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
+*/
+func (a *Client) CreateScaleRecommendationForWorkspaceByDatahubCrn(params *CreateScaleRecommendationForWorkspaceByDatahubCrnParams) (*CreateScaleRecommendationForWorkspaceByDatahubCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateScaleRecommendationForWorkspaceByDatahubCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createScaleRecommendationForWorkspaceByDatahubCrn",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/blueprints_util/scalerecommendation_by_datahub_crn",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateScaleRecommendationForWorkspaceByDatahubCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateScaleRecommendationForWorkspaceByDatahubCrnOK), nil
+
+}
+
+/*
 GetGeneratedTemplate creates a recommendation that advises cloud resources for the given blueprint
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.

@@ -501,6 +501,34 @@ func (a *Client) EnableRangerRazByName(params *EnableRangerRazByNameParams) erro
 }
 
 /*
+GenerateImageCatalog generates an image catalog that only contains the currently used image for creating instances
+*/
+func (a *Client) GenerateImageCatalog(params *GenerateImageCatalogParams) (*GenerateImageCatalogOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGenerateImageCatalogParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "generateImageCatalog",
+		Method:             "GET",
+		PathPattern:        "/sdx/name/{name}/generate_image_catalog",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GenerateImageCatalogReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GenerateImageCatalogOK), nil
+
+}
+
+/*
 GetBackupDatalakeStatus backups status of the datalake by datalake name
 */
 func (a *Client) GetBackupDatalakeStatus(params *GetBackupDatalakeStatusParams) (*GetBackupDatalakeStatusOK, error) {
