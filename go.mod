@@ -35,7 +35,7 @@ require (
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
 	golang.org/x/mod v0.5.1 // indirect
 	golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d
-	golang.org/x/sys v0.0.0-20211123173158-ef496fb156ab // indirect
+	golang.org/x/sys v0.0.0-20211124211545-fe61309f8881 // indirect
 	golang.org/x/text v0.3.6
 	golang.org/x/tools v0.1.7
 	gopkg.in/airbrake/gobrake.v2 v2.0.9 // indirect
