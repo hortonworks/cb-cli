@@ -719,13 +719,13 @@ StartEnvironmentByCrnV1 starts an environment by c r n the freeipa datalake and 
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) StartEnvironmentByCrnV1(params *StartEnvironmentByCrnV1Params) error {
+func (a *Client) StartEnvironmentByCrnV1(params *StartEnvironmentByCrnV1Params) (*StartEnvironmentByCrnV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartEnvironmentByCrnV1Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "startEnvironmentByCrnV1",
 		Method:             "POST",
 		PathPattern:        "/v1/env/crn/{crn}/start",
@@ -738,9 +738,9 @@ func (a *Client) StartEnvironmentByCrnV1(params *StartEnvironmentByCrnV1Params) 
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StartEnvironmentByCrnV1OK), nil
 
 }
 
@@ -749,13 +749,13 @@ StartEnvironmentByNameV1 starts an environment by name the freeipa datalake and 
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) StartEnvironmentByNameV1(params *StartEnvironmentByNameV1Params) error {
+func (a *Client) StartEnvironmentByNameV1(params *StartEnvironmentByNameV1Params) (*StartEnvironmentByNameV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartEnvironmentByNameV1Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "startEnvironmentByNameV1",
 		Method:             "POST",
 		PathPattern:        "/v1/env/name/{name}/start",
@@ -768,9 +768,9 @@ func (a *Client) StartEnvironmentByNameV1(params *StartEnvironmentByNameV1Params
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StartEnvironmentByNameV1OK), nil
 
 }
 
@@ -779,13 +779,13 @@ StopEnvironmentByCrnV1 stops an environment by c r n the datahubs datalake and f
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) StopEnvironmentByCrnV1(params *StopEnvironmentByCrnV1Params) error {
+func (a *Client) StopEnvironmentByCrnV1(params *StopEnvironmentByCrnV1Params) (*StopEnvironmentByCrnV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopEnvironmentByCrnV1Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "stopEnvironmentByCrnV1",
 		Method:             "POST",
 		PathPattern:        "/v1/env/crn/{crn}/stop",
@@ -798,9 +798,9 @@ func (a *Client) StopEnvironmentByCrnV1(params *StopEnvironmentByCrnV1Params) er
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StopEnvironmentByCrnV1OK), nil
 
 }
 
@@ -809,13 +809,13 @@ StopEnvironmentByNameV1 stops an environment by name the datahubs datalake and f
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) StopEnvironmentByNameV1(params *StopEnvironmentByNameV1Params) error {
+func (a *Client) StopEnvironmentByNameV1(params *StopEnvironmentByNameV1Params) (*StopEnvironmentByNameV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopEnvironmentByNameV1Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "stopEnvironmentByNameV1",
 		Method:             "POST",
 		PathPattern:        "/v1/env/name/{name}/stop",
@@ -828,9 +828,9 @@ func (a *Client) StopEnvironmentByNameV1(params *StopEnvironmentByNameV1Params) 
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*StopEnvironmentByNameV1OK), nil
 
 }
 
@@ -839,13 +839,13 @@ UpdateConfigsInEnvironmentByCrnV1 updates the configuration for all stacks in th
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) UpdateConfigsInEnvironmentByCrnV1(params *UpdateConfigsInEnvironmentByCrnV1Params) error {
+func (a *Client) UpdateConfigsInEnvironmentByCrnV1(params *UpdateConfigsInEnvironmentByCrnV1Params) (*UpdateConfigsInEnvironmentByCrnV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateConfigsInEnvironmentByCrnV1Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "updateConfigsInEnvironmentByCrnV1",
 		Method:             "POST",
 		PathPattern:        "/v1/env/crn/{crn}/update_config",
@@ -858,9 +858,9 @@ func (a *Client) UpdateConfigsInEnvironmentByCrnV1(params *UpdateConfigsInEnviro
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*UpdateConfigsInEnvironmentByCrnV1OK), nil
 
 }
 
@@ -869,13 +869,13 @@ UpdateEnvironmentLoadBalancersByCrnV1 updates all cluster in an environment with
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) UpdateEnvironmentLoadBalancersByCrnV1(params *UpdateEnvironmentLoadBalancersByCrnV1Params) error {
+func (a *Client) UpdateEnvironmentLoadBalancersByCrnV1(params *UpdateEnvironmentLoadBalancersByCrnV1Params) (*UpdateEnvironmentLoadBalancersByCrnV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateEnvironmentLoadBalancersByCrnV1Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "updateEnvironmentLoadBalancersByCrnV1",
 		Method:             "PUT",
 		PathPattern:        "/v1/env/crn/{crn}/update_load_balancers",
@@ -888,9 +888,9 @@ func (a *Client) UpdateEnvironmentLoadBalancersByCrnV1(params *UpdateEnvironment
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*UpdateEnvironmentLoadBalancersByCrnV1OK), nil
 
 }
 
@@ -899,13 +899,13 @@ UpdateEnvironmentLoadBalancersByNameV11 updates all cluster in an environment wi
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) UpdateEnvironmentLoadBalancersByNameV11(params *UpdateEnvironmentLoadBalancersByNameV11Params) error {
+func (a *Client) UpdateEnvironmentLoadBalancersByNameV11(params *UpdateEnvironmentLoadBalancersByNameV11Params) (*UpdateEnvironmentLoadBalancersByNameV11OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateEnvironmentLoadBalancersByNameV11Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "updateEnvironmentLoadBalancersByNameV11",
 		Method:             "PUT",
 		PathPattern:        "/v1/env/name/{name}/update_load_balancers",
@@ -918,9 +918,9 @@ func (a *Client) UpdateEnvironmentLoadBalancersByNameV11(params *UpdateEnvironme
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*UpdateEnvironmentLoadBalancersByNameV11OK), nil
 
 }
 

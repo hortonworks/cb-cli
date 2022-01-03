@@ -7,10 +7,13 @@ package v1env
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-environment/model"
 )
 
 // StartEnvironmentByCrnV1Reader is a Reader for the StartEnvironmentByCrnV1 structure.
@@ -20,43 +23,45 @@ type StartEnvironmentByCrnV1Reader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *StartEnvironmentByCrnV1Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewStartEnvironmentByCrnV1Default(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewStartEnvironmentByCrnV1OK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewStartEnvironmentByCrnV1Default creates a StartEnvironmentByCrnV1Default with default headers values
-func NewStartEnvironmentByCrnV1Default(code int) *StartEnvironmentByCrnV1Default {
-	return &StartEnvironmentByCrnV1Default{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*StartEnvironmentByCrnV1Default handles this case with default header values.
+// NewStartEnvironmentByCrnV1OK creates a StartEnvironmentByCrnV1OK with default headers values
+func NewStartEnvironmentByCrnV1OK() *StartEnvironmentByCrnV1OK {
+	return &StartEnvironmentByCrnV1OK{}
+}
+
+/*StartEnvironmentByCrnV1OK handles this case with default header values.
 
 successful operation
 */
-type StartEnvironmentByCrnV1Default struct {
-	_statusCode int
+type StartEnvironmentByCrnV1OK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the start environment by crn v1 default response
-func (o *StartEnvironmentByCrnV1Default) Code() int {
-	return o._statusCode
+func (o *StartEnvironmentByCrnV1OK) Error() string {
+	return fmt.Sprintf("[POST /v1/env/crn/{crn}/start][%d] startEnvironmentByCrnV1OK  %+v", 200, o.Payload)
 }
 
-func (o *StartEnvironmentByCrnV1Default) Error() string {
-	return fmt.Sprintf("[POST /v1/env/crn/{crn}/start][%d] startEnvironmentByCrnV1 default ", o._statusCode)
-}
+func (o *StartEnvironmentByCrnV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *StartEnvironmentByCrnV1Default) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

@@ -44,7 +44,7 @@ type ClusterTemplateViewV4Response struct {
 	EnvironmentName string `json:"environmentName,omitempty"`
 
 	// feature state
-	// Enum: [PREVIEW RELEASED]
+	// Enum: [PREVIEW RELEASED INTERNAL]
 	FeatureState string `json:"featureState,omitempty"`
 
 	// id of the resource
@@ -176,7 +176,7 @@ var clusterTemplateViewV4ResponseTypeFeatureStatePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["PREVIEW","RELEASED"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["PREVIEW","RELEASED","INTERNAL"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -191,6 +191,9 @@ const (
 
 	// ClusterTemplateViewV4ResponseFeatureStateRELEASED captures enum value "RELEASED"
 	ClusterTemplateViewV4ResponseFeatureStateRELEASED string = "RELEASED"
+
+	// ClusterTemplateViewV4ResponseFeatureStateINTERNAL captures enum value "INTERNAL"
+	ClusterTemplateViewV4ResponseFeatureStateINTERNAL string = "INTERNAL"
 )
 
 // prop value enum

@@ -675,6 +675,37 @@ func (a *Client) RebootV1(params *RebootV1Params, authInfo runtime.ClientAuthInf
 }
 
 /*
+RebuildV1 rebuilds the free IP a cluster
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) RebuildV1(params *RebuildV1Params, authInfo runtime.ClientAuthInfoWriter) (*RebuildV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRebuildV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rebuildV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/rebuild",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RebuildV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RebuildV1OK), nil
+
+}
+
+/*
 RepairV1 repairs one or more instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.

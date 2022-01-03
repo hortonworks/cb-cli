@@ -7,10 +7,13 @@ package v1env
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-environment/model"
 )
 
 // UpdateEnvironmentLoadBalancersByNameV11Reader is a Reader for the UpdateEnvironmentLoadBalancersByNameV11 structure.
@@ -20,43 +23,45 @@ type UpdateEnvironmentLoadBalancersByNameV11Reader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *UpdateEnvironmentLoadBalancersByNameV11Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewUpdateEnvironmentLoadBalancersByNameV11Default(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewUpdateEnvironmentLoadBalancersByNameV11OK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewUpdateEnvironmentLoadBalancersByNameV11Default creates a UpdateEnvironmentLoadBalancersByNameV11Default with default headers values
-func NewUpdateEnvironmentLoadBalancersByNameV11Default(code int) *UpdateEnvironmentLoadBalancersByNameV11Default {
-	return &UpdateEnvironmentLoadBalancersByNameV11Default{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*UpdateEnvironmentLoadBalancersByNameV11Default handles this case with default header values.
+// NewUpdateEnvironmentLoadBalancersByNameV11OK creates a UpdateEnvironmentLoadBalancersByNameV11OK with default headers values
+func NewUpdateEnvironmentLoadBalancersByNameV11OK() *UpdateEnvironmentLoadBalancersByNameV11OK {
+	return &UpdateEnvironmentLoadBalancersByNameV11OK{}
+}
+
+/*UpdateEnvironmentLoadBalancersByNameV11OK handles this case with default header values.
 
 successful operation
 */
-type UpdateEnvironmentLoadBalancersByNameV11Default struct {
-	_statusCode int
+type UpdateEnvironmentLoadBalancersByNameV11OK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the update environment load balancers by name v11 default response
-func (o *UpdateEnvironmentLoadBalancersByNameV11Default) Code() int {
-	return o._statusCode
+func (o *UpdateEnvironmentLoadBalancersByNameV11OK) Error() string {
+	return fmt.Sprintf("[PUT /v1/env/name/{name}/update_load_balancers][%d] updateEnvironmentLoadBalancersByNameV11OK  %+v", 200, o.Payload)
 }
 
-func (o *UpdateEnvironmentLoadBalancersByNameV11Default) Error() string {
-	return fmt.Sprintf("[PUT /v1/env/name/{name}/update_load_balancers][%d] updateEnvironmentLoadBalancersByNameV11 default ", o._statusCode)
-}
+func (o *UpdateEnvironmentLoadBalancersByNameV11OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *UpdateEnvironmentLoadBalancersByNameV11Default) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

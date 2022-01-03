@@ -407,7 +407,7 @@ func StartEnvironment(c *cli.Context) {
 	log.Infof("[StartEnvironment] start environment by name: %s", envName)
 	envClient := oauth.NewEnvironmentClientFromContext(c)
 
-	err := envClient.Environment.V1env.StartEnvironmentByNameV1(v1env.NewStartEnvironmentByNameV1Params().WithName(envName))
+	_, err := envClient.Environment.V1env.StartEnvironmentByNameV1(v1env.NewStartEnvironmentByNameV1Params().WithName(envName))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
@@ -419,7 +419,7 @@ func StopEnvironment(c *cli.Context) {
 	log.Infof("[StopEnvironment] stop environment by name: %s", envName)
 	envClient := oauth.NewEnvironmentClientFromContext(c)
 
-	err := envClient.Environment.V1env.StopEnvironmentByNameV1(v1env.NewStopEnvironmentByNameV1Params().WithName(envName))
+	_, err := envClient.Environment.V1env.StopEnvironmentByNameV1(v1env.NewStopEnvironmentByNameV1Params().WithName(envName))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}

@@ -20,6 +20,9 @@ type JSONV1Parameters struct {
 	// credential Json
 	// Required: true
 	CredentialJSON *string `json:"credentialJson"`
+
+	// project Id
+	ProjectID string `json:"projectId,omitempty"`
 }
 
 // Validate validates this Json v1 parameters

@@ -54,6 +54,36 @@ func (a *Client) GetDistroXInternalV1ByCrn(params *GetDistroXInternalV1ByCrnPara
 
 }
 
+/*
+RenewInternalDistroXCertificate triggers a certificate renewal on the desired cluster which is identified via crn
+
+Trigger a certificate renewal on the specified cluster.
+*/
+func (a *Client) RenewInternalDistroXCertificate(params *RenewInternalDistroXCertificateParams) (*RenewInternalDistroXCertificateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRenewInternalDistroXCertificateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "renewInternalDistroXCertificate",
+		Method:             "POST",
+		PathPattern:        "/v1/internal/distrox/crn/{crn}/renew_certificate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RenewInternalDistroXCertificateReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RenewInternalDistroXCertificateOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

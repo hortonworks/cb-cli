@@ -1677,6 +1677,34 @@ func (a *Client) SyncSdxByCrn(params *SyncSdxByCrnParams) error {
 }
 
 /*
+UpgradeCcm upgrades cluster connectivity manager
+*/
+func (a *Client) UpgradeCcm(params *UpgradeCcmParams) (*UpgradeCcmOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeCcmParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeCcm",
+		Method:             "PUT",
+		PathPattern:        "/sdx/internal/upgrade_ccm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeCcmReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeCcmOK), nil
+
+}
+
+/*
 UpgradeDatalakeCluster upgrades the data lake cluster
 */
 func (a *Client) UpgradeDatalakeCluster(params *UpgradeDatalakeClusterParams) (*UpgradeDatalakeClusterOK, error) {

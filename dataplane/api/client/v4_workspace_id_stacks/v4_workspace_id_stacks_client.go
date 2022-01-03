@@ -1071,6 +1071,36 @@ func (a *Client) RefreshStackRecipes(params *RefreshStackRecipesParams) (*Refres
 }
 
 /*
+RenewInternalStackCertificate triggers a certificate renewal on the desired cluster which is identified via stack s name
+
+Trigger a certificate renewal on the specified cluster.
+*/
+func (a *Client) RenewInternalStackCertificate(params *RenewInternalStackCertificateParams) (*RenewInternalStackCertificateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRenewInternalStackCertificateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "renewInternalStackCertificate",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/crn/{crn}/renew_certificate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RenewInternalStackCertificateReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RenewInternalStackCertificateOK), nil
+
+}
+
+/*
 RenewStackCertificate triggers a certificate renewal on the desired cluster which is identified via stack s name
 
 Trigger a certificate renewal on the specified cluster.

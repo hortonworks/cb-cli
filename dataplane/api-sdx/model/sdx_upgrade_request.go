@@ -38,6 +38,9 @@ type SdxUpgradeRequest struct {
 	// show available images
 	// Enum: [SHOW LATEST_ONLY DO_NOT_SHOW]
 	ShowAvailableImages string `json:"showAvailableImages,omitempty"`
+
+	// skip backup
+	SkipBackup bool `json:"skipBackup,omitempty"`
 }
 
 // Validate validates this sdx upgrade request

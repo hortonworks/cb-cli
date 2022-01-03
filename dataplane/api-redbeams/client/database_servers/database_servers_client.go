@@ -489,6 +489,37 @@ func (a *Client) TestDatabaseServerConnection(params *TestDatabaseServerConnecti
 
 }
 
+/*
+UpdateClusterCrn updates the cluster crn associated with the database
+
+Updates the cluster crn associated with the database
+*/
+func (a *Client) UpdateClusterCrn(params *UpdateClusterCrnParams, authInfo runtime.ClientAuthInfoWriter) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateClusterCrnParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateClusterCrn",
+		Method:             "POST",
+		PathPattern:        "/v4/databaseservers/updateclustercrn",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateClusterCrnReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

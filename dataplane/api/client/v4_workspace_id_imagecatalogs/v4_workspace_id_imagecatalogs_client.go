@@ -475,6 +475,36 @@ func (a *Client) GetImagesInWorkspace(params *GetImagesInWorkspaceParams) (*GetI
 }
 
 /*
+GetRuntimeVersionsFromDefault gets runtime versions from the default catalog
+
+Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.
+*/
+func (a *Client) GetRuntimeVersionsFromDefault(params *GetRuntimeVersionsFromDefaultParams) (*GetRuntimeVersionsFromDefaultOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRuntimeVersionsFromDefaultParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getRuntimeVersionsFromDefault",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/default_runtime_versions",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRuntimeVersionsFromDefaultReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRuntimeVersionsFromDefaultOK), nil
+
+}
+
+/*
 GetSingleImageByNameAndID determines the image for the image uuidfrom the given imagecatalog name
 
 Provides an interface to determine available Virtual Machine images for the given version of Cloudbreak.

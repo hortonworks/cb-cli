@@ -7,10 +7,13 @@ package v1env
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-environment/model"
 )
 
 // UpdateEnvironmentLoadBalancersByCrnV1Reader is a Reader for the UpdateEnvironmentLoadBalancersByCrnV1 structure.
@@ -20,43 +23,45 @@ type UpdateEnvironmentLoadBalancersByCrnV1Reader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *UpdateEnvironmentLoadBalancersByCrnV1Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewUpdateEnvironmentLoadBalancersByCrnV1Default(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewUpdateEnvironmentLoadBalancersByCrnV1OK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewUpdateEnvironmentLoadBalancersByCrnV1Default creates a UpdateEnvironmentLoadBalancersByCrnV1Default with default headers values
-func NewUpdateEnvironmentLoadBalancersByCrnV1Default(code int) *UpdateEnvironmentLoadBalancersByCrnV1Default {
-	return &UpdateEnvironmentLoadBalancersByCrnV1Default{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*UpdateEnvironmentLoadBalancersByCrnV1Default handles this case with default header values.
+// NewUpdateEnvironmentLoadBalancersByCrnV1OK creates a UpdateEnvironmentLoadBalancersByCrnV1OK with default headers values
+func NewUpdateEnvironmentLoadBalancersByCrnV1OK() *UpdateEnvironmentLoadBalancersByCrnV1OK {
+	return &UpdateEnvironmentLoadBalancersByCrnV1OK{}
+}
+
+/*UpdateEnvironmentLoadBalancersByCrnV1OK handles this case with default header values.
 
 successful operation
 */
-type UpdateEnvironmentLoadBalancersByCrnV1Default struct {
-	_statusCode int
+type UpdateEnvironmentLoadBalancersByCrnV1OK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the update environment load balancers by crn v1 default response
-func (o *UpdateEnvironmentLoadBalancersByCrnV1Default) Code() int {
-	return o._statusCode
+func (o *UpdateEnvironmentLoadBalancersByCrnV1OK) Error() string {
+	return fmt.Sprintf("[PUT /v1/env/crn/{crn}/update_load_balancers][%d] updateEnvironmentLoadBalancersByCrnV1OK  %+v", 200, o.Payload)
 }
 
-func (o *UpdateEnvironmentLoadBalancersByCrnV1Default) Error() string {
-	return fmt.Sprintf("[PUT /v1/env/crn/{crn}/update_load_balancers][%d] updateEnvironmentLoadBalancersByCrnV1 default ", o._statusCode)
-}
+func (o *UpdateEnvironmentLoadBalancersByCrnV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *UpdateEnvironmentLoadBalancersByCrnV1Default) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

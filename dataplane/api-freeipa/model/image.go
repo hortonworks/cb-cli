@@ -15,13 +15,20 @@ import (
 // swagger:model Image
 type Image struct {
 
+	// advertised
+	// Read Only: true
+	Advertised *bool `json:"advertised,omitempty"`
+
 	// created
+	// Read Only: true
 	Created int64 `json:"created,omitempty"`
 
 	// date
+	// Read Only: true
 	Date string `json:"date,omitempty"`
 
 	// description
+	// Read Only: true
 	Description string `json:"description,omitempty"`
 
 	// images
@@ -29,6 +36,7 @@ type Image struct {
 	Images map[string]map[string]string `json:"images,omitempty"`
 
 	// os
+	// Read Only: true
 	Os string `json:"os,omitempty"`
 
 	// os type
@@ -40,6 +48,7 @@ type Image struct {
 	PackageVersions map[string]string `json:"package-versions,omitempty"`
 
 	// uuid
+	// Read Only: true
 	UUID string `json:"uuid,omitempty"`
 }
 

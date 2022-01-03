@@ -36,6 +36,9 @@ type StackDetails struct {
 	// cluster version
 	ClusterVersion string `json:"clusterVersion,omitempty"`
 
+	// database type
+	DatabaseType string `json:"databaseType,omitempty"`
+
 	// datalake Id
 	DatalakeID int64 `json:"datalakeId,omitempty"`
 

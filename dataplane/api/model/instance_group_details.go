@@ -36,9 +36,6 @@ type InstanceGroupDetails struct {
 	// root volume size
 	RootVolumeSize int32 `json:"rootVolumeSize,omitempty"`
 
-	// security group
-	SecurityGroup *SecurityGroupDetails `json:"securityGroup,omitempty"`
-
 	// temporary storage
 	TemporaryStorage string `json:"temporaryStorage,omitempty"`
 
@@ -50,10 +47,6 @@ type InstanceGroupDetails struct {
 func (m *InstanceGroupDetails) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateSecurityGroup(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateVolumes(formats); err != nil {
 		res = append(res, err)
 	}
@@ -61,24 +54,6 @@ func (m *InstanceGroupDetails) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *InstanceGroupDetails) validateSecurityGroup(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SecurityGroup) { // not required
-		return nil
-	}
-
-	if m.SecurityGroup != nil {
-		if err := m.SecurityGroup.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("securityGroup")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 

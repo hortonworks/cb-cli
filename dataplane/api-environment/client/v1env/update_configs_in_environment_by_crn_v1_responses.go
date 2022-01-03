@@ -7,10 +7,13 @@ package v1env
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-environment/model"
 )
 
 // UpdateConfigsInEnvironmentByCrnV1Reader is a Reader for the UpdateConfigsInEnvironmentByCrnV1 structure.
@@ -20,43 +23,45 @@ type UpdateConfigsInEnvironmentByCrnV1Reader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *UpdateConfigsInEnvironmentByCrnV1Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewUpdateConfigsInEnvironmentByCrnV1Default(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewUpdateConfigsInEnvironmentByCrnV1OK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewUpdateConfigsInEnvironmentByCrnV1Default creates a UpdateConfigsInEnvironmentByCrnV1Default with default headers values
-func NewUpdateConfigsInEnvironmentByCrnV1Default(code int) *UpdateConfigsInEnvironmentByCrnV1Default {
-	return &UpdateConfigsInEnvironmentByCrnV1Default{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*UpdateConfigsInEnvironmentByCrnV1Default handles this case with default header values.
+// NewUpdateConfigsInEnvironmentByCrnV1OK creates a UpdateConfigsInEnvironmentByCrnV1OK with default headers values
+func NewUpdateConfigsInEnvironmentByCrnV1OK() *UpdateConfigsInEnvironmentByCrnV1OK {
+	return &UpdateConfigsInEnvironmentByCrnV1OK{}
+}
+
+/*UpdateConfigsInEnvironmentByCrnV1OK handles this case with default header values.
 
 successful operation
 */
-type UpdateConfigsInEnvironmentByCrnV1Default struct {
-	_statusCode int
+type UpdateConfigsInEnvironmentByCrnV1OK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the update configs in environment by crn v1 default response
-func (o *UpdateConfigsInEnvironmentByCrnV1Default) Code() int {
-	return o._statusCode
+func (o *UpdateConfigsInEnvironmentByCrnV1OK) Error() string {
+	return fmt.Sprintf("[POST /v1/env/crn/{crn}/update_config][%d] updateConfigsInEnvironmentByCrnV1OK  %+v", 200, o.Payload)
 }
 
-func (o *UpdateConfigsInEnvironmentByCrnV1Default) Error() string {
-	return fmt.Sprintf("[POST /v1/env/crn/{crn}/update_config][%d] updateConfigsInEnvironmentByCrnV1 default ", o._statusCode)
-}
+func (o *UpdateConfigsInEnvironmentByCrnV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *UpdateConfigsInEnvironmentByCrnV1Default) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
