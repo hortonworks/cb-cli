@@ -335,6 +335,37 @@ func (a *Client) DetachChildEnvironmentV1(params *DetachChildEnvironmentV1Params
 }
 
 /*
+DownscaleFreeIpaV1 upscales free IP a instances
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) DownscaleFreeIpaV1(params *DownscaleFreeIpaV1Params, authInfo runtime.ClientAuthInfoWriter) (*DownscaleFreeIpaV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDownscaleFreeIpaV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "downscaleFreeIpaV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/downscale",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DownscaleFreeIpaV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DownscaleFreeIpaV1OK), nil
+
+}
+
+/*
 GenerateImageCatalog generates an image catalog that only contains the currently used image for creating instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -887,6 +918,37 @@ func (a *Client) UpgradeFreeIpaV1(params *UpgradeFreeIpaV1Params) (*UpgradeFreeI
 		return nil, err
 	}
 	return result.(*UpgradeFreeIpaV1OK), nil
+
+}
+
+/*
+UpscaleFreeIpaV1 upscales free IP a instances
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) UpscaleFreeIpaV1(params *UpscaleFreeIpaV1Params, authInfo runtime.ClientAuthInfoWriter) (*UpscaleFreeIpaV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpscaleFreeIpaV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upscaleFreeIpaV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/upscale",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpscaleFreeIpaV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpscaleFreeIpaV1OK), nil
 
 }
 

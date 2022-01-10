@@ -163,6 +163,18 @@ func init() {
 				},
 			},
 			{
+				Name:   "upscale",
+				Usage:  "upscales a FreeIpa cluster",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlScaleTargetFormFactor).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: freeipa.UpscaleFreeIpa,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlScaleTargetFormFactor).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:   "list",
 				Usage:  "list FreeIpa clusters",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,

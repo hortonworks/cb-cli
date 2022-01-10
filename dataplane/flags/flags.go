@@ -1646,6 +1646,13 @@ var (
 			Usage: "if it's set, recover will happen without data restore",
 		},
 	}
+	FlScaleTargetFormFactor = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "target-form-factor",
+			Usage: "form factor of the desired target FreeIpa installation",
+		},
+	}
 )
 
 type RequiredFlag struct {

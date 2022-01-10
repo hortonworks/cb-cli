@@ -124,6 +124,26 @@ func RebootFreeIpa(c *cli.Context) {
 	}
 }
 
+func UpscaleFreeIpa(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "upscale FreeIpa cluster")
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	formFactor := c.String(fl.FlScaleTargetFormFactor.Name)
+
+	request :=
+		&freeIpaModel.FreeIpaUpscaleV1Request{
+			EnvironmentCrn:   &envCrn,
+			TargetFormFactor: &formFactor,
+		}
+	resp, err := freeIpaClient.V1freeipa.UpscaleFreeIpaV1(v1freeipa.NewUpscaleFreeIpaV1Params().WithBody(request), nil)
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("[startFreeIpa] FreeIpa cluster upscale requested in enviornment %s", envName, resp.Payload)
+	printFormattedJsonResponse(resp.Payload)
+}
+
 func assembleRebootRequest(c *cli.Context) *freeIpaModel.RebootInstancesV1Request {
 	envName := c.String(fl.FlEnvironmentName.Name)
 	envCrn := env.GetEnvirontmentCrnByName(c, envName)
