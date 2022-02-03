@@ -6,10 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // SdxCcmUpgradeResponse sdx ccm upgrade response
@@ -21,6 +24,10 @@ type SdxCcmUpgradeResponse struct {
 
 	// reason
 	Reason string `json:"reason,omitempty"`
+
+	// response type
+	// Enum: [TRIGGERED SKIP ERROR]
+	ResponseType string `json:"responseType,omitempty"`
 }
 
 // Validate validates this sdx ccm upgrade response
@@ -28,6 +35,10 @@ func (m *SdxCcmUpgradeResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateFlowIdentifier(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateResponseType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -50,6 +61,52 @@ func (m *SdxCcmUpgradeResponse) validateFlowIdentifier(formats strfmt.Registry) 
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var sdxCcmUpgradeResponseTypeResponseTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["TRIGGERED","SKIP","ERROR"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		sdxCcmUpgradeResponseTypeResponseTypePropEnum = append(sdxCcmUpgradeResponseTypeResponseTypePropEnum, v)
+	}
+}
+
+const (
+
+	// SdxCcmUpgradeResponseResponseTypeTRIGGERED captures enum value "TRIGGERED"
+	SdxCcmUpgradeResponseResponseTypeTRIGGERED string = "TRIGGERED"
+
+	// SdxCcmUpgradeResponseResponseTypeSKIP captures enum value "SKIP"
+	SdxCcmUpgradeResponseResponseTypeSKIP string = "SKIP"
+
+	// SdxCcmUpgradeResponseResponseTypeERROR captures enum value "ERROR"
+	SdxCcmUpgradeResponseResponseTypeERROR string = "ERROR"
+)
+
+// prop value enum
+func (m *SdxCcmUpgradeResponse) validateResponseTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, sdxCcmUpgradeResponseTypeResponseTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *SdxCcmUpgradeResponse) validateResponseType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ResponseType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateResponseTypeEnum("responseType", "body", m.ResponseType); err != nil {
+		return err
 	}
 
 	return nil

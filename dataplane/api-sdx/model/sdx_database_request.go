@@ -25,6 +25,9 @@ type SdxDatabaseRequest struct {
 
 	// create
 	Create bool `json:"create,omitempty"`
+
+	// database engine version
+	DatabaseEngineVersion string `json:"databaseEngineVersion,omitempty"`
 }
 
 // Validate validates this sdx database request

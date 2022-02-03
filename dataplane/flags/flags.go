@@ -1646,6 +1646,13 @@ var (
 			Usage: "if it's set, recover will happen without data restore",
 		},
 	}
+	FlDatabaseEngineVersionOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "database-engine-version",
+			Usage: "if it's set, a specific version of external database will be provisioned",
+		},
+	}
 )
 
 type RequiredFlag struct {
