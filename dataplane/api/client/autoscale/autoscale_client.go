@@ -390,7 +390,7 @@ func (a *Client) GetRecommendation(params *GetRecommendationParams) (*GetRecomme
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRecommendation",
 		Method:             "GET",
-		PathPattern:        "/autoscale/recommendation",
+		PathPattern:        "/autoscale/stack/crn/{crn}/recommendation",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -418,7 +418,7 @@ func (a *Client) GetRecommendation1(params *GetRecommendation1Params) (*GetRecom
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRecommendation_1",
 		Method:             "GET",
-		PathPattern:        "/autoscale/stack/crn/{crn}/recommendation",
+		PathPattern:        "/autoscale/recommendation",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},

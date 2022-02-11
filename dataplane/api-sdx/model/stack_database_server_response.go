@@ -44,7 +44,7 @@ type StackDatabaseServerResponse struct {
 	Host string `json:"host,omitempty"`
 
 	// Major version of the database server engine
-	// Enum: [VERSION_10 VERSION_11 VERSION_12 VERSION_13 VERSION_14]
+	// Enum: [VERSION_FAMILY_9 VERSION_9_6 VERSION_10 VERSION_11 VERSION_12 VERSION_13 VERSION_14]
 	MajorVersion string `json:"majorVersion,omitempty"`
 
 	// Name of the database server
@@ -98,7 +98,7 @@ var stackDatabaseServerResponseTypeMajorVersionPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["VERSION_10","VERSION_11","VERSION_12","VERSION_13","VERSION_14"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["VERSION_FAMILY_9","VERSION_9_6","VERSION_10","VERSION_11","VERSION_12","VERSION_13","VERSION_14"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -107,6 +107,12 @@ func init() {
 }
 
 const (
+
+	// StackDatabaseServerResponseMajorVersionVERSIONFAMILY9 captures enum value "VERSION_FAMILY_9"
+	StackDatabaseServerResponseMajorVersionVERSIONFAMILY9 string = "VERSION_FAMILY_9"
+
+	// StackDatabaseServerResponseMajorVersionVERSION96 captures enum value "VERSION_9_6"
+	StackDatabaseServerResponseMajorVersionVERSION96 string = "VERSION_9_6"
 
 	// StackDatabaseServerResponseMajorVersionVERSION10 captures enum value "VERSION_10"
 	StackDatabaseServerResponseMajorVersionVERSION10 string = "VERSION_10"

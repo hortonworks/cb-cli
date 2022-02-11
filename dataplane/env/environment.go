@@ -11,18 +11,19 @@ import (
 
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1operation"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1platform_resources"
+	"github.com/hortonworks/cb-cli/dataplane/types"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1utils"
 	sdxModel "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v1distrox"
+	"github.com/hortonworks/cb-cli/dataplane/cloud"
 	"github.com/hortonworks/cb-cli/dataplane/common"
 	"github.com/hortonworks/cb-cli/dataplane/distrox"
 	"github.com/hortonworks/cb-cli/dataplane/sdx"
 
-	"github.com/hortonworks/cb-cli/dataplane/cloud"
-
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/model"
+
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/cb-cli/dataplane/oauth"
 	"github.com/hortonworks/dp-cli-common/utils"
@@ -456,6 +457,38 @@ func ChangeCredential(c *cli.Context) {
 	}
 	environment := resp.Payload
 	log.Infof("[ChangeCredential] credential of environment %s changed to: %s", environment.Name, *environment.Credential.Name)
+}
+
+func VerticalScaleFreeIpa(c *cli.Context) {
+	defer utils.TimeTrack(time.Now(), "vertical scale FreeIpa cluster")
+	envClient := oauth.NewEnvironmentClientFromContext(c)
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := GetEnvirontmentCrnByNames(c, envName)
+	instanceType := c.String(fl.FlInstanceType.Name)
+
+	req := &model.VerticalScaleRequest{
+		Group: &(&types.S{S: c.String(fl.FlGroupName.Name)}).S,
+		Template: &model.InstanceTemplateV1Request{
+			InstanceType: instanceType,
+		},
+	}
+	checkClientVersion(envClient.Environment, common.Version)
+	envClient.Environment.V1env.VerticalScalingByEnvironmentCrnV1(v1env.NewVerticalScalingByEnvironmentCrnV1Params().WithBody(req).WithCrn(envCrn))
+	log.Infof("[startFreeIpa] FreeIpa cluster vertical scale requested in environment %s", envName)
+}
+
+func GetEnvirontmentCrnByNames(c *cli.Context, environment string) string {
+	envClient := oauth.Environment(*oauth.NewEnvironmentClientFromContext(c)).Environment
+	resp, err := envClient.V1env.GetEnvironmentV1ByName(v1env.NewGetEnvironmentV1ByNameParams().WithName(environment))
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	environmentDetails := resp.Payload
+	if len(environmentDetails.Crn) == 0 {
+		errmsg := fmt.Sprintf("Failed to get the CRN of environment: %s", environment)
+		utils.LogErrorMessageAndExit(errmsg)
+	}
+	return environmentDetails.Crn
 }
 
 func UpgradeCcm(c *cli.Context) {

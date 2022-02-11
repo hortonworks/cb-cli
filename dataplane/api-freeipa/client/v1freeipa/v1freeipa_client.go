@@ -830,6 +830,37 @@ func (a *Client) ListRetryableFlowsV1(params *ListRetryableFlowsV1Params, authIn
 }
 
 /*
+PutVerticalScalingFreeIpaV1ByEnvironmentCrn verticals scale by environment c r n
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) PutVerticalScalingFreeIpaV1ByEnvironmentCrn(params *PutVerticalScalingFreeIpaV1ByEnvironmentCrnParams, authInfo runtime.ClientAuthInfoWriter) (*PutVerticalScalingFreeIpaV1ByEnvironmentCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutVerticalScalingFreeIpaV1ByEnvironmentCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "putVerticalScalingFreeIpaV1ByEnvironmentCrn",
+		Method:             "PUT",
+		PathPattern:        "/v1/freeipa/vertical_scaling",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutVerticalScalingFreeIpaV1ByEnvironmentCrnReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PutVerticalScalingFreeIpaV1ByEnvironmentCrnOK), nil
+
+}
+
+/*
 RebootV1 reboots one or more instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.

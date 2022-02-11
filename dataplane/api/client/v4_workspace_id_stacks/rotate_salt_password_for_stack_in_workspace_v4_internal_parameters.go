@@ -16,6 +16,8 @@ import (
 	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // NewRotateSaltPasswordForStackInWorkspaceV4InternalParams creates a new RotateSaltPasswordForStackInWorkspaceV4InternalParams object
@@ -62,6 +64,8 @@ for the rotate salt password for stack in workspace v4 internal operation typica
 */
 type RotateSaltPasswordForStackInWorkspaceV4InternalParams struct {
 
+	/*Body*/
+	Body *model.RotateSaltPasswordRequest
 	/*Crn*/
 	Crn string
 	/*InitiatorUserCrn*/
@@ -107,6 +111,17 @@ func (o *RotateSaltPasswordForStackInWorkspaceV4InternalParams) SetHTTPClient(cl
 	o.HTTPClient = client
 }
 
+// WithBody adds the body to the rotate salt password for stack in workspace v4 internal params
+func (o *RotateSaltPasswordForStackInWorkspaceV4InternalParams) WithBody(body *model.RotateSaltPasswordRequest) *RotateSaltPasswordForStackInWorkspaceV4InternalParams {
+	o.SetBody(body)
+	return o
+}
+
+// SetBody adds the body to the rotate salt password for stack in workspace v4 internal params
+func (o *RotateSaltPasswordForStackInWorkspaceV4InternalParams) SetBody(body *model.RotateSaltPasswordRequest) {
+	o.Body = body
+}
+
 // WithCrn adds the crn to the rotate salt password for stack in workspace v4 internal params
 func (o *RotateSaltPasswordForStackInWorkspaceV4InternalParams) WithCrn(crn string) *RotateSaltPasswordForStackInWorkspaceV4InternalParams {
 	o.SetCrn(crn)
@@ -147,6 +162,12 @@ func (o *RotateSaltPasswordForStackInWorkspaceV4InternalParams) WriteToRequest(r
 		return err
 	}
 	var res []error
+
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
+	}
 
 	// path param crn
 	if err := r.SetPathParam("crn", o.Crn); err != nil {

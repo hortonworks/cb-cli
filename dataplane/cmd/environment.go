@@ -103,6 +103,18 @@ func init() {
 				},
 			},
 			{
+				Name:   "vertical-scale",
+				Usage:  "vertical scales a Environment FreeIPA",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlGroupName, fl.FlWaitOptional, fl.FlInstanceType).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: env.VerticalScaleFreeIpa,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlGroupName, fl.FlWaitOptional, fl.FlInstanceType).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:  "edit",
 				Usage: "edit an environment. description, network, regions and location can be changed.",
 				Subcommands: []cli.Command{

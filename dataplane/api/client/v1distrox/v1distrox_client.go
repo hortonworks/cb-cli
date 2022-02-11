@@ -1251,6 +1251,66 @@ func (a *Client) PutScalingDistroXV1ByName(params *PutScalingDistroXV1ByNamePara
 }
 
 /*
+PutVerticalScalingDistroXV1ByCrn verticals scales the instances node type disks stack by crn
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) PutVerticalScalingDistroXV1ByCrn(params *PutVerticalScalingDistroXV1ByCrnParams) (*PutVerticalScalingDistroXV1ByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutVerticalScalingDistroXV1ByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "putVerticalScalingDistroXV1ByCrn",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/crn/{crn}/vertical_scaling",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutVerticalScalingDistroXV1ByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PutVerticalScalingDistroXV1ByCrnOK), nil
+
+}
+
+/*
+PutVerticalScalingDistroXV1ByName verticals scale the stack instances node type disks by name
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) PutVerticalScalingDistroXV1ByName(params *PutVerticalScalingDistroXV1ByNameParams) (*PutVerticalScalingDistroXV1ByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutVerticalScalingDistroXV1ByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "putVerticalScalingDistroXV1ByName",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/name/{name}/vertical_scaling",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutVerticalScalingDistroXV1ByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PutVerticalScalingDistroXV1ByNameOK), nil
+
+}
+
+/*
 RefreshRecipesByCrn refreshes recipes on the cluster by stack crn
 */
 func (a *Client) RefreshRecipesByCrn(params *RefreshRecipesByCrnParams) (*RefreshRecipesByCrnOK, error) {

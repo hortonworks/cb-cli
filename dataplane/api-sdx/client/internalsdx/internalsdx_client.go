@@ -82,6 +82,34 @@ func (a *Client) RenewInternalSdxCertificate(params *RenewInternalSdxCertificate
 
 }
 
+/*
+UpdateDbEngineVersion updates the db engine version in the service db
+*/
+func (a *Client) UpdateDbEngineVersion(params *UpdateDbEngineVersionParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateDbEngineVersionParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateDbEngineVersion",
+		Method:             "PUT",
+		PathPattern:        "/internal/sdx/crn/{crn}/updateDbEngineVersion",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateDbEngineVersionReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

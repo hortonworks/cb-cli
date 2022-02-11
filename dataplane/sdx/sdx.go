@@ -610,7 +610,7 @@ func SdxClusterUpgrade(c *cli.Context) {
 	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
 	backup := c.Bool(fl.FlUpgradeBackup.Name)
 
-	sdxRequest := createSdxUpgradeRequest(image, runtime, replaceVms, lock, dryRun, showImages, showLatestImages, backup)
+	sdxRequest := createSdxUpgradeRequest(image, runtime, lock, dryRun, replaceVms, showImages, showLatestImages, backup)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 
@@ -631,7 +631,7 @@ func SdxClusterUpgradePrepare(c *cli.Context) {
 	showImages := c.Bool(fl.FlShowImagesOptional.Name)
 	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
 
-	sdxRequest := createSdxUpgradeRequest(image, runtime, "", false, dryRun, showImages, showLatestImages, false)
+	sdxRequest := createSdxUpgradeRequest(image, runtime, false, dryRun, "", showImages, showLatestImages, false)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 
@@ -643,7 +643,26 @@ func SdxClusterUpgradePrepare(c *cli.Context) {
 	printResponseForPrepare(resp, dryRun || showImages || showLatestImages)
 }
 
-func createSdxUpgradeRequest(imageid, runtime, replaceVms string, lockComponents, dryRun, showImages, showLatestImages, backup bool) *sdxModel.SdxUpgradeRequest {
+func VerticalScaleSdx(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "vertical scale SDX")
+
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	instanceType := c.String(fl.FlInstanceType.Name)
+
+	req := &sdxModel.StackVerticalScaleV4Request{
+		Group: &(&types.S{S: c.String(fl.FlGroupName.Name)}).S,
+		Template: &sdxModel.InstanceTemplateV4Request{
+			InstanceType: instanceType,
+		},
+	}
+	name := c.String(fl.FlName.Name)
+	log.Infof("[ScaleSDX] scaling SDX, name: %s", name)
+	sdxClient.Sdx.VerticalScalingByNameV1(sdx.NewVerticalScalingByNameV1Params().WithName(name).WithBody(req))
+
+	log.Infof("[VerticalScaleSdx] SDX vertical scaled, name: %s", name)
+}
+
+func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string, showImages bool, showLatestImages bool, backup bool) *sdxModel.SdxUpgradeRequest {
 	var showImagesString string
 	if showLatestImages {
 		showImagesString = "LATEST_ONLY"
