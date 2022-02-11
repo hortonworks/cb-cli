@@ -15,6 +15,9 @@ import (
 // swagger:model SdxBackupLocationValidationRequest
 type SdxBackupLocationValidationRequest struct {
 
+	// The location where the database backup will be stored.
+	BackupLocation string `json:"backupLocation,omitempty"`
+
 	// Data Lake name.
 	ClusterName string `json:"clusterName,omitempty"`
 }

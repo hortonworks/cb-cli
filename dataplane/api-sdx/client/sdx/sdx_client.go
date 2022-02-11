@@ -2100,6 +2100,62 @@ func (a *Client) Versions(params *VersionsParams) (*VersionsOK, error) {
 
 }
 
+/*
+VerticalScalingByCrnV1 initiates the vertical scaling on data lake
+*/
+func (a *Client) VerticalScalingByCrnV1(params *VerticalScalingByCrnV1Params) (*VerticalScalingByCrnV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVerticalScalingByCrnV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "verticalScalingByCrnV1",
+		Method:             "PUT",
+		PathPattern:        "/sdx/crn/{crn}/vertical_scaling",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &VerticalScalingByCrnV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*VerticalScalingByCrnV1OK), nil
+
+}
+
+/*
+VerticalScalingByNameV1 initiates the vertical scaling on data lake
+*/
+func (a *Client) VerticalScalingByNameV1(params *VerticalScalingByNameV1Params) (*VerticalScalingByNameV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVerticalScalingByNameV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "verticalScalingByNameV1",
+		Method:             "PUT",
+		PathPattern:        "/sdx/name/{name}/vertical_scaling",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &VerticalScalingByNameV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*VerticalScalingByNameV1OK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

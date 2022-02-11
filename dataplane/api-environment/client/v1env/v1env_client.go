@@ -1132,6 +1132,66 @@ func (a *Client) VerifyCredentialByEnvCrn(params *VerifyCredentialByEnvCrnParams
 
 }
 
+/*
+VerticalScalingByEnvironmentCrnV1 initiates the vertical scaling on free IP a
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) VerticalScalingByEnvironmentCrnV1(params *VerticalScalingByEnvironmentCrnV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVerticalScalingByEnvironmentCrnV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "verticalScalingByEnvironmentCrnV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/env/crn/{crn}/vertical_scaling",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &VerticalScalingByEnvironmentCrnV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+VerticalScalingByEnvironmentNameV1 initiates the vertical scaling on free IP a
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) VerticalScalingByEnvironmentNameV1(params *VerticalScalingByEnvironmentNameV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVerticalScalingByEnvironmentNameV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "verticalScalingByEnvironmentNameV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/env/name/{name}/vertical_scaling",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &VerticalScalingByEnvironmentNameV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

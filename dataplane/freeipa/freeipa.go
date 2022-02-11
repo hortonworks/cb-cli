@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1dns"
+	"github.com/hortonworks/cb-cli/dataplane/types"
 
 	"os"
 
@@ -91,6 +92,23 @@ func StartFreeIpa(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[startFreeIpa] FreeIpa cluster start requested in enviornment %s", envName)
+}
+
+func VerticalScaleFreeIpa(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "start FreeIpa cluster")
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	instanceType := c.String(fl.FlInstanceType.Name)
+
+	req := &model.VerticalScaleRequest{
+		Group: &(&types.S{S: c.String(fl.FlGroupName.Name)}).S,
+		Template: &model.InstanceTemplateV1Request{
+			InstanceType: instanceType,
+		},
+	}
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	freeIpaClient.V1freeipa.PutVerticalScalingFreeIpaV1ByEnvironmentCrn(v1freeipa.NewPutVerticalScalingFreeIpaV1ByEnvironmentCrnParams().WithBody(req).WithEnvironment(&envCrn), nil)
+	log.Infof("[startFreeIpa] FreeIpa cluster vertical scale requested in environment %s", envName)
 }
 
 func StopFreeIpa(c *cli.Context) {

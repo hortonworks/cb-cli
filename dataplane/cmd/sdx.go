@@ -163,6 +163,18 @@ func init() {
 				},
 			},
 			{
+				Name:   "vertical-scale",
+				Usage:  "vertical scales a SDX cluster",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlGroupName, fl.FlWaitOptional, fl.FlInstanceType).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: sdx.VerticalScaleSdx,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlGroupName, fl.FlWaitOptional, fl.FlInstanceType).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:  "diagnostics",
 				Usage: "manage diagnostics for an SDX CM cluster",
 				Subcommands: []cli.Command{

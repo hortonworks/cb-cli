@@ -151,6 +151,18 @@ func init() {
 				},
 			},
 			{
+				Name:   "vertical-scale",
+				Usage:  "vertical scales a FreeIPA cluster",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlGroupName, fl.FlWaitOptional, fl.FlInstanceType).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: freeipa.VerticalScaleFreeIpa,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlGroupName, fl.FlWaitOptional, fl.FlInstanceType).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:   "repair",
 				Usage:  "repair a FreeIpa cluster",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
