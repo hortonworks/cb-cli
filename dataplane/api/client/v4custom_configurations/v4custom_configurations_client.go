@@ -205,6 +205,62 @@ func (a *Client) GetByName(params *GetByNameParams) (*GetByNameOK, error) {
 }
 
 /*
+GetRoleTypes retrieves a list of all role types
+*/
+func (a *Client) GetRoleTypes(params *GetRoleTypesParams) (*GetRoleTypesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRoleTypesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getRoleTypes",
+		Method:             "GET",
+		PathPattern:        "/v4/custom_configurations/role_types",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRoleTypesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRoleTypesOK), nil
+
+}
+
+/*
+GetServiceTypes retrieves a list of service types
+*/
+func (a *Client) GetServiceTypes(params *GetServiceTypesParams) (*GetServiceTypesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetServiceTypesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getServiceTypes",
+		Method:             "GET",
+		PathPattern:        "/v4/custom_configurations/service_types",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetServiceTypesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetServiceTypesOK), nil
+
+}
+
+/*
 List retrieves all custom configs
 
 Custom Configurations are sets of properties or name value pairs that belong to any of the services present in Cluster Definitions (Blueprints). These can be used to override and/or append properties to the corresponding Cluster Definition while launching Data Hub Clusters.

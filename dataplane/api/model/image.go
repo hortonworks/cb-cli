@@ -60,6 +60,10 @@ type Image struct {
 	// Read Only: true
 	PreWarmParcels [][]string `json:"pre_warm_parcels"`
 
+	// published
+	// Read Only: true
+	Published int64 `json:"published,omitempty"`
+
 	// repo
 	// Read Only: true
 	Repo map[string]string `json:"repo,omitempty"`

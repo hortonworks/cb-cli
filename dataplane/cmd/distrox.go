@@ -158,6 +158,18 @@ func init() {
 				},
 			},
 			{
+				Name:   "vertical-scale",
+				Usage:  "vertical scales a DistroX cluster",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlGroupName, fl.FlWaitOptional, fl.FlInstanceType).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: distrox.VerticalScaleDistroX,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlGroupName, fl.FlWaitOptional, fl.FlInstanceType).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:   "start",
 				Usage:  "starts a DistroX cluster",
 				Before: cf.CheckConfigAndCommandFlags,

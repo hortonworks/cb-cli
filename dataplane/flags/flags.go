@@ -444,6 +444,13 @@ var (
 			Usage: "comma separated list of subnet ids where the new nodes need to be provisioned into",
 		},
 	}
+	FlInstanceType = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "instance-type",
+			Usage: "new instancetype for the nodes",
+		},
+	}
 	FlOldPassword = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{
