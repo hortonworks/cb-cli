@@ -61,6 +61,8 @@ for the upgrade ccm operation typically these are written to a http.Request
 */
 type UpgradeCcmParams struct {
 
+	/*Body*/
+	Body string
 	/*Environment*/
 	Environment *string
 
@@ -102,6 +104,17 @@ func (o *UpgradeCcmParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithBody adds the body to the upgrade ccm params
+func (o *UpgradeCcmParams) WithBody(body string) *UpgradeCcmParams {
+	o.SetBody(body)
+	return o
+}
+
+// SetBody adds the body to the upgrade ccm params
+func (o *UpgradeCcmParams) SetBody(body string) {
+	o.Body = body
+}
+
 // WithEnvironment adds the environment to the upgrade ccm params
 func (o *UpgradeCcmParams) WithEnvironment(environment *string) *UpgradeCcmParams {
 	o.SetEnvironment(environment)
@@ -120,6 +133,10 @@ func (o *UpgradeCcmParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
+
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
+	}
 
 	if o.Environment != nil {
 

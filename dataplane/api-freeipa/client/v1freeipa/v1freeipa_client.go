@@ -242,7 +242,38 @@ func (a *Client) CreateBindUserV1(params *CreateBindUserV1Params, authInfo runti
 }
 
 /*
-CreateFreeIpaV1 creates free ipa stack
+CreateE2ETestBindUserV1 creates kerberos and ldap bind users for cluster
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) CreateE2ETestBindUserV1(params *CreateE2ETestBindUserV1Params, authInfo runtime.ClientAuthInfoWriter) (*CreateE2ETestBindUserV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateE2ETestBindUserV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createE2ETestBindUserV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/binduser/create/e2etest",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateE2ETestBindUserV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateE2ETestBindUserV1OK), nil
+
+}
+
+/*
+CreateFreeIpaV1 creates free IP a stack
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
@@ -273,7 +304,7 @@ func (a *Client) CreateFreeIpaV1(params *CreateFreeIpaV1Params, authInfo runtime
 }
 
 /*
-DeleteFreeIpaByEnvironmentV1 deletes free IP a stack by envid
+DeleteFreeIpaByEnvironmentV1 deletes free IP a stack by environment c r n
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
@@ -335,6 +366,37 @@ func (a *Client) DetachChildEnvironmentV1(params *DetachChildEnvironmentV1Params
 }
 
 /*
+DownscaleFreeIpaV1 downscales free IP a instances
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) DownscaleFreeIpaV1(params *DownscaleFreeIpaV1Params, authInfo runtime.ClientAuthInfoWriter) (*DownscaleFreeIpaV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDownscaleFreeIpaV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "downscaleFreeIpaV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/freeipa/downscale",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DownscaleFreeIpaV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DownscaleFreeIpaV1OK), nil
+
+}
+
+/*
 GenerateImageCatalog generates an image catalog that only contains the currently used image for creating instances
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -366,7 +428,38 @@ func (a *Client) GenerateImageCatalog(params *GenerateImageCatalogParams, authIn
 }
 
 /*
-GetFreeIpaByEnvironmentV1 gets free IP a stack by envid
+GetAllFreeIpaByEnvironmentV1 gets all free IP a stacks by environment c r n
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) GetAllFreeIpaByEnvironmentV1(params *GetAllFreeIpaByEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) (*GetAllFreeIpaByEnvironmentV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAllFreeIpaByEnvironmentV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getAllFreeIpaByEnvironmentV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/all",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetAllFreeIpaByEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetAllFreeIpaByEnvironmentV1OK), nil
+
+}
+
+/*
+GetFreeIpaByEnvironmentV1 gets free IP a stack by environment c r n
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
@@ -397,7 +490,7 @@ func (a *Client) GetFreeIpaByEnvironmentV1(params *GetFreeIpaByEnvironmentV1Para
 }
 
 /*
-GetFreeIpaRootCertificateByEnvironmentV1 gets free IP a root certificate by envid
+GetFreeIpaRootCertificateByEnvironmentV1 gets free IP a root certificate by environment c r n
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
@@ -520,7 +613,38 @@ func (a *Client) InternalCleanupV1(params *InternalCleanupV1Params, authInfo run
 }
 
 /*
-InternalGetFreeIpaByEnvironmentV1 gets free IP a stack by envid and account id
+InternalGetAllFreeIpaByEnvironmentV1 gets all free IP a stacks by environment c r n and account ID using the internal actor
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) InternalGetAllFreeIpaByEnvironmentV1(params *InternalGetAllFreeIpaByEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) (*InternalGetAllFreeIpaByEnvironmentV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewInternalGetAllFreeIpaByEnvironmentV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "internalGetAllFreeIpaByEnvironmentV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/internal/all",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &InternalGetAllFreeIpaByEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*InternalGetAllFreeIpaByEnvironmentV1OK), nil
+
+}
+
+/*
+InternalGetFreeIpaByEnvironmentV1 gets free IP a stack by environment c r n and account ID using the internal actor
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
@@ -578,6 +702,37 @@ func (a *Client) InternalListFreeIpaClustersByAccountV1(params *InternalListFree
 		return nil, err
 	}
 	return result.(*InternalListFreeIpaClustersByAccountV1OK), nil
+
+}
+
+/*
+InternalUpgradeCcmByEnvironmentV1 initiates the c c m tunnel type upgrade to the latest available version for free IP a stack by environment c r n using the internal actor
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) InternalUpgradeCcmByEnvironmentV1(params *InternalUpgradeCcmByEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) (*InternalUpgradeCcmByEnvironmentV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewInternalUpgradeCcmByEnvironmentV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "internalUpgradeCcmByEnvironmentV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/freeipa/internal/upgrade_ccm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &InternalUpgradeCcmByEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*InternalUpgradeCcmByEnvironmentV1OK), nil
 
 }
 
@@ -887,6 +1042,37 @@ func (a *Client) UpgradeFreeIpaV1(params *UpgradeFreeIpaV1Params) (*UpgradeFreeI
 		return nil, err
 	}
 	return result.(*UpgradeFreeIpaV1OK), nil
+
+}
+
+/*
+UpscaleFreeIpaV1 upscales free IP a instances
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) UpscaleFreeIpaV1(params *UpscaleFreeIpaV1Params, authInfo runtime.ClientAuthInfoWriter) (*UpscaleFreeIpaV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpscaleFreeIpaV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upscaleFreeIpaV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/freeipa/upscale",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpscaleFreeIpaV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpscaleFreeIpaV1OK), nil
 
 }
 

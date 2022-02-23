@@ -55,7 +55,7 @@ type InstanceGroupV4Response struct {
 
 	// number of nodes
 	// Required: true
-	// Maximum: 100000
+	// Maximum: 400
 	// Minimum: 0
 	NodeCount *int32 `json:"nodeCount"`
 
@@ -258,7 +258,7 @@ func (m *InstanceGroupV4Response) validateNodeCount(formats strfmt.Registry) err
 		return err
 	}
 
-	if err := validate.MaximumInt("nodeCount", "body", int64(*m.NodeCount), 100000, false); err != nil {
+	if err := validate.MaximumInt("nodeCount", "body", int64(*m.NodeCount), 400, false); err != nil {
 		return err
 	}
 

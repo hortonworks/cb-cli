@@ -1631,6 +1631,34 @@ func (a *Client) UpdateSaltByName(params *UpdateSaltByNameParams) (*UpdateSaltBy
 }
 
 /*
+UpgradeCcmByNameInternal initiates the c c m tunnel type upgrade to the latest available version
+*/
+func (a *Client) UpgradeCcmByNameInternal(params *UpgradeCcmByNameInternalParams) (*UpgradeCcmByNameInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeCcmByNameInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeCcmByNameInternal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/upgrade_ccm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeCcmByNameInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeCcmByNameInternalOK), nil
+
+}
+
+/*
 UpgradeClusterByName upgrades a cluster to the latest c m or c d h version
 */
 func (a *Client) UpgradeClusterByName(params *UpgradeClusterByNameParams) (*UpgradeClusterByNameOK, error) {

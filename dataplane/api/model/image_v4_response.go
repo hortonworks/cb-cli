@@ -55,6 +55,9 @@ type ImageV4Response struct {
 	// pre warm parcels
 	PreWarmParcels [][]string `json:"preWarmParcels"`
 
+	// published
+	Published int64 `json:"published,omitempty"`
+
 	// repository
 	Repository map[string]string `json:"repository,omitempty"`
 

@@ -1903,6 +1903,34 @@ func (a *Client) SyncDistroxCmByCrn(params *SyncDistroxCmByCrnParams) (*SyncDist
 }
 
 /*
+UpgradeCcmByDatahubCrnInternal initiates the c c m tunnel type upgrade to the latest available version
+*/
+func (a *Client) UpgradeCcmByDatahubCrnInternal(params *UpgradeCcmByDatahubCrnInternalParams) (*UpgradeCcmByDatahubCrnInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeCcmByDatahubCrnInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeCcmByDatahubCrnInternal",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/internal/crn/{crn}/upgrade_ccm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeCcmByDatahubCrnInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeCcmByDatahubCrnInternalOK), nil
+
+}
+
+/*
 UpgradeDistroxCluster upgrades the distrox cluster
 */
 func (a *Client) UpgradeDistroxCluster(params *UpgradeDistroxClusterParams) (*UpgradeDistroxClusterOK, error) {

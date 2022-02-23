@@ -22,10 +22,13 @@ type NetworkV4Request struct {
 	// provider specific parameters of the specified network
 	Azure *AzureNetworkV4Parameters `json:"azure,omitempty"`
 
+	// empty
+	Empty bool `json:"empty,omitempty"`
+
 	// provider specific parameters of the specified network
 	Gcp *GcpNetworkV4Parameters `json:"gcp,omitempty"`
 
-	// mock
+	// mock network parameters
 	Mock *MockNetworkV4Parameters `json:"mock,omitempty"`
 
 	// the subnet definition of the network in CIDR format

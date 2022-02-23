@@ -53,6 +53,66 @@ func (a *Client) AuthorizeForAutoscale(params *AuthorizeForAutoscaleParams) (*Au
 }
 
 /*
+AutoscaleStopInstancesByCrn stops multiple instances from the stack s cluster in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) AutoscaleStopInstancesByCrn(params *AutoscaleStopInstancesByCrnParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAutoscaleStopInstancesByCrnParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "autoscaleStopInstancesByCrn",
+		Method:             "DELETE",
+		PathPattern:        "/autoscale/stack/stopNodes/crn/{crn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AutoscaleStopInstancesByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+AutoscaleStopInstancesByName stops multiple instances from the stack s cluster in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) AutoscaleStopInstancesByName(params *AutoscaleStopInstancesByNameParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAutoscaleStopInstancesByNameParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "autoscaleStopInstancesByName",
+		Method:             "DELETE",
+		PathPattern:        "/autoscale/stack/stopNodes/name/{name}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AutoscaleStopInstancesByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 DecommissionInstancesForClusterCrn deletes multiple instances from the stack s cluster in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -330,7 +390,7 @@ func (a *Client) GetRecommendation(params *GetRecommendationParams) (*GetRecomme
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRecommendation",
 		Method:             "GET",
-		PathPattern:        "/autoscale/stack/crn/{crn}/recommendation",
+		PathPattern:        "/autoscale/recommendation",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -358,7 +418,7 @@ func (a *Client) GetRecommendation1(params *GetRecommendation1Params) (*GetRecom
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRecommendation_1",
 		Method:             "GET",
-		PathPattern:        "/autoscale/recommendation",
+		PathPattern:        "/autoscale/stack/crn/{crn}/recommendation",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -484,6 +544,66 @@ func (a *Client) PutStackForAutoscale(params *PutStackForAutoscaleParams) error 
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &PutStackForAutoscaleReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+PutStackForAutoscaleStartByCrn updates stack to start instances by id
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) PutStackForAutoscaleStartByCrn(params *PutStackForAutoscaleStartByCrnParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutStackForAutoscaleStartByCrnParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "putStackForAutoscaleStartByCrn",
+		Method:             "PUT",
+		PathPattern:        "/autoscale/stack/startNodes/crn/{crn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutStackForAutoscaleStartByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
+PutStackForAutoscaleStartByName updates stack to start instances by id
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) PutStackForAutoscaleStartByName(params *PutStackForAutoscaleStartByNameParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutStackForAutoscaleStartByNameParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "putStackForAutoscaleStartByName",
+		Method:             "PUT",
+		PathPattern:        "/autoscale/stack/startNodes/name/{name}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutStackForAutoscaleStartByNameReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

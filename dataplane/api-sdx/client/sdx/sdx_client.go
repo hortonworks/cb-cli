@@ -557,6 +557,36 @@ func (a *Client) GetBackupDatalakeStatus(params *GetBackupDatalakeStatusParams) 
 }
 
 /*
+GetCDPAuditEventsForResource lists audit events for the given resource
+
+Audit event operations
+*/
+func (a *Client) GetCDPAuditEventsForResource(params *GetCDPAuditEventsForResourceParams) (*GetCDPAuditEventsForResourceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCDPAuditEventsForResourceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getCDPAuditEventsForResource",
+		Method:             "GET",
+		PathPattern:        "/sdx/structured_events",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetCDPAuditEventsForResourceReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetCDPAuditEventsForResourceOK), nil
+
+}
+
+/*
 GetClusterRecoverableByCrn validates if the data lake is recoverable or not
 */
 func (a *Client) GetClusterRecoverableByCrn(params *GetClusterRecoverableByCrnParams) (*GetClusterRecoverableByCrnOK, error) {
@@ -665,6 +695,36 @@ func (a *Client) GetDatalakeBackupID(params *GetDatalakeBackupIDParams) (*GetDat
 		return nil, err
 	}
 	return result.(*GetDatalakeBackupIDOK), nil
+
+}
+
+/*
+GetDatalakeEventsZipForResource lists audit events for the given resource in zip file
+
+Audit event operations
+*/
+func (a *Client) GetDatalakeEventsZipForResource(params *GetDatalakeEventsZipForResourceParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDatalakeEventsZipForResourceParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDatalakeEventsZipForResource",
+		Method:             "GET",
+		PathPattern:        "/sdx/zip",
+		ProducesMediaTypes: []string{"application/octet-stream"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDatalakeEventsZipForResourceReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 
 }
 

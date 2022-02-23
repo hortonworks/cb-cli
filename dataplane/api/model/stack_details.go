@@ -69,6 +69,9 @@ type StackDetails struct {
 	// instance groups
 	InstanceGroups []*InstanceGroupDetails `json:"instanceGroups"`
 
+	// multi az
+	MultiAz bool `json:"multiAz,omitempty"`
+
 	// name
 	Name string `json:"name,omitempty"`
 

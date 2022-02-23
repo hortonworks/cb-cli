@@ -35,7 +35,7 @@ type OperationV1Status struct {
 
 	// Operation type
 	// Required: true
-	// Enum: [USER_SYNC SET_PASSWORD CLEANUP REBOOT REPAIR DOWNSCALE UPSCALE BIND_USER_CREATE UPGRADE]
+	// Enum: [USER_SYNC SET_PASSWORD CLEANUP REBOOT REPAIR DOWNSCALE UPSCALE BIND_USER_CREATE UPGRADE UPGRADE_CCM]
 	OperationType *string `json:"operationType"`
 
 	// User synchronization operation start time
@@ -117,7 +117,7 @@ var operationV1StatusTypeOperationTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["USER_SYNC","SET_PASSWORD","CLEANUP","REBOOT","REPAIR","DOWNSCALE","UPSCALE","BIND_USER_CREATE","UPGRADE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["USER_SYNC","SET_PASSWORD","CLEANUP","REBOOT","REPAIR","DOWNSCALE","UPSCALE","BIND_USER_CREATE","UPGRADE","UPGRADE_CCM"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -153,6 +153,9 @@ const (
 
 	// OperationV1StatusOperationTypeUPGRADE captures enum value "UPGRADE"
 	OperationV1StatusOperationTypeUPGRADE string = "UPGRADE"
+
+	// OperationV1StatusOperationTypeUPGRADECCM captures enum value "UPGRADE_CCM"
+	OperationV1StatusOperationTypeUPGRADECCM string = "UPGRADE_CCM"
 )
 
 // prop value enum
