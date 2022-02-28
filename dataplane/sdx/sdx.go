@@ -562,8 +562,9 @@ func SdxClusterkUpgrade(c *cli.Context) {
 	replaceVms := c.String(fl.FlReplaceVms.Name)
 	showImages := c.Bool(fl.FlShowImagesOptional.Name)
 	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
+	backup := c.Bool(fl.FlUpgradeBackup.Name)
 
-	sdxRequest := createSdxUpgradeRequest(image, runtime, lock, dryRun, replaceVms, showImages, showLatestImages)
+	sdxRequest := createSdxUpgradeRequest(image, runtime, replaceVms, lock, dryRun, showImages, showLatestImages, backup)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 
@@ -575,7 +576,7 @@ func SdxClusterkUpgrade(c *cli.Context) {
 	printResponse(resp, dryRun || showImages || showLatestImages)
 }
 
-func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string, showImages bool, showLatestImages bool) *sdxModel.SdxUpgradeRequest {
+func createSdxUpgradeRequest(imageid, runtime, replaceVms string, lockComponents, dryRun, showImages, showLatestImages, backup bool) *sdxModel.SdxUpgradeRequest {
 	var showImagesString string
 	if showLatestImages {
 		showImagesString = "LATEST_ONLY"
@@ -591,6 +592,7 @@ func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool
 		DryRun:              dryRun,
 		ReplaceVms:          replaceVms,
 		ShowAvailableImages: showImagesString,
+		SkipBackup:          !backup,
 	}
 	return sdxRequest
 }
