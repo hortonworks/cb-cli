@@ -339,6 +339,13 @@ var (
 			Usage: "Cloudera Runtime version",
 		},
 	}
+	FlUpgradeBackup = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "backup",
+			Usage: "Whether to take a backup or not. By default it's false",
+		},
+	}
 	FlCloudStorageManagedIdentityOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
