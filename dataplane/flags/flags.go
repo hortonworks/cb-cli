@@ -791,8 +791,8 @@ var (
 	FlRdsDatabaseEngineOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
-			Name:  "database-engine",
-			Usage: "[DEPRECATED] has no effect",
+			Name:  "database-engine-version",
+			Usage: "Database engine version, e.g: 13",
 		},
 	}
 	FlRdsType = StringFlag{

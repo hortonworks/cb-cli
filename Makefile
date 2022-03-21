@@ -90,7 +90,7 @@ build-version: errcheck format vet test build-darwin-version build-linux-version
 
 build-docker:
 	@#USER_NS='-u $(shell id -u $(whoami)):$(shell id -g $(whoami))'
-	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GO111MODULE=on golang:1.13.1 make build
+	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GO111MODULE=on golang:1.17.8 make build
 
 build-darwin:
 	GOOS=darwin GO111MODULE=on CGO_ENABLED=0 go build -mod=vendor -a ${LDFLAGS_NOVER} -o build/Darwin/${BINARY} main.go
