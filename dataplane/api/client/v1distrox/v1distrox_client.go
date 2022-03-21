@@ -257,13 +257,13 @@ DeleteInstanceDistroXV1ByCrn deletes instance from the stack s cluster by crn
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) DeleteInstanceDistroXV1ByCrn(params *DeleteInstanceDistroXV1ByCrnParams) error {
+func (a *Client) DeleteInstanceDistroXV1ByCrn(params *DeleteInstanceDistroXV1ByCrnParams) (*DeleteInstanceDistroXV1ByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteInstanceDistroXV1ByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteInstanceDistroXV1ByCrn",
 		Method:             "DELETE",
 		PathPattern:        "/v1/distrox/crn/{crn}/instance",
@@ -276,9 +276,9 @@ func (a *Client) DeleteInstanceDistroXV1ByCrn(params *DeleteInstanceDistroXV1ByC
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*DeleteInstanceDistroXV1ByCrnOK), nil
 
 }
 
@@ -287,13 +287,13 @@ DeleteInstanceDistroXV1ByName deletes instance from the stack s cluster by name
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) DeleteInstanceDistroXV1ByName(params *DeleteInstanceDistroXV1ByNameParams) error {
+func (a *Client) DeleteInstanceDistroXV1ByName(params *DeleteInstanceDistroXV1ByNameParams) (*DeleteInstanceDistroXV1ByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteInstanceDistroXV1ByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteInstanceDistroXV1ByName",
 		Method:             "DELETE",
 		PathPattern:        "/v1/distrox/name/{name}/instance",
@@ -306,9 +306,9 @@ func (a *Client) DeleteInstanceDistroXV1ByName(params *DeleteInstanceDistroXV1By
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*DeleteInstanceDistroXV1ByNameOK), nil
 
 }
 
@@ -317,13 +317,13 @@ DeleteInstancesDistroXV1ByCrn deletes multiple instances from the stack s cluste
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) DeleteInstancesDistroXV1ByCrn(params *DeleteInstancesDistroXV1ByCrnParams) error {
+func (a *Client) DeleteInstancesDistroXV1ByCrn(params *DeleteInstancesDistroXV1ByCrnParams) (*DeleteInstancesDistroXV1ByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteInstancesDistroXV1ByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteInstancesDistroXV1ByCrn",
 		Method:             "DELETE",
 		PathPattern:        "/v1/distrox/crn/{crn}/instances",
@@ -336,9 +336,9 @@ func (a *Client) DeleteInstancesDistroXV1ByCrn(params *DeleteInstancesDistroXV1B
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*DeleteInstancesDistroXV1ByCrnOK), nil
 
 }
 
@@ -347,13 +347,13 @@ DeleteInstancesDistroXV1ByName deletes multiple instances from the stack s clust
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) DeleteInstancesDistroXV1ByName(params *DeleteInstancesDistroXV1ByNameParams) error {
+func (a *Client) DeleteInstancesDistroXV1ByName(params *DeleteInstancesDistroXV1ByNameParams) (*DeleteInstancesDistroXV1ByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteInstancesDistroXV1ByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteInstancesDistroXV1ByName",
 		Method:             "DELETE",
 		PathPattern:        "/v1/distrox/name/{name}/instances",
@@ -366,9 +366,9 @@ func (a *Client) DeleteInstancesDistroXV1ByName(params *DeleteInstancesDistroXV1
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*DeleteInstancesDistroXV1ByNameOK), nil
 
 }
 

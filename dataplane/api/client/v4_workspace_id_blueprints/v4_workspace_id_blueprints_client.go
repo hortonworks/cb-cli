@@ -323,36 +323,6 @@ func (a *Client) GetBlueprintRequestFromName(params *GetBlueprintRequestFromName
 }
 
 /*
-GetCreateClusterTemplateRequestForCli produces cli command input
-
-Cluster definitions are a declarative definition of a Hadoop cluster. With a blueprint, you specify a stack, the component layout and the configurations to materialize a Hadoop cluster instance. Hostgroups defined in blueprints can be associated to different templates, thus you can spin up a highly available cluster running on different instance types. This will give you the option to group your Hadoop services based on resource needs (e.g. high I/O, CPU or memory) and create an infrastructure which fits your workload best.
-*/
-func (a *Client) GetCreateClusterTemplateRequestForCli(params *GetCreateClusterTemplateRequestForCliParams) (*GetCreateClusterTemplateRequestForCliOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetCreateClusterTemplateRequestForCliParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getCreateClusterTemplateRequestForCli",
-		Method:             "POST",
-		PathPattern:        "/v4/{workspaceId}/blueprints/cli_create",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetCreateClusterTemplateRequestForCliReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetCreateClusterTemplateRequestForCliOK), nil
-
-}
-
-/*
 ListBlueprintsByWorkspace lists blueprints for the given workspace
 
 Cluster definitions are a declarative definition of a Hadoop cluster. With a blueprint, you specify a stack, the component layout and the configurations to materialize a Hadoop cluster instance. Hostgroups defined in blueprints can be associated to different templates, thus you can spin up a highly available cluster running on different instance types. This will give you the option to group your Hadoop services based on resource needs (e.g. high I/O, CPU or memory) and create an infrastructure which fits your workload best.

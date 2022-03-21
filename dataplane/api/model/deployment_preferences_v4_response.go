@@ -24,6 +24,9 @@ type DeploymentPreferencesV4Response struct {
 	// Unique: true
 	FeatureSwitchV4s []string `json:"featureSwitchV4s"`
 
+	// gov platform enablement
+	GovPlatformEnablement map[string]bool `json:"govPlatformEnablement,omitempty"`
+
 	// platform enablement
 	PlatformEnablement map[string]bool `json:"platformEnablement,omitempty"`
 

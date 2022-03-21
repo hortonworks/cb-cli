@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -65,6 +66,8 @@ type GetPrerequisitesForCloudPlatformParams struct {
 	CloudPlatform string
 	/*DeploymentAddress*/
 	DeploymentAddress *string
+	/*GovCloud*/
+	GovCloud *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -126,6 +129,17 @@ func (o *GetPrerequisitesForCloudPlatformParams) SetDeploymentAddress(deployment
 	o.DeploymentAddress = deploymentAddress
 }
 
+// WithGovCloud adds the govCloud to the get prerequisites for cloud platform params
+func (o *GetPrerequisitesForCloudPlatformParams) WithGovCloud(govCloud *bool) *GetPrerequisitesForCloudPlatformParams {
+	o.SetGovCloud(govCloud)
+	return o
+}
+
+// SetGovCloud adds the govCloud to the get prerequisites for cloud platform params
+func (o *GetPrerequisitesForCloudPlatformParams) SetGovCloud(govCloud *bool) {
+	o.GovCloud = govCloud
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetPrerequisitesForCloudPlatformParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -149,6 +163,22 @@ func (o *GetPrerequisitesForCloudPlatformParams) WriteToRequest(r runtime.Client
 		qDeploymentAddress := qrDeploymentAddress
 		if qDeploymentAddress != "" {
 			if err := r.SetQueryParam("deploymentAddress", qDeploymentAddress); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.GovCloud != nil {
+
+		// query param govCloud
+		var qrGovCloud bool
+		if o.GovCloud != nil {
+			qrGovCloud = *o.GovCloud
+		}
+		qGovCloud := swag.FormatBool(qrGovCloud)
+		if qGovCloud != "" {
+			if err := r.SetQueryParam("govCloud", qGovCloud); err != nil {
 				return err
 			}
 		}

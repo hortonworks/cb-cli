@@ -38,6 +38,9 @@ type CredentialV1Response struct {
 	// global identifiers of the resource
 	Crn string `json:"crn,omitempty"`
 
+	// gov cloud
+	GovCloud bool `json:"govCloud,omitempty"`
+
 	// name of the resource
 	// Required: true
 	Name *string `json:"name"`
@@ -71,6 +74,8 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 
 		Crn string `json:"crn,omitempty"`
 
+		GovCloud bool `json:"govCloud,omitempty"`
+
 		Name *string `json:"name"`
 
 		Type *string `json:"type"`
@@ -90,6 +95,8 @@ func (m *CredentialV1Response) UnmarshalJSON(raw []byte) error {
 	m.Creator = dataAO1.Creator
 
 	m.Crn = dataAO1.Crn
+
+	m.GovCloud = dataAO1.GovCloud
 
 	m.Name = dataAO1.Name
 
@@ -121,6 +128,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 
 		Crn string `json:"crn,omitempty"`
 
+		GovCloud bool `json:"govCloud,omitempty"`
+
 		Name *string `json:"name"`
 
 		Type *string `json:"type"`
@@ -137,6 +146,8 @@ func (m CredentialV1Response) MarshalJSON() ([]byte, error) {
 	dataAO1.Creator = m.Creator
 
 	dataAO1.Crn = m.Crn
+
+	dataAO1.GovCloud = m.GovCloud
 
 	dataAO1.Name = m.Name
 

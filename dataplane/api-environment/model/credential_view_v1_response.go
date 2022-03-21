@@ -32,6 +32,9 @@ type CredentialViewV1Response struct {
 	// description of the resource
 	Description string `json:"description,omitempty"`
 
+	// gov cloud
+	GovCloud bool `json:"govCloud,omitempty"`
+
 	// name of the resource
 	Name string `json:"name,omitempty"`
 

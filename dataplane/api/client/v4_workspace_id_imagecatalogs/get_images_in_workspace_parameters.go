@@ -62,6 +62,8 @@ for the get images in workspace operation typically these are written to a http.
 */
 type GetImagesInWorkspaceParams struct {
 
+	/*GovCloud*/
+	GovCloud *bool
 	/*ImageType*/
 	ImageType *string
 	/*Platform*/
@@ -109,6 +111,17 @@ func (o *GetImagesInWorkspaceParams) WithHTTPClient(client *http.Client) *GetIma
 // SetHTTPClient adds the HTTPClient to the get images in workspace params
 func (o *GetImagesInWorkspaceParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithGovCloud adds the govCloud to the get images in workspace params
+func (o *GetImagesInWorkspaceParams) WithGovCloud(govCloud *bool) *GetImagesInWorkspaceParams {
+	o.SetGovCloud(govCloud)
+	return o
+}
+
+// SetGovCloud adds the govCloud to the get images in workspace params
+func (o *GetImagesInWorkspaceParams) SetGovCloud(govCloud *bool) {
+	o.GovCloud = govCloud
 }
 
 // WithImageType adds the imageType to the get images in workspace params
@@ -173,6 +186,22 @@ func (o *GetImagesInWorkspaceParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
+	if o.GovCloud != nil {
+
+		// query param govCloud
+		var qrGovCloud bool
+		if o.GovCloud != nil {
+			qrGovCloud = *o.GovCloud
+		}
+		qGovCloud := swag.FormatBool(qrGovCloud)
+		if qGovCloud != "" {
+			if err := r.SetQueryParam("govCloud", qGovCloud); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.ImageType != nil {
 

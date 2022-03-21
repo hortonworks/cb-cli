@@ -7,10 +7,13 @@ package v1distrox
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // DeleteInstancesDistroXV1ByCrnReader is a Reader for the DeleteInstancesDistroXV1ByCrn structure.
@@ -20,43 +23,45 @@ type DeleteInstancesDistroXV1ByCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *DeleteInstancesDistroXV1ByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewDeleteInstancesDistroXV1ByCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewDeleteInstancesDistroXV1ByCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewDeleteInstancesDistroXV1ByCrnDefault creates a DeleteInstancesDistroXV1ByCrnDefault with default headers values
-func NewDeleteInstancesDistroXV1ByCrnDefault(code int) *DeleteInstancesDistroXV1ByCrnDefault {
-	return &DeleteInstancesDistroXV1ByCrnDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*DeleteInstancesDistroXV1ByCrnDefault handles this case with default header values.
+// NewDeleteInstancesDistroXV1ByCrnOK creates a DeleteInstancesDistroXV1ByCrnOK with default headers values
+func NewDeleteInstancesDistroXV1ByCrnOK() *DeleteInstancesDistroXV1ByCrnOK {
+	return &DeleteInstancesDistroXV1ByCrnOK{}
+}
+
+/*DeleteInstancesDistroXV1ByCrnOK handles this case with default header values.
 
 successful operation
 */
-type DeleteInstancesDistroXV1ByCrnDefault struct {
-	_statusCode int
+type DeleteInstancesDistroXV1ByCrnOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the delete instances distro x v1 by crn default response
-func (o *DeleteInstancesDistroXV1ByCrnDefault) Code() int {
-	return o._statusCode
+func (o *DeleteInstancesDistroXV1ByCrnOK) Error() string {
+	return fmt.Sprintf("[DELETE /v1/distrox/crn/{crn}/instances][%d] deleteInstancesDistroXV1ByCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *DeleteInstancesDistroXV1ByCrnDefault) Error() string {
-	return fmt.Sprintf("[DELETE /v1/distrox/crn/{crn}/instances][%d] deleteInstancesDistroXV1ByCrn default ", o._statusCode)
-}
+func (o *DeleteInstancesDistroXV1ByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *DeleteInstancesDistroXV1ByCrnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

@@ -64,6 +64,9 @@ type StackViewV4Response struct {
 	// Enum: [DIRECT CCM CLUSTER_PROXY CCMV2 CCMV2_JUMPGATE]
 	Tunnel string `json:"tunnel,omitempty"`
 
+	// upgradeable
+	Upgradeable bool `json:"upgradeable,omitempty"`
+
 	// the related user
 	User *UserViewV4Response `json:"user,omitempty"`
 

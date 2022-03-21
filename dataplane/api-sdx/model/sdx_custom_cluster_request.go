@@ -7,6 +7,7 @@ package model
 
 import (
 	"encoding/json"
+	"strconv"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -32,6 +33,9 @@ type SdxCustomClusterRequest struct {
 	// Required: true
 	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA MICRO_DUTY]
 	ClusterShape *string `json:"clusterShape"`
+
+	// custom instance groups
+	CustomInstanceGroups []*SdxInstanceGroupRequest `json:"customInstanceGroups"`
 
 	// enable multi az
 	EnableMultiAz bool `json:"enableMultiAz,omitempty"`
@@ -73,6 +77,10 @@ func (m *SdxCustomClusterRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateClusterShape(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCustomInstanceGroups(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -192,6 +200,31 @@ func (m *SdxCustomClusterRequest) validateClusterShape(formats strfmt.Registry) 
 	// value enum
 	if err := m.validateClusterShapeEnum("clusterShape", "body", *m.ClusterShape); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *SdxCustomClusterRequest) validateCustomInstanceGroups(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CustomInstanceGroups) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.CustomInstanceGroups); i++ {
+		if swag.IsZero(m.CustomInstanceGroups[i]) { // not required
+			continue
+		}
+
+		if m.CustomInstanceGroups[i] != nil {
+			if err := m.CustomInstanceGroups[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("customInstanceGroups" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

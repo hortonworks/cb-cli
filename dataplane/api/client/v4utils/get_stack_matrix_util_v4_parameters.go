@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -61,6 +62,8 @@ for the get stack matrix util v4 operation typically these are written to a http
 */
 type GetStackMatrixUtilV4Params struct {
 
+	/*GovCloud*/
+	GovCloud *bool
 	/*ImageCatalogName*/
 	ImageCatalogName *string
 	/*Platform*/
@@ -104,6 +107,17 @@ func (o *GetStackMatrixUtilV4Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithGovCloud adds the govCloud to the get stack matrix util v4 params
+func (o *GetStackMatrixUtilV4Params) WithGovCloud(govCloud *bool) *GetStackMatrixUtilV4Params {
+	o.SetGovCloud(govCloud)
+	return o
+}
+
+// SetGovCloud adds the govCloud to the get stack matrix util v4 params
+func (o *GetStackMatrixUtilV4Params) SetGovCloud(govCloud *bool) {
+	o.GovCloud = govCloud
+}
+
 // WithImageCatalogName adds the imageCatalogName to the get stack matrix util v4 params
 func (o *GetStackMatrixUtilV4Params) WithImageCatalogName(imageCatalogName *string) *GetStackMatrixUtilV4Params {
 	o.SetImageCatalogName(imageCatalogName)
@@ -133,6 +147,22 @@ func (o *GetStackMatrixUtilV4Params) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
+	if o.GovCloud != nil {
+
+		// query param govCloud
+		var qrGovCloud bool
+		if o.GovCloud != nil {
+			qrGovCloud = *o.GovCloud
+		}
+		qGovCloud := swag.FormatBool(qrGovCloud)
+		if qGovCloud != "" {
+			if err := r.SetQueryParam("govCloud", qGovCloud); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.ImageCatalogName != nil {
 

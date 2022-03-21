@@ -21,6 +21,9 @@ type AzureNetworkV4Parameters struct {
 	// no public Ip
 	NoPublicIP bool `json:"noPublicIp,omitempty"`
 
+	// private Dns zone Id
+	PrivateDNSZoneID string `json:"privateDnsZoneId,omitempty"`
+
 	// resource group name
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`
 

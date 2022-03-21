@@ -62,6 +62,8 @@ for the get image from default operation typically these are written to a http.R
 */
 type GetImageFromDefaultParams struct {
 
+	/*Body*/
+	Body bool
 	/*Provider*/
 	Provider string
 	/*Type*/
@@ -107,6 +109,17 @@ func (o *GetImageFromDefaultParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithBody adds the body to the get image from default params
+func (o *GetImageFromDefaultParams) WithBody(body bool) *GetImageFromDefaultParams {
+	o.SetBody(body)
+	return o
+}
+
+// SetBody adds the body to the get image from default params
+func (o *GetImageFromDefaultParams) SetBody(body bool) {
+	o.Body = body
+}
+
 // WithProvider adds the provider to the get image from default params
 func (o *GetImageFromDefaultParams) WithProvider(provider string) *GetImageFromDefaultParams {
 	o.SetProvider(provider)
@@ -147,6 +160,10 @@ func (o *GetImageFromDefaultParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
+
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
+	}
 
 	// path param provider
 	if err := r.SetPathParam("provider", o.Provider); err != nil {

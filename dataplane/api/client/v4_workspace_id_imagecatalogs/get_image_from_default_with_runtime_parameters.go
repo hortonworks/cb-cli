@@ -62,6 +62,8 @@ for the get image from default with runtime operation typically these are writte
 */
 type GetImageFromDefaultWithRuntimeParams struct {
 
+	/*Body*/
+	Body bool
 	/*Provider*/
 	Provider string
 	/*Runtime*/
@@ -107,6 +109,17 @@ func (o *GetImageFromDefaultWithRuntimeParams) WithHTTPClient(client *http.Clien
 // SetHTTPClient adds the HTTPClient to the get image from default with runtime params
 func (o *GetImageFromDefaultWithRuntimeParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithBody adds the body to the get image from default with runtime params
+func (o *GetImageFromDefaultWithRuntimeParams) WithBody(body bool) *GetImageFromDefaultWithRuntimeParams {
+	o.SetBody(body)
+	return o
+}
+
+// SetBody adds the body to the get image from default with runtime params
+func (o *GetImageFromDefaultWithRuntimeParams) SetBody(body bool) {
+	o.Body = body
 }
 
 // WithProvider adds the provider to the get image from default with runtime params
@@ -160,6 +173,10 @@ func (o *GetImageFromDefaultWithRuntimeParams) WriteToRequest(r runtime.ClientRe
 		return err
 	}
 	var res []error
+
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
+	}
 
 	// path param provider
 	if err := r.SetPathParam("provider", o.Provider); err != nil {

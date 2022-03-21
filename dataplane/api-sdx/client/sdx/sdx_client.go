@@ -757,6 +757,34 @@ func (a *Client) GetDatalakeRestoreID(params *GetDatalakeRestoreIDParams) (*GetD
 }
 
 /*
+GetDefaultTemplate gets the default template for the given datalake shape cloud platform and runtime version
+*/
+func (a *Client) GetDefaultTemplate(params *GetDefaultTemplateParams) (*GetDefaultTemplateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDefaultTemplateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDefaultTemplate",
+		Method:             "GET",
+		PathPattern:        "/sdx/default_template",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDefaultTemplateReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDefaultTemplateOK), nil
+
+}
+
+/*
 GetInstanceGroupNamesBySdxDetails gathers available instance group names by s d x cluster attributes
 */
 func (a *Client) GetInstanceGroupNamesBySdxDetails(params *GetInstanceGroupNamesBySdxDetailsParams) (*GetInstanceGroupNamesBySdxDetailsOK, error) {

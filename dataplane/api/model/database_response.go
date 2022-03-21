@@ -23,6 +23,10 @@ type DatabaseResponse struct {
 	// Required: true
 	// Enum: [NONE NON_HA HA ON_ROOT_VOLUME]
 	AvailabilityType *string `json:"availabilityType"`
+
+	// database engine version
+	// Pattern: ^(9\.6|10|11|12|13|14)$
+	DatabaseEngineVersion string `json:"databaseEngineVersion,omitempty"`
 }
 
 // Validate validates this database response
@@ -30,6 +34,10 @@ func (m *DatabaseResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAvailabilityType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDatabaseEngineVersion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -82,6 +90,19 @@ func (m *DatabaseResponse) validateAvailabilityType(formats strfmt.Registry) err
 
 	// value enum
 	if err := m.validateAvailabilityTypeEnum("availabilityType", "body", *m.AvailabilityType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DatabaseResponse) validateDatabaseEngineVersion(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DatabaseEngineVersion) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("databaseEngineVersion", "body", string(m.DatabaseEngineVersion), `^(9\.6|10|11|12|13|14)$`); err != nil {
 		return err
 	}
 

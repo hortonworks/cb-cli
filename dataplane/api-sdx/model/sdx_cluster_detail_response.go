@@ -40,6 +40,9 @@ type SdxClusterDetailResponse struct {
 	// crn
 	Crn string `json:"crn,omitempty"`
 
+	// database engine version
+	DatabaseEngineVersion string `json:"databaseEngineVersion,omitempty"`
+
 	// database server crn
 	DatabaseServerCrn string `json:"databaseServerCrn,omitempty"`
 

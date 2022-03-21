@@ -27,6 +27,11 @@ type EnvironmentNetworkAzureV1Params struct {
 	// Required: true
 	NoPublicIP *bool `json:"noPublicIp"`
 
+	// Full resource id of an existing azure private DNS zone
+	// Max Length: 255
+	// Min Length: 0
+	PrivateDNSZoneID *string `json:"privateDnsZoneId,omitempty"`
+
 	// Azure Resource Group Name of the specified network
 	// Required: true
 	// Max Length: 255
@@ -43,6 +48,10 @@ func (m *EnvironmentNetworkAzureV1Params) Validate(formats strfmt.Registry) erro
 	}
 
 	if err := m.validateNoPublicIP(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePrivateDNSZoneID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -76,6 +85,23 @@ func (m *EnvironmentNetworkAzureV1Params) validateNetworkID(formats strfmt.Regis
 func (m *EnvironmentNetworkAzureV1Params) validateNoPublicIP(formats strfmt.Registry) error {
 
 	if err := validate.Required("noPublicIp", "body", m.NoPublicIP); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *EnvironmentNetworkAzureV1Params) validatePrivateDNSZoneID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PrivateDNSZoneID) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("privateDnsZoneId", "body", string(*m.PrivateDNSZoneID), 0); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("privateDnsZoneId", "body", string(*m.PrivateDNSZoneID), 255); err != nil {
 		return err
 	}
 
