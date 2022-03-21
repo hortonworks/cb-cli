@@ -55,7 +55,7 @@ func TestIfDatabaseNeeded(t *testing.T) {
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
 	}
-	setupExternalDbIfNeeded(true, false, false, &sdxRequest.ExternalDatabase)
+	setupExternalDbIfNeeded(true, false, false, "", &sdxRequest.ExternalDatabase)
 
 	if sdxRequest.ExternalDatabase.AvailabilityType != "HA" {
 		t.Errorf("HA external database not set")
@@ -70,7 +70,7 @@ func TestIfNonHaDatabaseNeeded(t *testing.T) {
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
 	}
-	setupExternalDbIfNeeded(false, false, true, &sdxRequest.ExternalDatabase)
+	setupExternalDbIfNeeded(false, false, true, "", &sdxRequest.ExternalDatabase)
 
 	if sdxRequest.ExternalDatabase.AvailabilityType != "NON_HA" {
 		t.Errorf("NON_HA external database not set")
@@ -115,7 +115,7 @@ func TestIfDatabaseNeededFalse(t *testing.T) {
 		CloudStorage:     nil,
 		ExternalDatabase: nil,
 	}
-	setupExternalDbIfNeeded(false, true, false, &sdxRequest.ExternalDatabase)
+	setupExternalDbIfNeeded(false, true, false, "", &sdxRequest.ExternalDatabase)
 
 	if sdxRequest.ExternalDatabase.AvailabilityType != "NONE" {
 		t.Errorf("external database set and should not be")
