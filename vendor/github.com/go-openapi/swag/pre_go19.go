@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build !go1.9
 // +build !go1.9
 
 package swag
@@ -64,6 +65,6 @@ func (m *indexOfInitialisms) sorted() (result []string) {
 	for k := range m.index {
 		result = append(result, k)
 	}
-	sort.Sort(sort.Reverse(byLength(result)))
+	sort.Sort(sort.Reverse(byInitialism(result)))
 	return
 }

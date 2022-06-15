@@ -90,7 +90,7 @@ build-version: errcheck format vet test build-darwin-version build-linux-version
 
 build-docker:
 	@#USER_NS='-u $(shell id -u $(whoami)):$(shell id -g $(whoami))'
-	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GO111MODULE=on golang:1.17.8 make build
+	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GO111MODULE=on golang:1.17.11 make build
 
 build-darwin:
 	GOOS=darwin GO111MODULE=on CGO_ENABLED=0 go build -mod=vendor -a ${LDFLAGS_NOVER} -o build/Darwin/${BINARY} main.go
@@ -212,11 +212,11 @@ release-version: build-version
 
 release-docker:
 	@USER_NS='-u $(shell id -u $(whoami)):$(shell id -g $(whoami))'
-	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GITHUB_ACCESS_TOKEN=${GITHUB_TOKEN} -e GO111MODULE=on golang:1.13.1 bash -c "make release"
+	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GITHUB_ACCESS_TOKEN=${GITHUB_TOKEN} -e GO111MODULE=on golang:1.17.11 bash -c "make release"
 
 release-docker-version:
 	@USER_NS='-u $(shell id -u $(whoami)):$(shell id -g $(whoami))'
-	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GITHUB_ACCESS_TOKEN=${GITHUB_TOKEN} -e GO111MODULE=on golang:1.13.1 bash -c "make release-version"
+	docker run --rm ${USER_NS} -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e VERSION=${CB_VERSION} -e GITHUB_ACCESS_TOKEN=${GITHUB_TOKEN} -e GO111MODULE=on golang:1.17.11 bash -c "make release-version"
 
 upload_s3:
 	ls -1 release | xargs -I@ aws s3 cp release/@ s3://dp-cli/@ --acl public-read
@@ -232,7 +232,7 @@ integration-test: build-docker
 	make -C tests all
 
 mod-tidy:
-	@docker run --rm -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e GO111MODULE=on golang:1.13.1 make _mod-tidy
+	@docker run --rm -v "${PWD}":/go/src/github.com/hortonworks/cb-cli -w /go/src/github.com/hortonworks/cb-cli -e GO111MODULE=on golang:1.17.11 make _mod-tidy
 
 _mod-tidy:
 	go mod tidy -v
