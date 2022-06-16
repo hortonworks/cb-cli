@@ -20,7 +20,6 @@ import (
 	"strings"
 
 	"github.com/go-openapi/errors"
-
 	"github.com/go-openapi/runtime"
 )
 
@@ -76,7 +75,6 @@ type secCtxKey uint8
 
 const (
 	failedBasicAuth secCtxKey = iota
-	oauth2SchemeName
 )
 
 func FailedBasicAuth(r *http.Request) string {
@@ -91,24 +89,12 @@ func FailedBasicAuthCtx(ctx context.Context) string {
 	return v
 }
 
-func OAuth2SchemeName(r *http.Request) string {
-	return OAuth2SchemeNameCtx(r.Context())
-}
-
-func OAuth2SchemeNameCtx(ctx context.Context) string {
-	v, ok := ctx.Value(oauth2SchemeName).(string)
-	if !ok {
-		return ""
-	}
-	return v
-}
-
 // BasicAuth creates a basic auth authenticator with the provided authentication function
 func BasicAuth(authenticate UserPassAuthentication) runtime.Authenticator {
 	return BasicAuthRealm(DefaultRealmName, authenticate)
 }
 
-// BasicAuthRealm creates a basic auth authenticator with the provided authentication function and realm name
+// BasicAuthBasicAuthRealm creates a basic auth authenticator with the provided authentication function and realm name
 func BasicAuthRealm(realm string, authenticate UserPassAuthentication) runtime.Authenticator {
 	if realm == "" {
 		realm = DefaultRealmName
@@ -132,7 +118,7 @@ func BasicAuthCtx(authenticate UserPassAuthenticationCtx) runtime.Authenticator 
 	return BasicAuthRealmCtx(DefaultRealmName, authenticate)
 }
 
-// BasicAuthRealmCtx creates a basic auth authenticator with the provided authentication function and realm name with support for context.Context
+// BasicAuthCtx creates a basic auth authenticator with the provided authentication function and realm name with support for context.Context
 func BasicAuthRealmCtx(realm string, authenticate UserPassAuthenticationCtx) runtime.Authenticator {
 	if realm == "" {
 		realm = DefaultRealmName
@@ -220,7 +206,7 @@ func BearerAuth(name string, authenticate ScopedTokenAuthentication) runtime.Aut
 	const prefix = "Bearer "
 	return ScopedAuthenticator(func(r *ScopedAuthRequest) (bool, interface{}, error) {
 		var token string
-		hdr := r.Request.Header.Get(runtime.HeaderAuthorization)
+		hdr := r.Request.Header.Get("Authorization")
 		if strings.HasPrefix(hdr, prefix) {
 			token = strings.TrimPrefix(hdr, prefix)
 		}
@@ -238,8 +224,6 @@ func BearerAuth(name string, authenticate ScopedTokenAuthentication) runtime.Aut
 			return false, nil, nil
 		}
 
-		rctx := context.WithValue(r.Request.Context(), oauth2SchemeName, name)
-		*r.Request = *r.Request.WithContext(rctx)
 		p, err := authenticate(token, r.RequiredScopes)
 		return true, p, err
 	})
@@ -250,7 +234,7 @@ func BearerAuthCtx(name string, authenticate ScopedTokenAuthenticationCtx) runti
 	const prefix = "Bearer "
 	return ScopedAuthenticator(func(r *ScopedAuthRequest) (bool, interface{}, error) {
 		var token string
-		hdr := r.Request.Header.Get(runtime.HeaderAuthorization)
+		hdr := r.Request.Header.Get("Authorization")
 		if strings.HasPrefix(hdr, prefix) {
 			token = strings.TrimPrefix(hdr, prefix)
 		}
@@ -268,8 +252,7 @@ func BearerAuthCtx(name string, authenticate ScopedTokenAuthenticationCtx) runti
 			return false, nil, nil
 		}
 
-		rctx := context.WithValue(r.Request.Context(), oauth2SchemeName, name)
-		ctx, p, err := authenticate(rctx, token, r.RequiredScopes)
+		ctx, p, err := authenticate(r.Request.Context(), token, r.RequiredScopes)
 		*r.Request = *r.Request.WithContext(ctx)
 		return true, p, err
 	})

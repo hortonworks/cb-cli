@@ -22,10 +22,6 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-const (
-	jsonArray = "array"
-)
-
 // HeaderProps describes a response header
 type HeaderProps struct {
 	Description string `json:"description,omitempty"`
@@ -61,7 +57,7 @@ func (h *Header) Typed(tpe, format string) *Header {
 
 // CollectionOf a fluent builder method for an array item
 func (h *Header) CollectionOf(items *Items, format string) *Header {
-	h.Type = jsonArray
+	h.Type = "array"
 	h.Items = items
 	h.CollectionFormat = format
 	return h
@@ -138,12 +134,6 @@ func (h *Header) UniqueValues() *Header {
 // AllowDuplicates this array can have duplicates
 func (h *Header) AllowDuplicates() *Header {
 	h.UniqueItems = false
-	return h
-}
-
-// WithValidations is a fluent method to set header validations
-func (h *Header) WithValidations(val CommonValidations) *Header {
-	h.SetValidations(SchemaValidations{CommonValidations: val})
 	return h
 }
 
