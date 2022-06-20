@@ -25,6 +25,9 @@ type TelemetryRequest struct {
 	// Cloud Logging (telemetry) settings.
 	Logging *LoggingRequest `json:"logging,omitempty"`
 
+	// Monitoring related (telemetry) settings.
+	Monitoring *MonitoringRequest `json:"monitoring,omitempty"`
+
 	// Workload analytics (telemetry) settings.
 	WorkloadAnalytics *WorkloadAnalyticsRequest `json:"workloadAnalytics,omitempty"`
 }
@@ -38,6 +41,10 @@ func (m *TelemetryRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLogging(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMonitoring(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -79,6 +86,24 @@ func (m *TelemetryRequest) validateLogging(formats strfmt.Registry) error {
 		if err := m.Logging.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("logging")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *TelemetryRequest) validateMonitoring(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Monitoring) { // not required
+		return nil
+	}
+
+	if m.Monitoring != nil {
+		if err := m.Monitoring.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("monitoring")
 			}
 			return err
 		}

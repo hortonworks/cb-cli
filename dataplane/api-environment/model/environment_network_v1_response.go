@@ -50,6 +50,10 @@ type EnvironmentNetworkV1Response struct {
 	// Subnet metadata of CB subnets, union of the DWX and public subnets
 	LiftieSubnets map[string]CloudSubnet `json:"liftieSubnets,omitempty"`
 
+	// Flag that marks the request to create without loadbalancers
+	// Enum: [ENABLED DISABLED]
+	LoadBalancerCreation string `json:"loadBalancerCreation,omitempty"`
+
 	// Subnet metadata of MLX subnets (Deprecated)
 	MlxSubnets map[string]CloudSubnet `json:"mlxSubnets,omitempty"`
 
@@ -136,6 +140,10 @@ func (m *EnvironmentNetworkV1Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLiftieSubnets(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLoadBalancerCreation(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -347,6 +355,49 @@ func (m *EnvironmentNetworkV1Response) validateLiftieSubnets(formats strfmt.Regi
 			}
 		}
 
+	}
+
+	return nil
+}
+
+var environmentNetworkV1ResponseTypeLoadBalancerCreationPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		environmentNetworkV1ResponseTypeLoadBalancerCreationPropEnum = append(environmentNetworkV1ResponseTypeLoadBalancerCreationPropEnum, v)
+	}
+}
+
+const (
+
+	// EnvironmentNetworkV1ResponseLoadBalancerCreationENABLED captures enum value "ENABLED"
+	EnvironmentNetworkV1ResponseLoadBalancerCreationENABLED string = "ENABLED"
+
+	// EnvironmentNetworkV1ResponseLoadBalancerCreationDISABLED captures enum value "DISABLED"
+	EnvironmentNetworkV1ResponseLoadBalancerCreationDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *EnvironmentNetworkV1Response) validateLoadBalancerCreationEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, environmentNetworkV1ResponseTypeLoadBalancerCreationPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Response) validateLoadBalancerCreation(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LoadBalancerCreation) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateLoadBalancerCreationEnum("loadBalancerCreation", "body", m.LoadBalancerCreation); err != nil {
+		return err
 	}
 
 	return nil
