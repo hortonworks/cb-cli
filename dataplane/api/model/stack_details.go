@@ -36,6 +36,9 @@ type StackDetails struct {
 	// cluster version
 	ClusterVersion string `json:"clusterVersion,omitempty"`
 
+	// custom configurations
+	CustomConfigurations *CustomConfigurationsDetails `json:"customConfigurations,omitempty"`
+
 	// database type
 	DatabaseType string `json:"databaseType,omitempty"`
 
@@ -107,6 +110,10 @@ type StackDetails struct {
 func (m *StackDetails) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCustomConfigurations(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateImage(formats); err != nil {
 		res = append(res, err)
 	}
@@ -126,6 +133,24 @@ func (m *StackDetails) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *StackDetails) validateCustomConfigurations(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CustomConfigurations) { // not required
+		return nil
+	}
+
+	if m.CustomConfigurations != nil {
+		if err := m.CustomConfigurations.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("customConfigurations")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

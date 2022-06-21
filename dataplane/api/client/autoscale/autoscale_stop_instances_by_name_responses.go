@@ -7,10 +7,13 @@ package autoscale
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // AutoscaleStopInstancesByNameReader is a Reader for the AutoscaleStopInstancesByName structure.
@@ -20,43 +23,45 @@ type AutoscaleStopInstancesByNameReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *AutoscaleStopInstancesByNameReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewAutoscaleStopInstancesByNameDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewAutoscaleStopInstancesByNameOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewAutoscaleStopInstancesByNameDefault creates a AutoscaleStopInstancesByNameDefault with default headers values
-func NewAutoscaleStopInstancesByNameDefault(code int) *AutoscaleStopInstancesByNameDefault {
-	return &AutoscaleStopInstancesByNameDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*AutoscaleStopInstancesByNameDefault handles this case with default header values.
+// NewAutoscaleStopInstancesByNameOK creates a AutoscaleStopInstancesByNameOK with default headers values
+func NewAutoscaleStopInstancesByNameOK() *AutoscaleStopInstancesByNameOK {
+	return &AutoscaleStopInstancesByNameOK{}
+}
+
+/*AutoscaleStopInstancesByNameOK handles this case with default header values.
 
 successful operation
 */
-type AutoscaleStopInstancesByNameDefault struct {
-	_statusCode int
+type AutoscaleStopInstancesByNameOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the autoscale stop instances by name default response
-func (o *AutoscaleStopInstancesByNameDefault) Code() int {
-	return o._statusCode
+func (o *AutoscaleStopInstancesByNameOK) Error() string {
+	return fmt.Sprintf("[DELETE /autoscale/stack/stopNodes/name/{name}][%d] autoscaleStopInstancesByNameOK  %+v", 200, o.Payload)
 }
 
-func (o *AutoscaleStopInstancesByNameDefault) Error() string {
-	return fmt.Sprintf("[DELETE /autoscale/stack/stopNodes/name/{name}][%d] autoscaleStopInstancesByName default ", o._statusCode)
-}
+func (o *AutoscaleStopInstancesByNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *AutoscaleStopInstancesByNameDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

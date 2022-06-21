@@ -7,10 +7,13 @@ package autoscale
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // AutoscaleStopInstancesByCrnReader is a Reader for the AutoscaleStopInstancesByCrn structure.
@@ -20,43 +23,45 @@ type AutoscaleStopInstancesByCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *AutoscaleStopInstancesByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewAutoscaleStopInstancesByCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewAutoscaleStopInstancesByCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewAutoscaleStopInstancesByCrnDefault creates a AutoscaleStopInstancesByCrnDefault with default headers values
-func NewAutoscaleStopInstancesByCrnDefault(code int) *AutoscaleStopInstancesByCrnDefault {
-	return &AutoscaleStopInstancesByCrnDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*AutoscaleStopInstancesByCrnDefault handles this case with default header values.
+// NewAutoscaleStopInstancesByCrnOK creates a AutoscaleStopInstancesByCrnOK with default headers values
+func NewAutoscaleStopInstancesByCrnOK() *AutoscaleStopInstancesByCrnOK {
+	return &AutoscaleStopInstancesByCrnOK{}
+}
+
+/*AutoscaleStopInstancesByCrnOK handles this case with default header values.
 
 successful operation
 */
-type AutoscaleStopInstancesByCrnDefault struct {
-	_statusCode int
+type AutoscaleStopInstancesByCrnOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the autoscale stop instances by crn default response
-func (o *AutoscaleStopInstancesByCrnDefault) Code() int {
-	return o._statusCode
+func (o *AutoscaleStopInstancesByCrnOK) Error() string {
+	return fmt.Sprintf("[DELETE /autoscale/stack/stopNodes/crn/{crn}][%d] autoscaleStopInstancesByCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *AutoscaleStopInstancesByCrnDefault) Error() string {
-	return fmt.Sprintf("[DELETE /autoscale/stack/stopNodes/crn/{crn}][%d] autoscaleStopInstancesByCrn default ", o._statusCode)
-}
+func (o *AutoscaleStopInstancesByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *AutoscaleStopInstancesByCrnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

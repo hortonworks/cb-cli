@@ -987,6 +987,34 @@ func (a *Client) RangerRazEnabled(params *RangerRazEnabledParams) (*RangerRazEna
 }
 
 /*
+ReRegisterClusterProxyConfig res registers the cluster proxy config for the cluster if needed
+*/
+func (a *Client) ReRegisterClusterProxyConfig(params *ReRegisterClusterProxyConfigParams) (*ReRegisterClusterProxyConfigOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewReRegisterClusterProxyConfigParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "reRegisterClusterProxyConfig",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{crn}/re_register_cluster_proxy_config",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ReRegisterClusterProxyConfigReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ReRegisterClusterProxyConfigOK), nil
+
+}
+
+/*
 RecoverClusterInternal recovers the stack by name in workspace internal only
 */
 func (a *Client) RecoverClusterInternal(params *RecoverClusterInternalParams) (*RecoverClusterInternalOK, error) {
@@ -1489,6 +1517,36 @@ func (a *Client) SyncStackInWorkspaceV4(params *SyncStackInWorkspaceV4Params) (*
 }
 
 /*
+UpdateLoadBalancerDNS updates load balancer dns in workspace
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) UpdateLoadBalancerDNS(params *UpdateLoadBalancerDNSParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateLoadBalancerDNSParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateLoadBalancerDNS",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/update_load_balancer_dns",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateLoadBalancerDNSReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 UpdateLoadBalancersInternal updates an existing cluster with load balancers including adding the endpoint gateway if it s enabled
 */
 func (a *Client) UpdateLoadBalancersInternal(params *UpdateLoadBalancersInternalParams) (*UpdateLoadBalancersInternalOK, error) {
@@ -1627,6 +1685,34 @@ func (a *Client) UpdateSaltByName(params *UpdateSaltByNameParams) (*UpdateSaltBy
 		return nil, err
 	}
 	return result.(*UpdateSaltByNameOK), nil
+
+}
+
+/*
+UpgradeCcmByCrnInternal initiates the c c m tunnel type upgrade to the latest available version
+*/
+func (a *Client) UpgradeCcmByCrnInternal(params *UpgradeCcmByCrnInternalParams) (*UpgradeCcmByCrnInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeCcmByCrnInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeCcmByCrnInternal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/crn/{crn}/upgrade_ccm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeCcmByCrnInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeCcmByCrnInternalOK), nil
 
 }
 

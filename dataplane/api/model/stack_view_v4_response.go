@@ -40,6 +40,9 @@ type StackViewV4Response struct {
 	// environment name
 	EnvironmentName string `json:"environmentName,omitempty"`
 
+	// gov cloud
+	GovCloud bool `json:"govCloud,omitempty"`
+
 	// specific version of HDP
 	HdpVersion string `json:"hdpVersion,omitempty"`
 
