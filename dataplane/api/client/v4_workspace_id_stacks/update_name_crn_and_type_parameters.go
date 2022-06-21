@@ -21,8 +21,11 @@ import (
 // NewUpdateNameCrnAndTypeParams creates a new UpdateNameCrnAndTypeParams object
 // with the default values initialized.
 func NewUpdateNameCrnAndTypeParams() *UpdateNameCrnAndTypeParams {
-	var ()
+	var (
+		retainOriginalNameDefault = bool(false)
+	)
 	return &UpdateNameCrnAndTypeParams{
+		RetainOriginalName: &retainOriginalNameDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -31,8 +34,11 @@ func NewUpdateNameCrnAndTypeParams() *UpdateNameCrnAndTypeParams {
 // NewUpdateNameCrnAndTypeParamsWithTimeout creates a new UpdateNameCrnAndTypeParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewUpdateNameCrnAndTypeParamsWithTimeout(timeout time.Duration) *UpdateNameCrnAndTypeParams {
-	var ()
+	var (
+		retainOriginalNameDefault = bool(false)
+	)
 	return &UpdateNameCrnAndTypeParams{
+		RetainOriginalName: &retainOriginalNameDefault,
 
 		timeout: timeout,
 	}
@@ -41,8 +47,11 @@ func NewUpdateNameCrnAndTypeParamsWithTimeout(timeout time.Duration) *UpdateName
 // NewUpdateNameCrnAndTypeParamsWithContext creates a new UpdateNameCrnAndTypeParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewUpdateNameCrnAndTypeParamsWithContext(ctx context.Context) *UpdateNameCrnAndTypeParams {
-	var ()
+	var (
+		retainOriginalNameDefault = bool(false)
+	)
 	return &UpdateNameCrnAndTypeParams{
+		RetainOriginalName: &retainOriginalNameDefault,
 
 		Context: ctx,
 	}
@@ -51,9 +60,12 @@ func NewUpdateNameCrnAndTypeParamsWithContext(ctx context.Context) *UpdateNameCr
 // NewUpdateNameCrnAndTypeParamsWithHTTPClient creates a new UpdateNameCrnAndTypeParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUpdateNameCrnAndTypeParamsWithHTTPClient(client *http.Client) *UpdateNameCrnAndTypeParams {
-	var ()
+	var (
+		retainOriginalNameDefault = bool(false)
+	)
 	return &UpdateNameCrnAndTypeParams{
-		HTTPClient: client,
+		RetainOriginalName: &retainOriginalNameDefault,
+		HTTPClient:         client,
 	}
 }
 
@@ -70,6 +82,8 @@ type UpdateNameCrnAndTypeParams struct {
 	NewCrn *string
 	/*NewName*/
 	NewName *string
+	/*RetainOriginalName*/
+	RetainOriginalName *bool
 	/*WorkspaceID*/
 	WorkspaceID int64
 
@@ -155,6 +169,17 @@ func (o *UpdateNameCrnAndTypeParams) SetNewName(newName *string) {
 	o.NewName = newName
 }
 
+// WithRetainOriginalName adds the retainOriginalName to the update name crn and type params
+func (o *UpdateNameCrnAndTypeParams) WithRetainOriginalName(retainOriginalName *bool) *UpdateNameCrnAndTypeParams {
+	o.SetRetainOriginalName(retainOriginalName)
+	return o
+}
+
+// SetRetainOriginalName adds the retainOriginalName to the update name crn and type params
+func (o *UpdateNameCrnAndTypeParams) SetRetainOriginalName(retainOriginalName *bool) {
+	o.RetainOriginalName = retainOriginalName
+}
+
 // WithWorkspaceID adds the workspaceID to the update name crn and type params
 func (o *UpdateNameCrnAndTypeParams) WithWorkspaceID(workspaceID int64) *UpdateNameCrnAndTypeParams {
 	o.SetWorkspaceID(workspaceID)
@@ -221,6 +246,22 @@ func (o *UpdateNameCrnAndTypeParams) WriteToRequest(r runtime.ClientRequest, reg
 		qNewName := qrNewName
 		if qNewName != "" {
 			if err := r.SetQueryParam("newName", qNewName); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.RetainOriginalName != nil {
+
+		// query param retainOriginalName
+		var qrRetainOriginalName bool
+		if o.RetainOriginalName != nil {
+			qrRetainOriginalName = *o.RetainOriginalName
+		}
+		qRetainOriginalName := swag.FormatBool(qrRetainOriginalName)
+		if qRetainOriginalName != "" {
+			if err := r.SetQueryParam("retainOriginalName", qRetainOriginalName); err != nil {
 				return err
 			}
 		}

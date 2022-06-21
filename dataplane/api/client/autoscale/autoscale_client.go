@@ -57,13 +57,13 @@ AutoscaleStopInstancesByCrn stops multiple instances from the stack s cluster in
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) AutoscaleStopInstancesByCrn(params *AutoscaleStopInstancesByCrnParams) error {
+func (a *Client) AutoscaleStopInstancesByCrn(params *AutoscaleStopInstancesByCrnParams) (*AutoscaleStopInstancesByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAutoscaleStopInstancesByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "autoscaleStopInstancesByCrn",
 		Method:             "DELETE",
 		PathPattern:        "/autoscale/stack/stopNodes/crn/{crn}",
@@ -76,9 +76,9 @@ func (a *Client) AutoscaleStopInstancesByCrn(params *AutoscaleStopInstancesByCrn
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*AutoscaleStopInstancesByCrnOK), nil
 
 }
 
@@ -87,13 +87,13 @@ AutoscaleStopInstancesByName stops multiple instances from the stack s cluster i
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) AutoscaleStopInstancesByName(params *AutoscaleStopInstancesByNameParams) error {
+func (a *Client) AutoscaleStopInstancesByName(params *AutoscaleStopInstancesByNameParams) (*AutoscaleStopInstancesByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAutoscaleStopInstancesByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "autoscaleStopInstancesByName",
 		Method:             "DELETE",
 		PathPattern:        "/autoscale/stack/stopNodes/name/{name}",
@@ -106,9 +106,9 @@ func (a *Client) AutoscaleStopInstancesByName(params *AutoscaleStopInstancesByNa
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*AutoscaleStopInstancesByNameOK), nil
 
 }
 
@@ -559,13 +559,13 @@ PutStackForAutoscaleStartByCrn updates stack to start instances by id
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) PutStackForAutoscaleStartByCrn(params *PutStackForAutoscaleStartByCrnParams) error {
+func (a *Client) PutStackForAutoscaleStartByCrn(params *PutStackForAutoscaleStartByCrnParams) (*PutStackForAutoscaleStartByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutStackForAutoscaleStartByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "putStackForAutoscaleStartByCrn",
 		Method:             "PUT",
 		PathPattern:        "/autoscale/stack/startNodes/crn/{crn}",
@@ -578,9 +578,9 @@ func (a *Client) PutStackForAutoscaleStartByCrn(params *PutStackForAutoscaleStar
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*PutStackForAutoscaleStartByCrnOK), nil
 
 }
 
@@ -589,13 +589,13 @@ PutStackForAutoscaleStartByName updates stack to start instances by id
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) PutStackForAutoscaleStartByName(params *PutStackForAutoscaleStartByNameParams) error {
+func (a *Client) PutStackForAutoscaleStartByName(params *PutStackForAutoscaleStartByNameParams) (*PutStackForAutoscaleStartByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutStackForAutoscaleStartByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "putStackForAutoscaleStartByName",
 		Method:             "PUT",
 		PathPattern:        "/autoscale/stack/startNodes/name/{name}",
@@ -608,9 +608,9 @@ func (a *Client) PutStackForAutoscaleStartByName(params *PutStackForAutoscaleSta
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*PutStackForAutoscaleStartByNameOK), nil
 
 }
 

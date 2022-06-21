@@ -35,6 +35,9 @@ type AutoscaleStackV4Response struct {
 	// creation time of the stack in long
 	Created int64 `json:"created,omitempty"`
 
+	// CRN of the environment which the stack is assigned to
+	EnvironmentCrn string `json:"environmentCrn,omitempty"`
+
 	// port of the gateway secured proxy
 	GatewayPort int32 `json:"gatewayPort,omitempty"`
 

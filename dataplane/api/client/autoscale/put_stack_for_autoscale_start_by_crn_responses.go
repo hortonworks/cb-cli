@@ -7,10 +7,13 @@ package autoscale
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // PutStackForAutoscaleStartByCrnReader is a Reader for the PutStackForAutoscaleStartByCrn structure.
@@ -20,43 +23,45 @@ type PutStackForAutoscaleStartByCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *PutStackForAutoscaleStartByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewPutStackForAutoscaleStartByCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewPutStackForAutoscaleStartByCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewPutStackForAutoscaleStartByCrnDefault creates a PutStackForAutoscaleStartByCrnDefault with default headers values
-func NewPutStackForAutoscaleStartByCrnDefault(code int) *PutStackForAutoscaleStartByCrnDefault {
-	return &PutStackForAutoscaleStartByCrnDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*PutStackForAutoscaleStartByCrnDefault handles this case with default header values.
+// NewPutStackForAutoscaleStartByCrnOK creates a PutStackForAutoscaleStartByCrnOK with default headers values
+func NewPutStackForAutoscaleStartByCrnOK() *PutStackForAutoscaleStartByCrnOK {
+	return &PutStackForAutoscaleStartByCrnOK{}
+}
+
+/*PutStackForAutoscaleStartByCrnOK handles this case with default header values.
 
 successful operation
 */
-type PutStackForAutoscaleStartByCrnDefault struct {
-	_statusCode int
+type PutStackForAutoscaleStartByCrnOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the put stack for autoscale start by crn default response
-func (o *PutStackForAutoscaleStartByCrnDefault) Code() int {
-	return o._statusCode
+func (o *PutStackForAutoscaleStartByCrnOK) Error() string {
+	return fmt.Sprintf("[PUT /autoscale/stack/startNodes/crn/{crn}][%d] putStackForAutoscaleStartByCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *PutStackForAutoscaleStartByCrnDefault) Error() string {
-	return fmt.Sprintf("[PUT /autoscale/stack/startNodes/crn/{crn}][%d] putStackForAutoscaleStartByCrn default ", o._statusCode)
-}
+func (o *PutStackForAutoscaleStartByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *PutStackForAutoscaleStartByCrnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

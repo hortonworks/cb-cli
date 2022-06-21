@@ -22,6 +22,9 @@ type AzureEncryptionV4Parameters struct {
 	// disk encryption set Resource ID
 	DiskEncryptionSetID string `json:"diskEncryptionSetId,omitempty"`
 
+	// boolean determining if VM should be encrypted at host
+	EncryptionAtHostEnabled bool `json:"encryptionAtHostEnabled,omitempty"`
+
 	// encryption key for vm
 	Key string `json:"key,omitempty"`
 

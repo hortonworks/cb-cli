@@ -62,8 +62,8 @@ for the get image from default with runtime operation typically these are writte
 */
 type GetImageFromDefaultWithRuntimeParams struct {
 
-	/*Body*/
-	Body bool
+	/*GovCloud*/
+	GovCloud *bool
 	/*Provider*/
 	Provider string
 	/*Runtime*/
@@ -111,15 +111,15 @@ func (o *GetImageFromDefaultWithRuntimeParams) SetHTTPClient(client *http.Client
 	o.HTTPClient = client
 }
 
-// WithBody adds the body to the get image from default with runtime params
-func (o *GetImageFromDefaultWithRuntimeParams) WithBody(body bool) *GetImageFromDefaultWithRuntimeParams {
-	o.SetBody(body)
+// WithGovCloud adds the govCloud to the get image from default with runtime params
+func (o *GetImageFromDefaultWithRuntimeParams) WithGovCloud(govCloud *bool) *GetImageFromDefaultWithRuntimeParams {
+	o.SetGovCloud(govCloud)
 	return o
 }
 
-// SetBody adds the body to the get image from default with runtime params
-func (o *GetImageFromDefaultWithRuntimeParams) SetBody(body bool) {
-	o.Body = body
+// SetGovCloud adds the govCloud to the get image from default with runtime params
+func (o *GetImageFromDefaultWithRuntimeParams) SetGovCloud(govCloud *bool) {
+	o.GovCloud = govCloud
 }
 
 // WithProvider adds the provider to the get image from default with runtime params
@@ -174,8 +174,20 @@ func (o *GetImageFromDefaultWithRuntimeParams) WriteToRequest(r runtime.ClientRe
 	}
 	var res []error
 
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.GovCloud != nil {
+
+		// query param govCloud
+		var qrGovCloud bool
+		if o.GovCloud != nil {
+			qrGovCloud = *o.GovCloud
+		}
+		qGovCloud := swag.FormatBool(qrGovCloud)
+		if qGovCloud != "" {
+			if err := r.SetQueryParam("govCloud", qGovCloud); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	// path param provider

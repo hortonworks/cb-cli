@@ -57,6 +57,9 @@ type StackV4Response struct {
 	// custom domains
 	CustomDomains *CustomDomainSettingsV4Response `json:"customDomains,omitempty"`
 
+	// Enable load balancer.
+	EnableLoadBalancer bool `json:"enableLoadBalancer,omitempty"`
+
 	// environment crn
 	EnvironmentCrn string `json:"environmentCrn,omitempty"`
 
@@ -74,6 +77,9 @@ type StackV4Response struct {
 
 	// gcp specific parameters for stack
 	Gcp GcpStackV4Parameters `json:"gcp,omitempty"`
+
+	// gov cloud
+	GovCloud bool `json:"govCloud,omitempty"`
 
 	// hardware information where pairing hostmetadata with instancemetadata
 	// Unique: true
