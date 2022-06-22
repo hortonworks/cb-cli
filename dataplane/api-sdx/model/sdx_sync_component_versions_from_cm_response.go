@@ -16,7 +16,7 @@ import (
 // swagger:model SdxSyncComponentVersionsFromCmResponse
 type SdxSyncComponentVersionsFromCmResponse struct {
 
-	// flow identifier
+	// The id of the flow or flow chain that was triggered as part of the process.
 	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
 }
 

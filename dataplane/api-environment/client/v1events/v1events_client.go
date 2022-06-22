@@ -129,7 +129,7 @@ func (a *Client) GetStructuredEventsZipInAccount(params *GetStructuredEventsZipI
 		ID:                 "getStructuredEventsZipInAccount",
 		Method:             "GET",
 		PathPattern:        "/v1/events/{name}/zip",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"application/json", "application/octet-stream"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,

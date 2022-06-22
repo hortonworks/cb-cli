@@ -32,6 +32,10 @@ type EnvironmentNetworkV1Request struct {
 	// GCP-specific properties of the network
 	Gcp *EnvironmentNetworkGcpV1Params `json:"gcp,omitempty"`
 
+	// Flag that marks the request to create without loadbalancers
+	// Enum: [ENABLED DISABLED]
+	LoadBalancerCreation string `json:"loadBalancerCreation,omitempty"`
+
 	// Mock-specific properties of the network
 	Mock *EnvironmentNetworkMockV1Params `json:"mock,omitempty"`
 
@@ -81,6 +85,10 @@ func (m *EnvironmentNetworkV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateGcp(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLoadBalancerCreation(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -184,6 +192,49 @@ func (m *EnvironmentNetworkV1Request) validateGcp(formats strfmt.Registry) error
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var environmentNetworkV1RequestTypeLoadBalancerCreationPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ENABLED","DISABLED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		environmentNetworkV1RequestTypeLoadBalancerCreationPropEnum = append(environmentNetworkV1RequestTypeLoadBalancerCreationPropEnum, v)
+	}
+}
+
+const (
+
+	// EnvironmentNetworkV1RequestLoadBalancerCreationENABLED captures enum value "ENABLED"
+	EnvironmentNetworkV1RequestLoadBalancerCreationENABLED string = "ENABLED"
+
+	// EnvironmentNetworkV1RequestLoadBalancerCreationDISABLED captures enum value "DISABLED"
+	EnvironmentNetworkV1RequestLoadBalancerCreationDISABLED string = "DISABLED"
+)
+
+// prop value enum
+func (m *EnvironmentNetworkV1Request) validateLoadBalancerCreationEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, environmentNetworkV1RequestTypeLoadBalancerCreationPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *EnvironmentNetworkV1Request) validateLoadBalancerCreation(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LoadBalancerCreation) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateLoadBalancerCreationEnum("loadBalancerCreation", "body", m.LoadBalancerCreation); err != nil {
+		return err
 	}
 
 	return nil

@@ -18,10 +18,10 @@ import (
 // swagger:model SdxProgressListResponse
 type SdxProgressListResponse struct {
 
-	// recent flow operations
+	// Recent flow operations.
 	RecentFlowOperations []*FlowProgressResponse `json:"recentFlowOperations"`
 
-	// recent internal flow operations
+	// Recent internal flow operations.
 	RecentInternalFlowOperations []*FlowProgressResponse `json:"recentInternalFlowOperations"`
 }
 

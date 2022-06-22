@@ -44,7 +44,7 @@ type LoadBalancerResponse struct {
 
 	// Whether the load balancer is internet-facing (public), or only accessible over private endpoints.
 	// Required: true
-	// Enum: [PUBLIC PRIVATE]
+	// Enum: [PUBLIC PRIVATE OUTBOUND]
 	Type *string `json:"type"`
 }
 
@@ -161,7 +161,7 @@ var loadBalancerResponseTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["PUBLIC","PRIVATE"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["PUBLIC","PRIVATE","OUTBOUND"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -176,6 +176,9 @@ const (
 
 	// LoadBalancerResponseTypePRIVATE captures enum value "PRIVATE"
 	LoadBalancerResponseTypePRIVATE string = "PRIVATE"
+
+	// LoadBalancerResponseTypeOUTBOUND captures enum value "OUTBOUND"
+	LoadBalancerResponseTypeOUTBOUND string = "OUTBOUND"
 )
 
 // prop value enum

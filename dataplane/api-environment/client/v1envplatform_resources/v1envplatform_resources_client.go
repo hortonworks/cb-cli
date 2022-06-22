@@ -265,6 +265,36 @@ func (a *Client) GetPlatformSecurityGroupsByEnv(params *GetPlatformSecurityGroup
 }
 
 /*
+GetPrivateDNSZonesByEnv retrieves private DNS zones by environment
+
+Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
+*/
+func (a *Client) GetPrivateDNSZonesByEnv(params *GetPrivateDNSZonesByEnvParams) (*GetPrivateDNSZonesByEnvOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetPrivateDNSZonesByEnvParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getPrivateDnsZonesByEnv",
+		Method:             "GET",
+		PathPattern:        "/v1/env/platform_resources/private_dns_zones",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetPrivateDNSZonesByEnvReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetPrivateDNSZonesByEnvOK), nil
+
+}
+
+/*
 GetRegionsByEnv retrieves regions by environment
 
 Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.

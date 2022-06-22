@@ -713,7 +713,7 @@ func (a *Client) GetDatalakeEventsZipForResource(params *GetDatalakeEventsZipFor
 		ID:                 "getDatalakeEventsZipForResource",
 		Method:             "GET",
 		PathPattern:        "/sdx/zip",
-		ProducesMediaTypes: []string{"application/octet-stream"},
+		ProducesMediaTypes: []string{"application/json", "application/octet-stream"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
@@ -837,6 +837,34 @@ func (a *Client) GetRangerCloudIdentitySyncStatus(params *GetRangerCloudIdentity
 		return nil, err
 	}
 	return result.(*GetRangerCloudIdentitySyncStatusOK), nil
+
+}
+
+/*
+GetRecommendation gets default and recommended instance types for the given datalake shape cloud platform and runtime version
+*/
+func (a *Client) GetRecommendation(params *GetRecommendationParams) (*GetRecommendationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRecommendationParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getRecommendation",
+		Method:             "GET",
+		PathPattern:        "/sdx/recommendation",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRecommendationReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRecommendationOK), nil
 
 }
 
@@ -1117,6 +1145,34 @@ func (a *Client) RecoverDatalakeClusterByCrn(params *RecoverDatalakeClusterByCrn
 		return nil, err
 	}
 	return result.(*RecoverDatalakeClusterByCrnOK), nil
+
+}
+
+/*
+RefreshDatahubs restarts and reload all configurations of the data hub by name
+*/
+func (a *Client) RefreshDatahubs(params *RefreshDatahubsParams) (*RefreshDatahubsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRefreshDatahubsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "refreshDatahubs",
+		Method:             "POST",
+		PathPattern:        "/sdx/{datalakeName}/refresh",
+		ProducesMediaTypes: []string{"applicaton/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RefreshDatahubsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RefreshDatahubsOK), nil
 
 }
 

@@ -17,10 +17,10 @@ import (
 // swagger:model SdxInstanceGroupRequest
 type SdxInstanceGroupRequest struct {
 
-	// instance type
+	// Instance type.
 	InstanceType string `json:"instanceType,omitempty"`
 
-	// name
+	// Instance group name.
 	// Required: true
 	Name *string `json:"name"`
 }

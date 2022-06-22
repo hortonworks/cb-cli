@@ -27,6 +27,9 @@ type TelemetryResponse struct {
 	// Cloud Logging (telemetry) settings.
 	Logging *LoggingResponse `json:"logging,omitempty"`
 
+	// Monitoring related (telemetry) settings.
+	Monitoring *MonitoringResponse `json:"monitoring,omitempty"`
+
 	// Telemetry anonymization rules (persistent on cluster level) that are applied on shipped logs.
 	Rules []*AnonymizationRule `json:"rules"`
 
@@ -43,6 +46,10 @@ func (m *TelemetryResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLogging(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMonitoring(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -88,6 +95,24 @@ func (m *TelemetryResponse) validateLogging(formats strfmt.Registry) error {
 		if err := m.Logging.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("logging")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *TelemetryResponse) validateMonitoring(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Monitoring) { // not required
+		return nil
+	}
+
+	if m.Monitoring != nil {
+		if err := m.Monitoring.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("monitoring")
 			}
 			return err
 		}

@@ -19,13 +19,16 @@ import (
 // swagger:model SdxCcmUpgradeResponse
 type SdxCcmUpgradeResponse struct {
 
-	// flow identifier
+	// The id of the flow or flow chain that was triggered as part of the process.
 	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
 
-	// reason
+	// Reason of the error if CCM upgrade could not be started.
 	Reason string `json:"reason,omitempty"`
 
-	// response type
+	// Data Lake crn.
+	ResourceCrn string `json:"resourceCrn,omitempty"`
+
+	// Information about the CCM upgrade process.
 	// Enum: [TRIGGERED SKIP ERROR]
 	ResponseType string `json:"responseType,omitempty"`
 }

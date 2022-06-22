@@ -19,12 +19,12 @@ import (
 // swagger:model SdxClusterResizeRequest
 type SdxClusterResizeRequest struct {
 
-	// cluster shape
+	// The shape of the cluster such as Micro Duty, Light Duty, Medium Duty...
 	// Required: true
 	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA MICRO_DUTY]
 	ClusterShape *string `json:"clusterShape"`
 
-	// environment
+	// The name of the environment.
 	// Required: true
 	Environment *string `json:"environment"`
 }

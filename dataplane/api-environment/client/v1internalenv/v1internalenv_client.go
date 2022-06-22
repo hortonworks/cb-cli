@@ -25,6 +25,36 @@ type Client struct {
 }
 
 /*
+GetEnvironmentV1InternalByCrn lists all environments for consumption
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) GetEnvironmentV1InternalByCrn(params *GetEnvironmentV1InternalByCrnParams) (*GetEnvironmentV1InternalByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetEnvironmentV1InternalByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getEnvironmentV1InternalByCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/internal/env/crn/{crn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetEnvironmentV1InternalByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetEnvironmentV1InternalByCrnOK), nil
+
+}
+
+/*
 PolicyValidationInternalByEnvironmentCrn validates policy json by environment crn
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.

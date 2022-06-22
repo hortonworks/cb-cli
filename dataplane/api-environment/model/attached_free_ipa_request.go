@@ -38,6 +38,13 @@ type AttachedFreeIpaRequest struct {
 
 	// The number of FreeIPA instances to create per group when creating FreeIPA in environment
 	InstanceCountByGroup int32 `json:"instanceCountByGroup,omitempty"`
+
+	// Override default FreeIPA instance type
+	InstanceType string `json:"instanceType,omitempty"`
+
+	// FreeIpa recipe list
+	// Unique: true
+	Recipes []string `json:"recipes"`
 }
 
 // Validate validates this attached free ipa request
@@ -53,6 +60,10 @@ func (m *AttachedFreeIpaRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateImage(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecipes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -102,6 +113,19 @@ func (m *AttachedFreeIpaRequest) validateImage(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *AttachedFreeIpaRequest) validateRecipes(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Recipes) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("recipes", "body", m.Recipes); err != nil {
+		return err
 	}
 
 	return nil

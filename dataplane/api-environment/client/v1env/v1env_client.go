@@ -25,36 +25,6 @@ type Client struct {
 }
 
 /*
-UpdateAwsDiskEncryptionParametersV1ByName updates the customer managed key of the a w s environment of a given name
-
-Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
-*/
-func (a *Client) UpdateAwsDiskEncryptionParametersV1ByName(params *UpdateAwsDiskEncryptionParametersV1ByNameParams) (*UpdateAwsDiskEncryptionParametersV1ByNameOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUpdateAwsDiskEncryptionParametersV1ByNameParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "UpdateAwsDiskEncryptionParametersV1ByName",
-		Method:             "PUT",
-		PathPattern:        "/v1/env/name/{name}/update_aws_disk_encryption_parameters",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &UpdateAwsDiskEncryptionParametersV1ByNameReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*UpdateAwsDiskEncryptionParametersV1ByNameOK), nil
-
-}
-
-/*
 UpdateAzureResourceEncryptionParametersV1 updates the customer managed key of the azure environment of a given name
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
@@ -745,6 +715,36 @@ func (a *Client) ListEnvironmentV1(params *ListEnvironmentV1Params) (*ListEnviro
 }
 
 /*
+RotateSaltPasswordEnvironmentByCrnV1 rotates salt password of an environment by crn
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) RotateSaltPasswordEnvironmentByCrnV1(params *RotateSaltPasswordEnvironmentByCrnV1Params) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateSaltPasswordEnvironmentByCrnV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateSaltPasswordEnvironmentByCrnV1",
+		Method:             "POST",
+		PathPattern:        "/v1/env/crn/{crn}/rotate_salt_password",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateSaltPasswordEnvironmentByCrnV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 StartEnvironmentByCrnV1 starts an environment by c r n the freeipa datalake and datahubs will be started in this order
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
@@ -861,36 +861,6 @@ func (a *Client) StopEnvironmentByNameV1(params *StopEnvironmentByNameV1Params) 
 		return nil, err
 	}
 	return result.(*StopEnvironmentByNameV1OK), nil
-
-}
-
-/*
-UpdateAwsDiskEncryptionParametersV1ByCrn updates the customer managed key of the a w s environment of a given c r n
-
-Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
-*/
-func (a *Client) UpdateAwsDiskEncryptionParametersV1ByCrn(params *UpdateAwsDiskEncryptionParametersV1ByCrnParams) (*UpdateAwsDiskEncryptionParametersV1ByCrnOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUpdateAwsDiskEncryptionParametersV1ByCrnParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "updateAwsDiskEncryptionParametersV1ByCrn",
-		Method:             "PUT",
-		PathPattern:        "/v1/env/crn/{crn}/update_aws_disk_encryption_parameters",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &UpdateAwsDiskEncryptionParametersV1ByCrnReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*UpdateAwsDiskEncryptionParametersV1ByCrnOK), nil
 
 }
 

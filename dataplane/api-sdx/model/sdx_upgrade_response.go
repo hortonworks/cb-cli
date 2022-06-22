@@ -18,16 +18,16 @@ import (
 // swagger:model SdxUpgradeResponse
 type SdxUpgradeResponse struct {
 
-	// current
+	// Information about the image that the Data Lake cluster is using currently.
 	Current *ImageInfoV4Response `json:"current,omitempty"`
 
-	// flow identifier
+	// The id of the flow or flow chain that was triggered as part of the process.
 	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
 
-	// reason
+	// Error reason why the Data Lake cluster can't be upgraded.
 	Reason string `json:"reason,omitempty"`
 
-	// upgrade candidates
+	// Images that the Data Lake cluster can be upgraded to.
 	UpgradeCandidates []*ImageInfoV4Response `json:"upgradeCandidates"`
 }
 

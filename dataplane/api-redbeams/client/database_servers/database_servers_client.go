@@ -520,6 +520,37 @@ func (a *Client) UpdateClusterCrn(params *UpdateClusterCrnParams, authInfo runti
 
 }
 
+/*
+UpgradeDatabaseServer upgrades a database server in a cloud provider to a higher major version
+
+Upgrades a database server to a higher major version.
+*/
+func (a *Client) UpgradeDatabaseServer(params *UpgradeDatabaseServerParams, authInfo runtime.ClientAuthInfoWriter) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDatabaseServerParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDatabaseServer",
+		Method:             "PUT",
+		PathPattern:        "/v4/databaseservers/{crn}/upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDatabaseServerReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

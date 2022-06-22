@@ -17,23 +17,23 @@ import (
 // swagger:model SdxValidateCloudStorageRequest
 type SdxValidateCloudStorageRequest struct {
 
-	// blueprint name
+	// The name of the cluster template used for Data Lake creation.
 	// Required: true
 	BlueprintName *string `json:"blueprintName"`
 
-	// credential crn
+	// The crn of the credential used for the cloud provider.
 	// Required: true
 	CredentialCrn *string `json:"credentialCrn"`
 
-	// data access role
+	// The role used for cloud storage access.
 	// Required: true
 	DataAccessRole *string `json:"dataAccessRole"`
 
-	// ranger audit role
+	// The role used by Ranger for cloud storage access.
 	// Required: true
 	RangerAuditRole *string `json:"rangerAuditRole"`
 
-	// sdx cloud storage request
+	// Details about the cloud storage type and location.
 	// Required: true
 	SdxCloudStorageRequest *SdxCloudStorageRequest `json:"sdxCloudStorageRequest"`
 }

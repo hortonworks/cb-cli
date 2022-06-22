@@ -17,6 +17,11 @@ import (
 // swagger:model EnvironmentNetworkAzureV1Params
 type EnvironmentNetworkAzureV1Params struct {
 
+	// Full resource id of an existing azure private DNS zone
+	// Max Length: 255
+	// Min Length: 0
+	DatabasePrivateDNSZoneID *string `json:"databasePrivateDnsZoneId,omitempty"`
+
 	// Azure Network ID of the specified network
 	// Required: true
 	// Max Length: 255
@@ -26,11 +31,6 @@ type EnvironmentNetworkAzureV1Params struct {
 	// Azure Network is private if this flag is true
 	// Required: true
 	NoPublicIP *bool `json:"noPublicIp"`
-
-	// Full resource id of an existing azure private DNS zone
-	// Max Length: 255
-	// Min Length: 0
-	PrivateDNSZoneID *string `json:"privateDnsZoneId,omitempty"`
 
 	// Azure Resource Group Name of the specified network
 	// Required: true
@@ -43,15 +43,15 @@ type EnvironmentNetworkAzureV1Params struct {
 func (m *EnvironmentNetworkAzureV1Params) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDatabasePrivateDNSZoneID(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateNetworkID(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateNoPublicIP(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePrivateDNSZoneID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -62,6 +62,23 @@ func (m *EnvironmentNetworkAzureV1Params) Validate(formats strfmt.Registry) erro
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *EnvironmentNetworkAzureV1Params) validateDatabasePrivateDNSZoneID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DatabasePrivateDNSZoneID) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("databasePrivateDnsZoneId", "body", string(*m.DatabasePrivateDNSZoneID), 0); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("databasePrivateDnsZoneId", "body", string(*m.DatabasePrivateDNSZoneID), 255); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -85,23 +102,6 @@ func (m *EnvironmentNetworkAzureV1Params) validateNetworkID(formats strfmt.Regis
 func (m *EnvironmentNetworkAzureV1Params) validateNoPublicIP(formats strfmt.Registry) error {
 
 	if err := validate.Required("noPublicIp", "body", m.NoPublicIP); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *EnvironmentNetworkAzureV1Params) validatePrivateDNSZoneID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.PrivateDNSZoneID) { // not required
-		return nil
-	}
-
-	if err := validate.MinLength("privateDnsZoneId", "body", string(*m.PrivateDNSZoneID), 0); err != nil {
-		return err
-	}
-
-	if err := validate.MaxLength("privateDnsZoneId", "body", string(*m.PrivateDNSZoneID), 255); err != nil {
 		return err
 	}
 

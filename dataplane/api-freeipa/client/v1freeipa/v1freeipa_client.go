@@ -551,6 +551,37 @@ func (a *Client) GetFreeIpaUpgradeOptionsV1(params *GetFreeIpaUpgradeOptionsV1Pa
 }
 
 /*
+GetRecommendationV1 gets recommendation that advises cloud resources for free IP a based on the given credential c r n
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) GetRecommendationV1(params *GetRecommendationV1Params, authInfo runtime.ClientAuthInfoWriter) (*GetRecommendationV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRecommendationV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getRecommendationV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/get_recommendation",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRecommendationV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRecommendationV1OK), nil
+
+}
+
+/*
 HealthV1 provides a detailed health of the free IP a stack
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -919,6 +950,37 @@ func (a *Client) RetryV1(params *RetryV1Params, authInfo runtime.ClientAuthInfoW
 		return nil, err
 	}
 	return result.(*RetryV1OK), nil
+
+}
+
+/*
+RotateSaltPasswordV1 rotates salt password of free IP a stacks that attached to the given environment c r n
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) RotateSaltPasswordV1(params *RotateSaltPasswordV1Params, authInfo runtime.ClientAuthInfoWriter) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateSaltPasswordV1Params()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateSaltPasswordV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/rotate_salt_password",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateSaltPasswordV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 
 }
 

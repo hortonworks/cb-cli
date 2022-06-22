@@ -16,7 +16,7 @@ import (
 // swagger:model SdxAwsRequest
 type SdxAwsRequest struct {
 
-	// spot
+	// Spot parameters.
 	Spot *SdxAwsSpotParameters `json:"spot,omitempty"`
 }
 

@@ -61,10 +61,10 @@ for the upgrade ccm operation typically these are written to a http.Request
 */
 type UpgradeCcmParams struct {
 
-	/*Body*/
-	Body string
 	/*Environment*/
 	Environment *string
+	/*InitiatorUserCrn*/
+	InitiatorUserCrn *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -104,17 +104,6 @@ func (o *UpgradeCcmParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithBody adds the body to the upgrade ccm params
-func (o *UpgradeCcmParams) WithBody(body string) *UpgradeCcmParams {
-	o.SetBody(body)
-	return o
-}
-
-// SetBody adds the body to the upgrade ccm params
-func (o *UpgradeCcmParams) SetBody(body string) {
-	o.Body = body
-}
-
 // WithEnvironment adds the environment to the upgrade ccm params
 func (o *UpgradeCcmParams) WithEnvironment(environment *string) *UpgradeCcmParams {
 	o.SetEnvironment(environment)
@@ -126,6 +115,17 @@ func (o *UpgradeCcmParams) SetEnvironment(environment *string) {
 	o.Environment = environment
 }
 
+// WithInitiatorUserCrn adds the initiatorUserCrn to the upgrade ccm params
+func (o *UpgradeCcmParams) WithInitiatorUserCrn(initiatorUserCrn *string) *UpgradeCcmParams {
+	o.SetInitiatorUserCrn(initiatorUserCrn)
+	return o
+}
+
+// SetInitiatorUserCrn adds the initiatorUserCrn to the upgrade ccm params
+func (o *UpgradeCcmParams) SetInitiatorUserCrn(initiatorUserCrn *string) {
+	o.InitiatorUserCrn = initiatorUserCrn
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpgradeCcmParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -133,10 +133,6 @@ func (o *UpgradeCcmParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
-	}
 
 	if o.Environment != nil {
 
@@ -148,6 +144,22 @@ func (o *UpgradeCcmParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		qEnvironment := qrEnvironment
 		if qEnvironment != "" {
 			if err := r.SetQueryParam("environment", qEnvironment); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.InitiatorUserCrn != nil {
+
+		// query param initiatorUserCrn
+		var qrInitiatorUserCrn string
+		if o.InitiatorUserCrn != nil {
+			qrInitiatorUserCrn = *o.InitiatorUserCrn
+		}
+		qInitiatorUserCrn := qrInitiatorUserCrn
+		if qInitiatorUserCrn != "" {
+			if err := r.SetQueryParam("initiatorUserCrn", qInitiatorUserCrn); err != nil {
 				return err
 			}
 		}

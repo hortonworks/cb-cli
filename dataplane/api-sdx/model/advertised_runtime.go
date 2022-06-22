@@ -15,10 +15,10 @@ import (
 // swagger:model AdvertisedRuntime
 type AdvertisedRuntime struct {
 
-	// default runtime version
+	// Default runtime version.
 	DefaultRuntimeVersion bool `json:"defaultRuntimeVersion,omitempty"`
 
-	// runtime version
+	// Runtime version.
 	RuntimeVersion string `json:"runtimeVersion,omitempty"`
 }
 

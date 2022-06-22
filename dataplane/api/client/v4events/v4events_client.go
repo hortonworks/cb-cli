@@ -219,7 +219,7 @@ func (a *Client) GetStructuredEventsZipInWorkspace(params *GetStructuredEventsZi
 		ID:                 "getStructuredEventsZipInWorkspace",
 		Method:             "GET",
 		PathPattern:        "/v4/events/{name}/zip",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"application/json", "application/octet-stream"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
