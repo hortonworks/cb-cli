@@ -15,13 +15,13 @@ import (
 // swagger:model SdxBackupStatusResponse
 type SdxBackupStatusResponse struct {
 
-	// operation Id
+	// Operation id.
 	OperationID string `json:"operationId,omitempty"`
 
-	// reason
+	// Operation status reason.
 	Reason string `json:"reason,omitempty"`
 
-	// status
+	// Operation status.
 	Status string `json:"status,omitempty"`
 }
 

@@ -58,6 +58,10 @@ type CreateFreeIpaV1Request struct {
 	// Required: true
 	Placement *PlacementV1Request `json:"placement"`
 
+	// recipes for freeipa server
+	// Unique: true
+	Recipes []string `json:"recipes"`
+
 	// Tags for freeipa server.
 	Tags map[string]string `json:"tags,omitempty"`
 
@@ -116,6 +120,10 @@ func (m *CreateFreeIpaV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePlacement(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecipes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -296,6 +304,19 @@ func (m *CreateFreeIpaV1Request) validatePlacement(formats strfmt.Registry) erro
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *CreateFreeIpaV1Request) validateRecipes(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Recipes) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("recipes", "body", m.Recipes); err != nil {
+		return err
 	}
 
 	return nil

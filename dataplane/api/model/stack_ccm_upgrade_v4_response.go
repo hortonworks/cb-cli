@@ -6,18 +6,31 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // StackCcmUpgradeV4Response stack ccm upgrade v4 response
 // swagger:model StackCcmUpgradeV4Response
 type StackCcmUpgradeV4Response struct {
 
-	// flow identifier
+	// Flow identifier for the current Upgrade CCM operation.
 	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
+
+	// Reason of the error if Upgrade CCM could not be started.
+	Reason string `json:"reason,omitempty"`
+
+	// the unique crn of the resource
+	ResourceCrn string `json:"resourceCrn,omitempty"`
+
+	// Information about the Upgrade CCM operation acceptance.
+	// Enum: [TRIGGERED SKIP ERROR]
+	ResponseType string `json:"responseType,omitempty"`
 }
 
 // Validate validates this stack ccm upgrade v4 response
@@ -25,6 +38,10 @@ func (m *StackCcmUpgradeV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateFlowIdentifier(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateResponseType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -47,6 +64,52 @@ func (m *StackCcmUpgradeV4Response) validateFlowIdentifier(formats strfmt.Regist
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var stackCcmUpgradeV4ResponseTypeResponseTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["TRIGGERED","SKIP","ERROR"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		stackCcmUpgradeV4ResponseTypeResponseTypePropEnum = append(stackCcmUpgradeV4ResponseTypeResponseTypePropEnum, v)
+	}
+}
+
+const (
+
+	// StackCcmUpgradeV4ResponseResponseTypeTRIGGERED captures enum value "TRIGGERED"
+	StackCcmUpgradeV4ResponseResponseTypeTRIGGERED string = "TRIGGERED"
+
+	// StackCcmUpgradeV4ResponseResponseTypeSKIP captures enum value "SKIP"
+	StackCcmUpgradeV4ResponseResponseTypeSKIP string = "SKIP"
+
+	// StackCcmUpgradeV4ResponseResponseTypeERROR captures enum value "ERROR"
+	StackCcmUpgradeV4ResponseResponseTypeERROR string = "ERROR"
+)
+
+// prop value enum
+func (m *StackCcmUpgradeV4Response) validateResponseTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, stackCcmUpgradeV4ResponseTypeResponseTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *StackCcmUpgradeV4Response) validateResponseType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ResponseType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateResponseTypeEnum("responseType", "body", m.ResponseType); err != nil {
+		return err
 	}
 
 	return nil

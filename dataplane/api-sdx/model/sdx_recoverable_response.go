@@ -19,10 +19,10 @@ import (
 // swagger:model SdxRecoverableResponse
 type SdxRecoverableResponse struct {
 
-	// reason
+	// Description about why the cluster is recoverable or not recoverable.
 	Reason string `json:"reason,omitempty"`
 
-	// status
+	// Status that indicates whether the cluster is recoverable or not recoverable.
 	// Enum: [RECOVERABLE NON_RECOVERABLE]
 	Status string `json:"status,omitempty"`
 }

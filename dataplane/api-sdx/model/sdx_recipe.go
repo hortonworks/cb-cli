@@ -15,10 +15,10 @@ import (
 // swagger:model SdxRecipe
 type SdxRecipe struct {
 
-	// host group
+	// Host group name.
 	HostGroup string `json:"hostGroup,omitempty"`
 
-	// name
+	// Recipe name.
 	Name string `json:"name,omitempty"`
 }
 

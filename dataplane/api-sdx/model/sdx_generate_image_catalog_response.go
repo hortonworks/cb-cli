@@ -17,7 +17,7 @@ import (
 // swagger:model SdxGenerateImageCatalogResponse
 type SdxGenerateImageCatalogResponse struct {
 
-	// image catalog
+	// Image catalog.
 	// Required: true
 	ImageCatalog *CloudbreakImageCatalogV3 `json:"imageCatalog"`
 }

@@ -19,14 +19,14 @@ import (
 // swagger:model SdxDatabaseRequest
 type SdxDatabaseRequest struct {
 
-	// availability type
+	// Database availability type.
 	// Enum: [NONE NON_HA HA]
 	AvailabilityType string `json:"availabilityType,omitempty"`
 
-	// create
+	// Option to create external database.
 	Create bool `json:"create,omitempty"`
 
-	// database engine version
+	// Database engine version.
 	// Pattern: ^(9\.6|10|11|12|13|14)$
 	DatabaseEngineVersion string `json:"databaseEngineVersion,omitempty"`
 }

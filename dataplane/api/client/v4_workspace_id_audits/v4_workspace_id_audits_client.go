@@ -99,7 +99,7 @@ func (a *Client) GetAuditEventsZipInWorkspace(params *GetAuditEventsZipInWorkspa
 		ID:                 "getAuditEventsZipInWorkspace",
 		Method:             "GET",
 		PathPattern:        "/v4/{workspaceId}/audits/zip",
-		ProducesMediaTypes: []string{"application/octet-stream"},
+		ProducesMediaTypes: []string{"application/json", "application/octet-stream"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,

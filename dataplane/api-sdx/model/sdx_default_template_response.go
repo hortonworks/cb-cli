@@ -16,7 +16,7 @@ import (
 // swagger:model SdxDefaultTemplateResponse
 type SdxDefaultTemplateResponse struct {
 
-	// template
+	// Template details.
 	Template *StackV4Request `json:"template,omitempty"`
 }
 

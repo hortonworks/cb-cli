@@ -20,43 +20,43 @@ import (
 // swagger:model SdxCustomClusterRequest
 type SdxCustomClusterRequest struct {
 
-	// aws
+	// AWS options.
 	Aws *SdxAwsRequest `json:"aws,omitempty"`
 
-	// azure
+	// Azure options.
 	Azure *SdxAzureRequest `json:"azure,omitempty"`
 
-	// cloud storage
+	// Details about the cloud storage type and location.
 	CloudStorage *SdxCloudStorageRequest `json:"cloudStorage,omitempty"`
 
-	// cluster shape
+	// The shape of the cluster such as Micro Duty, Light Duty, Medium Duty...
 	// Required: true
 	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA MICRO_DUTY]
 	ClusterShape *string `json:"clusterShape"`
 
-	// custom instance groups
+	// Custom instance group options.
 	CustomInstanceGroups []*SdxInstanceGroupRequest `json:"customInstanceGroups"`
 
-	// enable multi az
+	// Option to enable multi AZ.
 	EnableMultiAz bool `json:"enableMultiAz,omitempty"`
 
-	// enable ranger raz
+	// Option to enable ranger raz.
 	EnableRangerRaz bool `json:"enableRangerRaz,omitempty"`
 
-	// environment
+	// The name of the environment.
 	// Required: true
 	Environment *string `json:"environment"`
 
-	// external database
+	// External database options.
 	ExternalDatabase *SdxDatabaseRequest `json:"externalDatabase,omitempty"`
 
-	// image settings v4 request
+	// Image settings.
 	ImageSettingsV4Request *ImageSettingsV4Request `json:"imageSettingsV4Request,omitempty"`
 
 	// runtime
 	Runtime string `json:"runtime,omitempty"`
 
-	// tags
+	// Tags.
 	Tags map[string]string `json:"tags,omitempty"`
 }
 

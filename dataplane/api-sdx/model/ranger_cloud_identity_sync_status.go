@@ -19,15 +19,15 @@ import (
 // swagger:model RangerCloudIdentitySyncStatus
 type RangerCloudIdentitySyncStatus struct {
 
-	// command Id
+	// Command id.
 	CommandID int64 `json:"commandId,omitempty"`
 
-	// state
+	// Operation status.
 	// Required: true
 	// Enum: [SUCCESS ACTIVE FAILED NOT_APPLICABLE]
 	State *string `json:"state"`
 
-	// status reason
+	// Operation status reason.
 	StatusReason string `json:"statusReason,omitempty"`
 }
 

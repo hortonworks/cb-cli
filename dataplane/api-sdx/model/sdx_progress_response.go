@@ -16,10 +16,10 @@ import (
 // swagger:model SdxProgressResponse
 type SdxProgressResponse struct {
 
-	// last flow operation
+	// Last flow operations.
 	LastFlowOperation *FlowProgressResponse `json:"lastFlowOperation,omitempty"`
 
-	// last internal flow operation
+	// Last internal flow operations.
 	LastInternalFlowOperation *FlowProgressResponse `json:"lastInternalFlowOperation,omitempty"`
 }
 

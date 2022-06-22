@@ -19,27 +19,27 @@ import (
 // swagger:model SdxUpgradeRequest
 type SdxUpgradeRequest struct {
 
-	// dry run
+	// Doesn't perform the actual operation just validates if all preconditions are met.
 	DryRun bool `json:"dryRun,omitempty"`
 
-	// image Id
+	// Image id.
 	ImageID string `json:"imageId,omitempty"`
 
-	// lock components
+	// Option to lock components during the upgrade.
 	LockComponents bool `json:"lockComponents,omitempty"`
 
-	// replace vms
+	// Option to replace virtual machines  during the upgrade.
 	// Enum: [ENABLED DISABLED]
 	ReplaceVms string `json:"replaceVms,omitempty"`
 
-	// runtime
+	// Runtime version.
 	Runtime string `json:"runtime,omitempty"`
 
-	// show available images
+	// Option to show available images.
 	// Enum: [SHOW LATEST_ONLY DO_NOT_SHOW]
 	ShowAvailableImages string `json:"showAvailableImages,omitempty"`
 
-	// skip backup
+	// Option to skip the backup before the upgrade.
 	SkipBackup bool `json:"skipBackup,omitempty"`
 }
 

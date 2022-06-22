@@ -15,13 +15,16 @@ import (
 // swagger:model SdxRepairRequest
 type SdxRepairRequest struct {
 
-	// host group name
+	// If true, delete volumes, otherwise reattaches them to a newly created node instance.
+	DeleteVolumes bool `json:"deleteVolumes,omitempty"`
+
+	// Host group name.
 	HostGroupName string `json:"hostGroupName,omitempty"`
 
-	// host group names
+	// Host group names.
 	HostGroupNames []string `json:"hostGroupNames"`
 
-	// nodes ids
+	// Node ids.
 	NodesIds []string `json:"nodesIds"`
 }
 

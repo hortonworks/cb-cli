@@ -19,7 +19,7 @@ import (
 // swagger:model SdxAzureRequest
 type SdxAzureRequest struct {
 
-	// load balancer sku
+	// Load balancer SKU type.
 	// Enum: [BASIC STANDARD NONE]
 	LoadBalancerSku string `json:"loadBalancerSku,omitempty"`
 }

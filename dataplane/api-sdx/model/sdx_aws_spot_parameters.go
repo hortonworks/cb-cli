@@ -22,7 +22,7 @@ type SdxAwsSpotParameters struct {
 	// Minimum: 0.001
 	MaxPrice float64 `json:"maxPrice,omitempty"`
 
-	// percentage
+	// percentage of spot instances launched in instance group
 	// Maximum: 100
 	// Minimum: 0
 	Percentage *int32 `json:"percentage,omitempty"`

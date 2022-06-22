@@ -27,6 +27,9 @@ type FreeIpaResponse struct {
 
 	// The number of FreeIPA instances to create per group when creating FreeIPA in environment
 	InstanceCountByGroup int32 `json:"instanceCountByGroup,omitempty"`
+
+	// Override default FreeIPA instance type
+	InstanceType string `json:"instanceType,omitempty"`
 }
 
 // Validate validates this free ipa response

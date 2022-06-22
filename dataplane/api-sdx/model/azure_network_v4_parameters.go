@@ -15,14 +15,14 @@ import (
 // swagger:model AzureNetworkV4Parameters
 type AzureNetworkV4Parameters struct {
 
+	// database private Dns zone Id
+	DatabasePrivateDNSZoneID string `json:"databasePrivateDnsZoneId,omitempty"`
+
 	// network Id
 	NetworkID string `json:"networkId,omitempty"`
 
 	// no public Ip
 	NoPublicIP bool `json:"noPublicIp,omitempty"`
-
-	// private Dns zone Id
-	PrivateDNSZoneID string `json:"privateDnsZoneId,omitempty"`
 
 	// resource group name
 	ResourceGroupName string `json:"resourceGroupName,omitempty"`

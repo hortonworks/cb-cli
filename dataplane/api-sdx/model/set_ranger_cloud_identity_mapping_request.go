@@ -16,10 +16,10 @@ import (
 // swagger:model SetRangerCloudIdentityMappingRequest
 type SetRangerCloudIdentityMappingRequest struct {
 
-	// azure group mapping
+	// Deprecated. Azure group mapping.
 	AzureGroupMapping map[string]string `json:"azureGroupMapping,omitempty"`
 
-	// azure user mapping
+	// Azure user mapping.
 	// Required: true
 	AzureUserMapping map[string]string `json:"azureUserMapping"`
 }

@@ -547,6 +547,36 @@ func (a *Client) GenerateImageCatalog(params *GenerateImageCatalogParams) (*Gene
 }
 
 /*
+GetAuditEvents gets data hub audit events
+
+Data Hub audit events
+*/
+func (a *Client) GetAuditEvents(params *GetAuditEventsParams) (*GetAuditEventsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAuditEventsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getAuditEvents",
+		Method:             "GET",
+		PathPattern:        "/v1/distrox/structured_events",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetAuditEventsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetAuditEventsOK), nil
+
+}
+
+/*
 GetClusterRecoverableByCrn validates if the distrox cluster is recoverable or not
 */
 func (a *Client) GetClusterRecoverableByCrn(params *GetClusterRecoverableByCrnParams) (*GetClusterRecoverableByCrnOK, error) {

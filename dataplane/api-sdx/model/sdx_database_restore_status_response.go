@@ -19,11 +19,11 @@ import (
 // swagger:model SdxDatabaseRestoreStatusResponse
 type SdxDatabaseRestoreStatusResponse struct {
 
-	// status
+	// Operation status.
 	// Enum: [INIT TRIGGERRED INPROGRESS SUCCEEDED FAILED]
 	Status string `json:"status,omitempty"`
 
-	// status reason
+	// Operation status reason.
 	StatusReason string `json:"statusReason,omitempty"`
 }
 
