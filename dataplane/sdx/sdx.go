@@ -821,7 +821,7 @@ func RotateCertificates(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Rotate AutoTLS certificates for sdx cluster")
 	name := c.String(fl.FlName.Name)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
-	body := model.CertificatesRotationV4Request{RotateCertificatesType: model.CertificatesRotationV4RequestRotateCertificatesTypeHOSTCERTS}
+	body := model.CertificatesRotationV4Request{CertificateRotationType: model.CertificatesRotationV4RequestCertificateRotationTypeHOSTCERTS}
 	_, err := sdxClient.Sdx.RotateAutoTLSCertificatesByName(sdx.NewRotateAutoTLSCertificatesByNameParams().WithName(name).WithBody(&body))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)

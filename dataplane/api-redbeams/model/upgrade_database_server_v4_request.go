@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -19,14 +21,15 @@ type UpgradeDatabaseServerV4Request struct {
 
 	// The major version to which the database server should be upgraded
 	// Required: true
-	MajorVersion *string `json:"majorVersion"`
+	// Enum: [VERSION_11]
+	UpgradeTargetMajorVersion *string `json:"upgradeTargetMajorVersion"`
 }
 
 // Validate validates this upgrade database server v4 request
 func (m *UpgradeDatabaseServerV4Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateMajorVersion(formats); err != nil {
+	if err := m.validateUpgradeTargetMajorVersion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -36,9 +39,40 @@ func (m *UpgradeDatabaseServerV4Request) Validate(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *UpgradeDatabaseServerV4Request) validateMajorVersion(formats strfmt.Registry) error {
+var upgradeDatabaseServerV4RequestTypeUpgradeTargetMajorVersionPropEnum []interface{}
 
-	if err := validate.Required("majorVersion", "body", m.MajorVersion); err != nil {
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["VERSION_11"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		upgradeDatabaseServerV4RequestTypeUpgradeTargetMajorVersionPropEnum = append(upgradeDatabaseServerV4RequestTypeUpgradeTargetMajorVersionPropEnum, v)
+	}
+}
+
+const (
+
+	// UpgradeDatabaseServerV4RequestUpgradeTargetMajorVersionVERSION11 captures enum value "VERSION_11"
+	UpgradeDatabaseServerV4RequestUpgradeTargetMajorVersionVERSION11 string = "VERSION_11"
+)
+
+// prop value enum
+func (m *UpgradeDatabaseServerV4Request) validateUpgradeTargetMajorVersionEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, upgradeDatabaseServerV4RequestTypeUpgradeTargetMajorVersionPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UpgradeDatabaseServerV4Request) validateUpgradeTargetMajorVersion(formats strfmt.Registry) error {
+
+	if err := validate.Required("upgradeTargetMajorVersion", "body", m.UpgradeTargetMajorVersion); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateUpgradeTargetMajorVersionEnum("upgradeTargetMajorVersion", "body", *m.UpgradeTargetMajorVersion); err != nil {
 		return err
 	}
 

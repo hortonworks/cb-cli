@@ -323,6 +323,18 @@ func init() {
 				},
 			},
 			{
+				Name:   "validate-and-prepare-for-upgrade",
+				Usage:  "Validate for the upgrade and download the parcels. You need to specify at least either one of imageId, runtime or lockComponents to be able to proceed!",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageIdOptional).AddFlags(fl.FlRuntimeOptional).AddFlags(fl.FlLockComponentsOptional).AddFlags(fl.FlDryRunOptional).AddFlags(fl.FlReplaceVms).AddFlags(fl.FlShowImagesOptional).AddFlags(fl.FlShowLatestImagesOptional).Build(),
+				Action: distrox.DistroxUpgradeValidateAndDownload,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageIdOptional).AddFlags(fl.FlRuntimeOptional).AddFlags(fl.FlLockComponentsOptional).AddFlags(fl.FlDryRunOptional).AddFlags(fl.FlReplaceVms).AddFlags(fl.FlShowImagesOptional).AddFlags(fl.FlShowLatestImagesOptional).Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
 				Name:   "upgrade",
 				Usage:  "OS or data platform upgrade for the DistroX cluster. You need to specify at least either one of imageId, runtime or lockComponents to be able to proceed!",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,

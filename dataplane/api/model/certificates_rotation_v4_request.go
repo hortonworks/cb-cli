@@ -19,16 +19,16 @@ import (
 // swagger:model CertificatesRotationV4Request
 type CertificatesRotationV4Request struct {
 
-	// rotate certificates type
+	// the type of the certificate rotation
 	// Enum: [HOST_CERTS]
-	RotateCertificatesType string `json:"rotateCertificatesType,omitempty"`
+	CertificateRotationType string `json:"certificateRotationType,omitempty"`
 }
 
 // Validate validates this certificates rotation v4 request
 func (m *CertificatesRotationV4Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateRotateCertificatesType(formats); err != nil {
+	if err := m.validateCertificateRotationType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -38,7 +38,7 @@ func (m *CertificatesRotationV4Request) Validate(formats strfmt.Registry) error 
 	return nil
 }
 
-var certificatesRotationV4RequestTypeRotateCertificatesTypePropEnum []interface{}
+var certificatesRotationV4RequestTypeCertificateRotationTypePropEnum []interface{}
 
 func init() {
 	var res []string
@@ -46,32 +46,32 @@ func init() {
 		panic(err)
 	}
 	for _, v := range res {
-		certificatesRotationV4RequestTypeRotateCertificatesTypePropEnum = append(certificatesRotationV4RequestTypeRotateCertificatesTypePropEnum, v)
+		certificatesRotationV4RequestTypeCertificateRotationTypePropEnum = append(certificatesRotationV4RequestTypeCertificateRotationTypePropEnum, v)
 	}
 }
 
 const (
 
-	// CertificatesRotationV4RequestRotateCertificatesTypeHOSTCERTS captures enum value "HOST_CERTS"
-	CertificatesRotationV4RequestRotateCertificatesTypeHOSTCERTS string = "HOST_CERTS"
+	// CertificatesRotationV4RequestCertificateRotationTypeHOSTCERTS captures enum value "HOST_CERTS"
+	CertificatesRotationV4RequestCertificateRotationTypeHOSTCERTS string = "HOST_CERTS"
 )
 
 // prop value enum
-func (m *CertificatesRotationV4Request) validateRotateCertificatesTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, certificatesRotationV4RequestTypeRotateCertificatesTypePropEnum); err != nil {
+func (m *CertificatesRotationV4Request) validateCertificateRotationTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, certificatesRotationV4RequestTypeCertificateRotationTypePropEnum); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *CertificatesRotationV4Request) validateRotateCertificatesType(formats strfmt.Registry) error {
+func (m *CertificatesRotationV4Request) validateCertificateRotationType(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.RotateCertificatesType) { // not required
+	if swag.IsZero(m.CertificateRotationType) { // not required
 		return nil
 	}
 
 	// value enum
-	if err := m.validateRotateCertificatesTypeEnum("rotateCertificatesType", "body", m.RotateCertificatesType); err != nil {
+	if err := m.validateCertificateRotationTypeEnum("certificateRotationType", "body", m.CertificateRotationType); err != nil {
 		return err
 	}
 

@@ -715,7 +715,7 @@ func (a *Client) ListEnvironmentV1(params *ListEnvironmentV1Params) (*ListEnviro
 }
 
 /*
-RotateSaltPasswordEnvironmentByCrnV1 rotates salt password of an environment by crn
+RotateSaltPasswordEnvironmentByCrnV1 rotates salt stack user password of an environment by crn
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
