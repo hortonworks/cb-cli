@@ -954,7 +954,7 @@ func (a *Client) RetryV1(params *RetryV1Params, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-RotateSaltPasswordV1 rotates salt password of free IP a stacks that attached to the given environment c r n
+RotateSaltPasswordV1 rotates salt stack user password of free IP a stacks that attached to the given environment c r n
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */

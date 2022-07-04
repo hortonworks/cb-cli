@@ -593,7 +593,7 @@ func RotateCertificates(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Rotate AutoTLS certificates for distrox cluster")
 	name := c.String(fl.FlName.Name)
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
-	body := model.CertificatesRotationV4Request{RotateCertificatesType: model.CertificatesRotationV4RequestRotateCertificatesTypeHOSTCERTS}
+	body := model.CertificatesRotationV4Request{CertificateRotationType: model.CertificatesRotationV4RequestCertificateRotationTypeHOSTCERTS}
 	_, err := dxClient.Cloudbreak.V1distrox.RotateAutoTLSCertificatesByName(v1distrox.NewRotateAutoTLSCertificatesByNameParams().WithName(name).WithBody(&body))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
@@ -620,7 +620,29 @@ func DistroxClusterkUpgrade(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 		fmt.Printf("%s\n", err)
 	}
-	printResponse(resp, dryRun || showImages || showLatestImages)
+	printUpgradeResponse(resp.Payload, dryRun || showImages || showLatestImages)
+}
+
+func DistroxUpgradeValidateAndDownload(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "Start DistroX prepare for upgrade")
+	dryRun := c.Bool(fl.FlDryRunOptional.Name)
+	name := c.String(fl.FlName.Name)
+	image := c.String(fl.FlImageIdOptional.Name)
+	runtime := c.String(fl.FlRuntimeOptional.Name)
+	lock := c.Bool(fl.FlLockComponentsOptional.Name)
+	replaceVms := c.String(fl.FlReplaceVms.Name)
+	showImages := c.Bool(fl.FlShowImagesOptional.Name)
+	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
+
+	dxRequest := createDistroxUpgradeRequest(image, runtime, lock, dryRun, replaceVms, showImages, showLatestImages)
+	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
+
+	resp, err := dxClient.Cloudbreak.V1distrox.PrepareDistroxClusterUpgrade(v1distrox.NewPrepareDistroxClusterUpgradeParams().WithName(name).WithBody(dxRequest))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+		fmt.Printf("%s\n", err)
+	}
+	printUpgradeResponse(resp.Payload, dryRun || showImages || showLatestImages)
 }
 
 func createDistroxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string, showImages bool, showLatestImages bool) *distroxModel.DistroXUpgradeV1Request {
@@ -643,21 +665,21 @@ func createDistroxUpgradeRequest(imageid string, runtime string, lockComponents 
 	return dxRequest
 }
 
-func printResponse(template *v1distrox.UpgradeDistroxClusterOK, dryRun bool) error {
+func printUpgradeResponse(template *model.DistroXUpgradeV1Response, dryRun bool) error {
 	var errorMessage error
 	var response []byte
 
 	if dryRun {
-		resp, err := json.MarshalIndent(template.Payload, "", "\t")
+		resp, err := json.MarshalIndent(template, "", "\t")
 		response = resp
 		errorMessage = err
-	} else if template.Payload.UpgradeCandidates == nil || len(template.Payload.UpgradeCandidates) == 0 {
-		log.Infof("[UpgradeDX] Reason field received: %s", template.Payload.Reason)
-		resp, err := json.MarshalIndent(template.Payload.Reason, "", "\t")
+	} else if template.UpgradeCandidates == nil || len(template.UpgradeCandidates) == 0 {
+		log.Infof("[UpgradeDX] Reason field received: %s", template.Reason)
+		resp, err := json.MarshalIndent(template.Reason, "", "\t")
 		response = resp
 		errorMessage = err
 	} else {
-		resp, err := json.MarshalIndent(template.Payload, "", "\t")
+		resp, err := json.MarshalIndent(template, "", "\t")
 		response = resp
 		errorMessage = err
 	}

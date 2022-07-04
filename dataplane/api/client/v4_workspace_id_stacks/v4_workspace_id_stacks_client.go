@@ -1277,6 +1277,36 @@ func (a *Client) RotateAutoTLSCertificates(params *RotateAutoTLSCertificatesPara
 }
 
 /*
+RotateSaltPasswordForStackInWorkspaceV4Internal rotates the salt stack user password of stack by crn in workspace internal only
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) RotateSaltPasswordForStackInWorkspaceV4Internal(params *RotateSaltPasswordForStackInWorkspaceV4InternalParams) (*RotateSaltPasswordForStackInWorkspaceV4InternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateSaltPasswordForStackInWorkspaceV4InternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateSaltPasswordForStackInWorkspaceV4Internal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{crn}/rotate_salt_password",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateSaltPasswordForStackInWorkspaceV4InternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RotateSaltPasswordForStackInWorkspaceV4InternalOK), nil
+
+}
+
+/*
 SetClusterMaintenanceMode sets maintenance mode for the cluster by name
 
 Setting maintenance mode for the cluster in order to be able to update Ambari and/or the Hadoop stack.

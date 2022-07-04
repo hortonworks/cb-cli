@@ -1037,6 +1037,34 @@ func (a *Client) GetSdxDetailByCrn(params *GetSdxDetailByCrnParams) (*GetSdxDeta
 }
 
 /*
+IsStoppable determines if the datalake can be stopped
+*/
+func (a *Client) IsStoppable(params *IsStoppableParams) (*IsStoppableOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIsStoppableParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "isStoppable",
+		Method:             "GET",
+		PathPattern:        "/sdx/crn/{crn}/internal/stoppable",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &IsStoppableReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*IsStoppableOK), nil
+
+}
+
+/*
 ListSdx lists s d x clusters
 */
 func (a *Client) ListSdx(params *ListSdxParams) (*ListSdxOK, error) {
@@ -1565,6 +1593,34 @@ func (a *Client) RotateAutoTLSCertificatesByName(params *RotateAutoTLSCertificat
 		return nil, err
 	}
 	return result.(*RotateAutoTLSCertificatesByNameOK), nil
+
+}
+
+/*
+RotateSaltPasswordSdxByCrn rotates salt stack user password
+*/
+func (a *Client) RotateSaltPasswordSdxByCrn(params *RotateSaltPasswordSdxByCrnParams) (*RotateSaltPasswordSdxByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateSaltPasswordSdxByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateSaltPasswordSdxByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/{crn}/rotate_salt_password",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateSaltPasswordSdxByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RotateSaltPasswordSdxByCrnOK), nil
 
 }
 
