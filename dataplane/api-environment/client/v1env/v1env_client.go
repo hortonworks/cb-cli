@@ -715,36 +715,6 @@ func (a *Client) ListEnvironmentV1(params *ListEnvironmentV1Params) (*ListEnviro
 }
 
 /*
-RotateSaltPasswordEnvironmentByCrnV1 rotates salt stack user password of an environment by crn
-
-Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
-*/
-func (a *Client) RotateSaltPasswordEnvironmentByCrnV1(params *RotateSaltPasswordEnvironmentByCrnV1Params) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewRotateSaltPasswordEnvironmentByCrnV1Params()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "rotateSaltPasswordEnvironmentByCrnV1",
-		Method:             "POST",
-		PathPattern:        "/v1/env/crn/{crn}/rotate_salt_password",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &RotateSaltPasswordEnvironmentByCrnV1Reader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
 StartEnvironmentByCrnV1 starts an environment by c r n the freeipa datalake and datahubs will be started in this order
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
