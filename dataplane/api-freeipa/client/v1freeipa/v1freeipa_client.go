@@ -958,13 +958,13 @@ RotateSaltPasswordV1 rotates salt stack user password of free IP a stacks that a
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
-func (a *Client) RotateSaltPasswordV1(params *RotateSaltPasswordV1Params, authInfo runtime.ClientAuthInfoWriter) error {
+func (a *Client) RotateSaltPasswordV1(params *RotateSaltPasswordV1Params, authInfo runtime.ClientAuthInfoWriter) (*RotateSaltPasswordV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRotateSaltPasswordV1Params()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "rotateSaltPasswordV1",
 		Method:             "POST",
 		PathPattern:        "/v1/freeipa/rotate_salt_password",
@@ -978,9 +978,9 @@ func (a *Client) RotateSaltPasswordV1(params *RotateSaltPasswordV1Params, authIn
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*RotateSaltPasswordV1OK), nil
 
 }
 

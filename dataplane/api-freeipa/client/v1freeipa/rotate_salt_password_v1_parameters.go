@@ -63,8 +63,6 @@ type RotateSaltPasswordV1Params struct {
 
 	/*Environment*/
 	Environment *string
-	/*InitiatorUserCrn*/
-	InitiatorUserCrn *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -115,17 +113,6 @@ func (o *RotateSaltPasswordV1Params) SetEnvironment(environment *string) {
 	o.Environment = environment
 }
 
-// WithInitiatorUserCrn adds the initiatorUserCrn to the rotate salt password v1 params
-func (o *RotateSaltPasswordV1Params) WithInitiatorUserCrn(initiatorUserCrn *string) *RotateSaltPasswordV1Params {
-	o.SetInitiatorUserCrn(initiatorUserCrn)
-	return o
-}
-
-// SetInitiatorUserCrn adds the initiatorUserCrn to the rotate salt password v1 params
-func (o *RotateSaltPasswordV1Params) SetInitiatorUserCrn(initiatorUserCrn *string) {
-	o.InitiatorUserCrn = initiatorUserCrn
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *RotateSaltPasswordV1Params) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -144,22 +131,6 @@ func (o *RotateSaltPasswordV1Params) WriteToRequest(r runtime.ClientRequest, reg
 		qEnvironment := qrEnvironment
 		if qEnvironment != "" {
 			if err := r.SetQueryParam("environment", qEnvironment); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.InitiatorUserCrn != nil {
-
-		// query param initiatorUserCrn
-		var qrInitiatorUserCrn string
-		if o.InitiatorUserCrn != nil {
-			qrInitiatorUserCrn = *o.InitiatorUserCrn
-		}
-		qInitiatorUserCrn := qrInitiatorUserCrn
-		if qInitiatorUserCrn != "" {
-			if err := r.SetQueryParam("initiatorUserCrn", qInitiatorUserCrn); err != nil {
 				return err
 			}
 		}
