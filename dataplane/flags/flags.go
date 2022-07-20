@@ -717,6 +717,13 @@ var (
 			Usage: "UUID of the image",
 		},
 	}
+	FlTargetVersionOptional = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "target-version",
+			Usage: "Target version of the external database",
+		},
+	}
 	FlProxyHost = StringFlag{
 		RequiredFlag: REQUIRED,
 		StringFlag: cli.StringFlag{

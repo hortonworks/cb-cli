@@ -1487,6 +1487,36 @@ func (a *Client) RotateAutoTLSCertificatesByName(params *RotateAutoTLSCertificat
 }
 
 /*
+RotateSaltPasswordDistroXV1ByCrn rotates the salt stack user password of stack by crn
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) RotateSaltPasswordDistroXV1ByCrn(params *RotateSaltPasswordDistroXV1ByCrnParams) (*RotateSaltPasswordDistroXV1ByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateSaltPasswordDistroXV1ByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateSaltPasswordDistroXV1ByCrn",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/crn/{crn}/rotate_salt_password",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateSaltPasswordDistroXV1ByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RotateSaltPasswordDistroXV1ByCrnOK), nil
+
+}
+
+/*
 SetDistroXMaintenanceModeByCrn sets maintenance mode for the cluster by crn
 
 Setting maintenance mode for the cluster in order to be able to update Ambari and/or the Hadoop stack.
@@ -1987,6 +2017,62 @@ func (a *Client) UpgradeCcmByDatahubCrnInternal(params *UpgradeCcmByDatahubCrnIn
 		return nil, err
 	}
 	return result.(*UpgradeCcmByDatahubCrnInternalOK), nil
+
+}
+
+/*
+UpgradeDistroXRdsByCrn upgrades the external database of the distrox cluster
+*/
+func (a *Client) UpgradeDistroXRdsByCrn(params *UpgradeDistroXRdsByCrnParams) (*UpgradeDistroXRdsByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDistroXRdsByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDistroXRdsByCrn",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/crn/{crn}/rds_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDistroXRdsByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDistroXRdsByCrnOK), nil
+
+}
+
+/*
+UpgradeDistroXRdsByName upgrades the external database of the distrox cluster
+*/
+func (a *Client) UpgradeDistroXRdsByName(params *UpgradeDistroXRdsByNameParams) (*UpgradeDistroXRdsByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDistroXRdsByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDistroXRdsByName",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/{name}/rds_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDistroXRdsByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDistroXRdsByNameOK), nil
 
 }
 

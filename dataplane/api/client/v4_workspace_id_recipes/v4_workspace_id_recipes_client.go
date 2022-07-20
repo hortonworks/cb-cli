@@ -295,6 +295,36 @@ func (a *Client) GetRecipeRequestFromNameInWorkspace(params *GetRecipeRequestFro
 }
 
 /*
+GetRecipeRequestsFromNamesInWorkspace retrieves recipes request by recipe names
+
+Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.
+*/
+func (a *Client) GetRecipeRequestsFromNamesInWorkspace(params *GetRecipeRequestsFromNamesInWorkspaceParams) (*GetRecipeRequestsFromNamesInWorkspaceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRecipeRequestsFromNamesInWorkspaceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getRecipeRequestsFromNamesInWorkspace",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/recipes/names",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRecipeRequestsFromNamesInWorkspaceReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetRecipeRequestsFromNamesInWorkspaceOK), nil
+
+}
+
+/*
 ListRecipesByWorkspace lists recipes for the given workspace
 
 Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.

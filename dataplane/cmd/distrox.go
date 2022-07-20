@@ -334,6 +334,18 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:   "upgrade-database",
+				Usage:  "External database upgrade for the DistroX cluster.",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlTargetVersionOptional).Build(),
+				Action: distrox.DistroxDatabaseUpgrade,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlTargetVersionOptional).Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }

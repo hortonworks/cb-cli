@@ -629,6 +629,34 @@ func (a *Client) GetClusterRecoverableByNameInternal(params *GetClusterRecoverab
 }
 
 /*
+GetNotCcmUpgradedStackCountInternal returns the count of not upgraded stacks for an environment c r n
+*/
+func (a *Client) GetNotCcmUpgradedStackCountInternal(params *GetNotCcmUpgradedStackCountInternalParams) (*GetNotCcmUpgradedStackCountInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetNotCcmUpgradedStackCountInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getNotCcmUpgradedStackCountInternal",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{envCrn}/upgrade_ccm_stacks_remaining",
+		ProducesMediaTypes: []string{"text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetNotCcmUpgradedStackCountInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetNotCcmUpgradedStackCountInternalOK), nil
+
+}
+
+/*
 GetStackByCrnInWorkspaceV4 gets stack by crn in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -1277,6 +1305,36 @@ func (a *Client) RotateAutoTLSCertificates(params *RotateAutoTLSCertificatesPara
 }
 
 /*
+RotateSaltPasswordForStackInWorkspaceV4Internal rotates the salt stack user password of stack by crn in workspace internal only
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) RotateSaltPasswordForStackInWorkspaceV4Internal(params *RotateSaltPasswordForStackInWorkspaceV4InternalParams) (*RotateSaltPasswordForStackInWorkspaceV4InternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRotateSaltPasswordForStackInWorkspaceV4InternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "rotateSaltPasswordForStackInWorkspaceV4Internal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{crn}/rotate_salt_password",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RotateSaltPasswordForStackInWorkspaceV4InternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RotateSaltPasswordForStackInWorkspaceV4InternalOK), nil
+
+}
+
+/*
 SetClusterMaintenanceMode sets maintenance mode for the cluster by name
 
 Setting maintenance mode for the cluster in order to be able to update Ambari and/or the Hadoop stack.
@@ -1857,6 +1915,34 @@ func (a *Client) UpgradeOsInWorkspaceV4Internal(params *UpgradeOsInWorkspaceV4In
 		return nil, err
 	}
 	return result.(*UpgradeOsInWorkspaceV4InternalOK), nil
+
+}
+
+/*
+UpgradeRdsByNameInternal upgrades the external database of a cluster to a given version internal only
+*/
+func (a *Client) UpgradeRdsByNameInternal(params *UpgradeRdsByNameInternalParams) (*UpgradeRdsByNameInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeRdsByNameInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeRdsByNameInternal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/rds_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeRdsByNameInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeRdsByNameInternalOK), nil
 
 }
 

@@ -593,12 +593,29 @@ func RotateCertificates(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Rotate AutoTLS certificates for distrox cluster")
 	name := c.String(fl.FlName.Name)
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
-	body := model.CertificatesRotationV4Request{RotateCertificatesType: model.CertificatesRotationV4RequestRotateCertificatesTypeHOSTCERTS}
+	body := model.CertificatesRotationV4Request{CertificateRotationType: model.CertificatesRotationV4RequestCertificateRotationTypeHOSTCERTS}
 	_, err := dxClient.Cloudbreak.V1distrox.RotateAutoTLSCertificatesByName(v1distrox.NewRotateAutoTLSCertificatesByNameParams().WithName(name).WithBody(&body))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
 	log.Infof("[RotateCerts] Distrox cluster certificate rotation started for: %s", name)
+}
+
+func DistroxDatabaseUpgrade(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "Starting DistroX database upgrade")
+	name := c.String(fl.FlName.Name)
+	targetVersion := c.String(fl.FlTargetVersionOptional.Name)
+	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
+	dxRequest := &distroxModel.DistroXRdsUpgradeV1Request{
+		TargetVersion: targetVersion,
+	}
+	_, err := dxClient.Cloudbreak.V1distrox.UpgradeDistroXRdsByName(v1distrox.NewUpgradeDistroXRdsByNameParams().WithName(name).WithBody(dxRequest))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+		fmt.Printf("%s\n", err)
+	} else {
+		fmt.Println("Database upgrade has started")
+	}
 }
 
 func DistroxClusterkUpgrade(c *cli.Context) {
