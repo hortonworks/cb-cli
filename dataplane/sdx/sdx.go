@@ -572,7 +572,33 @@ func printResponse(template *sdx.UpgradeDatalakeClusterOK, dryRun bool) error {
 	return nil
 }
 
-func SdxClusterkUpgrade(c *cli.Context) {
+func printResponseForPrepare(template *sdx.PrepareDatalakeClusterUpgradeOK, dryRun bool) error {
+	var errorMessage error
+	var response []byte
+
+	if dryRun {
+		resp, err := json.MarshalIndent(template.Payload, "", "\t")
+		response = resp
+		errorMessage = err
+	} else if template.Payload.UpgradeCandidates == nil || len(template.Payload.UpgradeCandidates) == 0 {
+		log.Infof("[UpgradeSDX] Reason field received: %s", template.Payload.Reason)
+		resp, err := json.MarshalIndent(template.Payload.Reason, "", "\t")
+		response = resp
+		errorMessage = err
+	} else {
+		resp, err := json.MarshalIndent(template.Payload, "", "\t")
+		response = resp
+		errorMessage = err
+	}
+
+	if errorMessage != nil {
+		commonutils.LogErrorAndExit(errorMessage)
+	}
+	commonutils.Println(string(response))
+	return nil
+}
+
+func SdxClusterUpgrade(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Start SDX upgrade")
 	dryRun := c.Bool(fl.FlDryRunOptional.Name)
 	name := c.String(fl.FlName.Name)
@@ -594,6 +620,27 @@ func SdxClusterkUpgrade(c *cli.Context) {
 		fmt.Printf("%s\n", err)
 	}
 	printResponse(resp, dryRun || showImages || showLatestImages)
+}
+
+func SdxClusterUpgradePrepare(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "Start SDX upgrade")
+	dryRun := c.Bool(fl.FlDryRunOptional.Name)
+	name := c.String(fl.FlName.Name)
+	image := c.String(fl.FlImageIdOptional.Name)
+	runtime := c.String(fl.FlRuntimeOptional.Name)
+	showImages := c.Bool(fl.FlShowImagesOptional.Name)
+	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
+
+	sdxRequest := createSdxUpgradeRequest(image, runtime, "", false, dryRun, showImages, showLatestImages, false)
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	checkClientVersion(sdxClient, common.Version)
+
+	resp, err := sdxClient.Sdx.PrepareDatalakeClusterUpgrade(sdx.NewPrepareDatalakeClusterUpgradeParams().WithName(name).WithBody(sdxRequest))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+		fmt.Printf("%s\n", err)
+	}
+	printResponseForPrepare(resp, dryRun || showImages || showLatestImages)
 }
 
 func createSdxUpgradeRequest(imageid, runtime, replaceVms string, lockComponents, dryRun, showImages, showLatestImages, backup bool) *sdxModel.SdxUpgradeRequest {

@@ -1121,6 +1121,62 @@ func (a *Client) ListSdxInternal(params *ListSdxInternalParams) (*ListSdxInterna
 }
 
 /*
+PrepareDatalakeClusterUpgrade prepares the data lake cluster for upgrade
+*/
+func (a *Client) PrepareDatalakeClusterUpgrade(params *PrepareDatalakeClusterUpgradeParams) (*PrepareDatalakeClusterUpgradeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPrepareDatalakeClusterUpgradeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "prepareDatalakeClusterUpgrade",
+		Method:             "POST",
+		PathPattern:        "/sdx/{name}/prepare_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PrepareDatalakeClusterUpgradeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PrepareDatalakeClusterUpgradeOK), nil
+
+}
+
+/*
+PrepareDatalakeClusterUpgradeByCrn prepares the data lake cluster for upgrade
+*/
+func (a *Client) PrepareDatalakeClusterUpgradeByCrn(params *PrepareDatalakeClusterUpgradeByCrnParams) (*PrepareDatalakeClusterUpgradeByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPrepareDatalakeClusterUpgradeByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "prepareDatalakeClusterUpgradeByCrn",
+		Method:             "POST",
+		PathPattern:        "/sdx/crn/{crn}/prepare_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PrepareDatalakeClusterUpgradeByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PrepareDatalakeClusterUpgradeByCrnOK), nil
+
+}
+
+/*
 RecoverDatalakeCluster recovers the datalake upgrade
 */
 func (a *Client) RecoverDatalakeCluster(params *RecoverDatalakeClusterParams) (*RecoverDatalakeClusterOK, error) {
