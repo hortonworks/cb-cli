@@ -143,9 +143,21 @@ func init() {
 				Usage:  "OS or data platform upgrade for the SDX cluster. You need to specify at least either one of imageId, runtime or lockComponents to be able to proceed!",
 				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
 				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageIdOptional).AddFlags(fl.FlRuntimeOptional).AddFlags(fl.FlLockComponentsOptional).AddFlags(fl.FlDryRunOptional).AddFlags(fl.FlReplaceVms).AddFlags(fl.FlShowImagesOptional).AddFlags(fl.FlShowLatestImagesOptional).AddFlags(fl.FlUpgradeBackup).Build(),
-				Action: sdx.SdxClusterkUpgrade,
+				Action: sdx.SdxClusterUpgrade,
 				BashComplete: func(c *cli.Context) {
 					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageIdOptional).AddFlags(fl.FlRuntimeOptional).AddFlags(fl.FlLockComponentsOptional).AddFlags(fl.FlDryRunOptional).AddFlags(fl.FlReplaceVms).AddFlags(fl.FlShowImagesOptional).AddFlags(fl.FlShowLatestImagesOptional).AddFlags(fl.FlUpgradeBackup).Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
+				Name:   "prepare-upgrade",
+				Usage:  "OS or data platform upgrade preparation for the SDX cluster. You need to specify at least either one of imageId, runtime to be able to proceed!",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageIdOptional).AddFlags(fl.FlRuntimeOptional).AddFlags(fl.FlDryRunOptional).AddFlags(fl.FlShowImagesOptional).AddFlags(fl.FlShowLatestImagesOptional).Build(),
+				Action: sdx.SdxClusterUpgradePrepare,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlImageIdOptional).AddFlags(fl.FlRuntimeOptional).AddFlags(fl.FlDryRunOptional).AddFlags(fl.FlShowImagesOptional).AddFlags(fl.FlShowLatestImagesOptional).Build() {
 						fl.PrintFlagCompletion(f)
 					}
 				},
