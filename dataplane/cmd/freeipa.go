@@ -405,6 +405,18 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:   "rebuild",
+				Usage:  "rebuilds freeipa from deleted. Crn for source freeipa is required",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlCrn).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: freeipa.Rebuild,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlCrn).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }

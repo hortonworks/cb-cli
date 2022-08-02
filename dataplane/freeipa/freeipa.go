@@ -761,3 +761,16 @@ func printFormattedJsonResponse(v interface{}) {
 	}
 	commonutils.Println(string(response))
 }
+
+func Rebuild(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	sourceFreeIpaCrn := c.String(fl.FlCrn.Name)
+
+	request := model.RebuildV1Request{EnvironmentCrn: &envCrn, SourceCrn: &sourceFreeIpaCrn}
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	_, err := freeIpaClient.V1freeipa.RebuildV1(v1freeipa.NewRebuildV1Params().WithBody(&request), nil)
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+}
