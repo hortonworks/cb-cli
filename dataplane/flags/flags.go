@@ -835,14 +835,14 @@ var (
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
 			Name:  "hosts",
-			Usage: "comma separated hosts filter.",
+			Usage: "comma separated hosts filter for the logs that needs to be collected (from these dedicated hosts)",
 		},
 	}
 	FlCollectionHostGroups = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
 			Name:  "host-groups",
-			Usage: "comma separated host group filter.",
+			Usage: "comma separated host group filter for the logs that needs to be collected (from these dedicated host groups)",
 		},
 	}
 	FlCollectionRoles = StringFlag{
@@ -1383,13 +1383,6 @@ var (
 		StringFlag: cli.StringFlag{
 			Name:  "admin",
 			Usage: "kerberos admin",
-		},
-	}
-	FlRemoteCommand = StringFlag{
-		RequiredFlag: OPTIONAL,
-		StringFlag: cli.StringFlag{
-			Name:  "command",
-			Usage: "remote command to execute on VM nodes",
 		},
 	}
 	FlTimeoutMinutes = StringFlag{
