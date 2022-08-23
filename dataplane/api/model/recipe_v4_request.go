@@ -33,9 +33,9 @@ type RecipeV4Request struct {
 	// Pattern: (^[a-z][-a-z0-9]*[a-z0-9]$)
 	Name string `json:"name,omitempty"`
 
-	// type of recipe [PRE_CLOUDERA_MANAGER_START,PRE_TERMINATION,POST_CLOUDERA_MANAGER_START,POST_CLUSTER_INSTALL]. The default is PRE_CLOUDERA_MANAGER_START
+	// type of recipe
 	// Required: true
-	// Enum: [PRE_CLOUDERA_MANAGER_START PRE_TERMINATION POST_CLOUDERA_MANAGER_START POST_CLUSTER_INSTALL]
+	// Enum: [PRE_CLOUDERA_MANAGER_START PRE_SERVICE_DEPLOYMENT PRE_TERMINATION POST_CLOUDERA_MANAGER_START POST_CLUSTER_INSTALL POST_SERVICE_DEPLOYMENT]
 	Type *string `json:"type"`
 }
 
@@ -103,7 +103,7 @@ var recipeV4RequestTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["PRE_CLOUDERA_MANAGER_START","PRE_TERMINATION","POST_CLOUDERA_MANAGER_START","POST_CLUSTER_INSTALL"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["PRE_CLOUDERA_MANAGER_START","PRE_SERVICE_DEPLOYMENT","PRE_TERMINATION","POST_CLOUDERA_MANAGER_START","POST_CLUSTER_INSTALL","POST_SERVICE_DEPLOYMENT"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -116,6 +116,9 @@ const (
 	// RecipeV4RequestTypePRECLOUDERAMANAGERSTART captures enum value "PRE_CLOUDERA_MANAGER_START"
 	RecipeV4RequestTypePRECLOUDERAMANAGERSTART string = "PRE_CLOUDERA_MANAGER_START"
 
+	// RecipeV4RequestTypePRESERVICEDEPLOYMENT captures enum value "PRE_SERVICE_DEPLOYMENT"
+	RecipeV4RequestTypePRESERVICEDEPLOYMENT string = "PRE_SERVICE_DEPLOYMENT"
+
 	// RecipeV4RequestTypePRETERMINATION captures enum value "PRE_TERMINATION"
 	RecipeV4RequestTypePRETERMINATION string = "PRE_TERMINATION"
 
@@ -124,6 +127,9 @@ const (
 
 	// RecipeV4RequestTypePOSTCLUSTERINSTALL captures enum value "POST_CLUSTER_INSTALL"
 	RecipeV4RequestTypePOSTCLUSTERINSTALL string = "POST_CLUSTER_INSTALL"
+
+	// RecipeV4RequestTypePOSTSERVICEDEPLOYMENT captures enum value "POST_SERVICE_DEPLOYMENT"
+	RecipeV4RequestTypePOSTSERVICEDEPLOYMENT string = "POST_SERVICE_DEPLOYMENT"
 )
 
 // prop value enum

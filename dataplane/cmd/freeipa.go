@@ -55,18 +55,6 @@ func init() {
 				},
 			},
 			{
-				Name:   "exec",
-				Usage:  "Execute remote command a FreeIpa cluster",
-				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
-				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlRemoteCommand, fl.FlCollectionHosts, fl.FlCollectionHostGroups).AddAGlobalFlags().AddOutputFlag().Build(),
-				Action: freeipa.RemoteExecFreeIpa,
-				BashComplete: func(c *cli.Context) {
-					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlRemoteCommand, fl.FlCollectionHosts, fl.FlCollectionHostGroups).AddAGlobalFlags().AddOutputFlag().Build() {
-						fl.PrintFlagCompletion(f)
-					}
-				},
-			},
-			{
 				Name:  "diagnostics",
 				Usage: "manage dianostics for a FreeIpa cluster",
 				Subcommands: []cli.Command{

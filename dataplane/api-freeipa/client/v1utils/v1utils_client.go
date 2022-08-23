@@ -25,34 +25,6 @@ type Client struct {
 }
 
 /*
-RemoteExecV1 executes commands sync from API
-*/
-func (a *Client) RemoteExecV1(params *RemoteExecV1Params) (*RemoteExecV1OK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewRemoteExecV1Params()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "remoteExecV1",
-		Method:             "POST",
-		PathPattern:        "/v1/utils/remote_execution/{environmentCrn}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &RemoteExecV1Reader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*RemoteExecV1OK), nil
-
-}
-
-/*
 UsedImagesV1 lists the images that are in use
 */
 func (a *Client) UsedImagesV1(params *UsedImagesV1Params) (*UsedImagesV1OK, error) {

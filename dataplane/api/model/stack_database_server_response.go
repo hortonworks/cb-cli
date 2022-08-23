@@ -43,6 +43,10 @@ type StackDatabaseServerResponse struct {
 	// Host of the database server
 	Host string `json:"host,omitempty"`
 
+	// Major version of the database server engine
+	// Enum: [VERSION_10 VERSION_11 VERSION_12 VERSION_13 VERSION_14]
+	MajorVersion string `json:"majorVersion,omitempty"`
+
 	// Name of the database server
 	Name string `json:"name,omitempty"`
 
@@ -68,6 +72,10 @@ type StackDatabaseServerResponse struct {
 func (m *StackDatabaseServerResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateMajorVersion(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateResourceStatus(formats); err != nil {
 		res = append(res, err)
 	}
@@ -83,6 +91,58 @@ func (m *StackDatabaseServerResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var stackDatabaseServerResponseTypeMajorVersionPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["VERSION_10","VERSION_11","VERSION_12","VERSION_13","VERSION_14"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		stackDatabaseServerResponseTypeMajorVersionPropEnum = append(stackDatabaseServerResponseTypeMajorVersionPropEnum, v)
+	}
+}
+
+const (
+
+	// StackDatabaseServerResponseMajorVersionVERSION10 captures enum value "VERSION_10"
+	StackDatabaseServerResponseMajorVersionVERSION10 string = "VERSION_10"
+
+	// StackDatabaseServerResponseMajorVersionVERSION11 captures enum value "VERSION_11"
+	StackDatabaseServerResponseMajorVersionVERSION11 string = "VERSION_11"
+
+	// StackDatabaseServerResponseMajorVersionVERSION12 captures enum value "VERSION_12"
+	StackDatabaseServerResponseMajorVersionVERSION12 string = "VERSION_12"
+
+	// StackDatabaseServerResponseMajorVersionVERSION13 captures enum value "VERSION_13"
+	StackDatabaseServerResponseMajorVersionVERSION13 string = "VERSION_13"
+
+	// StackDatabaseServerResponseMajorVersionVERSION14 captures enum value "VERSION_14"
+	StackDatabaseServerResponseMajorVersionVERSION14 string = "VERSION_14"
+)
+
+// prop value enum
+func (m *StackDatabaseServerResponse) validateMajorVersionEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, stackDatabaseServerResponseTypeMajorVersionPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *StackDatabaseServerResponse) validateMajorVersion(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.MajorVersion) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateMajorVersionEnum("majorVersion", "body", m.MajorVersion); err != nil {
+		return err
+	}
+
 	return nil
 }
 

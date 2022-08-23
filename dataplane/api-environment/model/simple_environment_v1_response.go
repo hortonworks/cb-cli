@@ -37,6 +37,9 @@ type SimpleEnvironmentV1Response struct {
 	// Backup related specifics of the environment.
 	Backup *BackupResponse `json:"backup,omitempty"`
 
+	// backup location
+	BackupLocation string `json:"backupLocation,omitempty"`
+
 	// ccm v2 Tls type
 	// Enum: [ONE_WAY_TLS TWO_WAY_TLS]
 	CcmV2TLSType string `json:"ccmV2TlsType,omitempty"`

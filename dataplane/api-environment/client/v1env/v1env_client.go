@@ -415,6 +415,66 @@ func (a *Client) EditEnvironmentV1ByCrn(params *EditEnvironmentV1ByCrnParams) (*
 }
 
 /*
+GetAttachedExperiencesByEnvironmentCrn gets the experience s that connects to an environment that has the following c r n
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) GetAttachedExperiencesByEnvironmentCrn(params *GetAttachedExperiencesByEnvironmentCrnParams) (*GetAttachedExperiencesByEnvironmentCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAttachedExperiencesByEnvironmentCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getAttachedExperiencesByEnvironmentCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/env/xp/crn/{crn}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetAttachedExperiencesByEnvironmentCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetAttachedExperiencesByEnvironmentCrnOK), nil
+
+}
+
+/*
+GetAttachedExperiencesByEnvironmentName gets the experience s that connects to an environment that has the following name
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) GetAttachedExperiencesByEnvironmentName(params *GetAttachedExperiencesByEnvironmentNameParams) (*GetAttachedExperiencesByEnvironmentNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAttachedExperiencesByEnvironmentNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getAttachedExperiencesByEnvironmentName",
+		Method:             "GET",
+		PathPattern:        "/v1/env/xp/name/{name}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetAttachedExperiencesByEnvironmentNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetAttachedExperiencesByEnvironmentNameOK), nil
+
+}
+
+/*
 GetCreateEnvironmentForCli produces cli command input for environment creation
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
@@ -681,6 +741,36 @@ func (a *Client) InternalListEnvironmentV1(params *InternalListEnvironmentV1Para
 		return nil, err
 	}
 	return result.(*InternalListEnvironmentV1OK), nil
+
+}
+
+/*
+IsUpgradeCcmAvailableV1ByCrn determines if upgrade c c m is available in the environment i e is there any component which is not upgraded
+
+Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+*/
+func (a *Client) IsUpgradeCcmAvailableV1ByCrn(params *IsUpgradeCcmAvailableV1ByCrnParams) (*IsUpgradeCcmAvailableV1ByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIsUpgradeCcmAvailableV1ByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "isUpgradeCcmAvailableV1ByCrn",
+		Method:             "GET",
+		PathPattern:        "/v1/env/crn/{crn}/upgrade_ccm_available",
+		ProducesMediaTypes: []string{"text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &IsUpgradeCcmAvailableV1ByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*IsUpgradeCcmAvailableV1ByCrnOK), nil
 
 }
 

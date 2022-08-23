@@ -398,7 +398,7 @@ func (a *Client) GetImageFromDefaultWithRuntime(params *GetImageFromDefaultWithR
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getImageFromDefaultWithRuntime",
 		Method:             "GET",
-		PathPattern:        "/v4/{workspaceId}/image_catalogs/image/type/{type}/provider/{provider}/runtime/{runtime}",
+		PathPattern:        "/v4/{workspaceId}/image_catalogs/image/type/{type}/provider/{provider}/runtime/{runtime}/govCloud/{govCloud}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},

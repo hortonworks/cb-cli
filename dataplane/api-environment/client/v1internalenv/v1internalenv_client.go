@@ -55,36 +55,6 @@ func (a *Client) GetEnvironmentV1InternalByCrn(params *GetEnvironmentV1InternalB
 }
 
 /*
-IsUpgradeCcmAvailableV1InternalByCrn determines if upgrade c c m is available in the environment i e is there any component which is not upgraded
-
-Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
-*/
-func (a *Client) IsUpgradeCcmAvailableV1InternalByCrn(params *IsUpgradeCcmAvailableV1InternalByCrnParams) (*IsUpgradeCcmAvailableV1InternalByCrnOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewIsUpgradeCcmAvailableV1InternalByCrnParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "isUpgradeCcmAvailableV1InternalByCrn",
-		Method:             "GET",
-		PathPattern:        "/v1/internal/env/crn/{crn}/upgrade_ccm_available",
-		ProducesMediaTypes: []string{"text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &IsUpgradeCcmAvailableV1InternalByCrnReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*IsUpgradeCcmAvailableV1InternalByCrnOK), nil
-
-}
-
-/*
 PolicyValidationInternalByEnvironmentCrn validates policy json by environment crn
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
