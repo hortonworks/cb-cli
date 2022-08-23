@@ -51,7 +51,7 @@ type GetImageFromDefaultWithRuntimeOK struct {
 }
 
 func (o *GetImageFromDefaultWithRuntimeOK) Error() string {
-	return fmt.Sprintf("[GET /v4/{workspaceId}/image_catalogs/image/type/{type}/provider/{provider}/runtime/{runtime}][%d] getImageFromDefaultWithRuntimeOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /v4/{workspaceId}/image_catalogs/image/type/{type}/provider/{provider}/runtime/{runtime}/govCloud/{govCloud}][%d] getImageFromDefaultWithRuntimeOK  %+v", 200, o.Payload)
 }
 
 func (o *GetImageFromDefaultWithRuntimeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

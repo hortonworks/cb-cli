@@ -2017,6 +2017,34 @@ func (a *Client) UpgradeDatalakeClusterByCrn(params *UpgradeDatalakeClusterByCrn
 }
 
 /*
+ValidateCloudBackupStorage validates cloud backup storage
+*/
+func (a *Client) ValidateCloudBackupStorage(params *ValidateCloudBackupStorageParams) (*ValidateCloudBackupStorageOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewValidateCloudBackupStorageParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "validateCloudBackupStorage",
+		Method:             "POST",
+		PathPattern:        "/sdx/validate_cloud_backup_storage",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ValidateCloudBackupStorageReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ValidateCloudBackupStorageOK), nil
+
+}
+
+/*
 ValidateCloudStorage validates cloud storage
 */
 func (a *Client) ValidateCloudStorage(params *ValidateCloudStorageParams) (*ValidateCloudStorageOK, error) {

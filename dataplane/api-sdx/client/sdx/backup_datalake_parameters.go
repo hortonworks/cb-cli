@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -67,6 +68,12 @@ type BackupDatalakeParams struct {
 	BackupName *string
 	/*Name*/
 	Name string
+	/*SkipAtlasMetadata*/
+	SkipAtlasMetadata *bool
+	/*SkipRangerAudits*/
+	SkipRangerAudits *bool
+	/*SkipRangerMetadata*/
+	SkipRangerMetadata *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -139,6 +146,39 @@ func (o *BackupDatalakeParams) SetName(name string) {
 	o.Name = name
 }
 
+// WithSkipAtlasMetadata adds the skipAtlasMetadata to the backup datalake params
+func (o *BackupDatalakeParams) WithSkipAtlasMetadata(skipAtlasMetadata *bool) *BackupDatalakeParams {
+	o.SetSkipAtlasMetadata(skipAtlasMetadata)
+	return o
+}
+
+// SetSkipAtlasMetadata adds the skipAtlasMetadata to the backup datalake params
+func (o *BackupDatalakeParams) SetSkipAtlasMetadata(skipAtlasMetadata *bool) {
+	o.SkipAtlasMetadata = skipAtlasMetadata
+}
+
+// WithSkipRangerAudits adds the skipRangerAudits to the backup datalake params
+func (o *BackupDatalakeParams) WithSkipRangerAudits(skipRangerAudits *bool) *BackupDatalakeParams {
+	o.SetSkipRangerAudits(skipRangerAudits)
+	return o
+}
+
+// SetSkipRangerAudits adds the skipRangerAudits to the backup datalake params
+func (o *BackupDatalakeParams) SetSkipRangerAudits(skipRangerAudits *bool) {
+	o.SkipRangerAudits = skipRangerAudits
+}
+
+// WithSkipRangerMetadata adds the skipRangerMetadata to the backup datalake params
+func (o *BackupDatalakeParams) WithSkipRangerMetadata(skipRangerMetadata *bool) *BackupDatalakeParams {
+	o.SetSkipRangerMetadata(skipRangerMetadata)
+	return o
+}
+
+// SetSkipRangerMetadata adds the skipRangerMetadata to the backup datalake params
+func (o *BackupDatalakeParams) SetSkipRangerMetadata(skipRangerMetadata *bool) {
+	o.SkipRangerMetadata = skipRangerMetadata
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *BackupDatalakeParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -182,6 +222,54 @@ func (o *BackupDatalakeParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {
 		return err
+	}
+
+	if o.SkipAtlasMetadata != nil {
+
+		// query param skipAtlasMetadata
+		var qrSkipAtlasMetadata bool
+		if o.SkipAtlasMetadata != nil {
+			qrSkipAtlasMetadata = *o.SkipAtlasMetadata
+		}
+		qSkipAtlasMetadata := swag.FormatBool(qrSkipAtlasMetadata)
+		if qSkipAtlasMetadata != "" {
+			if err := r.SetQueryParam("skipAtlasMetadata", qSkipAtlasMetadata); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.SkipRangerAudits != nil {
+
+		// query param skipRangerAudits
+		var qrSkipRangerAudits bool
+		if o.SkipRangerAudits != nil {
+			qrSkipRangerAudits = *o.SkipRangerAudits
+		}
+		qSkipRangerAudits := swag.FormatBool(qrSkipRangerAudits)
+		if qSkipRangerAudits != "" {
+			if err := r.SetQueryParam("skipRangerAudits", qSkipRangerAudits); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.SkipRangerMetadata != nil {
+
+		// query param skipRangerMetadata
+		var qrSkipRangerMetadata bool
+		if o.SkipRangerMetadata != nil {
+			qrSkipRangerMetadata = *o.SkipRangerMetadata
+		}
+		qSkipRangerMetadata := swag.FormatBool(qrSkipRangerMetadata)
+		if qSkipRangerMetadata != "" {
+			if err := r.SetQueryParam("skipRangerMetadata", qSkipRangerMetadata); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

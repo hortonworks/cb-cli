@@ -897,6 +897,34 @@ func (a *Client) PostStackInWorkspaceV4Internal(params *PostStackInWorkspaceV4In
 }
 
 /*
+PrepareClusterUpgradeByCrnInternal upgrades a cluster to the latest c m or c d h version internal only
+*/
+func (a *Client) PrepareClusterUpgradeByCrnInternal(params *PrepareClusterUpgradeByCrnInternalParams) (*PrepareClusterUpgradeByCrnInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPrepareClusterUpgradeByCrnInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "prepareClusterUpgradeByCrnInternal",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{crn}/prepare_cluster_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PrepareClusterUpgradeByCrnInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PrepareClusterUpgradeByCrnInternalOK), nil
+
+}
+
+/*
 PutClusterV4 updates cluster by stack id
 
 Clusters are materialised Hadoop services on a given infrastructure. They are built based on a blueprint (running the components and services specified) and on a configured infrastructure Stack. Once a cluster is created and launched, it can be used the usual way as any Hadoop cluster. We suggest to start with the Cluster's Ambari UI for an overview of your cluster.
@@ -1915,6 +1943,34 @@ func (a *Client) UpgradeOsInWorkspaceV4Internal(params *UpgradeOsInWorkspaceV4In
 		return nil, err
 	}
 	return result.(*UpgradeOsInWorkspaceV4InternalOK), nil
+
+}
+
+/*
+UpgradeRdsByNameInternal upgrades the external database of a cluster to a given version internal only
+*/
+func (a *Client) UpgradeRdsByNameInternal(params *UpgradeRdsByNameInternalParams) (*UpgradeRdsByNameInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeRdsByNameInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeRdsByNameInternal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/rds_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeRdsByNameInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeRdsByNameInternalOK), nil
 
 }
 

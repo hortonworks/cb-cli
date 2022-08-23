@@ -20,6 +20,9 @@ import (
 // swagger:model GatewayV4Response
 type GatewayV4Response struct {
 
+	// gateway signing public key
+	GatewaySigningPublicKey string `json:"gatewaySigningPublicKey,omitempty"`
+
 	// Knox gateway type
 	// Enum: [CENTRAL INDIVIDUAL]
 	GatewayType string `json:"gatewayType,omitempty"`

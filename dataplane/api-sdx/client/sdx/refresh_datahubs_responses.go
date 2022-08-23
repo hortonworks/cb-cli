@@ -47,7 +47,7 @@ func NewRefreshDatahubsOK() *RefreshDatahubsOK {
 successful operation
 */
 type RefreshDatahubsOK struct {
-	Payload *model.SdxClusterResponse
+	Payload *model.SdxRefreshDatahubResponse
 }
 
 func (o *RefreshDatahubsOK) Error() string {
@@ -56,7 +56,7 @@ func (o *RefreshDatahubsOK) Error() string {
 
 func (o *RefreshDatahubsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.SdxClusterResponse)
+	o.Payload = new(model.SdxRefreshDatahubResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

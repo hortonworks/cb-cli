@@ -20,7 +20,7 @@ import (
 // NewGetLimitsConfigurationParams creates a new GetLimitsConfigurationParams object
 // with the default values initialized.
 func NewGetLimitsConfigurationParams() *GetLimitsConfigurationParams {
-
+	var ()
 	return &GetLimitsConfigurationParams{
 
 		timeout: cr.DefaultTimeout,
@@ -30,7 +30,7 @@ func NewGetLimitsConfigurationParams() *GetLimitsConfigurationParams {
 // NewGetLimitsConfigurationParamsWithTimeout creates a new GetLimitsConfigurationParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetLimitsConfigurationParamsWithTimeout(timeout time.Duration) *GetLimitsConfigurationParams {
-
+	var ()
 	return &GetLimitsConfigurationParams{
 
 		timeout: timeout,
@@ -40,7 +40,7 @@ func NewGetLimitsConfigurationParamsWithTimeout(timeout time.Duration) *GetLimit
 // NewGetLimitsConfigurationParamsWithContext creates a new GetLimitsConfigurationParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewGetLimitsConfigurationParamsWithContext(ctx context.Context) *GetLimitsConfigurationParams {
-
+	var ()
 	return &GetLimitsConfigurationParams{
 
 		Context: ctx,
@@ -50,7 +50,7 @@ func NewGetLimitsConfigurationParamsWithContext(ctx context.Context) *GetLimitsC
 // NewGetLimitsConfigurationParamsWithHTTPClient creates a new GetLimitsConfigurationParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetLimitsConfigurationParamsWithHTTPClient(client *http.Client) *GetLimitsConfigurationParams {
-
+	var ()
 	return &GetLimitsConfigurationParams{
 		HTTPClient: client,
 	}
@@ -60,6 +60,10 @@ func NewGetLimitsConfigurationParamsWithHTTPClient(client *http.Client) *GetLimi
 for the get limits configuration operation typically these are written to a http.Request
 */
 type GetLimitsConfigurationParams struct {
+
+	/*AccountID*/
+	AccountID *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -98,6 +102,17 @@ func (o *GetLimitsConfigurationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccountID adds the accountID to the get limits configuration params
+func (o *GetLimitsConfigurationParams) WithAccountID(accountID *string) *GetLimitsConfigurationParams {
+	o.SetAccountID(accountID)
+	return o
+}
+
+// SetAccountID adds the accountId to the get limits configuration params
+func (o *GetLimitsConfigurationParams) SetAccountID(accountID *string) {
+	o.AccountID = accountID
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetLimitsConfigurationParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -105,6 +120,22 @@ func (o *GetLimitsConfigurationParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
+
+	if o.AccountID != nil {
+
+		// query param accountId
+		var qrAccountID string
+		if o.AccountID != nil {
+			qrAccountID = *o.AccountID
+		}
+		qAccountID := qrAccountID
+		if qAccountID != "" {
+			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

@@ -16,6 +16,9 @@ import (
 // swagger:model GcpInstanceTemplateV4Parameters
 type GcpInstanceTemplateV4Parameters struct {
 
+	// encrypted
+	Encrypted bool `json:"encrypted,omitempty"`
+
 	// encryption for vm
 	Encryption *GcpEncryptionV4Parameters `json:"encryption,omitempty"`
 

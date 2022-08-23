@@ -2077,6 +2077,62 @@ func (a *Client) UpgradeCcmByDatahubCrnInternal(params *UpgradeCcmByDatahubCrnIn
 }
 
 /*
+UpgradeDistroXRdsByCrn upgrades the external database of the distrox cluster
+*/
+func (a *Client) UpgradeDistroXRdsByCrn(params *UpgradeDistroXRdsByCrnParams) (*UpgradeDistroXRdsByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDistroXRdsByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDistroXRdsByCrn",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/crn/{crn}/rds_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDistroXRdsByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDistroXRdsByCrnOK), nil
+
+}
+
+/*
+UpgradeDistroXRdsByName upgrades the external database of the distrox cluster
+*/
+func (a *Client) UpgradeDistroXRdsByName(params *UpgradeDistroXRdsByNameParams) (*UpgradeDistroXRdsByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDistroXRdsByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDistroXRdsByName",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/{name}/rds_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDistroXRdsByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDistroXRdsByNameOK), nil
+
+}
+
+/*
 UpgradeDistroxCluster upgrades the distrox cluster
 */
 func (a *Client) UpgradeDistroxCluster(params *UpgradeDistroxClusterParams) (*UpgradeDistroxClusterOK, error) {

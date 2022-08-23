@@ -39,8 +39,17 @@ type SdxUpgradeRequest struct {
 	// Enum: [SHOW LATEST_ONLY DO_NOT_SHOW]
 	ShowAvailableImages string `json:"showAvailableImages,omitempty"`
 
+	// Option to skip the backup/restore of Atlas data.
+	SkipAtlasMetadata bool `json:"skipAtlasMetadata,omitempty"`
+
 	// Option to skip the backup before the upgrade.
 	SkipBackup bool `json:"skipBackup,omitempty"`
+
+	// Option to skip the backup/restore of Ranger Audit data.
+	SkipRangerAudits bool `json:"skipRangerAudits,omitempty"`
+
+	// Option to skip the backup/restore of Ranger HMS Metadata.
+	SkipRangerMetadata bool `json:"skipRangerMetadata,omitempty"`
 }
 
 // Validate validates this sdx upgrade request

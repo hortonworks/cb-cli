@@ -17,7 +17,6 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipa"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipauser"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1operation"
-	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1utils"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/model"
 	freeIpaModel "github.com/hortonworks/cb-cli/dataplane/api-freeipa/model"
 	"github.com/hortonworks/cb-cli/dataplane/env"
@@ -225,38 +224,6 @@ func ListFreeIpa(c *cli.Context) {
 		tableRows = append(tableRows, row)
 	}
 	output.WriteList(listHeader, tableRows)
-}
-
-func RemoteExecFreeIpa(c *cli.Context) {
-	defer commonutils.TimeTrack(time.Now(), "remote exec on FreeIpa cluster")
-	envName := c.String(fl.FlEnvironmentName.Name)
-	remoteCommand := c.String(fl.FlRemoteCommand.Name)
-	envCrn := env.GetEnvirontmentCrnByName(c, envName)
-	hostsOption := c.String(fl.FlCollectionHosts.Name)
-	var hosts []string
-	if len(hostsOption) > 0 {
-		hosts = strings.Split(hostsOption, ",")
-	}
-	hostGroupsOption := c.String(fl.FlCollectionHostGroups.Name)
-	var hostGroups []string
-	if len(hostGroupsOption) > 0 {
-		hostGroups = strings.Split(hostGroupsOption, ",")
-	}
-	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	req := freeIpaModel.RemoteCommandsExecutionRequest{Command: remoteCommand, Hosts: hosts, HostGroups: hostGroups}
-	resp, err := freeIpaClient.V1utils.RemoteExecV1(v1utils.NewRemoteExecV1Params().WithEnvironmentCrn(envCrn).WithBody(&req))
-	if err != nil {
-		commonutils.LogErrorAndExit(err)
-	}
-	commandOutputs := resp.Payload.Results
-	buf := new(bytes.Buffer)
-	enc := json.NewEncoder(buf)
-	enc.SetEscapeHTML(false)
-	enc.SetIndent("", "  ")
-	if err := enc.Encode(commandOutputs); err != nil {
-		utils.LogErrorAndExit(err)
-	}
-	fmt.Println(buf.String())
 }
 
 func (f *freeIpaOutDescibe) DataAsStringArray() []string {

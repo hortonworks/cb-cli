@@ -42,9 +42,9 @@ type RecipeV4Response struct {
 	// Pattern: (^[a-z][-a-z0-9]*[a-z0-9]$)
 	Name string `json:"name,omitempty"`
 
-	// type of recipe [PRE_CLOUDERA_MANAGER_START,PRE_TERMINATION,POST_CLOUDERA_MANAGER_START,POST_CLUSTER_INSTALL]. The default is PRE_CLOUDERA_MANAGER_START
+	// type of recipe
 	// Required: true
-	// Enum: [PRE_CLOUDERA_MANAGER_START PRE_TERMINATION POST_CLOUDERA_MANAGER_START POST_CLUSTER_INSTALL]
+	// Enum: [PRE_CLOUDERA_MANAGER_START PRE_SERVICE_DEPLOYMENT PRE_TERMINATION POST_CLOUDERA_MANAGER_START POST_CLUSTER_INSTALL POST_SERVICE_DEPLOYMENT]
 	Type *string `json:"type"`
 
 	// workspace of the resource
@@ -119,7 +119,7 @@ var recipeV4ResponseTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["PRE_CLOUDERA_MANAGER_START","PRE_TERMINATION","POST_CLOUDERA_MANAGER_START","POST_CLUSTER_INSTALL"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["PRE_CLOUDERA_MANAGER_START","PRE_SERVICE_DEPLOYMENT","PRE_TERMINATION","POST_CLOUDERA_MANAGER_START","POST_CLUSTER_INSTALL","POST_SERVICE_DEPLOYMENT"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -132,6 +132,9 @@ const (
 	// RecipeV4ResponseTypePRECLOUDERAMANAGERSTART captures enum value "PRE_CLOUDERA_MANAGER_START"
 	RecipeV4ResponseTypePRECLOUDERAMANAGERSTART string = "PRE_CLOUDERA_MANAGER_START"
 
+	// RecipeV4ResponseTypePRESERVICEDEPLOYMENT captures enum value "PRE_SERVICE_DEPLOYMENT"
+	RecipeV4ResponseTypePRESERVICEDEPLOYMENT string = "PRE_SERVICE_DEPLOYMENT"
+
 	// RecipeV4ResponseTypePRETERMINATION captures enum value "PRE_TERMINATION"
 	RecipeV4ResponseTypePRETERMINATION string = "PRE_TERMINATION"
 
@@ -140,6 +143,9 @@ const (
 
 	// RecipeV4ResponseTypePOSTCLUSTERINSTALL captures enum value "POST_CLUSTER_INSTALL"
 	RecipeV4ResponseTypePOSTCLUSTERINSTALL string = "POST_CLUSTER_INSTALL"
+
+	// RecipeV4ResponseTypePOSTSERVICEDEPLOYMENT captures enum value "POST_SERVICE_DEPLOYMENT"
+	RecipeV4ResponseTypePOSTSERVICEDEPLOYMENT string = "POST_SERVICE_DEPLOYMENT"
 )
 
 // prop value enum

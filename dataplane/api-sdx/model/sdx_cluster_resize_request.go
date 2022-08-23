@@ -27,6 +27,15 @@ type SdxClusterResizeRequest struct {
 	// The name of the environment.
 	// Required: true
 	Environment *string `json:"environment"`
+
+	// Option to skip the backup/restore of Atlas data.
+	SkipAtlasMetadata bool `json:"skipAtlasMetadata,omitempty"`
+
+	// Option to skip the backup/restore of Ranger Audit data.
+	SkipRangerAudits bool `json:"skipRangerAudits,omitempty"`
+
+	// Option to skip the backup/restore of Ranger HMS Metadata.
+	SkipRangerMetadata bool `json:"skipRangerMetadata,omitempty"`
 }
 
 // Validate validates this sdx cluster resize request
