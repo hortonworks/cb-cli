@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -18,23 +20,24 @@ import (
 type AppBasedV1Request struct {
 
 	// access key
-	// Required: true
-	AccessKey *string `json:"accessKey"`
+	AccessKey string `json:"accessKey,omitempty"`
+
+	// authentication type
+	// Enum: [SECRET CERTIFICATE]
+	AuthenticationType string `json:"authenticationType,omitempty"`
+
+	// generate certificate
+	GenerateCertificate bool `json:"generateCertificate,omitempty"`
 
 	// secret key
-	// Required: true
-	SecretKey *string `json:"secretKey"`
+	SecretKey string `json:"secretKey,omitempty"`
 }
 
 // Validate validates this app based v1 request
 func (m *AppBasedV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAccessKey(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSecretKey(formats); err != nil {
+	if err := m.validateAuthenticationType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -44,18 +47,43 @@ func (m *AppBasedV1Request) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *AppBasedV1Request) validateAccessKey(formats strfmt.Registry) error {
+var appBasedV1RequestTypeAuthenticationTypePropEnum []interface{}
 
-	if err := validate.Required("accessKey", "body", m.AccessKey); err != nil {
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["SECRET","CERTIFICATE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		appBasedV1RequestTypeAuthenticationTypePropEnum = append(appBasedV1RequestTypeAuthenticationTypePropEnum, v)
+	}
+}
+
+const (
+
+	// AppBasedV1RequestAuthenticationTypeSECRET captures enum value "SECRET"
+	AppBasedV1RequestAuthenticationTypeSECRET string = "SECRET"
+
+	// AppBasedV1RequestAuthenticationTypeCERTIFICATE captures enum value "CERTIFICATE"
+	AppBasedV1RequestAuthenticationTypeCERTIFICATE string = "CERTIFICATE"
+)
+
+// prop value enum
+func (m *AppBasedV1Request) validateAuthenticationTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, appBasedV1RequestTypeAuthenticationTypePropEnum); err != nil {
 		return err
 	}
-
 	return nil
 }
 
-func (m *AppBasedV1Request) validateSecretKey(formats strfmt.Registry) error {
+func (m *AppBasedV1Request) validateAuthenticationType(formats strfmt.Registry) error {
 
-	if err := validate.Required("secretKey", "body", m.SecretKey); err != nil {
+	if swag.IsZero(m.AuthenticationType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAuthenticationTypeEnum("authenticationType", "body", m.AuthenticationType); err != nil {
 		return err
 	}
 

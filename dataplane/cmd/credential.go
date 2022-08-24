@@ -84,10 +84,10 @@ func init() {
 								Name:   "app-based",
 								Usage:  "creates a new app based azure credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppIdOptional, fl.FlAppPasswordOptional, fl.FlAzureAuthTypeOptional).AddAGlobalFlags().Build(),
 								Action: credential.CreateAzureCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddResourceDefaultFlags().AddFlags(fl.FlCredentialVerifyOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppIdOptional, fl.FlAppPasswordOptional, fl.FlAzureAuthTypeOptional).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
@@ -254,10 +254,10 @@ func init() {
 								Name:   "app-based",
 								Usage:  "modify an app based azure credential",
 								Before: cf.CheckConfigAndCommandFlags,
-								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build(),
+								Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppIdOptional, fl.FlAppPasswordOptional, fl.FlAzureAuthTypeOptional, fl.FlGenerateCertAuthOptional).AddAGlobalFlags().Build(),
 								Action: credential.ModifyAzureCredential,
 								BashComplete: func(c *cli.Context) {
-									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppId, fl.FlAppPassword).AddAGlobalFlags().Build() {
+									for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName, fl.FlCredentialVerifyOptional, fl.FlDescriptionOptional, fl.FlSubscriptionId, fl.FlTenantId, fl.FlAppIdOptional, fl.FlAppPasswordOptional, fl.FlAzureAuthTypeOptional, fl.FlGenerateCertAuthOptional).AddAGlobalFlags().Build() {
 										fl.PrintFlagCompletion(f)
 									}
 								},
