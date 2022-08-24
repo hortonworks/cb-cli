@@ -25,6 +25,9 @@ type FlowLogResponse struct {
 	// current state
 	CurrentState string `json:"currentState,omitempty"`
 
+	// end time
+	EndTime int64 `json:"endTime,omitempty"`
+
 	// finalized
 	Finalized bool `json:"finalized,omitempty"`
 

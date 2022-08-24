@@ -202,25 +202,31 @@ func modifyCredentialImpl(stringFinder func(string) string, client modifyCredent
 	description := stringFinder(fl.FlDescriptionOptional.Name)
 	provider := cloud.GetProvider()
 
-	credential := getCredential(name, client)
-	if *credential.CloudPlatform != *provider.GetName() {
+	origCredential := getCredential(name, client)
+	if *origCredential.CloudPlatform != *provider.GetName() {
 		utils.LogErrorAndExit(errors.New("cloud provider cannot be modified"))
 	}
 
-	log.Infof("[modifyCredentialImpl] original credential found name: %s id: %s", name, credential.Crn)
+	log.Infof("[modifyCredentialImpl] original origCredential found name: %s id: %s", name, origCredential.Crn)
 	credReq, err := provider.GetCredentialRequest(stringFinder, govCloud)
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
 
 	if len(description) == 0 {
-		origDesc := credential.Description
+		origDesc := origCredential.Description
 		if origDesc != nil && len(*origDesc) > 0 {
 			description = *origDesc
 		}
 	}
 	credReq.Description = &description
 	credReq.VerifyPermissions = verifyPermissions
+
+	if credReq.Azure != nil {
+		if stringFinder("auth-type") == "" {
+			credReq.Azure.AppBased.AuthenticationType = origCredential.Azure.AuthenticationType
+		}
+	}
 
 	return putCredential(client, credReq)
 }
@@ -282,6 +288,22 @@ func createCredentialImpl(stringFinder func(string) string, client createCredent
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
+
+	if credReq.Azure != nil {
+		if stringFinder("auth-type") == model.AppBasedV1RequestAuthenticationTypeCERTIFICATE {
+			credReq.Azure.AppBased.AuthenticationType = model.AppBasedV1RequestAuthenticationTypeCERTIFICATE
+			credReq.Azure.AppBased.GenerateCertificate = true
+		} else {
+			credReq.Azure.AppBased.AuthenticationType = model.AppBasedV1RequestAuthenticationTypeSECRET
+			if len(credReq.Azure.AppBased.SecretKey) == 0 {
+				err = errors.New("app-password must be defined for secret based auth, if you intended to use certificate based auth then please specify the --generate-certificate flag")
+			}
+			if len(credReq.Azure.AppBased.AccessKey) == 0 {
+				err = errors.New("app-id must be defined for secret based auth, if you intended to use certificate based auth then please specify the --generate-certificate flag")
+			}
+		}
+	}
+
 	credReq.VerifyPermissions = verifyPermissions
 	postCredential(client, credReq)
 }
@@ -346,9 +368,14 @@ func ListCredentials(c *cli.Context) {
 	listCredentialsImpl(envClient.Environment.V1credentials, output.WriteList)
 }
 
-type credentialListOutDescribe struct {
+type credentialListAWSOutDescribe struct {
 	*common.CloudResourceOut
 	RoleArn *string `json:"RoleArn" yaml:"RoleArn"`
+}
+
+type credentialListAzureOutDescribe struct {
+	*common.CloudResourceOut
+	AzureCredentialProperties *model.AzureCredentialV1ResponseParameters `json:"AzureCredentialProperties" yaml:"AzureCredentialProperties"`
 }
 
 type listCredentialsByWorkspaceClient interface {
@@ -366,8 +393,12 @@ func listCredentialsImpl(client listCredentialsByWorkspaceClient, writer func([]
 	for _, cred := range credResp.Payload.Responses {
 		if cred.Aws != nil && cred.Aws.RoleBased != nil && cred.Aws.RoleBased.RoleArn != nil {
 			tableRows = append(tableRows,
-				&credentialListOutDescribe{&common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform},
+				&credentialListAWSOutDescribe{&common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform},
 					cred.Aws.RoleBased.RoleArn})
+		} else if cred.Azure != nil {
+			tableRows = append(tableRows,
+				&credentialListAzureOutDescribe{&common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform},
+					cred.Azure})
 		} else {
 			tableRows = append(tableRows, &common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform})
 		}

@@ -257,16 +257,32 @@ var (
 			Name: "tenant-id",
 		},
 	}
-	FlAppId = StringFlag{
-		RequiredFlag: REQUIRED,
+	FlAppIdOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
 			Name: "app-id",
 		},
 	}
-	FlAppPassword = StringFlag{
-		RequiredFlag: REQUIRED,
+	FlAzureAuthTypeOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "auth-type",
+			Usage: "SECRET or CERTIFICATE, it defaults to SECRET",
+		},
+	}
+	FlGenerateCertAuthOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "generate-certificate",
+			Usage: "certificate based authentication for Azure",
+		},
+	}
+	FlAppPasswordOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
 			Name: "app-password",
+			Usage: "password for the secret based app authentication authentication (less secure)," +
+				" if this parameter is omitted then certificate based authentication is used (more secure)",
 		},
 	}
 	FlFile = StringFlag{
