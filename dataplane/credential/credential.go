@@ -346,9 +346,14 @@ func ListCredentials(c *cli.Context) {
 	listCredentialsImpl(envClient.Environment.V1credentials, output.WriteList)
 }
 
-type credentialListOutDescribe struct {
+type credentialListAWSOutDescribe struct {
 	*common.CloudResourceOut
 	RoleArn *string `json:"RoleArn" yaml:"RoleArn"`
+}
+
+type credentialListAzureOutDescribe struct {
+	*common.CloudResourceOut
+	AzureCredentialProperties *model.AzureCredentialV1ResponseParameters `json:"AzureCredentialProperties" yaml:"AzureCredentialProperties"`
 }
 
 type listCredentialsByWorkspaceClient interface {
@@ -366,8 +371,12 @@ func listCredentialsImpl(client listCredentialsByWorkspaceClient, writer func([]
 	for _, cred := range credResp.Payload.Responses {
 		if cred.Aws != nil && cred.Aws.RoleBased != nil && cred.Aws.RoleBased.RoleArn != nil {
 			tableRows = append(tableRows,
-				&credentialListOutDescribe{&common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform},
+				&credentialListAWSOutDescribe{&common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform},
 					cred.Aws.RoleBased.RoleArn})
+		} else if cred.Azure != nil {
+			tableRows = append(tableRows,
+				&credentialListAzureOutDescribe{&common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform},
+					cred.Azure})
 		} else {
 			tableRows = append(tableRows, &common.CloudResourceOut{Name: *cred.Name, Description: *cred.Description, CloudPlatform: *cred.CloudPlatform})
 		}

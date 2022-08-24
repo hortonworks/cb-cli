@@ -264,9 +264,11 @@ var (
 		},
 	}
 	FlAppPassword = StringFlag{
-		RequiredFlag: REQUIRED,
+		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{
 			Name: "app-password",
+			Usage: "password for the secret based app authentication authentication (less secure)," +
+				" if this parameter is omitted then certificate based authentication is used (more secure)",
 		},
 	}
 	FlFile = StringFlag{

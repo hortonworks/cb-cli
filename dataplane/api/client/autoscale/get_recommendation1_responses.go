@@ -51,7 +51,7 @@ type GetRecommendation1OK struct {
 }
 
 func (o *GetRecommendation1OK) Error() string {
-	return fmt.Sprintf("[GET /autoscale/stack/crn/{crn}/recommendation][%d] getRecommendation1OK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /autoscale/recommendation][%d] getRecommendation1OK  %+v", 200, o.Payload)
 }
 
 func (o *GetRecommendation1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -6,10 +6,14 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AzureCredentialV1ResponseParameters azure credential v1 response parameters
@@ -18,6 +22,13 @@ type AzureCredentialV1ResponseParameters struct {
 
 	// access key
 	AccessKey string `json:"accessKey,omitempty"`
+
+	// authentication type
+	// Enum: [SECRET CERTIFICATE]
+	AuthenticationType string `json:"authenticationType,omitempty"`
+
+	// certificates
+	Certificates []*AzureCertificateResponse `json:"certificates"`
 
 	// role based
 	RoleBased *RoleBasedV1Response `json:"roleBased,omitempty"`
@@ -33,6 +44,14 @@ type AzureCredentialV1ResponseParameters struct {
 func (m *AzureCredentialV1ResponseParameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAuthenticationType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCertificates(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateRoleBased(formats); err != nil {
 		res = append(res, err)
 	}
@@ -40,6 +59,74 @@ func (m *AzureCredentialV1ResponseParameters) Validate(formats strfmt.Registry) 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var azureCredentialV1ResponseParametersTypeAuthenticationTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["SECRET","CERTIFICATE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		azureCredentialV1ResponseParametersTypeAuthenticationTypePropEnum = append(azureCredentialV1ResponseParametersTypeAuthenticationTypePropEnum, v)
+	}
+}
+
+const (
+
+	// AzureCredentialV1ResponseParametersAuthenticationTypeSECRET captures enum value "SECRET"
+	AzureCredentialV1ResponseParametersAuthenticationTypeSECRET string = "SECRET"
+
+	// AzureCredentialV1ResponseParametersAuthenticationTypeCERTIFICATE captures enum value "CERTIFICATE"
+	AzureCredentialV1ResponseParametersAuthenticationTypeCERTIFICATE string = "CERTIFICATE"
+)
+
+// prop value enum
+func (m *AzureCredentialV1ResponseParameters) validateAuthenticationTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, azureCredentialV1ResponseParametersTypeAuthenticationTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *AzureCredentialV1ResponseParameters) validateAuthenticationType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AuthenticationType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAuthenticationTypeEnum("authenticationType", "body", m.AuthenticationType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AzureCredentialV1ResponseParameters) validateCertificates(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Certificates) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Certificates); i++ {
+		if swag.IsZero(m.Certificates[i]) { // not required
+			continue
+		}
+
+		if m.Certificates[i] != nil {
+			if err := m.Certificates[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("certificates" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
