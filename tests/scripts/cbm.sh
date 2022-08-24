@@ -7,39 +7,6 @@
 : ${BASE_URL:=https://localhost}
 : ${STOP_MOCK:=false}
 
-determine-versions() {
-    declare desc="Determine the MOCK version based on Swagger availability"
-
-    echo "Checking latest available MOCK for"${CB_VERSION}
-    if [[ -n "$GITHUB_TOKEN" ]]; then
-        echo "Github token is present"
-        #access_token="access_token=$GITHUB_TOKEN"
-    fi
-    BRANCH_VERSION=$(echo $CB_VERSION | cut -d'-' -f1)
-    versions=($(curl https://api.github.com/repos/hortonworks/cloudbreak-deployer/git/refs/tags\?$access_token | jq -rc ".[] | select(.ref | contains(\"$BRANCH_VERSION\")) | .ref"))
-
-    if [[ -z $versions ]]; then
-        echo "Can not fetch cbd versions from github!"
-        exit 1
-    fi
-
-    for ref_ver in "${versions[@]}"
-    do
-        ver=${ref_ver#"refs/tags/"}
-        if [[ $ver < $CB_VERSION || $ver = $CB_VERSION ]]; then
-            highest_built_version=$ver
-        fi
-    done
-
-    echo "Latest available mock: $highest_built_version"
-
-    if [[ -z $highest_built_version ]]; then
-        echo "Can not determine highest built version!"
-        exit 1
-    fi
-    CB_VERSION=$highest_built_version
-}
-
 download-swagger-jsons() {
     declare desc="Download micro services Swagger JSONs from S3 if necessary"
 
@@ -144,7 +111,6 @@ main() {
         mock-stop
         cd ..
     else
-        determine-versions
         download-swagger-jsons
         get-cbd
         mock-start
