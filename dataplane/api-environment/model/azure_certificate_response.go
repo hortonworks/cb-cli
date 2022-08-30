@@ -15,8 +15,8 @@ import (
 // swagger:model AzureCertificateResponse
 type AzureCertificateResponse struct {
 
-	// certificate
-	Certificate string `json:"certificate,omitempty"`
+	// base64
+	Base64 string `json:"base64,omitempty"`
 
 	// expiration
 	Expiration int64 `json:"expiration,omitempty"`

@@ -7,7 +7,6 @@ package model
 
 import (
 	"encoding/json"
-	"strconv"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -27,8 +26,8 @@ type AzureCredentialV1ResponseParameters struct {
 	// Enum: [SECRET CERTIFICATE]
 	AuthenticationType string `json:"authenticationType,omitempty"`
 
-	// certificates
-	Certificates []*AzureCertificateResponse `json:"certificates"`
+	// certificate
+	Certificate *AzureCertificateResponse `json:"certificate,omitempty"`
 
 	// role based
 	RoleBased *RoleBasedV1Response `json:"roleBased,omitempty"`
@@ -48,7 +47,7 @@ func (m *AzureCredentialV1ResponseParameters) Validate(formats strfmt.Registry) 
 		res = append(res, err)
 	}
 
-	if err := m.validateCertificates(formats); err != nil {
+	if err := m.validateCertificate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -105,26 +104,19 @@ func (m *AzureCredentialV1ResponseParameters) validateAuthenticationType(formats
 	return nil
 }
 
-func (m *AzureCredentialV1ResponseParameters) validateCertificates(formats strfmt.Registry) error {
+func (m *AzureCredentialV1ResponseParameters) validateCertificate(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Certificates) { // not required
+	if swag.IsZero(m.Certificate) { // not required
 		return nil
 	}
 
-	for i := 0; i < len(m.Certificates); i++ {
-		if swag.IsZero(m.Certificates[i]) { // not required
-			continue
-		}
-
-		if m.Certificates[i] != nil {
-			if err := m.Certificates[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("certificates" + "." + strconv.Itoa(i))
-				}
-				return err
+	if m.Certificate != nil {
+		if err := m.Certificate.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("certificate")
 			}
+			return err
 		}
-
 	}
 
 	return nil

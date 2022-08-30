@@ -12,10 +12,17 @@ func (p *AzureProvider) GetCredentialRequest(stringFinder func(string) string, g
 		TenantID:       &(&types.S{S: stringFinder("tenant-id")}).S,
 		AppBased: &model.AppBasedV1Request{
 			AccessKey: &(&types.S{S: stringFinder("app-id")}).S,
-			SecretKey: &(&types.S{S: stringFinder("app-password")}).S,
+			SecretKey: (&types.S{S: stringFinder("app-password")}).S,
 		},
 	}
 	credReq := cloud.CreateBaseCredentialRequest(stringFinder)
+
+	if parameters.AppBased.SecretKey != "" {
+		parameters.AppBased.AuthenticationType = model.AppBasedV1RequestAuthenticationTypeSECRET
+	} else {
+		parameters.AppBased.AuthenticationType = model.AppBasedV1RequestAuthenticationTypeCERTIFICATE
+	}
+
 	credReq.Azure = parameters
 	return credReq, nil
 }

@@ -28,7 +28,7 @@ type AppBasedV1Request struct {
 	AuthenticationType string `json:"authenticationType,omitempty"`
 
 	// secret key
-	SecretKey *string `json:"secretKey,omitempty"`
+	SecretKey string `json:"secretKey,omitempty"`
 }
 
 // Validate validates this app based v1 request
