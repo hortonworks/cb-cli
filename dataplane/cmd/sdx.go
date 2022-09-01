@@ -303,6 +303,18 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:   "upgrade-database",
+				Usage:  "Upgrade database for cluster",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlTargetVersionOptional).Build(),
+				Action: sdx.UpgradeDatabase,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().AddFlags(fl.FlTargetVersionOptional).Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }

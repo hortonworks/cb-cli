@@ -919,3 +919,22 @@ func SdxClusterRecover(c *cli.Context) {
 	}
 	log.Infof("[SdxClusterRecover] SDX cluster recover started for: %s", name)
 }
+
+func UpgradeDatabase(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "Rotate AutoTLS certificates for sdx cluster")
+	name := c.String(fl.FlName.Name)
+	targetVersion := c.String(fl.FlTargetVersionOptional.Name)
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	body := model.SdxUpgradeDatabaseServerRequest{TargetMajorVersion: targetVersion}
+	resp, err := sdxClient.Sdx.UpgradeDatalakeDatabaseByName(sdx.NewUpgradeDatalakeDatabaseByNameParams().WithName(name).WithBody(&body))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("SDX cluster database upgrade started for: %s", name)
+	response, err := json.MarshalIndent(resp.Payload, "", "\t")
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	} else {
+		commonutils.Println(string(response))
+	}
+}
