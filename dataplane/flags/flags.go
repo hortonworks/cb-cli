@@ -1667,6 +1667,13 @@ var (
 			Usage: "if it's set, recover will happen without data restore",
 		},
 	}
+	FlTargetVersionOptional = StringFlag{
+		RequiredFlag: OPTIONAL,
+		StringFlag: cli.StringFlag{
+			Name:  "target-version",
+			Usage: "Target version of the database",
+		},
+	}
 )
 
 type RequiredFlag struct {

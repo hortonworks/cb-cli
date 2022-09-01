@@ -2017,6 +2017,62 @@ func (a *Client) UpgradeDatalakeClusterByCrn(params *UpgradeDatalakeClusterByCrn
 }
 
 /*
+UpgradeDatalakeDatabaseByCrn upgrades the database server of the data lake
+*/
+func (a *Client) UpgradeDatalakeDatabaseByCrn(params *UpgradeDatalakeDatabaseByCrnParams) (*UpgradeDatalakeDatabaseByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDatalakeDatabaseByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDatalakeDatabaseByCrn",
+		Method:             "PUT",
+		PathPattern:        "/sdx/crn/{crn}/upgrade_rds",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDatalakeDatabaseByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDatalakeDatabaseByCrnOK), nil
+
+}
+
+/*
+UpgradeDatalakeDatabaseByName upgrades the database server of the data lake
+*/
+func (a *Client) UpgradeDatalakeDatabaseByName(params *UpgradeDatalakeDatabaseByNameParams) (*UpgradeDatalakeDatabaseByNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDatalakeDatabaseByNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgradeDatalakeDatabaseByName",
+		Method:             "PUT",
+		PathPattern:        "/sdx/{name}/upgrade_rds",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpgradeDatalakeDatabaseByNameReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDatalakeDatabaseByNameOK), nil
+
+}
+
+/*
 ValidateCloudBackupStorage validates cloud backup storage
 */
 func (a *Client) ValidateCloudBackupStorage(params *ValidateCloudBackupStorageParams) (*ValidateCloudBackupStorageOK, error) {
