@@ -68,6 +68,8 @@ type CreateRecommendationForWorkspaceByCredCrnParams struct {
 	BlueprintName *string
 	/*CredentialCrn*/
 	CredentialCrn *string
+	/*DefinitionName*/
+	DefinitionName *string
 	/*PlatformVariant*/
 	PlatformVariant *string
 	/*Region*/
@@ -146,6 +148,17 @@ func (o *CreateRecommendationForWorkspaceByCredCrnParams) WithCredentialCrn(cred
 // SetCredentialCrn adds the credentialCrn to the create recommendation for workspace by cred crn params
 func (o *CreateRecommendationForWorkspaceByCredCrnParams) SetCredentialCrn(credentialCrn *string) {
 	o.CredentialCrn = credentialCrn
+}
+
+// WithDefinitionName adds the definitionName to the create recommendation for workspace by cred crn params
+func (o *CreateRecommendationForWorkspaceByCredCrnParams) WithDefinitionName(definitionName *string) *CreateRecommendationForWorkspaceByCredCrnParams {
+	o.SetDefinitionName(definitionName)
+	return o
+}
+
+// SetDefinitionName adds the definitionName to the create recommendation for workspace by cred crn params
+func (o *CreateRecommendationForWorkspaceByCredCrnParams) SetDefinitionName(definitionName *string) {
+	o.DefinitionName = definitionName
 }
 
 // WithPlatformVariant adds the platformVariant to the create recommendation for workspace by cred crn params
@@ -242,6 +255,22 @@ func (o *CreateRecommendationForWorkspaceByCredCrnParams) WriteToRequest(r runti
 		qCredentialCrn := qrCredentialCrn
 		if qCredentialCrn != "" {
 			if err := r.SetQueryParam("credentialCrn", qCredentialCrn); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.DefinitionName != nil {
+
+		// query param definitionName
+		var qrDefinitionName string
+		if o.DefinitionName != nil {
+			qrDefinitionName = *o.DefinitionName
+		}
+		qDefinitionName := qrDefinitionName
+		if qDefinitionName != "" {
+			if err := r.SetQueryParam("definitionName", qDefinitionName); err != nil {
 				return err
 			}
 		}

@@ -40,6 +40,9 @@ type UpgradeV4Request struct {
 	// Returns the list of images that are eligible for the upgrade
 	// Enum: [SHOW LATEST_ONLY DO_NOT_SHOW]
 	ShowAvailableImages string `json:"showAvailableImages,omitempty"`
+
+	// With this option, the Data Lake upgrade can be performed with running Data Hub clusters. The usage of this option can cause problems on the running Data Hub clusters during the Data Lake upgrade.
+	SkipDataHubValidation bool `json:"skipDataHubValidation,omitempty"`
 }
 
 // Validate validates this upgrade v4 request

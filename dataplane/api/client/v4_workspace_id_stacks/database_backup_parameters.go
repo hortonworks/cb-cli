@@ -70,6 +70,8 @@ type DatabaseBackupParams struct {
 	BackupLocation *string
 	/*Name*/
 	Name string
+	/*SkipDatabaseNames*/
+	SkipDatabaseNames []string
 	/*WorkspaceID*/
 	WorkspaceID int64
 
@@ -155,6 +157,17 @@ func (o *DatabaseBackupParams) SetName(name string) {
 	o.Name = name
 }
 
+// WithSkipDatabaseNames adds the skipDatabaseNames to the database backup params
+func (o *DatabaseBackupParams) WithSkipDatabaseNames(skipDatabaseNames []string) *DatabaseBackupParams {
+	o.SetSkipDatabaseNames(skipDatabaseNames)
+	return o
+}
+
+// SetSkipDatabaseNames adds the skipDatabaseNames to the database backup params
+func (o *DatabaseBackupParams) SetSkipDatabaseNames(skipDatabaseNames []string) {
+	o.SkipDatabaseNames = skipDatabaseNames
+}
+
 // WithWorkspaceID adds the workspaceID to the database backup params
 func (o *DatabaseBackupParams) WithWorkspaceID(workspaceID int64) *DatabaseBackupParams {
 	o.SetWorkspaceID(workspaceID)
@@ -224,6 +237,14 @@ func (o *DatabaseBackupParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {
+		return err
+	}
+
+	valuesSkipDatabaseNames := o.SkipDatabaseNames
+
+	joinedSkipDatabaseNames := swag.JoinByFormat(valuesSkipDatabaseNames, "multi")
+	// query array param skipDatabaseNames
+	if err := r.SetQueryParam("skipDatabaseNames", joinedSkipDatabaseNames...); err != nil {
 		return err
 	}
 

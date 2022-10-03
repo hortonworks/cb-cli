@@ -55,6 +55,9 @@ type ClusterTemplateV4Response struct {
 	// id of the resource
 	ID int64 `json:"id,omitempty"`
 
+	// last updated
+	LastUpdated int64 `json:"lastUpdated,omitempty"`
+
 	// name of the resource
 	// Required: true
 	// Max Length: 40

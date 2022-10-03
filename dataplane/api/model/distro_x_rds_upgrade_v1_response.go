@@ -22,9 +22,6 @@ type DistroXRdsUpgradeV1Response struct {
 	// flow identifier
 	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
 
-	// reason
-	Reason string `json:"reason,omitempty"`
-
 	// target version
 	// Enum: [VERSION_11]
 	TargetVersion string `json:"targetVersion,omitempty"`
