@@ -22,13 +22,6 @@ type SdxUpgradeDatabaseServerResponse struct {
 	// The id of the flow or flow chain that was triggered as part of the process.
 	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
 
-	// Reason of the error occurred during the Database upgrade process.
-	Reason string `json:"reason,omitempty"`
-
-	// Information about the Database upgrade process, if it succeeded or not.
-	// Enum: [TRIGGERED SKIP ERROR]
-	SdxDatabaseResponseType string `json:"sdxDatabaseResponseType,omitempty"`
-
 	// The target major version the database server upgrade process should upgrade to.
 	// Enum: [VERSION_11]
 	TargetMajorVersion string `json:"targetMajorVersion,omitempty"`
@@ -39,10 +32,6 @@ func (m *SdxUpgradeDatabaseServerResponse) Validate(formats strfmt.Registry) err
 	var res []error
 
 	if err := m.validateFlowIdentifier(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSdxDatabaseResponseType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -69,52 +58,6 @@ func (m *SdxUpgradeDatabaseServerResponse) validateFlowIdentifier(formats strfmt
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-var sdxUpgradeDatabaseServerResponseTypeSdxDatabaseResponseTypePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["TRIGGERED","SKIP","ERROR"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		sdxUpgradeDatabaseServerResponseTypeSdxDatabaseResponseTypePropEnum = append(sdxUpgradeDatabaseServerResponseTypeSdxDatabaseResponseTypePropEnum, v)
-	}
-}
-
-const (
-
-	// SdxUpgradeDatabaseServerResponseSdxDatabaseResponseTypeTRIGGERED captures enum value "TRIGGERED"
-	SdxUpgradeDatabaseServerResponseSdxDatabaseResponseTypeTRIGGERED string = "TRIGGERED"
-
-	// SdxUpgradeDatabaseServerResponseSdxDatabaseResponseTypeSKIP captures enum value "SKIP"
-	SdxUpgradeDatabaseServerResponseSdxDatabaseResponseTypeSKIP string = "SKIP"
-
-	// SdxUpgradeDatabaseServerResponseSdxDatabaseResponseTypeERROR captures enum value "ERROR"
-	SdxUpgradeDatabaseServerResponseSdxDatabaseResponseTypeERROR string = "ERROR"
-)
-
-// prop value enum
-func (m *SdxUpgradeDatabaseServerResponse) validateSdxDatabaseResponseTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, sdxUpgradeDatabaseServerResponseTypeSdxDatabaseResponseTypePropEnum); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *SdxUpgradeDatabaseServerResponse) validateSdxDatabaseResponseType(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SdxDatabaseResponseType) { // not required
-		return nil
-	}
-
-	// value enum
-	if err := m.validateSdxDatabaseResponseTypeEnum("sdxDatabaseResponseType", "body", m.SdxDatabaseResponseType); err != nil {
-		return err
 	}
 
 	return nil

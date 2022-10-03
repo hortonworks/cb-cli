@@ -45,6 +45,9 @@ type SdxUpgradeRequest struct {
 	// Option to skip the backup before the upgrade.
 	SkipBackup bool `json:"skipBackup,omitempty"`
 
+	// With this option, the Data Lake upgrade can be performed with running Data Hub clusters. The usage of this option can cause problems on the running Data Hub clusters during the Data Lake upgrade.
+	SkipDataHubValidation bool `json:"skipDataHubValidation,omitempty"`
+
 	// Option to skip the backup/restore of Ranger Audit data.
 	SkipRangerAudits bool `json:"skipRangerAudits,omitempty"`
 

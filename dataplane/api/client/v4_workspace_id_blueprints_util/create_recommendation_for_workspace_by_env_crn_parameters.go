@@ -66,6 +66,8 @@ type CreateRecommendationForWorkspaceByEnvCrnParams struct {
 	AvailabilityZone *string
 	/*BlueprintName*/
 	BlueprintName *string
+	/*DefinitionName*/
+	DefinitionName *string
 	/*EnvironmentCrn*/
 	EnvironmentCrn *string
 	/*PlatformVariant*/
@@ -135,6 +137,17 @@ func (o *CreateRecommendationForWorkspaceByEnvCrnParams) WithBlueprintName(bluep
 // SetBlueprintName adds the blueprintName to the create recommendation for workspace by env crn params
 func (o *CreateRecommendationForWorkspaceByEnvCrnParams) SetBlueprintName(blueprintName *string) {
 	o.BlueprintName = blueprintName
+}
+
+// WithDefinitionName adds the definitionName to the create recommendation for workspace by env crn params
+func (o *CreateRecommendationForWorkspaceByEnvCrnParams) WithDefinitionName(definitionName *string) *CreateRecommendationForWorkspaceByEnvCrnParams {
+	o.SetDefinitionName(definitionName)
+	return o
+}
+
+// SetDefinitionName adds the definitionName to the create recommendation for workspace by env crn params
+func (o *CreateRecommendationForWorkspaceByEnvCrnParams) SetDefinitionName(definitionName *string) {
+	o.DefinitionName = definitionName
 }
 
 // WithEnvironmentCrn adds the environmentCrn to the create recommendation for workspace by env crn params
@@ -226,6 +239,22 @@ func (o *CreateRecommendationForWorkspaceByEnvCrnParams) WriteToRequest(r runtim
 		qBlueprintName := qrBlueprintName
 		if qBlueprintName != "" {
 			if err := r.SetQueryParam("blueprintName", qBlueprintName); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.DefinitionName != nil {
+
+		// query param definitionName
+		var qrDefinitionName string
+		if o.DefinitionName != nil {
+			qrDefinitionName = *o.DefinitionName
+		}
+		qDefinitionName := qrDefinitionName
+		if qDefinitionName != "" {
+			if err := r.SetQueryParam("definitionName", qDefinitionName); err != nil {
 				return err
 			}
 		}

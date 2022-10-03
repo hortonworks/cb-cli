@@ -6,9 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // SdxBackupLocationValidationRequest sdx backup location validation request
@@ -20,10 +24,72 @@ type SdxBackupLocationValidationRequest struct {
 
 	// Data Lake name.
 	ClusterName string `json:"clusterName,omitempty"`
+
+	// The type of disaster recovery operation.
+	// Enum: [ANY BACKUP RESTORE NONE]
+	OperationType string `json:"operationType,omitempty"`
 }
 
 // Validate validates this sdx backup location validation request
 func (m *SdxBackupLocationValidationRequest) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateOperationType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var sdxBackupLocationValidationRequestTypeOperationTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ANY","BACKUP","RESTORE","NONE"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		sdxBackupLocationValidationRequestTypeOperationTypePropEnum = append(sdxBackupLocationValidationRequestTypeOperationTypePropEnum, v)
+	}
+}
+
+const (
+
+	// SdxBackupLocationValidationRequestOperationTypeANY captures enum value "ANY"
+	SdxBackupLocationValidationRequestOperationTypeANY string = "ANY"
+
+	// SdxBackupLocationValidationRequestOperationTypeBACKUP captures enum value "BACKUP"
+	SdxBackupLocationValidationRequestOperationTypeBACKUP string = "BACKUP"
+
+	// SdxBackupLocationValidationRequestOperationTypeRESTORE captures enum value "RESTORE"
+	SdxBackupLocationValidationRequestOperationTypeRESTORE string = "RESTORE"
+
+	// SdxBackupLocationValidationRequestOperationTypeNONE captures enum value "NONE"
+	SdxBackupLocationValidationRequestOperationTypeNONE string = "NONE"
+)
+
+// prop value enum
+func (m *SdxBackupLocationValidationRequest) validateOperationTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, sdxBackupLocationValidationRequestTypeOperationTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *SdxBackupLocationValidationRequest) validateOperationType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OperationType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateOperationTypeEnum("operationType", "body", m.OperationType); err != nil {
+		return err
+	}
+
 	return nil
 }
 

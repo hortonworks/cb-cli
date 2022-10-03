@@ -53,6 +53,9 @@ type EnvironmentEditV1Request struct {
 	// Network related specifics of the environment.
 	Network *EnvironmentNetworkV1Request `json:"network,omitempty"`
 
+	// proxy
+	Proxy *ProxyRequest `json:"proxy,omitempty"`
+
 	// Security control for FreeIPA and Datalake deployment.
 	SecurityAccess *SecurityAccessV1Request `json:"securityAccess,omitempty"`
 
@@ -97,6 +100,10 @@ func (m *EnvironmentEditV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNetwork(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProxy(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -320,6 +327,24 @@ func (m *EnvironmentEditV1Request) validateNetwork(formats strfmt.Registry) erro
 		if err := m.Network.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("network")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EnvironmentEditV1Request) validateProxy(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Proxy) { // not required
+		return nil
+	}
+
+	if m.Proxy != nil {
+		if err := m.Proxy.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("proxy")
 			}
 			return err
 		}

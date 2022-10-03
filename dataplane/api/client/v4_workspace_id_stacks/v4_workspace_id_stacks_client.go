@@ -227,6 +227,34 @@ func (a *Client) CheckForOsUpgradeInWorkspaceV4(params *CheckForOsUpgradeInWorks
 }
 
 /*
+CheckUpgradeRdsByNameInternal checks that upgrade of the external database of a cluster to a given version is possible internal only
+*/
+func (a *Client) CheckUpgradeRdsByNameInternal(params *CheckUpgradeRdsByNameInternalParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCheckUpgradeRdsByNameInternalParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "checkUpgradeRdsByNameInternal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{name}/check_rds_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CheckUpgradeRdsByNameInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 DatabaseBackup performs a backup of the database to a provided location
 */
 func (a *Client) DatabaseBackup(params *DatabaseBackupParams) (*DatabaseBackupOK, error) {

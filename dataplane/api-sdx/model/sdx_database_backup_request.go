@@ -28,6 +28,9 @@ type SdxDatabaseBackupRequest struct {
 	// The conditional parameter for whether connections to the database will be closed during backup or not.
 	// Required: true
 	CloseConnections *bool `json:"closeConnections"`
+
+	// The names of the Databases not to be backed up, or blank for all
+	SkipDatabaseNames []string `json:"skipDatabaseNames"`
 }
 
 // Validate validates this sdx database backup request

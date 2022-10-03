@@ -22,13 +22,6 @@ type RdsUpgradeV4Response struct {
 	// flow identifier
 	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
 
-	// reason
-	Reason string `json:"reason,omitempty"`
-
-	// response type
-	// Enum: [TRIGGERED SKIP ERROR]
-	ResponseType string `json:"responseType,omitempty"`
-
 	// target version
 	// Enum: [VERSION_11]
 	TargetVersion string `json:"targetVersion,omitempty"`
@@ -39,10 +32,6 @@ func (m *RdsUpgradeV4Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateFlowIdentifier(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateResponseType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -69,52 +58,6 @@ func (m *RdsUpgradeV4Response) validateFlowIdentifier(formats strfmt.Registry) e
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-var rdsUpgradeV4ResponseTypeResponseTypePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["TRIGGERED","SKIP","ERROR"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rdsUpgradeV4ResponseTypeResponseTypePropEnum = append(rdsUpgradeV4ResponseTypeResponseTypePropEnum, v)
-	}
-}
-
-const (
-
-	// RdsUpgradeV4ResponseResponseTypeTRIGGERED captures enum value "TRIGGERED"
-	RdsUpgradeV4ResponseResponseTypeTRIGGERED string = "TRIGGERED"
-
-	// RdsUpgradeV4ResponseResponseTypeSKIP captures enum value "SKIP"
-	RdsUpgradeV4ResponseResponseTypeSKIP string = "SKIP"
-
-	// RdsUpgradeV4ResponseResponseTypeERROR captures enum value "ERROR"
-	RdsUpgradeV4ResponseResponseTypeERROR string = "ERROR"
-)
-
-// prop value enum
-func (m *RdsUpgradeV4Response) validateResponseTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, rdsUpgradeV4ResponseTypeResponseTypePropEnum); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *RdsUpgradeV4Response) validateResponseType(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ResponseType) { // not required
-		return nil
-	}
-
-	// value enum
-	if err := m.validateResponseTypeEnum("responseType", "body", m.ResponseType); err != nil {
-		return err
 	}
 
 	return nil

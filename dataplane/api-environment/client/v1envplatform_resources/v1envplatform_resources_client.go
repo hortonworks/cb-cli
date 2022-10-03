@@ -384,6 +384,36 @@ func (a *Client) GetVMTypesByCredentialByEnv(params *GetVMTypesByCredentialByEnv
 
 }
 
+/*
+GetVMTypesForVerticalScaling gets vertical scale recommendation
+
+Each cloud provider has it's own specific resources like instance types and disk types. These endpoints are collecting them.
+*/
+func (a *Client) GetVMTypesForVerticalScaling(params *GetVMTypesForVerticalScalingParams) (*GetVMTypesForVerticalScalingOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetVMTypesForVerticalScalingParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getVmTypesForVerticalScaling",
+		Method:             "GET",
+		PathPattern:        "/v1/env/platform_resources/machine_types_for_vertical_scaling",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetVMTypesForVerticalScalingReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetVMTypesForVerticalScalingOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport
