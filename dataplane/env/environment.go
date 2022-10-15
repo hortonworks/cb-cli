@@ -473,7 +473,7 @@ func VerticalScaleFreeIpa(c *cli.Context) {
 		},
 	}
 	checkClientVersion(envClient.Environment, common.Version)
-	envClient.Environment.V1env.VerticalScalingByEnvironmentCrnV1(v1env.NewVerticalScalingByEnvironmentCrnV1Params().WithBody(req).WithCrn(envCrn))
+	envClient.Environment.V1env.VerticalScalingByCrn(v1env.NewVerticalScalingByCrnParams().WithBody(req).WithCrn(envCrn))
 	log.Infof("[startFreeIpa] FreeIpa cluster vertical scale requested in environment %s", envName)
 }
 

@@ -16,17 +16,17 @@ import (
 	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
-// VerticalScalingByCrnV1Reader is a Reader for the VerticalScalingByCrnV1 structure.
-type VerticalScalingByCrnV1Reader struct {
+// VerticalScalingByCrnReader is a Reader for the VerticalScalingByCrn structure.
+type VerticalScalingByCrnReader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *VerticalScalingByCrnV1Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *VerticalScalingByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
-		result := NewVerticalScalingByCrnV1OK()
+		result := NewVerticalScalingByCrnOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -37,24 +37,24 @@ func (o *VerticalScalingByCrnV1Reader) ReadResponse(response runtime.ClientRespo
 	}
 }
 
-// NewVerticalScalingByCrnV1OK creates a VerticalScalingByCrnV1OK with default headers values
-func NewVerticalScalingByCrnV1OK() *VerticalScalingByCrnV1OK {
-	return &VerticalScalingByCrnV1OK{}
+// NewVerticalScalingByCrnOK creates a VerticalScalingByCrnOK with default headers values
+func NewVerticalScalingByCrnOK() *VerticalScalingByCrnOK {
+	return &VerticalScalingByCrnOK{}
 }
 
-/*VerticalScalingByCrnV1OK handles this case with default header values.
+/*VerticalScalingByCrnOK handles this case with default header values.
 
 successful operation
 */
-type VerticalScalingByCrnV1OK struct {
+type VerticalScalingByCrnOK struct {
 	Payload *model.FlowIdentifier
 }
 
-func (o *VerticalScalingByCrnV1OK) Error() string {
-	return fmt.Sprintf("[PUT /sdx/crn/{crn}/vertical_scaling][%d] verticalScalingByCrnV1OK  %+v", 200, o.Payload)
+func (o *VerticalScalingByCrnOK) Error() string {
+	return fmt.Sprintf("[PUT /sdx/crn/{crn}/vertical_scaling][%d] verticalScalingByCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *VerticalScalingByCrnV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *VerticalScalingByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(model.FlowIdentifier)
 

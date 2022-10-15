@@ -21,8 +21,9 @@ type DistroXVerticalScaleV1Request struct {
 	// Required: true
 	Group *string `json:"group"`
 
-	// instance template v1 request
-	InstanceTemplateV1Request *InstanceTemplateV1Request `json:"instanceTemplateV1Request,omitempty"`
+	// instancegroup related template
+	// Required: true
+	Template *InstanceTemplateV1Request `json:"template"`
 }
 
 // Validate validates this distro x vertical scale v1 request
@@ -33,7 +34,7 @@ func (m *DistroXVerticalScaleV1Request) Validate(formats strfmt.Registry) error 
 		res = append(res, err)
 	}
 
-	if err := m.validateInstanceTemplateV1Request(formats); err != nil {
+	if err := m.validateTemplate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -52,16 +53,16 @@ func (m *DistroXVerticalScaleV1Request) validateGroup(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *DistroXVerticalScaleV1Request) validateInstanceTemplateV1Request(formats strfmt.Registry) error {
+func (m *DistroXVerticalScaleV1Request) validateTemplate(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.InstanceTemplateV1Request) { // not required
-		return nil
+	if err := validate.Required("template", "body", m.Template); err != nil {
+		return err
 	}
 
-	if m.InstanceTemplateV1Request != nil {
-		if err := m.InstanceTemplateV1Request.Validate(formats); err != nil {
+	if m.Template != nil {
+		if err := m.Template.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("instanceTemplateV1Request")
+				return ve.ValidateName("template")
 			}
 			return err
 		}

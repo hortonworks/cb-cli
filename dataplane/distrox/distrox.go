@@ -207,13 +207,13 @@ func VerticalScaleDistroX(c *cli.Context) {
 
 	req := &model.DistroXVerticalScaleV1Request{
 		Group: &(&types.S{S: c.String(fl.FlGroupName.Name)}).S,
-		InstanceTemplateV1Request: &model.InstanceTemplateV1Request{
+		Template: &model.InstanceTemplateV1Request{
 			InstanceType: instanceType,
 		},
 	}
 	name := c.String(fl.FlName.Name)
 	log.Infof("[ScaleDistroX] scaling DistroX, name: %s", name)
-	dxClient.Cloudbreak.V1distrox.PutVerticalScalingDistroXV1ByName(v1distrox.NewPutVerticalScalingDistroXV1ByNameParams().WithName(name).WithBody(req))
+	dxClient.Cloudbreak.V1distrox.VerticalScalingByName(v1distrox.NewVerticalScalingByNameParams().WithName(name).WithBody(req))
 	//if err != nil {
 	//	commonutils.LogErrorAndExit(err)
 	//}

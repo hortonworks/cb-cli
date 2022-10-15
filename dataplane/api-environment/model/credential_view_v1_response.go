@@ -23,7 +23,7 @@ type CredentialViewV1Response struct {
 	// Required: true
 	CloudPlatform *string `json:"cloudPlatform"`
 
-	// crn of the creator
+	// the creator of the resource - Deprecated: data owner of any user in UMS, creator should not be stored and used anywhere, since user of creator can leave the given company and can become invalid, usage of it can be error prone
 	Creator string `json:"creator,omitempty"`
 
 	// global identifiers of the resource
