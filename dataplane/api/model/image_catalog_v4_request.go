@@ -17,7 +17,7 @@ import (
 // swagger:model ImageCatalogV4Request
 type ImageCatalogV4Request struct {
 
-	// the creator of the resource
+	// the creator of the resource - Deprecated: data owner of any user in UMS, creator should not be stored and used anywhere, since user of creator can leave the given company and can become invalid, usage of it can be error prone
 	Creator string `json:"creator,omitempty"`
 
 	// description of the resource

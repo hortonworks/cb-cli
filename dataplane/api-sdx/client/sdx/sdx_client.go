@@ -2157,58 +2157,58 @@ func (a *Client) Versions(params *VersionsParams) (*VersionsOK, error) {
 }
 
 /*
-VerticalScalingByCrnV1 initiates the vertical scaling on data lake
+VerticalScalingByCrn initiates the vertical scaling on data lake
 */
-func (a *Client) VerticalScalingByCrnV1(params *VerticalScalingByCrnV1Params) (*VerticalScalingByCrnV1OK, error) {
+func (a *Client) VerticalScalingByCrn(params *VerticalScalingByCrnParams) (*VerticalScalingByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewVerticalScalingByCrnV1Params()
+		params = NewVerticalScalingByCrnParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "verticalScalingByCrnV1",
+		ID:                 "verticalScalingByCrn",
 		Method:             "PUT",
 		PathPattern:        "/sdx/crn/{crn}/vertical_scaling",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &VerticalScalingByCrnV1Reader{formats: a.formats},
+		Reader:             &VerticalScalingByCrnReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*VerticalScalingByCrnV1OK), nil
+	return result.(*VerticalScalingByCrnOK), nil
 
 }
 
 /*
-VerticalScalingByNameV1 initiates the vertical scaling on data lake
+VerticalScalingByName initiates the vertical scaling on data lake
 */
-func (a *Client) VerticalScalingByNameV1(params *VerticalScalingByNameV1Params) (*VerticalScalingByNameV1OK, error) {
+func (a *Client) VerticalScalingByName(params *VerticalScalingByNameParams) (*VerticalScalingByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewVerticalScalingByNameV1Params()
+		params = NewVerticalScalingByNameParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "verticalScalingByNameV1",
+		ID:                 "verticalScalingByName",
 		Method:             "PUT",
 		PathPattern:        "/sdx/name/{name}/vertical_scaling",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &VerticalScalingByNameV1Reader{formats: a.formats},
+		Reader:             &VerticalScalingByNameReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*VerticalScalingByNameV1OK), nil
+	return result.(*VerticalScalingByNameOK), nil
 
 }
 

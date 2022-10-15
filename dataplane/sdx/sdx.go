@@ -657,7 +657,7 @@ func VerticalScaleSdx(c *cli.Context) {
 	}
 	name := c.String(fl.FlName.Name)
 	log.Infof("[ScaleSDX] scaling SDX, name: %s", name)
-	sdxClient.Sdx.VerticalScalingByNameV1(sdx.NewVerticalScalingByNameV1Params().WithName(name).WithBody(req))
+	sdxClient.Sdx.VerticalScalingByName(sdx.NewVerticalScalingByNameParams().WithName(name).WithBody(req))
 
 	log.Infof("[VerticalScaleSdx] SDX vertical scaled, name: %s", name)
 }

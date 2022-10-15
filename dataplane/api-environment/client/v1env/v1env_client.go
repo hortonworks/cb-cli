@@ -1133,25 +1133,25 @@ func (a *Client) VerifyCredentialByEnvCrn(params *VerifyCredentialByEnvCrnParams
 }
 
 /*
-VerticalScalingByEnvironmentCrnV1 initiates the vertical scaling on free IP a
+VerticalScalingByCrn initiates the vertical scaling on free IP a
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) VerticalScalingByEnvironmentCrnV1(params *VerticalScalingByEnvironmentCrnV1Params) error {
+func (a *Client) VerticalScalingByCrn(params *VerticalScalingByCrnParams) error {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewVerticalScalingByEnvironmentCrnV1Params()
+		params = NewVerticalScalingByCrnParams()
 	}
 
 	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "verticalScalingByEnvironmentCrnV1",
+		ID:                 "verticalScalingByCrn",
 		Method:             "PUT",
 		PathPattern:        "/v1/env/crn/{crn}/vertical_scaling",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &VerticalScalingByEnvironmentCrnV1Reader{formats: a.formats},
+		Reader:             &VerticalScalingByCrnReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1163,25 +1163,25 @@ func (a *Client) VerticalScalingByEnvironmentCrnV1(params *VerticalScalingByEnvi
 }
 
 /*
-VerticalScalingByEnvironmentNameV1 initiates the vertical scaling on free IP a
+VerticalScalingByName initiates the vertical scaling on free IP a
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) VerticalScalingByEnvironmentNameV1(params *VerticalScalingByEnvironmentNameV1Params) error {
+func (a *Client) VerticalScalingByName(params *VerticalScalingByNameParams) error {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewVerticalScalingByEnvironmentNameV1Params()
+		params = NewVerticalScalingByNameParams()
 	}
 
 	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "verticalScalingByEnvironmentNameV1",
+		ID:                 "verticalScalingByName",
 		Method:             "PUT",
 		PathPattern:        "/v1/env/name/{name}/vertical_scaling",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &VerticalScalingByEnvironmentNameV1Reader{formats: a.formats},
+		Reader:             &VerticalScalingByNameReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

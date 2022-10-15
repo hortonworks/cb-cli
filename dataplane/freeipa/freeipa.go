@@ -107,7 +107,7 @@ func VerticalScaleFreeIpa(c *cli.Context) {
 		},
 	}
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
-	freeIpaClient.V1freeipa.PutVerticalScalingFreeIpaV1ByEnvironmentCrn(v1freeipa.NewPutVerticalScalingFreeIpaV1ByEnvironmentCrnParams().WithBody(req).WithEnvironment(&envCrn), nil)
+	freeIpaClient.V1freeipa.VerticalScalingByCrn(v1freeipa.NewVerticalScalingByCrnParams().WithBody(req).WithEnvironment(&envCrn), nil)
 	log.Infof("[startFreeIpa] FreeIpa cluster vertical scale requested in environment %s", envName)
 }
 

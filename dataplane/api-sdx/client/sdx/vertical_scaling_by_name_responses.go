@@ -16,17 +16,17 @@ import (
 	model "github.com/hortonworks/cb-cli/dataplane/api-sdx/model"
 )
 
-// VerticalScalingByNameV1Reader is a Reader for the VerticalScalingByNameV1 structure.
-type VerticalScalingByNameV1Reader struct {
+// VerticalScalingByNameReader is a Reader for the VerticalScalingByName structure.
+type VerticalScalingByNameReader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *VerticalScalingByNameV1Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *VerticalScalingByNameReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
-		result := NewVerticalScalingByNameV1OK()
+		result := NewVerticalScalingByNameOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -37,24 +37,24 @@ func (o *VerticalScalingByNameV1Reader) ReadResponse(response runtime.ClientResp
 	}
 }
 
-// NewVerticalScalingByNameV1OK creates a VerticalScalingByNameV1OK with default headers values
-func NewVerticalScalingByNameV1OK() *VerticalScalingByNameV1OK {
-	return &VerticalScalingByNameV1OK{}
+// NewVerticalScalingByNameOK creates a VerticalScalingByNameOK with default headers values
+func NewVerticalScalingByNameOK() *VerticalScalingByNameOK {
+	return &VerticalScalingByNameOK{}
 }
 
-/*VerticalScalingByNameV1OK handles this case with default header values.
+/*VerticalScalingByNameOK handles this case with default header values.
 
 successful operation
 */
-type VerticalScalingByNameV1OK struct {
+type VerticalScalingByNameOK struct {
 	Payload *model.FlowIdentifier
 }
 
-func (o *VerticalScalingByNameV1OK) Error() string {
-	return fmt.Sprintf("[PUT /sdx/name/{name}/vertical_scaling][%d] verticalScalingByNameV1OK  %+v", 200, o.Payload)
+func (o *VerticalScalingByNameOK) Error() string {
+	return fmt.Sprintf("[PUT /sdx/name/{name}/vertical_scaling][%d] verticalScalingByNameOK  %+v", 200, o.Payload)
 }
 
-func (o *VerticalScalingByNameV1OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *VerticalScalingByNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(model.FlowIdentifier)
 
