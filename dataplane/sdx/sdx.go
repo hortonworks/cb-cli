@@ -200,7 +200,10 @@ func setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, with
 		*sdxDatabase = externalDatabase
 	}
 	if len(databaseEngineVersion) != 0 {
-		(*sdxDatabase).DatabaseEngineVersion = databaseEngineVersion
+		externalDatabase := &sdxModel.SdxDatabaseRequest{
+			DatabaseEngineVersion: databaseEngineVersion,
+		}
+		*sdxDatabase = externalDatabase
 	}
 }
 
