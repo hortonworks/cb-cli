@@ -7,6 +7,7 @@ package model
 
 import (
 	"encoding/json"
+	"strconv"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -24,6 +25,10 @@ type CloudSubnet struct {
 
 	// cidr
 	Cidr string `json:"cidr,omitempty"`
+
+	// deployment restrictions
+	// Unique: true
+	DeploymentRestrictions []string `json:"deploymentRestrictions"`
 
 	// id
 	ID string `json:"id,omitempty"`
@@ -52,6 +57,10 @@ type CloudSubnet struct {
 func (m *CloudSubnet) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDeploymentRestrictions(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
@@ -59,6 +68,47 @@ func (m *CloudSubnet) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var cloudSubnetDeploymentRestrictionsItemsEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["FREEIPA","DATALAKE","DATAHUB","MLX","DEX","DFX","DWX","LIFTIE","ENDPOINT_ACCESS_GATEWAY"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		cloudSubnetDeploymentRestrictionsItemsEnum = append(cloudSubnetDeploymentRestrictionsItemsEnum, v)
+	}
+}
+
+func (m *CloudSubnet) validateDeploymentRestrictionsItemsEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, cloudSubnetDeploymentRestrictionsItemsEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CloudSubnet) validateDeploymentRestrictions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DeploymentRestrictions) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("deploymentRestrictions", "body", m.DeploymentRestrictions); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.DeploymentRestrictions); i++ {
+
+		// value enum
+		if err := m.validateDeploymentRestrictionsItemsEnum("deploymentRestrictions"+"."+strconv.Itoa(i), "body", m.DeploymentRestrictions[i]); err != nil {
+			return err
+		}
+
+	}
+
 	return nil
 }
 

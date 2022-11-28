@@ -7,10 +7,13 @@ package v1env
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-environment/model"
 )
 
 // VerticalScalingByCrnReader is a Reader for the VerticalScalingByCrn structure.
@@ -20,43 +23,45 @@ type VerticalScalingByCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *VerticalScalingByCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewVerticalScalingByCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewVerticalScalingByCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewVerticalScalingByCrnDefault creates a VerticalScalingByCrnDefault with default headers values
-func NewVerticalScalingByCrnDefault(code int) *VerticalScalingByCrnDefault {
-	return &VerticalScalingByCrnDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*VerticalScalingByCrnDefault handles this case with default header values.
+// NewVerticalScalingByCrnOK creates a VerticalScalingByCrnOK with default headers values
+func NewVerticalScalingByCrnOK() *VerticalScalingByCrnOK {
+	return &VerticalScalingByCrnOK{}
+}
+
+/*VerticalScalingByCrnOK handles this case with default header values.
 
 successful operation
 */
-type VerticalScalingByCrnDefault struct {
-	_statusCode int
+type VerticalScalingByCrnOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the vertical scaling by crn default response
-func (o *VerticalScalingByCrnDefault) Code() int {
-	return o._statusCode
+func (o *VerticalScalingByCrnOK) Error() string {
+	return fmt.Sprintf("[PUT /v1/env/crn/{crn}/vertical_scaling][%d] verticalScalingByCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *VerticalScalingByCrnDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/env/crn/{crn}/vertical_scaling][%d] verticalScalingByCrn default ", o._statusCode)
-}
+func (o *VerticalScalingByCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *VerticalScalingByCrnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
