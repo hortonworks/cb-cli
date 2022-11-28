@@ -1137,13 +1137,13 @@ VerticalScalingByCrn initiates the vertical scaling on free IP a
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) VerticalScalingByCrn(params *VerticalScalingByCrnParams) error {
+func (a *Client) VerticalScalingByCrn(params *VerticalScalingByCrnParams) (*VerticalScalingByCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewVerticalScalingByCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "verticalScalingByCrn",
 		Method:             "PUT",
 		PathPattern:        "/v1/env/crn/{crn}/vertical_scaling",
@@ -1156,9 +1156,9 @@ func (a *Client) VerticalScalingByCrn(params *VerticalScalingByCrnParams) error 
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*VerticalScalingByCrnOK), nil
 
 }
 
@@ -1167,13 +1167,13 @@ VerticalScalingByName initiates the vertical scaling on free IP a
 
 Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
 */
-func (a *Client) VerticalScalingByName(params *VerticalScalingByNameParams) error {
+func (a *Client) VerticalScalingByName(params *VerticalScalingByNameParams) (*VerticalScalingByNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewVerticalScalingByNameParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "verticalScalingByName",
 		Method:             "PUT",
 		PathPattern:        "/v1/env/name/{name}/vertical_scaling",
@@ -1186,9 +1186,9 @@ func (a *Client) VerticalScalingByName(params *VerticalScalingByNameParams) erro
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*VerticalScalingByNameOK), nil
 
 }
 

@@ -7,10 +7,13 @@ package v1env
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-environment/model"
 )
 
 // VerticalScalingByNameReader is a Reader for the VerticalScalingByName structure.
@@ -20,43 +23,45 @@ type VerticalScalingByNameReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *VerticalScalingByNameReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewVerticalScalingByNameDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewVerticalScalingByNameOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewVerticalScalingByNameDefault creates a VerticalScalingByNameDefault with default headers values
-func NewVerticalScalingByNameDefault(code int) *VerticalScalingByNameDefault {
-	return &VerticalScalingByNameDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*VerticalScalingByNameDefault handles this case with default header values.
+// NewVerticalScalingByNameOK creates a VerticalScalingByNameOK with default headers values
+func NewVerticalScalingByNameOK() *VerticalScalingByNameOK {
+	return &VerticalScalingByNameOK{}
+}
+
+/*VerticalScalingByNameOK handles this case with default header values.
 
 successful operation
 */
-type VerticalScalingByNameDefault struct {
-	_statusCode int
+type VerticalScalingByNameOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the vertical scaling by name default response
-func (o *VerticalScalingByNameDefault) Code() int {
-	return o._statusCode
+func (o *VerticalScalingByNameOK) Error() string {
+	return fmt.Sprintf("[PUT /v1/env/name/{name}/vertical_scaling][%d] verticalScalingByNameOK  %+v", 200, o.Payload)
 }
 
-func (o *VerticalScalingByNameDefault) Error() string {
-	return fmt.Sprintf("[PUT /v1/env/name/{name}/vertical_scaling][%d] verticalScalingByName default ", o._statusCode)
-}
+func (o *VerticalScalingByNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *VerticalScalingByNameDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
