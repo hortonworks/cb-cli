@@ -1,9 +1,17 @@
 package apikeyauth
 
 import (
+	"crypto/ecdsa"
+	"crypto/rand"
+	"crypto/sha512"
+	"crypto/x509"
 	"encoding/base64"
 	"encoding/json"
+	"encoding/pem"
+
+	"errors"
 	"fmt"
+	"io"
 	"net/url"
 	"strings"
 	"time"
@@ -21,9 +29,10 @@ const (
 	altusAuthHeader     = "x-altus-auth"
 	altusDateHeader     = "x-altus-date"
 	contentTypeHeader   = "content-type"
-	signPattern         = "%s\napplication/json\n%s\n%s\ned25519v1"
+	signPattern         = "%s\napplication/json\n%s\n%s\n%s"
 	layout              = "Mon, 02 Jan 2006 15:04:05 GMT"
 	authMethod          = "ed25519v1"
+	authMethodECDSA     = "ecdsav1"
 )
 
 type metastr struct {
@@ -31,7 +40,7 @@ type metastr struct {
 	AuthMethod string `json:"auth_method"`
 }
 
-func newMetastr(accessKeyID string) *metastr {
+func newMetastr(accessKeyID, authMethod string) *metastr {
 	return &metastr{accessKeyID, authMethod}
 }
 
@@ -91,23 +100,60 @@ func escapePath(path string) string {
 }
 
 func authHeader(accessKeyID, privateKey, method, path, date string) string {
-	return fmt.Sprintf("%s.%s", urlsafeMeta(accessKeyID), urlsafeSignature(privateKey, method, path, date))
+	return fmt.Sprintf("%s.%s", urlsafeMeta(accessKeyID, privateKey), urlsafeSignature(privateKey, method, path, date))
 }
 
 func urlsafeSignature(seedBase64, method, path, date string) string {
 	seed, err := base64.StdEncoding.DecodeString(seedBase64)
 	if err != nil {
-		utils.LogErrorAndExit(err)
+		log.Debugf("Error during decoding v2 key, trying v3 format.")
+		return urlsafeECDSASignature(seedBase64, method, path, date)
 	}
 	k := ed.NewKeyFromSeed(seed)
-	message := fmt.Sprintf(signPattern, method, date, path)
+	message := fmt.Sprintf(signPattern, method, date, path, authMethod)
 	log.Debugf("Message to sign: \n%s\n", message)
 	signature := ed.Sign(k, []byte(message))
 	return urlsafeBase64Encode(signature)
 }
 
-func urlsafeMeta(accessKeyID string) string {
-	b, err := json.Marshal(newMetastr(accessKeyID))
+func urlsafeECDSASignature(privateKey, method, path, date string) string {
+	block, _ := pem.Decode([]byte(privateKey))
+	if block == nil {
+		utils.LogErrorAndExit(errors.New("privKey no pem data found"))
+	}
+	pk, err := x509.ParsePKCS8PrivateKey(block.Bytes)
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	pkECDSA, ok := pk.(*ecdsa.PrivateKey)
+	if !ok {
+		utils.LogErrorAndExit(errors.New("cannot convert private key to ecdsa key"))
+	}
+	// Hash the input to get a summary of the information
+	h := sha512.New()
+	message := fmt.Sprintf(signPattern, method, date, path, authMethodECDSA)
+	log.Debugf("Message to sign: \n%s\n", message)
+	_, err = io.WriteString(h, message)
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	hash := h.Sum(nil)
+	// ECDSA Signing
+	signature, err := ecdsa.SignASN1(rand.Reader, pkECDSA, hash)
+	if err != nil {
+		utils.LogErrorAndExit(err)
+	}
+	return urlsafeBase64Encode(signature)
+}
+
+func urlsafeMeta(accessKeyID, privatekey string) string {
+	_, err := base64.StdEncoding.DecodeString(privatekey)
+	method := authMethod
+	if err != nil {
+		log.Debugf("Cannot decode v2 key, trying v3 format.")
+		method = authMethodECDSA
+	}
+	b, err := json.Marshal(newMetastr(accessKeyID, method))
 	if err != nil {
 		utils.LogErrorAndExit(err)
 	}
