@@ -6,7 +6,7 @@ require (
 	github.com/go-openapi/strfmt v0.18.0
 	github.com/go-openapi/swag v0.18.0
 	github.com/go-openapi/validate v0.18.0
-	github.com/hortonworks/dp-cli-common/apikeyauth v0.0.12
+	github.com/hortonworks/dp-cli-common/apikeyauth v0.0.11
 	github.com/hortonworks/dp-cli-common/utils v0.0.3
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/mattn/go-runewidth v0.0.4 // indirect
