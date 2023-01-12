@@ -32,6 +32,9 @@ type CredentialBase struct {
 	// custom parameters for GCP credential
 	Gcp *GcpV1Parameters `json:"gcp,omitempty"`
 
+	// skip organization policy decisions during cloud storage validation
+	SkipOrgPolicyDecisions bool `json:"skipOrgPolicyDecisions,omitempty"`
+
 	// verification status text for credential, if empty then there is no verification issue
 	VerificationStatusText string `json:"verificationStatusText,omitempty"`
 

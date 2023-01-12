@@ -21,6 +21,9 @@ type ImageSettingsV1Response struct {
 	// virtual machine image id from ImageCatalog, machines of the cluster will be started from this image
 	ID string `json:"id,omitempty"`
 
+	// LDAP agent version present on the image, if the image contains LDAP agent.
+	LdapAgentVersion string `json:"ldapAgentVersion,omitempty"`
+
 	// os type of the image, this property is only considered when no specific image id is provided
 	Os string `json:"os,omitempty"`
 }

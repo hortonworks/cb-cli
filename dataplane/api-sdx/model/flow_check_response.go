@@ -15,6 +15,9 @@ import (
 // swagger:model FlowCheckResponse
 type FlowCheckResponse struct {
 
+	// end time
+	EndTime int64 `json:"endTime,omitempty"`
+
 	// flow chain Id
 	FlowChainID string `json:"flowChainId,omitempty"`
 

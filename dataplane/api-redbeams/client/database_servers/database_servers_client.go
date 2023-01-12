@@ -304,6 +304,37 @@ func (a *Client) GetDatabaseServerByName(params *GetDatabaseServerByNameParams, 
 }
 
 /*
+GetUsedSubnetsByEnvironment lists the used subnets by the given environment resource c r n
+
+List the used subnets by the given Environment resource CRN
+*/
+func (a *Client) GetUsedSubnetsByEnvironment(params *GetUsedSubnetsByEnvironmentParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsedSubnetsByEnvironmentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetUsedSubnetsByEnvironmentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getUsedSubnetsByEnvironment",
+		Method:             "GET",
+		PathPattern:        "/v4/databaseservers/internal/used_subnets",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetUsedSubnetsByEnvironmentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetUsedSubnetsByEnvironmentOK), nil
+
+}
+
+/*
 ListDatabaseServers lists database servers
 
 Lists all database servers that are known, either because they were registered or because this service created them.
@@ -525,13 +556,13 @@ UpgradeDatabaseServer upgrades a database server in a cloud provider to a higher
 
 Upgrades a database server to a higher major version.
 */
-func (a *Client) UpgradeDatabaseServer(params *UpgradeDatabaseServerParams, authInfo runtime.ClientAuthInfoWriter) error {
+func (a *Client) UpgradeDatabaseServer(params *UpgradeDatabaseServerParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeDatabaseServerOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpgradeDatabaseServerParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "upgradeDatabaseServer",
 		Method:             "PUT",
 		PathPattern:        "/v4/databaseservers/{crn}/upgrade",
@@ -545,9 +576,40 @@ func (a *Client) UpgradeDatabaseServer(params *UpgradeDatabaseServerParams, auth
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*UpgradeDatabaseServerOK), nil
+
+}
+
+/*
+ValidateUpgradeDatabaseServer validates if upgrade is possible on the database server in a cloud provider to a higher major version
+
+Validates if upgrade is possible on the database server to a higher major version.
+*/
+func (a *Client) ValidateUpgradeDatabaseServer(params *ValidateUpgradeDatabaseServerParams, authInfo runtime.ClientAuthInfoWriter) (*ValidateUpgradeDatabaseServerOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewValidateUpgradeDatabaseServerParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "validateUpgradeDatabaseServer",
+		Method:             "PUT",
+		PathPattern:        "/v4/databaseservers/{crn}/validate_upgrade",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ValidateUpgradeDatabaseServerReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ValidateUpgradeDatabaseServerOK), nil
 
 }
 

@@ -35,7 +35,7 @@ type OperationV1Status struct {
 
 	// Operation type
 	// Required: true
-	// Enum: [USER_SYNC SET_PASSWORD CLEANUP REBOOT REPAIR DOWNSCALE UPSCALE BIND_USER_CREATE UPGRADE UPGRADE_CCM]
+	// Enum: [USER_SYNC SET_PASSWORD CLEANUP REBOOT REPAIR DOWNSCALE UPSCALE BIND_USER_CREATE UPGRADE UPGRADE_CCM MODIFY_PROXY_CONFIG]
 	OperationType *string `json:"operationType"`
 
 	// User synchronization operation start time
@@ -117,7 +117,7 @@ var operationV1StatusTypeOperationTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["USER_SYNC","SET_PASSWORD","CLEANUP","REBOOT","REPAIR","DOWNSCALE","UPSCALE","BIND_USER_CREATE","UPGRADE","UPGRADE_CCM"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["USER_SYNC","SET_PASSWORD","CLEANUP","REBOOT","REPAIR","DOWNSCALE","UPSCALE","BIND_USER_CREATE","UPGRADE","UPGRADE_CCM","MODIFY_PROXY_CONFIG"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -156,6 +156,9 @@ const (
 
 	// OperationV1StatusOperationTypeUPGRADECCM captures enum value "UPGRADE_CCM"
 	OperationV1StatusOperationTypeUPGRADECCM string = "UPGRADE_CCM"
+
+	// OperationV1StatusOperationTypeMODIFYPROXYCONFIG captures enum value "MODIFY_PROXY_CONFIG"
+	OperationV1StatusOperationTypeMODIFYPROXYCONFIG string = "MODIFY_PROXY_CONFIG"
 )
 
 // prop value enum

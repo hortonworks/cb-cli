@@ -573,6 +573,34 @@ func (a *Client) DetachStackRecipe(params *DetachStackRecipeParams) (*DetachStac
 }
 
 /*
+DetermineDatalakeDataSizes determines the sizes of the different local data on the datalake
+*/
+func (a *Client) DetermineDatalakeDataSizes(params *DetermineDatalakeDataSizesParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDetermineDatalakeDataSizesParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "determineDatalakeDataSizes",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/{name}/determine_datalake_data_sizes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DetermineDatalakeDataSizesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 GenerateImageCatalogInternal generates an image catalog that only contains the currently used image for creating instances
 */
 func (a *Client) GenerateImageCatalogInternal(params *GenerateImageCatalogInternalParams) (*GenerateImageCatalogInternalOK, error) {
@@ -805,6 +833,36 @@ func (a *Client) GetStackRequestFromNameV4(params *GetStackRequestFromNameV4Para
 }
 
 /*
+GetUsedSubnetsByEnvironment lists the used subnets by the given environment resource c r n
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) GetUsedSubnetsByEnvironment(params *GetUsedSubnetsByEnvironmentParams) (*GetUsedSubnetsByEnvironmentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetUsedSubnetsByEnvironmentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getUsedSubnetsByEnvironment",
+		Method:             "GET",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/used_subnets",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetUsedSubnetsByEnvironmentReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetUsedSubnetsByEnvironmentOK), nil
+
+}
+
+/*
 ListRetryableFlowsV4 lists retryable failed flows
 
 List all, currently retryable operations for the stack
@@ -861,6 +919,34 @@ func (a *Client) ListStackInWorkspaceV4(params *ListStackInWorkspaceV4Params) (*
 		return nil, err
 	}
 	return result.(*ListStackInWorkspaceV4OK), nil
+
+}
+
+/*
+ModifyProxyConfigInternal modify proxy config internal API
+*/
+func (a *Client) ModifyProxyConfigInternal(params *ModifyProxyConfigInternalParams) (*ModifyProxyConfigInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewModifyProxyConfigInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "modifyProxyConfigInternal",
+		Method:             "PUT",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{crn}/modify_proxy",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ModifyProxyConfigInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ModifyProxyConfigInternalOK), nil
 
 }
 

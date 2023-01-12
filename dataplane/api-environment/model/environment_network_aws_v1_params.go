@@ -17,7 +17,7 @@ import (
 // swagger:model EnvironmentNetworkAwsV1Params
 type EnvironmentNetworkAwsV1Params struct {
 
-	// AWS VPC id of the specified networks
+	// AWS VPC ID of the specified networks
 	// Required: true
 	// Max Length: 255
 	// Min Length: 0

@@ -26,6 +26,9 @@ type BackupRequest struct {
 	// backup gcs attributes
 	Gcs *GcsCloudStorageV1Parameters `json:"gcs,omitempty"`
 
+	// instance profile
+	InstanceProfile string `json:"instanceProfile,omitempty"`
+
 	// backup s3 attributes
 	S3 *S3CloudStorageV1Parameters `json:"s3,omitempty"`
 

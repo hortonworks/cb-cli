@@ -68,6 +68,8 @@ type UpgradeClusterByNameInternalParams struct {
 	InitiatorUserCrn *string
 	/*Name*/
 	Name string
+	/*RollingUpgradeEnabled*/
+	RollingUpgradeEnabled *bool
 	/*WorkspaceID*/
 	WorkspaceID int64
 
@@ -142,6 +144,17 @@ func (o *UpgradeClusterByNameInternalParams) SetName(name string) {
 	o.Name = name
 }
 
+// WithRollingUpgradeEnabled adds the rollingUpgradeEnabled to the upgrade cluster by name internal params
+func (o *UpgradeClusterByNameInternalParams) WithRollingUpgradeEnabled(rollingUpgradeEnabled *bool) *UpgradeClusterByNameInternalParams {
+	o.SetRollingUpgradeEnabled(rollingUpgradeEnabled)
+	return o
+}
+
+// SetRollingUpgradeEnabled adds the rollingUpgradeEnabled to the upgrade cluster by name internal params
+func (o *UpgradeClusterByNameInternalParams) SetRollingUpgradeEnabled(rollingUpgradeEnabled *bool) {
+	o.RollingUpgradeEnabled = rollingUpgradeEnabled
+}
+
 // WithWorkspaceID adds the workspaceID to the upgrade cluster by name internal params
 func (o *UpgradeClusterByNameInternalParams) WithWorkspaceID(workspaceID int64) *UpgradeClusterByNameInternalParams {
 	o.SetWorkspaceID(workspaceID)
@@ -196,6 +209,22 @@ func (o *UpgradeClusterByNameInternalParams) WriteToRequest(r runtime.ClientRequ
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {
 		return err
+	}
+
+	if o.RollingUpgradeEnabled != nil {
+
+		// query param rollingUpgradeEnabled
+		var qrRollingUpgradeEnabled bool
+		if o.RollingUpgradeEnabled != nil {
+			qrRollingUpgradeEnabled = *o.RollingUpgradeEnabled
+		}
+		qRollingUpgradeEnabled := swag.FormatBool(qrRollingUpgradeEnabled)
+		if qRollingUpgradeEnabled != "" {
+			if err := r.SetQueryParam("rollingUpgradeEnabled", qRollingUpgradeEnabled); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	// path param workspaceId

@@ -27,6 +27,9 @@ type AzureInstanceTemplateV4Parameters struct {
 
 	// private id for azure
 	PrivateID string `json:"privateId,omitempty"`
+
+	// resource disk attached
+	ResourceDiskAttached bool `json:"resourceDiskAttached,omitempty"`
 }
 
 // Validate validates this azure instance template v4 parameters

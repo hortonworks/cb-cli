@@ -7,10 +7,13 @@ package database_servers
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api-redbeams/model"
 )
 
 // UpgradeDatabaseServerReader is a Reader for the UpgradeDatabaseServer structure.
@@ -20,43 +23,45 @@ type UpgradeDatabaseServerReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *UpgradeDatabaseServerReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewUpgradeDatabaseServerDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewUpgradeDatabaseServerOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewUpgradeDatabaseServerDefault creates a UpgradeDatabaseServerDefault with default headers values
-func NewUpgradeDatabaseServerDefault(code int) *UpgradeDatabaseServerDefault {
-	return &UpgradeDatabaseServerDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*UpgradeDatabaseServerDefault handles this case with default header values.
+// NewUpgradeDatabaseServerOK creates a UpgradeDatabaseServerOK with default headers values
+func NewUpgradeDatabaseServerOK() *UpgradeDatabaseServerOK {
+	return &UpgradeDatabaseServerOK{}
+}
+
+/*UpgradeDatabaseServerOK handles this case with default header values.
 
 successful operation
 */
-type UpgradeDatabaseServerDefault struct {
-	_statusCode int
+type UpgradeDatabaseServerOK struct {
+	Payload *model.UpgradeDatabaseServerV4Response
 }
 
-// Code gets the status code for the upgrade database server default response
-func (o *UpgradeDatabaseServerDefault) Code() int {
-	return o._statusCode
+func (o *UpgradeDatabaseServerOK) Error() string {
+	return fmt.Sprintf("[PUT /v4/databaseservers/{crn}/upgrade][%d] upgradeDatabaseServerOK  %+v", 200, o.Payload)
 }
 
-func (o *UpgradeDatabaseServerDefault) Error() string {
-	return fmt.Sprintf("[PUT /v4/databaseservers/{crn}/upgrade][%d] upgradeDatabaseServer default ", o._statusCode)
-}
+func (o *UpgradeDatabaseServerOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *UpgradeDatabaseServerDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.UpgradeDatabaseServerV4Response)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

@@ -145,6 +145,66 @@ func (a *Client) InternalGetSyncOperationStatusV1(params *InternalGetSyncOperati
 }
 
 /*
+PostSynchronizeV1 starts post usersync related tasks
+
+User synchronization and management operations
+*/
+func (a *Client) PostSynchronizeV1(params *PostSynchronizeV1Params) (*PostSynchronizeV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostSynchronizeV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "postSynchronizeV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/user/postsync",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PostSynchronizeV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostSynchronizeV1OK), nil
+
+}
+
+/*
+PreSynchronizeV1 starts pre usersync related tasks
+
+User synchronization and management operations
+*/
+func (a *Client) PreSynchronizeV1(params *PreSynchronizeV1Params) (*PreSynchronizeV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPreSynchronizeV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "preSynchronizeV1",
+		Method:             "POST",
+		PathPattern:        "/v1/freeipa/user/presync",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PreSynchronizeV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PreSynchronizeV1OK), nil
+
+}
+
+/*
 SetPasswordV1 sets the user s password in the free IP a servers
 
 User synchronization and management operations

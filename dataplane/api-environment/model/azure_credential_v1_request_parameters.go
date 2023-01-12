@@ -10,7 +10,6 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // AzureCredentialV1RequestParameters azure credential v1 request parameters
@@ -24,12 +23,10 @@ type AzureCredentialV1RequestParameters struct {
 	RoleBased *RoleBasedV1Request `json:"roleBased,omitempty"`
 
 	// subscription Id
-	// Required: true
-	SubscriptionID *string `json:"subscriptionId"`
+	SubscriptionID string `json:"subscriptionId,omitempty"`
 
 	// tenant Id
-	// Required: true
-	TenantID *string `json:"tenantId"`
+	TenantID string `json:"tenantId,omitempty"`
 }
 
 // Validate validates this azure credential v1 request parameters
@@ -41,14 +38,6 @@ func (m *AzureCredentialV1RequestParameters) Validate(formats strfmt.Registry) e
 	}
 
 	if err := m.validateRoleBased(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSubscriptionID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTenantID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -89,24 +78,6 @@ func (m *AzureCredentialV1RequestParameters) validateRoleBased(formats strfmt.Re
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *AzureCredentialV1RequestParameters) validateSubscriptionID(formats strfmt.Registry) error {
-
-	if err := validate.Required("subscriptionId", "body", m.SubscriptionID); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AzureCredentialV1RequestParameters) validateTenantID(formats strfmt.Registry) error {
-
-	if err := validate.Required("tenantId", "body", m.TenantID); err != nil {
-		return err
 	}
 
 	return nil

@@ -19,7 +19,7 @@ import (
 // swagger:model AzureResourceGroupV1Parameters
 type AzureResourceGroupV1Parameters struct {
 
-	// Name of an existing azure resource group.
+	// Name of an existing Azure resource group.
 	Name string `json:"name,omitempty"`
 
 	// Resource group usage: single resource group for all resources where possible or use multiple resource groups.

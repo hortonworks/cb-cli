@@ -17,6 +17,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1credentials"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1credentialsaudit"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1envcost"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1envplatform_resources"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1events"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1internalcredentials"
@@ -85,6 +86,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Environmen
 	cli.V1credentialsaudit = v1credentialsaudit.New(transport, formats)
 
 	cli.V1env = v1env.New(transport, formats)
+
+	cli.V1envcost = v1envcost.New(transport, formats)
 
 	cli.V1envplatformResources = v1envplatform_resources.New(transport, formats)
 
@@ -166,6 +169,8 @@ type Environment struct {
 
 	V1env *v1env.Client
 
+	V1envcost *v1envcost.Client
+
 	V1envplatformResources *v1envplatform_resources.Client
 
 	V1events *v1events.Client
@@ -208,6 +213,8 @@ func (c *Environment) SetTransport(transport runtime.ClientTransport) {
 	c.V1credentialsaudit.SetTransport(transport)
 
 	c.V1env.SetTransport(transport)
+
+	c.V1envcost.SetTransport(transport)
 
 	c.V1envplatformResources.SetTransport(transport)
 

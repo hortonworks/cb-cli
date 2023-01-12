@@ -53,6 +53,34 @@ func (a *Client) CreateInternalSdx(params *CreateInternalSdxParams) (*CreateInte
 }
 
 /*
+ModifyInternalSdxProxyConfig initiates the modification of the proxy config
+*/
+func (a *Client) ModifyInternalSdxProxyConfig(params *ModifyInternalSdxProxyConfigParams) (*ModifyInternalSdxProxyConfigOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewModifyInternalSdxProxyConfigParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "modifyInternalSdxProxyConfig",
+		Method:             "PUT",
+		PathPattern:        "/internal/sdx/crn/{crn}/modify_proxy",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ModifyInternalSdxProxyConfigReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ModifyInternalSdxProxyConfigOK), nil
+
+}
+
+/*
 RenewInternalSdxCertificate triggers a certificate renewal on the desired cluster which is identified via crn
 
 Trigger a certificate renewal on the specified cluster.

@@ -1821,6 +1821,34 @@ func (a *Client) StopSdxByName(params *StopSdxByNameParams) (*StopSdxByNameOK, e
 }
 
 /*
+SubmitDatalakeDataSizesInternal submits datalake data sizes to thunderhead d r service
+*/
+func (a *Client) SubmitDatalakeDataSizesInternal(params *SubmitDatalakeDataSizesInternalParams) error {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSubmitDatalakeDataSizesInternalParams()
+	}
+
+	_, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "submitDatalakeDataSizesInternal",
+		Method:             "PUT",
+		PathPattern:        "/sdx/crn/{crn}/submitDatalakeDataSizes/internal",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &SubmitDatalakeDataSizesInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+/*
 SyncCmOnDatalakeCluster syncs c m and parcel versions from c m and updates s d x cluster version
 */
 func (a *Client) SyncCmOnDatalakeCluster(params *SyncCmOnDatalakeClusterParams) (*SyncCmOnDatalakeClusterOK, error) {
@@ -1929,6 +1957,34 @@ func (a *Client) SyncSdxByCrn(params *SyncSdxByCrnParams) error {
 		return err
 	}
 	return nil
+
+}
+
+/*
+UpdateSaltSdxByCrn updates salt states on cluster
+*/
+func (a *Client) UpdateSaltSdxByCrn(params *UpdateSaltSdxByCrnParams) (*UpdateSaltSdxByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSaltSdxByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateSaltSdxByCrn",
+		Method:             "PUT",
+		PathPattern:        "/sdx/crn/{crn}/salt_update",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateSaltSdxByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateSaltSdxByCrnOK), nil
 
 }
 

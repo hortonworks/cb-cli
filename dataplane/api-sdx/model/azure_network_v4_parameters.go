@@ -15,11 +15,17 @@ import (
 // swagger:model AzureNetworkV4Parameters
 type AzureNetworkV4Parameters struct {
 
+	// aks private Dns zone Id
+	AksPrivateDNSZoneID string `json:"aksPrivateDnsZoneId,omitempty"`
+
 	// database private Dns zone Id
 	DatabasePrivateDNSZoneID string `json:"databasePrivateDnsZoneId,omitempty"`
 
 	// network Id
 	NetworkID string `json:"networkId,omitempty"`
+
+	// no outbound load balancer
+	NoOutboundLoadBalancer bool `json:"noOutboundLoadBalancer,omitempty"`
 
 	// no public Ip
 	NoPublicIP bool `json:"noPublicIp,omitempty"`

@@ -30,6 +30,9 @@ type RestRequestDetails struct {
 	// method
 	Method string `json:"method,omitempty"`
 
+	// request Id
+	RequestID string `json:"requestId,omitempty"`
+
 	// request Uri
 	RequestURI string `json:"requestUri,omitempty"`
 }
