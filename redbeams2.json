@@ -1,0 +1,2827 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Redbeams API",
+    "description" : "API for working with databases and database servers",
+    "contact" : {
+      "name" : "Cloudera, Inc.",
+      "url" : "https://www.cloudera.com/contact-sales.html"
+    },
+    "license" : {
+      "name" : "Apache License 2.0",
+      "url" : "https://github.com/hortonworks/cloudbreak/blob/master/LICENSE"
+    },
+    "version" : "2.66.0-b41-1-ge11bb40"
+  },
+  "tags" : [ {
+    "name" : "/authorization",
+    "description" : "API about authorization informations"
+  }, {
+    "name" : "/v4/utils",
+    "description" : "Miscellaneous utility operations"
+  }, {
+    "name" : "/flow",
+    "description" : "Operations on flow logs"
+  }, {
+    "name" : "/flow-public",
+    "description" : "Operations on flow logs"
+  }, {
+    "name" : "/v4/operation",
+    "description" : "Get flow step progression"
+  }, {
+    "name" : "/v4/progress",
+    "description" : "Get flow step progression"
+  } ],
+  "paths" : {
+    "/authorization/info" : {
+      "get" : {
+        "tags" : [ "/authorization" ],
+        "summary" : "list of required permissions for APIs",
+        "operationId" : "authorizationInfo",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "uniqueItems" : true,
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ApiAuthorizationInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/utils/check_right_by_crn" : {
+      "post" : {
+        "tags" : [ "/v4/utils" ],
+        "summary" : "Checking rights from UI by resource CRN",
+        "description" : "Check right from UI",
+        "operationId" : "checkRightByCrn",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CheckResourceRightsV4Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CheckResourceRightsV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/utils/check_right" : {
+      "post" : {
+        "tags" : [ "/v4/utils" ],
+        "summary" : "Checking rights from UI in account",
+        "description" : "Check right from UI",
+        "operationId" : "checkRightInAccount",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CheckRightV4Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CheckRightV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/utils/check_right_on_resources" : {
+      "post" : {
+        "tags" : [ "/v4/utils" ],
+        "summary" : "Checking right from Uluwatu by resource CRNs",
+        "description" : "Check right from Uluwatu",
+        "operationId" : "checkRightOnResources",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CheckRightOnResourcesV4Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CheckRightOnResourcesV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow/check/chainIds" : {
+      "get" : {
+        "tags" : [ "/flow" ],
+        "summary" : "Gets flow check responses for parent chains - Input size max 50",
+        "description" : "Flow check log operations",
+        "operationId" : "getFlowChainsStatusesByChainIds_1",
+        "parameters" : [ {
+          "name" : "chainIds",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "maxItems" : 50,
+            "minItems" : 0,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PageFlowCheckResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow/logs/{flowId}" : {
+      "get" : {
+        "tags" : [ "/flow" ],
+        "summary" : "Get flow logs by flow id",
+        "description" : "Flow log operations",
+        "operationId" : "getFlowLogsByFlowId_1",
+        "parameters" : [ {
+          "name" : "flowId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FlowLogResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow/logs/flowIds" : {
+      "get" : {
+        "tags" : [ "/flow" ],
+        "summary" : "Get flow logs by a list of flow ids - Input size max 50",
+        "description" : "Flow log operations",
+        "operationId" : "getFlowLogsByFlowIds_1",
+        "parameters" : [ {
+          "name" : "flowIds",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "maxItems" : 50,
+            "minItems" : 0,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PageFlowLogResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow/logs/resource/crn/{resourceCrn}" : {
+      "get" : {
+        "tags" : [ "/flow" ],
+        "summary" : "Get flow logs for resource by resource CRN",
+        "description" : "Flow log operations",
+        "operationId" : "getFlowLogsByResourceCrn_1",
+        "parameters" : [ {
+          "name" : "resourceCrn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FlowLogResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow/logs/resource/name/{resourceName}" : {
+      "get" : {
+        "tags" : [ "/flow" ],
+        "summary" : "Get flow logs for resource by resource name",
+        "description" : "Flow log operations",
+        "operationId" : "getFlowLogsByResourceName_1",
+        "parameters" : [ {
+          "name" : "accountId",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "resourceName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FlowLogResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow/logs/{flowId}/last" : {
+      "get" : {
+        "tags" : [ "/flow" ],
+        "summary" : "Get last flow log by flow id",
+        "description" : "Flow log operations",
+        "operationId" : "getLastFlowById_1",
+        "parameters" : [ {
+          "name" : "flowId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlowLogResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow/logs/resource/crn/{resourceCrn}/last" : {
+      "get" : {
+        "tags" : [ "/flow" ],
+        "summary" : "Get last flow log for resource by resource CRN",
+        "description" : "Flow log operations",
+        "operationId" : "getLastFlowByResourceCrn_1",
+        "parameters" : [ {
+          "name" : "resourceCrn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlowLogResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow/logs/resource/name/{resourceName}/last" : {
+      "get" : {
+        "tags" : [ "/flow" ],
+        "summary" : "Get last flow log for resource by resource name",
+        "description" : "Flow log operations",
+        "operationId" : "getLastFlowByResourceName_1",
+        "parameters" : [ {
+          "name" : "accountId",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "resourceName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlowLogResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow/check/chainId/{chainId}" : {
+      "get" : {
+        "tags" : [ "/flow" ],
+        "summary" : "Check if there is a running flow for chain id",
+        "description" : "Flow log operations",
+        "operationId" : "hasFlowRunningByChainId_1",
+        "parameters" : [ {
+          "name" : "chainId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlowCheckResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow/check/flowId/{flowId}" : {
+      "get" : {
+        "tags" : [ "/flow" ],
+        "summary" : "Check if there is a running flow for flow id",
+        "description" : "Flow log operations",
+        "operationId" : "hasFlowRunningByFlowId_1",
+        "parameters" : [ {
+          "name" : "flowId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlowCheckResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow-public/check/chainId/{chainId}" : {
+      "get" : {
+        "tags" : [ "/flow-public" ],
+        "summary" : "Check if there is a running flow for chain id and resourceCrn",
+        "description" : "Flow log operations",
+        "operationId" : "hasFlowRunningByChainIdAndResourceCrn",
+        "parameters" : [ {
+          "name" : "chainId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "resourceCrn",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlowCheckResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow-public/check/flowId/{flowId}" : {
+      "get" : {
+        "tags" : [ "/flow-public" ],
+        "summary" : "Check if there is a running flow for flow id and resourceId",
+        "description" : "Flow log operations",
+        "operationId" : "hasFlowRunningByFlowIdAndResourceCrn",
+        "parameters" : [ {
+          "name" : "flowId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "resourceCrn",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlowCheckResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databases/{crn}" : {
+      "get" : {
+        "tags" : [ "databases" ],
+        "summary" : "get a database config by CRN",
+        "description" : "Gets information on a database by its CRN.",
+        "operationId" : "getDatabaseByCrn",
+        "parameters" : [ {
+          "name" : "crn",
+          "in" : "path",
+          "description" : "CRN of the database",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseV4Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "databases" ],
+        "summary" : "delete a database config by CRN",
+        "description" : "Deletes a database by its CRN. If the database was registered with this service, then this operation merely deregisters it. Otherwise, this operation deletes the database from the database server, along with its corresponding user.",
+        "operationId" : "deleteDatabaseByCrn",
+        "parameters" : [ {
+          "name" : "crn",
+          "in" : "path",
+          "description" : "CRN of the database",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databases/name/{name}" : {
+      "get" : {
+        "tags" : [ "databases" ],
+        "summary" : "get a database config by name",
+        "description" : "Gets information on a database by its name.",
+        "operationId" : "getDatabaseByName",
+        "parameters" : [ {
+          "name" : "environmentCrn",
+          "in" : "query",
+          "description" : "CRN of the environment of the database(s)",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "description" : "Name of the database",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseV4Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "databases" ],
+        "summary" : "delete a database config by name",
+        "description" : "Deletes a database by its name. If the database was registered with this service, then this operation merely deregisters it. Otherwise, this operation deletes the database from the database server, along with its corresponding user.",
+        "operationId" : "deleteDatabaseByName",
+        "parameters" : [ {
+          "name" : "environmentCrn",
+          "in" : "query",
+          "description" : "CRN of the environment of the database(s)",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "description" : "Name of the database",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databases" : {
+      "get" : {
+        "tags" : [ "databases" ],
+        "summary" : "list database configs",
+        "description" : "Lists all databases that are known, either because they were registered or because this service created them.",
+        "operationId" : "listDatabases",
+        "parameters" : [ {
+          "name" : "environmentCrn",
+          "in" : "query",
+          "description" : "CRN of the environment of the database(s)",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseV4Responses"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "databases" ],
+        "summary" : "delete multiple database configs by CRN",
+        "description" : "Deletes multiple databases, each by CRN. See the notes on the single delete operation for details.",
+        "operationId" : "deleteMultipleDatabasesByCrn",
+        "requestBody" : {
+          "description" : "CRNs of the databases",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "uniqueItems" : true,
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseV4Responses"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databases/register" : {
+      "post" : {
+        "tags" : [ "databases" ],
+        "summary" : "register a database config of existing database",
+        "description" : "Registers an existing database, residing on some database server.",
+        "operationId" : "registerDatabase",
+        "requestBody" : {
+          "description" : "Request containing information about a database to be registered",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DatabaseV4Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databases/test" : {
+      "post" : {
+        "tags" : [ "databases" ],
+        "summary" : "test database connectivity",
+        "description" : "Tests connectivity to a database. Use this to verify access to the database from this service, and also to verify authentication credentials.",
+        "operationId" : "testDatabaseConnection",
+        "requestBody" : {
+          "description" : "Request for testing connectivity to a database",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DatabaseTestV4Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseTestV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/managed" : {
+      "post" : {
+        "tags" : [ "database servers" ],
+        "summary" : "create and register a database server in a cloud provider",
+        "description" : "Creates a new database server. The database server starts out with only default databases.",
+        "operationId" : "createDatabaseServer",
+        "requestBody" : {
+          "description" : "Request for allocating a new database server in a provider",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AllocateDatabaseServerV4Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerStatusV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/createDatabase" : {
+      "post" : {
+        "tags" : [ "database servers" ],
+        "summary" : "create a database on an existing database server",
+        "description" : "Creates a new database on a database server. The database starts out empty. A new user with credentials separate from the database server's administrative user is also created, with full rights to the new database.",
+        "operationId" : "createDatabaseOnServer",
+        "requestBody" : {
+          "description" : "Request for creating a new database on a registered database server",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateDatabaseV4Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CreateDatabaseV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/internal/managed" : {
+      "post" : {
+        "tags" : [ "database servers" ],
+        "summary" : "create and register a database server in a cloud provider with internal actor",
+        "description" : "Creates a new database server. The database server starts out with only default databases.",
+        "operationId" : "createDatabaseServerInternal",
+        "parameters" : [ {
+          "name" : "initiatorUserCrn",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Request for allocating a new database server in a provider",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AllocateDatabaseServerV4Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerStatusV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/{crn}" : {
+      "get" : {
+        "tags" : [ "database servers" ],
+        "summary" : "get a database server by CRN",
+        "description" : "Gets information on a database server by its CRN.",
+        "operationId" : "getDatabaseServerByCrn",
+        "parameters" : [ {
+          "name" : "crn",
+          "in" : "path",
+          "description" : "CRN of the database server",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerV4Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "database servers" ],
+        "summary" : "terminate and/or deregister a database server by CRN",
+        "description" : "Terminates and/or deregisters a database server by its CRN.",
+        "operationId" : "deleteDatabaseServerByCrn",
+        "parameters" : [ {
+          "name" : "crn",
+          "in" : "path",
+          "description" : "CRN of the database server",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "force",
+          "in" : "query",
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/name/{name}" : {
+      "get" : {
+        "tags" : [ "database servers" ],
+        "summary" : "get a database server by name",
+        "description" : "Gets information on a database server by its name.",
+        "operationId" : "getDatabaseServerByName",
+        "parameters" : [ {
+          "name" : "environmentCrn",
+          "in" : "query",
+          "description" : "CRN of the environment of the database server(s)",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "description" : "Name of the database server",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerV4Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "database servers" ],
+        "summary" : "terminate and/or deregister a database server by name",
+        "description" : "Terminates and/or deregisters a database server by its name.",
+        "operationId" : "deleteDatabaseServerByName",
+        "parameters" : [ {
+          "name" : "environmentCrn",
+          "in" : "query",
+          "description" : "CRN of the environment of the database server(s)",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "description" : "Name of the database server",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "force",
+          "in" : "query",
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers" : {
+      "get" : {
+        "tags" : [ "database servers" ],
+        "summary" : "list database servers",
+        "description" : "Lists all database servers that are known, either because they were registered or because this service created them.",
+        "operationId" : "listDatabaseServers",
+        "parameters" : [ {
+          "name" : "environmentCrn",
+          "in" : "query",
+          "description" : "CRN of the environment of the database server(s)",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerV4Responses"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "database servers" ],
+        "summary" : "terminate and/or deregister multiple database servers by CRN",
+        "description" : "Terminates and/or deregisters multiple database servers, each by CRN.",
+        "operationId" : "deleteMultipleDatabaseServersByCrn",
+        "parameters" : [ {
+          "name" : "force",
+          "in" : "query",
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "requestBody" : {
+          "description" : "CRNs of the database servers",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "uniqueItems" : true,
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerV4Responses"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/clusterCrn/{clusterCrn}" : {
+      "get" : {
+        "tags" : [ "database servers" ],
+        "summary" : "get a database server by cluster CRN",
+        "description" : "Gets information on a database server by cluster CRN",
+        "operationId" : "getDatabaseServerByClusterCrn",
+        "parameters" : [ {
+          "name" : "environmentCrn",
+          "in" : "query",
+          "description" : "CRN of the environment of the database server(s)",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "clusterCrn",
+          "in" : "path",
+          "description" : "CRN of cluster of the database server",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/internal/used_subnets" : {
+      "get" : {
+        "tags" : [ "database servers" ],
+        "summary" : "list the used subnets by the given Environment resource CRN",
+        "description" : "List the used subnets by the given Environment resource CRN",
+        "operationId" : "getUsedSubnetsByEnvironment",
+        "parameters" : [ {
+          "name" : "environmentCrn",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UsedSubnetsByEnvironmentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/register" : {
+      "post" : {
+        "tags" : [ "database servers" ],
+        "summary" : "register a database server",
+        "description" : "Registers an existing database server.",
+        "operationId" : "registerDatabaseServer",
+        "requestBody" : {
+          "description" : "Request containing information about a database server to be registered",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DatabaseServerV4Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/{crn}/release" : {
+      "put" : {
+        "tags" : [ "database servers" ],
+        "summary" : "release management of a service-managed database server",
+        "description" : "Releases management of a service-managed database server. Resource tracking information is discarded,  but the server remains registered as user-managed.",
+        "operationId" : "releaseManagedDatabaseServer",
+        "parameters" : [ {
+          "name" : "crn",
+          "in" : "path",
+          "description" : "CRN of the database server",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/{crn}/start" : {
+      "put" : {
+        "tags" : [ "database servers" ],
+        "summary" : "start database server",
+        "description" : "Start a previosly stopped database server.",
+        "operationId" : "startDatabaseServer",
+        "parameters" : [ {
+          "name" : "crn",
+          "in" : "path",
+          "description" : "CRN of the database server",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/{crn}/stop" : {
+      "put" : {
+        "tags" : [ "database servers" ],
+        "summary" : "stop database server",
+        "description" : "Stop a running database server.",
+        "operationId" : "stopDatabaseServer",
+        "parameters" : [ {
+          "name" : "crn",
+          "in" : "path",
+          "description" : "CRN of the database server",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/test" : {
+      "post" : {
+        "tags" : [ "database servers" ],
+        "summary" : "test database server connectivity",
+        "description" : "Tests connectivity to a database. Use this to verify access to the database server from this service, and also to verify authentication credentials.",
+        "operationId" : "testDatabaseServerConnection",
+        "requestBody" : {
+          "description" : "Request for testing connectivity to a database server",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DatabaseServerTestV4Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatabaseServerTestV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/updateclustercrn" : {
+      "post" : {
+        "tags" : [ "database servers" ],
+        "summary" : "Update the cluster crn associated with the database",
+        "description" : "Updates the cluster crn associated with the database",
+        "operationId" : "updateClusterCrn",
+        "parameters" : [ {
+          "name" : "environmentCrn",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "currentClusterCrn",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "newClusterCrn",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "initiatorUserCrn",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/{crn}/upgrade" : {
+      "put" : {
+        "tags" : [ "database servers" ],
+        "summary" : "upgrade a database server in a cloud provider to a higher major version",
+        "description" : "Upgrades a database server to a higher major version.",
+        "operationId" : "upgradeDatabaseServer",
+        "parameters" : [ {
+          "name" : "crn",
+          "in" : "path",
+          "description" : "CRN of the database server",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Request for upgrading a database server in a provider to a higher major version",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpgradeDatabaseServerV4Request"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UpgradeDatabaseServerV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/databaseservers/{crn}/validate_upgrade" : {
+      "put" : {
+        "tags" : [ "database servers" ],
+        "summary" : "validate if upgrade is possible on the database server in a cloud provider to a higher major version",
+        "description" : "Validates if upgrade is possible on the database server to a higher major version.",
+        "operationId" : "validateUpgradeDatabaseServer",
+        "parameters" : [ {
+          "name" : "crn",
+          "in" : "path",
+          "description" : "CRN of the database server",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Request for upgrading a database server in a provider to a higher major version",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpgradeDatabaseServerV4Request"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UpgradeDatabaseServerV4Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/operation/resource/crn/{resourceCrn}" : {
+      "get" : {
+        "tags" : [ "/v4/operation" ],
+        "summary" : "Get flow operation progress details for resource by resource crn",
+        "description" : "Flow operation details",
+        "operationId" : "getRedbeamsOperationProgressByResourceCrn",
+        "parameters" : [ {
+          "name" : "resourceCrn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "detailed",
+          "in" : "query",
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OperationView"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/progress/resource/crn/{resourceCrn}" : {
+      "get" : {
+        "tags" : [ "/v4/progress" ],
+        "summary" : "List recent flow operations progress details for resource by resource crn",
+        "description" : "Flow operation progress",
+        "operationId" : "getRedbeamsFlowLogsProgressByResourceCrn",
+        "parameters" : [ {
+          "name" : "resourceCrn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FlowProgressResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/progress/resource/crn/{resourceCrn}/last" : {
+      "get" : {
+        "tags" : [ "/v4/progress" ],
+        "summary" : "Get last flow operation progress details for resource by resource crn",
+        "description" : "Flow operation progress",
+        "operationId" : "getRedbeamsLastFlowLogProgressByResourceCrn",
+        "parameters" : [ {
+          "name" : "resourceCrn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlowProgressResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ApiAuthorizationInfo" : {
+        "type" : "object",
+        "properties" : {
+          "path" : {
+            "type" : "string"
+          },
+          "httpMethod" : {
+            "type" : "string"
+          },
+          "newAuthorization" : {
+            "$ref" : "#/components/schemas/NewAuthorizationInfo"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "FieldAuthorizationInfo" : {
+        "type" : "object",
+        "properties" : {
+          "fieldName" : {
+            "type" : "string"
+          },
+          "permission" : {
+            "type" : "string"
+          }
+        }
+      },
+      "NewAuthorizationInfo" : {
+        "type" : "object",
+        "properties" : {
+          "permissionsNeededForApi" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "permissionsNeededForRequestObject" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/FieldAuthorizationInfo"
+            }
+          }
+        }
+      },
+      "CheckResourceRightV4SingleResponse" : {
+        "type" : "object",
+        "properties" : {
+          "resourceCrn" : {
+            "type" : "string"
+          },
+          "rights" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CheckRightV4SingleResponse"
+            }
+          }
+        }
+      },
+      "CheckResourceRightsV4Response" : {
+        "type" : "object",
+        "properties" : {
+          "responses" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CheckResourceRightV4SingleResponse"
+            }
+          }
+        }
+      },
+      "CheckRightV4SingleResponse" : {
+        "type" : "object",
+        "properties" : {
+          "right" : {
+            "type" : "string",
+            "enum" : [ "ENV_CREATE", "LIST_ASSIGNED_ROLES", "CREATE_CLUSTER_TEMPLATE", "CREATE_CLUSTER_DEFINITION", "CREATE_CREDENTIAL", "CREATE_RECIPE", "CREATE_IMAGE_CATALOG", "CREATE_PROXY", "ENV_START", "ENV_STOP", "ENV_DELETE", "ENV_DESCRIBE", "ENV_EDIT", "CHANGE_CRED", "DH_CREATE", "UPDATE_AZURE_ENCRYPTION_RESOURCES", "ENV_VERTICAL_SCALING", "DH_START", "DH_STOP", "DH_DELETE", "DH_REPAIR", "DH_RESIZE", "DH_RETRY", "DH_DESCRIBE", "DH_RECOVER", "DH_UPGRADE", "DH_REFRESH_RECIPES", "DH_VERTICAL_SCALING", "SDX_UPGRADE", "SDX_RECOVER", "SDX_REPAIR", "SDX_RETRY", "SDX_DESCRIBE", "SDX_RESIZE", "SDX_VERTICAL_SCALING", "SDX_REFRESH_RECIPES" ]
+          },
+          "result" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "CheckResourceRightsV4Request" : {
+        "type" : "object",
+        "properties" : {
+          "rights" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "ENV_CREATE", "LIST_ASSIGNED_ROLES", "CREATE_CLUSTER_TEMPLATE", "CREATE_CLUSTER_DEFINITION", "CREATE_CREDENTIAL", "CREATE_RECIPE", "CREATE_IMAGE_CATALOG", "CREATE_PROXY", "ENV_START", "ENV_STOP", "ENV_DELETE", "ENV_DESCRIBE", "ENV_EDIT", "CHANGE_CRED", "DH_CREATE", "UPDATE_AZURE_ENCRYPTION_RESOURCES", "ENV_VERTICAL_SCALING", "DH_START", "DH_STOP", "DH_DELETE", "DH_REPAIR", "DH_RESIZE", "DH_RETRY", "DH_DESCRIBE", "DH_RECOVER", "DH_UPGRADE", "DH_REFRESH_RECIPES", "DH_VERTICAL_SCALING", "SDX_UPGRADE", "SDX_RECOVER", "SDX_REPAIR", "SDX_RETRY", "SDX_DESCRIBE", "SDX_RESIZE", "SDX_VERTICAL_SCALING", "SDX_REFRESH_RECIPES" ]
+            }
+          },
+          "resourceRights" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceRightsV4"
+            }
+          }
+        }
+      },
+      "ResourceRightsV4" : {
+        "type" : "object",
+        "properties" : {
+          "resourceCrn" : {
+            "type" : "string"
+          },
+          "rights" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "ENV_CREATE", "LIST_ASSIGNED_ROLES", "CREATE_CLUSTER_TEMPLATE", "CREATE_CLUSTER_DEFINITION", "CREATE_CREDENTIAL", "CREATE_RECIPE", "CREATE_IMAGE_CATALOG", "CREATE_PROXY", "ENV_START", "ENV_STOP", "ENV_DELETE", "ENV_DESCRIBE", "ENV_EDIT", "CHANGE_CRED", "DH_CREATE", "UPDATE_AZURE_ENCRYPTION_RESOURCES", "ENV_VERTICAL_SCALING", "DH_START", "DH_STOP", "DH_DELETE", "DH_REPAIR", "DH_RESIZE", "DH_RETRY", "DH_DESCRIBE", "DH_RECOVER", "DH_UPGRADE", "DH_REFRESH_RECIPES", "DH_VERTICAL_SCALING", "SDX_UPGRADE", "SDX_RECOVER", "SDX_REPAIR", "SDX_RETRY", "SDX_DESCRIBE", "SDX_RESIZE", "SDX_VERTICAL_SCALING", "SDX_REFRESH_RECIPES" ]
+            }
+          }
+        }
+      },
+      "CheckRightV4Response" : {
+        "type" : "object",
+        "properties" : {
+          "responses" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CheckRightV4SingleResponse"
+            }
+          }
+        }
+      },
+      "CheckRightV4Request" : {
+        "type" : "object",
+        "properties" : {
+          "rights" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "ENV_CREATE", "LIST_ASSIGNED_ROLES", "CREATE_CLUSTER_TEMPLATE", "CREATE_CLUSTER_DEFINITION", "CREATE_CREDENTIAL", "CREATE_RECIPE", "CREATE_IMAGE_CATALOG", "CREATE_PROXY", "ENV_START", "ENV_STOP", "ENV_DELETE", "ENV_DESCRIBE", "ENV_EDIT", "CHANGE_CRED", "DH_CREATE", "UPDATE_AZURE_ENCRYPTION_RESOURCES", "ENV_VERTICAL_SCALING", "DH_START", "DH_STOP", "DH_DELETE", "DH_REPAIR", "DH_RESIZE", "DH_RETRY", "DH_DESCRIBE", "DH_RECOVER", "DH_UPGRADE", "DH_REFRESH_RECIPES", "DH_VERTICAL_SCALING", "SDX_UPGRADE", "SDX_RECOVER", "SDX_REPAIR", "SDX_RETRY", "SDX_DESCRIBE", "SDX_RESIZE", "SDX_VERTICAL_SCALING", "SDX_REFRESH_RECIPES" ]
+            }
+          }
+        }
+      },
+      "CheckResourceRightV4Response" : {
+        "type" : "object",
+        "properties" : {
+          "resourceCrn" : {
+            "type" : "string"
+          },
+          "result" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "CheckRightOnResourcesV4Response" : {
+        "type" : "object",
+        "properties" : {
+          "right" : {
+            "type" : "string",
+            "enum" : [ "ENV_CREATE", "LIST_ASSIGNED_ROLES", "CREATE_CLUSTER_TEMPLATE", "CREATE_CLUSTER_DEFINITION", "CREATE_CREDENTIAL", "CREATE_RECIPE", "CREATE_IMAGE_CATALOG", "CREATE_PROXY", "ENV_START", "ENV_STOP", "ENV_DELETE", "ENV_DESCRIBE", "ENV_EDIT", "CHANGE_CRED", "DH_CREATE", "UPDATE_AZURE_ENCRYPTION_RESOURCES", "ENV_VERTICAL_SCALING", "DH_START", "DH_STOP", "DH_DELETE", "DH_REPAIR", "DH_RESIZE", "DH_RETRY", "DH_DESCRIBE", "DH_RECOVER", "DH_UPGRADE", "DH_REFRESH_RECIPES", "DH_VERTICAL_SCALING", "SDX_UPGRADE", "SDX_RECOVER", "SDX_REPAIR", "SDX_RETRY", "SDX_DESCRIBE", "SDX_RESIZE", "SDX_VERTICAL_SCALING", "SDX_REFRESH_RECIPES" ]
+          },
+          "responses" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CheckResourceRightV4Response"
+            }
+          }
+        }
+      },
+      "CheckRightOnResourcesV4Request" : {
+        "required" : [ "resourceCrns", "right" ],
+        "type" : "object",
+        "properties" : {
+          "right" : {
+            "type" : "string",
+            "enum" : [ "ENV_CREATE", "LIST_ASSIGNED_ROLES", "CREATE_CLUSTER_TEMPLATE", "CREATE_CLUSTER_DEFINITION", "CREATE_CREDENTIAL", "CREATE_RECIPE", "CREATE_IMAGE_CATALOG", "CREATE_PROXY", "ENV_START", "ENV_STOP", "ENV_DELETE", "ENV_DESCRIBE", "ENV_EDIT", "CHANGE_CRED", "DH_CREATE", "UPDATE_AZURE_ENCRYPTION_RESOURCES", "ENV_VERTICAL_SCALING", "DH_START", "DH_STOP", "DH_DELETE", "DH_REPAIR", "DH_RESIZE", "DH_RETRY", "DH_DESCRIBE", "DH_RECOVER", "DH_UPGRADE", "DH_REFRESH_RECIPES", "DH_VERTICAL_SCALING", "SDX_UPGRADE", "SDX_RECOVER", "SDX_REPAIR", "SDX_RETRY", "SDX_DESCRIBE", "SDX_RESIZE", "SDX_VERTICAL_SCALING", "SDX_REFRESH_RECIPES" ]
+          },
+          "resourceCrns" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "FlowCheckResponse" : {
+        "type" : "object",
+        "properties" : {
+          "flowId" : {
+            "type" : "string"
+          },
+          "flowChainId" : {
+            "type" : "string"
+          },
+          "hasActiveFlow" : {
+            "type" : "boolean"
+          },
+          "latestFlowFinalizedAndFailed" : {
+            "type" : "boolean"
+          },
+          "endTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "PageFlowCheckResponse" : {
+        "type" : "object",
+        "properties" : {
+          "totalPages" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "totalElements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sort" : {
+            "$ref" : "#/components/schemas/Sort"
+          },
+          "numberOfElements" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "content" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/FlowCheckResponse"
+            }
+          },
+          "number" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "first" : {
+            "type" : "boolean"
+          },
+          "last" : {
+            "type" : "boolean"
+          },
+          "pageable" : {
+            "$ref" : "#/components/schemas/Pageable"
+          },
+          "empty" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "Pageable" : {
+        "type" : "object",
+        "properties" : {
+          "sort" : {
+            "$ref" : "#/components/schemas/Sort"
+          },
+          "offset" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "paged" : {
+            "type" : "boolean"
+          },
+          "unpaged" : {
+            "type" : "boolean"
+          },
+          "pageNumber" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "pageSize" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "Sort" : {
+        "type" : "object",
+        "properties" : {
+          "empty" : {
+            "type" : "boolean"
+          },
+          "sorted" : {
+            "type" : "boolean"
+          },
+          "unsorted" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "FlowLogResponse" : {
+        "type" : "object",
+        "properties" : {
+          "resourceId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "created" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "flowId" : {
+            "type" : "string"
+          },
+          "flowChainId" : {
+            "type" : "string"
+          },
+          "nextEvent" : {
+            "type" : "string"
+          },
+          "currentState" : {
+            "type" : "string"
+          },
+          "finalized" : {
+            "type" : "boolean"
+          },
+          "nodeId" : {
+            "type" : "string"
+          },
+          "stateStatus" : {
+            "type" : "string",
+            "enum" : [ "PENDING", "SUCCESSFUL", "FAILED" ]
+          },
+          "flowTriggerUserCrn" : {
+            "type" : "string"
+          },
+          "endTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "PageFlowLogResponse" : {
+        "type" : "object",
+        "properties" : {
+          "totalPages" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "totalElements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sort" : {
+            "$ref" : "#/components/schemas/Sort"
+          },
+          "numberOfElements" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "content" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/FlowLogResponse"
+            }
+          },
+          "number" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "first" : {
+            "type" : "boolean"
+          },
+          "last" : {
+            "type" : "boolean"
+          },
+          "pageable" : {
+            "$ref" : "#/components/schemas/Pageable"
+          },
+          "empty" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "DatabaseV4Response" : {
+        "required" : [ "connectionDriver", "connectionURL", "databaseEngine", "databaseEngineDisplayName", "environmentCrn", "name", "type" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 100,
+            "minLength" : 5,
+            "pattern" : "(^[a-z][-a-z0-9]*[a-z0-9]$)",
+            "type" : "string",
+            "description" : "Name of the database"
+          },
+          "description" : {
+            "maxLength" : 1000000,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Description of the database"
+          },
+          "connectionURL" : {
+            "type" : "string",
+            "description" : "JDBC connection URL in the form of jdbc:<db-type>:<driver-specific-part>"
+          },
+          "type" : {
+            "maxLength" : 56,
+            "minLength" : 3,
+            "pattern" : "(^[a-zA-Z_][-a-zA-Z0-9_]*[a-zA-Z0-9_]$)",
+            "type" : "string",
+            "description" : "Type of database, i.e., the service name that will use the database (HIVE, DRUID, SUPERSET, RANGER, ...)"
+          },
+          "connectionDriver" : {
+            "type" : "string",
+            "description" : "Name of the JDBC connection driver (for example: 'org.postgresql.Driver')"
+          },
+          "environmentCrn" : {
+            "type" : "string",
+            "description" : "CRN of the environment of the database"
+          },
+          "crn" : {
+            "type" : "string",
+            "description" : "CRN of the database"
+          },
+          "creationDate" : {
+            "type" : "integer",
+            "description" : "Creation date / time of the database, in epoch milliseconds",
+            "format" : "int64"
+          },
+          "databaseEngine" : {
+            "type" : "string",
+            "description" : "Name of the database vendor (MYSQL, POSTGRES...)"
+          },
+          "databaseEngineDisplayName" : {
+            "type" : "string",
+            "description" : "Display name of the database vendor (MySQL, PostgreSQL, ...)"
+          },
+          "connectionUserName" : {
+            "$ref" : "#/components/schemas/SecretResponse"
+          },
+          "connectionPassword" : {
+            "$ref" : "#/components/schemas/SecretResponse"
+          },
+          "resourceStatus" : {
+            "type" : "string",
+            "description" : "Ownership status of the database",
+            "enum" : [ "UNKNOWN", "SERVICE_MANAGED", "USER_MANAGED" ]
+          }
+        },
+        "description" : "Response containing information about a database that was acted upon, e.g., retrieved, deleted, listed"
+      },
+      "SecretResponse" : {
+        "type" : "object",
+        "properties" : {
+          "enginePath" : {
+            "type" : "string",
+            "description" : "Engine path of the secret."
+          },
+          "secretPath" : {
+            "type" : "string",
+            "description" : "Path of the secret."
+          }
+        },
+        "description" : "Password of the administrative user of the database server"
+      },
+      "DatabaseV4Responses" : {
+        "type" : "object",
+        "properties" : {
+          "responses" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/DatabaseV4Response"
+            }
+          }
+        },
+        "description" : "A set of multiple database responses"
+      },
+      "DatabaseV4Request" : {
+        "required" : [ "connectionPassword", "connectionURL", "connectionUserName", "environmentCrn", "name", "type" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 100,
+            "minLength" : 5,
+            "pattern" : "(^[a-z][-a-z0-9]*[a-z0-9]$)",
+            "type" : "string",
+            "description" : "Name of the database"
+          },
+          "description" : {
+            "maxLength" : 1000000,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Description of the database"
+          },
+          "connectionURL" : {
+            "type" : "string",
+            "description" : "JDBC connection URL in the form of jdbc:<db-type>:<driver-specific-part>"
+          },
+          "type" : {
+            "maxLength" : 56,
+            "minLength" : 3,
+            "pattern" : "(^[a-zA-Z_][-a-zA-Z0-9_]*[a-zA-Z0-9_]$)",
+            "type" : "string",
+            "description" : "Type of database, i.e., the service name that will use the database (HIVE, DRUID, SUPERSET, RANGER, ...)"
+          },
+          "connectionDriver" : {
+            "type" : "string",
+            "description" : "Name of the JDBC connection driver (for example: 'org.postgresql.Driver')"
+          },
+          "environmentCrn" : {
+            "type" : "string",
+            "description" : "CRN of the environment of the database"
+          },
+          "connectionUserName" : {
+            "type" : "string",
+            "description" : "Username to use for authentication"
+          },
+          "connectionPassword" : {
+            "type" : "string",
+            "description" : "Password to use for authentication"
+          }
+        },
+        "description" : "Request containing information about a database to be registered"
+      },
+      "DatabaseTestV4Response" : {
+        "required" : [ "result" ],
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "string",
+            "description" : "Result of database connection test"
+          }
+        },
+        "description" : "Response for testing connectivity to a database"
+      },
+      "DatabaseTestV4Request" : {
+        "type" : "object",
+        "properties" : {
+          "existingDatabase" : {
+            "$ref" : "#/components/schemas/DatabaseV4Identifiers"
+          },
+          "database" : {
+            "$ref" : "#/components/schemas/DatabaseV4Request"
+          }
+        },
+        "description" : "Request for testing connectivity to a database"
+      },
+      "DatabaseV4Identifiers" : {
+        "required" : [ "environmentCrn", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 100,
+            "minLength" : 5,
+            "pattern" : "(^[a-z][-a-z0-9]*[a-z0-9]$)",
+            "type" : "string",
+            "description" : "Name of the database"
+          },
+          "environmentCrn" : {
+            "type" : "string",
+            "description" : "CRN of the environment of the database"
+          }
+        },
+        "description" : "Identifiers that together identify a database in an environment"
+      },
+      "DatabaseServerStatusV4Response" : {
+        "required" : [ "environmentCrn", "name", "resourceCrn", "status", "statusReason" ],
+        "type" : "object",
+        "properties" : {
+          "environmentCrn" : {
+            "type" : "string",
+            "description" : "CRN of the environment of the database server"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Name of the database server"
+          },
+          "resourceCrn" : {
+            "type" : "string",
+            "description" : "CRN of the database server"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Status of the database server stack",
+            "enum" : [ "REQUESTED", "CREATE_IN_PROGRESS", "AVAILABLE", "UPDATE_IN_PROGRESS", "UPDATE_REQUESTED", "UPDATE_FAILED", "CREATE_FAILED", "ENABLE_SECURITY_FAILED", "DELETE_REQUESTED", "PRE_DELETE_IN_PROGRESS", "DELETE_IN_PROGRESS", "DELETE_FAILED", "DELETE_COMPLETED", "STOPPED", "STOP_REQUESTED", "START_REQUESTED", "STOP_IN_PROGRESS", "START_IN_PROGRESS", "START_FAILED", "STOP_FAILED", "WAIT_FOR_SYNC", "MAINTENANCE_MODE_ENABLED", "UPGRADE_REQUESTED", "UPGRADE_IN_PROGRESS", "UPGRADE_FAILED", "UNKNOWN" ]
+          },
+          "statusReason" : {
+            "type" : "string",
+            "description" : "Additional status information about the database server stack"
+          }
+        },
+        "description" : "Response containing status information about a database server"
+      },
+      "AllocateDatabaseServerV4Request" : {
+        "required" : [ "clusterCrn", "databaseServer", "environmentCrn" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 40,
+            "minLength" : 5,
+            "pattern" : "(^[a-z][-a-z0-9]*[a-z0-9]$)",
+            "type" : "string",
+            "description" : "Name of the database stack"
+          },
+          "environmentCrn" : {
+            "type" : "string",
+            "description" : "CRN of the environment of the database server"
+          },
+          "clusterCrn" : {
+            "type" : "string",
+            "description" : "CRN of the cluster of the database server"
+          },
+          "network" : {
+            "$ref" : "#/components/schemas/NetworkV4StackRequest"
+          },
+          "databaseServer" : {
+            "$ref" : "#/components/schemas/DatabaseServerV4StackRequest"
+          },
+          "aws" : {
+            "$ref" : "#/components/schemas/AwsDBStackV4Parameters"
+          },
+          "azure" : {
+            "$ref" : "#/components/schemas/AzureDBStackV4Parameters"
+          },
+          "gcp" : {
+            "$ref" : "#/components/schemas/GcpDBStackV4Parameters"
+          },
+          "sslConfig" : {
+            "$ref" : "#/components/schemas/SslConfigV4Request"
+          },
+          "tags" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string",
+              "description" : "UserDefined tags for the DB"
+            },
+            "description" : "UserDefined tags for the DB"
+          }
+        },
+        "description" : "Request for allocating a new database server in a provider"
+      },
+      "AwsDBStackV4Parameters" : {
+        "type" : "object",
+        "description" : "AWS-specific parameters for the database stack"
+      },
+      "AwsDatabaseServerV4Parameters" : {
+        "type" : "object",
+        "properties" : {
+          "backupRetentionPeriod" : {
+            "type" : "integer",
+            "description" : "Time to retain backups, in days",
+            "format" : "int32"
+          },
+          "engineVersion" : {
+            "type" : "string",
+            "description" : "Version of the database engine (vendor)"
+          },
+          "multiAZ" : {
+            "type" : "string",
+            "description" : "Whether to use a multi-AZ deployment"
+          },
+          "storageType" : {
+            "type" : "string",
+            "description" : "Storage type"
+          }
+        },
+        "description" : "AWS-specific parameters for the database server"
+      },
+      "AwsNetworkV4Parameters" : {
+        "type" : "object",
+        "properties" : {
+          "subnetId" : {
+            "type" : "string",
+            "description" : "Subnet ID(s) of the specified AWS network"
+          }
+        },
+        "description" : "AWS-specific parameters for the network"
+      },
+      "AzureDBStackV4Parameters" : {
+        "type" : "object"
+      },
+      "AzureDatabaseServerV4Parameters" : {
+        "type" : "object",
+        "properties" : {
+          "backupRetentionDays" : {
+            "minimum" : 7,
+            "type" : "integer",
+            "description" : "Time to retain backups, in days",
+            "format" : "int32"
+          },
+          "dbVersion" : {
+            "pattern" : "\\d+(?:\\.\\d)?",
+            "type" : "string",
+            "description" : "The version of the database software to use"
+          },
+          "geoRedundantBackup" : {
+            "type" : "boolean",
+            "description" : "Whether backups are geographically redundant"
+          },
+          "skuCapacity" : {
+            "minimum" : 2,
+            "type" : "integer",
+            "description" : "The number of vCPUs assigned to the database server",
+            "format" : "int32"
+          },
+          "skuFamily" : {
+            "type" : "string",
+            "description" : "The family of hardware used for the database server"
+          },
+          "skuTier" : {
+            "pattern" : "Basic|GeneralPurpose|MemoryOptimized",
+            "type" : "string",
+            "description" : "The tier of SKU for the database server"
+          },
+          "storageAutoGrow" : {
+            "type" : "boolean",
+            "description" : "Whether the database server will automatically grow storage when necessary"
+          }
+        },
+        "description" : "Azure-specific parameters for the database server"
+      },
+      "AzureNetworkV4Parameters" : {
+        "type" : "object",
+        "properties" : {
+          "subnets" : {
+            "type" : "string",
+            "description" : "Comma-separated list of fully-qualified subnets with connectivity to the database server"
+          }
+        },
+        "description" : "Azure-specific parameters for the network"
+      },
+      "DatabaseServerV4StackRequest" : {
+        "type" : "object",
+        "properties" : {
+          "instanceType" : {
+            "type" : "string",
+            "description" : "Instance type of the database server"
+          },
+          "databaseVendor" : {
+            "type" : "string",
+            "description" : "Name of the database vendor (MYSQL, POSTGRES, ...)"
+          },
+          "connectionDriver" : {
+            "type" : "string",
+            "description" : "Name of the JDBC connection driver (for example: 'org.postgresql.Driver')"
+          },
+          "storageSize" : {
+            "type" : "integer",
+            "description" : "Storage size of the database server, in GB",
+            "format" : "int64"
+          },
+          "rootUserName" : {
+            "type" : "string",
+            "description" : "Username of the administrative user of the database server"
+          },
+          "rootUserPassword" : {
+            "type" : "string",
+            "description" : "Password of the administrative user of the database server"
+          },
+          "port" : {
+            "maximum" : 65535,
+            "minimum" : 1,
+            "type" : "integer",
+            "description" : "Port of the database server",
+            "format" : "int32"
+          },
+          "aws" : {
+            "$ref" : "#/components/schemas/AwsDatabaseServerV4Parameters"
+          },
+          "azure" : {
+            "$ref" : "#/components/schemas/AzureDatabaseServerV4Parameters"
+          },
+          "gcp" : {
+            "$ref" : "#/components/schemas/GcpDatabaseServerV4Parameters"
+          },
+          "securityGroup" : {
+            "$ref" : "#/components/schemas/SecurityGroupV4StackRequest"
+          }
+        },
+        "description" : "Database server information for the database stack"
+      },
+      "GcpDBStackV4Parameters" : {
+        "type" : "object",
+        "description" : "Azure-specific parameters for the database stack"
+      },
+      "GcpDatabaseServerV4Parameters" : {
+        "type" : "object",
+        "properties" : {
+          "backupRetentionDays" : {
+            "minimum" : 7,
+            "type" : "integer",
+            "description" : "Time to retain backups, in days",
+            "format" : "int32"
+          },
+          "engineVersion" : {
+            "pattern" : "\\d+(?:\\.\\d)?",
+            "type" : "string",
+            "description" : "The version of the database software to use"
+          }
+        },
+        "description" : "GCP-specific parameters for the database server"
+      },
+      "GcpNetworkV4Parameters" : {
+        "type" : "object",
+        "properties" : {
+          "networkId" : {
+            "type" : "string"
+          },
+          "subnetId" : {
+            "type" : "string"
+          },
+          "sharedProjectId" : {
+            "type" : "string"
+          },
+          "noPublicIp" : {
+            "type" : "boolean"
+          },
+          "noFirewallRules" : {
+            "type" : "boolean"
+          }
+        },
+        "description" : "GCP-specific parameters for the network"
+      },
+      "NetworkV4StackRequest" : {
+        "type" : "object",
+        "properties" : {
+          "aws" : {
+            "$ref" : "#/components/schemas/AwsNetworkV4Parameters"
+          },
+          "azure" : {
+            "$ref" : "#/components/schemas/AzureNetworkV4Parameters"
+          },
+          "gcp" : {
+            "$ref" : "#/components/schemas/GcpNetworkV4Parameters"
+          }
+        },
+        "description" : "Network information for the database stack"
+      },
+      "SecurityGroupV4StackRequest" : {
+        "type" : "object",
+        "properties" : {
+          "securityGroupIds" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "Exisiting security group ID(s) for the database server",
+            "items" : {
+              "type" : "string",
+              "description" : "Exisiting security group ID(s) for the database server"
+            }
+          }
+        },
+        "description" : "Security group of the database server"
+      },
+      "SslConfigV4Request" : {
+        "type" : "object",
+        "properties" : {
+          "sslMode" : {
+            "type" : "string",
+            "description" : "SSL enforcement mode for the database server",
+            "enum" : [ "ENABLED", "DISABLED" ]
+          }
+        },
+        "description" : "Request for the SSL config of a database server"
+      },
+      "CreateDatabaseV4Response" : {
+        "required" : [ "result" ],
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "string",
+            "description" : "Result of database creation"
+          }
+        },
+        "description" : "Response for creating a new database on a registered database server"
+      },
+      "CreateDatabaseV4Request" : {
+        "required" : [ "databaseName", "existingDatabaseServerCrn", "type" ],
+        "type" : "object",
+        "properties" : {
+          "existingDatabaseServerCrn" : {
+            "type" : "string",
+            "description" : "CRN of the database server"
+          },
+          "databaseName" : {
+            "type" : "string",
+            "description" : "Name of the database"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "Type of database, i.e., the service name that will use the database (HIVE, DRUID, SUPERSET, RANGER, ...)"
+          },
+          "databaseDescription" : {
+            "maxLength" : 1000000,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Description of the database"
+          }
+        },
+        "description" : "Request for creating a new database on a registered database server"
+      },
+      "DatabaseServerV4Response" : {
+        "required" : [ "connectionDriver", "databaseVendor", "databaseVendorDisplayName", "environmentCrn", "host", "name", "port" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 100,
+            "minLength" : 5,
+            "pattern" : "(^[a-z][-a-z0-9]*[a-z0-9]$)",
+            "type" : "string",
+            "description" : "Name of the database server"
+          },
+          "description" : {
+            "maxLength" : 1000000,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Description of the database server"
+          },
+          "host" : {
+            "type" : "string",
+            "description" : "Host of the database server"
+          },
+          "port" : {
+            "type" : "integer",
+            "description" : "Port of the database server",
+            "format" : "int32"
+          },
+          "databaseVendor" : {
+            "type" : "string",
+            "description" : "Name of the database vendor (MYSQL, POSTGRES, ...)"
+          },
+          "connectionDriver" : {
+            "type" : "string",
+            "description" : "Name of the JDBC connection driver (for example: 'org.postgresql.Driver')"
+          },
+          "environmentCrn" : {
+            "type" : "string",
+            "description" : "CRN of the environment of the database server"
+          },
+          "id" : {
+            "type" : "integer",
+            "description" : "Internal ID of the database server",
+            "format" : "int64"
+          },
+          "crn" : {
+            "type" : "string",
+            "description" : "CRN of the database server"
+          },
+          "databaseVendorDisplayName" : {
+            "type" : "string",
+            "description" : "Display name of the database vendor (MySQL, PostgreSQL, ...)"
+          },
+          "connectionUserName" : {
+            "$ref" : "#/components/schemas/SecretResponse"
+          },
+          "connectionPassword" : {
+            "$ref" : "#/components/schemas/SecretResponse"
+          },
+          "creationDate" : {
+            "type" : "integer",
+            "description" : "Creation date / time of the database server, in epoch milliseconds",
+            "format" : "int64"
+          },
+          "resourceStatus" : {
+            "type" : "string",
+            "description" : "Ownership status of the database server",
+            "enum" : [ "UNKNOWN", "SERVICE_MANAGED", "USER_MANAGED" ]
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Status of the database server stack",
+            "enum" : [ "REQUESTED", "CREATE_IN_PROGRESS", "AVAILABLE", "UPDATE_IN_PROGRESS", "UPDATE_REQUESTED", "UPDATE_FAILED", "CREATE_FAILED", "ENABLE_SECURITY_FAILED", "DELETE_REQUESTED", "PRE_DELETE_IN_PROGRESS", "DELETE_IN_PROGRESS", "DELETE_FAILED", "DELETE_COMPLETED", "STOPPED", "STOP_REQUESTED", "START_REQUESTED", "STOP_IN_PROGRESS", "START_IN_PROGRESS", "START_FAILED", "STOP_FAILED", "WAIT_FOR_SYNC", "MAINTENANCE_MODE_ENABLED", "UPGRADE_REQUESTED", "UPGRADE_IN_PROGRESS", "UPGRADE_FAILED", "UNKNOWN" ]
+          },
+          "statusReason" : {
+            "type" : "string",
+            "description" : "Additional status information about the database server stack"
+          },
+          "sslConfig" : {
+            "$ref" : "#/components/schemas/SslConfigV4Response"
+          },
+          "clusterCrn" : {
+            "type" : "string",
+            "description" : "CRN of the cluster of the database server"
+          },
+          "majorVersion" : {
+            "type" : "string",
+            "description" : "Major version of the database server engine",
+            "enum" : [ "VERSION_FAMILY_9", "VERSION_9_6", "VERSION_10", "VERSION_11", "VERSION_12", "VERSION_13", "VERSION_14" ]
+          }
+        },
+        "description" : "Response containing information about a database server that was acted upon, e.g., retrieved, deleted, listed"
+      },
+      "SslConfigV4Response" : {
+        "type" : "object",
+        "properties" : {
+          "sslCertificates" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "Set of relevant SSL certificates for the database server, including the active one",
+            "items" : {
+              "type" : "string",
+              "description" : "Set of relevant SSL certificates for the database server, including the active one"
+            }
+          },
+          "sslCertificateType" : {
+            "type" : "string",
+            "description" : "SSL certificate type",
+            "enum" : [ "CLOUD_PROVIDER_OWNED", "BRING_YOUR_OWN", "NONE" ]
+          },
+          "sslMode" : {
+            "type" : "string",
+            "description" : "SSL enforcement mode for the database server",
+            "enum" : [ "ENABLED", "DISABLED" ]
+          },
+          "sslCertificateActiveVersion" : {
+            "type" : "integer",
+            "description" : "Version number of the SSL certificate currently active for the database server",
+            "format" : "int32"
+          },
+          "sslCertificateHighestAvailableVersion" : {
+            "type" : "integer",
+            "description" : "Highest version number of the SSL certificate available for the database server; does not necessarily equal the active version",
+            "format" : "int32"
+          },
+          "sslCertificateActiveCloudProviderIdentifier" : {
+            "type" : "string",
+            "description" : "Cloud provider specific identifier of the SSL certificate currently active for the database server"
+          }
+        },
+        "description" : "Response for the SSL config of a database server"
+      },
+      "DatabaseServerV4Responses" : {
+        "type" : "object",
+        "properties" : {
+          "responses" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/DatabaseServerV4Response"
+            }
+          }
+        },
+        "description" : "A set of multiple database server responses"
+      },
+      "UsedSubnetWithResourceResponse" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "subnetId" : {
+            "type" : "string"
+          },
+          "resourceCrn" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          }
+        }
+      },
+      "UsedSubnetsByEnvironmentResponse" : {
+        "type" : "object",
+        "properties" : {
+          "responses" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/UsedSubnetWithResourceResponse"
+            }
+          }
+        }
+      },
+      "DatabaseServerV4Request" : {
+        "required" : [ "connectionPassword", "connectionUserName", "databaseVendor", "environmentCrn", "host", "name", "port" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 100,
+            "minLength" : 5,
+            "pattern" : "(^[a-z][-a-z0-9]*[a-z0-9]$)",
+            "type" : "string",
+            "description" : "Name of the database server"
+          },
+          "description" : {
+            "maxLength" : 1000000,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Description of the database server"
+          },
+          "host" : {
+            "type" : "string",
+            "description" : "Host of the database server"
+          },
+          "port" : {
+            "type" : "integer",
+            "description" : "Port of the database server",
+            "format" : "int32"
+          },
+          "databaseVendor" : {
+            "type" : "string",
+            "description" : "Name of the database vendor (MYSQL, POSTGRES, ...)"
+          },
+          "connectionDriver" : {
+            "type" : "string",
+            "description" : "Name of the JDBC connection driver (for example: 'org.postgresql.Driver')"
+          },
+          "environmentCrn" : {
+            "type" : "string",
+            "description" : "CRN of the environment of the database server"
+          },
+          "connectionUserName" : {
+            "type" : "string",
+            "description" : "Username of the administrative user of the database server"
+          },
+          "connectionPassword" : {
+            "type" : "string",
+            "description" : "Password of the administrative user of the database server"
+          }
+        },
+        "description" : "Request containing information about a database server to be registered"
+      },
+      "DatabaseServerTestV4Response" : {
+        "required" : [ "result" ],
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "string",
+            "description" : "Result of database server connection test"
+          }
+        },
+        "description" : "Response for testing connectivity to a database server"
+      },
+      "DatabaseServerTestV4Request" : {
+        "type" : "object",
+        "properties" : {
+          "existingDatabaseServerCrn" : {
+            "type" : "string",
+            "description" : "CRN of registered database server to be tested for connectivity"
+          },
+          "databaseServer" : {
+            "$ref" : "#/components/schemas/DatabaseServerV4Request"
+          }
+        },
+        "description" : "Request for testing connectivity to a database server"
+      },
+      "FlowIdentifier" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "enum" : [ "FLOW", "FLOW_CHAIN", "NOT_TRIGGERED" ]
+          },
+          "pollableId" : {
+            "type" : "string"
+          }
+        },
+        "description" : "The id of the flow or flow chain that was triggered as part of the process."
+      },
+      "UpgradeDatabaseServerV4Response" : {
+        "required" : [ "currentVersion" ],
+        "type" : "object",
+        "properties" : {
+          "currentVersion" : {
+            "type" : "string",
+            "description" : "The current version of the database server",
+            "enum" : [ "VERSION_FAMILY_9", "VERSION_9_6", "VERSION_10", "VERSION_11", "VERSION_12", "VERSION_13", "VERSION_14" ]
+          },
+          "reason" : {
+            "type" : "string",
+            "description" : "The status reason if upgrade flow is not started due to some validation"
+          },
+          "flowIdentifier" : {
+            "$ref" : "#/components/schemas/FlowIdentifier"
+          }
+        },
+        "description" : "Response for upgrading a database server"
+      },
+      "UpgradeDatabaseServerV4Request" : {
+        "required" : [ "upgradeTargetMajorVersion" ],
+        "type" : "object",
+        "properties" : {
+          "upgradeTargetMajorVersion" : {
+            "type" : "string",
+            "description" : "The major version to which the database server should be upgraded",
+            "enum" : [ "VERSION_11" ]
+          }
+        },
+        "description" : "Request for upgrading a database server in a provider to a higher major version"
+      },
+      "FlowProgressResponse" : {
+        "type" : "object",
+        "properties" : {
+          "flowId" : {
+            "type" : "string"
+          },
+          "flowChainId" : {
+            "type" : "string"
+          },
+          "resourceCrn" : {
+            "type" : "string"
+          },
+          "created" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "transitions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/FlowStateTransitionResponse"
+            }
+          },
+          "progress" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "elapsedTimeInSeconds" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "finalized" : {
+            "type" : "boolean"
+          },
+          "maxNumberOfTransitions" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "FlowStateTransitionResponse" : {
+        "type" : "object",
+        "properties" : {
+          "state" : {
+            "type" : "string"
+          },
+          "nextEvent" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "elapsedTimeInSeconds" : {
+            "type" : "number",
+            "format" : "double"
+          }
+        }
+      },
+      "OperationView" : {
+        "type" : "object",
+        "properties" : {
+          "operationId" : {
+            "type" : "string"
+          },
+          "operationType" : {
+            "type" : "string",
+            "enum" : [ "UNKNOWN", "PROVISION", "DIAGNOSTICS" ]
+          },
+          "operationResource" : {
+            "type" : "string",
+            "enum" : [ "UNKNOWN", "ENVIRONMENT", "FREEIPA", "DATALAKE", "DATAHUB", "REMOTEDB" ]
+          },
+          "operations" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/FlowProgressResponse"
+            }
+          },
+          "subOperations" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/OperationView"
+            }
+          },
+          "subOperationConditions" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string",
+              "enum" : [ "NONE", "REQUIRED" ]
+            }
+          },
+          "progressStatus" : {
+            "type" : "string",
+            "enum" : [ "UNKNOWN", "RUNNING", "FINISHED", "CANCELLED", "FAILED" ]
+          },
+          "progress" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "Authorization" : {
+        "type" : "apiKey",
+        "name" : "x-cdp-actor-crn",
+        "in" : "header"
+      },
+      "crnHeader" : {
+        "type" : "apiKey",
+        "name" : "x-cdp-actor-crn",
+        "in" : "header"
+      }
+    }
+  }
+}

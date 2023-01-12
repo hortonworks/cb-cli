@@ -1,0 +1,3194 @@
+openapi: 3.0.1
+info:
+  contact:
+    name: "Cloudera, Inc."
+    url: https://www.cloudera.com/contact-sales.html
+  description: API for working with databases and database servers
+  license:
+    name: Apache License 2.0
+    url: https://github.com/hortonworks/cloudbreak/blob/master/LICENSE
+  title: Redbeams API
+  version: 2.66.0-b41-1-ge11bb40
+servers:
+- url: /
+tags:
+- description: API about authorization informations
+  name: /authorization
+- description: Miscellaneous utility operations
+  name: /v4/utils
+- description: Operations on flow logs
+  name: /flow
+- description: Operations on flow logs
+  name: /flow-public
+- description: Get flow step progression
+  name: /v4/operation
+- description: Get flow step progression
+  name: /v4/progress
+paths:
+  /authorization/info:
+    get:
+      operationId: authorizationInfo
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ApiAuthorizationInfo'
+                type: array
+                uniqueItems: true
+          description: default response
+      summary: list of required permissions for APIs
+      tags:
+      - /authorization
+  /v4/utils/check_right_by_crn:
+    post:
+      description: Check right from UI
+      operationId: checkRightByCrn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckResourceRightsV4Request'
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckResourceRightsV4Response'
+          description: default response
+      summary: Checking rights from UI by resource CRN
+      tags:
+      - /v4/utils
+  /v4/utils/check_right:
+    post:
+      description: Check right from UI
+      operationId: checkRightInAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckRightV4Request'
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckRightV4Response'
+          description: default response
+      summary: Checking rights from UI in account
+      tags:
+      - /v4/utils
+  /v4/utils/check_right_on_resources:
+    post:
+      description: Check right from Uluwatu
+      operationId: checkRightOnResources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckRightOnResourcesV4Request'
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckRightOnResourcesV4Response'
+          description: default response
+      summary: Checking right from Uluwatu by resource CRNs
+      tags:
+      - /v4/utils
+  /flow/check/chainIds:
+    get:
+      description: Flow check log operations
+      operationId: getFlowChainsStatusesByChainIds_1
+      parameters:
+      - explode: true
+        in: query
+        name: chainIds
+        required: true
+        schema:
+          items:
+            type: string
+          maxItems: 50
+          minItems: 0
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageFlowCheckResponse'
+          description: default response
+      summary: Gets flow check responses for parent chains - Input size max 50
+      tags:
+      - /flow
+  /flow/logs/{flowId}:
+    get:
+      description: Flow log operations
+      operationId: getFlowLogsByFlowId_1
+      parameters:
+      - explode: false
+        in: path
+        name: flowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FlowLogResponse'
+                type: array
+          description: default response
+      summary: Get flow logs by flow id
+      tags:
+      - /flow
+  /flow/logs/flowIds:
+    get:
+      description: Flow log operations
+      operationId: getFlowLogsByFlowIds_1
+      parameters:
+      - explode: true
+        in: query
+        name: flowIds
+        required: true
+        schema:
+          items:
+            type: string
+          maxItems: 50
+          minItems: 0
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageFlowLogResponse'
+          description: default response
+      summary: Get flow logs by a list of flow ids - Input size max 50
+      tags:
+      - /flow
+  /flow/logs/resource/crn/{resourceCrn}:
+    get:
+      description: Flow log operations
+      operationId: getFlowLogsByResourceCrn_1
+      parameters:
+      - explode: false
+        in: path
+        name: resourceCrn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FlowLogResponse'
+                type: array
+          description: default response
+      summary: Get flow logs for resource by resource CRN
+      tags:
+      - /flow
+  /flow/logs/resource/name/{resourceName}:
+    get:
+      description: Flow log operations
+      operationId: getFlowLogsByResourceName_1
+      parameters:
+      - explode: true
+        in: query
+        name: accountId
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: resourceName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FlowLogResponse'
+                type: array
+          description: default response
+      summary: Get flow logs for resource by resource name
+      tags:
+      - /flow
+  /flow/logs/{flowId}/last:
+    get:
+      description: Flow log operations
+      operationId: getLastFlowById_1
+      parameters:
+      - explode: false
+        in: path
+        name: flowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowLogResponse'
+          description: default response
+      summary: Get last flow log by flow id
+      tags:
+      - /flow
+  /flow/logs/resource/crn/{resourceCrn}/last:
+    get:
+      description: Flow log operations
+      operationId: getLastFlowByResourceCrn_1
+      parameters:
+      - explode: false
+        in: path
+        name: resourceCrn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowLogResponse'
+          description: default response
+      summary: Get last flow log for resource by resource CRN
+      tags:
+      - /flow
+  /flow/logs/resource/name/{resourceName}/last:
+    get:
+      description: Flow log operations
+      operationId: getLastFlowByResourceName_1
+      parameters:
+      - explode: true
+        in: query
+        name: accountId
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: resourceName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowLogResponse'
+          description: default response
+      summary: Get last flow log for resource by resource name
+      tags:
+      - /flow
+  /flow/check/chainId/{chainId}:
+    get:
+      description: Flow log operations
+      operationId: hasFlowRunningByChainId_1
+      parameters:
+      - explode: false
+        in: path
+        name: chainId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowCheckResponse'
+          description: default response
+      summary: Check if there is a running flow for chain id
+      tags:
+      - /flow
+  /flow/check/flowId/{flowId}:
+    get:
+      description: Flow log operations
+      operationId: hasFlowRunningByFlowId_1
+      parameters:
+      - explode: false
+        in: path
+        name: flowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowCheckResponse'
+          description: default response
+      summary: Check if there is a running flow for flow id
+      tags:
+      - /flow
+  /flow-public/check/chainId/{chainId}:
+    get:
+      description: Flow log operations
+      operationId: hasFlowRunningByChainIdAndResourceCrn
+      parameters:
+      - explode: false
+        in: path
+        name: chainId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: resourceCrn
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowCheckResponse'
+          description: default response
+      summary: Check if there is a running flow for chain id and resourceCrn
+      tags:
+      - /flow-public
+  /flow-public/check/flowId/{flowId}:
+    get:
+      description: Flow log operations
+      operationId: hasFlowRunningByFlowIdAndResourceCrn
+      parameters:
+      - explode: false
+        in: path
+        name: flowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: resourceCrn
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowCheckResponse'
+          description: default response
+      summary: Check if there is a running flow for flow id and resourceId
+      tags:
+      - /flow-public
+  /v4/databases/{crn}:
+    delete:
+      description: "Deletes a database by its CRN. If the database was registered\
+        \ with this service, then this operation merely deregisters it. Otherwise,\
+        \ this operation deletes the database from the database server, along with\
+        \ its corresponding user."
+      operationId: deleteDatabaseByCrn
+      parameters:
+      - description: CRN of the database
+        explode: false
+        in: path
+        name: crn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseV4Response'
+          description: default response
+      summary: delete a database config by CRN
+      tags:
+      - databases
+    get:
+      description: Gets information on a database by its CRN.
+      operationId: getDatabaseByCrn
+      parameters:
+      - description: CRN of the database
+        explode: false
+        in: path
+        name: crn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseV4Response'
+          description: default response
+      summary: get a database config by CRN
+      tags:
+      - databases
+  /v4/databases/name/{name}:
+    delete:
+      description: "Deletes a database by its name. If the database was registered\
+        \ with this service, then this operation merely deregisters it. Otherwise,\
+        \ this operation deletes the database from the database server, along with\
+        \ its corresponding user."
+      operationId: deleteDatabaseByName
+      parameters:
+      - description: CRN of the environment of the database(s)
+        explode: true
+        in: query
+        name: environmentCrn
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Name of the database
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseV4Response'
+          description: default response
+      summary: delete a database config by name
+      tags:
+      - databases
+    get:
+      description: Gets information on a database by its name.
+      operationId: getDatabaseByName
+      parameters:
+      - description: CRN of the environment of the database(s)
+        explode: true
+        in: query
+        name: environmentCrn
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Name of the database
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseV4Response'
+          description: default response
+      summary: get a database config by name
+      tags:
+      - databases
+  /v4/databases:
+    delete:
+      description: "Deletes multiple databases, each by CRN. See the notes on the\
+        \ single delete operation for details."
+      operationId: deleteMultipleDatabasesByCrn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+              uniqueItems: true
+        description: CRNs of the databases
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseV4Responses'
+          description: default response
+      summary: delete multiple database configs by CRN
+      tags:
+      - databases
+    get:
+      description: "Lists all databases that are known, either because they were registered\
+        \ or because this service created them."
+      operationId: listDatabases
+      parameters:
+      - description: CRN of the environment of the database(s)
+        explode: true
+        in: query
+        name: environmentCrn
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseV4Responses'
+          description: default response
+      summary: list database configs
+      tags:
+      - databases
+  /v4/databases/register:
+    post:
+      description: "Registers an existing database, residing on some database server."
+      operationId: registerDatabase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatabaseV4Request'
+        description: Request containing information about a database to be registered
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseV4Response'
+          description: default response
+      summary: register a database config of existing database
+      tags:
+      - databases
+  /v4/databases/test:
+    post:
+      description: "Tests connectivity to a database. Use this to verify access to\
+        \ the database from this service, and also to verify authentication credentials."
+      operationId: testDatabaseConnection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatabaseTestV4Request'
+        description: Request for testing connectivity to a database
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseTestV4Response'
+          description: default response
+      summary: test database connectivity
+      tags:
+      - databases
+  /v4/databaseservers/managed:
+    post:
+      description: Creates a new database server. The database server starts out with
+        only default databases.
+      operationId: createDatabaseServer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllocateDatabaseServerV4Request'
+        description: Request for allocating a new database server in a provider
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerStatusV4Response'
+          description: default response
+      summary: create and register a database server in a cloud provider
+      tags:
+      - database servers
+  /v4/databaseservers/createDatabase:
+    post:
+      description: "Creates a new database on a database server. The database starts\
+        \ out empty. A new user with credentials separate from the database server's\
+        \ administrative user is also created, with full rights to the new database."
+      operationId: createDatabaseOnServer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatabaseV4Request'
+        description: Request for creating a new database on a registered database
+          server
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDatabaseV4Response'
+          description: default response
+      summary: create a database on an existing database server
+      tags:
+      - database servers
+  /v4/databaseservers/internal/managed:
+    post:
+      description: Creates a new database server. The database server starts out with
+        only default databases.
+      operationId: createDatabaseServerInternal
+      parameters:
+      - explode: true
+        in: query
+        name: initiatorUserCrn
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllocateDatabaseServerV4Request'
+        description: Request for allocating a new database server in a provider
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerStatusV4Response'
+          description: default response
+      summary: create and register a database server in a cloud provider with internal
+        actor
+      tags:
+      - database servers
+  /v4/databaseservers/{crn}:
+    delete:
+      description: Terminates and/or deregisters a database server by its CRN.
+      operationId: deleteDatabaseServerByCrn
+      parameters:
+      - description: CRN of the database server
+        explode: false
+        in: path
+        name: crn
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerV4Response'
+          description: default response
+      summary: terminate and/or deregister a database server by CRN
+      tags:
+      - database servers
+    get:
+      description: Gets information on a database server by its CRN.
+      operationId: getDatabaseServerByCrn
+      parameters:
+      - description: CRN of the database server
+        explode: false
+        in: path
+        name: crn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerV4Response'
+          description: default response
+      summary: get a database server by CRN
+      tags:
+      - database servers
+  /v4/databaseservers/name/{name}:
+    delete:
+      description: Terminates and/or deregisters a database server by its name.
+      operationId: deleteDatabaseServerByName
+      parameters:
+      - description: CRN of the environment of the database server(s)
+        explode: true
+        in: query
+        name: environmentCrn
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Name of the database server
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerV4Response'
+          description: default response
+      summary: terminate and/or deregister a database server by name
+      tags:
+      - database servers
+    get:
+      description: Gets information on a database server by its name.
+      operationId: getDatabaseServerByName
+      parameters:
+      - description: CRN of the environment of the database server(s)
+        explode: true
+        in: query
+        name: environmentCrn
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Name of the database server
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerV4Response'
+          description: default response
+      summary: get a database server by name
+      tags:
+      - database servers
+  /v4/databaseservers:
+    delete:
+      description: "Terminates and/or deregisters multiple database servers, each\
+        \ by CRN."
+      operationId: deleteMultipleDatabaseServersByCrn
+      parameters:
+      - explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+              uniqueItems: true
+        description: CRNs of the database servers
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerV4Responses'
+          description: default response
+      summary: terminate and/or deregister multiple database servers by CRN
+      tags:
+      - database servers
+    get:
+      description: "Lists all database servers that are known, either because they\
+        \ were registered or because this service created them."
+      operationId: listDatabaseServers
+      parameters:
+      - description: CRN of the environment of the database server(s)
+        explode: true
+        in: query
+        name: environmentCrn
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerV4Responses'
+          description: default response
+      summary: list database servers
+      tags:
+      - database servers
+  /v4/databaseservers/clusterCrn/{clusterCrn}:
+    get:
+      description: Gets information on a database server by cluster CRN
+      operationId: getDatabaseServerByClusterCrn
+      parameters:
+      - description: CRN of the environment of the database server(s)
+        explode: true
+        in: query
+        name: environmentCrn
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: CRN of cluster of the database server
+        explode: false
+        in: path
+        name: clusterCrn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerV4Response'
+          description: default response
+      summary: get a database server by cluster CRN
+      tags:
+      - database servers
+  /v4/databaseservers/internal/used_subnets:
+    get:
+      description: List the used subnets by the given Environment resource CRN
+      operationId: getUsedSubnetsByEnvironment
+      parameters:
+      - explode: true
+        in: query
+        name: environmentCrn
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsedSubnetsByEnvironmentResponse'
+          description: default response
+      summary: list the used subnets by the given Environment resource CRN
+      tags:
+      - database servers
+  /v4/databaseservers/register:
+    post:
+      description: Registers an existing database server.
+      operationId: registerDatabaseServer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatabaseServerV4Request'
+        description: Request containing information about a database server to be
+          registered
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerV4Response'
+          description: default response
+      summary: register a database server
+      tags:
+      - database servers
+  /v4/databaseservers/{crn}/release:
+    put:
+      description: "Releases management of a service-managed database server. Resource\
+        \ tracking information is discarded,  but the server remains registered as\
+        \ user-managed."
+      operationId: releaseManagedDatabaseServer
+      parameters:
+      - description: CRN of the database server
+        explode: false
+        in: path
+        name: crn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerV4Response'
+          description: default response
+      summary: release management of a service-managed database server
+      tags:
+      - database servers
+  /v4/databaseservers/{crn}/start:
+    put:
+      description: Start a previosly stopped database server.
+      operationId: startDatabaseServer
+      parameters:
+      - description: CRN of the database server
+        explode: false
+        in: path
+        name: crn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      summary: start database server
+      tags:
+      - database servers
+  /v4/databaseservers/{crn}/stop:
+    put:
+      description: Stop a running database server.
+      operationId: stopDatabaseServer
+      parameters:
+      - description: CRN of the database server
+        explode: false
+        in: path
+        name: crn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      summary: stop database server
+      tags:
+      - database servers
+  /v4/databaseservers/test:
+    post:
+      description: "Tests connectivity to a database. Use this to verify access to\
+        \ the database server from this service, and also to verify authentication\
+        \ credentials."
+      operationId: testDatabaseServerConnection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatabaseServerTestV4Request'
+        description: Request for testing connectivity to a database server
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseServerTestV4Response'
+          description: default response
+      summary: test database server connectivity
+      tags:
+      - database servers
+  /v4/databaseservers/updateclustercrn:
+    post:
+      description: Updates the cluster crn associated with the database
+      operationId: updateClusterCrn
+      parameters:
+      - explode: true
+        in: query
+        name: environmentCrn
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: currentClusterCrn
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: newClusterCrn
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: initiatorUserCrn
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      summary: Update the cluster crn associated with the database
+      tags:
+      - database servers
+  /v4/databaseservers/{crn}/upgrade:
+    put:
+      description: Upgrades a database server to a higher major version.
+      operationId: upgradeDatabaseServer
+      parameters:
+      - description: CRN of the database server
+        explode: false
+        in: path
+        name: crn
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeDatabaseServerV4Request'
+        description: Request for upgrading a database server in a provider to a higher
+          major version
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpgradeDatabaseServerV4Response'
+          description: default response
+      summary: upgrade a database server in a cloud provider to a higher major version
+      tags:
+      - database servers
+  /v4/databaseservers/{crn}/validate_upgrade:
+    put:
+      description: Validates if upgrade is possible on the database server to a higher
+        major version.
+      operationId: validateUpgradeDatabaseServer
+      parameters:
+      - description: CRN of the database server
+        explode: false
+        in: path
+        name: crn
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeDatabaseServerV4Request'
+        description: Request for upgrading a database server in a provider to a higher
+          major version
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpgradeDatabaseServerV4Response'
+          description: default response
+      summary: validate if upgrade is possible on the database server in a cloud provider
+        to a higher major version
+      tags:
+      - database servers
+  /v4/operation/resource/crn/{resourceCrn}:
+    get:
+      description: Flow operation details
+      operationId: getRedbeamsOperationProgressByResourceCrn
+      parameters:
+      - explode: false
+        in: path
+        name: resourceCrn
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: detailed
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationView'
+          description: default response
+      summary: Get flow operation progress details for resource by resource crn
+      tags:
+      - /v4/operation
+  /v4/progress/resource/crn/{resourceCrn}:
+    get:
+      description: Flow operation progress
+      operationId: getRedbeamsFlowLogsProgressByResourceCrn
+      parameters:
+      - explode: false
+        in: path
+        name: resourceCrn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FlowProgressResponse'
+                type: array
+          description: default response
+      summary: List recent flow operations progress details for resource by resource
+        crn
+      tags:
+      - /v4/progress
+  /v4/progress/resource/crn/{resourceCrn}/last:
+    get:
+      description: Flow operation progress
+      operationId: getRedbeamsLastFlowLogProgressByResourceCrn
+      parameters:
+      - explode: false
+        in: path
+        name: resourceCrn
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowProgressResponse'
+          description: default response
+      summary: Get last flow operation progress details for resource by resource crn
+      tags:
+      - /v4/progress
+components:
+  schemas:
+    ApiAuthorizationInfo:
+      example:
+        path: path
+        newAuthorization:
+          permissionsNeededForApi:
+          - permissionsNeededForApi
+          - permissionsNeededForApi
+          permissionsNeededForRequestObject:
+          - fieldName: fieldName
+            permission: permission
+          - fieldName: fieldName
+            permission: permission
+        httpMethod: httpMethod
+        message: message
+      properties:
+        path:
+          type: string
+        httpMethod:
+          type: string
+        newAuthorization:
+          $ref: '#/components/schemas/NewAuthorizationInfo'
+        message:
+          type: string
+      type: object
+    FieldAuthorizationInfo:
+      example:
+        fieldName: fieldName
+        permission: permission
+      properties:
+        fieldName:
+          type: string
+        permission:
+          type: string
+      type: object
+    NewAuthorizationInfo:
+      example:
+        permissionsNeededForApi:
+        - permissionsNeededForApi
+        - permissionsNeededForApi
+        permissionsNeededForRequestObject:
+        - fieldName: fieldName
+          permission: permission
+        - fieldName: fieldName
+          permission: permission
+      properties:
+        permissionsNeededForApi:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        permissionsNeededForRequestObject:
+          items:
+            $ref: '#/components/schemas/FieldAuthorizationInfo'
+          type: array
+          uniqueItems: true
+      type: object
+    CheckResourceRightV4SingleResponse:
+      example:
+        resourceCrn: resourceCrn
+        rights:
+        - result: true
+          right: ENV_CREATE
+        - result: true
+          right: ENV_CREATE
+      properties:
+        resourceCrn:
+          type: string
+        rights:
+          items:
+            $ref: '#/components/schemas/CheckRightV4SingleResponse'
+          type: array
+      type: object
+    CheckResourceRightsV4Response:
+      example:
+        responses:
+        - resourceCrn: resourceCrn
+          rights:
+          - result: true
+            right: ENV_CREATE
+          - result: true
+            right: ENV_CREATE
+        - resourceCrn: resourceCrn
+          rights:
+          - result: true
+            right: ENV_CREATE
+          - result: true
+            right: ENV_CREATE
+      properties:
+        responses:
+          items:
+            $ref: '#/components/schemas/CheckResourceRightV4SingleResponse'
+          type: array
+      type: object
+    CheckRightV4SingleResponse:
+      example:
+        result: true
+        right: ENV_CREATE
+      properties:
+        right:
+          enum:
+          - ENV_CREATE
+          - LIST_ASSIGNED_ROLES
+          - CREATE_CLUSTER_TEMPLATE
+          - CREATE_CLUSTER_DEFINITION
+          - CREATE_CREDENTIAL
+          - CREATE_RECIPE
+          - CREATE_IMAGE_CATALOG
+          - CREATE_PROXY
+          - ENV_START
+          - ENV_STOP
+          - ENV_DELETE
+          - ENV_DESCRIBE
+          - ENV_EDIT
+          - CHANGE_CRED
+          - DH_CREATE
+          - UPDATE_AZURE_ENCRYPTION_RESOURCES
+          - ENV_VERTICAL_SCALING
+          - DH_START
+          - DH_STOP
+          - DH_DELETE
+          - DH_REPAIR
+          - DH_RESIZE
+          - DH_RETRY
+          - DH_DESCRIBE
+          - DH_RECOVER
+          - DH_UPGRADE
+          - DH_REFRESH_RECIPES
+          - DH_VERTICAL_SCALING
+          - SDX_UPGRADE
+          - SDX_RECOVER
+          - SDX_REPAIR
+          - SDX_RETRY
+          - SDX_DESCRIBE
+          - SDX_RESIZE
+          - SDX_VERTICAL_SCALING
+          - SDX_REFRESH_RECIPES
+          type: string
+        result:
+          type: boolean
+      type: object
+    CheckResourceRightsV4Request:
+      example:
+        resourceRights:
+        - resourceCrn: resourceCrn
+          rights:
+          - ENV_CREATE
+          - ENV_CREATE
+        - resourceCrn: resourceCrn
+          rights:
+          - ENV_CREATE
+          - ENV_CREATE
+        rights:
+        - ENV_CREATE
+        - ENV_CREATE
+      properties:
+        rights:
+          items:
+            enum:
+            - ENV_CREATE
+            - LIST_ASSIGNED_ROLES
+            - CREATE_CLUSTER_TEMPLATE
+            - CREATE_CLUSTER_DEFINITION
+            - CREATE_CREDENTIAL
+            - CREATE_RECIPE
+            - CREATE_IMAGE_CATALOG
+            - CREATE_PROXY
+            - ENV_START
+            - ENV_STOP
+            - ENV_DELETE
+            - ENV_DESCRIBE
+            - ENV_EDIT
+            - CHANGE_CRED
+            - DH_CREATE
+            - UPDATE_AZURE_ENCRYPTION_RESOURCES
+            - ENV_VERTICAL_SCALING
+            - DH_START
+            - DH_STOP
+            - DH_DELETE
+            - DH_REPAIR
+            - DH_RESIZE
+            - DH_RETRY
+            - DH_DESCRIBE
+            - DH_RECOVER
+            - DH_UPGRADE
+            - DH_REFRESH_RECIPES
+            - DH_VERTICAL_SCALING
+            - SDX_UPGRADE
+            - SDX_RECOVER
+            - SDX_REPAIR
+            - SDX_RETRY
+            - SDX_DESCRIBE
+            - SDX_RESIZE
+            - SDX_VERTICAL_SCALING
+            - SDX_REFRESH_RECIPES
+            type: string
+          type: array
+        resourceRights:
+          items:
+            $ref: '#/components/schemas/ResourceRightsV4'
+          type: array
+      type: object
+    ResourceRightsV4:
+      example:
+        resourceCrn: resourceCrn
+        rights:
+        - ENV_CREATE
+        - ENV_CREATE
+      properties:
+        resourceCrn:
+          type: string
+        rights:
+          items:
+            enum:
+            - ENV_CREATE
+            - LIST_ASSIGNED_ROLES
+            - CREATE_CLUSTER_TEMPLATE
+            - CREATE_CLUSTER_DEFINITION
+            - CREATE_CREDENTIAL
+            - CREATE_RECIPE
+            - CREATE_IMAGE_CATALOG
+            - CREATE_PROXY
+            - ENV_START
+            - ENV_STOP
+            - ENV_DELETE
+            - ENV_DESCRIBE
+            - ENV_EDIT
+            - CHANGE_CRED
+            - DH_CREATE
+            - UPDATE_AZURE_ENCRYPTION_RESOURCES
+            - ENV_VERTICAL_SCALING
+            - DH_START
+            - DH_STOP
+            - DH_DELETE
+            - DH_REPAIR
+            - DH_RESIZE
+            - DH_RETRY
+            - DH_DESCRIBE
+            - DH_RECOVER
+            - DH_UPGRADE
+            - DH_REFRESH_RECIPES
+            - DH_VERTICAL_SCALING
+            - SDX_UPGRADE
+            - SDX_RECOVER
+            - SDX_REPAIR
+            - SDX_RETRY
+            - SDX_DESCRIBE
+            - SDX_RESIZE
+            - SDX_VERTICAL_SCALING
+            - SDX_REFRESH_RECIPES
+            type: string
+          type: array
+      type: object
+    CheckRightV4Response:
+      example:
+        responses:
+        - result: true
+          right: ENV_CREATE
+        - result: true
+          right: ENV_CREATE
+      properties:
+        responses:
+          items:
+            $ref: '#/components/schemas/CheckRightV4SingleResponse'
+          type: array
+      type: object
+    CheckRightV4Request:
+      example:
+        rights:
+        - ENV_CREATE
+        - ENV_CREATE
+      properties:
+        rights:
+          items:
+            enum:
+            - ENV_CREATE
+            - LIST_ASSIGNED_ROLES
+            - CREATE_CLUSTER_TEMPLATE
+            - CREATE_CLUSTER_DEFINITION
+            - CREATE_CREDENTIAL
+            - CREATE_RECIPE
+            - CREATE_IMAGE_CATALOG
+            - CREATE_PROXY
+            - ENV_START
+            - ENV_STOP
+            - ENV_DELETE
+            - ENV_DESCRIBE
+            - ENV_EDIT
+            - CHANGE_CRED
+            - DH_CREATE
+            - UPDATE_AZURE_ENCRYPTION_RESOURCES
+            - ENV_VERTICAL_SCALING
+            - DH_START
+            - DH_STOP
+            - DH_DELETE
+            - DH_REPAIR
+            - DH_RESIZE
+            - DH_RETRY
+            - DH_DESCRIBE
+            - DH_RECOVER
+            - DH_UPGRADE
+            - DH_REFRESH_RECIPES
+            - DH_VERTICAL_SCALING
+            - SDX_UPGRADE
+            - SDX_RECOVER
+            - SDX_REPAIR
+            - SDX_RETRY
+            - SDX_DESCRIBE
+            - SDX_RESIZE
+            - SDX_VERTICAL_SCALING
+            - SDX_REFRESH_RECIPES
+            type: string
+          type: array
+      type: object
+    CheckResourceRightV4Response:
+      example:
+        result: true
+        resourceCrn: resourceCrn
+      properties:
+        resourceCrn:
+          type: string
+        result:
+          type: boolean
+      type: object
+    CheckRightOnResourcesV4Response:
+      example:
+        responses:
+        - result: true
+          resourceCrn: resourceCrn
+        - result: true
+          resourceCrn: resourceCrn
+        right: ENV_CREATE
+      properties:
+        right:
+          enum:
+          - ENV_CREATE
+          - LIST_ASSIGNED_ROLES
+          - CREATE_CLUSTER_TEMPLATE
+          - CREATE_CLUSTER_DEFINITION
+          - CREATE_CREDENTIAL
+          - CREATE_RECIPE
+          - CREATE_IMAGE_CATALOG
+          - CREATE_PROXY
+          - ENV_START
+          - ENV_STOP
+          - ENV_DELETE
+          - ENV_DESCRIBE
+          - ENV_EDIT
+          - CHANGE_CRED
+          - DH_CREATE
+          - UPDATE_AZURE_ENCRYPTION_RESOURCES
+          - ENV_VERTICAL_SCALING
+          - DH_START
+          - DH_STOP
+          - DH_DELETE
+          - DH_REPAIR
+          - DH_RESIZE
+          - DH_RETRY
+          - DH_DESCRIBE
+          - DH_RECOVER
+          - DH_UPGRADE
+          - DH_REFRESH_RECIPES
+          - DH_VERTICAL_SCALING
+          - SDX_UPGRADE
+          - SDX_RECOVER
+          - SDX_REPAIR
+          - SDX_RETRY
+          - SDX_DESCRIBE
+          - SDX_RESIZE
+          - SDX_VERTICAL_SCALING
+          - SDX_REFRESH_RECIPES
+          type: string
+        responses:
+          items:
+            $ref: '#/components/schemas/CheckResourceRightV4Response'
+          type: array
+      type: object
+    CheckRightOnResourcesV4Request:
+      example:
+        right: ENV_CREATE
+        resourceCrns:
+        - resourceCrns
+        - resourceCrns
+      properties:
+        right:
+          enum:
+          - ENV_CREATE
+          - LIST_ASSIGNED_ROLES
+          - CREATE_CLUSTER_TEMPLATE
+          - CREATE_CLUSTER_DEFINITION
+          - CREATE_CREDENTIAL
+          - CREATE_RECIPE
+          - CREATE_IMAGE_CATALOG
+          - CREATE_PROXY
+          - ENV_START
+          - ENV_STOP
+          - ENV_DELETE
+          - ENV_DESCRIBE
+          - ENV_EDIT
+          - CHANGE_CRED
+          - DH_CREATE
+          - UPDATE_AZURE_ENCRYPTION_RESOURCES
+          - ENV_VERTICAL_SCALING
+          - DH_START
+          - DH_STOP
+          - DH_DELETE
+          - DH_REPAIR
+          - DH_RESIZE
+          - DH_RETRY
+          - DH_DESCRIBE
+          - DH_RECOVER
+          - DH_UPGRADE
+          - DH_REFRESH_RECIPES
+          - DH_VERTICAL_SCALING
+          - SDX_UPGRADE
+          - SDX_RECOVER
+          - SDX_REPAIR
+          - SDX_RETRY
+          - SDX_DESCRIBE
+          - SDX_RESIZE
+          - SDX_VERTICAL_SCALING
+          - SDX_REFRESH_RECIPES
+          type: string
+        resourceCrns:
+          items:
+            type: string
+          type: array
+      required:
+      - resourceCrns
+      - right
+      type: object
+    FlowCheckResponse:
+      example:
+        latestFlowFinalizedAndFailed: true
+        hasActiveFlow: true
+        flowChainId: flowChainId
+        endTime: 5
+        flowId: flowId
+      properties:
+        flowId:
+          type: string
+        flowChainId:
+          type: string
+        hasActiveFlow:
+          type: boolean
+        latestFlowFinalizedAndFailed:
+          type: boolean
+        endTime:
+          format: int64
+          type: integer
+      type: object
+    PageFlowCheckResponse:
+      example:
+        number: 2
+        numberOfElements: 1
+        size: 5
+        last: true
+        totalPages: 0
+        pageable:
+          paged: true
+          pageNumber: 9
+          offset: 7
+          pageSize: 3
+          unpaged: true
+          sort:
+            unsorted: true
+            sorted: true
+            empty: true
+        sort:
+          unsorted: true
+          sorted: true
+          empty: true
+        content:
+        - latestFlowFinalizedAndFailed: true
+          hasActiveFlow: true
+          flowChainId: flowChainId
+          endTime: 5
+          flowId: flowId
+        - latestFlowFinalizedAndFailed: true
+          hasActiveFlow: true
+          flowChainId: flowChainId
+          endTime: 5
+          flowId: flowId
+        first: true
+        totalElements: 6
+        empty: true
+      properties:
+        totalPages:
+          format: int32
+          type: integer
+        totalElements:
+          format: int64
+          type: integer
+        sort:
+          $ref: '#/components/schemas/Sort'
+        numberOfElements:
+          format: int32
+          type: integer
+        size:
+          format: int32
+          type: integer
+        content:
+          items:
+            $ref: '#/components/schemas/FlowCheckResponse'
+          type: array
+        number:
+          format: int32
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        empty:
+          type: boolean
+      type: object
+    Pageable:
+      example:
+        paged: true
+        pageNumber: 9
+        offset: 7
+        pageSize: 3
+        unpaged: true
+        sort:
+          unsorted: true
+          sorted: true
+          empty: true
+      properties:
+        sort:
+          $ref: '#/components/schemas/Sort'
+        offset:
+          format: int64
+          type: integer
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+        pageNumber:
+          format: int32
+          type: integer
+        pageSize:
+          format: int32
+          type: integer
+      type: object
+    Sort:
+      example:
+        unsorted: true
+        sorted: true
+        empty: true
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+      type: object
+    FlowLogResponse:
+      example:
+        finalized: true
+        stateStatus: PENDING
+        resourceId: 0
+        created: 6
+        flowTriggerUserCrn: flowTriggerUserCrn
+        nextEvent: nextEvent
+        flowChainId: flowChainId
+        endTime: 1
+        currentState: currentState
+        flowId: flowId
+        nodeId: nodeId
+      properties:
+        resourceId:
+          format: int64
+          type: integer
+        created:
+          format: int64
+          type: integer
+        flowId:
+          type: string
+        flowChainId:
+          type: string
+        nextEvent:
+          type: string
+        currentState:
+          type: string
+        finalized:
+          type: boolean
+        nodeId:
+          type: string
+        stateStatus:
+          enum:
+          - PENDING
+          - SUCCESSFUL
+          - FAILED
+          type: string
+        flowTriggerUserCrn:
+          type: string
+        endTime:
+          format: int64
+          type: integer
+      type: object
+    PageFlowLogResponse:
+      example:
+        number: 5
+        numberOfElements: 1
+        size: 5
+        last: true
+        totalPages: 0
+        pageable:
+          paged: true
+          pageNumber: 9
+          offset: 7
+          pageSize: 3
+          unpaged: true
+          sort:
+            unsorted: true
+            sorted: true
+            empty: true
+        sort:
+          unsorted: true
+          sorted: true
+          empty: true
+        content:
+        - finalized: true
+          stateStatus: PENDING
+          resourceId: 0
+          created: 6
+          flowTriggerUserCrn: flowTriggerUserCrn
+          nextEvent: nextEvent
+          flowChainId: flowChainId
+          endTime: 1
+          currentState: currentState
+          flowId: flowId
+          nodeId: nodeId
+        - finalized: true
+          stateStatus: PENDING
+          resourceId: 0
+          created: 6
+          flowTriggerUserCrn: flowTriggerUserCrn
+          nextEvent: nextEvent
+          flowChainId: flowChainId
+          endTime: 1
+          currentState: currentState
+          flowId: flowId
+          nodeId: nodeId
+        first: true
+        totalElements: 6
+        empty: true
+      properties:
+        totalPages:
+          format: int32
+          type: integer
+        totalElements:
+          format: int64
+          type: integer
+        sort:
+          $ref: '#/components/schemas/Sort'
+        numberOfElements:
+          format: int32
+          type: integer
+        size:
+          format: int32
+          type: integer
+        content:
+          items:
+            $ref: '#/components/schemas/FlowLogResponse'
+          type: array
+        number:
+          format: int32
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        empty:
+          type: boolean
+      type: object
+    DatabaseV4Response:
+      description: "Response containing information about a database that was acted\
+        \ upon, e.g., retrieved, deleted, listed"
+      example:
+        connectionUserName:
+          enginePath: enginePath
+          secretPath: secretPath
+        description: description
+        type: type
+        creationDate: 0
+        databaseEngine: databaseEngine
+        environmentCrn: environmentCrn
+        connectionDriver: connectionDriver
+        databaseEngineDisplayName: databaseEngineDisplayName
+        resourceStatus: UNKNOWN
+        name: name
+        connectionURL: connectionURL
+        connectionPassword:
+          enginePath: enginePath
+          secretPath: secretPath
+        crn: crn
+      properties:
+        name:
+          description: Name of the database
+          maxLength: 100
+          minLength: 5
+          pattern: "(^[a-z][-a-z0-9]*[a-z0-9]$)"
+          type: string
+        description:
+          description: Description of the database
+          maxLength: 1000000
+          minLength: 0
+          type: string
+        connectionURL:
+          description: JDBC connection URL in the form of jdbc:<db-type>:<driver-specific-part>
+          type: string
+        type:
+          description: "Type of database, i.e., the service name that will use the\
+            \ database (HIVE, DRUID, SUPERSET, RANGER, ...)"
+          maxLength: 56
+          minLength: 3
+          pattern: "(^[a-zA-Z_][-a-zA-Z0-9_]*[a-zA-Z0-9_]$)"
+          type: string
+        connectionDriver:
+          description: "Name of the JDBC connection driver (for example: 'org.postgresql.Driver')"
+          type: string
+        environmentCrn:
+          description: CRN of the environment of the database
+          type: string
+        crn:
+          description: CRN of the database
+          type: string
+        creationDate:
+          description: "Creation date / time of the database, in epoch milliseconds"
+          format: int64
+          type: integer
+        databaseEngine:
+          description: "Name of the database vendor (MYSQL, POSTGRES...)"
+          type: string
+        databaseEngineDisplayName:
+          description: "Display name of the database vendor (MySQL, PostgreSQL, ...)"
+          type: string
+        connectionUserName:
+          $ref: '#/components/schemas/SecretResponse'
+        connectionPassword:
+          $ref: '#/components/schemas/SecretResponse'
+        resourceStatus:
+          description: Ownership status of the database
+          enum:
+          - UNKNOWN
+          - SERVICE_MANAGED
+          - USER_MANAGED
+          type: string
+      required:
+      - connectionDriver
+      - connectionURL
+      - databaseEngine
+      - databaseEngineDisplayName
+      - environmentCrn
+      - name
+      - type
+      type: object
+    SecretResponse:
+      description: Password of the administrative user of the database server
+      example:
+        enginePath: enginePath
+        secretPath: secretPath
+      properties:
+        enginePath:
+          description: Engine path of the secret.
+          type: string
+        secretPath:
+          description: Path of the secret.
+          type: string
+      type: object
+    DatabaseV4Responses:
+      description: A set of multiple database responses
+      example:
+        responses:
+        - connectionUserName:
+            enginePath: enginePath
+            secretPath: secretPath
+          description: description
+          type: type
+          creationDate: 0
+          databaseEngine: databaseEngine
+          environmentCrn: environmentCrn
+          connectionDriver: connectionDriver
+          databaseEngineDisplayName: databaseEngineDisplayName
+          resourceStatus: UNKNOWN
+          name: name
+          connectionURL: connectionURL
+          connectionPassword:
+            enginePath: enginePath
+            secretPath: secretPath
+          crn: crn
+        - connectionUserName:
+            enginePath: enginePath
+            secretPath: secretPath
+          description: description
+          type: type
+          creationDate: 0
+          databaseEngine: databaseEngine
+          environmentCrn: environmentCrn
+          connectionDriver: connectionDriver
+          databaseEngineDisplayName: databaseEngineDisplayName
+          resourceStatus: UNKNOWN
+          name: name
+          connectionURL: connectionURL
+          connectionPassword:
+            enginePath: enginePath
+            secretPath: secretPath
+          crn: crn
+      properties:
+        responses:
+          items:
+            $ref: '#/components/schemas/DatabaseV4Response'
+          type: array
+      type: object
+    DatabaseV4Request:
+      description: Request containing information about a database to be registered
+      example:
+        connectionDriver: connectionDriver
+        connectionUserName: connectionUserName
+        name: name
+        description: description
+        connectionURL: connectionURL
+        connectionPassword: connectionPassword
+        type: type
+        environmentCrn: environmentCrn
+      properties:
+        name:
+          description: Name of the database
+          maxLength: 100
+          minLength: 5
+          pattern: "(^[a-z][-a-z0-9]*[a-z0-9]$)"
+          type: string
+        description:
+          description: Description of the database
+          maxLength: 1000000
+          minLength: 0
+          type: string
+        connectionURL:
+          description: JDBC connection URL in the form of jdbc:<db-type>:<driver-specific-part>
+          type: string
+        type:
+          description: "Type of database, i.e., the service name that will use the\
+            \ database (HIVE, DRUID, SUPERSET, RANGER, ...)"
+          maxLength: 56
+          minLength: 3
+          pattern: "(^[a-zA-Z_][-a-zA-Z0-9_]*[a-zA-Z0-9_]$)"
+          type: string
+        connectionDriver:
+          description: "Name of the JDBC connection driver (for example: 'org.postgresql.Driver')"
+          type: string
+        environmentCrn:
+          description: CRN of the environment of the database
+          type: string
+        connectionUserName:
+          description: Username to use for authentication
+          type: string
+        connectionPassword:
+          description: Password to use for authentication
+          type: string
+      required:
+      - connectionPassword
+      - connectionURL
+      - connectionUserName
+      - environmentCrn
+      - name
+      - type
+      type: object
+    DatabaseTestV4Response:
+      description: Response for testing connectivity to a database
+      example:
+        result: result
+      properties:
+        result:
+          description: Result of database connection test
+          type: string
+      required:
+      - result
+      type: object
+    DatabaseTestV4Request:
+      description: Request for testing connectivity to a database
+      example:
+        database:
+          connectionDriver: connectionDriver
+          connectionUserName: connectionUserName
+          name: name
+          description: description
+          connectionURL: connectionURL
+          connectionPassword: connectionPassword
+          type: type
+          environmentCrn: environmentCrn
+        existingDatabase:
+          name: name
+          environmentCrn: environmentCrn
+      properties:
+        existingDatabase:
+          $ref: '#/components/schemas/DatabaseV4Identifiers'
+        database:
+          $ref: '#/components/schemas/DatabaseV4Request'
+      type: object
+    DatabaseV4Identifiers:
+      description: Identifiers that together identify a database in an environment
+      example:
+        name: name
+        environmentCrn: environmentCrn
+      properties:
+        name:
+          description: Name of the database
+          maxLength: 100
+          minLength: 5
+          pattern: "(^[a-z][-a-z0-9]*[a-z0-9]$)"
+          type: string
+        environmentCrn:
+          description: CRN of the environment of the database
+          type: string
+      required:
+      - environmentCrn
+      - name
+      type: object
+    DatabaseServerStatusV4Response:
+      description: Response containing status information about a database server
+      example:
+        statusReason: statusReason
+        resourceCrn: resourceCrn
+        name: name
+        environmentCrn: environmentCrn
+        status: REQUESTED
+      properties:
+        environmentCrn:
+          description: CRN of the environment of the database server
+          type: string
+        name:
+          description: Name of the database server
+          type: string
+        resourceCrn:
+          description: CRN of the database server
+          type: string
+        status:
+          description: Status of the database server stack
+          enum:
+          - REQUESTED
+          - CREATE_IN_PROGRESS
+          - AVAILABLE
+          - UPDATE_IN_PROGRESS
+          - UPDATE_REQUESTED
+          - UPDATE_FAILED
+          - CREATE_FAILED
+          - ENABLE_SECURITY_FAILED
+          - DELETE_REQUESTED
+          - PRE_DELETE_IN_PROGRESS
+          - DELETE_IN_PROGRESS
+          - DELETE_FAILED
+          - DELETE_COMPLETED
+          - STOPPED
+          - STOP_REQUESTED
+          - START_REQUESTED
+          - STOP_IN_PROGRESS
+          - START_IN_PROGRESS
+          - START_FAILED
+          - STOP_FAILED
+          - WAIT_FOR_SYNC
+          - MAINTENANCE_MODE_ENABLED
+          - UPGRADE_REQUESTED
+          - UPGRADE_IN_PROGRESS
+          - UPGRADE_FAILED
+          - UNKNOWN
+          type: string
+        statusReason:
+          description: Additional status information about the database server stack
+          type: string
+      required:
+      - environmentCrn
+      - name
+      - resourceCrn
+      - status
+      - statusReason
+      type: object
+    AllocateDatabaseServerV4Request:
+      description: Request for allocating a new database server in a provider
+      example:
+        databaseServer:
+          connectionDriver: connectionDriver
+          port: 39501
+          gcp:
+            engineVersion: engineVersion
+            backupRetentionDays: 7
+          instanceType: instanceType
+          storageSize: 0
+          rootUserPassword: rootUserPassword
+          databaseVendor: databaseVendor
+          securityGroup:
+            securityGroupIds:
+            - securityGroupIds
+            - securityGroupIds
+          rootUserName: rootUserName
+          aws:
+            engineVersion: engineVersion
+            multiAZ: multiAZ
+            backupRetentionPeriod: 1
+            storageType: storageType
+          azure:
+            skuFamily: skuFamily
+            skuCapacity: 2
+            geoRedundantBackup: true
+            skuTier: skuTier
+            dbVersion: dbVersion
+            storageAutoGrow: true
+            backupRetentionDays: 7
+        clusterCrn: clusterCrn
+        sslConfig:
+          sslMode: ENABLED
+        gcp: "{}"
+        name: name
+        aws: "{}"
+        environmentCrn: environmentCrn
+        network:
+          gcp:
+            subnetId: subnetId
+            networkId: networkId
+            noFirewallRules: true
+            sharedProjectId: sharedProjectId
+            noPublicIp: true
+          aws:
+            subnetId: subnetId
+          azure:
+            subnets: subnets
+        azure: "{}"
+        tags:
+          key: tags
+      properties:
+        name:
+          description: Name of the database stack
+          maxLength: 40
+          minLength: 5
+          pattern: "(^[a-z][-a-z0-9]*[a-z0-9]$)"
+          type: string
+        environmentCrn:
+          description: CRN of the environment of the database server
+          type: string
+        clusterCrn:
+          description: CRN of the cluster of the database server
+          type: string
+        network:
+          $ref: '#/components/schemas/NetworkV4StackRequest'
+        databaseServer:
+          $ref: '#/components/schemas/DatabaseServerV4StackRequest'
+        aws:
+          description: AWS-specific parameters for the database stack
+          type: object
+        azure:
+          type: object
+        gcp:
+          description: Azure-specific parameters for the database stack
+          type: object
+        sslConfig:
+          $ref: '#/components/schemas/SslConfigV4Request'
+        tags:
+          additionalProperties:
+            description: UserDefined tags for the DB
+            type: string
+          description: UserDefined tags for the DB
+          type: object
+      required:
+      - clusterCrn
+      - databaseServer
+      - environmentCrn
+      type: object
+    AwsDBStackV4Parameters:
+      description: AWS-specific parameters for the database stack
+      type: object
+    AwsDatabaseServerV4Parameters:
+      description: AWS-specific parameters for the database server
+      example:
+        engineVersion: engineVersion
+        multiAZ: multiAZ
+        backupRetentionPeriod: 1
+        storageType: storageType
+      properties:
+        backupRetentionPeriod:
+          description: "Time to retain backups, in days"
+          format: int32
+          type: integer
+        engineVersion:
+          description: Version of the database engine (vendor)
+          type: string
+        multiAZ:
+          description: Whether to use a multi-AZ deployment
+          type: string
+        storageType:
+          description: Storage type
+          type: string
+      type: object
+    AwsNetworkV4Parameters:
+      description: AWS-specific parameters for the network
+      example:
+        subnetId: subnetId
+      properties:
+        subnetId:
+          description: Subnet ID(s) of the specified AWS network
+          type: string
+      type: object
+    AzureDBStackV4Parameters:
+      type: object
+    AzureDatabaseServerV4Parameters:
+      description: Azure-specific parameters for the database server
+      example:
+        skuFamily: skuFamily
+        skuCapacity: 2
+        geoRedundantBackup: true
+        skuTier: skuTier
+        dbVersion: dbVersion
+        storageAutoGrow: true
+        backupRetentionDays: 7
+      properties:
+        backupRetentionDays:
+          description: "Time to retain backups, in days"
+          format: int32
+          minimum: 7
+          type: integer
+        dbVersion:
+          description: The version of the database software to use
+          pattern: \d+(?:\.\d)?
+          type: string
+        geoRedundantBackup:
+          description: Whether backups are geographically redundant
+          type: boolean
+        skuCapacity:
+          description: The number of vCPUs assigned to the database server
+          format: int32
+          minimum: 2
+          type: integer
+        skuFamily:
+          description: The family of hardware used for the database server
+          type: string
+        skuTier:
+          description: The tier of SKU for the database server
+          pattern: Basic|GeneralPurpose|MemoryOptimized
+          type: string
+        storageAutoGrow:
+          description: Whether the database server will automatically grow storage
+            when necessary
+          type: boolean
+      type: object
+    AzureNetworkV4Parameters:
+      description: Azure-specific parameters for the network
+      example:
+        subnets: subnets
+      properties:
+        subnets:
+          description: Comma-separated list of fully-qualified subnets with connectivity
+            to the database server
+          type: string
+      type: object
+    DatabaseServerV4StackRequest:
+      description: Database server information for the database stack
+      example:
+        connectionDriver: connectionDriver
+        port: 39501
+        gcp:
+          engineVersion: engineVersion
+          backupRetentionDays: 7
+        instanceType: instanceType
+        storageSize: 0
+        rootUserPassword: rootUserPassword
+        databaseVendor: databaseVendor
+        securityGroup:
+          securityGroupIds:
+          - securityGroupIds
+          - securityGroupIds
+        rootUserName: rootUserName
+        aws:
+          engineVersion: engineVersion
+          multiAZ: multiAZ
+          backupRetentionPeriod: 1
+          storageType: storageType
+        azure:
+          skuFamily: skuFamily
+          skuCapacity: 2
+          geoRedundantBackup: true
+          skuTier: skuTier
+          dbVersion: dbVersion
+          storageAutoGrow: true
+          backupRetentionDays: 7
+      properties:
+        instanceType:
+          description: Instance type of the database server
+          type: string
+        databaseVendor:
+          description: "Name of the database vendor (MYSQL, POSTGRES, ...)"
+          type: string
+        connectionDriver:
+          description: "Name of the JDBC connection driver (for example: 'org.postgresql.Driver')"
+          type: string
+        storageSize:
+          description: "Storage size of the database server, in GB"
+          format: int64
+          type: integer
+        rootUserName:
+          description: Username of the administrative user of the database server
+          type: string
+        rootUserPassword:
+          description: Password of the administrative user of the database server
+          type: string
+        port:
+          description: Port of the database server
+          format: int32
+          maximum: 65535
+          minimum: 1
+          type: integer
+        aws:
+          $ref: '#/components/schemas/AwsDatabaseServerV4Parameters'
+        azure:
+          $ref: '#/components/schemas/AzureDatabaseServerV4Parameters'
+        gcp:
+          $ref: '#/components/schemas/GcpDatabaseServerV4Parameters'
+        securityGroup:
+          $ref: '#/components/schemas/SecurityGroupV4StackRequest'
+      type: object
+    GcpDBStackV4Parameters:
+      description: Azure-specific parameters for the database stack
+      type: object
+    GcpDatabaseServerV4Parameters:
+      description: GCP-specific parameters for the database server
+      example:
+        engineVersion: engineVersion
+        backupRetentionDays: 7
+      properties:
+        backupRetentionDays:
+          description: "Time to retain backups, in days"
+          format: int32
+          minimum: 7
+          type: integer
+        engineVersion:
+          description: The version of the database software to use
+          pattern: \d+(?:\.\d)?
+          type: string
+      type: object
+    GcpNetworkV4Parameters:
+      description: GCP-specific parameters for the network
+      example:
+        subnetId: subnetId
+        networkId: networkId
+        noFirewallRules: true
+        sharedProjectId: sharedProjectId
+        noPublicIp: true
+      properties:
+        networkId:
+          type: string
+        subnetId:
+          type: string
+        sharedProjectId:
+          type: string
+        noPublicIp:
+          type: boolean
+        noFirewallRules:
+          type: boolean
+      type: object
+    NetworkV4StackRequest:
+      description: Network information for the database stack
+      example:
+        gcp:
+          subnetId: subnetId
+          networkId: networkId
+          noFirewallRules: true
+          sharedProjectId: sharedProjectId
+          noPublicIp: true
+        aws:
+          subnetId: subnetId
+        azure:
+          subnets: subnets
+      properties:
+        aws:
+          $ref: '#/components/schemas/AwsNetworkV4Parameters'
+        azure:
+          $ref: '#/components/schemas/AzureNetworkV4Parameters'
+        gcp:
+          $ref: '#/components/schemas/GcpNetworkV4Parameters'
+      type: object
+    SecurityGroupV4StackRequest:
+      description: Security group of the database server
+      example:
+        securityGroupIds:
+        - securityGroupIds
+        - securityGroupIds
+      properties:
+        securityGroupIds:
+          description: Exisiting security group ID(s) for the database server
+          items:
+            description: Exisiting security group ID(s) for the database server
+            type: string
+          type: array
+          uniqueItems: true
+      type: object
+    SslConfigV4Request:
+      description: Request for the SSL config of a database server
+      example:
+        sslMode: ENABLED
+      properties:
+        sslMode:
+          description: SSL enforcement mode for the database server
+          enum:
+          - ENABLED
+          - DISABLED
+          type: string
+      type: object
+    CreateDatabaseV4Response:
+      description: Response for creating a new database on a registered database server
+      example:
+        result: result
+      properties:
+        result:
+          description: Result of database creation
+          type: string
+      required:
+      - result
+      type: object
+    CreateDatabaseV4Request:
+      description: Request for creating a new database on a registered database server
+      example:
+        databaseName: databaseName
+        existingDatabaseServerCrn: existingDatabaseServerCrn
+        databaseDescription: databaseDescription
+        type: type
+      properties:
+        existingDatabaseServerCrn:
+          description: CRN of the database server
+          type: string
+        databaseName:
+          description: Name of the database
+          type: string
+        type:
+          description: "Type of database, i.e., the service name that will use the\
+            \ database (HIVE, DRUID, SUPERSET, RANGER, ...)"
+          type: string
+        databaseDescription:
+          description: Description of the database
+          maxLength: 1000000
+          minLength: 0
+          type: string
+      required:
+      - databaseName
+      - existingDatabaseServerCrn
+      - type
+      type: object
+    DatabaseServerV4Response:
+      description: "Response containing information about a database server that was\
+        \ acted upon, e.g., retrieved, deleted, listed"
+      example:
+        connectionUserName:
+          enginePath: enginePath
+          secretPath: secretPath
+        sslConfig:
+          sslCertificateActiveVersion: 5
+          sslCertificates:
+          - sslCertificates
+          - sslCertificates
+          sslCertificateType: CLOUD_PROVIDER_OWNED
+          sslCertificateHighestAvailableVersion: 5
+          sslCertificateActiveCloudProviderIdentifier: sslCertificateActiveCloudProviderIdentifier
+          sslMode: ENABLED
+        description: description
+        creationDate: 1
+        majorVersion: VERSION_FAMILY_9
+        environmentCrn: environmentCrn
+        connectionDriver: connectionDriver
+        databaseVendorDisplayName: databaseVendorDisplayName
+        resourceStatus: UNKNOWN
+        statusReason: statusReason
+        clusterCrn: clusterCrn
+        port: 0
+        name: name
+        host: host
+        databaseVendor: databaseVendor
+        id: 6
+        connectionPassword:
+          enginePath: enginePath
+          secretPath: secretPath
+        crn: crn
+        status: REQUESTED
+      properties:
+        name:
+          description: Name of the database server
+          maxLength: 100
+          minLength: 5
+          pattern: "(^[a-z][-a-z0-9]*[a-z0-9]$)"
+          type: string
+        description:
+          description: Description of the database server
+          maxLength: 1000000
+          minLength: 0
+          type: string
+        host:
+          description: Host of the database server
+          type: string
+        port:
+          description: Port of the database server
+          format: int32
+          type: integer
+        databaseVendor:
+          description: "Name of the database vendor (MYSQL, POSTGRES, ...)"
+          type: string
+        connectionDriver:
+          description: "Name of the JDBC connection driver (for example: 'org.postgresql.Driver')"
+          type: string
+        environmentCrn:
+          description: CRN of the environment of the database server
+          type: string
+        id:
+          description: Internal ID of the database server
+          format: int64
+          type: integer
+        crn:
+          description: CRN of the database server
+          type: string
+        databaseVendorDisplayName:
+          description: "Display name of the database vendor (MySQL, PostgreSQL, ...)"
+          type: string
+        connectionUserName:
+          $ref: '#/components/schemas/SecretResponse'
+        connectionPassword:
+          $ref: '#/components/schemas/SecretResponse'
+        creationDate:
+          description: "Creation date / time of the database server, in epoch milliseconds"
+          format: int64
+          type: integer
+        resourceStatus:
+          description: Ownership status of the database server
+          enum:
+          - UNKNOWN
+          - SERVICE_MANAGED
+          - USER_MANAGED
+          type: string
+        status:
+          description: Status of the database server stack
+          enum:
+          - REQUESTED
+          - CREATE_IN_PROGRESS
+          - AVAILABLE
+          - UPDATE_IN_PROGRESS
+          - UPDATE_REQUESTED
+          - UPDATE_FAILED
+          - CREATE_FAILED
+          - ENABLE_SECURITY_FAILED
+          - DELETE_REQUESTED
+          - PRE_DELETE_IN_PROGRESS
+          - DELETE_IN_PROGRESS
+          - DELETE_FAILED
+          - DELETE_COMPLETED
+          - STOPPED
+          - STOP_REQUESTED
+          - START_REQUESTED
+          - STOP_IN_PROGRESS
+          - START_IN_PROGRESS
+          - START_FAILED
+          - STOP_FAILED
+          - WAIT_FOR_SYNC
+          - MAINTENANCE_MODE_ENABLED
+          - UPGRADE_REQUESTED
+          - UPGRADE_IN_PROGRESS
+          - UPGRADE_FAILED
+          - UNKNOWN
+          type: string
+        statusReason:
+          description: Additional status information about the database server stack
+          type: string
+        sslConfig:
+          $ref: '#/components/schemas/SslConfigV4Response'
+        clusterCrn:
+          description: CRN of the cluster of the database server
+          type: string
+        majorVersion:
+          description: Major version of the database server engine
+          enum:
+          - VERSION_FAMILY_9
+          - VERSION_9_6
+          - VERSION_10
+          - VERSION_11
+          - VERSION_12
+          - VERSION_13
+          - VERSION_14
+          type: string
+      required:
+      - connectionDriver
+      - databaseVendor
+      - databaseVendorDisplayName
+      - environmentCrn
+      - host
+      - name
+      - port
+      type: object
+    SslConfigV4Response:
+      description: Response for the SSL config of a database server
+      example:
+        sslCertificateActiveVersion: 5
+        sslCertificates:
+        - sslCertificates
+        - sslCertificates
+        sslCertificateType: CLOUD_PROVIDER_OWNED
+        sslCertificateHighestAvailableVersion: 5
+        sslCertificateActiveCloudProviderIdentifier: sslCertificateActiveCloudProviderIdentifier
+        sslMode: ENABLED
+      properties:
+        sslCertificates:
+          description: "Set of relevant SSL certificates for the database server,\
+            \ including the active one"
+          items:
+            description: "Set of relevant SSL certificates for the database server,\
+              \ including the active one"
+            type: string
+          type: array
+          uniqueItems: true
+        sslCertificateType:
+          description: SSL certificate type
+          enum:
+          - CLOUD_PROVIDER_OWNED
+          - BRING_YOUR_OWN
+          - NONE
+          type: string
+        sslMode:
+          description: SSL enforcement mode for the database server
+          enum:
+          - ENABLED
+          - DISABLED
+          type: string
+        sslCertificateActiveVersion:
+          description: Version number of the SSL certificate currently active for
+            the database server
+          format: int32
+          type: integer
+        sslCertificateHighestAvailableVersion:
+          description: Highest version number of the SSL certificate available for
+            the database server; does not necessarily equal the active version
+          format: int32
+          type: integer
+        sslCertificateActiveCloudProviderIdentifier:
+          description: Cloud provider specific identifier of the SSL certificate currently
+            active for the database server
+          type: string
+      type: object
+    DatabaseServerV4Responses:
+      description: A set of multiple database server responses
+      example:
+        responses:
+        - connectionUserName:
+            enginePath: enginePath
+            secretPath: secretPath
+          sslConfig:
+            sslCertificateActiveVersion: 5
+            sslCertificates:
+            - sslCertificates
+            - sslCertificates
+            sslCertificateType: CLOUD_PROVIDER_OWNED
+            sslCertificateHighestAvailableVersion: 5
+            sslCertificateActiveCloudProviderIdentifier: sslCertificateActiveCloudProviderIdentifier
+            sslMode: ENABLED
+          description: description
+          creationDate: 1
+          majorVersion: VERSION_FAMILY_9
+          environmentCrn: environmentCrn
+          connectionDriver: connectionDriver
+          databaseVendorDisplayName: databaseVendorDisplayName
+          resourceStatus: UNKNOWN
+          statusReason: statusReason
+          clusterCrn: clusterCrn
+          port: 0
+          name: name
+          host: host
+          databaseVendor: databaseVendor
+          id: 6
+          connectionPassword:
+            enginePath: enginePath
+            secretPath: secretPath
+          crn: crn
+          status: REQUESTED
+        - connectionUserName:
+            enginePath: enginePath
+            secretPath: secretPath
+          sslConfig:
+            sslCertificateActiveVersion: 5
+            sslCertificates:
+            - sslCertificates
+            - sslCertificates
+            sslCertificateType: CLOUD_PROVIDER_OWNED
+            sslCertificateHighestAvailableVersion: 5
+            sslCertificateActiveCloudProviderIdentifier: sslCertificateActiveCloudProviderIdentifier
+            sslMode: ENABLED
+          description: description
+          creationDate: 1
+          majorVersion: VERSION_FAMILY_9
+          environmentCrn: environmentCrn
+          connectionDriver: connectionDriver
+          databaseVendorDisplayName: databaseVendorDisplayName
+          resourceStatus: UNKNOWN
+          statusReason: statusReason
+          clusterCrn: clusterCrn
+          port: 0
+          name: name
+          host: host
+          databaseVendor: databaseVendor
+          id: 6
+          connectionPassword:
+            enginePath: enginePath
+            secretPath: secretPath
+          crn: crn
+          status: REQUESTED
+      properties:
+        responses:
+          items:
+            $ref: '#/components/schemas/DatabaseServerV4Response'
+          type: array
+      type: object
+    UsedSubnetWithResourceResponse:
+      example:
+        subnetId: subnetId
+        resourceCrn: resourceCrn
+        name: name
+        type: type
+      properties:
+        name:
+          type: string
+        subnetId:
+          type: string
+        resourceCrn:
+          type: string
+        type:
+          type: string
+      type: object
+    UsedSubnetsByEnvironmentResponse:
+      example:
+        responses:
+        - subnetId: subnetId
+          resourceCrn: resourceCrn
+          name: name
+          type: type
+        - subnetId: subnetId
+          resourceCrn: resourceCrn
+          name: name
+          type: type
+      properties:
+        responses:
+          items:
+            $ref: '#/components/schemas/UsedSubnetWithResourceResponse'
+          type: array
+      type: object
+    DatabaseServerV4Request:
+      description: Request containing information about a database server to be registered
+      example:
+        connectionDriver: connectionDriver
+        connectionUserName: connectionUserName
+        port: 0
+        name: name
+        host: host
+        description: description
+        databaseVendor: databaseVendor
+        connectionPassword: connectionPassword
+        environmentCrn: environmentCrn
+      properties:
+        name:
+          description: Name of the database server
+          maxLength: 100
+          minLength: 5
+          pattern: "(^[a-z][-a-z0-9]*[a-z0-9]$)"
+          type: string
+        description:
+          description: Description of the database server
+          maxLength: 1000000
+          minLength: 0
+          type: string
+        host:
+          description: Host of the database server
+          type: string
+        port:
+          description: Port of the database server
+          format: int32
+          type: integer
+        databaseVendor:
+          description: "Name of the database vendor (MYSQL, POSTGRES, ...)"
+          type: string
+        connectionDriver:
+          description: "Name of the JDBC connection driver (for example: 'org.postgresql.Driver')"
+          type: string
+        environmentCrn:
+          description: CRN of the environment of the database server
+          type: string
+        connectionUserName:
+          description: Username of the administrative user of the database server
+          type: string
+        connectionPassword:
+          description: Password of the administrative user of the database server
+          type: string
+      required:
+      - connectionPassword
+      - connectionUserName
+      - databaseVendor
+      - environmentCrn
+      - host
+      - name
+      - port
+      type: object
+    DatabaseServerTestV4Response:
+      description: Response for testing connectivity to a database server
+      example:
+        result: result
+      properties:
+        result:
+          description: Result of database server connection test
+          type: string
+      required:
+      - result
+      type: object
+    DatabaseServerTestV4Request:
+      description: Request for testing connectivity to a database server
+      example:
+        databaseServer:
+          connectionDriver: connectionDriver
+          connectionUserName: connectionUserName
+          port: 0
+          name: name
+          host: host
+          description: description
+          databaseVendor: databaseVendor
+          connectionPassword: connectionPassword
+          environmentCrn: environmentCrn
+        existingDatabaseServerCrn: existingDatabaseServerCrn
+      properties:
+        existingDatabaseServerCrn:
+          description: CRN of registered database server to be tested for connectivity
+          type: string
+        databaseServer:
+          $ref: '#/components/schemas/DatabaseServerV4Request'
+      type: object
+    FlowIdentifier:
+      description: The id of the flow or flow chain that was triggered as part of
+        the process.
+      example:
+        type: FLOW
+        pollableId: pollableId
+      properties:
+        type:
+          enum:
+          - FLOW
+          - FLOW_CHAIN
+          - NOT_TRIGGERED
+          type: string
+        pollableId:
+          type: string
+      type: object
+    UpgradeDatabaseServerV4Response:
+      description: Response for upgrading a database server
+      example:
+        reason: reason
+        flowIdentifier:
+          type: FLOW
+          pollableId: pollableId
+        currentVersion: VERSION_FAMILY_9
+      properties:
+        currentVersion:
+          description: The current version of the database server
+          enum:
+          - VERSION_FAMILY_9
+          - VERSION_9_6
+          - VERSION_10
+          - VERSION_11
+          - VERSION_12
+          - VERSION_13
+          - VERSION_14
+          type: string
+        reason:
+          description: The status reason if upgrade flow is not started due to some
+            validation
+          type: string
+        flowIdentifier:
+          $ref: '#/components/schemas/FlowIdentifier'
+      required:
+      - currentVersion
+      type: object
+    UpgradeDatabaseServerV4Request:
+      description: Request for upgrading a database server in a provider to a higher
+        major version
+      example:
+        upgradeTargetMajorVersion: VERSION_11
+      properties:
+        upgradeTargetMajorVersion:
+          description: The major version to which the database server should be upgraded
+          enum:
+          - VERSION_11
+          type: string
+      required:
+      - upgradeTargetMajorVersion
+      type: object
+    FlowProgressResponse:
+      example:
+        finalized: true
+        maxNumberOfTransitions: 5
+        resourceCrn: resourceCrn
+        created: 0
+        progress: 1
+        flowChainId: flowChainId
+        transitions:
+        - nextEvent: nextEvent
+          state: state
+          elapsedTimeInSeconds: 6.027456183070403
+          status: status
+        - nextEvent: nextEvent
+          state: state
+          elapsedTimeInSeconds: 6.027456183070403
+          status: status
+        flowId: flowId
+        elapsedTimeInSeconds: 5.962133916683182
+      properties:
+        flowId:
+          type: string
+        flowChainId:
+          type: string
+        resourceCrn:
+          type: string
+        created:
+          format: int64
+          type: integer
+        transitions:
+          items:
+            $ref: '#/components/schemas/FlowStateTransitionResponse'
+          type: array
+        progress:
+          format: int32
+          type: integer
+        elapsedTimeInSeconds:
+          format: double
+          type: number
+        finalized:
+          type: boolean
+        maxNumberOfTransitions:
+          format: int32
+          type: integer
+      type: object
+    FlowStateTransitionResponse:
+      example:
+        nextEvent: nextEvent
+        state: state
+        elapsedTimeInSeconds: 6.027456183070403
+        status: status
+      properties:
+        state:
+          type: string
+        nextEvent:
+          type: string
+        status:
+          type: string
+        elapsedTimeInSeconds:
+          format: double
+          type: number
+      type: object
+    OperationView:
+      example:
+        operationResource: UNKNOWN
+        operations:
+        - finalized: true
+          maxNumberOfTransitions: 5
+          resourceCrn: resourceCrn
+          created: 0
+          progress: 1
+          flowChainId: flowChainId
+          transitions:
+          - nextEvent: nextEvent
+            state: state
+            elapsedTimeInSeconds: 6.027456183070403
+            status: status
+          - nextEvent: nextEvent
+            state: state
+            elapsedTimeInSeconds: 6.027456183070403
+            status: status
+          flowId: flowId
+          elapsedTimeInSeconds: 5.962133916683182
+        - finalized: true
+          maxNumberOfTransitions: 5
+          resourceCrn: resourceCrn
+          created: 0
+          progress: 1
+          flowChainId: flowChainId
+          transitions:
+          - nextEvent: nextEvent
+            state: state
+            elapsedTimeInSeconds: 6.027456183070403
+            status: status
+          - nextEvent: nextEvent
+            state: state
+            elapsedTimeInSeconds: 6.027456183070403
+            status: status
+          flowId: flowId
+          elapsedTimeInSeconds: 5.962133916683182
+        subOperations:
+          key: null
+        operationId: operationId
+        progressStatus: UNKNOWN
+        progress: 2
+        operationType: UNKNOWN
+        subOperationConditions:
+          key: NONE
+      properties:
+        operationId:
+          type: string
+        operationType:
+          enum:
+          - UNKNOWN
+          - PROVISION
+          - DIAGNOSTICS
+          type: string
+        operationResource:
+          enum:
+          - UNKNOWN
+          - ENVIRONMENT
+          - FREEIPA
+          - DATALAKE
+          - DATAHUB
+          - REMOTEDB
+          type: string
+        operations:
+          items:
+            $ref: '#/components/schemas/FlowProgressResponse'
+          type: array
+        subOperations:
+          additionalProperties:
+            $ref: '#/components/schemas/OperationView'
+          type: object
+        subOperationConditions:
+          additionalProperties:
+            enum:
+            - NONE
+            - REQUIRED
+            type: string
+          type: object
+        progressStatus:
+          enum:
+          - UNKNOWN
+          - RUNNING
+          - FINISHED
+          - CANCELLED
+          - FAILED
+          type: string
+        progress:
+          format: int32
+          type: integer
+      type: object
+  securitySchemes:
+    Authorization:
+      in: header
+      name: x-cdp-actor-crn
+      type: apiKey
+    crnHeader:
+      in: header
+      name: x-cdp-actor-crn
+      type: apiKey
