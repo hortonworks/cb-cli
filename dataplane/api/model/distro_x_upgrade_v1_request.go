@@ -32,6 +32,9 @@ type DistroXUpgradeV1Request struct {
 	// Enum: [ENABLED DISABLED]
 	ReplaceVms string `json:"replaceVms,omitempty"`
 
+	// rolling upgrade enabled
+	RollingUpgradeEnabled bool `json:"rollingUpgradeEnabled,omitempty"`
+
 	// runtime
 	Runtime string `json:"runtime,omitempty"`
 

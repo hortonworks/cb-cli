@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -69,6 +70,8 @@ type UpgradeDistroxClusterInternalParams struct {
 	InitiatorUserCrn *string
 	/*Name*/
 	Name string
+	/*RollingUpgradeEnabled*/
+	RollingUpgradeEnabled *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -141,6 +144,17 @@ func (o *UpgradeDistroxClusterInternalParams) SetName(name string) {
 	o.Name = name
 }
 
+// WithRollingUpgradeEnabled adds the rollingUpgradeEnabled to the upgrade distrox cluster internal params
+func (o *UpgradeDistroxClusterInternalParams) WithRollingUpgradeEnabled(rollingUpgradeEnabled *bool) *UpgradeDistroxClusterInternalParams {
+	o.SetRollingUpgradeEnabled(rollingUpgradeEnabled)
+	return o
+}
+
+// SetRollingUpgradeEnabled adds the rollingUpgradeEnabled to the upgrade distrox cluster internal params
+func (o *UpgradeDistroxClusterInternalParams) SetRollingUpgradeEnabled(rollingUpgradeEnabled *bool) {
+	o.RollingUpgradeEnabled = rollingUpgradeEnabled
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpgradeDistroxClusterInternalParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -174,6 +188,22 @@ func (o *UpgradeDistroxClusterInternalParams) WriteToRequest(r runtime.ClientReq
 	// path param name
 	if err := r.SetPathParam("name", o.Name); err != nil {
 		return err
+	}
+
+	if o.RollingUpgradeEnabled != nil {
+
+		// query param rollingUpgradeEnabled
+		var qrRollingUpgradeEnabled bool
+		if o.RollingUpgradeEnabled != nil {
+			qrRollingUpgradeEnabled = *o.RollingUpgradeEnabled
+		}
+		qRollingUpgradeEnabled := swag.FormatBool(qrRollingUpgradeEnabled)
+		if qRollingUpgradeEnabled != "" {
+			if err := r.SetQueryParam("rollingUpgradeEnabled", qRollingUpgradeEnabled); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

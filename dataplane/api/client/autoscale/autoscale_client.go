@@ -147,13 +147,13 @@ DecommissionInternalInstancesForClusterCrn deletes multiple instances from the s
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) DecommissionInternalInstancesForClusterCrn(params *DecommissionInternalInstancesForClusterCrnParams) error {
+func (a *Client) DecommissionInternalInstancesForClusterCrn(params *DecommissionInternalInstancesForClusterCrnParams) (*DecommissionInternalInstancesForClusterCrnOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDecommissionInternalInstancesForClusterCrnParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "decommissionInternalInstancesForClusterCrn",
 		Method:             "DELETE",
 		PathPattern:        "/autoscale/stack/crn/{crn}/instances/internal",
@@ -166,9 +166,9 @@ func (a *Client) DecommissionInternalInstancesForClusterCrn(params *Decommission
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*DecommissionInternalInstancesForClusterCrnOK), nil
 
 }
 
@@ -321,6 +321,36 @@ func (a *Client) GetClusterProxyconfiguration(params *GetClusterProxyconfigurati
 }
 
 /*
+GetDependentHostGroupsForMultipleAutoscaleHostGroups retrieves dependent hostgroups for autoscale policy by crn
+
+Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
+*/
+func (a *Client) GetDependentHostGroupsForMultipleAutoscaleHostGroups(params *GetDependentHostGroupsForMultipleAutoscaleHostGroupsParams) (*GetDependentHostGroupsForMultipleAutoscaleHostGroupsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDependentHostGroupsForMultipleAutoscaleHostGroupsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getDependentHostGroupsForMultipleAutoscaleHostGroups",
+		Method:             "GET",
+		PathPattern:        "/autoscale/stack/crn/{crn}/dependent_host_groups",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetDependentHostGroupsForMultipleAutoscaleHostGroupsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDependentHostGroupsForMultipleAutoscaleHostGroupsOK), nil
+
+}
+
+/*
 GetInternalAutoscaleClusterByName gets internal autoscale stack by name in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -390,7 +420,7 @@ func (a *Client) GetRecommendation(params *GetRecommendationParams) (*GetRecomme
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRecommendation",
 		Method:             "GET",
-		PathPattern:        "/autoscale/recommendation",
+		PathPattern:        "/autoscale/stack/crn/{crn}/recommendation",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -418,7 +448,7 @@ func (a *Client) GetRecommendation1(params *GetRecommendation1Params) (*GetRecom
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRecommendation_1",
 		Method:             "GET",
-		PathPattern:        "/autoscale/stack/crn/{crn}/recommendation",
+		PathPattern:        "/autoscale/recommendation",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -499,13 +529,13 @@ PutClusterForAutoscale updates stack by id
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) PutClusterForAutoscale(params *PutClusterForAutoscaleParams) error {
+func (a *Client) PutClusterForAutoscale(params *PutClusterForAutoscaleParams) (*PutClusterForAutoscaleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutClusterForAutoscaleParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "putClusterForAutoscale",
 		Method:             "PUT",
 		PathPattern:        "/autoscale/stack/crn/{crn}/{userId}/cluster",
@@ -518,9 +548,9 @@ func (a *Client) PutClusterForAutoscale(params *PutClusterForAutoscaleParams) er
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*PutClusterForAutoscaleOK), nil
 
 }
 
@@ -529,13 +559,13 @@ PutStackForAutoscale updates stack by id
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
 */
-func (a *Client) PutStackForAutoscale(params *PutStackForAutoscaleParams) error {
+func (a *Client) PutStackForAutoscale(params *PutStackForAutoscaleParams) (*PutStackForAutoscaleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutStackForAutoscaleParams()
 	}
 
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "putStackForAutoscale",
 		Method:             "PUT",
 		PathPattern:        "/autoscale/stack/crn/{crn}/{userId}",
@@ -548,9 +578,9 @@ func (a *Client) PutStackForAutoscale(params *PutStackForAutoscaleParams) error 
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return result.(*PutStackForAutoscaleOK), nil
 
 }
 

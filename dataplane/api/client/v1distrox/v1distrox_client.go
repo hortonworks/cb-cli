@@ -1045,6 +1045,34 @@ func (a *Client) ListRetryableFlowsDistroXV1(params *ListRetryableFlowsDistroXV1
 }
 
 /*
+OsUpgradeByUpgradeSetsInternal upgrades distrox cluster o s by name and upgrades sets internal
+*/
+func (a *Client) OsUpgradeByUpgradeSetsInternal(params *OsUpgradeByUpgradeSetsInternalParams) (*OsUpgradeByUpgradeSetsInternalOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewOsUpgradeByUpgradeSetsInternalParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "osUpgradeByUpgradeSetsInternal",
+		Method:             "POST",
+		PathPattern:        "/v1/distrox/internal/{crn}/os_upgrade_by_upgrade_sets",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &OsUpgradeByUpgradeSetsInternalReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*OsUpgradeByUpgradeSetsInternalOK), nil
+
+}
+
+/*
 PostDistroXForBlueprintV1 posts stack for blueprint
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.
@@ -2045,6 +2073,34 @@ func (a *Client) SyncDistroxCmByCrn(params *SyncDistroxCmByCrnParams) (*SyncDist
 		return nil, err
 	}
 	return result.(*SyncDistroxCmByCrnOK), nil
+
+}
+
+/*
+UpdateSaltDistroxV1ByCrn updates salt states on cluster
+*/
+func (a *Client) UpdateSaltDistroxV1ByCrn(params *UpdateSaltDistroxV1ByCrnParams) (*UpdateSaltDistroxV1ByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateSaltDistroxV1ByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateSaltDistroxV1ByCrn",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/crn/{crn}/salt_update",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateSaltDistroxV1ByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateSaltDistroxV1ByCrnOK), nil
 
 }
 

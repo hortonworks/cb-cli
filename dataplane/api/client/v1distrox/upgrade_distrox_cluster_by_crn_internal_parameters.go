@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -69,6 +70,8 @@ type UpgradeDistroxClusterByCrnInternalParams struct {
 	Crn string
 	/*InitiatorUserCrn*/
 	InitiatorUserCrn *string
+	/*RollingUpgradeEnabled*/
+	RollingUpgradeEnabled *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -141,6 +144,17 @@ func (o *UpgradeDistroxClusterByCrnInternalParams) SetInitiatorUserCrn(initiator
 	o.InitiatorUserCrn = initiatorUserCrn
 }
 
+// WithRollingUpgradeEnabled adds the rollingUpgradeEnabled to the upgrade distrox cluster by crn internal params
+func (o *UpgradeDistroxClusterByCrnInternalParams) WithRollingUpgradeEnabled(rollingUpgradeEnabled *bool) *UpgradeDistroxClusterByCrnInternalParams {
+	o.SetRollingUpgradeEnabled(rollingUpgradeEnabled)
+	return o
+}
+
+// SetRollingUpgradeEnabled adds the rollingUpgradeEnabled to the upgrade distrox cluster by crn internal params
+func (o *UpgradeDistroxClusterByCrnInternalParams) SetRollingUpgradeEnabled(rollingUpgradeEnabled *bool) {
+	o.RollingUpgradeEnabled = rollingUpgradeEnabled
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *UpgradeDistroxClusterByCrnInternalParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -170,6 +184,22 @@ func (o *UpgradeDistroxClusterByCrnInternalParams) WriteToRequest(r runtime.Clie
 		qInitiatorUserCrn := qrInitiatorUserCrn
 		if qInitiatorUserCrn != "" {
 			if err := r.SetQueryParam("initiatorUserCrn", qInitiatorUserCrn); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.RollingUpgradeEnabled != nil {
+
+		// query param rollingUpgradeEnabled
+		var qrRollingUpgradeEnabled bool
+		if o.RollingUpgradeEnabled != nil {
+			qrRollingUpgradeEnabled = *o.RollingUpgradeEnabled
+		}
+		qRollingUpgradeEnabled := swag.FormatBool(qrRollingUpgradeEnabled)
+		if qRollingUpgradeEnabled != "" {
+			if err := r.SetQueryParam("rollingUpgradeEnabled", qRollingUpgradeEnabled); err != nil {
 				return err
 			}
 		}

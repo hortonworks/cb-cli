@@ -15,6 +15,9 @@ import (
 // swagger:model SdxBackupStatusResponse
 type SdxBackupStatusResponse struct {
 
+	// Data included in the backup (RANGER_PERMISSIONS, HMS_METADATA, RANGER_AUDITS, ATLAS_METADATA, ATLAS_INDEXES)
+	IncludedData []string `json:"includedData"`
+
 	// Operation id.
 	OperationID string `json:"operationId,omitempty"`
 
@@ -23,6 +26,9 @@ type SdxBackupStatusResponse struct {
 
 	// Operation status.
 	Status string `json:"status,omitempty"`
+
+	// When backup was made (start of the backup procedure)
+	Timestamp string `json:"timestamp,omitempty"`
 }
 
 // Validate validates this sdx backup status response

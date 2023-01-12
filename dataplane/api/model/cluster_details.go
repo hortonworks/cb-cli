@@ -39,6 +39,9 @@ type ClusterDetails struct {
 	// databases
 	Databases []*RdsDetails `json:"databases"`
 
+	// db ssl enabled
+	DbSslEnabled bool `json:"dbSslEnabled,omitempty"`
+
 	// description
 	Description string `json:"description,omitempty"`
 

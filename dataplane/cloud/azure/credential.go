@@ -8,8 +8,8 @@ import (
 
 func (p *AzureProvider) GetCredentialRequest(stringFinder func(string) string, govCloud bool) (*model.CredentialV1Request, error) {
 	parameters := &model.AzureCredentialV1RequestParameters{
-		SubscriptionID: &(&types.S{S: stringFinder("subscription-id")}).S,
-		TenantID:       &(&types.S{S: stringFinder("tenant-id")}).S,
+		SubscriptionID: stringFinder("subscription-id"),
+		TenantID:       stringFinder("tenant-id"),
 		AppBased: &model.AppBasedV1Request{
 			AccessKey: (&types.S{S: stringFinder("app-id")}).S,
 			SecretKey: (&types.S{S: stringFinder("app-password")}).S,

@@ -115,6 +115,36 @@ func (a *Client) GetLdapConfigForClusterV1(params *GetLdapConfigForClusterV1Para
 }
 
 /*
+GetLdapConfigForUserSyncV1 gets l d a p config for user sync internal only
+
+LDAP server integration enables the user to provide a central place to store usernames and passwords for the users of his/her clusters.
+*/
+func (a *Client) GetLdapConfigForUserSyncV1(params *GetLdapConfigForUserSyncV1Params) (*GetLdapConfigForUserSyncV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLdapConfigForUserSyncV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getLdapConfigForUserSyncV1",
+		Method:             "GET",
+		PathPattern:        "/v1/ldaps/usersync",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetLdapConfigForUserSyncV1Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetLdapConfigForUserSyncV1OK), nil
+
+}
+
+/*
 GetLdapConfigV1 gets l d a p config by environment crn
 
 LDAP server integration enables the user to provide a central place to store usernames and passwords for the users of his/her clusters.

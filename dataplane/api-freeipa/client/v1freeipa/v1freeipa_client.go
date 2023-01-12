@@ -582,6 +582,37 @@ func (a *Client) GetRecommendationV1(params *GetRecommendationV1Params, authInfo
 }
 
 /*
+GetUsedSubnetsByEnvironment lists the used subnets by the given environment resource c r n
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) GetUsedSubnetsByEnvironment(params *GetUsedSubnetsByEnvironmentParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsedSubnetsByEnvironmentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetUsedSubnetsByEnvironmentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getUsedSubnetsByEnvironment",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/internal/used_subnets",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetUsedSubnetsByEnvironmentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetUsedSubnetsByEnvironmentOK), nil
+
+}
+
+/*
 HealthV1 provides a detailed health of the free IP a stack
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
@@ -733,6 +764,37 @@ func (a *Client) InternalListFreeIpaClustersByAccountV1(params *InternalListFree
 		return nil, err
 	}
 	return result.(*InternalListFreeIpaClustersByAccountV1OK), nil
+
+}
+
+/*
+InternalModifyProxyConfigByEnvironmentV1 initiates the modification of the proxy config for free IP a stack by environment c r n using the internal actor
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) InternalModifyProxyConfigByEnvironmentV1(params *InternalModifyProxyConfigByEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) (*InternalModifyProxyConfigByEnvironmentV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewInternalModifyProxyConfigByEnvironmentV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "internalModifyProxyConfigByEnvironmentV1",
+		Method:             "PUT",
+		PathPattern:        "/v1/freeipa/internal/modify_proxy",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &InternalModifyProxyConfigByEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*InternalModifyProxyConfigByEnvironmentV1OK), nil
 
 }
 

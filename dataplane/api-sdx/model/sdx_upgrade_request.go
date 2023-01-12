@@ -32,6 +32,9 @@ type SdxUpgradeRequest struct {
 	// Enum: [ENABLED DISABLED]
 	ReplaceVms string `json:"replaceVms,omitempty"`
 
+	// Doesn't perform the actual operation just validates if all preconditions are met.
+	RollingUpgradeEnabled bool `json:"rollingUpgradeEnabled,omitempty"`
+
 	// Runtime version.
 	Runtime string `json:"runtime,omitempty"`
 

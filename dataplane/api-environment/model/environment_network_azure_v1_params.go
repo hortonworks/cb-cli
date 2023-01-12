@@ -17,7 +17,12 @@ import (
 // swagger:model EnvironmentNetworkAzureV1Params
 type EnvironmentNetworkAzureV1Params struct {
 
-	// Full resource id of an existing azure private DNS zone
+	// Full resource ID of an existing Azure private DNS zone for a private AKS cluster
+	// Max Length: 255
+	// Min Length: 0
+	AksPrivateDNSZoneID *string `json:"aksPrivateDnsZoneId,omitempty"`
+
+	// Full resource ID of an existing Azure private DNS zone
 	// Max Length: 255
 	// Min Length: 0
 	DatabasePrivateDNSZoneID *string `json:"databasePrivateDnsZoneId,omitempty"`
@@ -27,6 +32,9 @@ type EnvironmentNetworkAzureV1Params struct {
 	// Max Length: 255
 	// Min Length: 0
 	NetworkID *string `json:"networkId"`
+
+	// Flag that marks the request to not create an outbound load balancer
+	NoOutboundLoadBalancer bool `json:"noOutboundLoadBalancer,omitempty"`
 
 	// Azure Network is private if this flag is true
 	// Required: true
@@ -42,6 +50,10 @@ type EnvironmentNetworkAzureV1Params struct {
 // Validate validates this environment network azure v1 params
 func (m *EnvironmentNetworkAzureV1Params) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAksPrivateDNSZoneID(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateDatabasePrivateDNSZoneID(formats); err != nil {
 		res = append(res, err)
@@ -62,6 +74,23 @@ func (m *EnvironmentNetworkAzureV1Params) Validate(formats strfmt.Registry) erro
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *EnvironmentNetworkAzureV1Params) validateAksPrivateDNSZoneID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AksPrivateDNSZoneID) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("aksPrivateDnsZoneId", "body", string(*m.AksPrivateDNSZoneID), 0); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("aksPrivateDnsZoneId", "body", string(*m.AksPrivateDNSZoneID), 255); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -25,6 +25,36 @@ type Client struct {
 }
 
 /*
+GetFlowChainsStatusesByChainIds gets flow check responses for parent chains input size max 50
+
+Flow check log operations
+*/
+func (a *Client) GetFlowChainsStatusesByChainIds(params *GetFlowChainsStatusesByChainIdsParams) (*GetFlowChainsStatusesByChainIdsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFlowChainsStatusesByChainIdsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getFlowChainsStatusesByChainIds",
+		Method:             "GET",
+		PathPattern:        "/flow/check/chainIds",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetFlowChainsStatusesByChainIdsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetFlowChainsStatusesByChainIdsOK), nil
+
+}
+
+/*
 GetFlowLogsByFlowID gets flow logs by flow id
 
 Flow log operations
@@ -51,6 +81,36 @@ func (a *Client) GetFlowLogsByFlowID(params *GetFlowLogsByFlowIDParams) (*GetFlo
 		return nil, err
 	}
 	return result.(*GetFlowLogsByFlowIDOK), nil
+
+}
+
+/*
+GetFlowLogsByFlowIds gets flow logs by a list of flow ids input size max 50
+
+Flow log operations
+*/
+func (a *Client) GetFlowLogsByFlowIds(params *GetFlowLogsByFlowIdsParams) (*GetFlowLogsByFlowIdsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFlowLogsByFlowIdsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getFlowLogsByFlowIds",
+		Method:             "GET",
+		PathPattern:        "/flow/logs/flowIds",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetFlowLogsByFlowIdsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetFlowLogsByFlowIdsOK), nil
 
 }
 

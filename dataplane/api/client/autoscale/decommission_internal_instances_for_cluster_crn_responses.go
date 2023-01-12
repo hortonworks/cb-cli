@@ -7,10 +7,13 @@ package autoscale
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	model "github.com/hortonworks/cb-cli/dataplane/api/model"
 )
 
 // DecommissionInternalInstancesForClusterCrnReader is a Reader for the DecommissionInternalInstancesForClusterCrn structure.
@@ -20,43 +23,45 @@ type DecommissionInternalInstancesForClusterCrnReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *DecommissionInternalInstancesForClusterCrnReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
 
-	result := NewDecommissionInternalInstancesForClusterCrnDefault(response.Code())
-	if err := result.readResponse(response, consumer, o.formats); err != nil {
-		return nil, err
-	}
-	if response.Code()/100 == 2 {
+	case 200:
+		result := NewDecommissionInternalInstancesForClusterCrnOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
 		return result, nil
-	}
-	return nil, result
 
-}
-
-// NewDecommissionInternalInstancesForClusterCrnDefault creates a DecommissionInternalInstancesForClusterCrnDefault with default headers values
-func NewDecommissionInternalInstancesForClusterCrnDefault(code int) *DecommissionInternalInstancesForClusterCrnDefault {
-	return &DecommissionInternalInstancesForClusterCrnDefault{
-		_statusCode: code,
+	default:
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-/*DecommissionInternalInstancesForClusterCrnDefault handles this case with default header values.
+// NewDecommissionInternalInstancesForClusterCrnOK creates a DecommissionInternalInstancesForClusterCrnOK with default headers values
+func NewDecommissionInternalInstancesForClusterCrnOK() *DecommissionInternalInstancesForClusterCrnOK {
+	return &DecommissionInternalInstancesForClusterCrnOK{}
+}
+
+/*DecommissionInternalInstancesForClusterCrnOK handles this case with default header values.
 
 successful operation
 */
-type DecommissionInternalInstancesForClusterCrnDefault struct {
-	_statusCode int
+type DecommissionInternalInstancesForClusterCrnOK struct {
+	Payload *model.FlowIdentifier
 }
 
-// Code gets the status code for the decommission internal instances for cluster crn default response
-func (o *DecommissionInternalInstancesForClusterCrnDefault) Code() int {
-	return o._statusCode
+func (o *DecommissionInternalInstancesForClusterCrnOK) Error() string {
+	return fmt.Sprintf("[DELETE /autoscale/stack/crn/{crn}/instances/internal][%d] decommissionInternalInstancesForClusterCrnOK  %+v", 200, o.Payload)
 }
 
-func (o *DecommissionInternalInstancesForClusterCrnDefault) Error() string {
-	return fmt.Sprintf("[DELETE /autoscale/stack/crn/{crn}/instances/internal][%d] decommissionInternalInstancesForClusterCrn default ", o._statusCode)
-}
+func (o *DecommissionInternalInstancesForClusterCrnOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-func (o *DecommissionInternalInstancesForClusterCrnDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(model.FlowIdentifier)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
