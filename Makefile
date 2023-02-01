@@ -84,9 +84,9 @@ coverage-html:
 	@go tool cover -html=fmt
 	@rm -f fmt
 
-build: versioncheck errcheck formatcheck vet test build-darwin build-linux build-windows
+build: versioncheck errcheck formatcheck vet test build-darwin build-darwin-arm64 build-linux build-windows
 
-build-version: errcheck format vet test build-darwin-version build-linux-version build-windows-version
+build-version: errcheck format vet test build-darwin-version build-darwin-arm64-version build-linux-version build-windows-version
 
 build-docker:
 	@#USER_NS='-u $(shell id -u $(whoami)):$(shell id -g $(whoami))'
@@ -95,8 +95,14 @@ build-docker:
 build-darwin:
 	GOOS=darwin GO111MODULE=on CGO_ENABLED=0 go build -mod=vendor -a ${LDFLAGS_NOVER} -o build/Darwin/${BINARY} main.go
 
+build-darwin-arm64:
+	GOOS=darwin GOARCH=arm64 GO111MODULE=on CGO_ENABLED=0 go build -mod=vendor -a ${LDFLAGS_NOVER} -o build/Darwin-arm64/${BINARY} main.go
+
 dev-debug-darwin:
 	GOOS=darwin GO111MODULE=on CGO_ENABLED=0 go build -a ${LDFLAGS_NOVER} -o /usr/local/bin/${BINARY} main.go
+
+dev-debug-darwin-arm64:
+	GOOS=darwin GOARCH=arm64 GO111MODULE=on CGO_ENABLED=0 go build -a ${LDFLAGS_NOVER} -o /usr/local/bin/${BINARY} main.go
 
 build-linux:
 	GOOS=linux GO111MODULE=on CGO_ENABLED=0 go build -mod=vendor -a ${LDFLAGS_NOVER} -o build/Linux/${BINARY} main.go
@@ -109,6 +115,9 @@ build-windows:
 
 build-darwin-version:
 	GOOS=darwin GO111MODULE=on CGO_ENABLED=0 go build -a ${LDFLAGS} -o build/Darwin/${BINARY} main.go
+
+build-darwin-arm64-version:
+	GOOS=darwin GOARCH=arm64 GO111MODULE=on CGO_ENABLED=0 go build -a ${LDFLAGS} -o build/Darwin-arm64/${BINARY} main.go
 
 build-linux-version:
 	GOOS=linux GO111MODULE=on CGO_ENABLED=0 go build -a ${LDFLAGS} -o build/Linux/${BINARY} main.go
@@ -198,6 +207,7 @@ release: build
 	git tag v${CB_VERSION}
 	git push https://${GITHUB_ACCESS_TOKEN}@github.com/hortonworks/cb-cli.git v${CB_VERSION}
 	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_x86_64.tgz -C build/Darwin "${BINARY}"
+	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_arm64.tgz -C build/Darwin-arm64 "${BINARY}"
 	tar -zcvf release/dp-cli_${CB_VERSION}_Linux_x86_64.tgz -C build/Linux "${BINARY}"
 	tar -zcvf release/dp-cli_${CB_VERSION}_Windows_x86_64.tgz -C build/Windows "${BINARY}.exe"
 
@@ -207,6 +217,7 @@ release-version: build-version
 	git tag v${CB_VERSION}
 	git push https://${GITHUB_ACCESS_TOKEN}@github.com/hortonworks/cb-cli.git v${CB_VERSION}
 	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_x86_64.tgz -C build/Darwin "${BINARY}"
+	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_arm64.tgz -C build/Darwin-arm64 "${BINARY}"
 	tar -zcvf release/dp-cli_${CB_VERSION}_Linux_x86_64.tgz -C build/Linux "${BINARY}"
 	tar -zcvf release/dp-cli_${CB_VERSION}_Windows_x86_64.tgz -C build/Windows "${BINARY}.exe"
 
