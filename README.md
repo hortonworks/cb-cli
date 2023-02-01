@@ -6,9 +6,10 @@
 
 Each Git TAG (without the leading 'v') is built and uploaded to S3 where you can download from:
 ```
-export VERSION=2.55.0-b55
+export VERSION=2.69.0-b9
 
 curl -LO "https://s3.amazonaws.com/dp-cli/dp-cli_${VERSION}_Darwin_x86_64.tgz"
+curl -LO "https://s3.amazonaws.com/dp-cli/dp-cli_${VERSION}_Darwin_arm64.tgz"
 curl -LO "https://s3.amazonaws.com/dp-cli/dp-cli_${VERSION}_Linux_x86_64.tgz"
 curl -LO "https://s3.amazonaws.com/dp-cli/dp-cli_${VERSION}_Windows_x86_64.tgz"
 ```
