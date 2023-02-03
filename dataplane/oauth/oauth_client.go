@@ -4,7 +4,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	environmentclient "github.com/hortonworks/cb-cli/dataplane/api-environment/client"
 	freeipaclient "github.com/hortonworks/cb-cli/dataplane/api-freeipa/client"
-	redbeamsclient "github.com/hortonworks/cb-cli/dataplane/api-redbeams/client"
+	redbeamsclient "github.com/hortonworks/cb-cli/dataplane/api-redbeams"
 	sdxclient "github.com/hortonworks/cb-cli/dataplane/api-sdx/client"
 	apiclient "github.com/hortonworks/cb-cli/dataplane/api/client"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
@@ -31,7 +31,7 @@ type Environment struct {
 }
 
 type Redbeams struct {
-	Redbeams *redbeamsclient.Redbeams
+	Redbeams *redbeamsclient.APIClient
 }
 
 func NewCloudbreakHTTPClientFromContext(c *cli.Context) *Cloudbreak {
@@ -123,8 +123,9 @@ func NewRedbeamsClientFromContext(c *cli.Context) *Redbeams {
 
 func NewRedbeamsClient(address string, apiKeyID, privateKey string) *Redbeams {
 	u.CheckServerAddress(address)
-	var transport *utils.Transport
-	const baseAPIPath string = "/redbeams/api"
-	transport = apikeyauth.GetAPIKeyAuthTransport(address, baseAPIPath, apiKeyID, privateKey)
-	return &Redbeams{Redbeams: redbeamsclient.New(transport, strfmt.Default)}
+	//var transport *utils.Transport
+	//const baseAPIPath string = "/redbeams/api"
+	//transport = apikeyauth.GetAPIKeyAuthTransport(address, baseAPIPath, apiKeyID, privateKey)
+	var config = redbeamsclient.NewConfiguration()
+	return &Redbeams{Redbeams: redbeamsclient.NewAPIClient(config)}
 }

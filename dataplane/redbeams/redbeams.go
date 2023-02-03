@@ -1,14 +1,13 @@
 package redbeams
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"strconv"
 	"time"
 
-	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/database_servers"
-	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/databases"
-	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/model"
+	model "github.com/hortonworks/cb-cli/dataplane/api-redbeams"
 	fl "github.com/hortonworks/cb-cli/dataplane/flags"
 	"github.com/hortonworks/cb-cli/dataplane/oauth"
 	commonutils "github.com/hortonworks/dp-cli-common/utils"
@@ -48,27 +47,27 @@ func (server *serverDetails) DataAsStringArray() []string {
 
 func NewDetailsFromResponse(r *model.DatabaseServerV4Response) *serverDetails {
 	details := &serverDetails{
-		Name:           *r.Name,
-		CRN:            r.Crn,
-		EnvironmentCrn: *r.EnvironmentCrn,
-		Status:         r.Status,
-		StatusReason:   r.StatusReason,
-		ResourceStatus: r.ResourceStatus,
-		CreationDate:   r.CreationDate,
+		Name:           r.Name,
+		CRN:            *r.Crn,
+		EnvironmentCrn: r.EnvironmentCrn,
+		Status:         *r.Status,
+		StatusReason:   *r.StatusReason,
+		ResourceStatus: *r.ResourceStatus,
+		CreationDate:   *r.CreationDate,
 	}
 
 	// ternary operator, where art thou?
 	if r.Description != nil {
 		details.Description = *r.Description
 	}
-	if r.DatabaseVendor != nil {
-		details.DatabaseVendor = *r.DatabaseVendor
+	if &r.DatabaseVendor != nil {
+		details.DatabaseVendor = r.DatabaseVendor
 	}
-	if r.Host != nil {
-		details.Host = *r.Host
+	if &r.Host != nil {
+		details.Host = r.Host
 	}
-	if r.Port != nil {
-		details.Port = *r.Port
+	if &r.Port != nil {
+		details.Port = r.Port
 	}
 
 	return details
@@ -89,10 +88,10 @@ func (status *serverStatusDetails) DataAsStringArray() []string {
 
 func NewDetailsFromStatusResponse(r *model.DatabaseServerStatusV4Response) *serverStatusDetails {
 	details := &serverStatusDetails{
-		Name:           *r.Name,
-		CRN:            *r.ResourceCrn,
-		EnvironmentCrn: *r.EnvironmentCrn,
-		Status:         *r.Status,
+		Name:           r.Name,
+		CRN:            r.ResourceCrn,
+		EnvironmentCrn: r.EnvironmentCrn,
+		Status:         r.Status,
 	}
 
 	return details
@@ -101,10 +100,10 @@ func NewDetailsFromStatusResponse(r *model.DatabaseServerStatusV4Response) *serv
 func ListDatabaseServers(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "List database servers in environment")
 	envCrn := c.String(fl.FlEnvironmentCrn.Name)
-	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServers
+	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServersApi
 
 	log.Infof("[ListDBServers] Listing database servers in environment: %s", envCrn)
-	resp, err := redbeamsDbServerClient.ListDatabaseServers(database_servers.NewListDatabaseServersParams().WithEnvironmentCrn(envCrn), nil)
+	resp, _, err := redbeamsDbServerClient.ListDatabaseServersExecute(redbeamsDbServerClient.ListDatabaseServers(context.Background()).EnvironmentCrn(envCrn))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -113,8 +112,8 @@ func ListDatabaseServers(c *cli.Context) {
 
 	var tableRows []commonutils.Row
 
-	for _, response := range resp.Payload.Responses {
-		row := NewDetailsFromResponse(response)
+	for _, response := range resp.GetResponses() {
+		row := NewDetailsFromResponse(&response)
 		tableRows = append(tableRows, row)
 	}
 	output.WriteList(serverListHeader, tableRows)
@@ -122,26 +121,26 @@ func ListDatabaseServers(c *cli.Context) {
 
 func GetDatabaseServer(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Get a database server")
-	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServers
+	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServersApi
 
 	var server *model.DatabaseServerV4Response
 	crn := c.String(fl.FlCrn.Name)
 	if len(crn) != 0 {
 		log.Infof("[GetDBServer] Getting database server with CRN: %s", crn)
-		resp, err := redbeamsDbServerClient.GetDatabaseServerByCrn(database_servers.NewGetDatabaseServerByCrnParams().WithCrn(crn), nil)
+		resp, _, err := redbeamsDbServerClient.GetDatabaseServerByCrnExecute(redbeamsDbServerClient.GetDatabaseServerByCrn(context.Background(), crn))
 		if err != nil {
 			commonutils.LogErrorAndExit(err)
 		}
-		server = resp.Payload
+		server = resp
 	} else {
 		envCrn := c.String(fl.FlEnvironmentCrn.Name)
 		name := c.String(fl.FlName.Name)
 		log.Infof("[GetDBServer] Getting database server with name: %s", name)
-		resp, err := redbeamsDbServerClient.GetDatabaseServerByName(database_servers.NewGetDatabaseServerByNameParams().WithEnvironmentCrn(envCrn).WithName(name), nil)
+		resp, _, err := redbeamsDbServerClient.GetDatabaseServerByNameExecute(redbeamsDbServerClient.GetDatabaseServerByName(context.Background(), name).EnvironmentCrn(envCrn))
 		if err != nil {
 			commonutils.LogErrorAndExit(err)
 		}
-		server = resp.Payload
+		server = resp
 	}
 
 	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
@@ -163,12 +162,12 @@ func CreateManagedDatabaseServer(c *cli.Context) {
 	}
 
 	log.Infof("[CreateManagedDBServer] JSON read, creating database server with name: %s", req.Name)
-	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServers
-	resp, err := redbeamsDbServerClient.CreateDatabaseServer(database_servers.NewCreateDatabaseServerParams().WithBody(&req), nil)
+	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServersApi
+	resp, _, err := redbeamsDbServerClient.CreateDatabaseServerExecute(redbeamsDbServerClient.CreateDatabaseServer(context.Background()).AllocateDatabaseServerV4Request(req))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
-	status := resp.Payload
+	status := resp
 
 	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	row := NewDetailsFromStatusResponse(status)
@@ -178,14 +177,14 @@ func CreateManagedDatabaseServer(c *cli.Context) {
 func ReleaseManagedDatabaseServer(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Release a managed database server")
 	crn := c.String(fl.FlCrn.Name)
-	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServers
+	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServersApi
 
 	log.Infof("[ReleaseDBServer] Releasing database server with CRN: %s", crn)
-	resp, err := redbeamsDbServerClient.ReleaseManagedDatabaseServer(database_servers.NewReleaseManagedDatabaseServerParams().WithCrn(crn), nil)
+	resp, _, err := redbeamsDbServerClient.ReleaseManagedDatabaseServerExecute(redbeamsDbServerClient.ReleaseManagedDatabaseServer(context.Background(), crn))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
-	server := resp.Payload
+	server := resp
 
 	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	row := NewDetailsFromResponse(server)
@@ -205,13 +204,13 @@ func RegisterDatabaseServer(c *cli.Context) {
 		commonutils.LogErrorMessageAndExit(msg)
 	}
 
-	log.Infof("[RegisterDBServer] JSON read, registering database server with name: %s", _nilsafe(req.Name))
-	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServers
-	resp, err := redbeamsDbServerClient.RegisterDatabaseServer(database_servers.NewRegisterDatabaseServerParams().WithBody(&req), nil)
+	log.Infof("[RegisterDBServer] JSON read, registering database server with name: %s", _nilsafe(&req.Name))
+	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServersApi
+	resp, _, err := redbeamsDbServerClient.RegisterDatabaseServerExecute(redbeamsDbServerClient.RegisterDatabaseServer(context.Background()).DatabaseServerV4Request(req))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
-	server := resp.Payload
+	server := resp
 
 	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	row := NewDetailsFromResponse(server)
@@ -222,15 +221,15 @@ func DeleteDatabaseServer(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Terminate and/or delete a database server")
 	crn := c.String(fl.FlCrn.Name)
 	force := c.Bool(fl.FlForceOptional.Name)
-	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServers
+	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServersApi
 
 	log.Infof("[DeleteDBServer] Deleting database server with CRN: %s force: %t", crn, force)
-	resp, err := redbeamsDbServerClient.DeleteDatabaseServerByCrn(database_servers.NewDeleteDatabaseServerByCrnParams().WithCrn(crn).WithForce(&force), nil)
+	resp, _, err := redbeamsDbServerClient.DeleteDatabaseServerByCrnExecute(redbeamsDbServerClient.DeleteDatabaseServerByCrn(context.Background(), crn).Force(force))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
 
-	server := resp.Payload
+	server := resp
 	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	row := NewDetailsFromResponse(server)
 	output.Write(serverListHeader, row)
@@ -256,20 +255,20 @@ func (db *dbDetails) DataAsStringArray() []string {
 
 func NewDetailsFromDbResponse(r *model.DatabaseV4Response) *dbDetails {
 	details := &dbDetails{
-		Name:           *r.Name,
-		Type:           *r.Type,
-		CRN:            r.Crn,
-		EnvironmentCrn: *r.EnvironmentCrn,
-		ConnectionURL:  *r.ConnectionURL,
-		ResourceStatus: r.ResourceStatus,
-		CreationDate:   r.CreationDate,
+		Name:           r.Name,
+		Type:           r.Type,
+		CRN:            *r.Crn,
+		EnvironmentCrn: r.EnvironmentCrn,
+		ConnectionURL:  r.ConnectionURL,
+		ResourceStatus: *r.ResourceStatus,
+		CreationDate:   *r.CreationDate,
 	}
 
 	if r.Description != nil {
 		details.Description = *r.Description
 	}
-	if r.DatabaseEngine != nil {
-		details.DatabaseEngine = *r.DatabaseEngine
+	if &r.DatabaseEngine != nil {
+		details.DatabaseEngine = r.DatabaseEngine
 	}
 
 	return details
@@ -278,10 +277,10 @@ func NewDetailsFromDbResponse(r *model.DatabaseV4Response) *dbDetails {
 func ListDatabases(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "List databases in environment")
 	envCrn := c.String(fl.FlEnvironmentCrn.Name)
-	redbeamsDbClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.Databases
+	redbeamsDbClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabasesApi
 
 	log.Infof("[ListDBs] Listing databases in environment: %s", envCrn)
-	resp, err := redbeamsDbClient.ListDatabases(databases.NewListDatabasesParams().WithEnvironmentCrn(envCrn), nil)
+	resp, _, err := redbeamsDbClient.ListDatabasesExecute(redbeamsDbClient.ListDatabases(context.Background()).EnvironmentCrn(envCrn))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -290,8 +289,8 @@ func ListDatabases(c *cli.Context) {
 
 	var tableRows []commonutils.Row
 
-	for _, response := range resp.Payload.Responses {
-		row := NewDetailsFromDbResponse(response)
+	for _, response := range resp.Responses {
+		row := NewDetailsFromDbResponse(&response)
 		tableRows = append(tableRows, row)
 	}
 	output.WriteList(dbListHeader, tableRows)
@@ -299,26 +298,26 @@ func ListDatabases(c *cli.Context) {
 
 func GetDatabase(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Get a database")
-	redbeamsDbClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.Databases
+	redbeamsDbClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabasesApi
 
 	var db *model.DatabaseV4Response
 	crn := c.String(fl.FlCrn.Name)
 	if len(crn) != 0 {
 		log.Infof("[GetDB] Getting database with CRN: %s", crn)
-		resp, err := redbeamsDbClient.GetDatabaseByCrn(databases.NewGetDatabaseByCrnParams().WithCrn(crn), nil)
+		resp, _, err := redbeamsDbClient.GetDatabaseByCrnExecute(redbeamsDbClient.GetDatabaseByCrn(context.Background(), crn))
 		if err != nil {
 			commonutils.LogErrorAndExit(err)
 		}
-		db = resp.Payload
+		db = resp
 	} else {
 		envCrn := c.String(fl.FlEnvironmentCrn.Name)
 		name := c.String(fl.FlName.Name)
 		log.Infof("[GetDB] Getting database with name: %s", name)
-		resp, err := redbeamsDbClient.GetDatabaseByName(databases.NewGetDatabaseByNameParams().WithEnvironmentCrn(envCrn).WithName(name), nil)
+		resp, _, err := redbeamsDbClient.GetDatabaseByNameExecute(redbeamsDbClient.GetDatabaseByName(context.Background(), name).EnvironmentCrn(envCrn))
 		if err != nil {
 			commonutils.LogErrorAndExit(err)
 		}
-		db = resp.Payload
+		db = resp
 	}
 
 	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
@@ -339,14 +338,14 @@ func CreateDatabase(c *cli.Context) {
 		commonutils.LogErrorMessageAndExit(msg)
 	}
 
-	log.Infof("[CreateDB] JSON read, creating database with name: %s", _nilsafe(req.DatabaseName))
-	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServers
-	result, err := redbeamsDbServerClient.CreateDatabaseOnServer(database_servers.NewCreateDatabaseOnServerParams().WithBody(&req), nil)
+	log.Infof("[CreateDB] JSON read, creating database with name: %s", _nilsafe(&req.DatabaseName))
+	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServersApi
+	result, _, err := redbeamsDbServerClient.CreateDatabaseOnServerExecute(redbeamsDbServerClient.CreateDatabaseOnServer(context.Background()).CreateDatabaseV4Request(req))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
 
-	log.Infof("[DeleteDBServer] Created database with name: %s Details: %s", _nilsafe(req.DatabaseName), result)
+	log.Infof("[DeleteDBServer] Created database with name: %s Details: %s", _nilsafe(&req.DatabaseName), result)
 }
 
 func RegisterDatabase(c *cli.Context) {
@@ -362,13 +361,13 @@ func RegisterDatabase(c *cli.Context) {
 		commonutils.LogErrorMessageAndExit(msg)
 	}
 
-	log.Infof("[RegisterDB] JSON read, registering database with name: %s", _nilsafe(req.Name))
-	redbeamsDbClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.Databases
-	resp, err := redbeamsDbClient.RegisterDatabase(databases.NewRegisterDatabaseParams().WithBody(&req), nil)
+	log.Infof("[RegisterDB] JSON read, registering database with name: %s", _nilsafe(&req.Name))
+	redbeamsDbClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabasesApi
+	resp, _, err := redbeamsDbClient.RegisterDatabaseExecute(redbeamsDbClient.RegisterDatabase(context.Background()).DatabaseV4Request(req))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
-	db := resp.Payload
+	db := resp
 
 	output := commonutils.Output{Format: c.String(fl.FlOutputOptional.Name)}
 	row := NewDetailsFromDbResponse(db)
@@ -377,11 +376,11 @@ func RegisterDatabase(c *cli.Context) {
 
 func DeleteDatabase(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Delete a registered database")
-	redbeamsDbClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.Databases
+	redbeamsDbClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabasesApi
 	crn := c.String(fl.FlCrn.Name)
 	if len(crn) != 0 {
 		log.Infof("[DeleteDB] Deleting database with CRN: %s", crn)
-		result, err := redbeamsDbClient.DeleteDatabaseByCrn(databases.NewDeleteDatabaseByCrnParams().WithCrn(crn), nil)
+		result, _, err := redbeamsDbClient.DeleteDatabaseByCrnExecute(redbeamsDbClient.DeleteDatabaseByCrn(context.Background(), crn))
 		if err != nil {
 			commonutils.LogErrorAndExit(err)
 		}
@@ -390,7 +389,7 @@ func DeleteDatabase(c *cli.Context) {
 		envCrn := c.String(fl.FlEnvironmentCrn.Name)
 		name := c.String(fl.FlName.Name)
 		log.Infof("[DeleteDB] Deleting database with name: %s", name)
-		result, err := redbeamsDbClient.DeleteDatabaseByName(databases.NewDeleteDatabaseByNameParams().WithEnvironmentCrn(envCrn).WithName(name), nil)
+		result, _, err := redbeamsDbClient.DeleteDatabaseByNameExecute(redbeamsDbClient.DeleteDatabaseByName(context.Background(), name).EnvironmentCrn(envCrn))
 		if err != nil {
 			commonutils.LogErrorAndExit(err)
 		}
