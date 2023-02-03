@@ -58,7 +58,8 @@ func NewRenewCertificateParamsWithHTTPClient(client *http.Client) *RenewCertific
 	}
 }
 
-/*RenewCertificateParams contains all the parameters to send to the API endpoint
+/*
+RenewCertificateParams contains all the parameters to send to the API endpoint
 for the renew certificate operation typically these are written to a http.Request
 */
 type RenewCertificateParams struct {

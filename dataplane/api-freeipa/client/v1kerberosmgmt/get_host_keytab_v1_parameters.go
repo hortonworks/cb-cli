@@ -58,7 +58,8 @@ func NewGetHostKeytabV1ParamsWithHTTPClient(client *http.Client) *GetHostKeytabV
 	}
 }
 
-/*GetHostKeytabV1Params contains all the parameters to send to the API endpoint
+/*
+GetHostKeytabV1Params contains all the parameters to send to the API endpoint
 for the get host keytab v1 operation typically these are written to a http.Request
 */
 type GetHostKeytabV1Params struct {

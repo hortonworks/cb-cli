@@ -40,7 +40,8 @@ func NewGetAttachedExperiencesByEnvironmentNameOK() *GetAttachedExperiencesByEnv
 	return &GetAttachedExperiencesByEnvironmentNameOK{}
 }
 
-/*GetAttachedExperiencesByEnvironmentNameOK handles this case with default header values.
+/*
+GetAttachedExperiencesByEnvironmentNameOK handles this case with default header values.
 
 successful operation
 */

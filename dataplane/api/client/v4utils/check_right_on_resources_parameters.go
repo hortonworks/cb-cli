@@ -58,7 +58,8 @@ func NewCheckRightOnResourcesParamsWithHTTPClient(client *http.Client) *CheckRig
 	}
 }
 
-/*CheckRightOnResourcesParams contains all the parameters to send to the API endpoint
+/*
+CheckRightOnResourcesParams contains all the parameters to send to the API endpoint
 for the check right on resources operation typically these are written to a http.Request
 */
 type CheckRightOnResourcesParams struct {

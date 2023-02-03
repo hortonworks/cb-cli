@@ -42,7 +42,8 @@ func NewCreateAuditCredentialV1OK() *CreateAuditCredentialV1OK {
 	return &CreateAuditCredentialV1OK{}
 }
 
-/*CreateAuditCredentialV1OK handles this case with default header values.
+/*
+CreateAuditCredentialV1OK handles this case with default header values.
 
 successful operation
 */

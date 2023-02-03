@@ -42,7 +42,8 @@ func NewPutClusterV4OK() *PutClusterV4OK {
 	return &PutClusterV4OK{}
 }
 
-/*PutClusterV4OK handles this case with default header values.
+/*
+PutClusterV4OK handles this case with default header values.
 
 successful operation
 */

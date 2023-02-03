@@ -57,7 +57,8 @@ func NewReRegisterClusterProxyConfigParamsWithHTTPClient(client *http.Client) *R
 	}
 }
 
-/*ReRegisterClusterProxyConfigParams contains all the parameters to send to the API endpoint
+/*
+ReRegisterClusterProxyConfigParams contains all the parameters to send to the API endpoint
 for the re register cluster proxy config operation typically these are written to a http.Request
 */
 type ReRegisterClusterProxyConfigParams struct {

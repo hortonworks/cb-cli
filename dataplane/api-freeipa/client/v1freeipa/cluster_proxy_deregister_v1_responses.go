@@ -39,7 +39,8 @@ func NewClusterProxyDeregisterV1Default(code int) *ClusterProxyDeregisterV1Defau
 	}
 }
 
-/*ClusterProxyDeregisterV1Default handles this case with default header values.
+/*
+ClusterProxyDeregisterV1Default handles this case with default header values.
 
 successful operation
 */

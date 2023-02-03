@@ -58,7 +58,8 @@ func NewGetDistroXStatusInternalV1ByCrnsParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*GetDistroXStatusInternalV1ByCrnsParams contains all the parameters to send to the API endpoint
+/*
+GetDistroXStatusInternalV1ByCrnsParams contains all the parameters to send to the API endpoint
 for the get distro x status internal v1 by crns operation typically these are written to a http.Request
 */
 type GetDistroXStatusInternalV1ByCrnsParams struct {

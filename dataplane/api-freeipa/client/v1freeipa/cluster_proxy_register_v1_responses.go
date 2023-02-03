@@ -40,7 +40,8 @@ func NewClusterProxyRegisterV1OK() *ClusterProxyRegisterV1OK {
 	return &ClusterProxyRegisterV1OK{}
 }
 
-/*ClusterProxyRegisterV1OK handles this case with default header values.
+/*
+ClusterProxyRegisterV1OK handles this case with default header values.
 
 successful operation
 */

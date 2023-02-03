@@ -42,7 +42,8 @@ func NewDeleteCredentialsV1OK() *DeleteCredentialsV1OK {
 	return &DeleteCredentialsV1OK{}
 }
 
-/*DeleteCredentialsV1OK handles this case with default header values.
+/*
+DeleteCredentialsV1OK handles this case with default header values.
 
 successful operation
 */

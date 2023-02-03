@@ -42,7 +42,8 @@ func NewHasFlowRunningByChainIDOK() *HasFlowRunningByChainIDOK {
 	return &HasFlowRunningByChainIDOK{}
 }
 
-/*HasFlowRunningByChainIDOK handles this case with default header values.
+/*
+HasFlowRunningByChainIDOK handles this case with default header values.
 
 successful operation
 */

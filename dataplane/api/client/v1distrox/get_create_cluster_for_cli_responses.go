@@ -40,7 +40,8 @@ func NewGetCreateClusterForCliOK() *GetCreateClusterForCliOK {
 	return &GetCreateClusterForCliOK{}
 }
 
-/*GetCreateClusterForCliOK handles this case with default header values.
+/*
+GetCreateClusterForCliOK handles this case with default header values.
 
 successful operation
 */

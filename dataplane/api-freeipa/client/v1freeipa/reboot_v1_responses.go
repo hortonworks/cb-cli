@@ -42,7 +42,8 @@ func NewRebootV1OK() *RebootV1OK {
 	return &RebootV1OK{}
 }
 
-/*RebootV1OK handles this case with default header values.
+/*
+RebootV1OK handles this case with default header values.
 
 successful operation
 */

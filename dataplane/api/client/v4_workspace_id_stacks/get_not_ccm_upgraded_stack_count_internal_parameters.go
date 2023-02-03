@@ -57,7 +57,8 @@ func NewGetNotCcmUpgradedStackCountInternalParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/*GetNotCcmUpgradedStackCountInternalParams contains all the parameters to send to the API endpoint
+/*
+GetNotCcmUpgradedStackCountInternalParams contains all the parameters to send to the API endpoint
 for the get not ccm upgraded stack count internal operation typically these are written to a http.Request
 */
 type GetNotCcmUpgradedStackCountInternalParams struct {

@@ -56,7 +56,8 @@ func NewIsStoppableParamsWithHTTPClient(client *http.Client) *IsStoppableParams 
 	}
 }
 
-/*IsStoppableParams contains all the parameters to send to the API endpoint
+/*
+IsStoppableParams contains all the parameters to send to the API endpoint
 for the is stoppable operation typically these are written to a http.Request
 */
 type IsStoppableParams struct {

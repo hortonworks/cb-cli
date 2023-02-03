@@ -39,7 +39,8 @@ func NewDeleteMultipleDistroXClustersByNamesV1Default(code int) *DeleteMultipleD
 	}
 }
 
-/*DeleteMultipleDistroXClustersByNamesV1Default handles this case with default header values.
+/*
+DeleteMultipleDistroXClustersByNamesV1Default handles this case with default header values.
 
 successful operation
 */

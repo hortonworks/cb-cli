@@ -56,7 +56,8 @@ func NewCancelStackDiagnosticsCollectionsParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*CancelStackDiagnosticsCollectionsParams contains all the parameters to send to the API endpoint
+/*
+CancelStackDiagnosticsCollectionsParams contains all the parameters to send to the API endpoint
 for the cancel stack diagnostics collections operation typically these are written to a http.Request
 */
 type CancelStackDiagnosticsCollectionsParams struct {

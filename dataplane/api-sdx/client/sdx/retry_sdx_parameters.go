@@ -56,7 +56,8 @@ func NewRetrySdxParamsWithHTTPClient(client *http.Client) *RetrySdxParams {
 	}
 }
 
-/*RetrySdxParams contains all the parameters to send to the API endpoint
+/*
+RetrySdxParams contains all the parameters to send to the API endpoint
 for the retry sdx operation typically these are written to a http.Request
 */
 type RetrySdxParams struct {

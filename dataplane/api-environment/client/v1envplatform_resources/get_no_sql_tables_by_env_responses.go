@@ -42,7 +42,8 @@ func NewGetNoSQLTablesByEnvOK() *GetNoSQLTablesByEnvOK {
 	return &GetNoSQLTablesByEnvOK{}
 }
 
-/*GetNoSQLTablesByEnvOK handles this case with default header values.
+/*
+GetNoSQLTablesByEnvOK handles this case with default header values.
 
 successful operation
 */

@@ -39,7 +39,8 @@ func NewAddDNSCnameRecordV1InternalDefault(code int) *AddDNSCnameRecordV1Interna
 	}
 }
 
-/*AddDNSCnameRecordV1InternalDefault handles this case with default header values.
+/*
+AddDNSCnameRecordV1InternalDefault handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetGeneratedTagsV1OK() *GetGeneratedTagsV1OK {
 	return &GetGeneratedTagsV1OK{}
 }
 
-/*GetGeneratedTagsV1OK handles this case with default header values.
+/*
+GetGeneratedTagsV1OK handles this case with default header values.
 
 successful operation
 */

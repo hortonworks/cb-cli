@@ -42,7 +42,8 @@ func NewAutoscaleStopInstancesByNameOK() *AutoscaleStopInstancesByNameOK {
 	return &AutoscaleStopInstancesByNameOK{}
 }
 
-/*AutoscaleStopInstancesByNameOK handles this case with default header values.
+/*
+AutoscaleStopInstancesByNameOK handles this case with default header values.
 
 successful operation
 */

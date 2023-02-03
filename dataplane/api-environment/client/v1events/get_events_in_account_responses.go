@@ -42,7 +42,8 @@ func NewGetEventsInAccountOK() *GetEventsInAccountOK {
 	return &GetEventsInAccountOK{}
 }
 
-/*GetEventsInAccountOK handles this case with default header values.
+/*
+GetEventsInAccountOK handles this case with default header values.
 
 successful operation
 */

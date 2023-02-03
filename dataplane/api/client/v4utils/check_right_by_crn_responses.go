@@ -42,7 +42,8 @@ func NewCheckRightByCrnOK() *CheckRightByCrnOK {
 	return &CheckRightByCrnOK{}
 }
 
-/*CheckRightByCrnOK handles this case with default header values.
+/*
+CheckRightByCrnOK handles this case with default header values.
 
 successful operation
 */

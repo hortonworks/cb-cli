@@ -56,7 +56,8 @@ func NewUpgradeCcmByEnvironmentNameV1ParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*UpgradeCcmByEnvironmentNameV1Params contains all the parameters to send to the API endpoint
+/*
+UpgradeCcmByEnvironmentNameV1Params contains all the parameters to send to the API endpoint
 for the upgrade ccm by environment name v1 operation typically these are written to a http.Request
 */
 type UpgradeCcmByEnvironmentNameV1Params struct {

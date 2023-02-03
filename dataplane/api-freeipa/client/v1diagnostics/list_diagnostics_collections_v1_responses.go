@@ -42,7 +42,8 @@ func NewListDiagnosticsCollectionsV1OK() *ListDiagnosticsCollectionsV1OK {
 	return &ListDiagnosticsCollectionsV1OK{}
 }
 
-/*ListDiagnosticsCollectionsV1OK handles this case with default header values.
+/*
+ListDiagnosticsCollectionsV1OK handles this case with default header values.
 
 successful operation
 */

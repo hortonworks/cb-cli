@@ -68,7 +68,8 @@ func NewStartEnvironmentByNameV1ParamsWithHTTPClient(client *http.Client) *Start
 	}
 }
 
-/*StartEnvironmentByNameV1Params contains all the parameters to send to the API endpoint
+/*
+StartEnvironmentByNameV1Params contains all the parameters to send to the API endpoint
 for the start environment by name v1 operation typically these are written to a http.Request
 */
 type StartEnvironmentByNameV1Params struct {

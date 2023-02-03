@@ -57,7 +57,8 @@ func NewGetImageFromDefaultByIDParamsWithHTTPClient(client *http.Client) *GetIma
 	}
 }
 
-/*GetImageFromDefaultByIDParams contains all the parameters to send to the API endpoint
+/*
+GetImageFromDefaultByIDParams contains all the parameters to send to the API endpoint
 for the get image from default by Id operation typically these are written to a http.Request
 */
 type GetImageFromDefaultByIDParams struct {

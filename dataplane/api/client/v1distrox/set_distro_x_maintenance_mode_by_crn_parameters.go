@@ -58,7 +58,8 @@ func NewSetDistroXMaintenanceModeByCrnParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*SetDistroXMaintenanceModeByCrnParams contains all the parameters to send to the API endpoint
+/*
+SetDistroXMaintenanceModeByCrnParams contains all the parameters to send to the API endpoint
 for the set distro x maintenance mode by crn operation typically these are written to a http.Request
 */
 type SetDistroXMaintenanceModeByCrnParams struct {

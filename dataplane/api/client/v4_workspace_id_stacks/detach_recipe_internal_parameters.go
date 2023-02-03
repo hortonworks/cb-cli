@@ -59,7 +59,8 @@ func NewDetachRecipeInternalParamsWithHTTPClient(client *http.Client) *DetachRec
 	}
 }
 
-/*DetachRecipeInternalParams contains all the parameters to send to the API endpoint
+/*
+DetachRecipeInternalParams contains all the parameters to send to the API endpoint
 for the detach recipe internal operation typically these are written to a http.Request
 */
 type DetachRecipeInternalParams struct {

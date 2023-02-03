@@ -56,7 +56,8 @@ func NewGetLdapRequestByNameV1ParamsWithHTTPClient(client *http.Client) *GetLdap
 	}
 }
 
-/*GetLdapRequestByNameV1Params contains all the parameters to send to the API endpoint
+/*
+GetLdapRequestByNameV1Params contains all the parameters to send to the API endpoint
 for the get ldap request by name v1 operation typically these are written to a http.Request
 */
 type GetLdapRequestByNameV1Params struct {

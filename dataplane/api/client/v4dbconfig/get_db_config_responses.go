@@ -42,7 +42,8 @@ func NewGetDbConfigOK() *GetDbConfigOK {
 	return &GetDbConfigOK{}
 }
 
-/*GetDbConfigOK handles this case with default header values.
+/*
+GetDbConfigOK handles this case with default header values.
 
 successful operation
 */

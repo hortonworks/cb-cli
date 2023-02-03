@@ -56,7 +56,8 @@ func NewGetCreateEnvironmentForCliByNameParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*GetCreateEnvironmentForCliByNameParams contains all the parameters to send to the API endpoint
+/*
+GetCreateEnvironmentForCliByNameParams contains all the parameters to send to the API endpoint
 for the get create environment for cli by name operation typically these are written to a http.Request
 */
 type GetCreateEnvironmentForCliByNameParams struct {

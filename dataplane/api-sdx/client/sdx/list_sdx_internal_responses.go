@@ -42,7 +42,8 @@ func NewListSdxInternalOK() *ListSdxInternalOK {
 	return &ListSdxInternalOK{}
 }
 
-/*ListSdxInternalOK handles this case with default header values.
+/*
+ListSdxInternalOK handles this case with default header values.
 
 successful operation
 */

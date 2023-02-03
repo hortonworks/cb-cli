@@ -56,7 +56,8 @@ func NewGetKerberosConfigForClusterV1ParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*GetKerberosConfigForClusterV1Params contains all the parameters to send to the API endpoint
+/*
+GetKerberosConfigForClusterV1Params contains all the parameters to send to the API endpoint
 for the get kerberos config for cluster v1 operation typically these are written to a http.Request
 */
 type GetKerberosConfigForClusterV1Params struct {

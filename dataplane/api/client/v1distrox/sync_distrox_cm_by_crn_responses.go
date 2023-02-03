@@ -42,7 +42,8 @@ func NewSyncDistroxCmByCrnOK() *SyncDistroxCmByCrnOK {
 	return &SyncDistroxCmByCrnOK{}
 }
 
-/*SyncDistroxCmByCrnOK handles this case with default header values.
+/*
+SyncDistroxCmByCrnOK handles this case with default header values.
 
 successful operation
 */

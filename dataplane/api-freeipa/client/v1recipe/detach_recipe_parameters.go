@@ -58,7 +58,8 @@ func NewDetachRecipeParamsWithHTTPClient(client *http.Client) *DetachRecipeParam
 	}
 }
 
-/*DetachRecipeParams contains all the parameters to send to the API endpoint
+/*
+DetachRecipeParams contains all the parameters to send to the API endpoint
 for the detach recipe operation typically these are written to a http.Request
 */
 type DetachRecipeParams struct {

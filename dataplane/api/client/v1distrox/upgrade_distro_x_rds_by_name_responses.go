@@ -42,7 +42,8 @@ func NewUpgradeDistroXRdsByNameOK() *UpgradeDistroXRdsByNameOK {
 	return &UpgradeDistroXRdsByNameOK{}
 }
 
-/*UpgradeDistroXRdsByNameOK handles this case with default header values.
+/*
+UpgradeDistroXRdsByNameOK handles this case with default header values.
 
 successful operation
 */

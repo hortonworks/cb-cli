@@ -42,7 +42,8 @@ func NewGetBlueprintInWorkspaceInternalOK() *GetBlueprintInWorkspaceInternalOK {
 	return &GetBlueprintInWorkspaceInternalOK{}
 }
 
-/*GetBlueprintInWorkspaceInternalOK handles this case with default header values.
+/*
+GetBlueprintInWorkspaceInternalOK handles this case with default header values.
 
 successful operation
 */

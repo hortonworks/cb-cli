@@ -56,7 +56,8 @@ func NewGetFlowLogsByResourceCrnParamsWithHTTPClient(client *http.Client) *GetFl
 	}
 }
 
-/*GetFlowLogsByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetFlowLogsByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get flow logs by resource crn operation typically these are written to a http.Request
 */
 type GetFlowLogsByResourceCrnParams struct {

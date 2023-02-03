@@ -42,7 +42,8 @@ func NewRotateSaltPasswordV1OK() *RotateSaltPasswordV1OK {
 	return &RotateSaltPasswordV1OK{}
 }
 
-/*RotateSaltPasswordV1OK handles this case with default header values.
+/*
+RotateSaltPasswordV1OK handles this case with default header values.
 
 successful operation
 */

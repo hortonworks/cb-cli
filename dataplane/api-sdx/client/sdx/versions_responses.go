@@ -40,7 +40,8 @@ func NewVersionsOK() *VersionsOK {
 	return &VersionsOK{}
 }
 
-/*VersionsOK handles this case with default header values.
+/*
+VersionsOK handles this case with default header values.
 
 successful operation
 */

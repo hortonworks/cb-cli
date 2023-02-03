@@ -57,7 +57,8 @@ func NewUpdatePillarConfigurationByNameParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*UpdatePillarConfigurationByNameParams contains all the parameters to send to the API endpoint
+/*
+UpdatePillarConfigurationByNameParams contains all the parameters to send to the API endpoint
 for the update pillar configuration by name operation typically these are written to a http.Request
 */
 type UpdatePillarConfigurationByNameParams struct {

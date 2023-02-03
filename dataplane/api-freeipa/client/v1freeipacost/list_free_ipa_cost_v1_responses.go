@@ -42,7 +42,8 @@ func NewListFreeIpaCostV1OK() *ListFreeIpaCostV1OK {
 	return &ListFreeIpaCostV1OK{}
 }
 
-/*ListFreeIpaCostV1OK handles this case with default header values.
+/*
+ListFreeIpaCostV1OK handles this case with default header values.
 
 successful operation
 */

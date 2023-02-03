@@ -56,7 +56,8 @@ func NewUpdateClusterCrnParamsWithHTTPClient(client *http.Client) *UpdateCluster
 	}
 }
 
-/*UpdateClusterCrnParams contains all the parameters to send to the API endpoint
+/*
+UpdateClusterCrnParams contains all the parameters to send to the API endpoint
 for the update cluster crn operation typically these are written to a http.Request
 */
 type UpdateClusterCrnParams struct {

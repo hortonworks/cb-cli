@@ -42,7 +42,8 @@ func NewDeleteDatabaseServerByCrnOK() *DeleteDatabaseServerByCrnOK {
 	return &DeleteDatabaseServerByCrnOK{}
 }
 
-/*DeleteDatabaseServerByCrnOK handles this case with default header values.
+/*
+DeleteDatabaseServerByCrnOK handles this case with default header values.
 
 successful operation
 */

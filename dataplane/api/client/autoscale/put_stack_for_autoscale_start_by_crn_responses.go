@@ -42,7 +42,8 @@ func NewPutStackForAutoscaleStartByCrnOK() *PutStackForAutoscaleStartByCrnOK {
 	return &PutStackForAutoscaleStartByCrnOK{}
 }
 
-/*PutStackForAutoscaleStartByCrnOK handles this case with default header values.
+/*
+PutStackForAutoscaleStartByCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewDeleteDatabaseByNameOK() *DeleteDatabaseByNameOK {
 	return &DeleteDatabaseByNameOK{}
 }
 
-/*DeleteDatabaseByNameOK handles this case with default header values.
+/*
+DeleteDatabaseByNameOK handles this case with default header values.
 
 successful operation
 */

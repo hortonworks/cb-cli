@@ -58,7 +58,8 @@ func NewChangeImageV1ParamsWithHTTPClient(client *http.Client) *ChangeImageV1Par
 	}
 }
 
-/*ChangeImageV1Params contains all the parameters to send to the API endpoint
+/*
+ChangeImageV1Params contains all the parameters to send to the API endpoint
 for the change image v1 operation typically these are written to a http.Request
 */
 type ChangeImageV1Params struct {

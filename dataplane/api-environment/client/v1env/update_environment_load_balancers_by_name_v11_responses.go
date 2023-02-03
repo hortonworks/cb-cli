@@ -42,7 +42,8 @@ func NewUpdateEnvironmentLoadBalancersByNameV11OK() *UpdateEnvironmentLoadBalanc
 	return &UpdateEnvironmentLoadBalancersByNameV11OK{}
 }
 
-/*UpdateEnvironmentLoadBalancersByNameV11OK handles this case with default header values.
+/*
+UpdateEnvironmentLoadBalancersByNameV11OK handles this case with default header values.
 
 successful operation
 */

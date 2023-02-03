@@ -56,7 +56,8 @@ func NewGetEnvironmentLastFlowLogProgressByResourceCrnParamsWithHTTPClient(clien
 	}
 }
 
-/*GetEnvironmentLastFlowLogProgressByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetEnvironmentLastFlowLogProgressByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get environment last flow log progress by resource crn operation typically these are written to a http.Request
 */
 type GetEnvironmentLastFlowLogProgressByResourceCrnParams struct {

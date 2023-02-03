@@ -42,7 +42,8 @@ func NewUpgradeDatalakeDatabaseByNameOK() *UpgradeDatalakeDatabaseByNameOK {
 	return &UpgradeDatalakeDatabaseByNameOK{}
 }
 
-/*UpgradeDatalakeDatabaseByNameOK handles this case with default header values.
+/*
+UpgradeDatalakeDatabaseByNameOK handles this case with default header values.
 
 successful operation
 */

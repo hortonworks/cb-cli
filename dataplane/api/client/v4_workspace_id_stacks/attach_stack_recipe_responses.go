@@ -42,7 +42,8 @@ func NewAttachStackRecipeOK() *AttachStackRecipeOK {
 	return &AttachStackRecipeOK{}
 }
 
-/*AttachStackRecipeOK handles this case with default header values.
+/*
+AttachStackRecipeOK handles this case with default header values.
 
 successful operation
 */

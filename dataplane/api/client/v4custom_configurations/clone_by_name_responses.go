@@ -42,7 +42,8 @@ func NewCloneByNameOK() *CloneByNameOK {
 	return &CloneByNameOK{}
 }
 
-/*CloneByNameOK handles this case with default header values.
+/*
+CloneByNameOK handles this case with default header values.
 
 successful operation
 */

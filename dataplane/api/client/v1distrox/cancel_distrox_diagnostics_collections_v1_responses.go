@@ -39,7 +39,8 @@ func NewCancelDistroxDiagnosticsCollectionsV1Default(code int) *CancelDistroxDia
 	}
 }
 
-/*CancelDistroxDiagnosticsCollectionsV1Default handles this case with default header values.
+/*
+CancelDistroxDiagnosticsCollectionsV1Default handles this case with default header values.
 
 successful operation
 */

@@ -58,7 +58,8 @@ func NewCreateCustomSdxParamsWithHTTPClient(client *http.Client) *CreateCustomSd
 	}
 }
 
-/*CreateCustomSdxParams contains all the parameters to send to the API endpoint
+/*
+CreateCustomSdxParams contains all the parameters to send to the API endpoint
 for the create custom sdx operation typically these are written to a http.Request
 */
 type CreateCustomSdxParams struct {

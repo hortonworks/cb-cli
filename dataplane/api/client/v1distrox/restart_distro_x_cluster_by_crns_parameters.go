@@ -57,7 +57,8 @@ func NewRestartDistroXClusterByCrnsParamsWithHTTPClient(client *http.Client) *Re
 	}
 }
 
-/*RestartDistroXClusterByCrnsParams contains all the parameters to send to the API endpoint
+/*
+RestartDistroXClusterByCrnsParams contains all the parameters to send to the API endpoint
 for the restart distro x cluster by crns operation typically these are written to a http.Request
 */
 type RestartDistroXClusterByCrnsParams struct {

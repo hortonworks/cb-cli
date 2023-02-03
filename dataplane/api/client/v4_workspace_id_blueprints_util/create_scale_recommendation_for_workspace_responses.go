@@ -42,7 +42,8 @@ func NewCreateScaleRecommendationForWorkspaceOK() *CreateScaleRecommendationForW
 	return &CreateScaleRecommendationForWorkspaceOK{}
 }
 
-/*CreateScaleRecommendationForWorkspaceOK handles this case with default header values.
+/*
+CreateScaleRecommendationForWorkspaceOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewStartStackInWorkspaceV4InternalOK() *StartStackInWorkspaceV4InternalOK {
 	return &StartStackInWorkspaceV4InternalOK{}
 }
 
-/*StartStackInWorkspaceV4InternalOK handles this case with default header values.
+/*
+StartStackInWorkspaceV4InternalOK handles this case with default header values.
 
 successful operation
 */

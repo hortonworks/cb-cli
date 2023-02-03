@@ -69,7 +69,8 @@ func NewDeleteWithKerberosDistroXV1ByCrnParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*DeleteWithKerberosDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+DeleteWithKerberosDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
 for the delete with kerberos distro x v1 by crn operation typically these are written to a http.Request
 */
 type DeleteWithKerberosDistroXV1ByCrnParams struct {

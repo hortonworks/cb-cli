@@ -42,7 +42,8 @@ func NewInfoOK() *InfoOK {
 	return &InfoOK{}
 }
 
-/*InfoOK handles this case with default header values.
+/*
+InfoOK handles this case with default header values.
 
 successful operation
 */

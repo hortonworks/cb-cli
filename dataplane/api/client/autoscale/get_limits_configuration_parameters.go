@@ -56,7 +56,8 @@ func NewGetLimitsConfigurationParamsWithHTTPClient(client *http.Client) *GetLimi
 	}
 }
 
-/*GetLimitsConfigurationParams contains all the parameters to send to the API endpoint
+/*
+GetLimitsConfigurationParams contains all the parameters to send to the API endpoint
 for the get limits configuration operation typically these are written to a http.Request
 */
 type GetLimitsConfigurationParams struct {

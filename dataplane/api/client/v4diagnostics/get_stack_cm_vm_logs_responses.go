@@ -42,7 +42,8 @@ func NewGetStackCmVMLogsOK() *GetStackCmVMLogsOK {
 	return &GetStackCmVMLogsOK{}
 }
 
-/*GetStackCmVMLogsOK handles this case with default header values.
+/*
+GetStackCmVMLogsOK handles this case with default header values.
 
 successful operation
 */

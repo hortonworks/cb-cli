@@ -42,7 +42,8 @@ func NewDeleteClusterTemplateByCrnInWorkspaceOK() *DeleteClusterTemplateByCrnInW
 	return &DeleteClusterTemplateByCrnInWorkspaceOK{}
 }
 
-/*DeleteClusterTemplateByCrnInWorkspaceOK handles this case with default header values.
+/*
+DeleteClusterTemplateByCrnInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

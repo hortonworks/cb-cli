@@ -42,7 +42,8 @@ func NewGetDefaultSecurityRulesOK() *GetDefaultSecurityRulesOK {
 	return &GetDefaultSecurityRulesOK{}
 }
 
-/*GetDefaultSecurityRulesOK handles this case with default header values.
+/*
+GetDefaultSecurityRulesOK handles this case with default header values.
 
 successful operation
 */

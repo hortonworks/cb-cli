@@ -58,7 +58,8 @@ func NewDetachChildEnvironmentV1ParamsWithHTTPClient(client *http.Client) *Detac
 	}
 }
 
-/*DetachChildEnvironmentV1Params contains all the parameters to send to the API endpoint
+/*
+DetachChildEnvironmentV1Params contains all the parameters to send to the API endpoint
 for the detach child environment v1 operation typically these are written to a http.Request
 */
 type DetachChildEnvironmentV1Params struct {

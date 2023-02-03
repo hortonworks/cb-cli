@@ -42,7 +42,8 @@ func NewDeleteInstanceStackV4OK() *DeleteInstanceStackV4OK {
 	return &DeleteInstanceStackV4OK{}
 }
 
-/*DeleteInstanceStackV4OK handles this case with default header values.
+/*
+DeleteInstanceStackV4OK handles this case with default header values.
 
 successful operation
 */

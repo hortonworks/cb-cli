@@ -42,7 +42,8 @@ func NewListFreeIpaClustersByAccountV1OK() *ListFreeIpaClustersByAccountV1OK {
 	return &ListFreeIpaClustersByAccountV1OK{}
 }
 
-/*ListFreeIpaClustersByAccountV1OK handles this case with default header values.
+/*
+ListFreeIpaClustersByAccountV1OK handles this case with default header values.
 
 successful operation
 */

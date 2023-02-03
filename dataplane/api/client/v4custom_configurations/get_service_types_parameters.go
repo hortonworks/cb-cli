@@ -56,7 +56,8 @@ func NewGetServiceTypesParamsWithHTTPClient(client *http.Client) *GetServiceType
 	}
 }
 
-/*GetServiceTypesParams contains all the parameters to send to the API endpoint
+/*
+GetServiceTypesParams contains all the parameters to send to the API endpoint
 for the get service types operation typically these are written to a http.Request
 */
 type GetServiceTypesParams struct {

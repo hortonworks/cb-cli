@@ -56,7 +56,8 @@ func NewGetSdxFlowLogsProgressByResourceCrnParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/*GetSdxFlowLogsProgressByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetSdxFlowLogsProgressByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get sdx flow logs progress by resource crn operation typically these are written to a http.Request
 */
 type GetSdxFlowLogsProgressByResourceCrnParams struct {

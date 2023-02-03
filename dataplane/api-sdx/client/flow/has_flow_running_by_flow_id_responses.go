@@ -42,7 +42,8 @@ func NewHasFlowRunningByFlowIDOK() *HasFlowRunningByFlowIDOK {
 	return &HasFlowRunningByFlowIDOK{}
 }
 
-/*HasFlowRunningByFlowIDOK handles this case with default header values.
+/*
+HasFlowRunningByFlowIDOK handles this case with default header values.
 
 successful operation
 */

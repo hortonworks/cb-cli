@@ -42,7 +42,8 @@ func NewGetDatabaseServerByNameOK() *GetDatabaseServerByNameOK {
 	return &GetDatabaseServerByNameOK{}
 }
 
-/*GetDatabaseServerByNameOK handles this case with default header values.
+/*
+GetDatabaseServerByNameOK handles this case with default header values.
 
 successful operation
 */

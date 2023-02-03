@@ -42,7 +42,8 @@ func NewGetClusterProxyconfigurationOK() *GetClusterProxyconfigurationOK {
 	return &GetClusterProxyconfigurationOK{}
 }
 
-/*GetClusterProxyconfigurationOK handles this case with default header values.
+/*
+GetClusterProxyconfigurationOK handles this case with default header values.
 
 successful operation
 */

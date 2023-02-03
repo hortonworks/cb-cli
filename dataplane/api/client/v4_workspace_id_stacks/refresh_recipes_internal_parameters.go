@@ -59,7 +59,8 @@ func NewRefreshRecipesInternalParamsWithHTTPClient(client *http.Client) *Refresh
 	}
 }
 
-/*RefreshRecipesInternalParams contains all the parameters to send to the API endpoint
+/*
+RefreshRecipesInternalParams contains all the parameters to send to the API endpoint
 for the refresh recipes internal operation typically these are written to a http.Request
 */
 type RefreshRecipesInternalParams struct {

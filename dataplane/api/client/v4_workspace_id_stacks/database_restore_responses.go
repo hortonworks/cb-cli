@@ -42,7 +42,8 @@ func NewDatabaseRestoreOK() *DatabaseRestoreOK {
 	return &DatabaseRestoreOK{}
 }
 
-/*DatabaseRestoreOK handles this case with default header values.
+/*
+DatabaseRestoreOK handles this case with default header values.
 
 successful operation
 */

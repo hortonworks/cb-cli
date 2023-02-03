@@ -58,7 +58,8 @@ func NewTestRuleV1ParamsWithHTTPClient(client *http.Client) *TestRuleV1Params {
 	}
 }
 
-/*TestRuleV1Params contains all the parameters to send to the API endpoint
+/*
+TestRuleV1Params contains all the parameters to send to the API endpoint
 for the test rule v1 operation typically these are written to a http.Request
 */
 type TestRuleV1Params struct {

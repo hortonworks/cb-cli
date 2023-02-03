@@ -42,7 +42,8 @@ func NewListClusterTemplatesByEnvOK() *ListClusterTemplatesByEnvOK {
 	return &ListClusterTemplatesByEnvOK{}
 }
 
-/*ListClusterTemplatesByEnvOK handles this case with default header values.
+/*
+ListClusterTemplatesByEnvOK handles this case with default header values.
 
 successful operation
 */

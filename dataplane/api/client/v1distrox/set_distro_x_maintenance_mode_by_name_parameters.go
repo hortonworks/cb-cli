@@ -58,7 +58,8 @@ func NewSetDistroXMaintenanceModeByNameParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*SetDistroXMaintenanceModeByNameParams contains all the parameters to send to the API endpoint
+/*
+SetDistroXMaintenanceModeByNameParams contains all the parameters to send to the API endpoint
 for the set distro x maintenance mode by name operation typically these are written to a http.Request
 */
 type SetDistroXMaintenanceModeByNameParams struct {

@@ -42,7 +42,8 @@ func NewRefreshRecipesByCrnOK() *RefreshRecipesByCrnOK {
 	return &RefreshRecipesByCrnOK{}
 }
 
-/*RefreshRecipesByCrnOK handles this case with default header values.
+/*
+RefreshRecipesByCrnOK handles this case with default header values.
 
 successful operation
 */

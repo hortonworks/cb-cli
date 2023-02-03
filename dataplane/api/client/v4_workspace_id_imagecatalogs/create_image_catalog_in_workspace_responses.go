@@ -42,7 +42,8 @@ func NewCreateImageCatalogInWorkspaceOK() *CreateImageCatalogInWorkspaceOK {
 	return &CreateImageCatalogInWorkspaceOK{}
 }
 
-/*CreateImageCatalogInWorkspaceOK handles this case with default header values.
+/*
+CreateImageCatalogInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

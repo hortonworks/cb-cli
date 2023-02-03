@@ -42,7 +42,8 @@ func NewGetPlatformSShKeysOK() *GetPlatformSShKeysOK {
 	return &GetPlatformSShKeysOK{}
 }
 
-/*GetPlatformSShKeysOK handles this case with default header values.
+/*
+GetPlatformSShKeysOK handles this case with default header values.
 
 successful operation
 */

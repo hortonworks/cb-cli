@@ -42,7 +42,8 @@ func NewUpdateSaltByNameOK() *UpdateSaltByNameOK {
 	return &UpdateSaltByNameOK{}
 }
 
-/*UpdateSaltByNameOK handles this case with default header values.
+/*
+UpdateSaltByNameOK handles this case with default header values.
 
 successful operation
 */

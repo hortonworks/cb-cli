@@ -42,7 +42,8 @@ func NewTestDatabaseServerConnectionOK() *TestDatabaseServerConnectionOK {
 	return &TestDatabaseServerConnectionOK{}
 }
 
-/*TestDatabaseServerConnectionOK handles this case with default header values.
+/*
+TestDatabaseServerConnectionOK handles this case with default header values.
 
 successful operation
 */

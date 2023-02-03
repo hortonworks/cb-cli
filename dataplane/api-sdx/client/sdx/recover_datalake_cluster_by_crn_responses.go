@@ -42,7 +42,8 @@ func NewRecoverDatalakeClusterByCrnOK() *RecoverDatalakeClusterByCrnOK {
 	return &RecoverDatalakeClusterByCrnOK{}
 }
 
-/*RecoverDatalakeClusterByCrnOK handles this case with default header values.
+/*
+RecoverDatalakeClusterByCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewDeleteCredentialByResourceCrnV1ParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*DeleteCredentialByResourceCrnV1Params contains all the parameters to send to the API endpoint
+/*
+DeleteCredentialByResourceCrnV1Params contains all the parameters to send to the API endpoint
 for the delete credential by resource crn v1 operation typically these are written to a http.Request
 */
 type DeleteCredentialByResourceCrnV1Params struct {

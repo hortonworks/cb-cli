@@ -42,7 +42,8 @@ func NewGetSyncOperationStatusV1OK() *GetSyncOperationStatusV1OK {
 	return &GetSyncOperationStatusV1OK{}
 }
 
-/*GetSyncOperationStatusV1OK handles this case with default header values.
+/*
+GetSyncOperationStatusV1OK handles this case with default header values.
 
 successful operation
 */

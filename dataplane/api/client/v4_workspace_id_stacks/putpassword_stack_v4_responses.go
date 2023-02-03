@@ -42,7 +42,8 @@ func NewPutpasswordStackV4OK() *PutpasswordStackV4OK {
 	return &PutpasswordStackV4OK{}
 }
 
-/*PutpasswordStackV4OK handles this case with default header values.
+/*
+PutpasswordStackV4OK handles this case with default header values.
 
 successful operation
 */

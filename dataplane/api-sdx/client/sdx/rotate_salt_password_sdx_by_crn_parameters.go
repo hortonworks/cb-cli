@@ -56,7 +56,8 @@ func NewRotateSaltPasswordSdxByCrnParamsWithHTTPClient(client *http.Client) *Rot
 	}
 }
 
-/*RotateSaltPasswordSdxByCrnParams contains all the parameters to send to the API endpoint
+/*
+RotateSaltPasswordSdxByCrnParams contains all the parameters to send to the API endpoint
 for the rotate salt password sdx by crn operation typically these are written to a http.Request
 */
 type RotateSaltPasswordSdxByCrnParams struct {

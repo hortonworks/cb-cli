@@ -42,7 +42,8 @@ func NewDeleteMultipleInstancesStackV4OK() *DeleteMultipleInstancesStackV4OK {
 	return &DeleteMultipleInstancesStackV4OK{}
 }
 
-/*DeleteMultipleInstancesStackV4OK handles this case with default header values.
+/*
+DeleteMultipleInstancesStackV4OK handles this case with default header values.
 
 successful operation
 */

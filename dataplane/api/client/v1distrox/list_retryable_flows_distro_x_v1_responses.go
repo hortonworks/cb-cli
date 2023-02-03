@@ -42,7 +42,8 @@ func NewListRetryableFlowsDistroXV1OK() *ListRetryableFlowsDistroXV1OK {
 	return &ListRetryableFlowsDistroXV1OK{}
 }
 
-/*ListRetryableFlowsDistroXV1OK handles this case with default header values.
+/*
+ListRetryableFlowsDistroXV1OK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewInternalListFreeIpaClustersByAccountV1ParamsWithHTTPClient(client *http.
 	}
 }
 
-/*InternalListFreeIpaClustersByAccountV1Params contains all the parameters to send to the API endpoint
+/*
+InternalListFreeIpaClustersByAccountV1Params contains all the parameters to send to the API endpoint
 for the internal list free ipa clusters by account v1 operation typically these are written to a http.Request
 */
 type InternalListFreeIpaClustersByAccountV1Params struct {

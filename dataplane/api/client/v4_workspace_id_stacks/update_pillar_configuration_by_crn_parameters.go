@@ -57,7 +57,8 @@ func NewUpdatePillarConfigurationByCrnParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*UpdatePillarConfigurationByCrnParams contains all the parameters to send to the API endpoint
+/*
+UpdatePillarConfigurationByCrnParams contains all the parameters to send to the API endpoint
 for the update pillar configuration by crn operation typically these are written to a http.Request
 */
 type UpdatePillarConfigurationByCrnParams struct {

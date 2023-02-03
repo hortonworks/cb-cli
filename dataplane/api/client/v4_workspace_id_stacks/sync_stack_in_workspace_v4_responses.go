@@ -42,7 +42,8 @@ func NewSyncStackInWorkspaceV4OK() *SyncStackInWorkspaceV4OK {
 	return &SyncStackInWorkspaceV4OK{}
 }
 
-/*SyncStackInWorkspaceV4OK handles this case with default header values.
+/*
+SyncStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

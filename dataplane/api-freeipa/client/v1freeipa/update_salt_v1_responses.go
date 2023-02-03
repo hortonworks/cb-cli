@@ -42,7 +42,8 @@ func NewUpdateSaltV1OK() *UpdateSaltV1OK {
 	return &UpdateSaltV1OK{}
 }
 
-/*UpdateSaltV1OK handles this case with default header values.
+/*
+UpdateSaltV1OK handles this case with default header values.
 
 successful operation
 */

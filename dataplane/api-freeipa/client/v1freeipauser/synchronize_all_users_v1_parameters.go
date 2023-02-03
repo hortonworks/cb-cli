@@ -58,7 +58,8 @@ func NewSynchronizeAllUsersV1ParamsWithHTTPClient(client *http.Client) *Synchron
 	}
 }
 
-/*SynchronizeAllUsersV1Params contains all the parameters to send to the API endpoint
+/*
+SynchronizeAllUsersV1Params contains all the parameters to send to the API endpoint
 for the synchronize all users v1 operation typically these are written to a http.Request
 */
 type SynchronizeAllUsersV1Params struct {

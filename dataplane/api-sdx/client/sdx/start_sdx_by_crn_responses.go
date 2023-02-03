@@ -42,7 +42,8 @@ func NewStartSdxByCrnOK() *StartSdxByCrnOK {
 	return &StartSdxByCrnOK{}
 }
 
-/*StartSdxByCrnOK handles this case with default header values.
+/*
+StartSdxByCrnOK handles this case with default header values.
 
 successful operation
 */

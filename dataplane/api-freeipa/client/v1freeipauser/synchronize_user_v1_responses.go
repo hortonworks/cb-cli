@@ -42,7 +42,8 @@ func NewSynchronizeUserV1OK() *SynchronizeUserV1OK {
 	return &SynchronizeUserV1OK{}
 }
 
-/*SynchronizeUserV1OK handles this case with default header values.
+/*
+SynchronizeUserV1OK handles this case with default header values.
 
 successful operation
 */

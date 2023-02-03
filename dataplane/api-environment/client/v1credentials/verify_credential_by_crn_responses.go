@@ -42,7 +42,8 @@ func NewVerifyCredentialByCrnOK() *VerifyCredentialByCrnOK {
 	return &VerifyCredentialByCrnOK{}
 }
 
-/*VerifyCredentialByCrnOK handles this case with default header values.
+/*
+VerifyCredentialByCrnOK handles this case with default header values.
 
 successful operation
 */

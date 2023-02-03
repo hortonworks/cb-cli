@@ -39,7 +39,8 @@ func NewCancelSdxDiagnosticsCollectionsDefault(code int) *CancelSdxDiagnosticsCo
 	}
 }
 
-/*CancelSdxDiagnosticsCollectionsDefault handles this case with default header values.
+/*
+CancelSdxDiagnosticsCollectionsDefault handles this case with default header values.
 
 successful operation
 */

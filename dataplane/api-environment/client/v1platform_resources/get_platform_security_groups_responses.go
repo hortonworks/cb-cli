@@ -42,7 +42,8 @@ func NewGetPlatformSecurityGroupsOK() *GetPlatformSecurityGroupsOK {
 	return &GetPlatformSecurityGroupsOK{}
 }
 
-/*GetPlatformSecurityGroupsOK handles this case with default header values.
+/*
+GetPlatformSecurityGroupsOK handles this case with default header values.
 
 successful operation
 */

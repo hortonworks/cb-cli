@@ -56,7 +56,8 @@ func NewGetCertificateStackForAutoscaleParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*GetCertificateStackForAutoscaleParams contains all the parameters to send to the API endpoint
+/*
+GetCertificateStackForAutoscaleParams contains all the parameters to send to the API endpoint
 for the get certificate stack for autoscale operation typically these are written to a http.Request
 */
 type GetCertificateStackForAutoscaleParams struct {

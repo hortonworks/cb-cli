@@ -58,7 +58,8 @@ func NewAttachChildEnvironmentV1ParamsWithHTTPClient(client *http.Client) *Attac
 	}
 }
 
-/*AttachChildEnvironmentV1Params contains all the parameters to send to the API endpoint
+/*
+AttachChildEnvironmentV1Params contains all the parameters to send to the API endpoint
 for the attach child environment v1 operation typically these are written to a http.Request
 */
 type AttachChildEnvironmentV1Params struct {

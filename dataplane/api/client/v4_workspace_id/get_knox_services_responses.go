@@ -42,7 +42,8 @@ func NewGetKnoxServicesOK() *GetKnoxServicesOK {
 	return &GetKnoxServicesOK{}
 }
 
-/*GetKnoxServicesOK handles this case with default header values.
+/*
+GetKnoxServicesOK handles this case with default header values.
 
 successful operation
 */

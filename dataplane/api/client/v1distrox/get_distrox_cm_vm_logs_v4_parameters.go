@@ -56,7 +56,8 @@ func NewGetDistroxCmVMLogsV4ParamsWithHTTPClient(client *http.Client) *GetDistro
 	}
 }
 
-/*GetDistroxCmVMLogsV4Params contains all the parameters to send to the API endpoint
+/*
+GetDistroxCmVMLogsV4Params contains all the parameters to send to the API endpoint
 for the get distrox cm Vm logs v4 operation typically these are written to a http.Request
 */
 type GetDistroxCmVMLogsV4Params struct {

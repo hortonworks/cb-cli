@@ -42,7 +42,8 @@ func NewGetFlowLogsByFlowIdsOK() *GetFlowLogsByFlowIdsOK {
 	return &GetFlowLogsByFlowIdsOK{}
 }
 
-/*GetFlowLogsByFlowIdsOK handles this case with default header values.
+/*
+GetFlowLogsByFlowIdsOK handles this case with default header values.
 
 successful operation
 */

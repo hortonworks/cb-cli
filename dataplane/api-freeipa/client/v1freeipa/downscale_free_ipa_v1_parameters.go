@@ -58,7 +58,8 @@ func NewDownscaleFreeIpaV1ParamsWithHTTPClient(client *http.Client) *DownscaleFr
 	}
 }
 
-/*DownscaleFreeIpaV1Params contains all the parameters to send to the API endpoint
+/*
+DownscaleFreeIpaV1Params contains all the parameters to send to the API endpoint
 for the downscale free ipa v1 operation typically these are written to a http.Request
 */
 type DownscaleFreeIpaV1Params struct {

@@ -58,7 +58,8 @@ func NewPutClusterForAutoscaleParamsWithHTTPClient(client *http.Client) *PutClus
 	}
 }
 
-/*PutClusterForAutoscaleParams contains all the parameters to send to the API endpoint
+/*
+PutClusterForAutoscaleParams contains all the parameters to send to the API endpoint
 for the put cluster for autoscale operation typically these are written to a http.Request
 */
 type PutClusterForAutoscaleParams struct {

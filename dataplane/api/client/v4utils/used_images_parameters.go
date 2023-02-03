@@ -57,7 +57,8 @@ func NewUsedImagesParamsWithHTTPClient(client *http.Client) *UsedImagesParams {
 	}
 }
 
-/*UsedImagesParams contains all the parameters to send to the API endpoint
+/*
+UsedImagesParams contains all the parameters to send to the API endpoint
 for the used images operation typically these are written to a http.Request
 */
 type UsedImagesParams struct {

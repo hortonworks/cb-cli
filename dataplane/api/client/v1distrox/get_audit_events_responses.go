@@ -42,7 +42,8 @@ func NewGetAuditEventsOK() *GetAuditEventsOK {
 	return &GetAuditEventsOK{}
 }
 
-/*GetAuditEventsOK handles this case with default header values.
+/*
+GetAuditEventsOK handles this case with default header values.
 
 successful operation
 */

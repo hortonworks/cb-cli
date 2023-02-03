@@ -42,7 +42,8 @@ func NewUpdateLoadBalancersInternalOK() *UpdateLoadBalancersInternalOK {
 	return &UpdateLoadBalancersInternalOK{}
 }
 
-/*UpdateLoadBalancersInternalOK handles this case with default header values.
+/*
+UpdateLoadBalancersInternalOK handles this case with default header values.
 
 successful operation
 */

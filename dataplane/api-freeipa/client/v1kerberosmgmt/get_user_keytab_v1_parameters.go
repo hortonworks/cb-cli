@@ -56,7 +56,8 @@ func NewGetUserKeytabV1ParamsWithHTTPClient(client *http.Client) *GetUserKeytabV
 	}
 }
 
-/*GetUserKeytabV1Params contains all the parameters to send to the API endpoint
+/*
+GetUserKeytabV1Params contains all the parameters to send to the API endpoint
 for the get user keytab v1 operation typically these are written to a http.Request
 */
 type GetUserKeytabV1Params struct {

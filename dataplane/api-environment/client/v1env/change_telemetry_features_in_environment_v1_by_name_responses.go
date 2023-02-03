@@ -42,7 +42,8 @@ func NewChangeTelemetryFeaturesInEnvironmentV1ByNameOK() *ChangeTelemetryFeature
 	return &ChangeTelemetryFeaturesInEnvironmentV1ByNameOK{}
 }
 
-/*ChangeTelemetryFeaturesInEnvironmentV1ByNameOK handles this case with default header values.
+/*
+ChangeTelemetryFeaturesInEnvironmentV1ByNameOK handles this case with default header values.
 
 successful operation
 */

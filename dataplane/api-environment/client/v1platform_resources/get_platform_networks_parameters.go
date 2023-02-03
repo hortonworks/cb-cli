@@ -56,7 +56,8 @@ func NewGetPlatformNetworksParamsWithHTTPClient(client *http.Client) *GetPlatfor
 	}
 }
 
-/*GetPlatformNetworksParams contains all the parameters to send to the API endpoint
+/*
+GetPlatformNetworksParams contains all the parameters to send to the API endpoint
 for the get platform networks operation typically these are written to a http.Request
 */
 type GetPlatformNetworksParams struct {

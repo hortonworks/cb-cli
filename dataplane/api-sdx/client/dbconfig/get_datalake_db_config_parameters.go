@@ -56,7 +56,8 @@ func NewGetDatalakeDbConfigParamsWithHTTPClient(client *http.Client) *GetDatalak
 	}
 }
 
-/*GetDatalakeDbConfigParams contains all the parameters to send to the API endpoint
+/*
+GetDatalakeDbConfigParams contains all the parameters to send to the API endpoint
 for the get datalake db config operation typically these are written to a http.Request
 */
 type GetDatalakeDbConfigParams struct {

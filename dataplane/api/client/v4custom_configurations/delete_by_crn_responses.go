@@ -42,7 +42,8 @@ func NewDeleteByCrnOK() *DeleteByCrnOK {
 	return &DeleteByCrnOK{}
 }
 
-/*DeleteByCrnOK handles this case with default header values.
+/*
+DeleteByCrnOK handles this case with default header values.
 
 successful operation
 */

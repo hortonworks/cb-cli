@@ -42,7 +42,8 @@ func NewGetSdxFlowLogsProgressByResourceCrnOK() *GetSdxFlowLogsProgressByResourc
 	return &GetSdxFlowLogsProgressByResourceCrnOK{}
 }
 
-/*GetSdxFlowLogsProgressByResourceCrnOK handles this case with default header values.
+/*
+GetSdxFlowLogsProgressByResourceCrnOK handles this case with default header values.
 
 successful operation
 */

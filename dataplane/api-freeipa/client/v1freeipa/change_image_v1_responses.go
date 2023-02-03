@@ -42,7 +42,8 @@ func NewChangeImageV1OK() *ChangeImageV1OK {
 	return &ChangeImageV1OK{}
 }
 
-/*ChangeImageV1OK handles this case with default header values.
+/*
+ChangeImageV1OK handles this case with default header values.
 
 successful operation
 */

@@ -59,7 +59,8 @@ func NewUpgradeDistroxClusterInternalParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*UpgradeDistroxClusterInternalParams contains all the parameters to send to the API endpoint
+/*
+UpgradeDistroxClusterInternalParams contains all the parameters to send to the API endpoint
 for the upgrade distrox cluster internal operation typically these are written to a http.Request
 */
 type UpgradeDistroxClusterInternalParams struct {

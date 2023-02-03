@@ -56,7 +56,8 @@ func NewGetAutoscaleClusterByCrnParamsWithHTTPClient(client *http.Client) *GetAu
 	}
 }
 
-/*GetAutoscaleClusterByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetAutoscaleClusterByCrnParams contains all the parameters to send to the API endpoint
 for the get autoscale cluster by crn operation typically these are written to a http.Request
 */
 type GetAutoscaleClusterByCrnParams struct {

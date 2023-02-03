@@ -56,7 +56,8 @@ func NewReleaseManagedDatabaseServerParamsWithHTTPClient(client *http.Client) *R
 	}
 }
 
-/*ReleaseManagedDatabaseServerParams contains all the parameters to send to the API endpoint
+/*
+ReleaseManagedDatabaseServerParams contains all the parameters to send to the API endpoint
 for the release managed database server operation typically these are written to a http.Request
 */
 type ReleaseManagedDatabaseServerParams struct {

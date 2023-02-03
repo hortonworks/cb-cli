@@ -42,7 +42,8 @@ func NewInternalListEnvironmentV1OK() *InternalListEnvironmentV1OK {
 	return &InternalListEnvironmentV1OK{}
 }
 
-/*InternalListEnvironmentV1OK handles this case with default header values.
+/*
+InternalListEnvironmentV1OK handles this case with default header values.
 
 successful operation
 */

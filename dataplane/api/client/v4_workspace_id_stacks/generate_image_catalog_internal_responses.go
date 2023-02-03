@@ -42,7 +42,8 @@ func NewGenerateImageCatalogInternalOK() *GenerateImageCatalogInternalOK {
 	return &GenerateImageCatalogInternalOK{}
 }
 
-/*GenerateImageCatalogInternalOK handles this case with default header values.
+/*
+GenerateImageCatalogInternalOK handles this case with default header values.
 
 successful operation
 */

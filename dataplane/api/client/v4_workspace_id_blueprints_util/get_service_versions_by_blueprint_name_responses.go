@@ -42,7 +42,8 @@ func NewGetServiceVersionsByBlueprintNameOK() *GetServiceVersionsByBlueprintName
 	return &GetServiceVersionsByBlueprintNameOK{}
 }
 
-/*GetServiceVersionsByBlueprintNameOK handles this case with default header values.
+/*
+GetServiceVersionsByBlueprintNameOK handles this case with default header values.
 
 successful operation
 */

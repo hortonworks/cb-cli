@@ -56,7 +56,8 @@ func NewListDatabasesParamsWithHTTPClient(client *http.Client) *ListDatabasesPar
 	}
 }
 
-/*ListDatabasesParams contains all the parameters to send to the API endpoint
+/*
+ListDatabasesParams contains all the parameters to send to the API endpoint
 for the list databases operation typically these are written to a http.Request
 */
 type ListDatabasesParams struct {

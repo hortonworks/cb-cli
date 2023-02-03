@@ -42,7 +42,8 @@ func NewUpgradeDistroXRdsByCrnOK() *UpgradeDistroXRdsByCrnOK {
 	return &UpgradeDistroXRdsByCrnOK{}
 }
 
-/*UpgradeDistroXRdsByCrnOK handles this case with default header values.
+/*
+UpgradeDistroXRdsByCrnOK handles this case with default header values.
 
 successful operation
 */

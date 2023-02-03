@@ -56,7 +56,8 @@ func NewDeleteCustomImageCatalogByNameParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*DeleteCustomImageCatalogByNameParams contains all the parameters to send to the API endpoint
+/*
+DeleteCustomImageCatalogByNameParams contains all the parameters to send to the API endpoint
 for the delete custom image catalog by name operation typically these are written to a http.Request
 */
 type DeleteCustomImageCatalogByNameParams struct {

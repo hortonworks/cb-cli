@@ -40,7 +40,8 @@ func NewGetFreeIpaRootCertificateByEnvironmentV1OK() *GetFreeIpaRootCertificateB
 	return &GetFreeIpaRootCertificateByEnvironmentV1OK{}
 }
 
-/*GetFreeIpaRootCertificateByEnvironmentV1OK handles this case with default header values.
+/*
+GetFreeIpaRootCertificateByEnvironmentV1OK handles this case with default header values.
 
 successful operation
 */

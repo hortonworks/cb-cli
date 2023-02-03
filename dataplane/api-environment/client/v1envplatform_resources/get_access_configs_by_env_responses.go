@@ -42,7 +42,8 @@ func NewGetAccessConfigsByEnvOK() *GetAccessConfigsByEnvOK {
 	return &GetAccessConfigsByEnvOK{}
 }
 
-/*GetAccessConfigsByEnvOK handles this case with default header values.
+/*
+GetAccessConfigsByEnvOK handles this case with default header values.
 
 successful operation
 */

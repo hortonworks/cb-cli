@@ -42,7 +42,8 @@ func NewGetKerberosConfigForEnvironmentOK() *GetKerberosConfigForEnvironmentOK {
 	return &GetKerberosConfigForEnvironmentOK{}
 }
 
-/*GetKerberosConfigForEnvironmentOK handles this case with default header values.
+/*
+GetKerberosConfigForEnvironmentOK handles this case with default header values.
 
 successful operation
 */

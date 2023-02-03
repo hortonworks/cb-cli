@@ -42,7 +42,8 @@ func NewCloneByCrnOK() *CloneByCrnOK {
 	return &CloneByCrnOK{}
 }
 
-/*CloneByCrnOK handles this case with default header values.
+/*
+CloneByCrnOK handles this case with default header values.
 
 successful operation
 */

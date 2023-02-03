@@ -58,7 +58,8 @@ func NewRotateAutoTLSCertificatesByCrnParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*RotateAutoTLSCertificatesByCrnParams contains all the parameters to send to the API endpoint
+/*
+RotateAutoTLSCertificatesByCrnParams contains all the parameters to send to the API endpoint
 for the rotate auto Tls certificates by crn operation typically these are written to a http.Request
 */
 type RotateAutoTLSCertificatesByCrnParams struct {

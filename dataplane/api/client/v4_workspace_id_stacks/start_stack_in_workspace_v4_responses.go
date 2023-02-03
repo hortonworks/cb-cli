@@ -42,7 +42,8 @@ func NewStartStackInWorkspaceV4OK() *StartStackInWorkspaceV4OK {
 	return &StartStackInWorkspaceV4OK{}
 }
 
-/*StartStackInWorkspaceV4OK handles this case with default header values.
+/*
+StartStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

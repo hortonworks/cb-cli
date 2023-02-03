@@ -56,7 +56,8 @@ func NewGetDisktypesParamsWithHTTPClient(client *http.Client) *GetDisktypesParam
 	}
 }
 
-/*GetDisktypesParams contains all the parameters to send to the API endpoint
+/*
+GetDisktypesParams contains all the parameters to send to the API endpoint
 for the get disktypes operation typically these are written to a http.Request
 */
 type GetDisktypesParams struct {

@@ -57,7 +57,8 @@ func NewListRecipesByWorkspaceParamsWithHTTPClient(client *http.Client) *ListRec
 	}
 }
 
-/*ListRecipesByWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+ListRecipesByWorkspaceParams contains all the parameters to send to the API endpoint
 for the list recipes by workspace operation typically these are written to a http.Request
 */
 type ListRecipesByWorkspaceParams struct {

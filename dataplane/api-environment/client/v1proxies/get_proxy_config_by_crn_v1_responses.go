@@ -42,7 +42,8 @@ func NewGetProxyConfigByCrnV1OK() *GetProxyConfigByCrnV1OK {
 	return &GetProxyConfigByCrnV1OK{}
 }
 
-/*GetProxyConfigByCrnV1OK handles this case with default header values.
+/*
+GetProxyConfigByCrnV1OK handles this case with default header values.
 
 successful operation
 */

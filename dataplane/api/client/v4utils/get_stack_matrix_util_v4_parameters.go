@@ -57,7 +57,8 @@ func NewGetStackMatrixUtilV4ParamsWithHTTPClient(client *http.Client) *GetStackM
 	}
 }
 
-/*GetStackMatrixUtilV4Params contains all the parameters to send to the API endpoint
+/*
+GetStackMatrixUtilV4Params contains all the parameters to send to the API endpoint
 for the get stack matrix util v4 operation typically these are written to a http.Request
 */
 type GetStackMatrixUtilV4Params struct {

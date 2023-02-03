@@ -57,7 +57,8 @@ func NewDatabaseBackupParamsWithHTTPClient(client *http.Client) *DatabaseBackupP
 	}
 }
 
-/*DatabaseBackupParams contains all the parameters to send to the API endpoint
+/*
+DatabaseBackupParams contains all the parameters to send to the API endpoint
 for the database backup operation typically these are written to a http.Request
 */
 type DatabaseBackupParams struct {

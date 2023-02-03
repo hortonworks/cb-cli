@@ -42,7 +42,8 @@ func NewPostStackForBlueprintV4OK() *PostStackForBlueprintV4OK {
 	return &PostStackForBlueprintV4OK{}
 }
 
-/*PostStackForBlueprintV4OK handles this case with default header values.
+/*
+PostStackForBlueprintV4OK handles this case with default header values.
 
 successful operation
 */

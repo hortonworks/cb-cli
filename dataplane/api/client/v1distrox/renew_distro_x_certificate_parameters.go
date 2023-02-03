@@ -56,7 +56,8 @@ func NewRenewDistroXCertificateParamsWithHTTPClient(client *http.Client) *RenewD
 	}
 }
 
-/*RenewDistroXCertificateParams contains all the parameters to send to the API endpoint
+/*
+RenewDistroXCertificateParams contains all the parameters to send to the API endpoint
 for the renew distro x certificate operation typically these are written to a http.Request
 */
 type RenewDistroXCertificateParams struct {

@@ -42,7 +42,8 @@ func NewListDatabaseServersOK() *ListDatabaseServersOK {
 	return &ListDatabaseServersOK{}
 }
 
-/*ListDatabaseServersOK handles this case with default header values.
+/*
+ListDatabaseServersOK handles this case with default header values.
 
 successful operation
 */

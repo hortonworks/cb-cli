@@ -57,7 +57,8 @@ func NewBackupDatalakeParamsWithHTTPClient(client *http.Client) *BackupDatalakeP
 	}
 }
 
-/*BackupDatalakeParams contains all the parameters to send to the API endpoint
+/*
+BackupDatalakeParams contains all the parameters to send to the API endpoint
 for the backup datalake operation typically these are written to a http.Request
 */
 type BackupDatalakeParams struct {

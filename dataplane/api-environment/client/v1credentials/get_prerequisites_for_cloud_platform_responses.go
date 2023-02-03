@@ -42,7 +42,8 @@ func NewGetPrerequisitesForCloudPlatformOK() *GetPrerequisitesForCloudPlatformOK
 	return &GetPrerequisitesForCloudPlatformOK{}
 }
 
-/*GetPrerequisitesForCloudPlatformOK handles this case with default header values.
+/*
+GetPrerequisitesForCloudPlatformOK handles this case with default header values.
 
 successful operation
 */

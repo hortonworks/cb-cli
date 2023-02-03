@@ -42,7 +42,8 @@ func NewDeleteInstancesDistroXV1ByCrnOK() *DeleteInstancesDistroXV1ByCrnOK {
 	return &DeleteInstancesDistroXV1ByCrnOK{}
 }
 
-/*DeleteInstancesDistroXV1ByCrnOK handles this case with default header values.
+/*
+DeleteInstancesDistroXV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

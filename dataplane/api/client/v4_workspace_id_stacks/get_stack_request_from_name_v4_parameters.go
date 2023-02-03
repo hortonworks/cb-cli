@@ -57,7 +57,8 @@ func NewGetStackRequestFromNameV4ParamsWithHTTPClient(client *http.Client) *GetS
 	}
 }
 
-/*GetStackRequestFromNameV4Params contains all the parameters to send to the API endpoint
+/*
+GetStackRequestFromNameV4Params contains all the parameters to send to the API endpoint
 for the get stack request from name v4 operation typically these are written to a http.Request
 */
 type GetStackRequestFromNameV4Params struct {

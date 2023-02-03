@@ -42,7 +42,8 @@ func NewRotateAutoTLSCertificatesOK() *RotateAutoTLSCertificatesOK {
 	return &RotateAutoTLSCertificatesOK{}
 }
 
-/*RotateAutoTLSCertificatesOK handles this case with default header values.
+/*
+RotateAutoTLSCertificatesOK handles this case with default header values.
 
 successful operation
 */

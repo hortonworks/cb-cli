@@ -39,7 +39,8 @@ func NewStopV1Default(code int) *StopV1Default {
 	}
 }
 
-/*StopV1Default handles this case with default header values.
+/*
+StopV1Default handles this case with default header values.
 
 successful operation
 */

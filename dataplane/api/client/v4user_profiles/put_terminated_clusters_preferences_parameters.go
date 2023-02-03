@@ -58,7 +58,8 @@ func NewPutTerminatedClustersPreferencesParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*PutTerminatedClustersPreferencesParams contains all the parameters to send to the API endpoint
+/*
+PutTerminatedClustersPreferencesParams contains all the parameters to send to the API endpoint
 for the put terminated clusters preferences operation typically these are written to a http.Request
 */
 type PutTerminatedClustersPreferencesParams struct {

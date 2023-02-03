@@ -42,7 +42,8 @@ func NewRepairStackInWorkspaceV4OK() *RepairStackInWorkspaceV4OK {
 	return &RepairStackInWorkspaceV4OK{}
 }
 
-/*RepairStackInWorkspaceV4OK handles this case with default header values.
+/*
+RepairStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

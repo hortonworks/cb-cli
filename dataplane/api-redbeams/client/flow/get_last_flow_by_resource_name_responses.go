@@ -42,7 +42,8 @@ func NewGetLastFlowByResourceNameOK() *GetLastFlowByResourceNameOK {
 	return &GetLastFlowByResourceNameOK{}
 }
 
-/*GetLastFlowByResourceNameOK handles this case with default header values.
+/*
+GetLastFlowByResourceNameOK handles this case with default header values.
 
 successful operation
 */

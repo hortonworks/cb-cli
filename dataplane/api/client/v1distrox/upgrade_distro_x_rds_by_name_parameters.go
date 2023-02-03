@@ -58,7 +58,8 @@ func NewUpgradeDistroXRdsByNameParamsWithHTTPClient(client *http.Client) *Upgrad
 	}
 }
 
-/*UpgradeDistroXRdsByNameParams contains all the parameters to send to the API endpoint
+/*
+UpgradeDistroXRdsByNameParams contains all the parameters to send to the API endpoint
 for the upgrade distro x rds by name operation typically these are written to a http.Request
 */
 type UpgradeDistroXRdsByNameParams struct {

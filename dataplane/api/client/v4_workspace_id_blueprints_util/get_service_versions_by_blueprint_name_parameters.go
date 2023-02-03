@@ -57,7 +57,8 @@ func NewGetServiceVersionsByBlueprintNameParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*GetServiceVersionsByBlueprintNameParams contains all the parameters to send to the API endpoint
+/*
+GetServiceVersionsByBlueprintNameParams contains all the parameters to send to the API endpoint
 for the get service versions by blueprint name operation typically these are written to a http.Request
 */
 type GetServiceVersionsByBlueprintNameParams struct {

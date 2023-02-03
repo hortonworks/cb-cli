@@ -42,7 +42,8 @@ func NewListProxyConfigsV1OK() *ListProxyConfigsV1OK {
 	return &ListProxyConfigsV1OK{}
 }
 
-/*ListProxyConfigsV1OK handles this case with default header values.
+/*
+ListProxyConfigsV1OK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewGetDatalakeBackupIDParamsWithHTTPClient(client *http.Client) *GetDatalak
 	}
 }
 
-/*GetDatalakeBackupIDParams contains all the parameters to send to the API endpoint
+/*
+GetDatalakeBackupIDParams contains all the parameters to send to the API endpoint
 for the get datalake backup Id operation typically these are written to a http.Request
 */
 type GetDatalakeBackupIDParams struct {

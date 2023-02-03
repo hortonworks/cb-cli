@@ -42,7 +42,8 @@ func NewGetStackByCrnInWorkspaceV4OK() *GetStackByCrnInWorkspaceV4OK {
 	return &GetStackByCrnInWorkspaceV4OK{}
 }
 
-/*GetStackByCrnInWorkspaceV4OK handles this case with default header values.
+/*
+GetStackByCrnInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetCDPAuditEventsForResourceOK() *GetCDPAuditEventsForResourceOK {
 	return &GetCDPAuditEventsForResourceOK{}
 }
 
-/*GetCDPAuditEventsForResourceOK handles this case with default header values.
+/*
+GetCDPAuditEventsForResourceOK handles this case with default header values.
 
 successful operation
 */

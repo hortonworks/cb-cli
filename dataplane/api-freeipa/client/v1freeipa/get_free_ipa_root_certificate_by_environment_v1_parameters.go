@@ -56,7 +56,8 @@ func NewGetFreeIpaRootCertificateByEnvironmentV1ParamsWithHTTPClient(client *htt
 	}
 }
 
-/*GetFreeIpaRootCertificateByEnvironmentV1Params contains all the parameters to send to the API endpoint
+/*
+GetFreeIpaRootCertificateByEnvironmentV1Params contains all the parameters to send to the API endpoint
 for the get free ipa root certificate by environment v1 operation typically these are written to a http.Request
 */
 type GetFreeIpaRootCertificateByEnvironmentV1Params struct {

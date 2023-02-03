@@ -42,7 +42,8 @@ func NewGetProxyRequestFromNameV1OK() *GetProxyRequestFromNameV1OK {
 	return &GetProxyRequestFromNameV1OK{}
 }
 
-/*GetProxyRequestFromNameV1OK handles this case with default header values.
+/*
+GetProxyRequestFromNameV1OK handles this case with default header values.
 
 successful operation
 */

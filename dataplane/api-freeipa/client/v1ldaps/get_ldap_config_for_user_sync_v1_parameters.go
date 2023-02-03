@@ -56,7 +56,8 @@ func NewGetLdapConfigForUserSyncV1ParamsWithHTTPClient(client *http.Client) *Get
 	}
 }
 
-/*GetLdapConfigForUserSyncV1Params contains all the parameters to send to the API endpoint
+/*
+GetLdapConfigForUserSyncV1Params contains all the parameters to send to the API endpoint
 for the get ldap config for user sync v1 operation typically these are written to a http.Request
 */
 type GetLdapConfigForUserSyncV1Params struct {

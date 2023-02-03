@@ -42,7 +42,8 @@ func NewRetryV1OK() *RetryV1OK {
 	return &RetryV1OK{}
 }
 
-/*RetryV1OK handles this case with default header values.
+/*
+RetryV1OK handles this case with default header values.
 
 successful operation
 */

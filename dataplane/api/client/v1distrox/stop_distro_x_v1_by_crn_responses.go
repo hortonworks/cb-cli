@@ -42,7 +42,8 @@ func NewStopDistroXV1ByCrnOK() *StopDistroXV1ByCrnOK {
 	return &StopDistroXV1ByCrnOK{}
 }
 
-/*StopDistroXV1ByCrnOK handles this case with default header values.
+/*
+StopDistroXV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewSyncSdxParamsWithHTTPClient(client *http.Client) *SyncSdxParams {
 	}
 }
 
-/*SyncSdxParams contains all the parameters to send to the API endpoint
+/*
+SyncSdxParams contains all the parameters to send to the API endpoint
 for the sync sdx operation typically these are written to a http.Request
 */
 type SyncSdxParams struct {

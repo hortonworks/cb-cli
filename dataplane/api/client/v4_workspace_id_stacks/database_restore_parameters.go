@@ -57,7 +57,8 @@ func NewDatabaseRestoreParamsWithHTTPClient(client *http.Client) *DatabaseRestor
 	}
 }
 
-/*DatabaseRestoreParams contains all the parameters to send to the API endpoint
+/*
+DatabaseRestoreParams contains all the parameters to send to the API endpoint
 for the database restore operation typically these are written to a http.Request
 */
 type DatabaseRestoreParams struct {

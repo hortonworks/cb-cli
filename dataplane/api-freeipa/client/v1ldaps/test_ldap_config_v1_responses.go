@@ -42,7 +42,8 @@ func NewTestLdapConfigV1OK() *TestLdapConfigV1OK {
 	return &TestLdapConfigV1OK{}
 }
 
-/*TestLdapConfigV1OK handles this case with default header values.
+/*
+TestLdapConfigV1OK handles this case with default header values.
 
 successful operation
 */

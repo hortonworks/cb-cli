@@ -56,7 +56,8 @@ func NewCheckClientVersionV4ParamsWithHTTPClient(client *http.Client) *CheckClie
 	}
 }
 
-/*CheckClientVersionV4Params contains all the parameters to send to the API endpoint
+/*
+CheckClientVersionV4Params contains all the parameters to send to the API endpoint
 for the check client version v4 operation typically these are written to a http.Request
 */
 type CheckClientVersionV4Params struct {

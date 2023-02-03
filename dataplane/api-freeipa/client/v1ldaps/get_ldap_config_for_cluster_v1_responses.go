@@ -42,7 +42,8 @@ func NewGetLdapConfigForClusterV1OK() *GetLdapConfigForClusterV1OK {
 	return &GetLdapConfigForClusterV1OK{}
 }
 
-/*GetLdapConfigForClusterV1OK handles this case with default header values.
+/*
+GetLdapConfigForClusterV1OK handles this case with default header values.
 
 successful operation
 */

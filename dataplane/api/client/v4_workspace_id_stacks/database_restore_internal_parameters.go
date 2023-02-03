@@ -57,7 +57,8 @@ func NewDatabaseRestoreInternalParamsWithHTTPClient(client *http.Client) *Databa
 	}
 }
 
-/*DatabaseRestoreInternalParams contains all the parameters to send to the API endpoint
+/*
+DatabaseRestoreInternalParams contains all the parameters to send to the API endpoint
 for the database restore internal operation typically these are written to a http.Request
 */
 type DatabaseRestoreInternalParams struct {

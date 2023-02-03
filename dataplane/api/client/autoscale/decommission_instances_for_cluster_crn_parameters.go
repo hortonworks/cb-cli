@@ -69,7 +69,8 @@ func NewDecommissionInstancesForClusterCrnParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/*DecommissionInstancesForClusterCrnParams contains all the parameters to send to the API endpoint
+/*
+DecommissionInstancesForClusterCrnParams contains all the parameters to send to the API endpoint
 for the decommission instances for cluster crn operation typically these are written to a http.Request
 */
 type DecommissionInstancesForClusterCrnParams struct {

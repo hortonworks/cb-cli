@@ -42,7 +42,8 @@ func NewRenewInternalStackCertificateOK() *RenewInternalStackCertificateOK {
 	return &RenewInternalStackCertificateOK{}
 }
 
-/*RenewInternalStackCertificateOK handles this case with default header values.
+/*
+RenewInternalStackCertificateOK handles this case with default header values.
 
 successful operation
 */

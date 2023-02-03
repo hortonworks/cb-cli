@@ -56,7 +56,8 @@ func NewDeleteTerminatedClustersPreferencesParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/*DeleteTerminatedClustersPreferencesParams contains all the parameters to send to the API endpoint
+/*
+DeleteTerminatedClustersPreferencesParams contains all the parameters to send to the API endpoint
 for the delete terminated clusters preferences operation typically these are written to a http.Request
 */
 type DeleteTerminatedClustersPreferencesParams struct {

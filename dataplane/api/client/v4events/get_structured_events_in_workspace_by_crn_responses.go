@@ -42,7 +42,8 @@ func NewGetStructuredEventsInWorkspaceByCrnOK() *GetStructuredEventsInWorkspaceB
 	return &GetStructuredEventsInWorkspaceByCrnOK{}
 }
 
-/*GetStructuredEventsInWorkspaceByCrnOK handles this case with default header values.
+/*
+GetStructuredEventsInWorkspaceByCrnOK handles this case with default header values.
 
 successful operation
 */

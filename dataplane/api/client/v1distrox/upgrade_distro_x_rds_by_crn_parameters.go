@@ -58,7 +58,8 @@ func NewUpgradeDistroXRdsByCrnParamsWithHTTPClient(client *http.Client) *Upgrade
 	}
 }
 
-/*UpgradeDistroXRdsByCrnParams contains all the parameters to send to the API endpoint
+/*
+UpgradeDistroXRdsByCrnParams contains all the parameters to send to the API endpoint
 for the upgrade distro x rds by crn operation typically these are written to a http.Request
 */
 type UpgradeDistroXRdsByCrnParams struct {

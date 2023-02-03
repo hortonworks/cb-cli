@@ -40,7 +40,8 @@ func NewGetClusterHostsInventoryOK() *GetClusterHostsInventoryOK {
 	return &GetClusterHostsInventoryOK{}
 }
 
-/*GetClusterHostsInventoryOK handles this case with default header values.
+/*
+GetClusterHostsInventoryOK handles this case with default header values.
 
 successful operation
 */

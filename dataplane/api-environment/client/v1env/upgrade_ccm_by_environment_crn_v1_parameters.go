@@ -56,7 +56,8 @@ func NewUpgradeCcmByEnvironmentCrnV1ParamsWithHTTPClient(client *http.Client) *U
 	}
 }
 
-/*UpgradeCcmByEnvironmentCrnV1Params contains all the parameters to send to the API endpoint
+/*
+UpgradeCcmByEnvironmentCrnV1Params contains all the parameters to send to the API endpoint
 for the upgrade ccm by environment crn v1 operation typically these are written to a http.Request
 */
 type UpgradeCcmByEnvironmentCrnV1Params struct {

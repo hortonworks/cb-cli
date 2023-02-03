@@ -57,7 +57,8 @@ func NewDeleteBlueprintInWorkspaceParamsWithHTTPClient(client *http.Client) *Del
 	}
 }
 
-/*DeleteBlueprintInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+DeleteBlueprintInWorkspaceParams contains all the parameters to send to the API endpoint
 for the delete blueprint in workspace operation typically these are written to a http.Request
 */
 type DeleteBlueprintInWorkspaceParams struct {

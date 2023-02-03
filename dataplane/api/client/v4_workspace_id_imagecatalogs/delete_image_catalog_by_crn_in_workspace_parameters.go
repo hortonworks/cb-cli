@@ -57,7 +57,8 @@ func NewDeleteImageCatalogByCrnInWorkspaceParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/*DeleteImageCatalogByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+DeleteImageCatalogByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
 for the delete image catalog by crn in workspace operation typically these are written to a http.Request
 */
 type DeleteImageCatalogByCrnInWorkspaceParams struct {

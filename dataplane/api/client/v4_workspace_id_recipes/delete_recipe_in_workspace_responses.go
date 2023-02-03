@@ -42,7 +42,8 @@ func NewDeleteRecipeInWorkspaceOK() *DeleteRecipeInWorkspaceOK {
 	return &DeleteRecipeInWorkspaceOK{}
 }
 
-/*DeleteRecipeInWorkspaceOK handles this case with default header values.
+/*
+DeleteRecipeInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

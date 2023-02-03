@@ -56,7 +56,8 @@ func NewGetAutoscaleClusterByNameParamsWithHTTPClient(client *http.Client) *GetA
 	}
 }
 
-/*GetAutoscaleClusterByNameParams contains all the parameters to send to the API endpoint
+/*
+GetAutoscaleClusterByNameParams contains all the parameters to send to the API endpoint
 for the get autoscale cluster by name operation typically these are written to a http.Request
 */
 type GetAutoscaleClusterByNameParams struct {

@@ -42,7 +42,8 @@ func NewUpgradeFreeIpaV1OK() *UpgradeFreeIpaV1OK {
 	return &UpgradeFreeIpaV1OK{}
 }
 
-/*UpgradeFreeIpaV1OK handles this case with default header values.
+/*
+UpgradeFreeIpaV1OK handles this case with default header values.
 
 successful operation
 */

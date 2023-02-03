@@ -42,7 +42,8 @@ func NewUpdatePillarConfigurationByNameOK() *UpdatePillarConfigurationByNameOK {
 	return &UpdatePillarConfigurationByNameOK{}
 }
 
-/*UpdatePillarConfigurationByNameOK handles this case with default header values.
+/*
+UpdatePillarConfigurationByNameOK handles this case with default header values.
 
 successful operation
 */

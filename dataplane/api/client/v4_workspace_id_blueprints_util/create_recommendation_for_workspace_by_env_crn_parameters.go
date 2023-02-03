@@ -57,7 +57,8 @@ func NewCreateRecommendationForWorkspaceByEnvCrnParamsWithHTTPClient(client *htt
 	}
 }
 
-/*CreateRecommendationForWorkspaceByEnvCrnParams contains all the parameters to send to the API endpoint
+/*
+CreateRecommendationForWorkspaceByEnvCrnParams contains all the parameters to send to the API endpoint
 for the create recommendation for workspace by env crn operation typically these are written to a http.Request
 */
 type CreateRecommendationForWorkspaceByEnvCrnParams struct {

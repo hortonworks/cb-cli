@@ -58,7 +58,8 @@ func NewCheckRightInAccountParamsWithHTTPClient(client *http.Client) *CheckRight
 	}
 }
 
-/*CheckRightInAccountParams contains all the parameters to send to the API endpoint
+/*
+CheckRightInAccountParams contains all the parameters to send to the API endpoint
 for the check right in account operation typically these are written to a http.Request
 */
 type CheckRightInAccountParams struct {

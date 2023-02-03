@@ -56,7 +56,8 @@ func NewGetDatabaseServerByClusterCrnParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*GetDatabaseServerByClusterCrnParams contains all the parameters to send to the API endpoint
+/*
+GetDatabaseServerByClusterCrnParams contains all the parameters to send to the API endpoint
 for the get database server by cluster crn operation typically these are written to a http.Request
 */
 type GetDatabaseServerByClusterCrnParams struct {

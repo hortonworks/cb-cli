@@ -42,7 +42,8 @@ func NewGetRedbeamsOperationProgressByResourceCrnOK() *GetRedbeamsOperationProgr
 	return &GetRedbeamsOperationProgressByResourceCrnOK{}
 }
 
-/*GetRedbeamsOperationProgressByResourceCrnOK handles this case with default header values.
+/*
+GetRedbeamsOperationProgressByResourceCrnOK handles this case with default header values.
 
 successful operation
 */

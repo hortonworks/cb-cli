@@ -42,7 +42,8 @@ func NewGetRecipeRequestsFromNamesInWorkspaceOK() *GetRecipeRequestsFromNamesInW
 	return &GetRecipeRequestsFromNamesInWorkspaceOK{}
 }
 
-/*GetRecipeRequestsFromNamesInWorkspaceOK handles this case with default header values.
+/*
+GetRecipeRequestsFromNamesInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

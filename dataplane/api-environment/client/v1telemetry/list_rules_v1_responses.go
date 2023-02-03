@@ -42,7 +42,8 @@ func NewListRulesV1OK() *ListRulesV1OK {
 	return &ListRulesV1OK{}
 }
 
-/*ListRulesV1OK handles this case with default header values.
+/*
+ListRulesV1OK handles this case with default header values.
 
 successful operation
 */

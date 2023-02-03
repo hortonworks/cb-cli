@@ -42,7 +42,8 @@ func NewGetCloudStorageMatrixV4OK() *GetCloudStorageMatrixV4OK {
 	return &GetCloudStorageMatrixV4OK{}
 }
 
-/*GetCloudStorageMatrixV4OK handles this case with default header values.
+/*
+GetCloudStorageMatrixV4OK handles this case with default header values.
 
 successful operation
 */

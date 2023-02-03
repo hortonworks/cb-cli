@@ -42,7 +42,8 @@ func NewCheckGroupsOK() *CheckGroupsOK {
 	return &CheckGroupsOK{}
 }
 
-/*CheckGroupsOK handles this case with default header values.
+/*
+CheckGroupsOK handles this case with default header values.
 
 successful operation
 */

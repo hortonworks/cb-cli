@@ -49,7 +49,8 @@ func NewRenewCertificateOnSdxByCrnOK() *RenewCertificateOnSdxByCrnOK {
 	return &RenewCertificateOnSdxByCrnOK{}
 }
 
-/*RenewCertificateOnSdxByCrnOK handles this case with default header values.
+/*
+RenewCertificateOnSdxByCrnOK handles this case with default header values.
 
 successful operation
 */
@@ -80,7 +81,8 @@ func NewRenewCertificateOnSdxByCrnDefault(code int) *RenewCertificateOnSdxByCrnD
 	}
 }
 
-/*RenewCertificateOnSdxByCrnDefault handles this case with default header values.
+/*
+RenewCertificateOnSdxByCrnDefault handles this case with default header values.
 
 unsuccessful operation
 */

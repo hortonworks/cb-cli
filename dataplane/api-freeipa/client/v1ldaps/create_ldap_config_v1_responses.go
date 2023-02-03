@@ -42,7 +42,8 @@ func NewCreateLdapConfigV1OK() *CreateLdapConfigV1OK {
 	return &CreateLdapConfigV1OK{}
 }
 
-/*CreateLdapConfigV1OK handles this case with default header values.
+/*
+CreateLdapConfigV1OK handles this case with default header values.
 
 successful operation
 */

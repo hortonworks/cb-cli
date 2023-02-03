@@ -42,7 +42,8 @@ func NewRepairV1OK() *RepairV1OK {
 	return &RepairV1OK{}
 }
 
-/*RepairV1OK handles this case with default header values.
+/*
+RepairV1OK handles this case with default header values.
 
 successful operation
 */

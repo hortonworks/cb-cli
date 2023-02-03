@@ -42,7 +42,8 @@ func NewInternalCleanupV1OK() *InternalCleanupV1OK {
 	return &InternalCleanupV1OK{}
 }
 
-/*InternalCleanupV1OK handles this case with default header values.
+/*
+InternalCleanupV1OK handles this case with default header values.
 
 successful operation
 */

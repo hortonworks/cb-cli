@@ -69,7 +69,8 @@ func NewListDatabasesByWorkspaceParamsWithHTTPClient(client *http.Client) *ListD
 	}
 }
 
-/*ListDatabasesByWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+ListDatabasesByWorkspaceParams contains all the parameters to send to the API endpoint
 for the list databases by workspace operation typically these are written to a http.Request
 */
 type ListDatabasesByWorkspaceParams struct {

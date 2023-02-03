@@ -42,7 +42,8 @@ func NewListOK() *ListOK {
 	return &ListOK{}
 }
 
-/*ListOK handles this case with default header values.
+/*
+ListOK handles this case with default header values.
 
 successful operation
 */

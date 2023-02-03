@@ -39,7 +39,8 @@ func NewStartDatabaseServerDefault(code int) *StartDatabaseServerDefault {
 	}
 }
 
-/*StartDatabaseServerDefault handles this case with default header values.
+/*
+StartDatabaseServerDefault handles this case with default header values.
 
 successful operation
 */

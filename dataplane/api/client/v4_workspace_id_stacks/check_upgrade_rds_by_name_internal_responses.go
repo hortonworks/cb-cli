@@ -39,7 +39,8 @@ func NewCheckUpgradeRdsByNameInternalDefault(code int) *CheckUpgradeRdsByNameInt
 	}
 }
 
-/*CheckUpgradeRdsByNameInternalDefault handles this case with default header values.
+/*
+CheckUpgradeRdsByNameInternalDefault handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetServiceAndDependenciesOK() *GetServiceAndDependenciesOK {
 	return &GetServiceAndDependenciesOK{}
 }
 
-/*GetServiceAndDependenciesOK handles this case with default header values.
+/*
+GetServiceAndDependenciesOK handles this case with default header values.
 
 successful operation
 */

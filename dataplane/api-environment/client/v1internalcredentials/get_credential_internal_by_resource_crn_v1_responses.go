@@ -42,7 +42,8 @@ func NewGetCredentialInternalByResourceCrnV1OK() *GetCredentialInternalByResourc
 	return &GetCredentialInternalByResourceCrnV1OK{}
 }
 
-/*GetCredentialInternalByResourceCrnV1OK handles this case with default header values.
+/*
+GetCredentialInternalByResourceCrnV1OK handles this case with default header values.
 
 successful operation
 */

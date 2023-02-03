@@ -42,7 +42,8 @@ func NewGetIPPoolsByEnvOK() *GetIPPoolsByEnvOK {
 	return &GetIPPoolsByEnvOK{}
 }
 
-/*GetIPPoolsByEnvOK handles this case with default header values.
+/*
+GetIPPoolsByEnvOK handles this case with default header values.
 
 successful operation
 */

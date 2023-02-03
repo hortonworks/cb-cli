@@ -42,7 +42,8 @@ func NewGetIPPoolsCredentialIDOK() *GetIPPoolsCredentialIDOK {
 	return &GetIPPoolsCredentialIDOK{}
 }
 
-/*GetIPPoolsCredentialIDOK handles this case with default header values.
+/*
+GetIPPoolsCredentialIDOK handles this case with default header values.
 
 successful operation
 */

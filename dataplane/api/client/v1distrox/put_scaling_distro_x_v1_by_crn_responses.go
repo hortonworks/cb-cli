@@ -39,7 +39,8 @@ func NewPutScalingDistroXV1ByCrnDefault(code int) *PutScalingDistroXV1ByCrnDefau
 	}
 }
 
-/*PutScalingDistroXV1ByCrnDefault handles this case with default header values.
+/*
+PutScalingDistroXV1ByCrnDefault handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewUpgradeCcmOK() *UpgradeCcmOK {
 	return &UpgradeCcmOK{}
 }
 
-/*UpgradeCcmOK handles this case with default header values.
+/*
+UpgradeCcmOK handles this case with default header values.
 
 successful operation
 */

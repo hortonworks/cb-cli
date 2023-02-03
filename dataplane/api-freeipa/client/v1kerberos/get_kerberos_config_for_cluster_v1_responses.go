@@ -42,7 +42,8 @@ func NewGetKerberosConfigForClusterV1OK() *GetKerberosConfigForClusterV1OK {
 	return &GetKerberosConfigForClusterV1OK{}
 }
 
-/*GetKerberosConfigForClusterV1OK handles this case with default header values.
+/*
+GetKerberosConfigForClusterV1OK handles this case with default header values.
 
 successful operation
 */

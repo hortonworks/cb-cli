@@ -58,7 +58,8 @@ func NewUpdateEnvironmentLoadBalancersByNameV11ParamsWithHTTPClient(client *http
 	}
 }
 
-/*UpdateEnvironmentLoadBalancersByNameV11Params contains all the parameters to send to the API endpoint
+/*
+UpdateEnvironmentLoadBalancersByNameV11Params contains all the parameters to send to the API endpoint
 for the update environment load balancers by name v11 operation typically these are written to a http.Request
 */
 type UpdateEnvironmentLoadBalancersByNameV11Params struct {

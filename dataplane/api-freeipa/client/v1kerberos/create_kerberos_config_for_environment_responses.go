@@ -42,7 +42,8 @@ func NewCreateKerberosConfigForEnvironmentOK() *CreateKerberosConfigForEnvironme
 	return &CreateKerberosConfigForEnvironmentOK{}
 }
 
-/*CreateKerberosConfigForEnvironmentOK handles this case with default header values.
+/*
+CreateKerberosConfigForEnvironmentOK handles this case with default header values.
 
 successful operation
 */

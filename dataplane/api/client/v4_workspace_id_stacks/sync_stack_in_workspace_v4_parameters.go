@@ -57,7 +57,8 @@ func NewSyncStackInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *SyncSta
 	}
 }
 
-/*SyncStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+SyncStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the sync stack in workspace v4 operation typically these are written to a http.Request
 */
 type SyncStackInWorkspaceV4Params struct {

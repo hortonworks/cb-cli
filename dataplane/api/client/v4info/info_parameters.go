@@ -56,7 +56,8 @@ func NewInfoParamsWithHTTPClient(client *http.Client) *InfoParams {
 	}
 }
 
-/*InfoParams contains all the parameters to send to the API endpoint
+/*
+InfoParams contains all the parameters to send to the API endpoint
 for the info operation typically these are written to a http.Request
 */
 type InfoParams struct {

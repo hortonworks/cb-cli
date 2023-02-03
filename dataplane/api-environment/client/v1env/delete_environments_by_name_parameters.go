@@ -77,7 +77,8 @@ func NewDeleteEnvironmentsByNameParamsWithHTTPClient(client *http.Client) *Delet
 	}
 }
 
-/*DeleteEnvironmentsByNameParams contains all the parameters to send to the API endpoint
+/*
+DeleteEnvironmentsByNameParams contains all the parameters to send to the API endpoint
 for the delete environments by name operation typically these are written to a http.Request
 */
 type DeleteEnvironmentsByNameParams struct {

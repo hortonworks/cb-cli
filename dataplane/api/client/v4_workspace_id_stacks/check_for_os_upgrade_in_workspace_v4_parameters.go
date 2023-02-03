@@ -57,7 +57,8 @@ func NewCheckForOsUpgradeInWorkspaceV4ParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*CheckForOsUpgradeInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+CheckForOsUpgradeInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the check for os upgrade in workspace v4 operation typically these are written to a http.Request
 */
 type CheckForOsUpgradeInWorkspaceV4Params struct {

@@ -58,7 +58,8 @@ func NewDetachRecipesByCrnParamsWithHTTPClient(client *http.Client) *DetachRecip
 	}
 }
 
-/*DetachRecipesByCrnParams contains all the parameters to send to the API endpoint
+/*
+DetachRecipesByCrnParams contains all the parameters to send to the API endpoint
 for the detach recipes by crn operation typically these are written to a http.Request
 */
 type DetachRecipesByCrnParams struct {

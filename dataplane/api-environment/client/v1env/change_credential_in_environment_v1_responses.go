@@ -42,7 +42,8 @@ func NewChangeCredentialInEnvironmentV1OK() *ChangeCredentialInEnvironmentV1OK {
 	return &ChangeCredentialInEnvironmentV1OK{}
 }
 
-/*ChangeCredentialInEnvironmentV1OK handles this case with default header values.
+/*
+ChangeCredentialInEnvironmentV1OK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewGetIPPoolsCredentialIDParamsWithHTTPClient(client *http.Client) *GetIPPo
 	}
 }
 
-/*GetIPPoolsCredentialIDParams contains all the parameters to send to the API endpoint
+/*
+GetIPPoolsCredentialIDParams contains all the parameters to send to the API endpoint
 for the get Ip pools credential Id operation typically these are written to a http.Request
 */
 type GetIPPoolsCredentialIDParams struct {

@@ -58,7 +58,8 @@ func NewUpgradeDatabaseServerParamsWithHTTPClient(client *http.Client) *UpgradeD
 	}
 }
 
-/*UpgradeDatabaseServerParams contains all the parameters to send to the API endpoint
+/*
+UpgradeDatabaseServerParams contains all the parameters to send to the API endpoint
 for the upgrade database server operation typically these are written to a http.Request
 */
 type UpgradeDatabaseServerParams struct {

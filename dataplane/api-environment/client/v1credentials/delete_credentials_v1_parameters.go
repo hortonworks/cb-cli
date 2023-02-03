@@ -56,7 +56,8 @@ func NewDeleteCredentialsV1ParamsWithHTTPClient(client *http.Client) *DeleteCred
 	}
 }
 
-/*DeleteCredentialsV1Params contains all the parameters to send to the API endpoint
+/*
+DeleteCredentialsV1Params contains all the parameters to send to the API endpoint
 for the delete credentials v1 operation typically these are written to a http.Request
 */
 type DeleteCredentialsV1Params struct {

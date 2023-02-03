@@ -42,7 +42,8 @@ func NewAuthorizeForAutoscaleOK() *AuthorizeForAutoscaleOK {
 	return &AuthorizeForAutoscaleOK{}
 }
 
-/*AuthorizeForAutoscaleOK handles this case with default header values.
+/*
+AuthorizeForAutoscaleOK handles this case with default header values.
 
 successful operation
 */

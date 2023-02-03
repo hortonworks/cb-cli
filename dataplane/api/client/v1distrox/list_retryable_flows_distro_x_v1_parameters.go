@@ -56,7 +56,8 @@ func NewListRetryableFlowsDistroXV1ParamsWithHTTPClient(client *http.Client) *Li
 	}
 }
 
-/*ListRetryableFlowsDistroXV1Params contains all the parameters to send to the API endpoint
+/*
+ListRetryableFlowsDistroXV1Params contains all the parameters to send to the API endpoint
 for the list retryable flows distro x v1 operation typically these are written to a http.Request
 */
 type ListRetryableFlowsDistroXV1Params struct {

@@ -57,7 +57,8 @@ func NewStopDistroXV1ByCrnsParamsWithHTTPClient(client *http.Client) *StopDistro
 	}
 }
 
-/*StopDistroXV1ByCrnsParams contains all the parameters to send to the API endpoint
+/*
+StopDistroXV1ByCrnsParams contains all the parameters to send to the API endpoint
 for the stop distro x v1 by crns operation typically these are written to a http.Request
 */
 type StopDistroXV1ByCrnsParams struct {

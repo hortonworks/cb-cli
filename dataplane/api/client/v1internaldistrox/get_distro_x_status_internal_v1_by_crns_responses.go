@@ -42,7 +42,8 @@ func NewGetDistroXStatusInternalV1ByCrnsOK() *GetDistroXStatusInternalV1ByCrnsOK
 	return &GetDistroXStatusInternalV1ByCrnsOK{}
 }
 
-/*GetDistroXStatusInternalV1ByCrnsOK handles this case with default header values.
+/*
+GetDistroXStatusInternalV1ByCrnsOK handles this case with default header values.
 
 successful operation
 */

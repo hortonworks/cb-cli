@@ -56,7 +56,8 @@ func NewPostNotificationTestParamsWithHTTPClient(client *http.Client) *PostNotif
 	}
 }
 
-/*PostNotificationTestParams contains all the parameters to send to the API endpoint
+/*
+PostNotificationTestParams contains all the parameters to send to the API endpoint
 for the post notification test operation typically these are written to a http.Request
 */
 type PostNotificationTestParams struct {

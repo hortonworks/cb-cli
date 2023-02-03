@@ -56,7 +56,8 @@ func NewRetryDistroXV1ByCrnParamsWithHTTPClient(client *http.Client) *RetryDistr
 	}
 }
 
-/*RetryDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+RetryDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
 for the retry distro x v1 by crn operation typically these are written to a http.Request
 */
 type RetryDistroXV1ByCrnParams struct {

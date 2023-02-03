@@ -59,7 +59,8 @@ func NewCreateBlueprintInWorkspaceInternalParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/*CreateBlueprintInWorkspaceInternalParams contains all the parameters to send to the API endpoint
+/*
+CreateBlueprintInWorkspaceInternalParams contains all the parameters to send to the API endpoint
 for the create blueprint in workspace internal operation typically these are written to a http.Request
 */
 type CreateBlueprintInWorkspaceInternalParams struct {

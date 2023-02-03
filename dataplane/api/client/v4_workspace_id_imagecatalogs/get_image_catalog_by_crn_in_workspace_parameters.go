@@ -69,7 +69,8 @@ func NewGetImageCatalogByCrnInWorkspaceParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*GetImageCatalogByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetImageCatalogByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get image catalog by crn in workspace operation typically these are written to a http.Request
 */
 type GetImageCatalogByCrnInWorkspaceParams struct {

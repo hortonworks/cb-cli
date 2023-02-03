@@ -42,7 +42,8 @@ func NewGetFlowLogsByResourceCrnOK() *GetFlowLogsByResourceCrnOK {
 	return &GetFlowLogsByResourceCrnOK{}
 }
 
-/*GetFlowLogsByResourceCrnOK handles this case with default header values.
+/*
+GetFlowLogsByResourceCrnOK handles this case with default header values.
 
 successful operation
 */

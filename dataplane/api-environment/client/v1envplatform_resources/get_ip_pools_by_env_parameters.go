@@ -56,7 +56,8 @@ func NewGetIPPoolsByEnvParamsWithHTTPClient(client *http.Client) *GetIPPoolsByEn
 	}
 }
 
-/*GetIPPoolsByEnvParams contains all the parameters to send to the API endpoint
+/*
+GetIPPoolsByEnvParams contains all the parameters to send to the API endpoint
 for the get Ip pools by env operation typically these are written to a http.Request
 */
 type GetIPPoolsByEnvParams struct {

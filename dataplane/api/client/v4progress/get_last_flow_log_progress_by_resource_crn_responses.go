@@ -42,7 +42,8 @@ func NewGetLastFlowLogProgressByResourceCrnOK() *GetLastFlowLogProgressByResourc
 	return &GetLastFlowLogProgressByResourceCrnOK{}
 }
 
-/*GetLastFlowLogProgressByResourceCrnOK handles this case with default header values.
+/*
+GetLastFlowLogProgressByResourceCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -69,7 +69,8 @@ func NewDeleteStackInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *Delet
 	}
 }
 
-/*DeleteStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+DeleteStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the delete stack in workspace v4 operation typically these are written to a http.Request
 */
 type DeleteStackInWorkspaceV4Params struct {

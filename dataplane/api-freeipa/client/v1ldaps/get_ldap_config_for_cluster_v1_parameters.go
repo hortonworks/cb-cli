@@ -56,7 +56,8 @@ func NewGetLdapConfigForClusterV1ParamsWithHTTPClient(client *http.Client) *GetL
 	}
 }
 
-/*GetLdapConfigForClusterV1Params contains all the parameters to send to the API endpoint
+/*
+GetLdapConfigForClusterV1Params contains all the parameters to send to the API endpoint
 for the get ldap config for cluster v1 operation typically these are written to a http.Request
 */
 type GetLdapConfigForClusterV1Params struct {

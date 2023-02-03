@@ -42,7 +42,8 @@ func NewDetachRecipeInternalOK() *DetachRecipeInternalOK {
 	return &DetachRecipeInternalOK{}
 }
 
-/*DetachRecipeInternalOK handles this case with default header values.
+/*
+DetachRecipeInternalOK handles this case with default header values.
 
 successful operation
 */

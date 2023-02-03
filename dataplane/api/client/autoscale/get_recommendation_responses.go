@@ -42,7 +42,8 @@ func NewGetRecommendationOK() *GetRecommendationOK {
 	return &GetRecommendationOK{}
 }
 
-/*GetRecommendationOK handles this case with default header values.
+/*
+GetRecommendationOK handles this case with default header values.
 
 successful operation
 */

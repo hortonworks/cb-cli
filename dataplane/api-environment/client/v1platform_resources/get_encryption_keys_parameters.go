@@ -56,7 +56,8 @@ func NewGetEncryptionKeysParamsWithHTTPClient(client *http.Client) *GetEncryptio
 	}
 }
 
-/*GetEncryptionKeysParams contains all the parameters to send to the API endpoint
+/*
+GetEncryptionKeysParams contains all the parameters to send to the API endpoint
 for the get encryption keys operation typically these are written to a http.Request
 */
 type GetEncryptionKeysParams struct {

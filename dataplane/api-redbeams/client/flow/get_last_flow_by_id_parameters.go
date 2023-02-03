@@ -56,7 +56,8 @@ func NewGetLastFlowByIDParamsWithHTTPClient(client *http.Client) *GetLastFlowByI
 	}
 }
 
-/*GetLastFlowByIDParams contains all the parameters to send to the API endpoint
+/*
+GetLastFlowByIDParams contains all the parameters to send to the API endpoint
 for the get last flow by Id operation typically these are written to a http.Request
 */
 type GetLastFlowByIDParams struct {

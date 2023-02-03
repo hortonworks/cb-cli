@@ -56,7 +56,8 @@ func NewGetAttachedExperiencesByEnvironmentNameParamsWithHTTPClient(client *http
 	}
 }
 
-/*GetAttachedExperiencesByEnvironmentNameParams contains all the parameters to send to the API endpoint
+/*
+GetAttachedExperiencesByEnvironmentNameParams contains all the parameters to send to the API endpoint
 for the get attached experiences by environment name operation typically these are written to a http.Request
 */
 type GetAttachedExperiencesByEnvironmentNameParams struct {

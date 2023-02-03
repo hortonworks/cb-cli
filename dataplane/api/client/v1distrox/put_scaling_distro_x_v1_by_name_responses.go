@@ -42,7 +42,8 @@ func NewPutScalingDistroXV1ByNameOK() *PutScalingDistroXV1ByNameOK {
 	return &PutScalingDistroXV1ByNameOK{}
 }
 
-/*PutScalingDistroXV1ByNameOK handles this case with default header values.
+/*
+PutScalingDistroXV1ByNameOK handles this case with default header values.
 
 successful operation
 */

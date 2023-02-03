@@ -58,7 +58,8 @@ func NewPutTagsV1ParamsWithHTTPClient(client *http.Client) *PutTagsV1Params {
 	}
 }
 
-/*PutTagsV1Params contains all the parameters to send to the API endpoint
+/*
+PutTagsV1Params contains all the parameters to send to the API endpoint
 for the put tags v1 operation typically these are written to a http.Request
 */
 type PutTagsV1Params struct {

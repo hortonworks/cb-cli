@@ -56,7 +56,8 @@ func NewGetByNameParamsWithHTTPClient(client *http.Client) *GetByNameParams {
 	}
 }
 
-/*GetByNameParams contains all the parameters to send to the API endpoint
+/*
+GetByNameParams contains all the parameters to send to the API endpoint
 for the get by name operation typically these are written to a http.Request
 */
 type GetByNameParams struct {

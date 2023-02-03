@@ -42,7 +42,8 @@ func NewGetImageFromDefaultOK() *GetImageFromDefaultOK {
 	return &GetImageFromDefaultOK{}
 }
 
-/*GetImageFromDefaultOK handles this case with default header values.
+/*
+GetImageFromDefaultOK handles this case with default header values.
 
 successful operation
 */

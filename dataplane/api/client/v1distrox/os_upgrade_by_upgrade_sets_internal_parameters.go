@@ -58,7 +58,8 @@ func NewOsUpgradeByUpgradeSetsInternalParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*OsUpgradeByUpgradeSetsInternalParams contains all the parameters to send to the API endpoint
+/*
+OsUpgradeByUpgradeSetsInternalParams contains all the parameters to send to the API endpoint
 for the os upgrade by upgrade sets internal operation typically these are written to a http.Request
 */
 type OsUpgradeByUpgradeSetsInternalParams struct {

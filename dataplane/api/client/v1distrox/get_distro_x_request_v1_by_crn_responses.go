@@ -40,7 +40,8 @@ func NewGetDistroXRequestV1ByCrnOK() *GetDistroXRequestV1ByCrnOK {
 	return &GetDistroXRequestV1ByCrnOK{}
 }
 
-/*GetDistroXRequestV1ByCrnOK handles this case with default header values.
+/*
+GetDistroXRequestV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

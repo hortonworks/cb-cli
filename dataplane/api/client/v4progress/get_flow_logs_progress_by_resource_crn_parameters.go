@@ -56,7 +56,8 @@ func NewGetFlowLogsProgressByResourceCrnParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*GetFlowLogsProgressByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetFlowLogsProgressByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get flow logs progress by resource crn operation typically these are written to a http.Request
 */
 type GetFlowLogsProgressByResourceCrnParams struct {

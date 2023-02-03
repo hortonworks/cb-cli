@@ -42,7 +42,8 @@ func NewSyncCmOnDatalakeClusterOK() *SyncCmOnDatalakeClusterOK {
 	return &SyncCmOnDatalakeClusterOK{}
 }
 
-/*SyncCmOnDatalakeClusterOK handles this case with default header values.
+/*
+SyncCmOnDatalakeClusterOK handles this case with default header values.
 
 successful operation
 */

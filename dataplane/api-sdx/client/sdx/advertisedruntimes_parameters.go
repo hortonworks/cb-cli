@@ -56,7 +56,8 @@ func NewAdvertisedruntimesParamsWithHTTPClient(client *http.Client) *Advertisedr
 	}
 }
 
-/*AdvertisedruntimesParams contains all the parameters to send to the API endpoint
+/*
+AdvertisedruntimesParams contains all the parameters to send to the API endpoint
 for the advertisedruntimes operation typically these are written to a http.Request
 */
 type AdvertisedruntimesParams struct {

@@ -42,7 +42,8 @@ func NewRegisterDatabaseOK() *RegisterDatabaseOK {
 	return &RegisterDatabaseOK{}
 }
 
-/*RegisterDatabaseOK handles this case with default header values.
+/*
+RegisterDatabaseOK handles this case with default header values.
 
 successful operation
 */

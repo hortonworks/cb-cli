@@ -42,7 +42,8 @@ func NewSetRangerCloudIdentityMappingOK() *SetRangerCloudIdentityMappingOK {
 	return &SetRangerCloudIdentityMappingOK{}
 }
 
-/*SetRangerCloudIdentityMappingOK handles this case with default header values.
+/*
+SetRangerCloudIdentityMappingOK handles this case with default header values.
 
 successful operation
 */

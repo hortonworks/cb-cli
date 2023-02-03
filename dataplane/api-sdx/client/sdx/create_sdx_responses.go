@@ -42,7 +42,8 @@ func NewCreateSdxOK() *CreateSdxOK {
 	return &CreateSdxOK{}
 }
 
-/*CreateSdxOK handles this case with default header values.
+/*
+CreateSdxOK handles this case with default header values.
 
 successful operation
 */

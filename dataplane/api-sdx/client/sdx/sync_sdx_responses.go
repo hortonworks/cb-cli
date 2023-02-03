@@ -39,7 +39,8 @@ func NewSyncSdxDefault(code int) *SyncSdxDefault {
 	}
 }
 
-/*SyncSdxDefault handles this case with default header values.
+/*
+SyncSdxDefault handles this case with default header values.
 
 successful operation
 */

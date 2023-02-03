@@ -39,7 +39,8 @@ func NewCancelDiagnosticsCollectionsV1Default(code int) *CancelDiagnosticsCollec
 	}
 }
 
-/*CancelDiagnosticsCollectionsV1Default handles this case with default header values.
+/*
+CancelDiagnosticsCollectionsV1Default handles this case with default header values.
 
 successful operation
 */

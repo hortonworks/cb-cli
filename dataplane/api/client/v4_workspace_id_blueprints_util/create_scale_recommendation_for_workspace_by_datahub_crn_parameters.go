@@ -57,7 +57,8 @@ func NewCreateScaleRecommendationForWorkspaceByDatahubCrnParamsWithHTTPClient(cl
 	}
 }
 
-/*CreateScaleRecommendationForWorkspaceByDatahubCrnParams contains all the parameters to send to the API endpoint
+/*
+CreateScaleRecommendationForWorkspaceByDatahubCrnParams contains all the parameters to send to the API endpoint
 for the create scale recommendation for workspace by datahub crn operation typically these are written to a http.Request
 */
 type CreateScaleRecommendationForWorkspaceByDatahubCrnParams struct {

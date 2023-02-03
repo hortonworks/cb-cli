@@ -56,7 +56,8 @@ func NewListDistroXCostV1ParamsWithHTTPClient(client *http.Client) *ListDistroXC
 	}
 }
 
-/*ListDistroXCostV1Params contains all the parameters to send to the API endpoint
+/*
+ListDistroXCostV1Params contains all the parameters to send to the API endpoint
 for the list distro x cost v1 operation typically these are written to a http.Request
 */
 type ListDistroXCostV1Params struct {

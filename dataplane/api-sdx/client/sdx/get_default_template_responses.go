@@ -42,7 +42,8 @@ func NewGetDefaultTemplateOK() *GetDefaultTemplateOK {
 	return &GetDefaultTemplateOK{}
 }
 
-/*GetDefaultTemplateOK handles this case with default header values.
+/*
+GetDefaultTemplateOK handles this case with default header values.
 
 successful operation
 */

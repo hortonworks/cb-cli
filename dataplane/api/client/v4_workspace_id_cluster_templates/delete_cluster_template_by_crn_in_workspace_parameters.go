@@ -57,7 +57,8 @@ func NewDeleteClusterTemplateByCrnInWorkspaceParamsWithHTTPClient(client *http.C
 	}
 }
 
-/*DeleteClusterTemplateByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+DeleteClusterTemplateByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
 for the delete cluster template by crn in workspace operation typically these are written to a http.Request
 */
 type DeleteClusterTemplateByCrnInWorkspaceParams struct {

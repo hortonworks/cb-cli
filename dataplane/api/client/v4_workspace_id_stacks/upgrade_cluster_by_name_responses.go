@@ -42,7 +42,8 @@ func NewUpgradeClusterByNameOK() *UpgradeClusterByNameOK {
 	return &UpgradeClusterByNameOK{}
 }
 
-/*UpgradeClusterByNameOK handles this case with default header values.
+/*
+UpgradeClusterByNameOK handles this case with default header values.
 
 successful operation
 */

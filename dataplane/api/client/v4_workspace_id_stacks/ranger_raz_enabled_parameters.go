@@ -57,7 +57,8 @@ func NewRangerRazEnabledParamsWithHTTPClient(client *http.Client) *RangerRazEnab
 	}
 }
 
-/*RangerRazEnabledParams contains all the parameters to send to the API endpoint
+/*
+RangerRazEnabledParams contains all the parameters to send to the API endpoint
 for the ranger raz enabled operation typically these are written to a http.Request
 */
 type RangerRazEnabledParams struct {

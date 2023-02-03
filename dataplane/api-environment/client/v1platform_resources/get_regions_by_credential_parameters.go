@@ -69,7 +69,8 @@ func NewGetRegionsByCredentialParamsWithHTTPClient(client *http.Client) *GetRegi
 	}
 }
 
-/*GetRegionsByCredentialParams contains all the parameters to send to the API endpoint
+/*
+GetRegionsByCredentialParams contains all the parameters to send to the API endpoint
 for the get regions by credential operation typically these are written to a http.Request
 */
 type GetRegionsByCredentialParams struct {

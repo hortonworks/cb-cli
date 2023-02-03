@@ -58,7 +58,8 @@ func NewGetCreateCredentialForCliParamsWithHTTPClient(client *http.Client) *GetC
 	}
 }
 
-/*GetCreateCredentialForCliParams contains all the parameters to send to the API endpoint
+/*
+GetCreateCredentialForCliParams contains all the parameters to send to the API endpoint
 for the get create credential for cli operation typically these are written to a http.Request
 */
 type GetCreateCredentialForCliParams struct {

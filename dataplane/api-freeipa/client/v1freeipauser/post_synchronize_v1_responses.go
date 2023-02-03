@@ -42,7 +42,8 @@ func NewPostSynchronizeV1OK() *PostSynchronizeV1OK {
 	return &PostSynchronizeV1OK{}
 }
 
-/*PostSynchronizeV1OK handles this case with default header values.
+/*
+PostSynchronizeV1OK handles this case with default header values.
 
 successful operation
 */

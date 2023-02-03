@@ -56,7 +56,8 @@ func NewGetPrivateDNSZonesParamsWithHTTPClient(client *http.Client) *GetPrivateD
 	}
 }
 
-/*GetPrivateDNSZonesParams contains all the parameters to send to the API endpoint
+/*
+GetPrivateDNSZonesParams contains all the parameters to send to the API endpoint
 for the get private Dns zones operation typically these are written to a http.Request
 */
 type GetPrivateDNSZonesParams struct {

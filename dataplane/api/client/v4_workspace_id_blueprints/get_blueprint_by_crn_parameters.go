@@ -57,7 +57,8 @@ func NewGetBlueprintByCrnParamsWithHTTPClient(client *http.Client) *GetBlueprint
 	}
 }
 
-/*GetBlueprintByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetBlueprintByCrnParams contains all the parameters to send to the API endpoint
 for the get blueprint by crn operation typically these are written to a http.Request
 */
 type GetBlueprintByCrnParams struct {

@@ -57,7 +57,8 @@ func NewListImageCatalogsByWorkspaceParamsWithHTTPClient(client *http.Client) *L
 	}
 }
 
-/*ListImageCatalogsByWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+ListImageCatalogsByWorkspaceParams contains all the parameters to send to the API endpoint
 for the list image catalogs by workspace operation typically these are written to a http.Request
 */
 type ListImageCatalogsByWorkspaceParams struct {

@@ -57,7 +57,8 @@ func NewGetGeneratedTemplateParamsWithHTTPClient(client *http.Client) *GetGenera
 	}
 }
 
-/*GetGeneratedTemplateParams contains all the parameters to send to the API endpoint
+/*
+GetGeneratedTemplateParams contains all the parameters to send to the API endpoint
 for the get generated template operation typically these are written to a http.Request
 */
 type GetGeneratedTemplateParams struct {

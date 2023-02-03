@@ -58,7 +58,8 @@ func NewCloneByCrnParamsWithHTTPClient(client *http.Client) *CloneByCrnParams {
 	}
 }
 
-/*CloneByCrnParams contains all the parameters to send to the API endpoint
+/*
+CloneByCrnParams contains all the parameters to send to the API endpoint
 for the clone by crn operation typically these are written to a http.Request
 */
 type CloneByCrnParams struct {

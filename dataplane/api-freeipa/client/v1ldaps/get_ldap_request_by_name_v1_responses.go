@@ -42,7 +42,8 @@ func NewGetLdapRequestByNameV1OK() *GetLdapRequestByNameV1OK {
 	return &GetLdapRequestByNameV1OK{}
 }
 
-/*GetLdapRequestByNameV1OK handles this case with default header values.
+/*
+GetLdapRequestByNameV1OK handles this case with default header values.
 
 successful operation
 */

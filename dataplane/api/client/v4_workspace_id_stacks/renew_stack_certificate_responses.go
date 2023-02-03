@@ -42,7 +42,8 @@ func NewRenewStackCertificateOK() *RenewStackCertificateOK {
 	return &RenewStackCertificateOK{}
 }
 
-/*RenewStackCertificateOK handles this case with default header values.
+/*
+RenewStackCertificateOK handles this case with default header values.
 
 successful operation
 */

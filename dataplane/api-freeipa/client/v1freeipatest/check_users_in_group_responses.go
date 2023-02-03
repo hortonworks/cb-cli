@@ -42,7 +42,8 @@ func NewCheckUsersInGroupOK() *CheckUsersInGroupOK {
 	return &CheckUsersInGroupOK{}
 }
 
-/*CheckUsersInGroupOK handles this case with default header values.
+/*
+CheckUsersInGroupOK handles this case with default header values.
 
 successful operation
 */

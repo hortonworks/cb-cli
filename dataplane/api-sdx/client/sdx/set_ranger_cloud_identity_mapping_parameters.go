@@ -58,7 +58,8 @@ func NewSetRangerCloudIdentityMappingParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*SetRangerCloudIdentityMappingParams contains all the parameters to send to the API endpoint
+/*
+SetRangerCloudIdentityMappingParams contains all the parameters to send to the API endpoint
 for the set ranger cloud identity mapping operation typically these are written to a http.Request
 */
 type SetRangerCloudIdentityMappingParams struct {

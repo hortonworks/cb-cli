@@ -59,7 +59,8 @@ func NewRotateSaltPasswordForStackInWorkspaceV4InternalParamsWithHTTPClient(clie
 	}
 }
 
-/*RotateSaltPasswordForStackInWorkspaceV4InternalParams contains all the parameters to send to the API endpoint
+/*
+RotateSaltPasswordForStackInWorkspaceV4InternalParams contains all the parameters to send to the API endpoint
 for the rotate salt password for stack in workspace v4 internal operation typically these are written to a http.Request
 */
 type RotateSaltPasswordForStackInWorkspaceV4InternalParams struct {

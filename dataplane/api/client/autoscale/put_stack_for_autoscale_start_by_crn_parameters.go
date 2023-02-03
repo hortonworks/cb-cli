@@ -58,7 +58,8 @@ func NewPutStackForAutoscaleStartByCrnParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*PutStackForAutoscaleStartByCrnParams contains all the parameters to send to the API endpoint
+/*
+PutStackForAutoscaleStartByCrnParams contains all the parameters to send to the API endpoint
 for the put stack for autoscale start by crn operation typically these are written to a http.Request
 */
 type PutStackForAutoscaleStartByCrnParams struct {

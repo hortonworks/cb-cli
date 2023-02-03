@@ -42,7 +42,8 @@ func NewCollectDistroxCmDiagnosticsV4OK() *CollectDistroxCmDiagnosticsV4OK {
 	return &CollectDistroxCmDiagnosticsV4OK{}
 }
 
-/*CollectDistroxCmDiagnosticsV4OK handles this case with default header values.
+/*
+CollectDistroxCmDiagnosticsV4OK handles this case with default header values.
 
 successful operation
 */

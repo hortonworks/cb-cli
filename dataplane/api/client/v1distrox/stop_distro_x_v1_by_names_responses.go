@@ -39,7 +39,8 @@ func NewStopDistroXV1ByNamesDefault(code int) *StopDistroXV1ByNamesDefault {
 	}
 }
 
-/*StopDistroXV1ByNamesDefault handles this case with default header values.
+/*
+StopDistroXV1ByNamesDefault handles this case with default header values.
 
 successful operation
 */

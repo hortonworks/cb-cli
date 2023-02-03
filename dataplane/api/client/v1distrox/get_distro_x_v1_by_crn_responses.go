@@ -42,7 +42,8 @@ func NewGetDistroXV1ByCrnOK() *GetDistroXV1ByCrnOK {
 	return &GetDistroXV1ByCrnOK{}
 }
 
-/*GetDistroXV1ByCrnOK handles this case with default header values.
+/*
+GetDistroXV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

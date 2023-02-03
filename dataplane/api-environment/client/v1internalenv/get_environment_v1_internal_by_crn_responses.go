@@ -42,7 +42,8 @@ func NewGetEnvironmentV1InternalByCrnOK() *GetEnvironmentV1InternalByCrnOK {
 	return &GetEnvironmentV1InternalByCrnOK{}
 }
 
-/*GetEnvironmentV1InternalByCrnOK handles this case with default header values.
+/*
+GetEnvironmentV1InternalByCrnOK handles this case with default header values.
 
 successful operation
 */

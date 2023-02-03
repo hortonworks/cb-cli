@@ -56,7 +56,8 @@ func NewGetFlowLogsByResourceNameParamsWithHTTPClient(client *http.Client) *GetF
 	}
 }
 
-/*GetFlowLogsByResourceNameParams contains all the parameters to send to the API endpoint
+/*
+GetFlowLogsByResourceNameParams contains all the parameters to send to the API endpoint
 for the get flow logs by resource name operation typically these are written to a http.Request
 */
 type GetFlowLogsByResourceNameParams struct {

@@ -56,7 +56,8 @@ func NewStopEnvironmentByNameV1ParamsWithHTTPClient(client *http.Client) *StopEn
 	}
 }
 
-/*StopEnvironmentByNameV1Params contains all the parameters to send to the API endpoint
+/*
+StopEnvironmentByNameV1Params contains all the parameters to send to the API endpoint
 for the stop environment by name v1 operation typically these are written to a http.Request
 */
 type StopEnvironmentByNameV1Params struct {

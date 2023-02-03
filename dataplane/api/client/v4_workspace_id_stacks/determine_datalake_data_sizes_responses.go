@@ -39,7 +39,8 @@ func NewDetermineDatalakeDataSizesDefault(code int) *DetermineDatalakeDataSizesD
 	}
 }
 
-/*DetermineDatalakeDataSizesDefault handles this case with default header values.
+/*
+DetermineDatalakeDataSizesDefault handles this case with default header values.
 
 successful operation
 */

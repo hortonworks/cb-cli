@@ -57,7 +57,8 @@ func NewDeleteDatabaseInWorkspaceParamsWithHTTPClient(client *http.Client) *Dele
 	}
 }
 
-/*DeleteDatabaseInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+DeleteDatabaseInWorkspaceParams contains all the parameters to send to the API endpoint
 for the delete database in workspace operation typically these are written to a http.Request
 */
 type DeleteDatabaseInWorkspaceParams struct {

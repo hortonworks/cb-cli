@@ -40,7 +40,8 @@ func NewListDNSZonesV1OK() *ListDNSZonesV1OK {
 	return &ListDNSZonesV1OK{}
 }
 
-/*ListDNSZonesV1OK handles this case with default header values.
+/*
+ListDNSZonesV1OK handles this case with default header values.
 
 successful operation
 */

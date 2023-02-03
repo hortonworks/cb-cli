@@ -56,7 +56,8 @@ func NewDeleteDatabaseByCrnParamsWithHTTPClient(client *http.Client) *DeleteData
 	}
 }
 
-/*DeleteDatabaseByCrnParams contains all the parameters to send to the API endpoint
+/*
+DeleteDatabaseByCrnParams contains all the parameters to send to the API endpoint
 for the delete database by crn operation typically these are written to a http.Request
 */
 type DeleteDatabaseByCrnParams struct {

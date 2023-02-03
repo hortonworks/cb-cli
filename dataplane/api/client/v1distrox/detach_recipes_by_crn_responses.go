@@ -42,7 +42,8 @@ func NewDetachRecipesByCrnOK() *DetachRecipesByCrnOK {
 	return &DetachRecipesByCrnOK{}
 }
 
-/*DetachRecipesByCrnOK handles this case with default header values.
+/*
+DetachRecipesByCrnOK handles this case with default header values.
 
 successful operation
 */

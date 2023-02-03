@@ -58,7 +58,8 @@ func NewPostDistroXInternalV1ParamsWithHTTPClient(client *http.Client) *PostDist
 	}
 }
 
-/*PostDistroXInternalV1Params contains all the parameters to send to the API endpoint
+/*
+PostDistroXInternalV1Params contains all the parameters to send to the API endpoint
 for the post distro x internal v1 operation typically these are written to a http.Request
 */
 type PostDistroXInternalV1Params struct {

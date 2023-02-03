@@ -58,7 +58,8 @@ func NewCollectDistroxCmDiagnosticsV4ParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*CollectDistroxCmDiagnosticsV4Params contains all the parameters to send to the API endpoint
+/*
+CollectDistroxCmDiagnosticsV4Params contains all the parameters to send to the API endpoint
 for the collect distrox cm diagnostics v4 operation typically these are written to a http.Request
 */
 type CollectDistroxCmDiagnosticsV4Params struct {

@@ -56,7 +56,8 @@ func NewGetAttachedExperiencesByEnvironmentCrnParamsWithHTTPClient(client *http.
 	}
 }
 
-/*GetAttachedExperiencesByEnvironmentCrnParams contains all the parameters to send to the API endpoint
+/*
+GetAttachedExperiencesByEnvironmentCrnParams contains all the parameters to send to the API endpoint
 for the get attached experiences by environment crn operation typically these are written to a http.Request
 */
 type GetAttachedExperiencesByEnvironmentCrnParams struct {

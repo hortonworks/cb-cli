@@ -42,7 +42,8 @@ func NewCreateFreeIpaV1OK() *CreateFreeIpaV1OK {
 	return &CreateFreeIpaV1OK{}
 }
 
-/*CreateFreeIpaV1OK handles this case with default header values.
+/*
+CreateFreeIpaV1OK handles this case with default header values.
 
 successful operation
 */

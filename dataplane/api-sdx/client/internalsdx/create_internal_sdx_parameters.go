@@ -58,7 +58,8 @@ func NewCreateInternalSdxParamsWithHTTPClient(client *http.Client) *CreateIntern
 	}
 }
 
-/*CreateInternalSdxParams contains all the parameters to send to the API endpoint
+/*
+CreateInternalSdxParams contains all the parameters to send to the API endpoint
 for the create internal sdx operation typically these are written to a http.Request
 */
 type CreateInternalSdxParams struct {

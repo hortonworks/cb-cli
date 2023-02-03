@@ -42,7 +42,8 @@ func NewRangerRazEnabledOK() *RangerRazEnabledOK {
 	return &RangerRazEnabledOK{}
 }
 
-/*RangerRazEnabledOK handles this case with default header values.
+/*
+RangerRazEnabledOK handles this case with default header values.
 
 successful operation
 */

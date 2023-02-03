@@ -57,7 +57,8 @@ func NewCreateRecommendationForWorkspaceParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*CreateRecommendationForWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+CreateRecommendationForWorkspaceParams contains all the parameters to send to the API endpoint
 for the create recommendation for workspace operation typically these are written to a http.Request
 */
 type CreateRecommendationForWorkspaceParams struct {

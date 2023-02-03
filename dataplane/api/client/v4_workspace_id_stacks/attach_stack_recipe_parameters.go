@@ -59,7 +59,8 @@ func NewAttachStackRecipeParamsWithHTTPClient(client *http.Client) *AttachStackR
 	}
 }
 
-/*AttachStackRecipeParams contains all the parameters to send to the API endpoint
+/*
+AttachStackRecipeParams contains all the parameters to send to the API endpoint
 for the attach stack recipe operation typically these are written to a http.Request
 */
 type AttachStackRecipeParams struct {

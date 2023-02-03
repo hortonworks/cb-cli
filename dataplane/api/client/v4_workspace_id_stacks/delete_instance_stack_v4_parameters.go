@@ -69,7 +69,8 @@ func NewDeleteInstanceStackV4ParamsWithHTTPClient(client *http.Client) *DeleteIn
 	}
 }
 
-/*DeleteInstanceStackV4Params contains all the parameters to send to the API endpoint
+/*
+DeleteInstanceStackV4Params contains all the parameters to send to the API endpoint
 for the delete instance stack v4 operation typically these are written to a http.Request
 */
 type DeleteInstanceStackV4Params struct {

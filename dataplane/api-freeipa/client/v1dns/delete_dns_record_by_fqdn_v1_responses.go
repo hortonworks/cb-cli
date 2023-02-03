@@ -39,7 +39,8 @@ func NewDeleteDNSRecordByFqdnV1Default(code int) *DeleteDNSRecordByFqdnV1Default
 	}
 }
 
-/*DeleteDNSRecordByFqdnV1Default handles this case with default header values.
+/*
+DeleteDNSRecordByFqdnV1Default handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewPostSynchronizeV1ParamsWithHTTPClient(client *http.Client) *PostSynchron
 	}
 }
 
-/*PostSynchronizeV1Params contains all the parameters to send to the API endpoint
+/*
+PostSynchronizeV1Params contains all the parameters to send to the API endpoint
 for the post synchronize v1 operation typically these are written to a http.Request
 */
 type PostSynchronizeV1Params struct {

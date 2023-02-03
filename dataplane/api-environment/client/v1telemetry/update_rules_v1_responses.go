@@ -42,7 +42,8 @@ func NewUpdateRulesV1OK() *UpdateRulesV1OK {
 	return &UpdateRulesV1OK{}
 }
 
-/*UpdateRulesV1OK handles this case with default header values.
+/*
+UpdateRulesV1OK handles this case with default header values.
 
 successful operation
 */

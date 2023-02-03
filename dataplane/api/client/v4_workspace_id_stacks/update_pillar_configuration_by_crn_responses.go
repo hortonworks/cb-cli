@@ -42,7 +42,8 @@ func NewUpdatePillarConfigurationByCrnOK() *UpdatePillarConfigurationByCrnOK {
 	return &UpdatePillarConfigurationByCrnOK{}
 }
 
-/*UpdatePillarConfigurationByCrnOK handles this case with default header values.
+/*
+UpdatePillarConfigurationByCrnOK handles this case with default header values.
 
 successful operation
 */

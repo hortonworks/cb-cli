@@ -42,7 +42,8 @@ func NewGetLastFlowByIDOK() *GetLastFlowByIDOK {
 	return &GetLastFlowByIDOK{}
 }
 
-/*GetLastFlowByIDOK handles this case with default header values.
+/*
+GetLastFlowByIDOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetRestoreDatalakeStatusOK() *GetRestoreDatalakeStatusOK {
 	return &GetRestoreDatalakeStatusOK{}
 }
 
-/*GetRestoreDatalakeStatusOK handles this case with default header values.
+/*
+GetRestoreDatalakeStatusOK handles this case with default header values.
 
 successful operation
 */

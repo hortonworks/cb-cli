@@ -42,7 +42,8 @@ func NewRotateSaltPasswordSdxByCrnOK() *RotateSaltPasswordSdxByCrnOK {
 	return &RotateSaltPasswordSdxByCrnOK{}
 }
 
-/*RotateSaltPasswordSdxByCrnOK handles this case with default header values.
+/*
+RotateSaltPasswordSdxByCrnOK handles this case with default header values.
 
 successful operation
 */

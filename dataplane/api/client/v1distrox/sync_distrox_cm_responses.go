@@ -42,7 +42,8 @@ func NewSyncDistroxCmOK() *SyncDistroxCmOK {
 	return &SyncDistroxCmOK{}
 }
 
-/*SyncDistroxCmOK handles this case with default header values.
+/*
+SyncDistroxCmOK handles this case with default header values.
 
 successful operation
 */

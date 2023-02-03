@@ -57,7 +57,8 @@ func NewStartDistroXV1ByNamesParamsWithHTTPClient(client *http.Client) *StartDis
 	}
 }
 
-/*StartDistroXV1ByNamesParams contains all the parameters to send to the API endpoint
+/*
+StartDistroXV1ByNamesParams contains all the parameters to send to the API endpoint
 for the start distro x v1 by names operation typically these are written to a http.Request
 */
 type StartDistroXV1ByNamesParams struct {

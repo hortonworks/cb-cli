@@ -42,7 +42,8 @@ func NewAttachRecipesByCrnOK() *AttachRecipesByCrnOK {
 	return &AttachRecipesByCrnOK{}
 }
 
-/*AttachRecipesByCrnOK handles this case with default header values.
+/*
+AttachRecipesByCrnOK handles this case with default header values.
 
 successful operation
 */

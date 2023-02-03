@@ -57,7 +57,8 @@ func NewUpdateLoadBalancersInternalParamsWithHTTPClient(client *http.Client) *Up
 	}
 }
 
-/*UpdateLoadBalancersInternalParams contains all the parameters to send to the API endpoint
+/*
+UpdateLoadBalancersInternalParams contains all the parameters to send to the API endpoint
 for the update load balancers internal operation typically these are written to a http.Request
 */
 type UpdateLoadBalancersInternalParams struct {

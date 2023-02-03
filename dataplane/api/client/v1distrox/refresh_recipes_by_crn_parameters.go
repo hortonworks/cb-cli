@@ -58,7 +58,8 @@ func NewRefreshRecipesByCrnParamsWithHTTPClient(client *http.Client) *RefreshRec
 	}
 }
 
-/*RefreshRecipesByCrnParams contains all the parameters to send to the API endpoint
+/*
+RefreshRecipesByCrnParams contains all the parameters to send to the API endpoint
 for the refresh recipes by crn operation typically these are written to a http.Request
 */
 type RefreshRecipesByCrnParams struct {

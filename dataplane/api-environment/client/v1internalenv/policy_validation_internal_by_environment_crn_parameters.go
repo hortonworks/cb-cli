@@ -57,7 +57,8 @@ func NewPolicyValidationInternalByEnvironmentCrnParamsWithHTTPClient(client *htt
 	}
 }
 
-/*PolicyValidationInternalByEnvironmentCrnParams contains all the parameters to send to the API endpoint
+/*
+PolicyValidationInternalByEnvironmentCrnParams contains all the parameters to send to the API endpoint
 for the policy validation internal by environment crn operation typically these are written to a http.Request
 */
 type PolicyValidationInternalByEnvironmentCrnParams struct {

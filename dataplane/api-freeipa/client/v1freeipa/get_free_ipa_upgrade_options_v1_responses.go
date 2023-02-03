@@ -42,7 +42,8 @@ func NewGetFreeIpaUpgradeOptionsV1OK() *GetFreeIpaUpgradeOptionsV1OK {
 	return &GetFreeIpaUpgradeOptionsV1OK{}
 }
 
-/*GetFreeIpaUpgradeOptionsV1OK handles this case with default header values.
+/*
+GetFreeIpaUpgradeOptionsV1OK handles this case with default header values.
 
 successful operation
 */

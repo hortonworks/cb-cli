@@ -56,7 +56,8 @@ func NewStopEnvironmentByCrnV1ParamsWithHTTPClient(client *http.Client) *StopEnv
 	}
 }
 
-/*StopEnvironmentByCrnV1Params contains all the parameters to send to the API endpoint
+/*
+StopEnvironmentByCrnV1Params contains all the parameters to send to the API endpoint
 for the stop environment by crn v1 operation typically these are written to a http.Request
 */
 type StopEnvironmentByCrnV1Params struct {

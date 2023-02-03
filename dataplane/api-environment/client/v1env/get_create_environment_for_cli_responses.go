@@ -40,7 +40,8 @@ func NewGetCreateEnvironmentForCliOK() *GetCreateEnvironmentForCliOK {
 	return &GetCreateEnvironmentForCliOK{}
 }
 
-/*GetCreateEnvironmentForCliOK handles this case with default header values.
+/*
+GetCreateEnvironmentForCliOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetVMTypesForVerticalScalingOK() *GetVMTypesForVerticalScalingOK {
 	return &GetVMTypesForVerticalScalingOK{}
 }
 
-/*GetVMTypesForVerticalScalingOK handles this case with default header values.
+/*
+GetVMTypesForVerticalScalingOK handles this case with default header values.
 
 successful operation
 */

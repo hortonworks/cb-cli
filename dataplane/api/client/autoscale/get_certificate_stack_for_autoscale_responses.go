@@ -42,7 +42,8 @@ func NewGetCertificateStackForAutoscaleOK() *GetCertificateStackForAutoscaleOK {
 	return &GetCertificateStackForAutoscaleOK{}
 }
 
-/*GetCertificateStackForAutoscaleOK handles this case with default header values.
+/*
+GetCertificateStackForAutoscaleOK handles this case with default header values.
 
 successful operation
 */

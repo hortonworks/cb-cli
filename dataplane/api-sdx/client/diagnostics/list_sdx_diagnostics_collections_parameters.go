@@ -56,7 +56,8 @@ func NewListSdxDiagnosticsCollectionsParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*ListSdxDiagnosticsCollectionsParams contains all the parameters to send to the API endpoint
+/*
+ListSdxDiagnosticsCollectionsParams contains all the parameters to send to the API endpoint
 for the list sdx diagnostics collections operation typically these are written to a http.Request
 */
 type ListSdxDiagnosticsCollectionsParams struct {

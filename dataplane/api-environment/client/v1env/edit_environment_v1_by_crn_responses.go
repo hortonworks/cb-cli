@@ -42,7 +42,8 @@ func NewEditEnvironmentV1ByCrnOK() *EditEnvironmentV1ByCrnOK {
 	return &EditEnvironmentV1ByCrnOK{}
 }
 
-/*EditEnvironmentV1ByCrnOK handles this case with default header values.
+/*
+EditEnvironmentV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewListTagsV1OK() *ListTagsV1OK {
 	return &ListTagsV1OK{}
 }
 
-/*ListTagsV1OK handles this case with default header values.
+/*
+ListTagsV1OK handles this case with default header values.
 
 successful operation
 */

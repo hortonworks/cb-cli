@@ -42,7 +42,8 @@ func NewGetCredentialByNameV1OK() *GetCredentialByNameV1OK {
 	return &GetCredentialByNameV1OK{}
 }
 
-/*GetCredentialByNameV1OK handles this case with default header values.
+/*
+GetCredentialByNameV1OK handles this case with default header values.
 
 successful operation
 */

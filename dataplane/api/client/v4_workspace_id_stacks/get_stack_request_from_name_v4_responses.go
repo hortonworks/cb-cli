@@ -42,7 +42,8 @@ func NewGetStackRequestFromNameV4OK() *GetStackRequestFromNameV4OK {
 	return &GetStackRequestFromNameV4OK{}
 }
 
-/*GetStackRequestFromNameV4OK handles this case with default header values.
+/*
+GetStackRequestFromNameV4OK handles this case with default header values.
 
 successful operation
 */

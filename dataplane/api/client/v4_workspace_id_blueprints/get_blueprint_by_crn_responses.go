@@ -42,7 +42,8 @@ func NewGetBlueprintByCrnOK() *GetBlueprintByCrnOK {
 	return &GetBlueprintByCrnOK{}
 }
 
-/*GetBlueprintByCrnOK handles this case with default header values.
+/*
+GetBlueprintByCrnOK handles this case with default header values.
 
 successful operation
 */

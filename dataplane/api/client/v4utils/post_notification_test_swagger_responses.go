@@ -42,7 +42,8 @@ func NewPostNotificationTestOK() *PostNotificationTestOK {
 	return &PostNotificationTestOK{}
 }
 
-/*PostNotificationTestOK handles this case with default header values.
+/*
+PostNotificationTestOK handles this case with default header values.
 
 successful operation
 */

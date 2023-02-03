@@ -42,7 +42,8 @@ func NewGetRuntimeVersionsFromDefaultOK() *GetRuntimeVersionsFromDefaultOK {
 	return &GetRuntimeVersionsFromDefaultOK{}
 }
 
-/*GetRuntimeVersionsFromDefaultOK handles this case with default header values.
+/*
+GetRuntimeVersionsFromDefaultOK handles this case with default header values.
 
 successful operation
 */

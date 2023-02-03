@@ -42,7 +42,8 @@ func NewPostDistroXInternalV1OK() *PostDistroXInternalV1OK {
 	return &PostDistroXInternalV1OK{}
 }
 
-/*PostDistroXInternalV1OK handles this case with default header values.
+/*
+PostDistroXInternalV1OK handles this case with default header values.
 
 successful operation
 */

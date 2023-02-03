@@ -57,7 +57,8 @@ func NewGetEventsInWorkspaceParamsWithHTTPClient(client *http.Client) *GetEvents
 	}
 }
 
-/*GetEventsInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetEventsInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get events in workspace operation typically these are written to a http.Request
 */
 type GetEventsInWorkspaceParams struct {

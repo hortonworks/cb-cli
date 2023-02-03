@@ -58,7 +58,8 @@ func NewRecoverDatalakeClusterParamsWithHTTPClient(client *http.Client) *Recover
 	}
 }
 
-/*RecoverDatalakeClusterParams contains all the parameters to send to the API endpoint
+/*
+RecoverDatalakeClusterParams contains all the parameters to send to the API endpoint
 for the recover datalake cluster operation typically these are written to a http.Request
 */
 type RecoverDatalakeClusterParams struct {

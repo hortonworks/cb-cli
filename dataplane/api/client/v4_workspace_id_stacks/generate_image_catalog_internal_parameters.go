@@ -57,7 +57,8 @@ func NewGenerateImageCatalogInternalParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GenerateImageCatalogInternalParams contains all the parameters to send to the API endpoint
+/*
+GenerateImageCatalogInternalParams contains all the parameters to send to the API endpoint
 for the generate image catalog internal operation typically these are written to a http.Request
 */
 type GenerateImageCatalogInternalParams struct {

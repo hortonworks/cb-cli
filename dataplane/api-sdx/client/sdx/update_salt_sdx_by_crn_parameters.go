@@ -56,7 +56,8 @@ func NewUpdateSaltSdxByCrnParamsWithHTTPClient(client *http.Client) *UpdateSaltS
 	}
 }
 
-/*UpdateSaltSdxByCrnParams contains all the parameters to send to the API endpoint
+/*
+UpdateSaltSdxByCrnParams contains all the parameters to send to the API endpoint
 for the update salt sdx by crn operation typically these are written to a http.Request
 */
 type UpdateSaltSdxByCrnParams struct {

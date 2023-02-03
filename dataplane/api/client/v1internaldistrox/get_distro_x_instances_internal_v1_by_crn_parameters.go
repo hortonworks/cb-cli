@@ -56,7 +56,8 @@ func NewGetDistroXInstancesInternalV1ByCrnParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/*GetDistroXInstancesInternalV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetDistroXInstancesInternalV1ByCrnParams contains all the parameters to send to the API endpoint
 for the get distro x instances internal v1 by crn operation typically these are written to a http.Request
 */
 type GetDistroXInstancesInternalV1ByCrnParams struct {

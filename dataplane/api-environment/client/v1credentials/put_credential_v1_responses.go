@@ -42,7 +42,8 @@ func NewPutCredentialV1OK() *PutCredentialV1OK {
 	return &PutCredentialV1OK{}
 }
 
-/*PutCredentialV1OK handles this case with default header values.
+/*
+PutCredentialV1OK handles this case with default header values.
 
 successful operation
 */

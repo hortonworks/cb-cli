@@ -42,7 +42,8 @@ func NewGetDeploymentInfoOK() *GetDeploymentInfoOK {
 	return &GetDeploymentInfoOK{}
 }
 
-/*GetDeploymentInfoOK handles this case with default header values.
+/*
+GetDeploymentInfoOK handles this case with default header values.
 
 successful operation
 */

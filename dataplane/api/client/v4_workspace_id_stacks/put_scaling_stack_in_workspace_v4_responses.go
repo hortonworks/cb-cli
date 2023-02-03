@@ -42,7 +42,8 @@ func NewPutScalingStackInWorkspaceV4OK() *PutScalingStackInWorkspaceV4OK {
 	return &PutScalingStackInWorkspaceV4OK{}
 }
 
-/*PutScalingStackInWorkspaceV4OK handles this case with default header values.
+/*
+PutScalingStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

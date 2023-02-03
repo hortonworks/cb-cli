@@ -40,7 +40,8 @@ func NewGetDistroXRequestV1ByNameOK() *GetDistroXRequestV1ByNameOK {
 	return &GetDistroXRequestV1ByNameOK{}
 }
 
-/*GetDistroXRequestV1ByNameOK handles this case with default header values.
+/*
+GetDistroXRequestV1ByNameOK handles this case with default header values.
 
 successful operation
 */

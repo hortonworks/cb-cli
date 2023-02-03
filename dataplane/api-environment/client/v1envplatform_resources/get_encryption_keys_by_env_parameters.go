@@ -56,7 +56,8 @@ func NewGetEncryptionKeysByEnvParamsWithHTTPClient(client *http.Client) *GetEncr
 	}
 }
 
-/*GetEncryptionKeysByEnvParams contains all the parameters to send to the API endpoint
+/*
+GetEncryptionKeysByEnvParams contains all the parameters to send to the API endpoint
 for the get encryption keys by env operation typically these are written to a http.Request
 */
 type GetEncryptionKeysByEnvParams struct {

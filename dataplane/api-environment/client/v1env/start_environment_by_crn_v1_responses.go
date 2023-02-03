@@ -42,7 +42,8 @@ func NewStartEnvironmentByCrnV1OK() *StartEnvironmentByCrnV1OK {
 	return &StartEnvironmentByCrnV1OK{}
 }
 
-/*StartEnvironmentByCrnV1OK handles this case with default header values.
+/*
+StartEnvironmentByCrnV1OK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetImageCatalogRequestFromNameInWorkspaceOK() *GetImageCatalogRequestFro
 	return &GetImageCatalogRequestFromNameInWorkspaceOK{}
 }
 
-/*GetImageCatalogRequestFromNameInWorkspaceOK handles this case with default header values.
+/*
+GetImageCatalogRequestFromNameInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewListCustomImageCatalogsOK() *ListCustomImageCatalogsOK {
 	return &ListCustomImageCatalogsOK{}
 }
 
-/*ListCustomImageCatalogsOK handles this case with default header values.
+/*
+ListCustomImageCatalogsOK handles this case with default header values.
 
 successful operation
 */

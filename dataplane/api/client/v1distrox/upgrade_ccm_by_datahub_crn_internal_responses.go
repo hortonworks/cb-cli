@@ -42,7 +42,8 @@ func NewUpgradeCcmByDatahubCrnInternalOK() *UpgradeCcmByDatahubCrnInternalOK {
 	return &UpgradeCcmByDatahubCrnInternalOK{}
 }
 
-/*UpgradeCcmByDatahubCrnInternalOK handles this case with default header values.
+/*
+UpgradeCcmByDatahubCrnInternalOK handles this case with default header values.
 
 successful operation
 */

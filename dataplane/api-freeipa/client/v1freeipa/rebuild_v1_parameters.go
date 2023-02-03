@@ -58,7 +58,8 @@ func NewRebuildV1ParamsWithHTTPClient(client *http.Client) *RebuildV1Params {
 	}
 }
 
-/*RebuildV1Params contains all the parameters to send to the API endpoint
+/*
+RebuildV1Params contains all the parameters to send to the API endpoint
 for the rebuild v1 operation typically these are written to a http.Request
 */
 type RebuildV1Params struct {

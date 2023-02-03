@@ -42,7 +42,8 @@ func NewGetOperationStatusV1OK() *GetOperationStatusV1OK {
 	return &GetOperationStatusV1OK{}
 }
 
-/*GetOperationStatusV1OK handles this case with default header values.
+/*
+GetOperationStatusV1OK handles this case with default header values.
 
 successful operation
 */

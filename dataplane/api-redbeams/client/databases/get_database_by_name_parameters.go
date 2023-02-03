@@ -56,7 +56,8 @@ func NewGetDatabaseByNameParamsWithHTTPClient(client *http.Client) *GetDatabaseB
 	}
 }
 
-/*GetDatabaseByNameParams contains all the parameters to send to the API endpoint
+/*
+GetDatabaseByNameParams contains all the parameters to send to the API endpoint
 for the get database by name operation typically these are written to a http.Request
 */
 type GetDatabaseByNameParams struct {

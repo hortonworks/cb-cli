@@ -42,7 +42,8 @@ func NewGetFlowLogsByResourceNameOK() *GetFlowLogsByResourceNameOK {
 	return &GetFlowLogsByResourceNameOK{}
 }
 
-/*GetFlowLogsByResourceNameOK handles this case with default header values.
+/*
+GetFlowLogsByResourceNameOK handles this case with default header values.
 
 successful operation
 */

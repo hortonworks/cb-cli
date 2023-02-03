@@ -39,7 +39,8 @@ func NewAttachChildEnvironmentV1Default(code int) *AttachChildEnvironmentV1Defau
 	}
 }
 
-/*AttachChildEnvironmentV1Default handles this case with default header values.
+/*
+AttachChildEnvironmentV1Default handles this case with default header values.
 
 successful operation
 */

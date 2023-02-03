@@ -42,7 +42,8 @@ func NewUpdateAzureResourceEncryptionParametersV1ByCrnOK() *UpdateAzureResourceE
 	return &UpdateAzureResourceEncryptionParametersV1ByCrnOK{}
 }
 
-/*UpdateAzureResourceEncryptionParametersV1ByCrnOK handles this case with default header values.
+/*
+UpdateAzureResourceEncryptionParametersV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

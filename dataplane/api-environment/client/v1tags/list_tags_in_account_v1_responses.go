@@ -42,7 +42,8 @@ func NewListTagsInAccountV1OK() *ListTagsInAccountV1OK {
 	return &ListTagsInAccountV1OK{}
 }
 
-/*ListTagsInAccountV1OK handles this case with default header values.
+/*
+ListTagsInAccountV1OK handles this case with default header values.
 
 successful operation
 */

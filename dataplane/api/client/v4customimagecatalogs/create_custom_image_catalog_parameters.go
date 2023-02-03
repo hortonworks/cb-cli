@@ -58,7 +58,8 @@ func NewCreateCustomImageCatalogParamsWithHTTPClient(client *http.Client) *Creat
 	}
 }
 
-/*CreateCustomImageCatalogParams contains all the parameters to send to the API endpoint
+/*
+CreateCustomImageCatalogParams contains all the parameters to send to the API endpoint
 for the create custom image catalog operation typically these are written to a http.Request
 */
 type CreateCustomImageCatalogParams struct {

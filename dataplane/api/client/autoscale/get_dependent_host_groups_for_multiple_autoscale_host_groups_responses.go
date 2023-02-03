@@ -42,7 +42,8 @@ func NewGetDependentHostGroupsForMultipleAutoscaleHostGroupsOK() *GetDependentHo
 	return &GetDependentHostGroupsForMultipleAutoscaleHostGroupsOK{}
 }
 
-/*GetDependentHostGroupsForMultipleAutoscaleHostGroupsOK handles this case with default header values.
+/*
+GetDependentHostGroupsForMultipleAutoscaleHostGroupsOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewStatusDistroXV1ByNameOK() *StatusDistroXV1ByNameOK {
 	return &StatusDistroXV1ByNameOK{}
 }
 
-/*StatusDistroXV1ByNameOK handles this case with default header values.
+/*
+StatusDistroXV1ByNameOK handles this case with default header values.
 
 successful operation
 */

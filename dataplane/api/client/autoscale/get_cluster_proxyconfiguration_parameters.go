@@ -56,7 +56,8 @@ func NewGetClusterProxyconfigurationParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetClusterProxyconfigurationParams contains all the parameters to send to the API endpoint
+/*
+GetClusterProxyconfigurationParams contains all the parameters to send to the API endpoint
 for the get cluster proxyconfiguration operation typically these are written to a http.Request
 */
 type GetClusterProxyconfigurationParams struct {

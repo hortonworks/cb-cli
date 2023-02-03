@@ -39,7 +39,8 @@ func NewRenewCertificateDefault(code int) *RenewCertificateDefault {
 	}
 }
 
-/*RenewCertificateDefault handles this case with default header values.
+/*
+RenewCertificateDefault handles this case with default header values.
 
 successful operation
 */

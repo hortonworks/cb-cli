@@ -58,7 +58,8 @@ func NewCreateDatabaseOnServerParamsWithHTTPClient(client *http.Client) *CreateD
 	}
 }
 
-/*CreateDatabaseOnServerParams contains all the parameters to send to the API endpoint
+/*
+CreateDatabaseOnServerParams contains all the parameters to send to the API endpoint
 for the create database on server operation typically these are written to a http.Request
 */
 type CreateDatabaseOnServerParams struct {

@@ -42,7 +42,8 @@ func NewListImageCatalogsByWorkspaceOK() *ListImageCatalogsByWorkspaceOK {
 	return &ListImageCatalogsByWorkspaceOK{}
 }
 
-/*ListImageCatalogsByWorkspaceOK handles this case with default header values.
+/*
+ListImageCatalogsByWorkspaceOK handles this case with default header values.
 
 successful operation
 */

@@ -58,7 +58,8 @@ func NewDeleteHostV1ParamsWithHTTPClient(client *http.Client) *DeleteHostV1Param
 	}
 }
 
-/*DeleteHostV1Params contains all the parameters to send to the API endpoint
+/*
+DeleteHostV1Params contains all the parameters to send to the API endpoint
 for the delete host v1 operation typically these are written to a http.Request
 */
 type DeleteHostV1Params struct {

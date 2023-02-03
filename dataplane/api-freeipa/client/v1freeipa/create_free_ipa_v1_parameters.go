@@ -58,7 +58,8 @@ func NewCreateFreeIpaV1ParamsWithHTTPClient(client *http.Client) *CreateFreeIpaV
 	}
 }
 
-/*CreateFreeIpaV1Params contains all the parameters to send to the API endpoint
+/*
+CreateFreeIpaV1Params contains all the parameters to send to the API endpoint
 for the create free ipa v1 operation typically these are written to a http.Request
 */
 type CreateFreeIpaV1Params struct {

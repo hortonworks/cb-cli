@@ -56,7 +56,8 @@ func NewGetCreateKerberosRequestForEnvironmentParamsWithHTTPClient(client *http.
 	}
 }
 
-/*GetCreateKerberosRequestForEnvironmentParams contains all the parameters to send to the API endpoint
+/*
+GetCreateKerberosRequestForEnvironmentParams contains all the parameters to send to the API endpoint
 for the get create kerberos request for environment operation typically these are written to a http.Request
 */
 type GetCreateKerberosRequestForEnvironmentParams struct {

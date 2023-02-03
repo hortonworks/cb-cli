@@ -42,7 +42,8 @@ func NewStopEnvironmentByNameV1OK() *StopEnvironmentByNameV1OK {
 	return &StopEnvironmentByNameV1OK{}
 }
 
-/*StopEnvironmentByNameV1OK handles this case with default header values.
+/*
+StopEnvironmentByNameV1OK handles this case with default header values.
 
 successful operation
 */

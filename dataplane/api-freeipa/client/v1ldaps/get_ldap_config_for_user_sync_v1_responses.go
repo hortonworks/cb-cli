@@ -42,7 +42,8 @@ func NewGetLdapConfigForUserSyncV1OK() *GetLdapConfigForUserSyncV1OK {
 	return &GetLdapConfigForUserSyncV1OK{}
 }
 
-/*GetLdapConfigForUserSyncV1OK handles this case with default header values.
+/*
+GetLdapConfigForUserSyncV1OK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewGetInternalAutoscaleClusterByNameParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*GetInternalAutoscaleClusterByNameParams contains all the parameters to send to the API endpoint
+/*
+GetInternalAutoscaleClusterByNameParams contains all the parameters to send to the API endpoint
 for the get internal autoscale cluster by name operation typically these are written to a http.Request
 */
 type GetInternalAutoscaleClusterByNameParams struct {

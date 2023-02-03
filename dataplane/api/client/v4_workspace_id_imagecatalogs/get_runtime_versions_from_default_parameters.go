@@ -57,7 +57,8 @@ func NewGetRuntimeVersionsFromDefaultParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*GetRuntimeVersionsFromDefaultParams contains all the parameters to send to the API endpoint
+/*
+GetRuntimeVersionsFromDefaultParams contains all the parameters to send to the API endpoint
 for the get runtime versions from default operation typically these are written to a http.Request
 */
 type GetRuntimeVersionsFromDefaultParams struct {

@@ -40,7 +40,8 @@ func NewGetDatalakeRestoreIDOK() *GetDatalakeRestoreIDOK {
 	return &GetDatalakeRestoreIDOK{}
 }
 
-/*GetDatalakeRestoreIDOK handles this case with default header values.
+/*
+GetDatalakeRestoreIDOK handles this case with default header values.
 
 successful operation
 */

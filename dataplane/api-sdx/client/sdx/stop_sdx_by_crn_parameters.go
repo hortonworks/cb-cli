@@ -56,7 +56,8 @@ func NewStopSdxByCrnParamsWithHTTPClient(client *http.Client) *StopSdxByCrnParam
 	}
 }
 
-/*StopSdxByCrnParams contains all the parameters to send to the API endpoint
+/*
+StopSdxByCrnParams contains all the parameters to send to the API endpoint
 for the stop sdx by crn operation typically these are written to a http.Request
 */
 type StopSdxByCrnParams struct {

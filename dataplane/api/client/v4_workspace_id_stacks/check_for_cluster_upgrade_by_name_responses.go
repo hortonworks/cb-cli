@@ -42,7 +42,8 @@ func NewCheckForClusterUpgradeByNameOK() *CheckForClusterUpgradeByNameOK {
 	return &CheckForClusterUpgradeByNameOK{}
 }
 
-/*CheckForClusterUpgradeByNameOK handles this case with default header values.
+/*
+CheckForClusterUpgradeByNameOK handles this case with default header values.
 
 successful operation
 */

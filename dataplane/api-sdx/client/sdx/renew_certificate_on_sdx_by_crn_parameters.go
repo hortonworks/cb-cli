@@ -56,7 +56,8 @@ func NewRenewCertificateOnSdxByCrnParamsWithHTTPClient(client *http.Client) *Ren
 	}
 }
 
-/*RenewCertificateOnSdxByCrnParams contains all the parameters to send to the API endpoint
+/*
+RenewCertificateOnSdxByCrnParams contains all the parameters to send to the API endpoint
 for the renew certificate on sdx by crn operation typically these are written to a http.Request
 */
 type RenewCertificateOnSdxByCrnParams struct {

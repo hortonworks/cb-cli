@@ -56,7 +56,8 @@ func NewGetStructuredEventsZipInAccountParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*GetStructuredEventsZipInAccountParams contains all the parameters to send to the API endpoint
+/*
+GetStructuredEventsZipInAccountParams contains all the parameters to send to the API endpoint
 for the get structured events zip in account operation typically these are written to a http.Request
 */
 type GetStructuredEventsZipInAccountParams struct {

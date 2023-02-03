@@ -42,7 +42,8 @@ func NewSyncCmOnDatalakeClusterByCrnOK() *SyncCmOnDatalakeClusterByCrnOK {
 	return &SyncCmOnDatalakeClusterByCrnOK{}
 }
 
-/*SyncCmOnDatalakeClusterByCrnOK handles this case with default header values.
+/*
+SyncCmOnDatalakeClusterByCrnOK handles this case with default header values.
 
 successful operation
 */

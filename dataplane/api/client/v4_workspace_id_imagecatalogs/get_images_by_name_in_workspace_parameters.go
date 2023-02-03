@@ -57,7 +57,8 @@ func NewGetImagesByNameInWorkspaceParamsWithHTTPClient(client *http.Client) *Get
 	}
 }
 
-/*GetImagesByNameInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetImagesByNameInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get images by name in workspace operation typically these are written to a http.Request
 */
 type GetImagesByNameInWorkspaceParams struct {

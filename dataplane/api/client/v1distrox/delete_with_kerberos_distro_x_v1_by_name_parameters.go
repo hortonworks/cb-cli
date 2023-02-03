@@ -69,7 +69,8 @@ func NewDeleteWithKerberosDistroXV1ByNameParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*DeleteWithKerberosDistroXV1ByNameParams contains all the parameters to send to the API endpoint
+/*
+DeleteWithKerberosDistroXV1ByNameParams contains all the parameters to send to the API endpoint
 for the delete with kerberos distro x v1 by name operation typically these are written to a http.Request
 */
 type DeleteWithKerberosDistroXV1ByNameParams struct {

@@ -42,7 +42,8 @@ func NewGetStackStatusForAutoscaleOK() *GetStackStatusForAutoscaleOK {
 	return &GetStackStatusForAutoscaleOK{}
 }
 
-/*GetStackStatusForAutoscaleOK handles this case with default header values.
+/*
+GetStackStatusForAutoscaleOK handles this case with default header values.
 
 successful operation
 */

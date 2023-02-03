@@ -56,7 +56,8 @@ func NewGetGatewaysByEnvParamsWithHTTPClient(client *http.Client) *GetGatewaysBy
 	}
 }
 
-/*GetGatewaysByEnvParams contains all the parameters to send to the API endpoint
+/*
+GetGatewaysByEnvParams contains all the parameters to send to the API endpoint
 for the get gateways by env operation typically these are written to a http.Request
 */
 type GetGatewaysByEnvParams struct {

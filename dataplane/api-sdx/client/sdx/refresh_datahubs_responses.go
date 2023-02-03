@@ -42,7 +42,8 @@ func NewRefreshDatahubsOK() *RefreshDatahubsOK {
 	return &RefreshDatahubsOK{}
 }
 
-/*RefreshDatahubsOK handles this case with default header values.
+/*
+RefreshDatahubsOK handles this case with default header values.
 
 successful operation
 */

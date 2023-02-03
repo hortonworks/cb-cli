@@ -42,7 +42,8 @@ func NewDeleteCredentialByResourceCrnV1OK() *DeleteCredentialByResourceCrnV1OK {
 	return &DeleteCredentialByResourceCrnV1OK{}
 }
 
-/*DeleteCredentialByResourceCrnV1OK handles this case with default header values.
+/*
+DeleteCredentialByResourceCrnV1OK handles this case with default header values.
 
 successful operation
 */

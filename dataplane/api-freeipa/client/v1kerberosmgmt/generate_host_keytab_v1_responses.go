@@ -42,7 +42,8 @@ func NewGenerateHostKeytabV1OK() *GenerateHostKeytabV1OK {
 	return &GenerateHostKeytabV1OK{}
 }
 
-/*GenerateHostKeytabV1OK handles this case with default header values.
+/*
+GenerateHostKeytabV1OK handles this case with default header values.
 
 successful operation
 */

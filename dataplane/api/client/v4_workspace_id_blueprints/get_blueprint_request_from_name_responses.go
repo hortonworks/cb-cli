@@ -42,7 +42,8 @@ func NewGetBlueprintRequestFromNameOK() *GetBlueprintRequestFromNameOK {
 	return &GetBlueprintRequestFromNameOK{}
 }
 
-/*GetBlueprintRequestFromNameOK handles this case with default header values.
+/*
+GetBlueprintRequestFromNameOK handles this case with default header values.
 
 successful operation
 */

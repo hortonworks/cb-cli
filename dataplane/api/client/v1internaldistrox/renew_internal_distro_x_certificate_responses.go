@@ -42,7 +42,8 @@ func NewRenewInternalDistroXCertificateOK() *RenewInternalDistroXCertificateOK {
 	return &RenewInternalDistroXCertificateOK{}
 }
 
-/*RenewInternalDistroXCertificateOK handles this case with default header values.
+/*
+RenewInternalDistroXCertificateOK handles this case with default header values.
 
 successful operation
 */

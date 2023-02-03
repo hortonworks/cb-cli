@@ -56,7 +56,8 @@ func NewVerifyCredentialByCrnParamsWithHTTPClient(client *http.Client) *VerifyCr
 	}
 }
 
-/*VerifyCredentialByCrnParams contains all the parameters to send to the API endpoint
+/*
+VerifyCredentialByCrnParams contains all the parameters to send to the API endpoint
 for the verify credential by crn operation typically these are written to a http.Request
 */
 type VerifyCredentialByCrnParams struct {

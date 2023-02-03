@@ -42,7 +42,8 @@ func NewPreSynchronizeV1OK() *PreSynchronizeV1OK {
 	return &PreSynchronizeV1OK{}
 }
 
-/*PreSynchronizeV1OK handles this case with default header values.
+/*
+PreSynchronizeV1OK handles this case with default header values.
 
 successful operation
 */

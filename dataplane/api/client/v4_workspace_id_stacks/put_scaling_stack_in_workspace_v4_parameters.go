@@ -59,7 +59,8 @@ func NewPutScalingStackInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *P
 	}
 }
 
-/*PutScalingStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+PutScalingStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the put scaling stack in workspace v4 operation typically these are written to a http.Request
 */
 type PutScalingStackInWorkspaceV4Params struct {

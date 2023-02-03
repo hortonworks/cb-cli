@@ -42,7 +42,8 @@ func NewGetStackMatrixUtilV4OK() *GetStackMatrixUtilV4OK {
 	return &GetStackMatrixUtilV4OK{}
 }
 
-/*GetStackMatrixUtilV4OK handles this case with default header values.
+/*
+GetStackMatrixUtilV4OK handles this case with default header values.
 
 successful operation
 */

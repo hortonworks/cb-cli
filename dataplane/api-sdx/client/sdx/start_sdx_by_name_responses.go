@@ -42,7 +42,8 @@ func NewStartSdxByNameOK() *StartSdxByNameOK {
 	return &StartSdxByNameOK{}
 }
 
-/*StartSdxByNameOK handles this case with default header values.
+/*
+StartSdxByNameOK handles this case with default header values.
 
 successful operation
 */

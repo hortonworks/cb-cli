@@ -42,7 +42,8 @@ func NewDatabaseRestoreInternalOK() *DatabaseRestoreInternalOK {
 	return &DatabaseRestoreInternalOK{}
 }
 
-/*DatabaseRestoreInternalOK handles this case with default header values.
+/*
+DatabaseRestoreInternalOK handles this case with default header values.
 
 successful operation
 */

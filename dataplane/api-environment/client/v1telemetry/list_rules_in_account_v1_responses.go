@@ -42,7 +42,8 @@ func NewListRulesInAccountV1OK() *ListRulesInAccountV1OK {
 	return &ListRulesInAccountV1OK{}
 }
 
-/*ListRulesInAccountV1OK handles this case with default header values.
+/*
+ListRulesInAccountV1OK handles this case with default header values.
 
 successful operation
 */

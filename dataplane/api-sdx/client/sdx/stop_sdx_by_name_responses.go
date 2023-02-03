@@ -42,7 +42,8 @@ func NewStopSdxByNameOK() *StopSdxByNameOK {
 	return &StopSdxByNameOK{}
 }
 
-/*StopSdxByNameOK handles this case with default header values.
+/*
+StopSdxByNameOK handles this case with default header values.
 
 successful operation
 */

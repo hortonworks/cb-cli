@@ -42,7 +42,8 @@ func NewCreateRecommendationForWorkspaceByCredCrnOK() *CreateRecommendationForWo
 	return &CreateRecommendationForWorkspaceByCredCrnOK{}
 }
 
-/*CreateRecommendationForWorkspaceByCredCrnOK handles this case with default header values.
+/*
+CreateRecommendationForWorkspaceByCredCrnOK handles this case with default header values.
 
 successful operation
 */

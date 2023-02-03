@@ -56,7 +56,8 @@ func NewGetInstanceGroupNamesBySdxDetailsParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*GetInstanceGroupNamesBySdxDetailsParams contains all the parameters to send to the API endpoint
+/*
+GetInstanceGroupNamesBySdxDetailsParams contains all the parameters to send to the API endpoint
 for the get instance group names by sdx details operation typically these are written to a http.Request
 */
 type GetInstanceGroupNamesBySdxDetailsParams struct {

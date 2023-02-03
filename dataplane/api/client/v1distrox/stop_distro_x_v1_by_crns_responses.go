@@ -39,7 +39,8 @@ func NewStopDistroXV1ByCrnsDefault(code int) *StopDistroXV1ByCrnsDefault {
 	}
 }
 
-/*StopDistroXV1ByCrnsDefault handles this case with default header values.
+/*
+StopDistroXV1ByCrnsDefault handles this case with default header values.
 
 successful operation
 */

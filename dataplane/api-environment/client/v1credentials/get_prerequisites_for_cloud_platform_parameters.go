@@ -57,7 +57,8 @@ func NewGetPrerequisitesForCloudPlatformParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*GetPrerequisitesForCloudPlatformParams contains all the parameters to send to the API endpoint
+/*
+GetPrerequisitesForCloudPlatformParams contains all the parameters to send to the API endpoint
 for the get prerequisites for cloud platform operation typically these are written to a http.Request
 */
 type GetPrerequisitesForCloudPlatformParams struct {

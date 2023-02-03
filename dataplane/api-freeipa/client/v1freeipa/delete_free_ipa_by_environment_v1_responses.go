@@ -39,7 +39,8 @@ func NewDeleteFreeIpaByEnvironmentV1Default(code int) *DeleteFreeIpaByEnvironmen
 	}
 }
 
-/*DeleteFreeIpaByEnvironmentV1Default handles this case with default header values.
+/*
+DeleteFreeIpaByEnvironmentV1Default handles this case with default header values.
 
 successful operation
 */

@@ -58,7 +58,8 @@ func NewChangeTelemetryFeaturesInEnvironmentV1ByNameParamsWithHTTPClient(client 
 	}
 }
 
-/*ChangeTelemetryFeaturesInEnvironmentV1ByNameParams contains all the parameters to send to the API endpoint
+/*
+ChangeTelemetryFeaturesInEnvironmentV1ByNameParams contains all the parameters to send to the API endpoint
 for the change telemetry features in environment v1 by name operation typically these are written to a http.Request
 */
 type ChangeTelemetryFeaturesInEnvironmentV1ByNameParams struct {

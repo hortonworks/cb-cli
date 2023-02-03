@@ -57,7 +57,8 @@ func NewGetImageCatalogRequestFromNameInWorkspaceParamsWithHTTPClient(client *ht
 	}
 }
 
-/*GetImageCatalogRequestFromNameInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetImageCatalogRequestFromNameInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get image catalog request from name in workspace operation typically these are written to a http.Request
 */
 type GetImageCatalogRequestFromNameInWorkspaceParams struct {

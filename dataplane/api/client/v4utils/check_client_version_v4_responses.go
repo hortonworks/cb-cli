@@ -42,7 +42,8 @@ func NewCheckClientVersionV4OK() *CheckClientVersionV4OK {
 	return &CheckClientVersionV4OK{}
 }
 
-/*CheckClientVersionV4OK handles this case with default header values.
+/*
+CheckClientVersionV4OK handles this case with default header values.
 
 successful operation
 */

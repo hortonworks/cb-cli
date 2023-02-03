@@ -42,7 +42,8 @@ func NewGetDatabaseByNameOK() *GetDatabaseByNameOK {
 	return &GetDatabaseByNameOK{}
 }
 
-/*GetDatabaseByNameOK handles this case with default header values.
+/*
+GetDatabaseByNameOK handles this case with default header values.
 
 successful operation
 */

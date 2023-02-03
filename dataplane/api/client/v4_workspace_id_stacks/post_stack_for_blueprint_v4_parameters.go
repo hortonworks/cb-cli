@@ -59,7 +59,8 @@ func NewPostStackForBlueprintV4ParamsWithHTTPClient(client *http.Client) *PostSt
 	}
 }
 
-/*PostStackForBlueprintV4Params contains all the parameters to send to the API endpoint
+/*
+PostStackForBlueprintV4Params contains all the parameters to send to the API endpoint
 for the post stack for blueprint v4 operation typically these are written to a http.Request
 */
 type PostStackForBlueprintV4Params struct {

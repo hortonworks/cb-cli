@@ -40,7 +40,8 @@ func NewGetInstanceGroupNamesBySdxDetailsOK() *GetInstanceGroupNamesBySdxDetails
 	return &GetInstanceGroupNamesBySdxDetailsOK{}
 }
 
-/*GetInstanceGroupNamesBySdxDetailsOK handles this case with default header values.
+/*
+GetInstanceGroupNamesBySdxDetailsOK handles this case with default header values.
 
 successful operation
 */

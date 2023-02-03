@@ -56,7 +56,8 @@ func NewGetKerberosConfigForEnvironmentParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*GetKerberosConfigForEnvironmentParams contains all the parameters to send to the API endpoint
+/*
+GetKerberosConfigForEnvironmentParams contains all the parameters to send to the API endpoint
 for the get kerberos config for environment operation typically these are written to a http.Request
 */
 type GetKerberosConfigForEnvironmentParams struct {

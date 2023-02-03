@@ -56,7 +56,8 @@ func NewStartSdxByNameParamsWithHTTPClient(client *http.Client) *StartSdxByNameP
 	}
 }
 
-/*StartSdxByNameParams contains all the parameters to send to the API endpoint
+/*
+StartSdxByNameParams contains all the parameters to send to the API endpoint
 for the start sdx by name operation typically these are written to a http.Request
 */
 type StartSdxByNameParams struct {

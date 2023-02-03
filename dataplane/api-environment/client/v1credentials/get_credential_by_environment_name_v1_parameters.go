@@ -56,7 +56,8 @@ func NewGetCredentialByEnvironmentNameV1ParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*GetCredentialByEnvironmentNameV1Params contains all the parameters to send to the API endpoint
+/*
+GetCredentialByEnvironmentNameV1Params contains all the parameters to send to the API endpoint
 for the get credential by environment name v1 operation typically these are written to a http.Request
 */
 type GetCredentialByEnvironmentNameV1Params struct {

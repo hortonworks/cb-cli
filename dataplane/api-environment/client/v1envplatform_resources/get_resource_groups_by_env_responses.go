@@ -42,7 +42,8 @@ func NewGetResourceGroupsByEnvOK() *GetResourceGroupsByEnvOK {
 	return &GetResourceGroupsByEnvOK{}
 }
 
-/*GetResourceGroupsByEnvOK handles this case with default header values.
+/*
+GetResourceGroupsByEnvOK handles this case with default header values.
 
 successful operation
 */

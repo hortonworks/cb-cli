@@ -42,7 +42,8 @@ func NewDatabaseBackupInternalOK() *DatabaseBackupInternalOK {
 	return &DatabaseBackupInternalOK{}
 }
 
-/*DatabaseBackupInternalOK handles this case with default header values.
+/*
+DatabaseBackupInternalOK handles this case with default header values.
 
 successful operation
 */

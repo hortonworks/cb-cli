@@ -42,7 +42,8 @@ func NewOsUpgradeByUpgradeSetsInternalOK() *OsUpgradeByUpgradeSetsInternalOK {
 	return &OsUpgradeByUpgradeSetsInternalOK{}
 }
 
-/*OsUpgradeByUpgradeSetsInternalOK handles this case with default header values.
+/*
+OsUpgradeByUpgradeSetsInternalOK handles this case with default header values.
 
 successful operation
 */

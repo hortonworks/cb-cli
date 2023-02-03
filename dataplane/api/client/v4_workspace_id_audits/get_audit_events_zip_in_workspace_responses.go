@@ -39,7 +39,8 @@ func NewGetAuditEventsZipInWorkspaceDefault(code int) *GetAuditEventsZipInWorksp
 	}
 }
 
-/*GetAuditEventsZipInWorkspaceDefault handles this case with default header values.
+/*
+GetAuditEventsZipInWorkspaceDefault handles this case with default header values.
 
 successful operation
 */

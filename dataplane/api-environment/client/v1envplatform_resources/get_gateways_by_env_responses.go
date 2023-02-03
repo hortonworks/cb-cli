@@ -42,7 +42,8 @@ func NewGetGatewaysByEnvOK() *GetGatewaysByEnvOK {
 	return &GetGatewaysByEnvOK{}
 }
 
-/*GetGatewaysByEnvOK handles this case with default header values.
+/*
+GetGatewaysByEnvOK handles this case with default header values.
 
 successful operation
 */

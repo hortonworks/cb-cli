@@ -58,7 +58,8 @@ func NewUpdateAzureResourceEncryptionParametersV1ParamsWithHTTPClient(client *ht
 	}
 }
 
-/*UpdateAzureResourceEncryptionParametersV1Params contains all the parameters to send to the API endpoint
+/*
+UpdateAzureResourceEncryptionParametersV1Params contains all the parameters to send to the API endpoint
 for the update azure resource encryption parameters v1 operation typically these are written to a http.Request
 */
 type UpdateAzureResourceEncryptionParametersV1Params struct {

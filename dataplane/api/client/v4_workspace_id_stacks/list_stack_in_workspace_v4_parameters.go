@@ -69,7 +69,8 @@ func NewListStackInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *ListSta
 	}
 }
 
-/*ListStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+ListStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the list stack in workspace v4 operation typically these are written to a http.Request
 */
 type ListStackInWorkspaceV4Params struct {

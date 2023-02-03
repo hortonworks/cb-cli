@@ -56,7 +56,8 @@ func NewListRetryableFlowsV1ParamsWithHTTPClient(client *http.Client) *ListRetry
 	}
 }
 
-/*ListRetryableFlowsV1Params contains all the parameters to send to the API endpoint
+/*
+ListRetryableFlowsV1Params contains all the parameters to send to the API endpoint
 for the list retryable flows v1 operation typically these are written to a http.Request
 */
 type ListRetryableFlowsV1Params struct {

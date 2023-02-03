@@ -57,7 +57,8 @@ func NewGetServiceAndDependenciesParamsWithHTTPClient(client *http.Client) *GetS
 	}
 }
 
-/*GetServiceAndDependenciesParams contains all the parameters to send to the API endpoint
+/*
+GetServiceAndDependenciesParams contains all the parameters to send to the API endpoint
 for the get service and dependencies operation typically these are written to a http.Request
 */
 type GetServiceAndDependenciesParams struct {

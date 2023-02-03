@@ -42,7 +42,8 @@ func NewReleaseManagedDatabaseServerOK() *ReleaseManagedDatabaseServerOK {
 	return &ReleaseManagedDatabaseServerOK{}
 }
 
-/*ReleaseManagedDatabaseServerOK handles this case with default header values.
+/*
+ReleaseManagedDatabaseServerOK handles this case with default header values.
 
 successful operation
 */

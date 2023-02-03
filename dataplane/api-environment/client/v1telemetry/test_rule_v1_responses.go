@@ -42,7 +42,8 @@ func NewTestRuleV1OK() *TestRuleV1OK {
 	return &TestRuleV1OK{}
 }
 
-/*TestRuleV1OK handles this case with default header values.
+/*
+TestRuleV1OK handles this case with default header values.
 
 successful operation
 */

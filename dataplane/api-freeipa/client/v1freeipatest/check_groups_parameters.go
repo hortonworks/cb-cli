@@ -58,7 +58,8 @@ func NewCheckGroupsParamsWithHTTPClient(client *http.Client) *CheckGroupsParams 
 	}
 }
 
-/*CheckGroupsParams contains all the parameters to send to the API endpoint
+/*
+CheckGroupsParams contains all the parameters to send to the API endpoint
 for the check groups operation typically these are written to a http.Request
 */
 type CheckGroupsParams struct {

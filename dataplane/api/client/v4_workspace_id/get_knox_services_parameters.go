@@ -57,7 +57,8 @@ func NewGetKnoxServicesParamsWithHTTPClient(client *http.Client) *GetKnoxService
 	}
 }
 
-/*GetKnoxServicesParams contains all the parameters to send to the API endpoint
+/*
+GetKnoxServicesParams contains all the parameters to send to the API endpoint
 for the get knox services operation typically these are written to a http.Request
 */
 type GetKnoxServicesParams struct {

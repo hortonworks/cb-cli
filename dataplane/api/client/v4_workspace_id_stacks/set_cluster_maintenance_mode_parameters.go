@@ -59,7 +59,8 @@ func NewSetClusterMaintenanceModeParamsWithHTTPClient(client *http.Client) *SetC
 	}
 }
 
-/*SetClusterMaintenanceModeParams contains all the parameters to send to the API endpoint
+/*
+SetClusterMaintenanceModeParams contains all the parameters to send to the API endpoint
 for the set cluster maintenance mode operation typically these are written to a http.Request
 */
 type SetClusterMaintenanceModeParams struct {

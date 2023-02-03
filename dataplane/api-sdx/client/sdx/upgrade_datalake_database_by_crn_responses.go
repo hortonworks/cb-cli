@@ -42,7 +42,8 @@ func NewUpgradeDatalakeDatabaseByCrnOK() *UpgradeDatalakeDatabaseByCrnOK {
 	return &UpgradeDatalakeDatabaseByCrnOK{}
 }
 
-/*UpgradeDatalakeDatabaseByCrnOK handles this case with default header values.
+/*
+UpgradeDatalakeDatabaseByCrnOK handles this case with default header values.
 
 successful operation
 */

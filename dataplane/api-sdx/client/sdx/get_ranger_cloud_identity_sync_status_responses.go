@@ -42,7 +42,8 @@ func NewGetRangerCloudIdentitySyncStatusOK() *GetRangerCloudIdentitySyncStatusOK
 	return &GetRangerCloudIdentitySyncStatusOK{}
 }
 
-/*GetRangerCloudIdentitySyncStatusOK handles this case with default header values.
+/*
+GetRangerCloudIdentitySyncStatusOK handles this case with default header values.
 
 successful operation
 */

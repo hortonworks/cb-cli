@@ -56,7 +56,8 @@ func NewListTagsInAccountV1ParamsWithHTTPClient(client *http.Client) *ListTagsIn
 	}
 }
 
-/*ListTagsInAccountV1Params contains all the parameters to send to the API endpoint
+/*
+ListTagsInAccountV1Params contains all the parameters to send to the API endpoint
 for the list tags in account v1 operation typically these are written to a http.Request
 */
 type ListTagsInAccountV1Params struct {

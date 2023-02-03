@@ -58,7 +58,8 @@ func NewAddDNSARecordV1InternalParamsWithHTTPClient(client *http.Client) *AddDNS
 	}
 }
 
-/*AddDNSARecordV1InternalParams contains all the parameters to send to the API endpoint
+/*
+AddDNSARecordV1InternalParams contains all the parameters to send to the API endpoint
 for the add Dns a record v1 internal operation typically these are written to a http.Request
 */
 type AddDNSARecordV1InternalParams struct {

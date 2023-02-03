@@ -56,7 +56,8 @@ func NewGetLastFlowByResourceNameParamsWithHTTPClient(client *http.Client) *GetL
 	}
 }
 
-/*GetLastFlowByResourceNameParams contains all the parameters to send to the API endpoint
+/*
+GetLastFlowByResourceNameParams contains all the parameters to send to the API endpoint
 for the get last flow by resource name operation typically these are written to a http.Request
 */
 type GetLastFlowByResourceNameParams struct {

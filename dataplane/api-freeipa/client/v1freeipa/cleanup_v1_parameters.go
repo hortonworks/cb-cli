@@ -58,7 +58,8 @@ func NewCleanupV1ParamsWithHTTPClient(client *http.Client) *CleanupV1Params {
 	}
 }
 
-/*CleanupV1Params contains all the parameters to send to the API endpoint
+/*
+CleanupV1Params contains all the parameters to send to the API endpoint
 for the cleanup v1 operation typically these are written to a http.Request
 */
 type CleanupV1Params struct {

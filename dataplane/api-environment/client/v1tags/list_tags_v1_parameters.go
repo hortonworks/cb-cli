@@ -56,7 +56,8 @@ func NewListTagsV1ParamsWithHTTPClient(client *http.Client) *ListTagsV1Params {
 	}
 }
 
-/*ListTagsV1Params contains all the parameters to send to the API endpoint
+/*
+ListTagsV1Params contains all the parameters to send to the API endpoint
 for the list tags v1 operation typically these are written to a http.Request
 */
 type ListTagsV1Params struct {

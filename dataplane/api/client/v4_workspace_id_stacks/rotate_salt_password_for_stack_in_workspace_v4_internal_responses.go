@@ -42,7 +42,8 @@ func NewRotateSaltPasswordForStackInWorkspaceV4InternalOK() *RotateSaltPasswordF
 	return &RotateSaltPasswordForStackInWorkspaceV4InternalOK{}
 }
 
-/*RotateSaltPasswordForStackInWorkspaceV4InternalOK handles this case with default header values.
+/*
+RotateSaltPasswordForStackInWorkspaceV4InternalOK handles this case with default header values.
 
 successful operation
 */

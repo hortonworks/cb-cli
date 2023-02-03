@@ -58,7 +58,8 @@ func NewUpgradeDatalakeDatabaseByNameParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*UpgradeDatalakeDatabaseByNameParams contains all the parameters to send to the API endpoint
+/*
+UpgradeDatalakeDatabaseByNameParams contains all the parameters to send to the API endpoint
 for the upgrade datalake database by name operation typically these are written to a http.Request
 */
 type UpgradeDatalakeDatabaseByNameParams struct {

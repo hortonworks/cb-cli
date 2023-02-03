@@ -42,7 +42,8 @@ func NewCheckRightInAccountOK() *CheckRightInAccountOK {
 	return &CheckRightInAccountOK{}
 }
 
-/*CheckRightInAccountOK handles this case with default header values.
+/*
+CheckRightInAccountOK handles this case with default header values.
 
 successful operation
 */

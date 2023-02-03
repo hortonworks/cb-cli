@@ -57,7 +57,8 @@ func NewGetStackByCrnInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *Get
 	}
 }
 
-/*GetStackByCrnInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+GetStackByCrnInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the get stack by crn in workspace v4 operation typically these are written to a http.Request
 */
 type GetStackByCrnInWorkspaceV4Params struct {

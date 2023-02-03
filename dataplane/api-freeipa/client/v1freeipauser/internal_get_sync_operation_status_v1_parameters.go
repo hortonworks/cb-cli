@@ -56,7 +56,8 @@ func NewInternalGetSyncOperationStatusV1ParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*InternalGetSyncOperationStatusV1Params contains all the parameters to send to the API endpoint
+/*
+InternalGetSyncOperationStatusV1Params contains all the parameters to send to the API endpoint
 for the internal get sync operation status v1 operation typically these are written to a http.Request
 */
 type InternalGetSyncOperationStatusV1Params struct {

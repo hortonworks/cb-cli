@@ -56,7 +56,8 @@ func NewGetStructuredEventsInAccountParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetStructuredEventsInAccountParams contains all the parameters to send to the API endpoint
+/*
+GetStructuredEventsInAccountParams contains all the parameters to send to the API endpoint
 for the get structured events in account operation typically these are written to a http.Request
 */
 type GetStructuredEventsInAccountParams struct {

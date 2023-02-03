@@ -56,7 +56,8 @@ func NewGetDefaultTemplateParamsWithHTTPClient(client *http.Client) *GetDefaultT
 	}
 }
 
-/*GetDefaultTemplateParams contains all the parameters to send to the API endpoint
+/*
+GetDefaultTemplateParams contains all the parameters to send to the API endpoint
 for the get default template operation typically these are written to a http.Request
 */
 type GetDefaultTemplateParams struct {

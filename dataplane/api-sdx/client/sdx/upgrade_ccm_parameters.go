@@ -56,7 +56,8 @@ func NewUpgradeCcmParamsWithHTTPClient(client *http.Client) *UpgradeCcmParams {
 	}
 }
 
-/*UpgradeCcmParams contains all the parameters to send to the API endpoint
+/*
+UpgradeCcmParams contains all the parameters to send to the API endpoint
 for the upgrade ccm operation typically these are written to a http.Request
 */
 type UpgradeCcmParams struct {

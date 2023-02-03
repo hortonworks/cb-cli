@@ -58,7 +58,8 @@ func NewCreateDatabaseServerInternalParamsWithHTTPClient(client *http.Client) *C
 	}
 }
 
-/*CreateDatabaseServerInternalParams contains all the parameters to send to the API endpoint
+/*
+CreateDatabaseServerInternalParams contains all the parameters to send to the API endpoint
 for the create database server internal operation typically these are written to a http.Request
 */
 type CreateDatabaseServerInternalParams struct {

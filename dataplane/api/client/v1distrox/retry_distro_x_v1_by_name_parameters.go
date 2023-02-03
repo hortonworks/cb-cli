@@ -56,7 +56,8 @@ func NewRetryDistroXV1ByNameParamsWithHTTPClient(client *http.Client) *RetryDist
 	}
 }
 
-/*RetryDistroXV1ByNameParams contains all the parameters to send to the API endpoint
+/*
+RetryDistroXV1ByNameParams contains all the parameters to send to the API endpoint
 for the retry distro x v1 by name operation typically these are written to a http.Request
 */
 type RetryDistroXV1ByNameParams struct {

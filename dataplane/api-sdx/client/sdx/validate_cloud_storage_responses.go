@@ -42,7 +42,8 @@ func NewValidateCloudStorageOK() *ValidateCloudStorageOK {
 	return &ValidateCloudStorageOK{}
 }
 
-/*ValidateCloudStorageOK handles this case with default header values.
+/*
+ValidateCloudStorageOK handles this case with default header values.
 
 successful operation
 */

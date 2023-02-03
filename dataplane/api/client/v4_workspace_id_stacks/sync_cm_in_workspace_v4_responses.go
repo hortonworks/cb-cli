@@ -42,7 +42,8 @@ func NewSyncCmInWorkspaceV4OK() *SyncCmInWorkspaceV4OK {
 	return &SyncCmInWorkspaceV4OK{}
 }
 
-/*SyncCmInWorkspaceV4OK handles this case with default header values.
+/*
+SyncCmInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewPostStackInWorkspaceV4OK() *PostStackInWorkspaceV4OK {
 	return &PostStackInWorkspaceV4OK{}
 }
 
-/*PostStackInWorkspaceV4OK handles this case with default header values.
+/*
+PostStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

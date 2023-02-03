@@ -56,7 +56,8 @@ func NewGetRestoreDatalakeStatusParamsWithHTTPClient(client *http.Client) *GetRe
 	}
 }
 
-/*GetRestoreDatalakeStatusParams contains all the parameters to send to the API endpoint
+/*
+GetRestoreDatalakeStatusParams contains all the parameters to send to the API endpoint
 for the get restore datalake status operation typically these are written to a http.Request
 */
 type GetRestoreDatalakeStatusParams struct {

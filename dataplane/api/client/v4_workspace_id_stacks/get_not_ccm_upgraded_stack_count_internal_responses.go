@@ -40,7 +40,8 @@ func NewGetNotCcmUpgradedStackCountInternalOK() *GetNotCcmUpgradedStackCountInte
 	return &GetNotCcmUpgradedStackCountInternalOK{}
 }
 
-/*GetNotCcmUpgradedStackCountInternalOK handles this case with default header values.
+/*
+GetNotCcmUpgradedStackCountInternalOK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewGetResourceGroupsParamsWithHTTPClient(client *http.Client) *GetResourceG
 	}
 }
 
-/*GetResourceGroupsParams contains all the parameters to send to the API endpoint
+/*
+GetResourceGroupsParams contains all the parameters to send to the API endpoint
 for the get resource groups operation typically these are written to a http.Request
 */
 type GetResourceGroupsParams struct {

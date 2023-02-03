@@ -42,7 +42,8 @@ func NewGetSdxOK() *GetSdxOK {
 	return &GetSdxOK{}
 }
 
-/*GetSdxOK handles this case with default header values.
+/*
+GetSdxOK handles this case with default header values.
 
 successful operation
 */

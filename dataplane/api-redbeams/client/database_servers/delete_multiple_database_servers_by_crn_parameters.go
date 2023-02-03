@@ -69,7 +69,8 @@ func NewDeleteMultipleDatabaseServersByCrnParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/*DeleteMultipleDatabaseServersByCrnParams contains all the parameters to send to the API endpoint
+/*
+DeleteMultipleDatabaseServersByCrnParams contains all the parameters to send to the API endpoint
 for the delete multiple database servers by crn operation typically these are written to a http.Request
 */
 type DeleteMultipleDatabaseServersByCrnParams struct {

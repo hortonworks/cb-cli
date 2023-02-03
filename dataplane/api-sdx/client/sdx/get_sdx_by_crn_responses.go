@@ -42,7 +42,8 @@ func NewGetSdxByCrnOK() *GetSdxByCrnOK {
 	return &GetSdxByCrnOK{}
 }
 
-/*GetSdxByCrnOK handles this case with default header values.
+/*
+GetSdxByCrnOK handles this case with default header values.
 
 successful operation
 */

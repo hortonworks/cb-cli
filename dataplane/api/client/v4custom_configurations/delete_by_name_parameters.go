@@ -56,7 +56,8 @@ func NewDeleteByNameParamsWithHTTPClient(client *http.Client) *DeleteByNameParam
 	}
 }
 
-/*DeleteByNameParams contains all the parameters to send to the API endpoint
+/*
+DeleteByNameParams contains all the parameters to send to the API endpoint
 for the delete by name operation typically these are written to a http.Request
 */
 type DeleteByNameParams struct {

@@ -58,7 +58,8 @@ func NewCollectFreeIpaDiagnosticsV1ParamsWithHTTPClient(client *http.Client) *Co
 	}
 }
 
-/*CollectFreeIpaDiagnosticsV1Params contains all the parameters to send to the API endpoint
+/*
+CollectFreeIpaDiagnosticsV1Params contains all the parameters to send to the API endpoint
 for the collect free ipa diagnostics v1 operation typically these are written to a http.Request
 */
 type CollectFreeIpaDiagnosticsV1Params struct {

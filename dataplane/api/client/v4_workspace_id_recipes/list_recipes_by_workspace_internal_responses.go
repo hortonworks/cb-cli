@@ -42,7 +42,8 @@ func NewListRecipesByWorkspaceInternalOK() *ListRecipesByWorkspaceInternalOK {
 	return &ListRecipesByWorkspaceInternalOK{}
 }
 
-/*ListRecipesByWorkspaceInternalOK handles this case with default header values.
+/*
+ListRecipesByWorkspaceInternalOK handles this case with default header values.
 
 successful operation
 */

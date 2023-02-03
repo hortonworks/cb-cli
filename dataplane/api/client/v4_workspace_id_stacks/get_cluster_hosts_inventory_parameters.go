@@ -57,7 +57,8 @@ func NewGetClusterHostsInventoryParamsWithHTTPClient(client *http.Client) *GetCl
 	}
 }
 
-/*GetClusterHostsInventoryParams contains all the parameters to send to the API endpoint
+/*
+GetClusterHostsInventoryParams contains all the parameters to send to the API endpoint
 for the get cluster hosts inventory operation typically these are written to a http.Request
 */
 type GetClusterHostsInventoryParams struct {

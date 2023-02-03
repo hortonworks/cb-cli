@@ -39,7 +39,8 @@ func NewAttachRecipeDefault(code int) *AttachRecipeDefault {
 	}
 }
 
-/*AttachRecipeDefault handles this case with default header values.
+/*
+AttachRecipeDefault handles this case with default header values.
 
 successful operation
 */

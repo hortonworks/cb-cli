@@ -42,7 +42,8 @@ func NewListRetryableFlowsV1OK() *ListRetryableFlowsV1OK {
 	return &ListRetryableFlowsV1OK{}
 }
 
-/*ListRetryableFlowsV1OK handles this case with default header values.
+/*
+ListRetryableFlowsV1OK handles this case with default header values.
 
 successful operation
 */

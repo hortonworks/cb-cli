@@ -58,7 +58,8 @@ func NewVerticalScalingByCrnParamsWithHTTPClient(client *http.Client) *VerticalS
 	}
 }
 
-/*VerticalScalingByCrnParams contains all the parameters to send to the API endpoint
+/*
+VerticalScalingByCrnParams contains all the parameters to send to the API endpoint
 for the vertical scaling by crn operation typically these are written to a http.Request
 */
 type VerticalScalingByCrnParams struct {

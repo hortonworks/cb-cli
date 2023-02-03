@@ -42,7 +42,8 @@ func NewGenerateImageCatalogOK() *GenerateImageCatalogOK {
 	return &GenerateImageCatalogOK{}
 }
 
-/*GenerateImageCatalogOK handles this case with default header values.
+/*
+GenerateImageCatalogOK handles this case with default header values.
 
 successful operation
 */

@@ -57,7 +57,8 @@ func NewRenewInternalStackCertificateParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*RenewInternalStackCertificateParams contains all the parameters to send to the API endpoint
+/*
+RenewInternalStackCertificateParams contains all the parameters to send to the API endpoint
 for the renew internal stack certificate operation typically these are written to a http.Request
 */
 type RenewInternalStackCertificateParams struct {

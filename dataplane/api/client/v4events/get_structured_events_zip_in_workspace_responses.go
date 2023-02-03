@@ -39,7 +39,8 @@ func NewGetStructuredEventsZipInWorkspaceDefault(code int) *GetStructuredEventsZ
 	}
 }
 
-/*GetStructuredEventsZipInWorkspaceDefault handles this case with default header values.
+/*
+GetStructuredEventsZipInWorkspaceDefault handles this case with default header values.
 
 successful operation
 */

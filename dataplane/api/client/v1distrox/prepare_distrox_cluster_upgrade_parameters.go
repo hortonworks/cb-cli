@@ -58,7 +58,8 @@ func NewPrepareDistroxClusterUpgradeParamsWithHTTPClient(client *http.Client) *P
 	}
 }
 
-/*PrepareDistroxClusterUpgradeParams contains all the parameters to send to the API endpoint
+/*
+PrepareDistroxClusterUpgradeParams contains all the parameters to send to the API endpoint
 for the prepare distrox cluster upgrade operation typically these are written to a http.Request
 */
 type PrepareDistroxClusterUpgradeParams struct {

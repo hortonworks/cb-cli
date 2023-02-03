@@ -39,7 +39,8 @@ func NewGetDatalakeEventsZipForResourceDefault(code int) *GetDatalakeEventsZipFo
 	}
 }
 
-/*GetDatalakeEventsZipForResourceDefault handles this case with default header values.
+/*
+GetDatalakeEventsZipForResourceDefault handles this case with default header values.
 
 successful operation
 */

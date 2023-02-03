@@ -57,7 +57,8 @@ func NewUserShowV1ParamsWithHTTPClient(client *http.Client) *UserShowV1Params {
 	}
 }
 
-/*UserShowV1Params contains all the parameters to send to the API endpoint
+/*
+UserShowV1Params contains all the parameters to send to the API endpoint
 for the user show v1 operation typically these are written to a http.Request
 */
 type UserShowV1Params struct {

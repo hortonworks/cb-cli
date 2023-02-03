@@ -39,7 +39,8 @@ func NewDetachRecipeDefault(code int) *DetachRecipeDefault {
 	}
 }
 
-/*DetachRecipeDefault handles this case with default header values.
+/*
+DetachRecipeDefault handles this case with default header values.
 
 successful operation
 */

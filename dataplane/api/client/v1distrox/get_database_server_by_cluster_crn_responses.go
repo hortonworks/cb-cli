@@ -42,7 +42,8 @@ func NewGetDatabaseServerByClusterCrnOK() *GetDatabaseServerByClusterCrnOK {
 	return &GetDatabaseServerByClusterCrnOK{}
 }
 
-/*GetDatabaseServerByClusterCrnOK handles this case with default header values.
+/*
+GetDatabaseServerByClusterCrnOK handles this case with default header values.
 
 successful operation
 */

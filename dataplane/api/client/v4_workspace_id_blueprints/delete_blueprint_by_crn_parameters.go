@@ -57,7 +57,8 @@ func NewDeleteBlueprintByCrnParamsWithHTTPClient(client *http.Client) *DeleteBlu
 	}
 }
 
-/*DeleteBlueprintByCrnParams contains all the parameters to send to the API endpoint
+/*
+DeleteBlueprintByCrnParams contains all the parameters to send to the API endpoint
 for the delete blueprint by crn operation typically these are written to a http.Request
 */
 type DeleteBlueprintByCrnParams struct {

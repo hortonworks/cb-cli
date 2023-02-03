@@ -42,7 +42,8 @@ func NewListDistroXV1OK() *ListDistroXV1OK {
 	return &ListDistroXV1OK{}
 }
 
-/*ListDistroXV1OK handles this case with default header values.
+/*
+ListDistroXV1OK handles this case with default header values.
 
 successful operation
 */

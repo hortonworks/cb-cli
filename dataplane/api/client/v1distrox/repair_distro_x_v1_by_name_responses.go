@@ -49,7 +49,8 @@ func NewRepairDistroXV1ByNameOK() *RepairDistroXV1ByNameOK {
 	return &RepairDistroXV1ByNameOK{}
 }
 
-/*RepairDistroXV1ByNameOK handles this case with default header values.
+/*
+RepairDistroXV1ByNameOK handles this case with default header values.
 
 successful operation
 */
@@ -80,7 +81,8 @@ func NewRepairDistroXV1ByNameDefault(code int) *RepairDistroXV1ByNameDefault {
 	}
 }
 
-/*RepairDistroXV1ByNameDefault handles this case with default header values.
+/*
+RepairDistroXV1ByNameDefault handles this case with default header values.
 
 unsuccessful operation
 */

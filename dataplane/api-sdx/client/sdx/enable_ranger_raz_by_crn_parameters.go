@@ -56,7 +56,8 @@ func NewEnableRangerRazByCrnParamsWithHTTPClient(client *http.Client) *EnableRan
 	}
 }
 
-/*EnableRangerRazByCrnParams contains all the parameters to send to the API endpoint
+/*
+EnableRangerRazByCrnParams contains all the parameters to send to the API endpoint
 for the enable ranger raz by crn operation typically these are written to a http.Request
 */
 type EnableRangerRazByCrnParams struct {

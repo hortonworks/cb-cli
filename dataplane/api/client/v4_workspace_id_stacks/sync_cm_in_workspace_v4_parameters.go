@@ -59,7 +59,8 @@ func NewSyncCmInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *SyncCmInWo
 	}
 }
 
-/*SyncCmInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+SyncCmInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the sync cm in workspace v4 operation typically these are written to a http.Request
 */
 type SyncCmInWorkspaceV4Params struct {

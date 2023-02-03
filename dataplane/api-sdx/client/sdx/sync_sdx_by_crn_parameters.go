@@ -56,7 +56,8 @@ func NewSyncSdxByCrnParamsWithHTTPClient(client *http.Client) *SyncSdxByCrnParam
 	}
 }
 
-/*SyncSdxByCrnParams contains all the parameters to send to the API endpoint
+/*
+SyncSdxByCrnParams contains all the parameters to send to the API endpoint
 for the sync sdx by crn operation typically these are written to a http.Request
 */
 type SyncSdxByCrnParams struct {

@@ -56,7 +56,8 @@ func NewStartDistroXV1ByCrnParamsWithHTTPClient(client *http.Client) *StartDistr
 	}
 }
 
-/*StartDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+StartDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
 for the start distro x v1 by crn operation typically these are written to a http.Request
 */
 type StartDistroXV1ByCrnParams struct {

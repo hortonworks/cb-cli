@@ -42,7 +42,8 @@ func NewGetSdxCmVMLogsOK() *GetSdxCmVMLogsOK {
 	return &GetSdxCmVMLogsOK{}
 }
 
-/*GetSdxCmVMLogsOK handles this case with default header values.
+/*
+GetSdxCmVMLogsOK handles this case with default header values.
 
 successful operation
 */

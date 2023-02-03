@@ -56,7 +56,8 @@ func NewGetRedbeamsLastFlowLogProgressByResourceCrnParamsWithHTTPClient(client *
 	}
 }
 
-/*GetRedbeamsLastFlowLogProgressByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetRedbeamsLastFlowLogProgressByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get redbeams last flow log progress by resource crn operation typically these are written to a http.Request
 */
 type GetRedbeamsLastFlowLogProgressByResourceCrnParams struct {

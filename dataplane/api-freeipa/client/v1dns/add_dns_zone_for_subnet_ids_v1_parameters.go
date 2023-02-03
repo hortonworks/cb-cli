@@ -58,7 +58,8 @@ func NewAddDNSZoneForSubnetIdsV1ParamsWithHTTPClient(client *http.Client) *AddDN
 	}
 }
 
-/*AddDNSZoneForSubnetIdsV1Params contains all the parameters to send to the API endpoint
+/*
+AddDNSZoneForSubnetIdsV1Params contains all the parameters to send to the API endpoint
 for the add Dns zone for subnet ids v1 operation typically these are written to a http.Request
 */
 type AddDNSZoneForSubnetIdsV1Params struct {

@@ -42,7 +42,8 @@ func NewCreateDatabaseOnServerOK() *CreateDatabaseOnServerOK {
 	return &CreateDatabaseOnServerOK{}
 }
 
-/*CreateDatabaseOnServerOK handles this case with default header values.
+/*
+CreateDatabaseOnServerOK handles this case with default header values.
 
 successful operation
 */

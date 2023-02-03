@@ -42,7 +42,8 @@ func NewRotateSaltPasswordDistroXV1ByCrnOK() *RotateSaltPasswordDistroXV1ByCrnOK
 	return &RotateSaltPasswordDistroXV1ByCrnOK{}
 }
 
-/*RotateSaltPasswordDistroXV1ByCrnOK handles this case with default header values.
+/*
+RotateSaltPasswordDistroXV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

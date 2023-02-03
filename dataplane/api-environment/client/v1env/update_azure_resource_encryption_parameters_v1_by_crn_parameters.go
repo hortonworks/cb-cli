@@ -58,7 +58,8 @@ func NewUpdateAzureResourceEncryptionParametersV1ByCrnParamsWithHTTPClient(clien
 	}
 }
 
-/*UpdateAzureResourceEncryptionParametersV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+UpdateAzureResourceEncryptionParametersV1ByCrnParams contains all the parameters to send to the API endpoint
 for the update azure resource encryption parameters v1 by crn operation typically these are written to a http.Request
 */
 type UpdateAzureResourceEncryptionParametersV1ByCrnParams struct {

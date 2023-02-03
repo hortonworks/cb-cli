@@ -42,7 +42,8 @@ func NewListDistroxDiagnosticsCollectionsV1OK() *ListDistroxDiagnosticsCollectio
 	return &ListDistroxDiagnosticsCollectionsV1OK{}
 }
 
-/*ListDistroxDiagnosticsCollectionsV1OK handles this case with default header values.
+/*
+ListDistroxDiagnosticsCollectionsV1OK handles this case with default header values.
 
 successful operation
 */

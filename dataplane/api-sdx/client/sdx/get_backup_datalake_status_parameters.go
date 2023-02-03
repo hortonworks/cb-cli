@@ -56,7 +56,8 @@ func NewGetBackupDatalakeStatusParamsWithHTTPClient(client *http.Client) *GetBac
 	}
 }
 
-/*GetBackupDatalakeStatusParams contains all the parameters to send to the API endpoint
+/*
+GetBackupDatalakeStatusParams contains all the parameters to send to the API endpoint
 for the get backup datalake status operation typically these are written to a http.Request
 */
 type GetBackupDatalakeStatusParams struct {

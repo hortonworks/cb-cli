@@ -58,7 +58,8 @@ func NewCodeGrantFlowBasedCredentialV1ParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*CodeGrantFlowBasedCredentialV1Params contains all the parameters to send to the API endpoint
+/*
+CodeGrantFlowBasedCredentialV1Params contains all the parameters to send to the API endpoint
 for the code grant flow based credential v1 operation typically these are written to a http.Request
 */
 type CodeGrantFlowBasedCredentialV1Params struct {

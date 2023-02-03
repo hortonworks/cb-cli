@@ -58,7 +58,8 @@ func NewRepairV1ParamsWithHTTPClient(client *http.Client) *RepairV1Params {
 	}
 }
 
-/*RepairV1Params contains all the parameters to send to the API endpoint
+/*
+RepairV1Params contains all the parameters to send to the API endpoint
 for the repair v1 operation typically these are written to a http.Request
 */
 type RepairV1Params struct {

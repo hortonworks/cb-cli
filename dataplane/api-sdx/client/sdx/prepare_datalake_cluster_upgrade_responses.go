@@ -42,7 +42,8 @@ func NewPrepareDatalakeClusterUpgradeOK() *PrepareDatalakeClusterUpgradeOK {
 	return &PrepareDatalakeClusterUpgradeOK{}
 }
 
-/*PrepareDatalakeClusterUpgradeOK handles this case with default header values.
+/*
+PrepareDatalakeClusterUpgradeOK handles this case with default header values.
 
 successful operation
 */

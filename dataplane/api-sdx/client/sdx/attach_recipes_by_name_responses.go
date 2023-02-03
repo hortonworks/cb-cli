@@ -42,7 +42,8 @@ func NewAttachRecipesByNameOK() *AttachRecipesByNameOK {
 	return &AttachRecipesByNameOK{}
 }
 
-/*AttachRecipesByNameOK handles this case with default header values.
+/*
+AttachRecipesByNameOK handles this case with default header values.
 
 successful operation
 */

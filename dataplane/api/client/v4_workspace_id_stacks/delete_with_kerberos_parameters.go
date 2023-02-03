@@ -69,7 +69,8 @@ func NewDeleteWithKerberosParamsWithHTTPClient(client *http.Client) *DeleteWithK
 	}
 }
 
-/*DeleteWithKerberosParams contains all the parameters to send to the API endpoint
+/*
+DeleteWithKerberosParams contains all the parameters to send to the API endpoint
 for the delete with kerberos operation typically these are written to a http.Request
 */
 type DeleteWithKerberosParams struct {

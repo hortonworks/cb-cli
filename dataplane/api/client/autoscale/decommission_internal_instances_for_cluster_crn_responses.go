@@ -42,7 +42,8 @@ func NewDecommissionInternalInstancesForClusterCrnOK() *DecommissionInternalInst
 	return &DecommissionInternalInstancesForClusterCrnOK{}
 }
 
-/*DecommissionInternalInstancesForClusterCrnOK handles this case with default header values.
+/*
+DecommissionInternalInstancesForClusterCrnOK handles this case with default header values.
 
 successful operation
 */

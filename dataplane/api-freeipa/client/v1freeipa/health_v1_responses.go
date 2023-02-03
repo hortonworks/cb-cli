@@ -42,7 +42,8 @@ func NewHealthV1OK() *HealthV1OK {
 	return &HealthV1OK{}
 }
 
-/*HealthV1OK handles this case with default header values.
+/*
+HealthV1OK handles this case with default header values.
 
 successful operation
 */

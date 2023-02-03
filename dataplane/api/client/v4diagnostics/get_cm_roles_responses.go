@@ -40,7 +40,8 @@ func NewGetCmRolesOK() *GetCmRolesOK {
 	return &GetCmRolesOK{}
 }
 
-/*GetCmRolesOK handles this case with default header values.
+/*
+GetCmRolesOK handles this case with default header values.
 
 successful operation
 */

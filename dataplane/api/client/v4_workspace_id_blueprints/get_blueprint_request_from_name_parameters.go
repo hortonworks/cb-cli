@@ -57,7 +57,8 @@ func NewGetBlueprintRequestFromNameParamsWithHTTPClient(client *http.Client) *Ge
 	}
 }
 
-/*GetBlueprintRequestFromNameParams contains all the parameters to send to the API endpoint
+/*
+GetBlueprintRequestFromNameParams contains all the parameters to send to the API endpoint
 for the get blueprint request from name operation typically these are written to a http.Request
 */
 type GetBlueprintRequestFromNameParams struct {

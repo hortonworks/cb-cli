@@ -56,7 +56,8 @@ func NewStopV1ParamsWithHTTPClient(client *http.Client) *StopV1Params {
 	}
 }
 
-/*StopV1Params contains all the parameters to send to the API endpoint
+/*
+StopV1Params contains all the parameters to send to the API endpoint
 for the stop v1 operation typically these are written to a http.Request
 */
 type StopV1Params struct {

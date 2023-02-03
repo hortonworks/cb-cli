@@ -42,7 +42,8 @@ func NewDeleteAuditCredentialByNameV1OK() *DeleteAuditCredentialByNameV1OK {
 	return &DeleteAuditCredentialByNameV1OK{}
 }
 
-/*DeleteAuditCredentialByNameV1OK handles this case with default header values.
+/*
+DeleteAuditCredentialByNameV1OK handles this case with default header values.
 
 successful operation
 */

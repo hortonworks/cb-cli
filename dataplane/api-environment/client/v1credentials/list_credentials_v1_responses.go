@@ -42,7 +42,8 @@ func NewListCredentialsV1OK() *ListCredentialsV1OK {
 	return &ListCredentialsV1OK{}
 }
 
-/*ListCredentialsV1OK handles this case with default header values.
+/*
+ListCredentialsV1OK handles this case with default header values.
 
 successful operation
 */

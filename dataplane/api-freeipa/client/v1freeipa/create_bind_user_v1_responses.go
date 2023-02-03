@@ -42,7 +42,8 @@ func NewCreateBindUserV1OK() *CreateBindUserV1OK {
 	return &CreateBindUserV1OK{}
 }
 
-/*CreateBindUserV1OK handles this case with default header values.
+/*
+CreateBindUserV1OK handles this case with default header values.
 
 successful operation
 */

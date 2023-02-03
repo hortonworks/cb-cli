@@ -42,7 +42,8 @@ func NewUpgradeCcmByCrnInternalOK() *UpgradeCcmByCrnInternalOK {
 	return &UpgradeCcmByCrnInternalOK{}
 }
 
-/*UpgradeCcmByCrnInternalOK handles this case with default header values.
+/*
+UpgradeCcmByCrnInternalOK handles this case with default header values.
 
 successful operation
 */

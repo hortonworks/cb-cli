@@ -58,7 +58,8 @@ func NewResizeSdxParamsWithHTTPClient(client *http.Client) *ResizeSdxParams {
 	}
 }
 
-/*ResizeSdxParams contains all the parameters to send to the API endpoint
+/*
+ResizeSdxParams contains all the parameters to send to the API endpoint
 for the resize sdx operation typically these are written to a http.Request
 */
 type ResizeSdxParams struct {

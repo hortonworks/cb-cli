@@ -42,7 +42,8 @@ func NewUpdateImageCatalogInWorkspaceOK() *UpdateImageCatalogInWorkspaceOK {
 	return &UpdateImageCatalogInWorkspaceOK{}
 }
 
-/*UpdateImageCatalogInWorkspaceOK handles this case with default header values.
+/*
+UpdateImageCatalogInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

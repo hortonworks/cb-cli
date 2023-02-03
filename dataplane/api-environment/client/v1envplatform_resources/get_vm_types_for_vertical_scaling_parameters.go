@@ -56,7 +56,8 @@ func NewGetVMTypesForVerticalScalingParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetVMTypesForVerticalScalingParams contains all the parameters to send to the API endpoint
+/*
+GetVMTypesForVerticalScalingParams contains all the parameters to send to the API endpoint
 for the get Vm types for vertical scaling operation typically these are written to a http.Request
 */
 type GetVMTypesForVerticalScalingParams struct {

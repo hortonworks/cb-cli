@@ -42,7 +42,8 @@ func NewCollectStackCmDiagnosticsOK() *CollectStackCmDiagnosticsOK {
 	return &CollectStackCmDiagnosticsOK{}
 }
 
-/*CollectStackCmDiagnosticsOK handles this case with default header values.
+/*
+CollectStackCmDiagnosticsOK handles this case with default header values.
 
 successful operation
 */

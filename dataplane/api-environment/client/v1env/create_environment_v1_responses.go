@@ -42,7 +42,8 @@ func NewCreateEnvironmentV1OK() *CreateEnvironmentV1OK {
 	return &CreateEnvironmentV1OK{}
 }
 
-/*CreateEnvironmentV1OK handles this case with default header values.
+/*
+CreateEnvironmentV1OK handles this case with default header values.
 
 successful operation
 */

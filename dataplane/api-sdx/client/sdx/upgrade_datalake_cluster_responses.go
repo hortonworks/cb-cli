@@ -42,7 +42,8 @@ func NewUpgradeDatalakeClusterOK() *UpgradeDatalakeClusterOK {
 	return &UpgradeDatalakeClusterOK{}
 }
 
-/*UpgradeDatalakeClusterOK handles this case with default header values.
+/*
+UpgradeDatalakeClusterOK handles this case with default header values.
 
 successful operation
 */

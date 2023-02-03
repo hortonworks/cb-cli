@@ -58,7 +58,8 @@ func NewRepositoryConfigsValidationV4ParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*RepositoryConfigsValidationV4Params contains all the parameters to send to the API endpoint
+/*
+RepositoryConfigsValidationV4Params contains all the parameters to send to the API endpoint
 for the repository configs validation v4 operation typically these are written to a http.Request
 */
 type RepositoryConfigsValidationV4Params struct {

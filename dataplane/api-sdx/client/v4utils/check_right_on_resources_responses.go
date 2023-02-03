@@ -42,7 +42,8 @@ func NewCheckRightOnResourcesOK() *CheckRightOnResourcesOK {
 	return &CheckRightOnResourcesOK{}
 }
 
-/*CheckRightOnResourcesOK handles this case with default header values.
+/*
+CheckRightOnResourcesOK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewSubmitDatalakeDataSizesInternalParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*SubmitDatalakeDataSizesInternalParams contains all the parameters to send to the API endpoint
+/*
+SubmitDatalakeDataSizesInternalParams contains all the parameters to send to the API endpoint
 for the submit datalake data sizes internal operation typically these are written to a http.Request
 */
 type SubmitDatalakeDataSizesInternalParams struct {

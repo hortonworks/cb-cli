@@ -42,7 +42,8 @@ func NewInteractiveLoginCredentialV1OK() *InteractiveLoginCredentialV1OK {
 	return &InteractiveLoginCredentialV1OK{}
 }
 
-/*InteractiveLoginCredentialV1OK handles this case with default header values.
+/*
+InteractiveLoginCredentialV1OK handles this case with default header values.
 
 successful operation
 */

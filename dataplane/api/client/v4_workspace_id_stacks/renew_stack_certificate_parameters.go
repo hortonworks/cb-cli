@@ -57,7 +57,8 @@ func NewRenewStackCertificateParamsWithHTTPClient(client *http.Client) *RenewSta
 	}
 }
 
-/*RenewStackCertificateParams contains all the parameters to send to the API endpoint
+/*
+RenewStackCertificateParams contains all the parameters to send to the API endpoint
 for the renew stack certificate operation typically these are written to a http.Request
 */
 type RenewStackCertificateParams struct {

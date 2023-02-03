@@ -58,7 +58,8 @@ func NewCreateSdxParamsWithHTTPClient(client *http.Client) *CreateSdxParams {
 	}
 }
 
-/*CreateSdxParams contains all the parameters to send to the API endpoint
+/*
+CreateSdxParams contains all the parameters to send to the API endpoint
 for the create sdx operation typically these are written to a http.Request
 */
 type CreateSdxParams struct {
