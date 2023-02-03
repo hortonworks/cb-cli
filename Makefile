@@ -84,9 +84,9 @@ coverage-html:
 	@go tool cover -html=fmt
 	@rm -f fmt
 
-build: versioncheck errcheck formatcheck vet test build-darwin build-darwin-arm64 build-linux build-windows
+build: versioncheck errcheck formatcheck vet test build-darwin build-darwin-arm64 build-linux
 
-build-version: errcheck format vet test build-darwin-version build-darwin-arm64-version build-linux-version build-windows-version
+build-version: errcheck format vet test build-darwin-version build-darwin-arm64-version build-linux-version
 
 build-docker:
 	@#USER_NS='-u $(shell id -u $(whoami)):$(shell id -g $(whoami))'
@@ -209,7 +209,7 @@ release: build
 	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_x86_64.tgz -C build/Darwin "${BINARY}"
 	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_arm64.tgz -C build/Darwin-arm64 "${BINARY}"
 	tar -zcvf release/dp-cli_${CB_VERSION}_Linux_x86_64.tgz -C build/Linux "${BINARY}"
-	tar -zcvf release/dp-cli_${CB_VERSION}_Windows_x86_64.tgz -C build/Windows "${BINARY}.exe"
+#	tar -zcvf release/dp-cli_${CB_VERSION}_Windows_x86_64.tgz -C build/Windows "${BINARY}.exe"
 
 release-version: build-version
 	rm -rf release
@@ -219,7 +219,7 @@ release-version: build-version
 	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_x86_64.tgz -C build/Darwin "${BINARY}"
 	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_arm64.tgz -C build/Darwin-arm64 "${BINARY}"
 	tar -zcvf release/dp-cli_${CB_VERSION}_Linux_x86_64.tgz -C build/Linux "${BINARY}"
-	tar -zcvf release/dp-cli_${CB_VERSION}_Windows_x86_64.tgz -C build/Windows "${BINARY}.exe"
+#	tar -zcvf release/dp-cli_${CB_VERSION}_Windows_x86_64.tgz -C build/Windows "${BINARY}.exe"
 
 release-docker:
 	@USER_NS='-u $(shell id -u $(whoami)):$(shell id -g $(whoami))'
