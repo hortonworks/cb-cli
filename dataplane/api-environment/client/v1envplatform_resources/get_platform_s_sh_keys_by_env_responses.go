@@ -42,7 +42,8 @@ func NewGetPlatformSShKeysByEnvOK() *GetPlatformSShKeysByEnvOK {
 	return &GetPlatformSShKeysByEnvOK{}
 }
 
-/*GetPlatformSShKeysByEnvOK handles this case with default header values.
+/*
+GetPlatformSShKeysByEnvOK handles this case with default header values.
 
 successful operation
 */

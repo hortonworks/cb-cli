@@ -56,7 +56,8 @@ func NewRenewInternalSdxCertificateParamsWithHTTPClient(client *http.Client) *Re
 	}
 }
 
-/*RenewInternalSdxCertificateParams contains all the parameters to send to the API endpoint
+/*
+RenewInternalSdxCertificateParams contains all the parameters to send to the API endpoint
 for the renew internal sdx certificate operation typically these are written to a http.Request
 */
 type RenewInternalSdxCertificateParams struct {

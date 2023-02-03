@@ -58,7 +58,8 @@ func NewUpgradeDatalakeClusterParamsWithHTTPClient(client *http.Client) *Upgrade
 	}
 }
 
-/*UpgradeDatalakeClusterParams contains all the parameters to send to the API endpoint
+/*
+UpgradeDatalakeClusterParams contains all the parameters to send to the API endpoint
 for the upgrade datalake cluster operation typically these are written to a http.Request
 */
 type UpgradeDatalakeClusterParams struct {

@@ -56,7 +56,8 @@ func NewGetStackCmVMLogsParamsWithHTTPClient(client *http.Client) *GetStackCmVML
 	}
 }
 
-/*GetStackCmVMLogsParams contains all the parameters to send to the API endpoint
+/*
+GetStackCmVMLogsParams contains all the parameters to send to the API endpoint
 for the get stack cm Vm logs operation typically these are written to a http.Request
 */
 type GetStackCmVMLogsParams struct {

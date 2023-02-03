@@ -42,7 +42,8 @@ func NewGetRoleTypesOK() *GetRoleTypesOK {
 	return &GetRoleTypesOK{}
 }
 
-/*GetRoleTypesOK handles this case with default header values.
+/*
+GetRoleTypesOK handles this case with default header values.
 
 successful operation
 */

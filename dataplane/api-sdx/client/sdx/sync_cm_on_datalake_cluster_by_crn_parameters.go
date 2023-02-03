@@ -56,7 +56,8 @@ func NewSyncCmOnDatalakeClusterByCrnParamsWithHTTPClient(client *http.Client) *S
 	}
 }
 
-/*SyncCmOnDatalakeClusterByCrnParams contains all the parameters to send to the API endpoint
+/*
+SyncCmOnDatalakeClusterByCrnParams contains all the parameters to send to the API endpoint
 for the sync cm on datalake cluster by crn operation typically these are written to a http.Request
 */
 type SyncCmOnDatalakeClusterByCrnParams struct {

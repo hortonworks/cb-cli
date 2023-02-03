@@ -42,7 +42,8 @@ func NewCreateInternalSdxOK() *CreateInternalSdxOK {
 	return &CreateInternalSdxOK{}
 }
 
-/*CreateInternalSdxOK handles this case with default header values.
+/*
+CreateInternalSdxOK handles this case with default header values.
 
 successful operation
 */

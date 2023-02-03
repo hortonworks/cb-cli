@@ -56,7 +56,8 @@ func NewGetAllStackForAutoscaleParamsWithHTTPClient(client *http.Client) *GetAll
 	}
 }
 
-/*GetAllStackForAutoscaleParams contains all the parameters to send to the API endpoint
+/*
+GetAllStackForAutoscaleParams contains all the parameters to send to the API endpoint
 for the get all stack for autoscale operation typically these are written to a http.Request
 */
 type GetAllStackForAutoscaleParams struct {

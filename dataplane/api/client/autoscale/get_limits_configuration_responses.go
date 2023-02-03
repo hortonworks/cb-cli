@@ -42,7 +42,8 @@ func NewGetLimitsConfigurationOK() *GetLimitsConfigurationOK {
 	return &GetLimitsConfigurationOK{}
 }
 
-/*GetLimitsConfigurationOK handles this case with default header values.
+/*
+GetLimitsConfigurationOK handles this case with default header values.
 
 successful operation
 */

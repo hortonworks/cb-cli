@@ -40,7 +40,8 @@ func NewGetCreateEnvironmentForCliByNameOK() *GetCreateEnvironmentForCliByNameOK
 	return &GetCreateEnvironmentForCliByNameOK{}
 }
 
-/*GetCreateEnvironmentForCliByNameOK handles this case with default header values.
+/*
+GetCreateEnvironmentForCliByNameOK handles this case with default header values.
 
 successful operation
 */

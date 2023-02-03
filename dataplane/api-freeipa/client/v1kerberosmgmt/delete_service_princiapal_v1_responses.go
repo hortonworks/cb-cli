@@ -39,7 +39,8 @@ func NewDeleteServicePrinciapalV1Default(code int) *DeleteServicePrinciapalV1Def
 	}
 }
 
-/*DeleteServicePrinciapalV1Default handles this case with default header values.
+/*
+DeleteServicePrinciapalV1Default handles this case with default header values.
 
 successful operation
 */

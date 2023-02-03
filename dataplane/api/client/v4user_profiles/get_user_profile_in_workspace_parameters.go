@@ -56,7 +56,8 @@ func NewGetUserProfileInWorkspaceParamsWithHTTPClient(client *http.Client) *GetU
 	}
 }
 
-/*GetUserProfileInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetUserProfileInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get user profile in workspace operation typically these are written to a http.Request
 */
 type GetUserProfileInWorkspaceParams struct {

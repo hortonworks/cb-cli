@@ -85,7 +85,8 @@ func NewGetCloudbreakEventsListByCrnParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetCloudbreakEventsListByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetCloudbreakEventsListByCrnParams contains all the parameters to send to the API endpoint
 for the get cloudbreak events list by crn operation typically these are written to a http.Request
 */
 type GetCloudbreakEventsListByCrnParams struct {

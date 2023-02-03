@@ -56,7 +56,8 @@ func NewListRulesInAccountV1ParamsWithHTTPClient(client *http.Client) *ListRules
 	}
 }
 
-/*ListRulesInAccountV1Params contains all the parameters to send to the API endpoint
+/*
+ListRulesInAccountV1Params contains all the parameters to send to the API endpoint
 for the list rules in account v1 operation typically these are written to a http.Request
 */
 type ListRulesInAccountV1Params struct {

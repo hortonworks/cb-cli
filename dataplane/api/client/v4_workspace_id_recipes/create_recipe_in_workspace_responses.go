@@ -42,7 +42,8 @@ func NewCreateRecipeInWorkspaceOK() *CreateRecipeInWorkspaceOK {
 	return &CreateRecipeInWorkspaceOK{}
 }
 
-/*CreateRecipeInWorkspaceOK handles this case with default header values.
+/*
+CreateRecipeInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

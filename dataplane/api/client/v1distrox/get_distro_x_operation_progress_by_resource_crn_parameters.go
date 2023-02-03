@@ -69,7 +69,8 @@ func NewGetDistroXOperationProgressByResourceCrnParamsWithHTTPClient(client *htt
 	}
 }
 
-/*GetDistroXOperationProgressByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetDistroXOperationProgressByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get distro x operation progress by resource crn operation typically these are written to a http.Request
 */
 type GetDistroXOperationProgressByResourceCrnParams struct {

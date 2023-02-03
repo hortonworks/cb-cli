@@ -42,7 +42,8 @@ func NewListClusterTemplatesByWorkspaceOK() *ListClusterTemplatesByWorkspaceOK {
 	return &ListClusterTemplatesByWorkspaceOK{}
 }
 
-/*ListClusterTemplatesByWorkspaceOK handles this case with default header values.
+/*
+ListClusterTemplatesByWorkspaceOK handles this case with default header values.
 
 successful operation
 */

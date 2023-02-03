@@ -56,7 +56,8 @@ func NewCheckClientVersionOfEnvironmentV1ParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*CheckClientVersionOfEnvironmentV1Params contains all the parameters to send to the API endpoint
+/*
+CheckClientVersionOfEnvironmentV1Params contains all the parameters to send to the API endpoint
 for the check client version of environment v1 operation typically these are written to a http.Request
 */
 type CheckClientVersionOfEnvironmentV1Params struct {

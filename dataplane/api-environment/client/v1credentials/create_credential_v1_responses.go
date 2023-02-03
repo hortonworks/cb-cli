@@ -42,7 +42,8 @@ func NewCreateCredentialV1OK() *CreateCredentialV1OK {
 	return &CreateCredentialV1OK{}
 }
 
-/*CreateCredentialV1OK handles this case with default header values.
+/*
+CreateCredentialV1OK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewPostDistroXV1OK() *PostDistroXV1OK {
 	return &PostDistroXV1OK{}
 }
 
-/*PostDistroXV1OK handles this case with default header values.
+/*
+PostDistroXV1OK handles this case with default header values.
 
 successful operation
 */

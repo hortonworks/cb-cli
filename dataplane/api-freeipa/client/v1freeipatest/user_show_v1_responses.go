@@ -40,7 +40,8 @@ func NewUserShowV1OK() *UserShowV1OK {
 	return &UserShowV1OK{}
 }
 
-/*UserShowV1OK handles this case with default header values.
+/*
+UserShowV1OK handles this case with default header values.
 
 successful operation
 */

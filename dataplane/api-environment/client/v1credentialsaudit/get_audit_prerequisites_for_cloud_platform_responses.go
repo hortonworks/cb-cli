@@ -42,7 +42,8 @@ func NewGetAuditPrerequisitesForCloudPlatformOK() *GetAuditPrerequisitesForCloud
 	return &GetAuditPrerequisitesForCloudPlatformOK{}
 }
 
-/*GetAuditPrerequisitesForCloudPlatformOK handles this case with default header values.
+/*
+GetAuditPrerequisitesForCloudPlatformOK handles this case with default header values.
 
 successful operation
 */

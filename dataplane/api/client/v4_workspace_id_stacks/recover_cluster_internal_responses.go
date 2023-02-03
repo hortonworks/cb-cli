@@ -42,7 +42,8 @@ func NewRecoverClusterInternalOK() *RecoverClusterInternalOK {
 	return &RecoverClusterInternalOK{}
 }
 
-/*RecoverClusterInternalOK handles this case with default header values.
+/*
+RecoverClusterInternalOK handles this case with default header values.
 
 successful operation
 */

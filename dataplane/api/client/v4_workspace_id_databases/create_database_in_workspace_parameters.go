@@ -59,7 +59,8 @@ func NewCreateDatabaseInWorkspaceParamsWithHTTPClient(client *http.Client) *Crea
 	}
 }
 
-/*CreateDatabaseInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+CreateDatabaseInWorkspaceParams contains all the parameters to send to the API endpoint
 for the create database in workspace operation typically these are written to a http.Request
 */
 type CreateDatabaseInWorkspaceParams struct {

@@ -58,7 +58,8 @@ func NewCheckRightByCrnParamsWithHTTPClient(client *http.Client) *CheckRightByCr
 	}
 }
 
-/*CheckRightByCrnParams contains all the parameters to send to the API endpoint
+/*
+CheckRightByCrnParams contains all the parameters to send to the API endpoint
 for the check right by crn operation typically these are written to a http.Request
 */
 type CheckRightByCrnParams struct {

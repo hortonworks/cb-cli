@@ -42,7 +42,8 @@ func NewGetPlatformNetworksByEnvOK() *GetPlatformNetworksByEnvOK {
 	return &GetPlatformNetworksByEnvOK{}
 }
 
-/*GetPlatformNetworksByEnvOK handles this case with default header values.
+/*
+GetPlatformNetworksByEnvOK handles this case with default header values.
 
 successful operation
 */

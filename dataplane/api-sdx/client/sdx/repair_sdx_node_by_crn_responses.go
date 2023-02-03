@@ -42,7 +42,8 @@ func NewRepairSdxNodeByCrnOK() *RepairSdxNodeByCrnOK {
 	return &RepairSdxNodeByCrnOK{}
 }
 
-/*RepairSdxNodeByCrnOK handles this case with default header values.
+/*
+RepairSdxNodeByCrnOK handles this case with default header values.
 
 successful operation
 */

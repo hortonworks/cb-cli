@@ -58,7 +58,8 @@ func NewPostParamsWithHTTPClient(client *http.Client) *PostParams {
 	}
 }
 
-/*PostParams contains all the parameters to send to the API endpoint
+/*
+PostParams contains all the parameters to send to the API endpoint
 for the post operation typically these are written to a http.Request
 */
 type PostParams struct {

@@ -42,7 +42,8 @@ func NewGetCloudbreakEventsListByCrnOK() *GetCloudbreakEventsListByCrnOK {
 	return &GetCloudbreakEventsListByCrnOK{}
 }
 
-/*GetCloudbreakEventsListByCrnOK handles this case with default header values.
+/*
+GetCloudbreakEventsListByCrnOK handles this case with default header values.
 
 successful operation
 */

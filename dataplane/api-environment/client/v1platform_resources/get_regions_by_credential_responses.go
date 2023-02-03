@@ -42,7 +42,8 @@ func NewGetRegionsByCredentialOK() *GetRegionsByCredentialOK {
 	return &GetRegionsByCredentialOK{}
 }
 
-/*GetRegionsByCredentialOK handles this case with default header values.
+/*
+GetRegionsByCredentialOK handles this case with default header values.
 
 successful operation
 */

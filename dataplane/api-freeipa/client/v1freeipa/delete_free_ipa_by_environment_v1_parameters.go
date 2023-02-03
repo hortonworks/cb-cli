@@ -69,7 +69,8 @@ func NewDeleteFreeIpaByEnvironmentV1ParamsWithHTTPClient(client *http.Client) *D
 	}
 }
 
-/*DeleteFreeIpaByEnvironmentV1Params contains all the parameters to send to the API endpoint
+/*
+DeleteFreeIpaByEnvironmentV1Params contains all the parameters to send to the API endpoint
 for the delete free ipa by environment v1 operation typically these are written to a http.Request
 */
 type DeleteFreeIpaByEnvironmentV1Params struct {

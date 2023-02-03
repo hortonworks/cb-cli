@@ -56,7 +56,8 @@ func NewBackupDatabaseStatusParamsWithHTTPClient(client *http.Client) *BackupDat
 	}
 }
 
-/*BackupDatabaseStatusParams contains all the parameters to send to the API endpoint
+/*
+BackupDatabaseStatusParams contains all the parameters to send to the API endpoint
 for the backup database status operation typically these are written to a http.Request
 */
 type BackupDatabaseStatusParams struct {

@@ -56,7 +56,8 @@ func NewSyncDistroXV1ByCrnParamsWithHTTPClient(client *http.Client) *SyncDistroX
 	}
 }
 
-/*SyncDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+SyncDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
 for the sync distro x v1 by crn operation typically these are written to a http.Request
 */
 type SyncDistroXV1ByCrnParams struct {

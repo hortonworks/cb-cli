@@ -42,7 +42,8 @@ func NewGetOperationProgressByResourceCrnOK() *GetOperationProgressByResourceCrn
 	return &GetOperationProgressByResourceCrnOK{}
 }
 
-/*GetOperationProgressByResourceCrnOK handles this case with default header values.
+/*
+GetOperationProgressByResourceCrnOK handles this case with default header values.
 
 successful operation
 */

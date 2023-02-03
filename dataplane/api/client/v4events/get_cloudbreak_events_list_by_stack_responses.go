@@ -42,7 +42,8 @@ func NewGetCloudbreakEventsListByStackOK() *GetCloudbreakEventsListByStackOK {
 	return &GetCloudbreakEventsListByStackOK{}
 }
 
-/*GetCloudbreakEventsListByStackOK handles this case with default header values.
+/*
+GetCloudbreakEventsListByStackOK handles this case with default header values.
 
 successful operation
 */

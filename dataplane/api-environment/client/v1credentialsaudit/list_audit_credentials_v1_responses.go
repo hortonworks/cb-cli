@@ -42,7 +42,8 @@ func NewListAuditCredentialsV1OK() *ListAuditCredentialsV1OK {
 	return &ListAuditCredentialsV1OK{}
 }
 
-/*ListAuditCredentialsV1OK handles this case with default header values.
+/*
+ListAuditCredentialsV1OK handles this case with default header values.
 
 successful operation
 */

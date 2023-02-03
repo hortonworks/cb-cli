@@ -56,7 +56,8 @@ func NewGetAuditCredentialByResourceCrnV1ParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*GetAuditCredentialByResourceCrnV1Params contains all the parameters to send to the API endpoint
+/*
+GetAuditCredentialByResourceCrnV1Params contains all the parameters to send to the API endpoint
 for the get audit credential by resource crn v1 operation typically these are written to a http.Request
 */
 type GetAuditCredentialByResourceCrnV1Params struct {

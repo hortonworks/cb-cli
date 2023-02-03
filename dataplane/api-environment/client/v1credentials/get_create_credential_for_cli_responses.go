@@ -40,7 +40,8 @@ func NewGetCreateCredentialForCliOK() *GetCreateCredentialForCliOK {
 	return &GetCreateCredentialForCliOK{}
 }
 
-/*GetCreateCredentialForCliOK handles this case with default header values.
+/*
+GetCreateCredentialForCliOK handles this case with default header values.
 
 successful operation
 */

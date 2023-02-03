@@ -42,7 +42,8 @@ func NewPutStackForAutoscaleStartByNameOK() *PutStackForAutoscaleStartByNameOK {
 	return &PutStackForAutoscaleStartByNameOK{}
 }
 
-/*PutStackForAutoscaleStartByNameOK handles this case with default header values.
+/*
+PutStackForAutoscaleStartByNameOK handles this case with default header values.
 
 successful operation
 */

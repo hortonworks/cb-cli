@@ -39,7 +39,8 @@ func NewDeleteDNSZoneBySubnetV1Default(code int) *DeleteDNSZoneBySubnetV1Default
 	}
 }
 
-/*DeleteDNSZoneBySubnetV1Default handles this case with default header values.
+/*
+DeleteDNSZoneBySubnetV1Default handles this case with default header values.
 
 successful operation
 */

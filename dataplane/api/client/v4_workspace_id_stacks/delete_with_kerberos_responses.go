@@ -39,7 +39,8 @@ func NewDeleteWithKerberosDefault(code int) *DeleteWithKerberosDefault {
 	}
 }
 
-/*DeleteWithKerberosDefault handles this case with default header values.
+/*
+DeleteWithKerberosDefault handles this case with default header values.
 
 successful operation
 */

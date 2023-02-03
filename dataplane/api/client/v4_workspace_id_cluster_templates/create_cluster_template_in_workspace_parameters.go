@@ -59,7 +59,8 @@ func NewCreateClusterTemplateInWorkspaceParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*CreateClusterTemplateInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+CreateClusterTemplateInWorkspaceParams contains all the parameters to send to the API endpoint
 for the create cluster template in workspace operation typically these are written to a http.Request
 */
 type CreateClusterTemplateInWorkspaceParams struct {

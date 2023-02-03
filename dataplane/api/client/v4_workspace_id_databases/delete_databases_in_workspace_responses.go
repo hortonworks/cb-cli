@@ -42,7 +42,8 @@ func NewDeleteDatabasesInWorkspaceOK() *DeleteDatabasesInWorkspaceOK {
 	return &DeleteDatabasesInWorkspaceOK{}
 }
 
-/*DeleteDatabasesInWorkspaceOK handles this case with default header values.
+/*
+DeleteDatabasesInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

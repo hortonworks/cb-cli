@@ -58,7 +58,8 @@ func NewCollectCmDiagnosticsParamsWithHTTPClient(client *http.Client) *CollectCm
 	}
 }
 
-/*CollectCmDiagnosticsParams contains all the parameters to send to the API endpoint
+/*
+CollectCmDiagnosticsParams contains all the parameters to send to the API endpoint
 for the collect cm diagnostics operation typically these are written to a http.Request
 */
 type CollectCmDiagnosticsParams struct {

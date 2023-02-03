@@ -58,7 +58,8 @@ func NewTestDatabaseConnectionParamsWithHTTPClient(client *http.Client) *TestDat
 	}
 }
 
-/*TestDatabaseConnectionParams contains all the parameters to send to the API endpoint
+/*
+TestDatabaseConnectionParams contains all the parameters to send to the API endpoint
 for the test database connection operation typically these are written to a http.Request
 */
 type TestDatabaseConnectionParams struct {

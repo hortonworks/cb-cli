@@ -57,7 +57,8 @@ func NewGetDatabaseInWorkspaceParamsWithHTTPClient(client *http.Client) *GetData
 	}
 }
 
-/*GetDatabaseInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetDatabaseInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get database in workspace operation typically these are written to a http.Request
 */
 type GetDatabaseInWorkspaceParams struct {

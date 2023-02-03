@@ -57,7 +57,8 @@ func NewGetSingleImageByNameAndIDParamsWithHTTPClient(client *http.Client) *GetS
 	}
 }
 
-/*GetSingleImageByNameAndIDParams contains all the parameters to send to the API endpoint
+/*
+GetSingleImageByNameAndIDParams contains all the parameters to send to the API endpoint
 for the get single image by name and Id operation typically these are written to a http.Request
 */
 type GetSingleImageByNameAndIDParams struct {

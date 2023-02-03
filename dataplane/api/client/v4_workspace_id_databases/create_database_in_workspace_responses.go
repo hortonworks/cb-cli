@@ -42,7 +42,8 @@ func NewCreateDatabaseInWorkspaceOK() *CreateDatabaseInWorkspaceOK {
 	return &CreateDatabaseInWorkspaceOK{}
 }
 
-/*CreateDatabaseInWorkspaceOK handles this case with default header values.
+/*
+CreateDatabaseInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

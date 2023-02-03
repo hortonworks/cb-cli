@@ -57,7 +57,8 @@ func NewModifyProxyConfigInternalParamsWithHTTPClient(client *http.Client) *Modi
 	}
 }
 
-/*ModifyProxyConfigInternalParams contains all the parameters to send to the API endpoint
+/*
+ModifyProxyConfigInternalParams contains all the parameters to send to the API endpoint
 for the modify proxy config internal operation typically these are written to a http.Request
 */
 type ModifyProxyConfigInternalParams struct {

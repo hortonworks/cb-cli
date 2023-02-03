@@ -56,7 +56,8 @@ func NewGetSdxCmRolesParamsWithHTTPClient(client *http.Client) *GetSdxCmRolesPar
 	}
 }
 
-/*GetSdxCmRolesParams contains all the parameters to send to the API endpoint
+/*
+GetSdxCmRolesParams contains all the parameters to send to the API endpoint
 for the get sdx cm roles operation typically these are written to a http.Request
 */
 type GetSdxCmRolesParams struct {

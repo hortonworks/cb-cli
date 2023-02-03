@@ -56,7 +56,8 @@ func NewListStackDiagnosticsCollectionsParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*ListStackDiagnosticsCollectionsParams contains all the parameters to send to the API endpoint
+/*
+ListStackDiagnosticsCollectionsParams contains all the parameters to send to the API endpoint
 for the list stack diagnostics collections operation typically these are written to a http.Request
 */
 type ListStackDiagnosticsCollectionsParams struct {

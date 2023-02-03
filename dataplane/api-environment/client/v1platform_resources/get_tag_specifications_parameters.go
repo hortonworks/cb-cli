@@ -56,7 +56,8 @@ func NewGetTagSpecificationsParamsWithHTTPClient(client *http.Client) *GetTagSpe
 	}
 }
 
-/*GetTagSpecificationsParams contains all the parameters to send to the API endpoint
+/*
+GetTagSpecificationsParams contains all the parameters to send to the API endpoint
 for the get tag specifications operation typically these are written to a http.Request
 */
 type GetTagSpecificationsParams struct {

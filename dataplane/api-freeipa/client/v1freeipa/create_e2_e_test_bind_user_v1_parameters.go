@@ -58,7 +58,8 @@ func NewCreateE2ETestBindUserV1ParamsWithHTTPClient(client *http.Client) *Create
 	}
 }
 
-/*CreateE2ETestBindUserV1Params contains all the parameters to send to the API endpoint
+/*
+CreateE2ETestBindUserV1Params contains all the parameters to send to the API endpoint
 for the create e2 e test bind user v1 operation typically these are written to a http.Request
 */
 type CreateE2ETestBindUserV1Params struct {

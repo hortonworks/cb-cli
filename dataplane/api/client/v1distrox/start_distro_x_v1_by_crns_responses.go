@@ -39,7 +39,8 @@ func NewStartDistroXV1ByCrnsDefault(code int) *StartDistroXV1ByCrnsDefault {
 	}
 }
 
-/*StartDistroXV1ByCrnsDefault handles this case with default header values.
+/*
+StartDistroXV1ByCrnsDefault handles this case with default header values.
 
 successful operation
 */

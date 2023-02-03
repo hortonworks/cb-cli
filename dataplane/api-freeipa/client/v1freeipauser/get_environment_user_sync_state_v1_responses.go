@@ -42,7 +42,8 @@ func NewGetEnvironmentUserSyncStateV1OK() *GetEnvironmentUserSyncStateV1OK {
 	return &GetEnvironmentUserSyncStateV1OK{}
 }
 
-/*GetEnvironmentUserSyncStateV1OK handles this case with default header values.
+/*
+GetEnvironmentUserSyncStateV1OK handles this case with default header values.
 
 successful operation
 */

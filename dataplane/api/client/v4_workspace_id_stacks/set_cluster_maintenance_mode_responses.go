@@ -42,7 +42,8 @@ func NewSetClusterMaintenanceModeOK() *SetClusterMaintenanceModeOK {
 	return &SetClusterMaintenanceModeOK{}
 }
 
-/*SetClusterMaintenanceModeOK handles this case with default header values.
+/*
+SetClusterMaintenanceModeOK handles this case with default header values.
 
 successful operation
 */

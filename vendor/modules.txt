@@ -1,26 +1,37 @@
 # github.com/PuerkitoBio/purell v1.1.1
+## explicit
 github.com/PuerkitoBio/purell
 # github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578
+## explicit
 github.com/PuerkitoBio/urlesc
 # github.com/asaskevich/govalidator v0.0.0-20180720115003-f9ffefc3facf
+## explicit
 github.com/asaskevich/govalidator
 # github.com/ernesto-jimenez/httplogger v0.0.0-20150224132909-86cc44f6150a
+## explicit
 github.com/ernesto-jimenez/httplogger
 # github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
+## explicit
 github.com/globalsign/mgo/bson
 github.com/globalsign/mgo/internal/json
 # github.com/go-openapi/analysis v0.18.0
+## explicit
 github.com/go-openapi/analysis
 github.com/go-openapi/analysis/internal
 # github.com/go-openapi/errors v0.18.0
+## explicit
 github.com/go-openapi/errors
 # github.com/go-openapi/jsonpointer v0.18.0
+## explicit
 github.com/go-openapi/jsonpointer
 # github.com/go-openapi/jsonreference v0.18.0
+## explicit
 github.com/go-openapi/jsonreference
 # github.com/go-openapi/loads v0.18.0
+## explicit
 github.com/go-openapi/loads
 # github.com/go-openapi/runtime v0.19.0
+## explicit
 github.com/go-openapi/runtime
 github.com/go-openapi/runtime/client
 github.com/go-openapi/runtime/logger
@@ -30,45 +41,63 @@ github.com/go-openapi/runtime/middleware/header
 github.com/go-openapi/runtime/middleware/untyped
 github.com/go-openapi/runtime/security
 # github.com/go-openapi/spec v0.18.0
+## explicit
 github.com/go-openapi/spec
 # github.com/go-openapi/strfmt v0.18.0
+## explicit
 github.com/go-openapi/strfmt
 # github.com/go-openapi/swag v0.18.0
+## explicit
 github.com/go-openapi/swag
 # github.com/go-openapi/validate v0.18.0
+## explicit
 github.com/go-openapi/validate
 # github.com/hortonworks/dp-cli-common/apikeyauth v0.0.12
+## explicit; go 1.12
 github.com/hortonworks/dp-cli-common/apikeyauth
 # github.com/hortonworks/dp-cli-common/utils v0.0.3
+## explicit
 github.com/hortonworks/dp-cli-common/utils
 # github.com/konsorten/go-windows-terminal-sequences v1.0.2
+## explicit
 github.com/konsorten/go-windows-terminal-sequences
 # github.com/mailru/easyjson v0.0.0-20190312143242-1de009706dbe
+## explicit
 github.com/mailru/easyjson/buffer
 github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
 # github.com/mattn/go-runewidth v0.0.4
+## explicit
 github.com/mattn/go-runewidth
 # github.com/mitchellh/go-homedir v1.0.0
+## explicit
 github.com/mitchellh/go-homedir
 # github.com/mitchellh/mapstructure v1.1.2
+## explicit
 github.com/mitchellh/mapstructure
 # github.com/olekukonko/tablewriter v0.0.1
+## explicit
 github.com/olekukonko/tablewriter
 # github.com/sirupsen/logrus v1.4.2
+## explicit
 github.com/sirupsen/logrus
 # github.com/urfave/cli v1.20.0
+## explicit
 github.com/urfave/cli
 # golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4
+## explicit
 golang.org/x/crypto/ed25519
 golang.org/x/crypto/ed25519/internal/edwards25519
 golang.org/x/crypto/ssh/terminal
 # golang.org/x/net v0.0.0-20190628185345-da137c7871d7
+## explicit; go 1.11
 golang.org/x/net/idna
 # golang.org/x/sys v0.0.0-20190626221950-04f50cda93cb
+## explicit; go 1.12
 golang.org/x/sys/unix
 golang.org/x/sys/windows
 # golang.org/x/text v0.3.2
+## explicit
 golang.org/x/text/encoding
 golang.org/x/text/encoding/internal
 golang.org/x/text/encoding/internal/identifier
@@ -81,8 +110,11 @@ golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/width
 # gopkg.in/asn1-ber.v1 v1.0.0-20170511165959-379148ca0225
+## explicit
 gopkg.in/asn1-ber.v1
 # gopkg.in/ldap.v2 v2.5.1
+## explicit
 gopkg.in/ldap.v2
 # gopkg.in/yaml.v2 v2.2.2
+## explicit
 gopkg.in/yaml.v2

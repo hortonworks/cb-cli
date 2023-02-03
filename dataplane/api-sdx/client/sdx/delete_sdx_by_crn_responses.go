@@ -42,7 +42,8 @@ func NewDeleteSdxByCrnOK() *DeleteSdxByCrnOK {
 	return &DeleteSdxByCrnOK{}
 }
 
-/*DeleteSdxByCrnOK handles this case with default header values.
+/*
+DeleteSdxByCrnOK handles this case with default header values.
 
 successful operation
 */

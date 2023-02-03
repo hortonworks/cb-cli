@@ -42,7 +42,8 @@ func NewGetImageByNameAndIDOK() *GetImageByNameAndIDOK {
 	return &GetImageByNameAndIDOK{}
 }
 
-/*GetImageByNameAndIDOK handles this case with default header values.
+/*
+GetImageByNameAndIDOK handles this case with default header values.
 
 successful operation
 */

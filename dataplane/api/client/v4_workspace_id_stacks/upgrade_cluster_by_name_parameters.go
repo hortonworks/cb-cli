@@ -57,7 +57,8 @@ func NewUpgradeClusterByNameParamsWithHTTPClient(client *http.Client) *UpgradeCl
 	}
 }
 
-/*UpgradeClusterByNameParams contains all the parameters to send to the API endpoint
+/*
+UpgradeClusterByNameParams contains all the parameters to send to the API endpoint
 for the upgrade cluster by name operation typically these are written to a http.Request
 */
 type UpgradeClusterByNameParams struct {

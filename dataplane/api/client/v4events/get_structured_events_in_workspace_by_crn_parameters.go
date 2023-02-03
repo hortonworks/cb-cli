@@ -69,7 +69,8 @@ func NewGetStructuredEventsInWorkspaceByCrnParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/*GetStructuredEventsInWorkspaceByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetStructuredEventsInWorkspaceByCrnParams contains all the parameters to send to the API endpoint
 for the get structured events in workspace by crn operation typically these are written to a http.Request
 */
 type GetStructuredEventsInWorkspaceByCrnParams struct {

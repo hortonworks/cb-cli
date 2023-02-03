@@ -57,7 +57,8 @@ func NewDeleteClusterTemplatesInWorkspaceParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*DeleteClusterTemplatesInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+DeleteClusterTemplatesInWorkspaceParams contains all the parameters to send to the API endpoint
 for the delete cluster templates in workspace operation typically these are written to a http.Request
 */
 type DeleteClusterTemplatesInWorkspaceParams struct {

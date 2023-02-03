@@ -39,7 +39,8 @@ func NewUpdateLoadBalancerDNSDefault(code int) *UpdateLoadBalancerDNSDefault {
 	}
 }
 
-/*UpdateLoadBalancerDNSDefault handles this case with default header values.
+/*
+UpdateLoadBalancerDNSDefault handles this case with default header values.
 
 successful operation
 */

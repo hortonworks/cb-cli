@@ -56,7 +56,8 @@ func NewListDNSZonesV1ParamsWithHTTPClient(client *http.Client) *ListDNSZonesV1P
 	}
 }
 
-/*ListDNSZonesV1Params contains all the parameters to send to the API endpoint
+/*
+ListDNSZonesV1Params contains all the parameters to send to the API endpoint
 for the list Dns zones v1 operation typically these are written to a http.Request
 */
 type ListDNSZonesV1Params struct {

@@ -56,7 +56,8 @@ func NewAuthorizationInfoParamsWithHTTPClient(client *http.Client) *Authorizatio
 	}
 }
 
-/*AuthorizationInfoParams contains all the parameters to send to the API endpoint
+/*
+AuthorizationInfoParams contains all the parameters to send to the API endpoint
 for the authorization info operation typically these are written to a http.Request
 */
 type AuthorizationInfoParams struct {

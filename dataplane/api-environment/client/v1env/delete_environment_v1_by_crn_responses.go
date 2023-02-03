@@ -42,7 +42,8 @@ func NewDeleteEnvironmentV1ByCrnOK() *DeleteEnvironmentV1ByCrnOK {
 	return &DeleteEnvironmentV1ByCrnOK{}
 }
 
-/*DeleteEnvironmentV1ByCrnOK handles this case with default header values.
+/*
+DeleteEnvironmentV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

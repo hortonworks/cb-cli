@@ -69,7 +69,8 @@ func NewDeleteDatabaseServerByNameParamsWithHTTPClient(client *http.Client) *Del
 	}
 }
 
-/*DeleteDatabaseServerByNameParams contains all the parameters to send to the API endpoint
+/*
+DeleteDatabaseServerByNameParams contains all the parameters to send to the API endpoint
 for the delete database server by name operation typically these are written to a http.Request
 */
 type DeleteDatabaseServerByNameParams struct {

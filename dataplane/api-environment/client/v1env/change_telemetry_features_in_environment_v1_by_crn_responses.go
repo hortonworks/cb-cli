@@ -42,7 +42,8 @@ func NewChangeTelemetryFeaturesInEnvironmentV1ByCrnOK() *ChangeTelemetryFeatures
 	return &ChangeTelemetryFeaturesInEnvironmentV1ByCrnOK{}
 }
 
-/*ChangeTelemetryFeaturesInEnvironmentV1ByCrnOK handles this case with default header values.
+/*
+ChangeTelemetryFeaturesInEnvironmentV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

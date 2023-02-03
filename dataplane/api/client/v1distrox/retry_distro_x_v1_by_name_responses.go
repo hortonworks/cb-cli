@@ -39,7 +39,8 @@ func NewRetryDistroXV1ByNameDefault(code int) *RetryDistroXV1ByNameDefault {
 	}
 }
 
-/*RetryDistroXV1ByNameDefault handles this case with default header values.
+/*
+RetryDistroXV1ByNameDefault handles this case with default header values.
 
 successful operation
 */

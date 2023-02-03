@@ -42,7 +42,8 @@ func NewGetEventsByResourceNameInAccountOK() *GetEventsByResourceNameInAccountOK
 	return &GetEventsByResourceNameInAccountOK{}
 }
 
-/*GetEventsByResourceNameInAccountOK handles this case with default header values.
+/*
+GetEventsByResourceNameInAccountOK handles this case with default header values.
 
 successful operation
 */

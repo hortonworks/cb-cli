@@ -56,7 +56,8 @@ func NewGetDistroXRequestV1ByCrnParamsWithHTTPClient(client *http.Client) *GetDi
 	}
 }
 
-/*GetDistroXRequestV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetDistroXRequestV1ByCrnParams contains all the parameters to send to the API endpoint
 for the get distro x request v1 by crn operation typically these are written to a http.Request
 */
 type GetDistroXRequestV1ByCrnParams struct {

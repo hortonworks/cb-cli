@@ -42,7 +42,8 @@ func NewGetClusterRecoverableByNameOK() *GetClusterRecoverableByNameOK {
 	return &GetClusterRecoverableByNameOK{}
 }
 
-/*GetClusterRecoverableByNameOK handles this case with default header values.
+/*
+GetClusterRecoverableByNameOK handles this case with default header values.
 
 successful operation
 */

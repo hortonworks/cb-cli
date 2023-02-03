@@ -42,7 +42,8 @@ func NewGetGatewaysCredentialIDOK() *GetGatewaysCredentialIDOK {
 	return &GetGatewaysCredentialIDOK{}
 }
 
-/*GetGatewaysCredentialIDOK handles this case with default header values.
+/*
+GetGatewaysCredentialIDOK handles this case with default header values.
 
 successful operation
 */

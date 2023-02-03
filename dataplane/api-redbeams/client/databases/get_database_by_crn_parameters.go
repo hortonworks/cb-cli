@@ -56,7 +56,8 @@ func NewGetDatabaseByCrnParamsWithHTTPClient(client *http.Client) *GetDatabaseBy
 	}
 }
 
-/*GetDatabaseByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetDatabaseByCrnParams contains all the parameters to send to the API endpoint
 for the get database by crn operation typically these are written to a http.Request
 */
 type GetDatabaseByCrnParams struct {

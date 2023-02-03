@@ -58,7 +58,8 @@ func NewGetServiceKeytabV1ParamsWithHTTPClient(client *http.Client) *GetServiceK
 	}
 }
 
-/*GetServiceKeytabV1Params contains all the parameters to send to the API endpoint
+/*
+GetServiceKeytabV1Params contains all the parameters to send to the API endpoint
 for the get service keytab v1 operation typically these are written to a http.Request
 */
 type GetServiceKeytabV1Params struct {

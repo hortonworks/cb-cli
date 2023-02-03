@@ -42,7 +42,8 @@ func NewDownscaleFreeIpaV1OK() *DownscaleFreeIpaV1OK {
 	return &DownscaleFreeIpaV1OK{}
 }
 
-/*DownscaleFreeIpaV1OK handles this case with default header values.
+/*
+DownscaleFreeIpaV1OK handles this case with default header values.
 
 successful operation
 */

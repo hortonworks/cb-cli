@@ -42,7 +42,8 @@ func NewGetDistroXV1ByNameOK() *GetDistroXV1ByNameOK {
 	return &GetDistroXV1ByNameOK{}
 }
 
-/*GetDistroXV1ByNameOK handles this case with default header values.
+/*
+GetDistroXV1ByNameOK handles this case with default header values.
 
 successful operation
 */

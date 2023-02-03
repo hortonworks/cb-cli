@@ -68,7 +68,8 @@ func NewGetAccessConfigsByEnvParamsWithHTTPClient(client *http.Client) *GetAcces
 	}
 }
 
-/*GetAccessConfigsByEnvParams contains all the parameters to send to the API endpoint
+/*
+GetAccessConfigsByEnvParams contains all the parameters to send to the API endpoint
 for the get access configs by env operation typically these are written to a http.Request
 */
 type GetAccessConfigsByEnvParams struct {

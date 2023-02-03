@@ -42,7 +42,8 @@ func NewBackupDatabaseStatusOK() *BackupDatabaseStatusOK {
 	return &BackupDatabaseStatusOK{}
 }
 
-/*BackupDatabaseStatusOK handles this case with default header values.
+/*
+BackupDatabaseStatusOK handles this case with default header values.
 
 successful operation
 */

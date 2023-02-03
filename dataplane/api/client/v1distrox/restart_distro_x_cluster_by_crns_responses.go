@@ -39,7 +39,8 @@ func NewRestartDistroXClusterByCrnsDefault(code int) *RestartDistroXClusterByCrn
 	}
 }
 
-/*RestartDistroXClusterByCrnsDefault handles this case with default header values.
+/*
+RestartDistroXClusterByCrnsDefault handles this case with default header values.
 
 successful operation
 */

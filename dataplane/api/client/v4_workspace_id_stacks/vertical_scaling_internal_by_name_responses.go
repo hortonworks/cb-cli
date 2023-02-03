@@ -42,7 +42,8 @@ func NewVerticalScalingInternalByNameOK() *VerticalScalingInternalByNameOK {
 	return &VerticalScalingInternalByNameOK{}
 }
 
-/*VerticalScalingInternalByNameOK handles this case with default header values.
+/*
+VerticalScalingInternalByNameOK handles this case with default header values.
 
 successful operation
 */

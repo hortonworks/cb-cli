@@ -56,7 +56,8 @@ func NewDeleteByCrnParamsWithHTTPClient(client *http.Client) *DeleteByCrnParams 
 	}
 }
 
-/*DeleteByCrnParams contains all the parameters to send to the API endpoint
+/*
+DeleteByCrnParams contains all the parameters to send to the API endpoint
 for the delete by crn operation typically these are written to a http.Request
 */
 type DeleteByCrnParams struct {

@@ -56,7 +56,8 @@ func NewHasFlowRunningByFlowIDParamsWithHTTPClient(client *http.Client) *HasFlow
 	}
 }
 
-/*HasFlowRunningByFlowIDParams contains all the parameters to send to the API endpoint
+/*
+HasFlowRunningByFlowIDParams contains all the parameters to send to the API endpoint
 for the has flow running by flow Id operation typically these are written to a http.Request
 */
 type HasFlowRunningByFlowIDParams struct {

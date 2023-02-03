@@ -42,7 +42,8 @@ func NewGetPlatformNetworksOK() *GetPlatformNetworksOK {
 	return &GetPlatformNetworksOK{}
 }
 
-/*GetPlatformNetworksOK handles this case with default header values.
+/*
+GetPlatformNetworksOK handles this case with default header values.
 
 successful operation
 */

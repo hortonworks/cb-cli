@@ -56,7 +56,8 @@ func NewListFeaturesV1ParamsWithHTTPClient(client *http.Client) *ListFeaturesV1P
 	}
 }
 
-/*ListFeaturesV1Params contains all the parameters to send to the API endpoint
+/*
+ListFeaturesV1Params contains all the parameters to send to the API endpoint
 for the list features v1 operation typically these are written to a http.Request
 */
 type ListFeaturesV1Params struct {

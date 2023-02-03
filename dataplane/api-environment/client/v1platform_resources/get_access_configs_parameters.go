@@ -68,7 +68,8 @@ func NewGetAccessConfigsParamsWithHTTPClient(client *http.Client) *GetAccessConf
 	}
 }
 
-/*GetAccessConfigsParams contains all the parameters to send to the API endpoint
+/*
+GetAccessConfigsParams contains all the parameters to send to the API endpoint
 for the get access configs operation typically these are written to a http.Request
 */
 type GetAccessConfigsParams struct {

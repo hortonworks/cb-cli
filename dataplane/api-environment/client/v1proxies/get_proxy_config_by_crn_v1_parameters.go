@@ -56,7 +56,8 @@ func NewGetProxyConfigByCrnV1ParamsWithHTTPClient(client *http.Client) *GetProxy
 	}
 }
 
-/*GetProxyConfigByCrnV1Params contains all the parameters to send to the API endpoint
+/*
+GetProxyConfigByCrnV1Params contains all the parameters to send to the API endpoint
 for the get proxy config by crn v1 operation typically these are written to a http.Request
 */
 type GetProxyConfigByCrnV1Params struct {

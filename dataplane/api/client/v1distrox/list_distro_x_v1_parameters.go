@@ -56,7 +56,8 @@ func NewListDistroXV1ParamsWithHTTPClient(client *http.Client) *ListDistroXV1Par
 	}
 }
 
-/*ListDistroXV1Params contains all the parameters to send to the API endpoint
+/*
+ListDistroXV1Params contains all the parameters to send to the API endpoint
 for the list distro x v1 operation typically these are written to a http.Request
 */
 type ListDistroXV1Params struct {

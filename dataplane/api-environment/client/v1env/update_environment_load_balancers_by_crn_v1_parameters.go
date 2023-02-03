@@ -58,7 +58,8 @@ func NewUpdateEnvironmentLoadBalancersByCrnV1ParamsWithHTTPClient(client *http.C
 	}
 }
 
-/*UpdateEnvironmentLoadBalancersByCrnV1Params contains all the parameters to send to the API endpoint
+/*
+UpdateEnvironmentLoadBalancersByCrnV1Params contains all the parameters to send to the API endpoint
 for the update environment load balancers by crn v1 operation typically these are written to a http.Request
 */
 type UpdateEnvironmentLoadBalancersByCrnV1Params struct {

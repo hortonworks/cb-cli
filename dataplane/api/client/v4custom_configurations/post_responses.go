@@ -42,7 +42,8 @@ func NewPostOK() *PostOK {
 	return &PostOK{}
 }
 
-/*PostOK handles this case with default header values.
+/*
+PostOK handles this case with default header values.
 
 successful operation
 */

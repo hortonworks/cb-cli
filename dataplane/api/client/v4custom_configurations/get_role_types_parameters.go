@@ -56,7 +56,8 @@ func NewGetRoleTypesParamsWithHTTPClient(client *http.Client) *GetRoleTypesParam
 	}
 }
 
-/*GetRoleTypesParams contains all the parameters to send to the API endpoint
+/*
+GetRoleTypesParams contains all the parameters to send to the API endpoint
 for the get role types operation typically these are written to a http.Request
 */
 type GetRoleTypesParams struct {

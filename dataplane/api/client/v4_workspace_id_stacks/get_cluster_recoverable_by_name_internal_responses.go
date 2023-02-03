@@ -42,7 +42,8 @@ func NewGetClusterRecoverableByNameInternalOK() *GetClusterRecoverableByNameInte
 	return &GetClusterRecoverableByNameInternalOK{}
 }
 
-/*GetClusterRecoverableByNameInternalOK handles this case with default header values.
+/*
+GetClusterRecoverableByNameInternalOK handles this case with default header values.
 
 successful operation
 */

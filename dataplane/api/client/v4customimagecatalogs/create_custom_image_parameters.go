@@ -58,7 +58,8 @@ func NewCreateCustomImageParamsWithHTTPClient(client *http.Client) *CreateCustom
 	}
 }
 
-/*CreateCustomImageParams contains all the parameters to send to the API endpoint
+/*
+CreateCustomImageParams contains all the parameters to send to the API endpoint
 for the create custom image operation typically these are written to a http.Request
 */
 type CreateCustomImageParams struct {

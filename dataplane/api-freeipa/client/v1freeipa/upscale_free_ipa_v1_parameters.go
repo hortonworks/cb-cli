@@ -58,7 +58,8 @@ func NewUpscaleFreeIpaV1ParamsWithHTTPClient(client *http.Client) *UpscaleFreeIp
 	}
 }
 
-/*UpscaleFreeIpaV1Params contains all the parameters to send to the API endpoint
+/*
+UpscaleFreeIpaV1Params contains all the parameters to send to the API endpoint
 for the upscale free ipa v1 operation typically these are written to a http.Request
 */
 type UpscaleFreeIpaV1Params struct {

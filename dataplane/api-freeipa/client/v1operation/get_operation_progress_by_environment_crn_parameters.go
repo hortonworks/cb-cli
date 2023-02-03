@@ -69,7 +69,8 @@ func NewGetOperationProgressByEnvironmentCrnParamsWithHTTPClient(client *http.Cl
 	}
 }
 
-/*GetOperationProgressByEnvironmentCrnParams contains all the parameters to send to the API endpoint
+/*
+GetOperationProgressByEnvironmentCrnParams contains all the parameters to send to the API endpoint
 for the get operation progress by environment crn operation typically these are written to a http.Request
 */
 type GetOperationProgressByEnvironmentCrnParams struct {

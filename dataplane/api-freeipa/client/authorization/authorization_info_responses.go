@@ -42,7 +42,8 @@ func NewAuthorizationInfoOK() *AuthorizationInfoOK {
 	return &AuthorizationInfoOK{}
 }
 
-/*AuthorizationInfoOK handles this case with default header values.
+/*
+AuthorizationInfoOK handles this case with default header values.
 
 successful operation
 */

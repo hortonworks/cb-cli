@@ -58,7 +58,8 @@ func NewGetCreateClusterForCliParamsWithHTTPClient(client *http.Client) *GetCrea
 	}
 }
 
-/*GetCreateClusterForCliParams contains all the parameters to send to the API endpoint
+/*
+GetCreateClusterForCliParams contains all the parameters to send to the API endpoint
 for the get create cluster for cli operation typically these are written to a http.Request
 */
 type GetCreateClusterForCliParams struct {

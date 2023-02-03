@@ -56,7 +56,8 @@ func NewGetDefaultAccountTelemetryV1ParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetDefaultAccountTelemetryV1Params contains all the parameters to send to the API endpoint
+/*
+GetDefaultAccountTelemetryV1Params contains all the parameters to send to the API endpoint
 for the get default account telemetry v1 operation typically these are written to a http.Request
 */
 type GetDefaultAccountTelemetryV1Params struct {

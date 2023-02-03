@@ -58,7 +58,8 @@ func NewCheckUsersParamsWithHTTPClient(client *http.Client) *CheckUsersParams {
 	}
 }
 
-/*CheckUsersParams contains all the parameters to send to the API endpoint
+/*
+CheckUsersParams contains all the parameters to send to the API endpoint
 for the check users operation typically these are written to a http.Request
 */
 type CheckUsersParams struct {

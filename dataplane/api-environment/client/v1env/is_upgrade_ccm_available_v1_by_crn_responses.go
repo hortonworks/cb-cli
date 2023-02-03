@@ -40,7 +40,8 @@ func NewIsUpgradeCcmAvailableV1ByCrnOK() *IsUpgradeCcmAvailableV1ByCrnOK {
 	return &IsUpgradeCcmAvailableV1ByCrnOK{}
 }
 
-/*IsUpgradeCcmAvailableV1ByCrnOK handles this case with default header values.
+/*
+IsUpgradeCcmAvailableV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -77,7 +77,8 @@ func NewGetEventsByResourceNameInAccountParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*GetEventsByResourceNameInAccountParams contains all the parameters to send to the API endpoint
+/*
+GetEventsByResourceNameInAccountParams contains all the parameters to send to the API endpoint
 for the get events by resource name in account operation typically these are written to a http.Request
 */
 type GetEventsByResourceNameInAccountParams struct {

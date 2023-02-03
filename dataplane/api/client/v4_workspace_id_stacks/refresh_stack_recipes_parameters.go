@@ -59,7 +59,8 @@ func NewRefreshStackRecipesParamsWithHTTPClient(client *http.Client) *RefreshSta
 	}
 }
 
-/*RefreshStackRecipesParams contains all the parameters to send to the API endpoint
+/*
+RefreshStackRecipesParams contains all the parameters to send to the API endpoint
 for the refresh stack recipes operation typically these are written to a http.Request
 */
 type RefreshStackRecipesParams struct {

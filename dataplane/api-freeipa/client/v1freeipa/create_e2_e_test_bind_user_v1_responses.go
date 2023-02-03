@@ -42,7 +42,8 @@ func NewCreateE2ETestBindUserV1OK() *CreateE2ETestBindUserV1OK {
 	return &CreateE2ETestBindUserV1OK{}
 }
 
-/*CreateE2ETestBindUserV1OK handles this case with default header values.
+/*
+CreateE2ETestBindUserV1OK handles this case with default header values.
 
 successful operation
 */

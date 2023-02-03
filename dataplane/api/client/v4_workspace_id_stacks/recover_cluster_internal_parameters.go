@@ -57,7 +57,8 @@ func NewRecoverClusterInternalParamsWithHTTPClient(client *http.Client) *Recover
 	}
 }
 
-/*RecoverClusterInternalParams contains all the parameters to send to the API endpoint
+/*
+RecoverClusterInternalParams contains all the parameters to send to the API endpoint
 for the recover cluster internal operation typically these are written to a http.Request
 */
 type RecoverClusterInternalParams struct {

@@ -42,7 +42,8 @@ func NewGetDistroXOperationProgressByResourceCrnOK() *GetDistroXOperationProgres
 	return &GetDistroXOperationProgressByResourceCrnOK{}
 }
 
-/*GetDistroXOperationProgressByResourceCrnOK handles this case with default header values.
+/*
+GetDistroXOperationProgressByResourceCrnOK handles this case with default header values.
 
 successful operation
 */

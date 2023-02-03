@@ -42,7 +42,8 @@ func NewIsStoppableOK() *IsStoppableOK {
 	return &IsStoppableOK{}
 }
 
-/*IsStoppableOK handles this case with default header values.
+/*
+IsStoppableOK handles this case with default header values.
 
 successful operation
 */

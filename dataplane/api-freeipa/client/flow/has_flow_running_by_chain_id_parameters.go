@@ -56,7 +56,8 @@ func NewHasFlowRunningByChainIDParamsWithHTTPClient(client *http.Client) *HasFlo
 	}
 }
 
-/*HasFlowRunningByChainIDParams contains all the parameters to send to the API endpoint
+/*
+HasFlowRunningByChainIDParams contains all the parameters to send to the API endpoint
 for the has flow running by chain Id operation typically these are written to a http.Request
 */
 type HasFlowRunningByChainIDParams struct {

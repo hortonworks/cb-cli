@@ -42,7 +42,8 @@ func NewGetStackInWorkspaceV4OK() *GetStackInWorkspaceV4OK {
 	return &GetStackInWorkspaceV4OK{}
 }
 
-/*GetStackInWorkspaceV4OK handles this case with default header values.
+/*
+GetStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

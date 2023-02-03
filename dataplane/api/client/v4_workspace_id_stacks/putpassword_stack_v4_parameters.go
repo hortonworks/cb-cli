@@ -59,7 +59,8 @@ func NewPutpasswordStackV4ParamsWithHTTPClient(client *http.Client) *Putpassword
 	}
 }
 
-/*PutpasswordStackV4Params contains all the parameters to send to the API endpoint
+/*
+PutpasswordStackV4Params contains all the parameters to send to the API endpoint
 for the putpassword stack v4 operation typically these are written to a http.Request
 */
 type PutpasswordStackV4Params struct {

@@ -56,7 +56,8 @@ func NewVerifyCredentialByNameParamsWithHTTPClient(client *http.Client) *VerifyC
 	}
 }
 
-/*VerifyCredentialByNameParams contains all the parameters to send to the API endpoint
+/*
+VerifyCredentialByNameParams contains all the parameters to send to the API endpoint
 for the verify credential by name operation typically these are written to a http.Request
 */
 type VerifyCredentialByNameParams struct {

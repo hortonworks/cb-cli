@@ -42,7 +42,8 @@ func NewGetCreateKerberosRequestForEnvironmentOK() *GetCreateKerberosRequestForE
 	return &GetCreateKerberosRequestForEnvironmentOK{}
 }
 
-/*GetCreateKerberosRequestForEnvironmentOK handles this case with default header values.
+/*
+GetCreateKerberosRequestForEnvironmentOK handles this case with default header values.
 
 successful operation
 */

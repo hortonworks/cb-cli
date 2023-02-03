@@ -42,7 +42,8 @@ func NewDeleteEnvironmentV1ByNameOK() *DeleteEnvironmentV1ByNameOK {
 	return &DeleteEnvironmentV1ByNameOK{}
 }
 
-/*DeleteEnvironmentV1ByNameOK handles this case with default header values.
+/*
+DeleteEnvironmentV1ByNameOK handles this case with default header values.
 
 successful operation
 */

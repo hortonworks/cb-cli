@@ -58,7 +58,8 @@ func NewRepairDistroXV1ByCrnParamsWithHTTPClient(client *http.Client) *RepairDis
 	}
 }
 
-/*RepairDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+RepairDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
 for the repair distro x v1 by crn operation typically these are written to a http.Request
 */
 type RepairDistroXV1ByCrnParams struct {

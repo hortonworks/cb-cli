@@ -59,7 +59,8 @@ func NewChangeImageCatalogInternalParamsWithHTTPClient(client *http.Client) *Cha
 	}
 }
 
-/*ChangeImageCatalogInternalParams contains all the parameters to send to the API endpoint
+/*
+ChangeImageCatalogInternalParams contains all the parameters to send to the API endpoint
 for the change image catalog internal operation typically these are written to a http.Request
 */
 type ChangeImageCatalogInternalParams struct {

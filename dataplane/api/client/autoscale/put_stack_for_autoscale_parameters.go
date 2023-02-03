@@ -58,7 +58,8 @@ func NewPutStackForAutoscaleParamsWithHTTPClient(client *http.Client) *PutStackF
 	}
 }
 
-/*PutStackForAutoscaleParams contains all the parameters to send to the API endpoint
+/*
+PutStackForAutoscaleParams contains all the parameters to send to the API endpoint
 for the put stack for autoscale operation typically these are written to a http.Request
 */
 type PutStackForAutoscaleParams struct {

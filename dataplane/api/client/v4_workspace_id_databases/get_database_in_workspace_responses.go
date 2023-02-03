@@ -42,7 +42,8 @@ func NewGetDatabaseInWorkspaceOK() *GetDatabaseInWorkspaceOK {
 	return &GetDatabaseInWorkspaceOK{}
 }
 
-/*GetDatabaseInWorkspaceOK handles this case with default header values.
+/*
+GetDatabaseInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewUpgradeDistroxClusterInternalOK() *UpgradeDistroxClusterInternalOK {
 	return &UpgradeDistroxClusterInternalOK{}
 }
 
-/*UpgradeDistroxClusterInternalOK handles this case with default header values.
+/*
+UpgradeDistroxClusterInternalOK handles this case with default header values.
 
 successful operation
 */

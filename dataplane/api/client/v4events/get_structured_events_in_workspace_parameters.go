@@ -56,7 +56,8 @@ func NewGetStructuredEventsInWorkspaceParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*GetStructuredEventsInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetStructuredEventsInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get structured events in workspace operation typically these are written to a http.Request
 */
 type GetStructuredEventsInWorkspaceParams struct {

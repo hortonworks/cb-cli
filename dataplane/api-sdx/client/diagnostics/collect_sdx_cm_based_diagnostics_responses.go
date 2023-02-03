@@ -42,7 +42,8 @@ func NewCollectSdxCmBasedDiagnosticsOK() *CollectSdxCmBasedDiagnosticsOK {
 	return &CollectSdxCmBasedDiagnosticsOK{}
 }
 
-/*CollectSdxCmBasedDiagnosticsOK handles this case with default header values.
+/*
+CollectSdxCmBasedDiagnosticsOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewAutoscaleStopInstancesByCrnOK() *AutoscaleStopInstancesByCrnOK {
 	return &AutoscaleStopInstancesByCrnOK{}
 }
 
-/*AutoscaleStopInstancesByCrnOK handles this case with default header values.
+/*
+AutoscaleStopInstancesByCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -39,7 +39,8 @@ func NewCleanupEnvironmentSecretsV1Default(code int) *CleanupEnvironmentSecretsV
 	}
 }
 
-/*CleanupEnvironmentSecretsV1Default handles this case with default header values.
+/*
+CleanupEnvironmentSecretsV1Default handles this case with default header values.
 
 successful operation
 */

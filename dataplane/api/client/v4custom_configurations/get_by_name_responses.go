@@ -42,7 +42,8 @@ func NewGetByNameOK() *GetByNameOK {
 	return &GetByNameOK{}
 }
 
-/*GetByNameOK handles this case with default header values.
+/*
+GetByNameOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewCleanupV1OK() *CleanupV1OK {
 	return &CleanupV1OK{}
 }
 
-/*CleanupV1OK handles this case with default header values.
+/*
+CleanupV1OK handles this case with default header values.
 
 successful operation
 */

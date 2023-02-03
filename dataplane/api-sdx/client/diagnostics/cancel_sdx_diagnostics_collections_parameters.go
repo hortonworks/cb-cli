@@ -56,7 +56,8 @@ func NewCancelSdxDiagnosticsCollectionsParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*CancelSdxDiagnosticsCollectionsParams contains all the parameters to send to the API endpoint
+/*
+CancelSdxDiagnosticsCollectionsParams contains all the parameters to send to the API endpoint
 for the cancel sdx diagnostics collections operation typically these are written to a http.Request
 */
 type CancelSdxDiagnosticsCollectionsParams struct {

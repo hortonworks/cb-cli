@@ -56,7 +56,8 @@ func NewStatusDistroXV1ByNameParamsWithHTTPClient(client *http.Client) *StatusDi
 	}
 }
 
-/*StatusDistroXV1ByNameParams contains all the parameters to send to the API endpoint
+/*
+StatusDistroXV1ByNameParams contains all the parameters to send to the API endpoint
 for the status distro x v1 by name operation typically these are written to a http.Request
 */
 type StatusDistroXV1ByNameParams struct {

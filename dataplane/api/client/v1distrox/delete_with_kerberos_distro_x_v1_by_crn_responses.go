@@ -39,7 +39,8 @@ func NewDeleteWithKerberosDistroXV1ByCrnDefault(code int) *DeleteWithKerberosDis
 	}
 }
 
-/*DeleteWithKerberosDistroXV1ByCrnDefault handles this case with default header values.
+/*
+DeleteWithKerberosDistroXV1ByCrnDefault handles this case with default header values.
 
 successful operation
 */

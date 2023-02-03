@@ -42,7 +42,8 @@ func NewListSdxOK() *ListSdxOK {
 	return &ListSdxOK{}
 }
 
-/*ListSdxOK handles this case with default header values.
+/*
+ListSdxOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewCheckClientVersionOfSdxOK() *CheckClientVersionOfSdxOK {
 	return &CheckClientVersionOfSdxOK{}
 }
 
-/*CheckClientVersionOfSdxOK handles this case with default header values.
+/*
+CheckClientVersionOfSdxOK handles this case with default header values.
 
 successful operation
 */

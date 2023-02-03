@@ -59,7 +59,8 @@ func NewPostStackInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *PostSta
 	}
 }
 
-/*PostStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+PostStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the post stack in workspace v4 operation typically these are written to a http.Request
 */
 type PostStackInWorkspaceV4Params struct {

@@ -42,7 +42,8 @@ func NewListDatabasesByWorkspaceOK() *ListDatabasesByWorkspaceOK {
 	return &ListDatabasesByWorkspaceOK{}
 }
 
-/*ListDatabasesByWorkspaceOK handles this case with default header values.
+/*
+ListDatabasesByWorkspaceOK handles this case with default header values.
 
 successful operation
 */

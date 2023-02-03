@@ -57,7 +57,8 @@ func NewListClusterTemplatesByWorkspaceParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*ListClusterTemplatesByWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+ListClusterTemplatesByWorkspaceParams contains all the parameters to send to the API endpoint
 for the list cluster templates by workspace operation typically these are written to a http.Request
 */
 type ListClusterTemplatesByWorkspaceParams struct {

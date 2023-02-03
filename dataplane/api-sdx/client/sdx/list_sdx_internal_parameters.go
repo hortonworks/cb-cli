@@ -56,7 +56,8 @@ func NewListSdxInternalParamsWithHTTPClient(client *http.Client) *ListSdxInterna
 	}
 }
 
-/*ListSdxInternalParams contains all the parameters to send to the API endpoint
+/*
+ListSdxInternalParams contains all the parameters to send to the API endpoint
 for the list sdx internal operation typically these are written to a http.Request
 */
 type ListSdxInternalParams struct {

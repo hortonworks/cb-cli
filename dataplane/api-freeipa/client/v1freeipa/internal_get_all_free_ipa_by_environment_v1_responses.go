@@ -42,7 +42,8 @@ func NewInternalGetAllFreeIpaByEnvironmentV1OK() *InternalGetAllFreeIpaByEnviron
 	return &InternalGetAllFreeIpaByEnvironmentV1OK{}
 }
 
-/*InternalGetAllFreeIpaByEnvironmentV1OK handles this case with default header values.
+/*
+InternalGetAllFreeIpaByEnvironmentV1OK handles this case with default header values.
 
 successful operation
 */

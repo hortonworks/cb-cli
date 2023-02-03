@@ -77,7 +77,8 @@ func NewGetCloudbreakEventsListByStackParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*GetCloudbreakEventsListByStackParams contains all the parameters to send to the API endpoint
+/*
+GetCloudbreakEventsListByStackParams contains all the parameters to send to the API endpoint
 for the get cloudbreak events list by stack operation typically these are written to a http.Request
 */
 type GetCloudbreakEventsListByStackParams struct {

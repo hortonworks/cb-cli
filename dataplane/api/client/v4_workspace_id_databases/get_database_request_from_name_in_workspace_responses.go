@@ -42,7 +42,8 @@ func NewGetDatabaseRequestFromNameInWorkspaceOK() *GetDatabaseRequestFromNameInW
 	return &GetDatabaseRequestFromNameInWorkspaceOK{}
 }
 
-/*GetDatabaseRequestFromNameInWorkspaceOK handles this case with default header values.
+/*
+GetDatabaseRequestFromNameInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

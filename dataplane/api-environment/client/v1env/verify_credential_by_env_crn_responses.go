@@ -42,7 +42,8 @@ func NewVerifyCredentialByEnvCrnOK() *VerifyCredentialByEnvCrnOK {
 	return &VerifyCredentialByEnvCrnOK{}
 }
 
-/*VerifyCredentialByEnvCrnOK handles this case with default header values.
+/*
+VerifyCredentialByEnvCrnOK handles this case with default header values.
 
 successful operation
 */

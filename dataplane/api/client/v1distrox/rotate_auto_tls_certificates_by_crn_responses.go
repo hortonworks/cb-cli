@@ -42,7 +42,8 @@ func NewRotateAutoTLSCertificatesByCrnOK() *RotateAutoTLSCertificatesByCrnOK {
 	return &RotateAutoTLSCertificatesByCrnOK{}
 }
 
-/*RotateAutoTLSCertificatesByCrnOK handles this case with default header values.
+/*
+RotateAutoTLSCertificatesByCrnOK handles this case with default header values.
 
 successful operation
 */

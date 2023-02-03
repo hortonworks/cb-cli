@@ -42,7 +42,8 @@ func NewGetCustomImageCatalogByNameOK() *GetCustomImageCatalogByNameOK {
 	return &GetCustomImageCatalogByNameOK{}
 }
 
-/*GetCustomImageCatalogByNameOK handles this case with default header values.
+/*
+GetCustomImageCatalogByNameOK handles this case with default header values.
 
 successful operation
 */

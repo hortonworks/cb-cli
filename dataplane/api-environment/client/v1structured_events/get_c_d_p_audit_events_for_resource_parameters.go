@@ -77,7 +77,8 @@ func NewGetCDPAuditEventsForResourceParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetCDPAuditEventsForResourceParams contains all the parameters to send to the API endpoint
+/*
+GetCDPAuditEventsForResourceParams contains all the parameters to send to the API endpoint
 for the get c d p audit events for resource operation typically these are written to a http.Request
 */
 type GetCDPAuditEventsForResourceParams struct {

@@ -69,7 +69,8 @@ func NewAutoscaleStopInstancesByNameParamsWithHTTPClient(client *http.Client) *A
 	}
 }
 
-/*AutoscaleStopInstancesByNameParams contains all the parameters to send to the API endpoint
+/*
+AutoscaleStopInstancesByNameParams contains all the parameters to send to the API endpoint
 for the autoscale stop instances by name operation typically these are written to a http.Request
 */
 type AutoscaleStopInstancesByNameParams struct {

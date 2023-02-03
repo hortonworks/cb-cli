@@ -39,7 +39,8 @@ func NewDeleteKerberosConfigForEnvironmentDefault(code int) *DeleteKerberosConfi
 	}
 }
 
-/*DeleteKerberosConfigForEnvironmentDefault handles this case with default header values.
+/*
+DeleteKerberosConfigForEnvironmentDefault handles this case with default header values.
 
 successful operation
 */

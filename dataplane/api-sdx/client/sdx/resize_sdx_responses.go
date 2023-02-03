@@ -42,7 +42,8 @@ func NewResizeSdxOK() *ResizeSdxOK {
 	return &ResizeSdxOK{}
 }
 
-/*ResizeSdxOK handles this case with default header values.
+/*
+ResizeSdxOK handles this case with default header values.
 
 successful operation
 */

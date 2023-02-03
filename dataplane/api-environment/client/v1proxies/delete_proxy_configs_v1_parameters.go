@@ -56,7 +56,8 @@ func NewDeleteProxyConfigsV1ParamsWithHTTPClient(client *http.Client) *DeletePro
 	}
 }
 
-/*DeleteProxyConfigsV1Params contains all the parameters to send to the API endpoint
+/*
+DeleteProxyConfigsV1Params contains all the parameters to send to the API endpoint
 for the delete proxy configs v1 operation typically these are written to a http.Request
 */
 type DeleteProxyConfigsV1Params struct {

@@ -42,7 +42,8 @@ func NewRetryStackInWorkspaceV4OK() *RetryStackInWorkspaceV4OK {
 	return &RetryStackInWorkspaceV4OK{}
 }
 
-/*RetryStackInWorkspaceV4OK handles this case with default header values.
+/*
+RetryStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

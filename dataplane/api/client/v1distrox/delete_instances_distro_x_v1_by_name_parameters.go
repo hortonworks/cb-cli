@@ -71,7 +71,8 @@ func NewDeleteInstancesDistroXV1ByNameParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*DeleteInstancesDistroXV1ByNameParams contains all the parameters to send to the API endpoint
+/*
+DeleteInstancesDistroXV1ByNameParams contains all the parameters to send to the API endpoint
 for the delete instances distro x v1 by name operation typically these are written to a http.Request
 */
 type DeleteInstancesDistroXV1ByNameParams struct {

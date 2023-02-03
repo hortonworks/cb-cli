@@ -56,7 +56,8 @@ func NewGetDefaultSecurityRulesParamsWithHTTPClient(client *http.Client) *GetDef
 	}
 }
 
-/*GetDefaultSecurityRulesParams contains all the parameters to send to the API endpoint
+/*
+GetDefaultSecurityRulesParams contains all the parameters to send to the API endpoint
 for the get default security rules operation typically these are written to a http.Request
 */
 type GetDefaultSecurityRulesParams struct {

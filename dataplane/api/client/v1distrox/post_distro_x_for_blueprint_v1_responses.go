@@ -42,7 +42,8 @@ func NewPostDistroXForBlueprintV1OK() *PostDistroXForBlueprintV1OK {
 	return &PostDistroXForBlueprintV1OK{}
 }
 
-/*PostDistroXForBlueprintV1OK handles this case with default header values.
+/*
+PostDistroXForBlueprintV1OK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewRefreshStackRecipesOK() *RefreshStackRecipesOK {
 	return &RefreshStackRecipesOK{}
 }
 
-/*RefreshStackRecipesOK handles this case with default header values.
+/*
+RefreshStackRecipesOK handles this case with default header values.
 
 successful operation
 */

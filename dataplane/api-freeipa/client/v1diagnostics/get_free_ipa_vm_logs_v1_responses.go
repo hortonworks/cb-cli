@@ -42,7 +42,8 @@ func NewGetFreeIpaVMLogsV1OK() *GetFreeIpaVMLogsV1OK {
 	return &GetFreeIpaVMLogsV1OK{}
 }
 
-/*GetFreeIpaVMLogsV1OK handles this case with default header values.
+/*
+GetFreeIpaVMLogsV1OK handles this case with default header values.
 
 successful operation
 */

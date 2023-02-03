@@ -42,7 +42,8 @@ func NewListSdxDiagnosticsCollectionsOK() *ListSdxDiagnosticsCollectionsOK {
 	return &ListSdxDiagnosticsCollectionsOK{}
 }
 
-/*ListSdxDiagnosticsCollectionsOK handles this case with default header values.
+/*
+ListSdxDiagnosticsCollectionsOK handles this case with default header values.
 
 successful operation
 */

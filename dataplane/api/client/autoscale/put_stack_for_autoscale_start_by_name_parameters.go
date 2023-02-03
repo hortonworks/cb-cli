@@ -58,7 +58,8 @@ func NewPutStackForAutoscaleStartByNameParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*PutStackForAutoscaleStartByNameParams contains all the parameters to send to the API endpoint
+/*
+PutStackForAutoscaleStartByNameParams contains all the parameters to send to the API endpoint
 for the put stack for autoscale start by name operation typically these are written to a http.Request
 */
 type PutStackForAutoscaleStartByNameParams struct {

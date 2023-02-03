@@ -39,7 +39,8 @@ func NewUpdateDbEngineVersionDefault(code int) *UpdateDbEngineVersionDefault {
 	}
 }
 
-/*UpdateDbEngineVersionDefault handles this case with default header values.
+/*
+UpdateDbEngineVersionDefault handles this case with default header values.
 
 successful operation
 */

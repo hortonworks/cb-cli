@@ -42,7 +42,8 @@ func NewGetUsedSubnetsByEnvironmentOK() *GetUsedSubnetsByEnvironmentOK {
 	return &GetUsedSubnetsByEnvironmentOK{}
 }
 
-/*GetUsedSubnetsByEnvironmentOK handles this case with default header values.
+/*
+GetUsedSubnetsByEnvironmentOK handles this case with default header values.
 
 successful operation
 */

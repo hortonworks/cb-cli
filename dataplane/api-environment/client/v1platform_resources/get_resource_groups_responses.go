@@ -42,7 +42,8 @@ func NewGetResourceGroupsOK() *GetResourceGroupsOK {
 	return &GetResourceGroupsOK{}
 }
 
-/*GetResourceGroupsOK handles this case with default header values.
+/*
+GetResourceGroupsOK handles this case with default header values.
 
 successful operation
 */

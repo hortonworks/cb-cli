@@ -42,7 +42,8 @@ func NewStopDistroXV1ByNameOK() *StopDistroXV1ByNameOK {
 	return &StopDistroXV1ByNameOK{}
 }
 
-/*StopDistroXV1ByNameOK handles this case with default header values.
+/*
+StopDistroXV1ByNameOK handles this case with default header values.
 
 successful operation
 */

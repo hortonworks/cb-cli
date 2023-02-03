@@ -56,7 +56,8 @@ func NewGetDbConfigParamsWithHTTPClient(client *http.Client) *GetDbConfigParams 
 	}
 }
 
-/*GetDbConfigParams contains all the parameters to send to the API endpoint
+/*
+GetDbConfigParams contains all the parameters to send to the API endpoint
 for the get db config operation typically these are written to a http.Request
 */
 type GetDbConfigParams struct {

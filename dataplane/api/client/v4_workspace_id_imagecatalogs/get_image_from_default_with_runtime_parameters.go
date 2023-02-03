@@ -57,7 +57,8 @@ func NewGetImageFromDefaultWithRuntimeParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*GetImageFromDefaultWithRuntimeParams contains all the parameters to send to the API endpoint
+/*
+GetImageFromDefaultWithRuntimeParams contains all the parameters to send to the API endpoint
 for the get image from default with runtime operation typically these are written to a http.Request
 */
 type GetImageFromDefaultWithRuntimeParams struct {

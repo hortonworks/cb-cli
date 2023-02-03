@@ -56,7 +56,8 @@ func NewGetPlatformNetworksByEnvParamsWithHTTPClient(client *http.Client) *GetPl
 	}
 }
 
-/*GetPlatformNetworksByEnvParams contains all the parameters to send to the API endpoint
+/*
+GetPlatformNetworksByEnvParams contains all the parameters to send to the API endpoint
 for the get platform networks by env operation typically these are written to a http.Request
 */
 type GetPlatformNetworksByEnvParams struct {

@@ -56,7 +56,8 @@ func NewAuthorizeForAutoscaleParamsWithHTTPClient(client *http.Client) *Authoriz
 	}
 }
 
-/*AuthorizeForAutoscaleParams contains all the parameters to send to the API endpoint
+/*
+AuthorizeForAutoscaleParams contains all the parameters to send to the API endpoint
 for the authorize for autoscale operation typically these are written to a http.Request
 */
 type AuthorizeForAutoscaleParams struct {

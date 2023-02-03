@@ -56,7 +56,8 @@ func NewDeleteDNSZoneBySubnetV1ParamsWithHTTPClient(client *http.Client) *Delete
 	}
 }
 
-/*DeleteDNSZoneBySubnetV1Params contains all the parameters to send to the API endpoint
+/*
+DeleteDNSZoneBySubnetV1Params contains all the parameters to send to the API endpoint
 for the delete Dns zone by subnet v1 operation typically these are written to a http.Request
 */
 type DeleteDNSZoneBySubnetV1Params struct {

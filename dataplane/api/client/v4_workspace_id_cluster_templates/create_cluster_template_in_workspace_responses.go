@@ -42,7 +42,8 @@ func NewCreateClusterTemplateInWorkspaceOK() *CreateClusterTemplateInWorkspaceOK
 	return &CreateClusterTemplateInWorkspaceOK{}
 }
 
-/*CreateClusterTemplateInWorkspaceOK handles this case with default header values.
+/*
+CreateClusterTemplateInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

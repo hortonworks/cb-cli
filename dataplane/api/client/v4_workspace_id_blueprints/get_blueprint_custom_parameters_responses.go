@@ -42,7 +42,8 @@ func NewGetBlueprintCustomParametersOK() *GetBlueprintCustomParametersOK {
 	return &GetBlueprintCustomParametersOK{}
 }
 
-/*GetBlueprintCustomParametersOK handles this case with default header values.
+/*
+GetBlueprintCustomParametersOK handles this case with default header values.
 
 successful operation
 */

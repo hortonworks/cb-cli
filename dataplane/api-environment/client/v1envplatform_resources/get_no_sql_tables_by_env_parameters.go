@@ -56,7 +56,8 @@ func NewGetNoSQLTablesByEnvParamsWithHTTPClient(client *http.Client) *GetNoSQLTa
 	}
 }
 
-/*GetNoSQLTablesByEnvParams contains all the parameters to send to the API endpoint
+/*
+GetNoSQLTablesByEnvParams contains all the parameters to send to the API endpoint
 for the get no Sql tables by env operation typically these are written to a http.Request
 */
 type GetNoSQLTablesByEnvParams struct {

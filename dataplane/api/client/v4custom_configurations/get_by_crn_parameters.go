@@ -56,7 +56,8 @@ func NewGetByCrnParamsWithHTTPClient(client *http.Client) *GetByCrnParams {
 	}
 }
 
-/*GetByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetByCrnParams contains all the parameters to send to the API endpoint
 for the get by crn operation typically these are written to a http.Request
 */
 type GetByCrnParams struct {

@@ -56,7 +56,8 @@ func NewCodeGrantFlowOnExistingCredentialV1ParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/*CodeGrantFlowOnExistingCredentialV1Params contains all the parameters to send to the API endpoint
+/*
+CodeGrantFlowOnExistingCredentialV1Params contains all the parameters to send to the API endpoint
 for the code grant flow on existing credential v1 operation typically these are written to a http.Request
 */
 type CodeGrantFlowOnExistingCredentialV1Params struct {

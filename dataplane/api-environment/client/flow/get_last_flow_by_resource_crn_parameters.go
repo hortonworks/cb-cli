@@ -56,7 +56,8 @@ func NewGetLastFlowByResourceCrnParamsWithHTTPClient(client *http.Client) *GetLa
 	}
 }
 
-/*GetLastFlowByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetLastFlowByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get last flow by resource crn operation typically these are written to a http.Request
 */
 type GetLastFlowByResourceCrnParams struct {

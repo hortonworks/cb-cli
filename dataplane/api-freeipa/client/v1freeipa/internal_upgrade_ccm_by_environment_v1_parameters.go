@@ -56,7 +56,8 @@ func NewInternalUpgradeCcmByEnvironmentV1ParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*InternalUpgradeCcmByEnvironmentV1Params contains all the parameters to send to the API endpoint
+/*
+InternalUpgradeCcmByEnvironmentV1Params contains all the parameters to send to the API endpoint
 for the internal upgrade ccm by environment v1 operation typically these are written to a http.Request
 */
 type InternalUpgradeCcmByEnvironmentV1Params struct {

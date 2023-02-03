@@ -56,7 +56,8 @@ func NewRetryV1ParamsWithHTTPClient(client *http.Client) *RetryV1Params {
 	}
 }
 
-/*RetryV1Params contains all the parameters to send to the API endpoint
+/*
+RetryV1Params contains all the parameters to send to the API endpoint
 for the retry v1 operation typically these are written to a http.Request
 */
 type RetryV1Params struct {

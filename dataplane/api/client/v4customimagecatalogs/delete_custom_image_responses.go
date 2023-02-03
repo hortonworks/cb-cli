@@ -42,7 +42,8 @@ func NewDeleteCustomImageOK() *DeleteCustomImageOK {
 	return &DeleteCustomImageOK{}
 }
 
-/*DeleteCustomImageOK handles this case with default header values.
+/*
+DeleteCustomImageOK handles this case with default header values.
 
 successful operation
 */

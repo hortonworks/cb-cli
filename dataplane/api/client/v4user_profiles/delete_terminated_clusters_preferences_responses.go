@@ -39,7 +39,8 @@ func NewDeleteTerminatedClustersPreferencesDefault(code int) *DeleteTerminatedCl
 	}
 }
 
-/*DeleteTerminatedClustersPreferencesDefault handles this case with default header values.
+/*
+DeleteTerminatedClustersPreferencesDefault handles this case with default header values.
 
 successful operation
 */

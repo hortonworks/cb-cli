@@ -58,7 +58,8 @@ func NewChangeCredentialInEnvironmentV1ByCrnParamsWithHTTPClient(client *http.Cl
 	}
 }
 
-/*ChangeCredentialInEnvironmentV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+ChangeCredentialInEnvironmentV1ByCrnParams contains all the parameters to send to the API endpoint
 for the change credential in environment v1 by crn operation typically these are written to a http.Request
 */
 type ChangeCredentialInEnvironmentV1ByCrnParams struct {

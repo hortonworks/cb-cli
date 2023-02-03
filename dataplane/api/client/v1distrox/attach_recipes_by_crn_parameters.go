@@ -58,7 +58,8 @@ func NewAttachRecipesByCrnParamsWithHTTPClient(client *http.Client) *AttachRecip
 	}
 }
 
-/*AttachRecipesByCrnParams contains all the parameters to send to the API endpoint
+/*
+AttachRecipesByCrnParams contains all the parameters to send to the API endpoint
 for the attach recipes by crn operation typically these are written to a http.Request
 */
 type AttachRecipesByCrnParams struct {

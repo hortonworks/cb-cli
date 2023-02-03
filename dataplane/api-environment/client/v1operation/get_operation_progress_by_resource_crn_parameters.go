@@ -69,7 +69,8 @@ func NewGetOperationProgressByResourceCrnParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*GetOperationProgressByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetOperationProgressByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get operation progress by resource crn operation typically these are written to a http.Request
 */
 type GetOperationProgressByResourceCrnParams struct {

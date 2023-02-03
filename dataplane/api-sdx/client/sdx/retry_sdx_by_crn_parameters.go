@@ -56,7 +56,8 @@ func NewRetrySdxByCrnParamsWithHTTPClient(client *http.Client) *RetrySdxByCrnPar
 	}
 }
 
-/*RetrySdxByCrnParams contains all the parameters to send to the API endpoint
+/*
+RetrySdxByCrnParams contains all the parameters to send to the API endpoint
 for the retry sdx by crn operation typically these are written to a http.Request
 */
 type RetrySdxByCrnParams struct {

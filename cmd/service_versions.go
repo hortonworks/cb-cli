@@ -139,7 +139,7 @@ func newGetInfo() *getInfo {
 	return &getInfo{}
 }
 
-//successful operation
+// successful operation
 type getInfo struct {
 	Payload *serviceApp
 }

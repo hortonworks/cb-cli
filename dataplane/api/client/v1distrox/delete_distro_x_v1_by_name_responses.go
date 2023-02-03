@@ -39,7 +39,8 @@ func NewDeleteDistroXV1ByNameDefault(code int) *DeleteDistroXV1ByNameDefault {
 	}
 }
 
-/*DeleteDistroXV1ByNameDefault handles this case with default header values.
+/*
+DeleteDistroXV1ByNameDefault handles this case with default header values.
 
 successful operation
 */

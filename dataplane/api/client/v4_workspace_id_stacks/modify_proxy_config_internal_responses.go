@@ -42,7 +42,8 @@ func NewModifyProxyConfigInternalOK() *ModifyProxyConfigInternalOK {
 	return &ModifyProxyConfigInternalOK{}
 }
 
-/*ModifyProxyConfigInternalOK handles this case with default header values.
+/*
+ModifyProxyConfigInternalOK handles this case with default header values.
 
 successful operation
 */

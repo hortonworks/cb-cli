@@ -56,7 +56,8 @@ func NewGetRecommendationParamsWithHTTPClient(client *http.Client) *GetRecommend
 	}
 }
 
-/*GetRecommendationParams contains all the parameters to send to the API endpoint
+/*
+GetRecommendationParams contains all the parameters to send to the API endpoint
 for the get recommendation operation typically these are written to a http.Request
 */
 type GetRecommendationParams struct {

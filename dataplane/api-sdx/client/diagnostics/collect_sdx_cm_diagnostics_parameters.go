@@ -58,7 +58,8 @@ func NewCollectSdxCmDiagnosticsParamsWithHTTPClient(client *http.Client) *Collec
 	}
 }
 
-/*CollectSdxCmDiagnosticsParams contains all the parameters to send to the API endpoint
+/*
+CollectSdxCmDiagnosticsParams contains all the parameters to send to the API endpoint
 for the collect sdx cm diagnostics operation typically these are written to a http.Request
 */
 type CollectSdxCmDiagnosticsParams struct {

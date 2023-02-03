@@ -56,7 +56,8 @@ func NewListCustomImageCatalogsParamsWithHTTPClient(client *http.Client) *ListCu
 	}
 }
 
-/*ListCustomImageCatalogsParams contains all the parameters to send to the API endpoint
+/*
+ListCustomImageCatalogsParams contains all the parameters to send to the API endpoint
 for the list custom image catalogs operation typically these are written to a http.Request
 */
 type ListCustomImageCatalogsParams struct {

@@ -56,7 +56,8 @@ func NewStopDistroXV1ByNameParamsWithHTTPClient(client *http.Client) *StopDistro
 	}
 }
 
-/*StopDistroXV1ByNameParams contains all the parameters to send to the API endpoint
+/*
+StopDistroXV1ByNameParams contains all the parameters to send to the API endpoint
 for the stop distro x v1 by name operation typically these are written to a http.Request
 */
 type StopDistroXV1ByNameParams struct {

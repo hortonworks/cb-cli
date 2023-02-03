@@ -42,7 +42,8 @@ func NewUpscaleFreeIpaV1OK() *UpscaleFreeIpaV1OK {
 	return &UpscaleFreeIpaV1OK{}
 }
 
-/*UpscaleFreeIpaV1OK handles this case with default header values.
+/*
+UpscaleFreeIpaV1OK handles this case with default header values.
 
 successful operation
 */

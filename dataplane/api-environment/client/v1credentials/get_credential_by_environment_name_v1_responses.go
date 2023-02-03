@@ -42,7 +42,8 @@ func NewGetCredentialByEnvironmentNameV1OK() *GetCredentialByEnvironmentNameV1OK
 	return &GetCredentialByEnvironmentNameV1OK{}
 }
 
-/*GetCredentialByEnvironmentNameV1OK handles this case with default header values.
+/*
+GetCredentialByEnvironmentNameV1OK handles this case with default header values.
 
 successful operation
 */

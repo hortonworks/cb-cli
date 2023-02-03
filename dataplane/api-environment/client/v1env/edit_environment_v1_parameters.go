@@ -58,7 +58,8 @@ func NewEditEnvironmentV1ParamsWithHTTPClient(client *http.Client) *EditEnvironm
 	}
 }
 
-/*EditEnvironmentV1Params contains all the parameters to send to the API endpoint
+/*
+EditEnvironmentV1Params contains all the parameters to send to the API endpoint
 for the edit environment v1 operation typically these are written to a http.Request
 */
 type EditEnvironmentV1Params struct {

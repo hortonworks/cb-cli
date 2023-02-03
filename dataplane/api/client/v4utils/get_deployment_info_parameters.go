@@ -56,7 +56,8 @@ func NewGetDeploymentInfoParamsWithHTTPClient(client *http.Client) *GetDeploymen
 	}
 }
 
-/*GetDeploymentInfoParams contains all the parameters to send to the API endpoint
+/*
+GetDeploymentInfoParams contains all the parameters to send to the API endpoint
 for the get deployment info operation typically these are written to a http.Request
 */
 type GetDeploymentInfoParams struct {

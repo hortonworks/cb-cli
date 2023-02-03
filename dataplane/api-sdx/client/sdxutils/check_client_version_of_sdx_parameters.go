@@ -56,7 +56,8 @@ func NewCheckClientVersionOfSdxParamsWithHTTPClient(client *http.Client) *CheckC
 	}
 }
 
-/*CheckClientVersionOfSdxParams contains all the parameters to send to the API endpoint
+/*
+CheckClientVersionOfSdxParams contains all the parameters to send to the API endpoint
 for the check client version of sdx operation typically these are written to a http.Request
 */
 type CheckClientVersionOfSdxParams struct {

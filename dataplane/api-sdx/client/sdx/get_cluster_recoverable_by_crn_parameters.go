@@ -56,7 +56,8 @@ func NewGetClusterRecoverableByCrnParamsWithHTTPClient(client *http.Client) *Get
 	}
 }
 
-/*GetClusterRecoverableByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetClusterRecoverableByCrnParams contains all the parameters to send to the API endpoint
 for the get cluster recoverable by crn operation typically these are written to a http.Request
 */
 type GetClusterRecoverableByCrnParams struct {

@@ -42,7 +42,8 @@ func NewListDatalakesOK() *ListDatalakesOK {
 	return &ListDatalakesOK{}
 }
 
-/*ListDatalakesOK handles this case with default header values.
+/*
+ListDatalakesOK handles this case with default header values.
 
 successful operation
 */

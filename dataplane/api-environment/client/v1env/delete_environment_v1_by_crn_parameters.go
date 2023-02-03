@@ -77,7 +77,8 @@ func NewDeleteEnvironmentV1ByCrnParamsWithHTTPClient(client *http.Client) *Delet
 	}
 }
 
-/*DeleteEnvironmentV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+DeleteEnvironmentV1ByCrnParams contains all the parameters to send to the API endpoint
 for the delete environment v1 by crn operation typically these are written to a http.Request
 */
 type DeleteEnvironmentV1ByCrnParams struct {

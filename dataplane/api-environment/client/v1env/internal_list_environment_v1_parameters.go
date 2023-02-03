@@ -56,7 +56,8 @@ func NewInternalListEnvironmentV1ParamsWithHTTPClient(client *http.Client) *Inte
 	}
 }
 
-/*InternalListEnvironmentV1Params contains all the parameters to send to the API endpoint
+/*
+InternalListEnvironmentV1Params contains all the parameters to send to the API endpoint
 for the internal list environment v1 operation typically these are written to a http.Request
 */
 type InternalListEnvironmentV1Params struct {

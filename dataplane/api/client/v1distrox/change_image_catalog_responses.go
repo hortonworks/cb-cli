@@ -39,7 +39,8 @@ func NewChangeImageCatalogDefault(code int) *ChangeImageCatalogDefault {
 	}
 }
 
-/*ChangeImageCatalogDefault handles this case with default header values.
+/*
+ChangeImageCatalogDefault handles this case with default header values.
 
 successful operation
 */

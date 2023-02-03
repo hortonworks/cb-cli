@@ -42,7 +42,8 @@ func NewStopEnvironmentByCrnV1OK() *StopEnvironmentByCrnV1OK {
 	return &StopEnvironmentByCrnV1OK{}
 }
 
-/*StopEnvironmentByCrnV1OK handles this case with default header values.
+/*
+StopEnvironmentByCrnV1OK handles this case with default header values.
 
 successful operation
 */

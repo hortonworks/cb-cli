@@ -57,7 +57,8 @@ func NewDeleteRecipesInWorkspaceParamsWithHTTPClient(client *http.Client) *Delet
 	}
 }
 
-/*DeleteRecipesInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+DeleteRecipesInWorkspaceParams contains all the parameters to send to the API endpoint
 for the delete recipes in workspace operation typically these are written to a http.Request
 */
 type DeleteRecipesInWorkspaceParams struct {

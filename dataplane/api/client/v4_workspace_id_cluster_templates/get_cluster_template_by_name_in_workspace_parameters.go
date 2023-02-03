@@ -57,7 +57,8 @@ func NewGetClusterTemplateByNameInWorkspaceParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/*GetClusterTemplateByNameInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetClusterTemplateByNameInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get cluster template by name in workspace operation typically these are written to a http.Request
 */
 type GetClusterTemplateByNameInWorkspaceParams struct {

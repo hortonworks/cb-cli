@@ -58,7 +58,8 @@ func NewRepairSdxNodeByCrnParamsWithHTTPClient(client *http.Client) *RepairSdxNo
 	}
 }
 
-/*RepairSdxNodeByCrnParams contains all the parameters to send to the API endpoint
+/*
+RepairSdxNodeByCrnParams contains all the parameters to send to the API endpoint
 for the repair sdx node by crn operation typically these are written to a http.Request
 */
 type RepairSdxNodeByCrnParams struct {

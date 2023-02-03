@@ -42,7 +42,8 @@ func NewInternalUpgradeCcmByEnvironmentV1OK() *InternalUpgradeCcmByEnvironmentV1
 	return &InternalUpgradeCcmByEnvironmentV1OK{}
 }
 
-/*InternalUpgradeCcmByEnvironmentV1OK handles this case with default header values.
+/*
+InternalUpgradeCcmByEnvironmentV1OK handles this case with default header values.
 
 successful operation
 */

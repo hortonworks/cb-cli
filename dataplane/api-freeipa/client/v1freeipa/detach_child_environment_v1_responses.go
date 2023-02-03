@@ -39,7 +39,8 @@ func NewDetachChildEnvironmentV1Default(code int) *DetachChildEnvironmentV1Defau
 	}
 }
 
-/*DetachChildEnvironmentV1Default handles this case with default header values.
+/*
+DetachChildEnvironmentV1Default handles this case with default header values.
 
 successful operation
 */

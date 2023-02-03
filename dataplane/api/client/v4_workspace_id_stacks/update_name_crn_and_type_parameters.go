@@ -69,7 +69,8 @@ func NewUpdateNameCrnAndTypeParamsWithHTTPClient(client *http.Client) *UpdateNam
 	}
 }
 
-/*UpdateNameCrnAndTypeParams contains all the parameters to send to the API endpoint
+/*
+UpdateNameCrnAndTypeParams contains all the parameters to send to the API endpoint
 for the update name crn and type operation typically these are written to a http.Request
 */
 type UpdateNameCrnAndTypeParams struct {

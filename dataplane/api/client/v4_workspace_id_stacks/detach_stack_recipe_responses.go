@@ -42,7 +42,8 @@ func NewDetachStackRecipeOK() *DetachStackRecipeOK {
 	return &DetachStackRecipeOK{}
 }
 
-/*DetachStackRecipeOK handles this case with default header values.
+/*
+DetachStackRecipeOK handles this case with default header values.
 
 successful operation
 */

@@ -57,7 +57,8 @@ func NewGetAuditEventsZipInWorkspaceParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetAuditEventsZipInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetAuditEventsZipInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get audit events zip in workspace operation typically these are written to a http.Request
 */
 type GetAuditEventsZipInWorkspaceParams struct {

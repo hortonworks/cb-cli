@@ -57,7 +57,8 @@ func NewStopStackInWorkspaceV4InternalParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/*StopStackInWorkspaceV4InternalParams contains all the parameters to send to the API endpoint
+/*
+StopStackInWorkspaceV4InternalParams contains all the parameters to send to the API endpoint
 for the stop stack in workspace v4 internal operation typically these are written to a http.Request
 */
 type StopStackInWorkspaceV4InternalParams struct {

@@ -56,7 +56,8 @@ func NewIsUpgradeCcmAvailableV1ByCrnParamsWithHTTPClient(client *http.Client) *I
 	}
 }
 
-/*IsUpgradeCcmAvailableV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+IsUpgradeCcmAvailableV1ByCrnParams contains all the parameters to send to the API endpoint
 for the is upgrade ccm available v1 by crn operation typically these are written to a http.Request
 */
 type IsUpgradeCcmAvailableV1ByCrnParams struct {

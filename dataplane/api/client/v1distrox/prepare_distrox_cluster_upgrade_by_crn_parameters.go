@@ -58,7 +58,8 @@ func NewPrepareDistroxClusterUpgradeByCrnParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*PrepareDistroxClusterUpgradeByCrnParams contains all the parameters to send to the API endpoint
+/*
+PrepareDistroxClusterUpgradeByCrnParams contains all the parameters to send to the API endpoint
 for the prepare distrox cluster upgrade by crn operation typically these are written to a http.Request
 */
 type PrepareDistroxClusterUpgradeByCrnParams struct {

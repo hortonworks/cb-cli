@@ -42,7 +42,8 @@ func NewDeleteCustomImageCatalogByNameOK() *DeleteCustomImageCatalogByNameOK {
 	return &DeleteCustomImageCatalogByNameOK{}
 }
 
-/*DeleteCustomImageCatalogByNameOK handles this case with default header values.
+/*
+DeleteCustomImageCatalogByNameOK handles this case with default header values.
 
 successful operation
 */

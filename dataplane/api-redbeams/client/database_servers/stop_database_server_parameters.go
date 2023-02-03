@@ -56,7 +56,8 @@ func NewStopDatabaseServerParamsWithHTTPClient(client *http.Client) *StopDatabas
 	}
 }
 
-/*StopDatabaseServerParams contains all the parameters to send to the API endpoint
+/*
+StopDatabaseServerParams contains all the parameters to send to the API endpoint
 for the stop database server operation typically these are written to a http.Request
 */
 type StopDatabaseServerParams struct {

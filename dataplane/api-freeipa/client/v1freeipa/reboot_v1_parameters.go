@@ -58,7 +58,8 @@ func NewRebootV1ParamsWithHTTPClient(client *http.Client) *RebootV1Params {
 	}
 }
 
-/*RebootV1Params contains all the parameters to send to the API endpoint
+/*
+RebootV1Params contains all the parameters to send to the API endpoint
 for the reboot v1 operation typically these are written to a http.Request
 */
 type RebootV1Params struct {

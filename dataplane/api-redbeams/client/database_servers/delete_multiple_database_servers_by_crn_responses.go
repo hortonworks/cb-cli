@@ -42,7 +42,8 @@ func NewDeleteMultipleDatabaseServersByCrnOK() *DeleteMultipleDatabaseServersByC
 	return &DeleteMultipleDatabaseServersByCrnOK{}
 }
 
-/*DeleteMultipleDatabaseServersByCrnOK handles this case with default header values.
+/*
+DeleteMultipleDatabaseServersByCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetStructuredEventsInAccountOK() *GetStructuredEventsInAccountOK {
 	return &GetStructuredEventsInAccountOK{}
 }
 
-/*GetStructuredEventsInAccountOK handles this case with default header values.
+/*
+GetStructuredEventsInAccountOK handles this case with default header values.
 
 successful operation
 */

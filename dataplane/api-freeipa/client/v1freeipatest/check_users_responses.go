@@ -42,7 +42,8 @@ func NewCheckUsersOK() *CheckUsersOK {
 	return &CheckUsersOK{}
 }
 
-/*CheckUsersOK handles this case with default header values.
+/*
+CheckUsersOK handles this case with default header values.
 
 successful operation
 */

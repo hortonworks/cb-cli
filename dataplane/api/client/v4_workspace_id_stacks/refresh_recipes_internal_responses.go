@@ -42,7 +42,8 @@ func NewRefreshRecipesInternalOK() *RefreshRecipesInternalOK {
 	return &RefreshRecipesInternalOK{}
 }
 
-/*RefreshRecipesInternalOK handles this case with default header values.
+/*
+RefreshRecipesInternalOK handles this case with default header values.
 
 successful operation
 */

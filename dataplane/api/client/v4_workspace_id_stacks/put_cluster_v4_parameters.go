@@ -59,7 +59,8 @@ func NewPutClusterV4ParamsWithHTTPClient(client *http.Client) *PutClusterV4Param
 	}
 }
 
-/*PutClusterV4Params contains all the parameters to send to the API endpoint
+/*
+PutClusterV4Params contains all the parameters to send to the API endpoint
 for the put cluster v4 operation typically these are written to a http.Request
 */
 type PutClusterV4Params struct {

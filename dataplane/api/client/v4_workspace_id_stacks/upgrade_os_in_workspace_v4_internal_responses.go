@@ -42,7 +42,8 @@ func NewUpgradeOsInWorkspaceV4InternalOK() *UpgradeOsInWorkspaceV4InternalOK {
 	return &UpgradeOsInWorkspaceV4InternalOK{}
 }
 
-/*UpgradeOsInWorkspaceV4InternalOK handles this case with default header values.
+/*
+UpgradeOsInWorkspaceV4InternalOK handles this case with default header values.
 
 successful operation
 */

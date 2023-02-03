@@ -42,7 +42,8 @@ func NewInternalGetSyncOperationStatusV1OK() *InternalGetSyncOperationStatusV1OK
 	return &InternalGetSyncOperationStatusV1OK{}
 }
 
-/*InternalGetSyncOperationStatusV1OK handles this case with default header values.
+/*
+InternalGetSyncOperationStatusV1OK handles this case with default header values.
 
 successful operation
 */

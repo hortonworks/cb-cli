@@ -42,7 +42,8 @@ func NewGetOperationProgressByEnvironmentCrnOK() *GetOperationProgressByEnvironm
 	return &GetOperationProgressByEnvironmentCrnOK{}
 }
 
-/*GetOperationProgressByEnvironmentCrnOK handles this case with default header values.
+/*
+GetOperationProgressByEnvironmentCrnOK handles this case with default header values.
 
 successful operation
 */

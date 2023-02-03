@@ -68,7 +68,8 @@ func NewStartEnvironmentByCrnV1ParamsWithHTTPClient(client *http.Client) *StartE
 	}
 }
 
-/*StartEnvironmentByCrnV1Params contains all the parameters to send to the API endpoint
+/*
+StartEnvironmentByCrnV1Params contains all the parameters to send to the API endpoint
 for the start environment by crn v1 operation typically these are written to a http.Request
 */
 type StartEnvironmentByCrnV1Params struct {

@@ -56,7 +56,8 @@ func NewStartDatabaseServerParamsWithHTTPClient(client *http.Client) *StartDatab
 	}
 }
 
-/*StartDatabaseServerParams contains all the parameters to send to the API endpoint
+/*
+StartDatabaseServerParams contains all the parameters to send to the API endpoint
 for the start database server operation typically these are written to a http.Request
 */
 type StartDatabaseServerParams struct {

@@ -58,7 +58,8 @@ func NewCreateAuditCredentialV1ParamsWithHTTPClient(client *http.Client) *Create
 	}
 }
 
-/*CreateAuditCredentialV1Params contains all the parameters to send to the API endpoint
+/*
+CreateAuditCredentialV1Params contains all the parameters to send to the API endpoint
 for the create audit credential v1 operation typically these are written to a http.Request
 */
 type CreateAuditCredentialV1Params struct {

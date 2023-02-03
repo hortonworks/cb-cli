@@ -56,7 +56,8 @@ func NewGetGatewaysCredentialIDParamsWithHTTPClient(client *http.Client) *GetGat
 	}
 }
 
-/*GetGatewaysCredentialIDParams contains all the parameters to send to the API endpoint
+/*
+GetGatewaysCredentialIDParams contains all the parameters to send to the API endpoint
 for the get gateways credential Id operation typically these are written to a http.Request
 */
 type GetGatewaysCredentialIDParams struct {

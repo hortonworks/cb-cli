@@ -56,7 +56,8 @@ func NewListDistroxDiagnosticsCollectionsV1ParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/*ListDistroxDiagnosticsCollectionsV1Params contains all the parameters to send to the API endpoint
+/*
+ListDistroxDiagnosticsCollectionsV1Params contains all the parameters to send to the API endpoint
 for the list distrox diagnostics collections v1 operation typically these are written to a http.Request
 */
 type ListDistroxDiagnosticsCollectionsV1Params struct {

@@ -56,7 +56,8 @@ func NewUpdateSaltDistroxV1ByCrnParamsWithHTTPClient(client *http.Client) *Updat
 	}
 }
 
-/*UpdateSaltDistroxV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+UpdateSaltDistroxV1ByCrnParams contains all the parameters to send to the API endpoint
 for the update salt distrox v1 by crn operation typically these are written to a http.Request
 */
 type UpdateSaltDistroxV1ByCrnParams struct {

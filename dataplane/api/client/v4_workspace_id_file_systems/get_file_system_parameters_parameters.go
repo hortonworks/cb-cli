@@ -77,7 +77,8 @@ func NewGetFileSystemParametersParamsWithHTTPClient(client *http.Client) *GetFil
 	}
 }
 
-/*GetFileSystemParametersParams contains all the parameters to send to the API endpoint
+/*
+GetFileSystemParametersParams contains all the parameters to send to the API endpoint
 for the get file system parameters operation typically these are written to a http.Request
 */
 type GetFileSystemParametersParams struct {

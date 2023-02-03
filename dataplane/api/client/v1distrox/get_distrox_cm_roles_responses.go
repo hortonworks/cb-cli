@@ -40,7 +40,8 @@ func NewGetDistroxCmRolesOK() *GetDistroxCmRolesOK {
 	return &GetDistroxCmRolesOK{}
 }
 
-/*GetDistroxCmRolesOK handles this case with default header values.
+/*
+GetDistroxCmRolesOK handles this case with default header values.
 
 successful operation
 */

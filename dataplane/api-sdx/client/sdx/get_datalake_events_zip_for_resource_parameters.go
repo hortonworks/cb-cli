@@ -57,7 +57,8 @@ func NewGetDatalakeEventsZipForResourceParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*GetDatalakeEventsZipForResourceParams contains all the parameters to send to the API endpoint
+/*
+GetDatalakeEventsZipForResourceParams contains all the parameters to send to the API endpoint
 for the get datalake events zip for resource operation typically these are written to a http.Request
 */
 type GetDatalakeEventsZipForResourceParams struct {

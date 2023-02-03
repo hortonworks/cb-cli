@@ -56,7 +56,8 @@ func NewGetVMTypesByCredentialByEnvParamsWithHTTPClient(client *http.Client) *Ge
 	}
 }
 
-/*GetVMTypesByCredentialByEnvParams contains all the parameters to send to the API endpoint
+/*
+GetVMTypesByCredentialByEnvParams contains all the parameters to send to the API endpoint
 for the get Vm types by credential by env operation typically these are written to a http.Request
 */
 type GetVMTypesByCredentialByEnvParams struct {

@@ -42,7 +42,8 @@ func NewGetSaltPasswordStatusForStackInWorkspaceV4InternalOK() *GetSaltPasswordS
 	return &GetSaltPasswordStatusForStackInWorkspaceV4InternalOK{}
 }
 
-/*GetSaltPasswordStatusForStackInWorkspaceV4InternalOK handles this case with default header values.
+/*
+GetSaltPasswordStatusForStackInWorkspaceV4InternalOK handles this case with default header values.
 
 successful operation
 */

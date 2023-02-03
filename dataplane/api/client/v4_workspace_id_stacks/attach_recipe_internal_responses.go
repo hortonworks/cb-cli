@@ -42,7 +42,8 @@ func NewAttachRecipeInternalOK() *AttachRecipeInternalOK {
 	return &AttachRecipeInternalOK{}
 }
 
-/*AttachRecipeInternalOK handles this case with default header values.
+/*
+AttachRecipeInternalOK handles this case with default header values.
 
 successful operation
 */

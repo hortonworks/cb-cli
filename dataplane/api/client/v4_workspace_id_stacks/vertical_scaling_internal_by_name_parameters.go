@@ -59,7 +59,8 @@ func NewVerticalScalingInternalByNameParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*VerticalScalingInternalByNameParams contains all the parameters to send to the API endpoint
+/*
+VerticalScalingInternalByNameParams contains all the parameters to send to the API endpoint
 for the vertical scaling internal by name operation typically these are written to a http.Request
 */
 type VerticalScalingInternalByNameParams struct {

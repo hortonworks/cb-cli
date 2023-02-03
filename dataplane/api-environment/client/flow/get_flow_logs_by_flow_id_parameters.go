@@ -56,7 +56,8 @@ func NewGetFlowLogsByFlowIDParamsWithHTTPClient(client *http.Client) *GetFlowLog
 	}
 }
 
-/*GetFlowLogsByFlowIDParams contains all the parameters to send to the API endpoint
+/*
+GetFlowLogsByFlowIDParams contains all the parameters to send to the API endpoint
 for the get flow logs by flow Id operation typically these are written to a http.Request
 */
 type GetFlowLogsByFlowIDParams struct {

@@ -57,7 +57,8 @@ func NewGetAuditEventByWorkspaceParamsWithHTTPClient(client *http.Client) *GetAu
 	}
 }
 
-/*GetAuditEventByWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetAuditEventByWorkspaceParams contains all the parameters to send to the API endpoint
 for the get audit event by workspace operation typically these are written to a http.Request
 */
 type GetAuditEventByWorkspaceParams struct {

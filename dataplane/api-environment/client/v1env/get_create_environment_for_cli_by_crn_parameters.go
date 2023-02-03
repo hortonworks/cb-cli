@@ -56,7 +56,8 @@ func NewGetCreateEnvironmentForCliByCrnParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*GetCreateEnvironmentForCliByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetCreateEnvironmentForCliByCrnParams contains all the parameters to send to the API endpoint
 for the get create environment for cli by crn operation typically these are written to a http.Request
 */
 type GetCreateEnvironmentForCliByCrnParams struct {

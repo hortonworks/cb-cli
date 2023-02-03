@@ -58,7 +58,8 @@ func NewGenerateServiceKeytabV1ParamsWithHTTPClient(client *http.Client) *Genera
 	}
 }
 
-/*GenerateServiceKeytabV1Params contains all the parameters to send to the API endpoint
+/*
+GenerateServiceKeytabV1Params contains all the parameters to send to the API endpoint
 for the generate service keytab v1 operation typically these are written to a http.Request
 */
 type GenerateServiceKeytabV1Params struct {

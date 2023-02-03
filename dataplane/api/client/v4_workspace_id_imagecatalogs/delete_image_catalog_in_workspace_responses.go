@@ -42,7 +42,8 @@ func NewDeleteImageCatalogInWorkspaceOK() *DeleteImageCatalogInWorkspaceOK {
 	return &DeleteImageCatalogInWorkspaceOK{}
 }
 
-/*DeleteImageCatalogInWorkspaceOK handles this case with default header values.
+/*
+DeleteImageCatalogInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetPlatformSecurityGroupsByEnvOK() *GetPlatformSecurityGroupsByEnvOK {
 	return &GetPlatformSecurityGroupsByEnvOK{}
 }
 
-/*GetPlatformSecurityGroupsByEnvOK handles this case with default header values.
+/*
+GetPlatformSecurityGroupsByEnvOK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewRefreshDatahubsParamsWithHTTPClient(client *http.Client) *RefreshDatahub
 	}
 }
 
-/*RefreshDatahubsParams contains all the parameters to send to the API endpoint
+/*
+RefreshDatahubsParams contains all the parameters to send to the API endpoint
 for the refresh datahubs operation typically these are written to a http.Request
 */
 type RefreshDatahubsParams struct {

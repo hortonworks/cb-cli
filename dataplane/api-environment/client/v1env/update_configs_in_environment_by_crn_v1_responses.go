@@ -42,7 +42,8 @@ func NewUpdateConfigsInEnvironmentByCrnV1OK() *UpdateConfigsInEnvironmentByCrnV1
 	return &UpdateConfigsInEnvironmentByCrnV1OK{}
 }
 
-/*UpdateConfigsInEnvironmentByCrnV1OK handles this case with default header values.
+/*
+UpdateConfigsInEnvironmentByCrnV1OK handles this case with default header values.
 
 successful operation
 */

@@ -39,7 +39,8 @@ func NewUpdateNameCrnAndTypeDefault(code int) *UpdateNameCrnAndTypeDefault {
 	}
 }
 
-/*UpdateNameCrnAndTypeDefault handles this case with default header values.
+/*
+UpdateNameCrnAndTypeDefault handles this case with default header values.
 
 successful operation
 */

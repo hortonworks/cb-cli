@@ -42,7 +42,8 @@ func NewCreateRecommendationForWorkspaceByEnvCrnOK() *CreateRecommendationForWor
 	return &CreateRecommendationForWorkspaceByEnvCrnOK{}
 }
 
-/*CreateRecommendationForWorkspaceByEnvCrnOK handles this case with default header values.
+/*
+CreateRecommendationForWorkspaceByEnvCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -58,7 +58,8 @@ func NewValidateCloudBackupStorageParamsWithHTTPClient(client *http.Client) *Val
 	}
 }
 
-/*ValidateCloudBackupStorageParams contains all the parameters to send to the API endpoint
+/*
+ValidateCloudBackupStorageParams contains all the parameters to send to the API endpoint
 for the validate cloud backup storage operation typically these are written to a http.Request
 */
 type ValidateCloudBackupStorageParams struct {

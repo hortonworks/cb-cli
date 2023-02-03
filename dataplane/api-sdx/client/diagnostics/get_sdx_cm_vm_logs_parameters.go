@@ -56,7 +56,8 @@ func NewGetSdxCmVMLogsParamsWithHTTPClient(client *http.Client) *GetSdxCmVMLogsP
 	}
 }
 
-/*GetSdxCmVMLogsParams contains all the parameters to send to the API endpoint
+/*
+GetSdxCmVMLogsParams contains all the parameters to send to the API endpoint
 for the get sdx cm Vm logs operation typically these are written to a http.Request
 */
 type GetSdxCmVMLogsParams struct {

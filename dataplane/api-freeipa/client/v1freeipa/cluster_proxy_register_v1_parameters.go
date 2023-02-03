@@ -56,7 +56,8 @@ func NewClusterProxyRegisterV1ParamsWithHTTPClient(client *http.Client) *Cluster
 	}
 }
 
-/*ClusterProxyRegisterV1Params contains all the parameters to send to the API endpoint
+/*
+ClusterProxyRegisterV1Params contains all the parameters to send to the API endpoint
 for the cluster proxy register v1 operation typically these are written to a http.Request
 */
 type ClusterProxyRegisterV1Params struct {

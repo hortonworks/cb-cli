@@ -40,7 +40,8 @@ func NewGetCreateEnvironmentForCliByCrnOK() *GetCreateEnvironmentForCliByCrnOK {
 	return &GetCreateEnvironmentForCliByCrnOK{}
 }
 
-/*GetCreateEnvironmentForCliByCrnOK handles this case with default header values.
+/*
+GetCreateEnvironmentForCliByCrnOK handles this case with default header values.
 
 successful operation
 */

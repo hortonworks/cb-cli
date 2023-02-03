@@ -56,7 +56,8 @@ func NewCancelDistroxDiagnosticsCollectionsV1ParamsWithHTTPClient(client *http.C
 	}
 }
 
-/*CancelDistroxDiagnosticsCollectionsV1Params contains all the parameters to send to the API endpoint
+/*
+CancelDistroxDiagnosticsCollectionsV1Params contains all the parameters to send to the API endpoint
 for the cancel distrox diagnostics collections v1 operation typically these are written to a http.Request
 */
 type CancelDistroxDiagnosticsCollectionsV1Params struct {

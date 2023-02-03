@@ -57,7 +57,8 @@ func NewCreateScaleRecommendationForWorkspaceParamsWithHTTPClient(client *http.C
 	}
 }
 
-/*CreateScaleRecommendationForWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+CreateScaleRecommendationForWorkspaceParams contains all the parameters to send to the API endpoint
 for the create scale recommendation for workspace operation typically these are written to a http.Request
 */
 type CreateScaleRecommendationForWorkspaceParams struct {

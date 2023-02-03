@@ -42,7 +42,8 @@ func NewGetDefaultAccountTelemetryV1OK() *GetDefaultAccountTelemetryV1OK {
 	return &GetDefaultAccountTelemetryV1OK{}
 }
 
-/*GetDefaultAccountTelemetryV1OK handles this case with default header values.
+/*
+GetDefaultAccountTelemetryV1OK handles this case with default header values.
 
 successful operation
 */

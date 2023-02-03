@@ -57,7 +57,8 @@ func NewCheckUpgradeRdsByNameInternalParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*CheckUpgradeRdsByNameInternalParams contains all the parameters to send to the API endpoint
+/*
+CheckUpgradeRdsByNameInternalParams contains all the parameters to send to the API endpoint
 for the check upgrade rds by name internal operation typically these are written to a http.Request
 */
 type CheckUpgradeRdsByNameInternalParams struct {

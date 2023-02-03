@@ -42,7 +42,8 @@ func NewGetUserProfileInWorkspaceOK() *GetUserProfileInWorkspaceOK {
 	return &GetUserProfileInWorkspaceOK{}
 }
 
-/*GetUserProfileInWorkspaceOK handles this case with default header values.
+/*
+GetUserProfileInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

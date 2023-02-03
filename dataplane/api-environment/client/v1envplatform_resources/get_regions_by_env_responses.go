@@ -42,7 +42,8 @@ func NewGetRegionsByEnvOK() *GetRegionsByEnvOK {
 	return &GetRegionsByEnvOK{}
 }
 
-/*GetRegionsByEnvOK handles this case with default header values.
+/*
+GetRegionsByEnvOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewUpdateAzureResourceEncryptionParametersV1OK() *UpdateAzureResourceEncryp
 	return &UpdateAzureResourceEncryptionParametersV1OK{}
 }
 
-/*UpdateAzureResourceEncryptionParametersV1OK handles this case with default header values.
+/*
+UpdateAzureResourceEncryptionParametersV1OK handles this case with default header values.
 
 successful operation
 */

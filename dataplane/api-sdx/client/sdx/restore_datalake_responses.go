@@ -42,7 +42,8 @@ func NewRestoreDatalakeOK() *RestoreDatalakeOK {
 	return &RestoreDatalakeOK{}
 }
 
-/*RestoreDatalakeOK handles this case with default header values.
+/*
+RestoreDatalakeOK handles this case with default header values.
 
 successful operation
 */

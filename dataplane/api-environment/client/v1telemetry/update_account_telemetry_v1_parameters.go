@@ -58,7 +58,8 @@ func NewUpdateAccountTelemetryV1ParamsWithHTTPClient(client *http.Client) *Updat
 	}
 }
 
-/*UpdateAccountTelemetryV1Params contains all the parameters to send to the API endpoint
+/*
+UpdateAccountTelemetryV1Params contains all the parameters to send to the API endpoint
 for the update account telemetry v1 operation typically these are written to a http.Request
 */
 type UpdateAccountTelemetryV1Params struct {

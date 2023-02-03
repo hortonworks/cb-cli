@@ -42,7 +42,8 @@ func NewStartEnvironmentByNameV1OK() *StartEnvironmentByNameV1OK {
 	return &StartEnvironmentByNameV1OK{}
 }
 
-/*StartEnvironmentByNameV1OK handles this case with default header values.
+/*
+StartEnvironmentByNameV1OK handles this case with default header values.
 
 successful operation
 */

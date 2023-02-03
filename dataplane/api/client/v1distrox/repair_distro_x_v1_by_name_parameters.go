@@ -58,7 +58,8 @@ func NewRepairDistroXV1ByNameParamsWithHTTPClient(client *http.Client) *RepairDi
 	}
 }
 
-/*RepairDistroXV1ByNameParams contains all the parameters to send to the API endpoint
+/*
+RepairDistroXV1ByNameParams contains all the parameters to send to the API endpoint
 for the repair distro x v1 by name operation typically these are written to a http.Request
 */
 type RepairDistroXV1ByNameParams struct {

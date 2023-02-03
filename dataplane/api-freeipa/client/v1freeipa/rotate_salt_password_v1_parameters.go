@@ -56,7 +56,8 @@ func NewRotateSaltPasswordV1ParamsWithHTTPClient(client *http.Client) *RotateSal
 	}
 }
 
-/*RotateSaltPasswordV1Params contains all the parameters to send to the API endpoint
+/*
+RotateSaltPasswordV1Params contains all the parameters to send to the API endpoint
 for the rotate salt password v1 operation typically these are written to a http.Request
 */
 type RotateSaltPasswordV1Params struct {

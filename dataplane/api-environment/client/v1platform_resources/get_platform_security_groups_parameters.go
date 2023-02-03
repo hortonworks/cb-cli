@@ -56,7 +56,8 @@ func NewGetPlatformSecurityGroupsParamsWithHTTPClient(client *http.Client) *GetP
 	}
 }
 
-/*GetPlatformSecurityGroupsParams contains all the parameters to send to the API endpoint
+/*
+GetPlatformSecurityGroupsParams contains all the parameters to send to the API endpoint
 for the get platform security groups operation typically these are written to a http.Request
 */
 type GetPlatformSecurityGroupsParams struct {

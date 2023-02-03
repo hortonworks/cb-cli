@@ -42,7 +42,8 @@ func NewGetDatalakeDbConfigOK() *GetDatalakeDbConfigOK {
 	return &GetDatalakeDbConfigOK{}
 }
 
-/*GetDatalakeDbConfigOK handles this case with default header values.
+/*
+GetDatalakeDbConfigOK handles this case with default header values.
 
 successful operation
 */

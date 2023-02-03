@@ -57,7 +57,8 @@ func NewUpdateSaltByNameParamsWithHTTPClient(client *http.Client) *UpdateSaltByN
 	}
 }
 
-/*UpdateSaltByNameParams contains all the parameters to send to the API endpoint
+/*
+UpdateSaltByNameParams contains all the parameters to send to the API endpoint
 for the update salt by name operation typically these are written to a http.Request
 */
 type UpdateSaltByNameParams struct {

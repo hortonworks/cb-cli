@@ -42,7 +42,8 @@ func NewAddDNSZoneForSubnetsV1OK() *AddDNSZoneForSubnetsV1OK {
 	return &AddDNSZoneForSubnetsV1OK{}
 }
 
-/*AddDNSZoneForSubnetsV1OK handles this case with default header values.
+/*
+AddDNSZoneForSubnetsV1OK handles this case with default header values.
 
 successful operation
 */

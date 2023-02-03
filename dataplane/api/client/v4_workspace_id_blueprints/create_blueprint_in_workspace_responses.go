@@ -42,7 +42,8 @@ func NewCreateBlueprintInWorkspaceOK() *CreateBlueprintInWorkspaceOK {
 	return &CreateBlueprintInWorkspaceOK{}
 }
 
-/*CreateBlueprintInWorkspaceOK handles this case with default header values.
+/*
+CreateBlueprintInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

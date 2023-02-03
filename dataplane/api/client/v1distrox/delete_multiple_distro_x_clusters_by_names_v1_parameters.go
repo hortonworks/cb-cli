@@ -71,7 +71,8 @@ func NewDeleteMultipleDistroXClustersByNamesV1ParamsWithHTTPClient(client *http.
 	}
 }
 
-/*DeleteMultipleDistroXClustersByNamesV1Params contains all the parameters to send to the API endpoint
+/*
+DeleteMultipleDistroXClustersByNamesV1Params contains all the parameters to send to the API endpoint
 for the delete multiple distro x clusters by names v1 operation typically these are written to a http.Request
 */
 type DeleteMultipleDistroXClustersByNamesV1Params struct {

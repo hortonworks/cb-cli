@@ -42,7 +42,8 @@ func NewListBlueprintsByWorkspaceOK() *ListBlueprintsByWorkspaceOK {
 	return &ListBlueprintsByWorkspaceOK{}
 }
 
-/*ListBlueprintsByWorkspaceOK handles this case with default header values.
+/*
+ListBlueprintsByWorkspaceOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetAuditCredentialByResourceNameV1OK() *GetAuditCredentialByResourceName
 	return &GetAuditCredentialByResourceNameV1OK{}
 }
 
-/*GetAuditCredentialByResourceNameV1OK handles this case with default header values.
+/*
+GetAuditCredentialByResourceNameV1OK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewHasFlowRunningByChainIDAndResourceCrnParamsWithHTTPClient(client *http.C
 	}
 }
 
-/*HasFlowRunningByChainIDAndResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+HasFlowRunningByChainIDAndResourceCrnParams contains all the parameters to send to the API endpoint
 for the has flow running by chain Id and resource crn operation typically these are written to a http.Request
 */
 type HasFlowRunningByChainIDAndResourceCrnParams struct {

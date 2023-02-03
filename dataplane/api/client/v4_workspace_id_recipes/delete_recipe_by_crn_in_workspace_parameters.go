@@ -57,7 +57,8 @@ func NewDeleteRecipeByCrnInWorkspaceParamsWithHTTPClient(client *http.Client) *D
 	}
 }
 
-/*DeleteRecipeByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+DeleteRecipeByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
 for the delete recipe by crn in workspace operation typically these are written to a http.Request
 */
 type DeleteRecipeByCrnInWorkspaceParams struct {

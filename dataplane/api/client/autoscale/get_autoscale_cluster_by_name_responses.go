@@ -42,7 +42,8 @@ func NewGetAutoscaleClusterByNameOK() *GetAutoscaleClusterByNameOK {
 	return &GetAutoscaleClusterByNameOK{}
 }
 
-/*GetAutoscaleClusterByNameOK handles this case with default header values.
+/*
+GetAutoscaleClusterByNameOK handles this case with default header values.
 
 successful operation
 */

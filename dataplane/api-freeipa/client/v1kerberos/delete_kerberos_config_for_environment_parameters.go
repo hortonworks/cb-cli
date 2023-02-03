@@ -56,7 +56,8 @@ func NewDeleteKerberosConfigForEnvironmentParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/*DeleteKerberosConfigForEnvironmentParams contains all the parameters to send to the API endpoint
+/*
+DeleteKerberosConfigForEnvironmentParams contains all the parameters to send to the API endpoint
 for the delete kerberos config for environment operation typically these are written to a http.Request
 */
 type DeleteKerberosConfigForEnvironmentParams struct {

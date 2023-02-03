@@ -59,7 +59,8 @@ func NewRepairStackInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *Repai
 	}
 }
 
-/*RepairStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+RepairStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the repair stack in workspace v4 operation typically these are written to a http.Request
 */
 type RepairStackInWorkspaceV4Params struct {

@@ -42,7 +42,8 @@ func NewGetDistroxCmVMLogsV4OK() *GetDistroxCmVMLogsV4OK {
 	return &GetDistroxCmVMLogsV4OK{}
 }
 
-/*GetDistroxCmVMLogsV4OK handles this case with default header values.
+/*
+GetDistroxCmVMLogsV4OK handles this case with default header values.
 
 successful operation
 */

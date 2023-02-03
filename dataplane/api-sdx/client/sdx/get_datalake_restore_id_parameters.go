@@ -56,7 +56,8 @@ func NewGetDatalakeRestoreIDParamsWithHTTPClient(client *http.Client) *GetDatala
 	}
 }
 
-/*GetDatalakeRestoreIDParams contains all the parameters to send to the API endpoint
+/*
+GetDatalakeRestoreIDParams contains all the parameters to send to the API endpoint
 for the get datalake restore Id operation typically these are written to a http.Request
 */
 type GetDatalakeRestoreIDParams struct {

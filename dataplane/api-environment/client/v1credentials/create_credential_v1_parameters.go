@@ -58,7 +58,8 @@ func NewCreateCredentialV1ParamsWithHTTPClient(client *http.Client) *CreateCrede
 	}
 }
 
-/*CreateCredentialV1Params contains all the parameters to send to the API endpoint
+/*
+CreateCredentialV1Params contains all the parameters to send to the API endpoint
 for the create credential v1 operation typically these are written to a http.Request
 */
 type CreateCredentialV1Params struct {

@@ -42,7 +42,8 @@ func NewGetTerminatedClustersPreferencesOK() *GetTerminatedClustersPreferencesOK
 	return &GetTerminatedClustersPreferencesOK{}
 }
 
-/*GetTerminatedClustersPreferencesOK handles this case with default header values.
+/*
+GetTerminatedClustersPreferencesOK handles this case with default header values.
 
 successful operation
 */

@@ -57,7 +57,8 @@ func NewGetStackInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *GetStack
 	}
 }
 
-/*GetStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+GetStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the get stack in workspace v4 operation typically these are written to a http.Request
 */
 type GetStackInWorkspaceV4Params struct {

@@ -42,7 +42,8 @@ func NewInternalModifyProxyConfigByEnvironmentV1OK() *InternalModifyProxyConfigB
 	return &InternalModifyProxyConfigByEnvironmentV1OK{}
 }
 
-/*InternalModifyProxyConfigByEnvironmentV1OK handles this case with default header values.
+/*
+InternalModifyProxyConfigByEnvironmentV1OK handles this case with default header values.
 
 successful operation
 */

@@ -58,7 +58,8 @@ func NewListEnvironmentCostV1ParamsWithHTTPClient(client *http.Client) *ListEnvi
 	}
 }
 
-/*ListEnvironmentCostV1Params contains all the parameters to send to the API endpoint
+/*
+ListEnvironmentCostV1Params contains all the parameters to send to the API endpoint
 for the list environment cost v1 operation typically these are written to a http.Request
 */
 type ListEnvironmentCostV1Params struct {

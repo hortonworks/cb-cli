@@ -42,7 +42,8 @@ func NewUpgradeDatalakeClusterByCrnOK() *UpgradeDatalakeClusterByCrnOK {
 	return &UpgradeDatalakeClusterByCrnOK{}
 }
 
-/*UpgradeDatalakeClusterByCrnOK handles this case with default header values.
+/*
+UpgradeDatalakeClusterByCrnOK handles this case with default header values.
 
 successful operation
 */

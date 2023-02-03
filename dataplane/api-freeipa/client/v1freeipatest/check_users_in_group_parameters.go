@@ -58,7 +58,8 @@ func NewCheckUsersInGroupParamsWithHTTPClient(client *http.Client) *CheckUsersIn
 	}
 }
 
-/*CheckUsersInGroupParams contains all the parameters to send to the API endpoint
+/*
+CheckUsersInGroupParams contains all the parameters to send to the API endpoint
 for the check users in group operation typically these are written to a http.Request
 */
 type CheckUsersInGroupParams struct {

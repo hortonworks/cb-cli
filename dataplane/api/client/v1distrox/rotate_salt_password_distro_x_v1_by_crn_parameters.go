@@ -56,7 +56,8 @@ func NewRotateSaltPasswordDistroXV1ByCrnParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*RotateSaltPasswordDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+RotateSaltPasswordDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
 for the rotate salt password distro x v1 by crn operation typically these are written to a http.Request
 */
 type RotateSaltPasswordDistroXV1ByCrnParams struct {

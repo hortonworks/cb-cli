@@ -42,7 +42,8 @@ func NewListStackDiagnosticsCollectionsOK() *ListStackDiagnosticsCollectionsOK {
 	return &ListStackDiagnosticsCollectionsOK{}
 }
 
-/*ListStackDiagnosticsCollectionsOK handles this case with default header values.
+/*
+ListStackDiagnosticsCollectionsOK handles this case with default header values.
 
 successful operation
 */

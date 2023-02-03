@@ -57,7 +57,8 @@ func NewGetFlowChainsStatusesByChainIdsParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*GetFlowChainsStatusesByChainIdsParams contains all the parameters to send to the API endpoint
+/*
+GetFlowChainsStatusesByChainIdsParams contains all the parameters to send to the API endpoint
 for the get flow chains statuses by chain ids operation typically these are written to a http.Request
 */
 type GetFlowChainsStatusesByChainIdsParams struct {

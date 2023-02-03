@@ -42,7 +42,8 @@ func NewGetDistroXLastFlowLogProgressByResourceCrnOK() *GetDistroXLastFlowLogPro
 	return &GetDistroXLastFlowLogProgressByResourceCrnOK{}
 }
 
-/*GetDistroXLastFlowLogProgressByResourceCrnOK handles this case with default header values.
+/*
+GetDistroXLastFlowLogProgressByResourceCrnOK handles this case with default header values.
 
 successful operation
 */

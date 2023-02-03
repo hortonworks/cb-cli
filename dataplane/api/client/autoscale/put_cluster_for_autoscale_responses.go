@@ -42,7 +42,8 @@ func NewPutClusterForAutoscaleOK() *PutClusterForAutoscaleOK {
 	return &PutClusterForAutoscaleOK{}
 }
 
-/*PutClusterForAutoscaleOK handles this case with default header values.
+/*
+PutClusterForAutoscaleOK handles this case with default header values.
 
 successful operation
 */

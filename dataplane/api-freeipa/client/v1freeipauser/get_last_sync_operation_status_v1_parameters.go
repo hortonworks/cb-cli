@@ -56,7 +56,8 @@ func NewGetLastSyncOperationStatusV1ParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetLastSyncOperationStatusV1Params contains all the parameters to send to the API endpoint
+/*
+GetLastSyncOperationStatusV1Params contains all the parameters to send to the API endpoint
 for the get last sync operation status v1 operation typically these are written to a http.Request
 */
 type GetLastSyncOperationStatusV1Params struct {

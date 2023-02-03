@@ -42,7 +42,8 @@ func NewCreateDatabaseServerInternalOK() *CreateDatabaseServerInternalOK {
 	return &CreateDatabaseServerInternalOK{}
 }
 
-/*CreateDatabaseServerInternalOK handles this case with default header values.
+/*
+CreateDatabaseServerInternalOK handles this case with default header values.
 
 successful operation
 */

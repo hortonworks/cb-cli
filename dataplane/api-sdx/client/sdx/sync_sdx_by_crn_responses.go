@@ -39,7 +39,8 @@ func NewSyncSdxByCrnDefault(code int) *SyncSdxByCrnDefault {
 	}
 }
 
-/*SyncSdxByCrnDefault handles this case with default header values.
+/*
+SyncSdxByCrnDefault handles this case with default header values.
 
 successful operation
 */

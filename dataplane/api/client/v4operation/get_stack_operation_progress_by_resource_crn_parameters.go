@@ -69,7 +69,8 @@ func NewGetStackOperationProgressByResourceCrnParamsWithHTTPClient(client *http.
 	}
 }
 
-/*GetStackOperationProgressByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetStackOperationProgressByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get stack operation progress by resource crn operation typically these are written to a http.Request
 */
 type GetStackOperationProgressByResourceCrnParams struct {

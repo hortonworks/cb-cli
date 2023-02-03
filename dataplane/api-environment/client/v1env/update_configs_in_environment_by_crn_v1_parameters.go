@@ -56,7 +56,8 @@ func NewUpdateConfigsInEnvironmentByCrnV1ParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*UpdateConfigsInEnvironmentByCrnV1Params contains all the parameters to send to the API endpoint
+/*
+UpdateConfigsInEnvironmentByCrnV1Params contains all the parameters to send to the API endpoint
 for the update configs in environment by crn v1 operation typically these are written to a http.Request
 */
 type UpdateConfigsInEnvironmentByCrnV1Params struct {

@@ -42,7 +42,8 @@ func NewBackupDatalakeOK() *BackupDatalakeOK {
 	return &BackupDatalakeOK{}
 }
 
-/*BackupDatalakeOK handles this case with default header values.
+/*
+BackupDatalakeOK handles this case with default header values.
 
 successful operation
 */

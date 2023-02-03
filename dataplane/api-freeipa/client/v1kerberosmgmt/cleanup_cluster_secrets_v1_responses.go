@@ -39,7 +39,8 @@ func NewCleanupClusterSecretsV1Default(code int) *CleanupClusterSecretsV1Default
 	}
 }
 
-/*CleanupClusterSecretsV1Default handles this case with default header values.
+/*
+CleanupClusterSecretsV1Default handles this case with default header values.
 
 successful operation
 */

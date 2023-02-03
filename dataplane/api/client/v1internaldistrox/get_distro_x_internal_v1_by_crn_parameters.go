@@ -56,7 +56,8 @@ func NewGetDistroXInternalV1ByCrnParamsWithHTTPClient(client *http.Client) *GetD
 	}
 }
 
-/*GetDistroXInternalV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetDistroXInternalV1ByCrnParams contains all the parameters to send to the API endpoint
 for the get distro x internal v1 by crn operation typically these are written to a http.Request
 */
 type GetDistroXInternalV1ByCrnParams struct {

@@ -39,7 +39,8 @@ func NewDeleteHostV1Default(code int) *DeleteHostV1Default {
 	}
 }
 
-/*DeleteHostV1Default handles this case with default header values.
+/*
+DeleteHostV1Default handles this case with default header values.
 
 successful operation
 */

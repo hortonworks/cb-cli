@@ -56,7 +56,8 @@ func NewGetUsedSubnetsByEnvironmentParamsWithHTTPClient(client *http.Client) *Ge
 	}
 }
 
-/*GetUsedSubnetsByEnvironmentParams contains all the parameters to send to the API endpoint
+/*
+GetUsedSubnetsByEnvironmentParams contains all the parameters to send to the API endpoint
 for the get used subnets by environment operation typically these are written to a http.Request
 */
 type GetUsedSubnetsByEnvironmentParams struct {

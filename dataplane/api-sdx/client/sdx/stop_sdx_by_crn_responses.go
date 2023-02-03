@@ -42,7 +42,8 @@ func NewStopSdxByCrnOK() *StopSdxByCrnOK {
 	return &StopSdxByCrnOK{}
 }
 
-/*StopSdxByCrnOK handles this case with default header values.
+/*
+StopSdxByCrnOK handles this case with default header values.
 
 successful operation
 */

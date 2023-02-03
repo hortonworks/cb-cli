@@ -58,7 +58,8 @@ func NewChangeTelemetryFeaturesInEnvironmentV1ByCrnParamsWithHTTPClient(client *
 	}
 }
 
-/*ChangeTelemetryFeaturesInEnvironmentV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+ChangeTelemetryFeaturesInEnvironmentV1ByCrnParams contains all the parameters to send to the API endpoint
 for the change telemetry features in environment v1 by crn operation typically these are written to a http.Request
 */
 type ChangeTelemetryFeaturesInEnvironmentV1ByCrnParams struct {

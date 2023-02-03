@@ -42,7 +42,8 @@ func NewPrepareClusterUpgradeByCrnInternalOK() *PrepareClusterUpgradeByCrnIntern
 	return &PrepareClusterUpgradeByCrnInternalOK{}
 }
 
-/*PrepareClusterUpgradeByCrnInternalOK handles this case with default header values.
+/*
+PrepareClusterUpgradeByCrnInternalOK handles this case with default header values.
 
 successful operation
 */

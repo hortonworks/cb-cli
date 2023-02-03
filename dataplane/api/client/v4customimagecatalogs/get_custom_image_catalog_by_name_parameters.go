@@ -56,7 +56,8 @@ func NewGetCustomImageCatalogByNameParamsWithHTTPClient(client *http.Client) *Ge
 	}
 }
 
-/*GetCustomImageCatalogByNameParams contains all the parameters to send to the API endpoint
+/*
+GetCustomImageCatalogByNameParams contains all the parameters to send to the API endpoint
 for the get custom image catalog by name operation typically these are written to a http.Request
 */
 type GetCustomImageCatalogByNameParams struct {

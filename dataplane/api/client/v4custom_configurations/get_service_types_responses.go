@@ -42,7 +42,8 @@ func NewGetServiceTypesOK() *GetServiceTypesOK {
 	return &GetServiceTypesOK{}
 }
 
-/*GetServiceTypesOK handles this case with default header values.
+/*
+GetServiceTypesOK handles this case with default header values.
 
 successful operation
 */

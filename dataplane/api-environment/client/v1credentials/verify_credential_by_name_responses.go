@@ -42,7 +42,8 @@ func NewVerifyCredentialByNameOK() *VerifyCredentialByNameOK {
 	return &VerifyCredentialByNameOK{}
 }
 
-/*VerifyCredentialByNameOK handles this case with default header values.
+/*
+VerifyCredentialByNameOK handles this case with default header values.
 
 successful operation
 */

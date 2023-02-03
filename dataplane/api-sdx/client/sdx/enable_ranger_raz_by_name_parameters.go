@@ -56,7 +56,8 @@ func NewEnableRangerRazByNameParamsWithHTTPClient(client *http.Client) *EnableRa
 	}
 }
 
-/*EnableRangerRazByNameParams contains all the parameters to send to the API endpoint
+/*
+EnableRangerRazByNameParams contains all the parameters to send to the API endpoint
 for the enable ranger raz by name operation typically these are written to a http.Request
 */
 type EnableRangerRazByNameParams struct {

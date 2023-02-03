@@ -42,7 +42,8 @@ func NewUpdateEnvironmentLoadBalancersByCrnV1OK() *UpdateEnvironmentLoadBalancer
 	return &UpdateEnvironmentLoadBalancersByCrnV1OK{}
 }
 
-/*UpdateEnvironmentLoadBalancersByCrnV1OK handles this case with default header values.
+/*
+UpdateEnvironmentLoadBalancersByCrnV1OK handles this case with default header values.
 
 successful operation
 */

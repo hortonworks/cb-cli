@@ -58,7 +58,8 @@ func NewInternalCleanupV1ParamsWithHTTPClient(client *http.Client) *InternalClea
 	}
 }
 
-/*InternalCleanupV1Params contains all the parameters to send to the API endpoint
+/*
+InternalCleanupV1Params contains all the parameters to send to the API endpoint
 for the internal cleanup v1 operation typically these are written to a http.Request
 */
 type InternalCleanupV1Params struct {

@@ -77,7 +77,8 @@ func NewGetAuditEventsParamsWithHTTPClient(client *http.Client) *GetAuditEventsP
 	}
 }
 
-/*GetAuditEventsParams contains all the parameters to send to the API endpoint
+/*
+GetAuditEventsParams contains all the parameters to send to the API endpoint
 for the get audit events operation typically these are written to a http.Request
 */
 type GetAuditEventsParams struct {

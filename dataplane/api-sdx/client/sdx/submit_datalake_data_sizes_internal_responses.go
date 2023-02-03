@@ -39,7 +39,8 @@ func NewSubmitDatalakeDataSizesInternalDefault(code int) *SubmitDatalakeDataSize
 	}
 }
 
-/*SubmitDatalakeDataSizesInternalDefault handles this case with default header values.
+/*
+SubmitDatalakeDataSizesInternalDefault handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewGetDistroXLastFlowLogProgressByResourceCrnParamsWithHTTPClient(client *h
 	}
 }
 
-/*GetDistroXLastFlowLogProgressByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetDistroXLastFlowLogProgressByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get distro x last flow log progress by resource crn operation typically these are written to a http.Request
 */
 type GetDistroXLastFlowLogProgressByResourceCrnParams struct {

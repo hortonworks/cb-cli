@@ -56,7 +56,8 @@ func NewGetFreeIpaUpgradeOptionsV1ParamsWithHTTPClient(client *http.Client) *Get
 	}
 }
 
-/*GetFreeIpaUpgradeOptionsV1Params contains all the parameters to send to the API endpoint
+/*
+GetFreeIpaUpgradeOptionsV1Params contains all the parameters to send to the API endpoint
 for the get free ipa upgrade options v1 operation typically these are written to a http.Request
 */
 type GetFreeIpaUpgradeOptionsV1Params struct {

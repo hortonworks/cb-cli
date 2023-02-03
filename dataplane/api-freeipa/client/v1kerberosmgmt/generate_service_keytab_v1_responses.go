@@ -42,7 +42,8 @@ func NewGenerateServiceKeytabV1OK() *GenerateServiceKeytabV1OK {
 	return &GenerateServiceKeytabV1OK{}
 }
 
-/*GenerateServiceKeytabV1OK handles this case with default header values.
+/*
+GenerateServiceKeytabV1OK handles this case with default header values.
 
 successful operation
 */

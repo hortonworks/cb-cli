@@ -39,7 +39,8 @@ func NewDeleteLdapConfigV1Default(code int) *DeleteLdapConfigV1Default {
 	}
 }
 
-/*DeleteLdapConfigV1Default handles this case with default header values.
+/*
+DeleteLdapConfigV1Default handles this case with default header values.
 
 successful operation
 */

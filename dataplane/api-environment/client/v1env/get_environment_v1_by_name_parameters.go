@@ -56,7 +56,8 @@ func NewGetEnvironmentV1ByNameParamsWithHTTPClient(client *http.Client) *GetEnvi
 	}
 }
 
-/*GetEnvironmentV1ByNameParams contains all the parameters to send to the API endpoint
+/*
+GetEnvironmentV1ByNameParams contains all the parameters to send to the API endpoint
 for the get environment v1 by name operation typically these are written to a http.Request
 */
 type GetEnvironmentV1ByNameParams struct {

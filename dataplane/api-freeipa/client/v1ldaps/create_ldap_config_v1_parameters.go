@@ -58,7 +58,8 @@ func NewCreateLdapConfigV1ParamsWithHTTPClient(client *http.Client) *CreateLdapC
 	}
 }
 
-/*CreateLdapConfigV1Params contains all the parameters to send to the API endpoint
+/*
+CreateLdapConfigV1Params contains all the parameters to send to the API endpoint
 for the create ldap config v1 operation typically these are written to a http.Request
 */
 type CreateLdapConfigV1Params struct {

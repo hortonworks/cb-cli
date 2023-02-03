@@ -42,7 +42,8 @@ func NewHasFlowRunningByFlowIDAndResourceCrnOK() *HasFlowRunningByFlowIDAndResou
 	return &HasFlowRunningByFlowIDAndResourceCrnOK{}
 }
 
-/*HasFlowRunningByFlowIDAndResourceCrnOK handles this case with default header values.
+/*
+HasFlowRunningByFlowIDAndResourceCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewUpgradeDatabaseServerOK() *UpgradeDatabaseServerOK {
 	return &UpgradeDatabaseServerOK{}
 }
 
-/*UpgradeDatabaseServerOK handles this case with default header values.
+/*
+UpgradeDatabaseServerOK handles this case with default header values.
 
 successful operation
 */

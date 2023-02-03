@@ -42,7 +42,8 @@ func NewInternalListFreeIpaClustersByAccountV1OK() *InternalListFreeIpaClustersB
 	return &InternalListFreeIpaClustersByAccountV1OK{}
 }
 
-/*InternalListFreeIpaClustersByAccountV1OK handles this case with default header values.
+/*
+InternalListFreeIpaClustersByAccountV1OK handles this case with default header values.
 
 successful operation
 */

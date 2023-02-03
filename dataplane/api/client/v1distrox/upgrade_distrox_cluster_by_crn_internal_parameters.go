@@ -59,7 +59,8 @@ func NewUpgradeDistroxClusterByCrnInternalParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/*UpgradeDistroxClusterByCrnInternalParams contains all the parameters to send to the API endpoint
+/*
+UpgradeDistroxClusterByCrnInternalParams contains all the parameters to send to the API endpoint
 for the upgrade distrox cluster by crn internal operation typically these are written to a http.Request
 */
 type UpgradeDistroxClusterByCrnInternalParams struct {

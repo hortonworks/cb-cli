@@ -57,7 +57,8 @@ func NewGetSaltPasswordStatusForStackInWorkspaceV4InternalParamsWithHTTPClient(c
 	}
 }
 
-/*GetSaltPasswordStatusForStackInWorkspaceV4InternalParams contains all the parameters to send to the API endpoint
+/*
+GetSaltPasswordStatusForStackInWorkspaceV4InternalParams contains all the parameters to send to the API endpoint
 for the get salt password status for stack in workspace v4 internal operation typically these are written to a http.Request
 */
 type GetSaltPasswordStatusForStackInWorkspaceV4InternalParams struct {

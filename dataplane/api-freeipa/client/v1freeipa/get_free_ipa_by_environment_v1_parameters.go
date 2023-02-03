@@ -56,7 +56,8 @@ func NewGetFreeIpaByEnvironmentV1ParamsWithHTTPClient(client *http.Client) *GetF
 	}
 }
 
-/*GetFreeIpaByEnvironmentV1Params contains all the parameters to send to the API endpoint
+/*
+GetFreeIpaByEnvironmentV1Params contains all the parameters to send to the API endpoint
 for the get free ipa by environment v1 operation typically these are written to a http.Request
 */
 type GetFreeIpaByEnvironmentV1Params struct {

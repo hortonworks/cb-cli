@@ -58,7 +58,8 @@ func NewBackupDatabaseInternalParamsWithHTTPClient(client *http.Client) *BackupD
 	}
 }
 
-/*BackupDatabaseInternalParams contains all the parameters to send to the API endpoint
+/*
+BackupDatabaseInternalParams contains all the parameters to send to the API endpoint
 for the backup database internal operation typically these are written to a http.Request
 */
 type BackupDatabaseInternalParams struct {

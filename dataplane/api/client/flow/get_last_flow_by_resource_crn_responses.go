@@ -42,7 +42,8 @@ func NewGetLastFlowByResourceCrnOK() *GetLastFlowByResourceCrnOK {
 	return &GetLastFlowByResourceCrnOK{}
 }
 
-/*GetLastFlowByResourceCrnOK handles this case with default header values.
+/*
+GetLastFlowByResourceCrnOK handles this case with default header values.
 
 successful operation
 */

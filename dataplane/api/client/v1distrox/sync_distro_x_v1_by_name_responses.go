@@ -39,7 +39,8 @@ func NewSyncDistroXV1ByNameDefault(code int) *SyncDistroXV1ByNameDefault {
 	}
 }
 
-/*SyncDistroXV1ByNameDefault handles this case with default header values.
+/*
+SyncDistroXV1ByNameDefault handles this case with default header values.
 
 successful operation
 */

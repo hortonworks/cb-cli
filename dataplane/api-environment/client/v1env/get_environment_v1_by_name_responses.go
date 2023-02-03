@@ -42,7 +42,8 @@ func NewGetEnvironmentV1ByNameOK() *GetEnvironmentV1ByNameOK {
 	return &GetEnvironmentV1ByNameOK{}
 }
 
-/*GetEnvironmentV1ByNameOK handles this case with default header values.
+/*
+GetEnvironmentV1ByNameOK handles this case with default header values.
 
 successful operation
 */

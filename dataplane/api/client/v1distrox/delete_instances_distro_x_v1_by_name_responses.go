@@ -42,7 +42,8 @@ func NewDeleteInstancesDistroXV1ByNameOK() *DeleteInstancesDistroXV1ByNameOK {
 	return &DeleteInstancesDistroXV1ByNameOK{}
 }
 
-/*DeleteInstancesDistroXV1ByNameOK handles this case with default header values.
+/*
+DeleteInstancesDistroXV1ByNameOK handles this case with default header values.
 
 successful operation
 */

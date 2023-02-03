@@ -42,7 +42,8 @@ func NewGetCrnByNameV1OK() *GetCrnByNameV1OK {
 	return &GetCrnByNameV1OK{}
 }
 
-/*GetCrnByNameV1OK handles this case with default header values.
+/*
+GetCrnByNameV1OK handles this case with default header values.
 
 successful operation
 */

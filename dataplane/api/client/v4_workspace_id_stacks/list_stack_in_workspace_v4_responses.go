@@ -42,7 +42,8 @@ func NewListStackInWorkspaceV4OK() *ListStackInWorkspaceV4OK {
 	return &ListStackInWorkspaceV4OK{}
 }
 
-/*ListStackInWorkspaceV4OK handles this case with default header values.
+/*
+ListStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

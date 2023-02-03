@@ -42,7 +42,8 @@ func NewListEnvironmentCostV1OK() *ListEnvironmentCostV1OK {
 	return &ListEnvironmentCostV1OK{}
 }
 
-/*ListEnvironmentCostV1OK handles this case with default header values.
+/*
+ListEnvironmentCostV1OK handles this case with default header values.
 
 successful operation
 */

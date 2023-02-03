@@ -58,7 +58,8 @@ func NewTestLdapConfigV1ParamsWithHTTPClient(client *http.Client) *TestLdapConfi
 	}
 }
 
-/*TestLdapConfigV1Params contains all the parameters to send to the API endpoint
+/*
+TestLdapConfigV1Params contains all the parameters to send to the API endpoint
 for the test ldap config v1 operation typically these are written to a http.Request
 */
 type TestLdapConfigV1Params struct {

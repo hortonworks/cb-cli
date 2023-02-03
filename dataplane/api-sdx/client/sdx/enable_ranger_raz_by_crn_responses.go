@@ -39,7 +39,8 @@ func NewEnableRangerRazByCrnDefault(code int) *EnableRangerRazByCrnDefault {
 	}
 }
 
-/*EnableRangerRazByCrnDefault handles this case with default header values.
+/*
+EnableRangerRazByCrnDefault handles this case with default header values.
 
 successful operation
 */

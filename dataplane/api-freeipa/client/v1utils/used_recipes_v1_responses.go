@@ -40,7 +40,8 @@ func NewUsedRecipesV1OK() *UsedRecipesV1OK {
 	return &UsedRecipesV1OK{}
 }
 
-/*UsedRecipesV1OK handles this case with default header values.
+/*
+UsedRecipesV1OK handles this case with default header values.
 
 successful operation
 */

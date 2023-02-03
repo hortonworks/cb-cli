@@ -42,7 +42,8 @@ func NewGetHostKeytabV1OK() *GetHostKeytabV1OK {
 	return &GetHostKeytabV1OK{}
 }
 
-/*GetHostKeytabV1OK handles this case with default header values.
+/*
+GetHostKeytabV1OK handles this case with default header values.
 
 successful operation
 */

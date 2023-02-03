@@ -42,7 +42,8 @@ func NewGetLdapConfigV1OK() *GetLdapConfigV1OK {
 	return &GetLdapConfigV1OK{}
 }
 
-/*GetLdapConfigV1OK handles this case with default header values.
+/*
+GetLdapConfigV1OK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewDeleteByNameOK() *DeleteByNameOK {
 	return &DeleteByNameOK{}
 }
 
-/*DeleteByNameOK handles this case with default header values.
+/*
+DeleteByNameOK handles this case with default header values.
 
 successful operation
 */

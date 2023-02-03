@@ -39,7 +39,8 @@ func NewPutTerminatedClustersPreferencesDefault(code int) *PutTerminatedClusters
 	}
 }
 
-/*PutTerminatedClustersPreferencesDefault handles this case with default header values.
+/*
+PutTerminatedClustersPreferencesDefault handles this case with default header values.
 
 successful operation
 */

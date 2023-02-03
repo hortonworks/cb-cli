@@ -56,7 +56,8 @@ func NewSyncDistroxCmParamsWithHTTPClient(client *http.Client) *SyncDistroxCmPar
 	}
 }
 
-/*SyncDistroxCmParams contains all the parameters to send to the API endpoint
+/*
+SyncDistroxCmParams contains all the parameters to send to the API endpoint
 for the sync distrox cm operation typically these are written to a http.Request
 */
 type SyncDistroxCmParams struct {

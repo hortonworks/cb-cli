@@ -56,7 +56,8 @@ func NewListParamsWithHTTPClient(client *http.Client) *ListParams {
 	}
 }
 
-/*ListParams contains all the parameters to send to the API endpoint
+/*
+ListParams contains all the parameters to send to the API endpoint
 for the list operation typically these are written to a http.Request
 */
 type ListParams struct {

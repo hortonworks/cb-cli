@@ -42,7 +42,8 @@ func NewGetAuditEventByWorkspaceOK() *GetAuditEventByWorkspaceOK {
 	return &GetAuditEventByWorkspaceOK{}
 }
 
-/*GetAuditEventByWorkspaceOK handles this case with default header values.
+/*
+GetAuditEventByWorkspaceOK handles this case with default header values.
 
 successful operation
 */

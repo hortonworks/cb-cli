@@ -42,7 +42,8 @@ func NewGetFlowChainsStatusesByChainIdsOK() *GetFlowChainsStatusesByChainIdsOK {
 	return &GetFlowChainsStatusesByChainIdsOK{}
 }
 
-/*GetFlowChainsStatusesByChainIdsOK handles this case with default header values.
+/*
+GetFlowChainsStatusesByChainIdsOK handles this case with default header values.
 
 successful operation
 */

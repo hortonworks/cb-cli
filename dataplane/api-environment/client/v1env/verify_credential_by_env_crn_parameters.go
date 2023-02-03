@@ -56,7 +56,8 @@ func NewVerifyCredentialByEnvCrnParamsWithHTTPClient(client *http.Client) *Verif
 	}
 }
 
-/*VerifyCredentialByEnvCrnParams contains all the parameters to send to the API endpoint
+/*
+VerifyCredentialByEnvCrnParams contains all the parameters to send to the API endpoint
 for the verify credential by env crn operation typically these are written to a http.Request
 */
 type VerifyCredentialByEnvCrnParams struct {

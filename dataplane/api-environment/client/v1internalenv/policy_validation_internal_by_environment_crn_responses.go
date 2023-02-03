@@ -42,7 +42,8 @@ func NewPolicyValidationInternalByEnvironmentCrnOK() *PolicyValidationInternalBy
 	return &PolicyValidationInternalByEnvironmentCrnOK{}
 }
 
-/*PolicyValidationInternalByEnvironmentCrnOK handles this case with default header values.
+/*
+PolicyValidationInternalByEnvironmentCrnOK handles this case with default header values.
 
 successful operation
 */

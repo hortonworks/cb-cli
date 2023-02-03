@@ -42,7 +42,8 @@ func NewCreateCustomSdxOK() *CreateCustomSdxOK {
 	return &CreateCustomSdxOK{}
 }
 
-/*CreateCustomSdxOK handles this case with default header values.
+/*
+CreateCustomSdxOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewRebuildV1OK() *RebuildV1OK {
 	return &RebuildV1OK{}
 }
 
-/*RebuildV1OK handles this case with default header values.
+/*
+RebuildV1OK handles this case with default header values.
 
 successful operation
 */

@@ -58,7 +58,8 @@ func NewUpgradeDistroxClusterParamsWithHTTPClient(client *http.Client) *UpgradeD
 	}
 }
 
-/*UpgradeDistroxClusterParams contains all the parameters to send to the API endpoint
+/*
+UpgradeDistroxClusterParams contains all the parameters to send to the API endpoint
 for the upgrade distrox cluster operation typically these are written to a http.Request
 */
 type UpgradeDistroxClusterParams struct {

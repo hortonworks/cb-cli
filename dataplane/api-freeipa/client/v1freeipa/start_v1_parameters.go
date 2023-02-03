@@ -56,7 +56,8 @@ func NewStartV1ParamsWithHTTPClient(client *http.Client) *StartV1Params {
 	}
 }
 
-/*StartV1Params contains all the parameters to send to the API endpoint
+/*
+StartV1Params contains all the parameters to send to the API endpoint
 for the start v1 operation typically these are written to a http.Request
 */
 type StartV1Params struct {

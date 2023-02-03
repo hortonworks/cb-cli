@@ -42,7 +42,8 @@ func NewGetStructuredEventsInWorkspaceOK() *GetStructuredEventsInWorkspaceOK {
 	return &GetStructuredEventsInWorkspaceOK{}
 }
 
-/*GetStructuredEventsInWorkspaceOK handles this case with default header values.
+/*
+GetStructuredEventsInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

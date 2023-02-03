@@ -39,7 +39,8 @@ func NewUpdateClusterCrnDefault(code int) *UpdateClusterCrnDefault {
 	}
 }
 
-/*UpdateClusterCrnDefault handles this case with default header values.
+/*
+UpdateClusterCrnDefault handles this case with default header values.
 
 successful operation
 */

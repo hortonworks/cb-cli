@@ -58,7 +58,8 @@ func NewValidateUpgradeDatabaseServerParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*ValidateUpgradeDatabaseServerParams contains all the parameters to send to the API endpoint
+/*
+ValidateUpgradeDatabaseServerParams contains all the parameters to send to the API endpoint
 for the validate upgrade database server operation typically these are written to a http.Request
 */
 type ValidateUpgradeDatabaseServerParams struct {

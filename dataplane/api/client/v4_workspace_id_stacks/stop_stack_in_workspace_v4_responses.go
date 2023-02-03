@@ -42,7 +42,8 @@ func NewStopStackInWorkspaceV4OK() *StopStackInWorkspaceV4OK {
 	return &StopStackInWorkspaceV4OK{}
 }
 
-/*StopStackInWorkspaceV4OK handles this case with default header values.
+/*
+StopStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewGetSdxParamsWithHTTPClient(client *http.Client) *GetSdxParams {
 	}
 }
 
-/*GetSdxParams contains all the parameters to send to the API endpoint
+/*
+GetSdxParams contains all the parameters to send to the API endpoint
 for the get sdx operation typically these are written to a http.Request
 */
 type GetSdxParams struct {

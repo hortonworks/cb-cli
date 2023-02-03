@@ -42,7 +42,8 @@ func NewDeleteBlueprintsInWorkspaceOK() *DeleteBlueprintsInWorkspaceOK {
 	return &DeleteBlueprintsInWorkspaceOK{}
 }
 
-/*DeleteBlueprintsInWorkspaceOK handles this case with default header values.
+/*
+DeleteBlueprintsInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

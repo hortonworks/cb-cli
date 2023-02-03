@@ -58,7 +58,8 @@ func NewGenerateHostKeytabV1ParamsWithHTTPClient(client *http.Client) *GenerateH
 	}
 }
 
-/*GenerateHostKeytabV1Params contains all the parameters to send to the API endpoint
+/*
+GenerateHostKeytabV1Params contains all the parameters to send to the API endpoint
 for the generate host keytab v1 operation typically these are written to a http.Request
 */
 type GenerateHostKeytabV1Params struct {

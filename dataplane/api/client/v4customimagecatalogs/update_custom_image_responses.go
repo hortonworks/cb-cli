@@ -42,7 +42,8 @@ func NewUpdateCustomImageOK() *UpdateCustomImageOK {
 	return &UpdateCustomImageOK{}
 }
 
-/*UpdateCustomImageOK handles this case with default header values.
+/*
+UpdateCustomImageOK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewGetSdxByEnvCrnParamsWithHTTPClient(client *http.Client) *GetSdxByEnvCrnP
 	}
 }
 
-/*GetSdxByEnvCrnParams contains all the parameters to send to the API endpoint
+/*
+GetSdxByEnvCrnParams contains all the parameters to send to the API endpoint
 for the get sdx by env crn operation typically these are written to a http.Request
 */
 type GetSdxByEnvCrnParams struct {

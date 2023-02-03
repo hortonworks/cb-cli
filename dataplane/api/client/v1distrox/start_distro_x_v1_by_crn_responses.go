@@ -42,7 +42,8 @@ func NewStartDistroXV1ByCrnOK() *StartDistroXV1ByCrnOK {
 	return &StartDistroXV1ByCrnOK{}
 }
 
-/*StartDistroXV1ByCrnOK handles this case with default header values.
+/*
+StartDistroXV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

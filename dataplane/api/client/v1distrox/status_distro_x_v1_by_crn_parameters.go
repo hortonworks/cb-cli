@@ -56,7 +56,8 @@ func NewStatusDistroXV1ByCrnParamsWithHTTPClient(client *http.Client) *StatusDis
 	}
 }
 
-/*StatusDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+StatusDistroXV1ByCrnParams contains all the parameters to send to the API endpoint
 for the status distro x v1 by crn operation typically these are written to a http.Request
 */
 type StatusDistroXV1ByCrnParams struct {

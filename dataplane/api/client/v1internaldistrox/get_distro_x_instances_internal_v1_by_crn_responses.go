@@ -42,7 +42,8 @@ func NewGetDistroXInstancesInternalV1ByCrnOK() *GetDistroXInstancesInternalV1ByC
 	return &GetDistroXInstancesInternalV1ByCrnOK{}
 }
 
-/*GetDistroXInstancesInternalV1ByCrnOK handles this case with default header values.
+/*
+GetDistroXInstancesInternalV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

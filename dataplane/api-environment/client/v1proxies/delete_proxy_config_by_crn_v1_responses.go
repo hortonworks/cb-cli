@@ -42,7 +42,8 @@ func NewDeleteProxyConfigByCrnV1OK() *DeleteProxyConfigByCrnV1OK {
 	return &DeleteProxyConfigByCrnV1OK{}
 }
 
-/*DeleteProxyConfigByCrnV1OK handles this case with default header values.
+/*
+DeleteProxyConfigByCrnV1OK handles this case with default header values.
 
 successful operation
 */

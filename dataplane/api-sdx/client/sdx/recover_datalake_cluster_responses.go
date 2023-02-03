@@ -42,7 +42,8 @@ func NewRecoverDatalakeClusterOK() *RecoverDatalakeClusterOK {
 	return &RecoverDatalakeClusterOK{}
 }
 
-/*RecoverDatalakeClusterOK handles this case with default header values.
+/*
+RecoverDatalakeClusterOK handles this case with default header values.
 
 successful operation
 */

@@ -56,7 +56,8 @@ func NewModifyInternalSdxProxyConfigParamsWithHTTPClient(client *http.Client) *M
 	}
 }
 
-/*ModifyInternalSdxProxyConfigParams contains all the parameters to send to the API endpoint
+/*
+ModifyInternalSdxProxyConfigParams contains all the parameters to send to the API endpoint
 for the modify internal sdx proxy config operation typically these are written to a http.Request
 */
 type ModifyInternalSdxProxyConfigParams struct {

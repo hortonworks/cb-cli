@@ -39,7 +39,8 @@ func NewChangeImageCatalogInternalDefault(code int) *ChangeImageCatalogInternalD
 	}
 }
 
-/*ChangeImageCatalogInternalDefault handles this case with default header values.
+/*
+ChangeImageCatalogInternalDefault handles this case with default header values.
 
 successful operation
 */

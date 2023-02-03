@@ -42,7 +42,8 @@ func NewUpgradeRdsByNameInternalOK() *UpgradeRdsByNameInternalOK {
 	return &UpgradeRdsByNameInternalOK{}
 }
 
-/*UpgradeRdsByNameInternalOK handles this case with default header values.
+/*
+UpgradeRdsByNameInternalOK handles this case with default header values.
 
 successful operation
 */

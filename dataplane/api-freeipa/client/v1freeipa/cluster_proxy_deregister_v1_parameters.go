@@ -56,7 +56,8 @@ func NewClusterProxyDeregisterV1ParamsWithHTTPClient(client *http.Client) *Clust
 	}
 }
 
-/*ClusterProxyDeregisterV1Params contains all the parameters to send to the API endpoint
+/*
+ClusterProxyDeregisterV1Params contains all the parameters to send to the API endpoint
 for the cluster proxy deregister v1 operation typically these are written to a http.Request
 */
 type ClusterProxyDeregisterV1Params struct {

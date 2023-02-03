@@ -56,7 +56,8 @@ func NewDeleteDNSCnameRecordV1ParamsWithHTTPClient(client *http.Client) *DeleteD
 	}
 }
 
-/*DeleteDNSCnameRecordV1Params contains all the parameters to send to the API endpoint
+/*
+DeleteDNSCnameRecordV1Params contains all the parameters to send to the API endpoint
 for the delete Dns cname record v1 operation typically these are written to a http.Request
 */
 type DeleteDNSCnameRecordV1Params struct {

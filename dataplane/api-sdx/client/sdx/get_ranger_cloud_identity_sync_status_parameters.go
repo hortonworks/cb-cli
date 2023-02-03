@@ -56,7 +56,8 @@ func NewGetRangerCloudIdentitySyncStatusParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/*GetRangerCloudIdentitySyncStatusParams contains all the parameters to send to the API endpoint
+/*
+GetRangerCloudIdentitySyncStatusParams contains all the parameters to send to the API endpoint
 for the get ranger cloud identity sync status operation typically these are written to a http.Request
 */
 type GetRangerCloudIdentitySyncStatusParams struct {

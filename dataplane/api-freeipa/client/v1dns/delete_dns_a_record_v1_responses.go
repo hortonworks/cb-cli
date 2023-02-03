@@ -39,7 +39,8 @@ func NewDeleteDNSARecordV1Default(code int) *DeleteDNSARecordV1Default {
 	}
 }
 
-/*DeleteDNSARecordV1Default handles this case with default header values.
+/*
+DeleteDNSARecordV1Default handles this case with default header values.
 
 successful operation
 */

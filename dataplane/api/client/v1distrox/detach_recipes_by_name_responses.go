@@ -42,7 +42,8 @@ func NewDetachRecipesByNameOK() *DetachRecipesByNameOK {
 	return &DetachRecipesByNameOK{}
 }
 
-/*DetachRecipesByNameOK handles this case with default header values.
+/*
+DetachRecipesByNameOK handles this case with default header values.
 
 successful operation
 */

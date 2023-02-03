@@ -40,7 +40,8 @@ func NewGetUserKeytabV1OK() *GetUserKeytabV1OK {
 	return &GetUserKeytabV1OK{}
 }
 
-/*GetUserKeytabV1OK handles this case with default header values.
+/*
+GetUserKeytabV1OK handles this case with default header values.
 
 successful operation
 */

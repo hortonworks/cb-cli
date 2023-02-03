@@ -39,7 +39,8 @@ func NewDecommissionInstancesForClusterCrnDefault(code int) *DecommissionInstanc
 	}
 }
 
-/*DecommissionInstancesForClusterCrnDefault handles this case with default header values.
+/*
+DecommissionInstancesForClusterCrnDefault handles this case with default header values.
 
 successful operation
 */

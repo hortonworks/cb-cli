@@ -42,7 +42,8 @@ func NewDeleteBlueprintByCrnOK() *DeleteBlueprintByCrnOK {
 	return &DeleteBlueprintByCrnOK{}
 }
 
-/*DeleteBlueprintByCrnOK handles this case with default header values.
+/*
+DeleteBlueprintByCrnOK handles this case with default header values.
 
 successful operation
 */

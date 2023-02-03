@@ -56,7 +56,8 @@ func NewGetCredentialByResourceCrnV1ParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetCredentialByResourceCrnV1Params contains all the parameters to send to the API endpoint
+/*
+GetCredentialByResourceCrnV1Params contains all the parameters to send to the API endpoint
 for the get credential by resource crn v1 operation typically these are written to a http.Request
 */
 type GetCredentialByResourceCrnV1Params struct {

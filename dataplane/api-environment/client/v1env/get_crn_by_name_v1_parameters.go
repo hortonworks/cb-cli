@@ -56,7 +56,8 @@ func NewGetCrnByNameV1ParamsWithHTTPClient(client *http.Client) *GetCrnByNameV1P
 	}
 }
 
-/*GetCrnByNameV1Params contains all the parameters to send to the API endpoint
+/*
+GetCrnByNameV1Params contains all the parameters to send to the API endpoint
 for the get crn by name v1 operation typically these are written to a http.Request
 */
 type GetCrnByNameV1Params struct {

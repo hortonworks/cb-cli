@@ -57,7 +57,8 @@ func NewUpgradeCcmByCrnInternalParamsWithHTTPClient(client *http.Client) *Upgrad
 	}
 }
 
-/*UpgradeCcmByCrnInternalParams contains all the parameters to send to the API endpoint
+/*
+UpgradeCcmByCrnInternalParams contains all the parameters to send to the API endpoint
 for the upgrade ccm by crn internal operation typically these are written to a http.Request
 */
 type UpgradeCcmByCrnInternalParams struct {

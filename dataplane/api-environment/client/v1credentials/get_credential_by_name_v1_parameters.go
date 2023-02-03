@@ -56,7 +56,8 @@ func NewGetCredentialByNameV1ParamsWithHTTPClient(client *http.Client) *GetCrede
 	}
 }
 
-/*GetCredentialByNameV1Params contains all the parameters to send to the API endpoint
+/*
+GetCredentialByNameV1Params contains all the parameters to send to the API endpoint
 for the get credential by name v1 operation typically these are written to a http.Request
 */
 type GetCredentialByNameV1Params struct {

@@ -42,7 +42,8 @@ func NewDeleteSdxOK() *DeleteSdxOK {
 	return &DeleteSdxOK{}
 }
 
-/*DeleteSdxOK handles this case with default header values.
+/*
+DeleteSdxOK handles this case with default header values.
 
 successful operation
 */

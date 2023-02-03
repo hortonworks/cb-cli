@@ -56,7 +56,8 @@ func NewGetFreeIpaLastFlowLogProgressByEnvironmentCrnParamsWithHTTPClient(client
 	}
 }
 
-/*GetFreeIpaLastFlowLogProgressByEnvironmentCrnParams contains all the parameters to send to the API endpoint
+/*
+GetFreeIpaLastFlowLogProgressByEnvironmentCrnParams contains all the parameters to send to the API endpoint
 for the get free ipa last flow log progress by environment crn operation typically these are written to a http.Request
 */
 type GetFreeIpaLastFlowLogProgressByEnvironmentCrnParams struct {

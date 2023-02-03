@@ -56,7 +56,8 @@ func NewGetSdxByCrnParamsWithHTTPClient(client *http.Client) *GetSdxByCrnParams 
 	}
 }
 
-/*GetSdxByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetSdxByCrnParams contains all the parameters to send to the API endpoint
 for the get sdx by crn operation typically these are written to a http.Request
 */
 type GetSdxByCrnParams struct {

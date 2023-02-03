@@ -59,7 +59,8 @@ func NewCreateImageCatalogInWorkspaceParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*CreateImageCatalogInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+CreateImageCatalogInWorkspaceParams contains all the parameters to send to the API endpoint
 for the create image catalog in workspace operation typically these are written to a http.Request
 */
 type CreateImageCatalogInWorkspaceParams struct {

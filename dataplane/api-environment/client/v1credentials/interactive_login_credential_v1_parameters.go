@@ -58,7 +58,8 @@ func NewInteractiveLoginCredentialV1ParamsWithHTTPClient(client *http.Client) *I
 	}
 }
 
-/*InteractiveLoginCredentialV1Params contains all the parameters to send to the API endpoint
+/*
+InteractiveLoginCredentialV1Params contains all the parameters to send to the API endpoint
 for the interactive login credential v1 operation typically these are written to a http.Request
 */
 type InteractiveLoginCredentialV1Params struct {

@@ -39,7 +39,8 @@ func NewCodeGrantFlowOnExistingCredentialV1Default(code int) *CodeGrantFlowOnExi
 	}
 }
 
-/*CodeGrantFlowOnExistingCredentialV1Default handles this case with default header values.
+/*
+CodeGrantFlowOnExistingCredentialV1Default handles this case with default header values.
 
 successful operation
 */

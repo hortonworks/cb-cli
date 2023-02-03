@@ -42,7 +42,8 @@ func NewCollectFreeIpaDiagnosticsV1OK() *CollectFreeIpaDiagnosticsV1OK {
 	return &CollectFreeIpaDiagnosticsV1OK{}
 }
 
-/*CollectFreeIpaDiagnosticsV1OK handles this case with default header values.
+/*
+CollectFreeIpaDiagnosticsV1OK handles this case with default header values.
 
 successful operation
 */

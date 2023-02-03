@@ -42,7 +42,8 @@ func NewGetTagSpecificationsOK() *GetTagSpecificationsOK {
 	return &GetTagSpecificationsOK{}
 }
 
-/*GetTagSpecificationsOK handles this case with default header values.
+/*
+GetTagSpecificationsOK handles this case with default header values.
 
 successful operation
 */

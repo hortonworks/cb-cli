@@ -57,7 +57,8 @@ func NewStartStackInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *StartS
 	}
 }
 
-/*StartStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+StartStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the start stack in workspace v4 operation typically these are written to a http.Request
 */
 type StartStackInWorkspaceV4Params struct {

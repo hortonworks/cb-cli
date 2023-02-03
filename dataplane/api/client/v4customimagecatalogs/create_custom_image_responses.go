@@ -42,7 +42,8 @@ func NewCreateCustomImageOK() *CreateCustomImageOK {
 	return &CreateCustomImageOK{}
 }
 
-/*CreateCustomImageOK handles this case with default header values.
+/*
+CreateCustomImageOK handles this case with default header values.
 
 successful operation
 */

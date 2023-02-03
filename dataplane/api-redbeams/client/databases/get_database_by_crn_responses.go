@@ -42,7 +42,8 @@ func NewGetDatabaseByCrnOK() *GetDatabaseByCrnOK {
 	return &GetDatabaseByCrnOK{}
 }
 
-/*GetDatabaseByCrnOK handles this case with default header values.
+/*
+GetDatabaseByCrnOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetDisktypesOK() *GetDisktypesOK {
 	return &GetDisktypesOK{}
 }
 
-/*GetDisktypesOK handles this case with default header values.
+/*
+GetDisktypesOK handles this case with default header values.
 
 successful operation
 */

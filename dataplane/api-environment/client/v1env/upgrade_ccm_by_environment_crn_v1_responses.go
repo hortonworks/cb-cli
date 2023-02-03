@@ -39,7 +39,8 @@ func NewUpgradeCcmByEnvironmentCrnV1Default(code int) *UpgradeCcmByEnvironmentCr
 	}
 }
 
-/*UpgradeCcmByEnvironmentCrnV1Default handles this case with default header values.
+/*
+UpgradeCcmByEnvironmentCrnV1Default handles this case with default header values.
 
 successful operation
 */

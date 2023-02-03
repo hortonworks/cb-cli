@@ -42,7 +42,8 @@ func NewReRegisterClusterProxyConfigOK() *ReRegisterClusterProxyConfigOK {
 	return &ReRegisterClusterProxyConfigOK{}
 }
 
-/*ReRegisterClusterProxyConfigOK handles this case with default header values.
+/*
+ReRegisterClusterProxyConfigOK handles this case with default header values.
 
 successful operation
 */

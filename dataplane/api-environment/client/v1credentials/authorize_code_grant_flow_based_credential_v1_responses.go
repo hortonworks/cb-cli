@@ -42,7 +42,8 @@ func NewAuthorizeCodeGrantFlowBasedCredentialV1OK() *AuthorizeCodeGrantFlowBased
 	return &AuthorizeCodeGrantFlowBasedCredentialV1OK{}
 }
 
-/*AuthorizeCodeGrantFlowBasedCredentialV1OK handles this case with default header values.
+/*
+AuthorizeCodeGrantFlowBasedCredentialV1OK handles this case with default header values.
 
 successful operation
 */

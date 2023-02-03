@@ -59,7 +59,8 @@ func NewChangeImageStackInWorkspaceV4InternalParamsWithHTTPClient(client *http.C
 	}
 }
 
-/*ChangeImageStackInWorkspaceV4InternalParams contains all the parameters to send to the API endpoint
+/*
+ChangeImageStackInWorkspaceV4InternalParams contains all the parameters to send to the API endpoint
 for the change image stack in workspace v4 internal operation typically these are written to a http.Request
 */
 type ChangeImageStackInWorkspaceV4InternalParams struct {

@@ -42,7 +42,8 @@ func NewStatusStackV4OK() *StatusStackV4OK {
 	return &StatusStackV4OK{}
 }
 
-/*StatusStackV4OK handles this case with default header values.
+/*
+StatusStackV4OK handles this case with default header values.
 
 successful operation
 */

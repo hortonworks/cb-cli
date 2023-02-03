@@ -56,7 +56,8 @@ func NewGetCmRolesParamsWithHTTPClient(client *http.Client) *GetCmRolesParams {
 	}
 }
 
-/*GetCmRolesParams contains all the parameters to send to the API endpoint
+/*
+GetCmRolesParams contains all the parameters to send to the API endpoint
 for the get cm roles operation typically these are written to a http.Request
 */
 type GetCmRolesParams struct {

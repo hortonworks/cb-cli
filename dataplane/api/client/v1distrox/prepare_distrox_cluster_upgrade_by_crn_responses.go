@@ -42,7 +42,8 @@ func NewPrepareDistroxClusterUpgradeByCrnOK() *PrepareDistroxClusterUpgradeByCrn
 	return &PrepareDistroxClusterUpgradeByCrnOK{}
 }
 
-/*PrepareDistroxClusterUpgradeByCrnOK handles this case with default header values.
+/*
+PrepareDistroxClusterUpgradeByCrnOK handles this case with default header values.
 
 successful operation
 */

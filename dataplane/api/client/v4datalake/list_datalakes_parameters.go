@@ -56,7 +56,8 @@ func NewListDatalakesParamsWithHTTPClient(client *http.Client) *ListDatalakesPar
 	}
 }
 
-/*ListDatalakesParams contains all the parameters to send to the API endpoint
+/*
+ListDatalakesParams contains all the parameters to send to the API endpoint
 for the list datalakes operation typically these are written to a http.Request
 */
 type ListDatalakesParams struct {

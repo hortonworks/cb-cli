@@ -69,7 +69,8 @@ func NewAutoscaleStopInstancesByCrnParamsWithHTTPClient(client *http.Client) *Au
 	}
 }
 
-/*AutoscaleStopInstancesByCrnParams contains all the parameters to send to the API endpoint
+/*
+AutoscaleStopInstancesByCrnParams contains all the parameters to send to the API endpoint
 for the autoscale stop instances by crn operation typically these are written to a http.Request
 */
 type AutoscaleStopInstancesByCrnParams struct {

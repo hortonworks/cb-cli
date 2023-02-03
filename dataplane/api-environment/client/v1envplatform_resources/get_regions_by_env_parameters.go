@@ -69,7 +69,8 @@ func NewGetRegionsByEnvParamsWithHTTPClient(client *http.Client) *GetRegionsByEn
 	}
 }
 
-/*GetRegionsByEnvParams contains all the parameters to send to the API endpoint
+/*
+GetRegionsByEnvParams contains all the parameters to send to the API endpoint
 for the get regions by env operation typically these are written to a http.Request
 */
 type GetRegionsByEnvParams struct {

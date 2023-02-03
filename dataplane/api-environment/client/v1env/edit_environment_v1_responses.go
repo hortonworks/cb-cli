@@ -42,7 +42,8 @@ func NewEditEnvironmentV1OK() *EditEnvironmentV1OK {
 	return &EditEnvironmentV1OK{}
 }
 
-/*EditEnvironmentV1OK handles this case with default header values.
+/*
+EditEnvironmentV1OK handles this case with default header values.
 
 successful operation
 */

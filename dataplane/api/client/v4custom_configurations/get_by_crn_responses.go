@@ -42,7 +42,8 @@ func NewGetByCrnOK() *GetByCrnOK {
 	return &GetByCrnOK{}
 }
 
-/*GetByCrnOK handles this case with default header values.
+/*
+GetByCrnOK handles this case with default header values.
 
 successful operation
 */

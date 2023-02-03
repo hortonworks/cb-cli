@@ -59,7 +59,8 @@ func NewCheckForClusterUpgradeByNameParamsWithHTTPClient(client *http.Client) *C
 	}
 }
 
-/*CheckForClusterUpgradeByNameParams contains all the parameters to send to the API endpoint
+/*
+CheckForClusterUpgradeByNameParams contains all the parameters to send to the API endpoint
 for the check for cluster upgrade by name operation typically these are written to a http.Request
 */
 type CheckForClusterUpgradeByNameParams struct {

@@ -42,7 +42,8 @@ func NewUpdateSaltSdxByCrnOK() *UpdateSaltSdxByCrnOK {
 	return &UpdateSaltSdxByCrnOK{}
 }
 
-/*UpdateSaltSdxByCrnOK handles this case with default header values.
+/*
+UpdateSaltSdxByCrnOK handles this case with default header values.
 
 successful operation
 */

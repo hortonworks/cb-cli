@@ -42,7 +42,8 @@ func NewGetAutoscaleClusterByCrnOK() *GetAutoscaleClusterByCrnOK {
 	return &GetAutoscaleClusterByCrnOK{}
 }
 
-/*GetAutoscaleClusterByCrnOK handles this case with default header values.
+/*
+GetAutoscaleClusterByCrnOK handles this case with default header values.
 
 successful operation
 */

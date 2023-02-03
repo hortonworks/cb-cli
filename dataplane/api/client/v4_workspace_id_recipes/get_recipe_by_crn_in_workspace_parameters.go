@@ -57,7 +57,8 @@ func NewGetRecipeByCrnInWorkspaceParamsWithHTTPClient(client *http.Client) *GetR
 	}
 }
 
-/*GetRecipeByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetRecipeByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get recipe by crn in workspace operation typically these are written to a http.Request
 */
 type GetRecipeByCrnInWorkspaceParams struct {

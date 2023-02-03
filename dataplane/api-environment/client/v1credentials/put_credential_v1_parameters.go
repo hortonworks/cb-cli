@@ -58,7 +58,8 @@ func NewPutCredentialV1ParamsWithHTTPClient(client *http.Client) *PutCredentialV
 	}
 }
 
-/*PutCredentialV1Params contains all the parameters to send to the API endpoint
+/*
+PutCredentialV1Params contains all the parameters to send to the API endpoint
 for the put credential v1 operation typically these are written to a http.Request
 */
 type PutCredentialV1Params struct {

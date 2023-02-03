@@ -42,7 +42,8 @@ func NewGetGeneratedTemplateOK() *GetGeneratedTemplateOK {
 	return &GetGeneratedTemplateOK{}
 }
 
-/*GetGeneratedTemplateOK handles this case with default header values.
+/*
+GetGeneratedTemplateOK handles this case with default header values.
 
 successful operation
 */

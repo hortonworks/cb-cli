@@ -57,7 +57,8 @@ func NewListClusterTemplatesByEnvParamsWithHTTPClient(client *http.Client) *List
 	}
 }
 
-/*ListClusterTemplatesByEnvParams contains all the parameters to send to the API endpoint
+/*
+ListClusterTemplatesByEnvParams contains all the parameters to send to the API endpoint
 for the list cluster templates by env operation typically these are written to a http.Request
 */
 type ListClusterTemplatesByEnvParams struct {

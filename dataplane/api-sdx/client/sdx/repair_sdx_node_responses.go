@@ -42,7 +42,8 @@ func NewRepairSdxNodeOK() *RepairSdxNodeOK {
 	return &RepairSdxNodeOK{}
 }
 
-/*RepairSdxNodeOK handles this case with default header values.
+/*
+RepairSdxNodeOK handles this case with default header values.
 
 successful operation
 */

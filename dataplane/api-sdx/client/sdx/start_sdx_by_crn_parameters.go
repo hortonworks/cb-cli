@@ -56,7 +56,8 @@ func NewStartSdxByCrnParamsWithHTTPClient(client *http.Client) *StartSdxByCrnPar
 	}
 }
 
-/*StartSdxByCrnParams contains all the parameters to send to the API endpoint
+/*
+StartSdxByCrnParams contains all the parameters to send to the API endpoint
 for the start sdx by crn operation typically these are written to a http.Request
 */
 type StartSdxByCrnParams struct {

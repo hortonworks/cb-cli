@@ -42,7 +42,8 @@ func NewGetDistroXInternalV1ByCrnOK() *GetDistroXInternalV1ByCrnOK {
 	return &GetDistroXInternalV1ByCrnOK{}
 }
 
-/*GetDistroXInternalV1ByCrnOK handles this case with default header values.
+/*
+GetDistroXInternalV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

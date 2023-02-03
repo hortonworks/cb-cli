@@ -49,7 +49,8 @@ func NewRepairDistroXV1ByCrnOK() *RepairDistroXV1ByCrnOK {
 	return &RepairDistroXV1ByCrnOK{}
 }
 
-/*RepairDistroXV1ByCrnOK handles this case with default header values.
+/*
+RepairDistroXV1ByCrnOK handles this case with default header values.
 
 successful operation
 */
@@ -80,7 +81,8 @@ func NewRepairDistroXV1ByCrnDefault(code int) *RepairDistroXV1ByCrnDefault {
 	}
 }
 
-/*RepairDistroXV1ByCrnDefault handles this case with default header values.
+/*
+RepairDistroXV1ByCrnDefault handles this case with default header values.
 
 unsuccessful operation
 */

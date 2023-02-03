@@ -57,7 +57,8 @@ func NewGetClusterTemplateByCrnInWorkspaceParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/*GetClusterTemplateByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetClusterTemplateByCrnInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get cluster template by crn in workspace operation typically these are written to a http.Request
 */
 type GetClusterTemplateByCrnInWorkspaceParams struct {

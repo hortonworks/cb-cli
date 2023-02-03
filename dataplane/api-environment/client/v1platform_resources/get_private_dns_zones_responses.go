@@ -42,7 +42,8 @@ func NewGetPrivateDNSZonesOK() *GetPrivateDNSZonesOK {
 	return &GetPrivateDNSZonesOK{}
 }
 
-/*GetPrivateDNSZonesOK handles this case with default header values.
+/*
+GetPrivateDNSZonesOK handles this case with default header values.
 
 successful operation
 */

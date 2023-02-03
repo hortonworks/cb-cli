@@ -42,7 +42,8 @@ func NewGetEnvironmentFlowLogsProgressByResourceCrnOK() *GetEnvironmentFlowLogsP
 	return &GetEnvironmentFlowLogsProgressByResourceCrnOK{}
 }
 
-/*GetEnvironmentFlowLogsProgressByResourceCrnOK handles this case with default header values.
+/*
+GetEnvironmentFlowLogsProgressByResourceCrnOK handles this case with default header values.
 
 successful operation
 */

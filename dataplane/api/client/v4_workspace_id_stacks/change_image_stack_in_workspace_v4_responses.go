@@ -42,7 +42,8 @@ func NewChangeImageStackInWorkspaceV4OK() *ChangeImageStackInWorkspaceV4OK {
 	return &ChangeImageStackInWorkspaceV4OK{}
 }
 
-/*ChangeImageStackInWorkspaceV4OK handles this case with default header values.
+/*
+ChangeImageStackInWorkspaceV4OK handles this case with default header values.
 
 successful operation
 */

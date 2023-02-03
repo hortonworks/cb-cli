@@ -42,7 +42,8 @@ func NewStartDistroXV1ByNameOK() *StartDistroXV1ByNameOK {
 	return &StartDistroXV1ByNameOK{}
 }
 
-/*StartDistroXV1ByNameOK handles this case with default header values.
+/*
+StartDistroXV1ByNameOK handles this case with default header values.
 
 successful operation
 */

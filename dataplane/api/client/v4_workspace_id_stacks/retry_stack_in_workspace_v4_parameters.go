@@ -57,7 +57,8 @@ func NewRetryStackInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *RetryS
 	}
 }
 
-/*RetryStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+RetryStackInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the retry stack in workspace v4 operation typically these are written to a http.Request
 */
 type RetryStackInWorkspaceV4Params struct {

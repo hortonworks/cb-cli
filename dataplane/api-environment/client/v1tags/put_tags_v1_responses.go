@@ -42,7 +42,8 @@ func NewPutTagsV1OK() *PutTagsV1OK {
 	return &PutTagsV1OK{}
 }
 
-/*PutTagsV1OK handles this case with default header values.
+/*
+PutTagsV1OK handles this case with default header values.
 
 successful operation
 */

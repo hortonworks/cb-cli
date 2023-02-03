@@ -56,7 +56,8 @@ func NewGetStructuredEventsZipInWorkspaceParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/*GetStructuredEventsZipInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+GetStructuredEventsZipInWorkspaceParams contains all the parameters to send to the API endpoint
 for the get structured events zip in workspace operation typically these are written to a http.Request
 */
 type GetStructuredEventsZipInWorkspaceParams struct {

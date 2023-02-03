@@ -57,7 +57,8 @@ func NewGetDependentHostGroupsForMultipleAutoscaleHostGroupsParamsWithHTTPClient
 	}
 }
 
-/*GetDependentHostGroupsForMultipleAutoscaleHostGroupsParams contains all the parameters to send to the API endpoint
+/*
+GetDependentHostGroupsForMultipleAutoscaleHostGroupsParams contains all the parameters to send to the API endpoint
 for the get dependent host groups for multiple autoscale host groups operation typically these are written to a http.Request
 */
 type GetDependentHostGroupsForMultipleAutoscaleHostGroupsParams struct {

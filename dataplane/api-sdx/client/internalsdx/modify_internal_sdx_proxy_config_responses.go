@@ -42,7 +42,8 @@ func NewModifyInternalSdxProxyConfigOK() *ModifyInternalSdxProxyConfigOK {
 	return &ModifyInternalSdxProxyConfigOK{}
 }
 
-/*ModifyInternalSdxProxyConfigOK handles this case with default header values.
+/*
+ModifyInternalSdxProxyConfigOK handles this case with default header values.
 
 successful operation
 */

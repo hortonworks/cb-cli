@@ -42,7 +42,8 @@ func NewRetrySdxOK() *RetrySdxOK {
 	return &RetrySdxOK{}
 }
 
-/*RetrySdxOK handles this case with default header values.
+/*
+RetrySdxOK handles this case with default header values.
 
 successful operation
 */

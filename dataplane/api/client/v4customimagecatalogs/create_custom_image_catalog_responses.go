@@ -42,7 +42,8 @@ func NewCreateCustomImageCatalogOK() *CreateCustomImageCatalogOK {
 	return &CreateCustomImageCatalogOK{}
 }
 
-/*CreateCustomImageCatalogOK handles this case with default header values.
+/*
+CreateCustomImageCatalogOK handles this case with default header values.
 
 successful operation
 */

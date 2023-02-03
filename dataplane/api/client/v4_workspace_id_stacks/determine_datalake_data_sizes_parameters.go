@@ -57,7 +57,8 @@ func NewDetermineDatalakeDataSizesParamsWithHTTPClient(client *http.Client) *Det
 	}
 }
 
-/*DetermineDatalakeDataSizesParams contains all the parameters to send to the API endpoint
+/*
+DetermineDatalakeDataSizesParams contains all the parameters to send to the API endpoint
 for the determine datalake data sizes operation typically these are written to a http.Request
 */
 type DetermineDatalakeDataSizesParams struct {

@@ -39,7 +39,8 @@ func NewStartV1Default(code int) *StartV1Default {
 	}
 }
 
-/*StartV1Default handles this case with default header values.
+/*
+StartV1Default handles this case with default header values.
 
 successful operation
 */

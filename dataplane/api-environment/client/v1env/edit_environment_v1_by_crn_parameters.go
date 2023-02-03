@@ -58,7 +58,8 @@ func NewEditEnvironmentV1ByCrnParamsWithHTTPClient(client *http.Client) *EditEnv
 	}
 }
 
-/*EditEnvironmentV1ByCrnParams contains all the parameters to send to the API endpoint
+/*
+EditEnvironmentV1ByCrnParams contains all the parameters to send to the API endpoint
 for the edit environment v1 by crn operation typically these are written to a http.Request
 */
 type EditEnvironmentV1ByCrnParams struct {

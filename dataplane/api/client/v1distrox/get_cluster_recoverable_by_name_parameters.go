@@ -56,7 +56,8 @@ func NewGetClusterRecoverableByNameParamsWithHTTPClient(client *http.Client) *Ge
 	}
 }
 
-/*GetClusterRecoverableByNameParams contains all the parameters to send to the API endpoint
+/*
+GetClusterRecoverableByNameParams contains all the parameters to send to the API endpoint
 for the get cluster recoverable by name operation typically these are written to a http.Request
 */
 type GetClusterRecoverableByNameParams struct {

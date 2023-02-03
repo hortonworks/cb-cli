@@ -42,7 +42,8 @@ func NewGetNoSQLTablesOK() *GetNoSQLTablesOK {
 	return &GetNoSQLTablesOK{}
 }
 
-/*GetNoSQLTablesOK handles this case with default header values.
+/*
+GetNoSQLTablesOK handles this case with default header values.
 
 successful operation
 */

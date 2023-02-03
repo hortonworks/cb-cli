@@ -59,7 +59,8 @@ func NewCreateRecipeInWorkspaceParamsWithHTTPClient(client *http.Client) *Create
 	}
 }
 
-/*CreateRecipeInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+CreateRecipeInWorkspaceParams contains all the parameters to send to the API endpoint
 for the create recipe in workspace operation typically these are written to a http.Request
 */
 type CreateRecipeInWorkspaceParams struct {

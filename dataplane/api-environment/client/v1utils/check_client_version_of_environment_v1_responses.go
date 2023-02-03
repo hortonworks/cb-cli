@@ -42,7 +42,8 @@ func NewCheckClientVersionOfEnvironmentV1OK() *CheckClientVersionOfEnvironmentV1
 	return &CheckClientVersionOfEnvironmentV1OK{}
 }
 
-/*CheckClientVersionOfEnvironmentV1OK handles this case with default header values.
+/*
+CheckClientVersionOfEnvironmentV1OK handles this case with default header values.
 
 successful operation
 */

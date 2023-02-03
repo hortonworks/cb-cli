@@ -42,7 +42,8 @@ func NewGetFreeIpaFlowLogsProgressByEnvironmentCrnOK() *GetFreeIpaFlowLogsProgre
 	return &GetFreeIpaFlowLogsProgressByEnvironmentCrnOK{}
 }
 
-/*GetFreeIpaFlowLogsProgressByEnvironmentCrnOK handles this case with default header values.
+/*
+GetFreeIpaFlowLogsProgressByEnvironmentCrnOK handles this case with default header values.
 
 successful operation
 */

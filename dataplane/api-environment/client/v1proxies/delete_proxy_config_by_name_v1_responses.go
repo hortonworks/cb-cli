@@ -42,7 +42,8 @@ func NewDeleteProxyConfigByNameV1OK() *DeleteProxyConfigByNameV1OK {
 	return &DeleteProxyConfigByNameV1OK{}
 }
 
-/*DeleteProxyConfigByNameV1OK handles this case with default header values.
+/*
+DeleteProxyConfigByNameV1OK handles this case with default header values.
 
 successful operation
 */

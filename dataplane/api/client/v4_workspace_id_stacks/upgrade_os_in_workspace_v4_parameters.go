@@ -57,7 +57,8 @@ func NewUpgradeOsInWorkspaceV4ParamsWithHTTPClient(client *http.Client) *Upgrade
 	}
 }
 
-/*UpgradeOsInWorkspaceV4Params contains all the parameters to send to the API endpoint
+/*
+UpgradeOsInWorkspaceV4Params contains all the parameters to send to the API endpoint
 for the upgrade os in workspace v4 operation typically these are written to a http.Request
 */
 type UpgradeOsInWorkspaceV4Params struct {

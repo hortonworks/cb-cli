@@ -56,7 +56,8 @@ func NewGetDistroXRequestV1ByNameParamsWithHTTPClient(client *http.Client) *GetD
 	}
 }
 
-/*GetDistroXRequestV1ByNameParams contains all the parameters to send to the API endpoint
+/*
+GetDistroXRequestV1ByNameParams contains all the parameters to send to the API endpoint
 for the get distro x request v1 by name operation typically these are written to a http.Request
 */
 type GetDistroXRequestV1ByNameParams struct {

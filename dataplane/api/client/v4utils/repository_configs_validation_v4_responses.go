@@ -42,7 +42,8 @@ func NewRepositoryConfigsValidationV4OK() *RepositoryConfigsValidationV4OK {
 	return &RepositoryConfigsValidationV4OK{}
 }
 
-/*RepositoryConfigsValidationV4OK handles this case with default header values.
+/*
+RepositoryConfigsValidationV4OK handles this case with default header values.
 
 successful operation
 */

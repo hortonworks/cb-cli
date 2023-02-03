@@ -42,7 +42,8 @@ func NewGetServiceKeytabV1OK() *GetServiceKeytabV1OK {
 	return &GetServiceKeytabV1OK{}
 }
 
-/*GetServiceKeytabV1OK handles this case with default header values.
+/*
+GetServiceKeytabV1OK handles this case with default header values.
 
 successful operation
 */

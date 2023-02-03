@@ -57,7 +57,8 @@ func NewPrepareClusterUpgradeByCrnInternalParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/*PrepareClusterUpgradeByCrnInternalParams contains all the parameters to send to the API endpoint
+/*
+PrepareClusterUpgradeByCrnInternalParams contains all the parameters to send to the API endpoint
 for the prepare cluster upgrade by crn internal operation typically these are written to a http.Request
 */
 type PrepareClusterUpgradeByCrnInternalParams struct {

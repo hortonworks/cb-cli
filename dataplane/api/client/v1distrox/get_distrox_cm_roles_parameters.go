@@ -56,7 +56,8 @@ func NewGetDistroxCmRolesParamsWithHTTPClient(client *http.Client) *GetDistroxCm
 	}
 }
 
-/*GetDistroxCmRolesParams contains all the parameters to send to the API endpoint
+/*
+GetDistroxCmRolesParams contains all the parameters to send to the API endpoint
 for the get distrox cm roles operation typically these are written to a http.Request
 */
 type GetDistroxCmRolesParams struct {

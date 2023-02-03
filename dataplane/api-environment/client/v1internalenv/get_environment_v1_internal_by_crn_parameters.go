@@ -69,7 +69,8 @@ func NewGetEnvironmentV1InternalByCrnParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*GetEnvironmentV1InternalByCrnParams contains all the parameters to send to the API endpoint
+/*
+GetEnvironmentV1InternalByCrnParams contains all the parameters to send to the API endpoint
 for the get environment v1 internal by crn operation typically these are written to a http.Request
 */
 type GetEnvironmentV1InternalByCrnParams struct {

@@ -39,7 +39,8 @@ func NewUpgradeCcmByEnvironmentNameV1Default(code int) *UpgradeCcmByEnvironmentN
 	}
 }
 
-/*UpgradeCcmByEnvironmentNameV1Default handles this case with default header values.
+/*
+UpgradeCcmByEnvironmentNameV1Default handles this case with default header values.
 
 successful operation
 */

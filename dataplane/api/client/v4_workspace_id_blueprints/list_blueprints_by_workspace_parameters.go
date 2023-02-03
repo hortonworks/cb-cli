@@ -69,7 +69,8 @@ func NewListBlueprintsByWorkspaceParamsWithHTTPClient(client *http.Client) *List
 	}
 }
 
-/*ListBlueprintsByWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+ListBlueprintsByWorkspaceParams contains all the parameters to send to the API endpoint
 for the list blueprints by workspace operation typically these are written to a http.Request
 */
 type ListBlueprintsByWorkspaceParams struct {

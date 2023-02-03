@@ -42,7 +42,8 @@ func NewRetrySdxByCrnOK() *RetrySdxByCrnOK {
 	return &RetrySdxByCrnOK{}
 }
 
-/*RetrySdxByCrnOK handles this case with default header values.
+/*
+RetrySdxByCrnOK handles this case with default header values.
 
 successful operation
 */

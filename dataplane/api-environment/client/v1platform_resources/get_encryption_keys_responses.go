@@ -42,7 +42,8 @@ func NewGetEncryptionKeysOK() *GetEncryptionKeysOK {
 	return &GetEncryptionKeysOK{}
 }
 
-/*GetEncryptionKeysOK handles this case with default header values.
+/*
+GetEncryptionKeysOK handles this case with default header values.
 
 successful operation
 */

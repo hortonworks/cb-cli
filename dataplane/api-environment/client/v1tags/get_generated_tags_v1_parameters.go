@@ -56,7 +56,8 @@ func NewGetGeneratedTagsV1ParamsWithHTTPClient(client *http.Client) *GetGenerate
 	}
 }
 
-/*GetGeneratedTagsV1Params contains all the parameters to send to the API endpoint
+/*
+GetGeneratedTagsV1Params contains all the parameters to send to the API endpoint
 for the get generated tags v1 operation typically these are written to a http.Request
 */
 type GetGeneratedTagsV1Params struct {

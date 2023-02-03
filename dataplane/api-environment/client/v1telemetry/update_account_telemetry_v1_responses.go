@@ -42,7 +42,8 @@ func NewUpdateAccountTelemetryV1OK() *UpdateAccountTelemetryV1OK {
 	return &UpdateAccountTelemetryV1OK{}
 }
 
-/*UpdateAccountTelemetryV1OK handles this case with default header values.
+/*
+UpdateAccountTelemetryV1OK handles this case with default header values.
 
 successful operation
 */

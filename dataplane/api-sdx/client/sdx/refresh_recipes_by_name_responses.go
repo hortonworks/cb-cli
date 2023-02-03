@@ -42,7 +42,8 @@ func NewRefreshRecipesByNameOK() *RefreshRecipesByNameOK {
 	return &RefreshRecipesByNameOK{}
 }
 
-/*RefreshRecipesByNameOK handles this case with default header values.
+/*
+RefreshRecipesByNameOK handles this case with default header values.
 
 successful operation
 */

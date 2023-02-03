@@ -42,7 +42,8 @@ func NewListEnvironmentV1OK() *ListEnvironmentV1OK {
 	return &ListEnvironmentV1OK{}
 }
 
-/*ListEnvironmentV1OK handles this case with default header values.
+/*
+ListEnvironmentV1OK handles this case with default header values.
 
 successful operation
 */

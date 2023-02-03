@@ -42,7 +42,8 @@ func NewVerticalScalingByNameOK() *VerticalScalingByNameOK {
 	return &VerticalScalingByNameOK{}
 }
 
-/*VerticalScalingByNameOK handles this case with default header values.
+/*
+VerticalScalingByNameOK handles this case with default header values.
 
 successful operation
 */

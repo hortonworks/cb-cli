@@ -42,7 +42,8 @@ func NewGetSdxByEnvCrnOK() *GetSdxByEnvCrnOK {
 	return &GetSdxByEnvCrnOK{}
 }
 
-/*GetSdxByEnvCrnOK handles this case with default header values.
+/*
+GetSdxByEnvCrnOK handles this case with default header values.
 
 successful operation
 */

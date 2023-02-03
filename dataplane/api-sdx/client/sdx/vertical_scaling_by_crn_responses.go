@@ -42,7 +42,8 @@ func NewVerticalScalingByCrnOK() *VerticalScalingByCrnOK {
 	return &VerticalScalingByCrnOK{}
 }
 
-/*VerticalScalingByCrnOK handles this case with default header values.
+/*
+VerticalScalingByCrnOK handles this case with default header values.
 
 successful operation
 */

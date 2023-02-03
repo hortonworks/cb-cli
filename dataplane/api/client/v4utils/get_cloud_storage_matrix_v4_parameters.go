@@ -56,7 +56,8 @@ func NewGetCloudStorageMatrixV4ParamsWithHTTPClient(client *http.Client) *GetClo
 	}
 }
 
-/*GetCloudStorageMatrixV4Params contains all the parameters to send to the API endpoint
+/*
+GetCloudStorageMatrixV4Params contains all the parameters to send to the API endpoint
 for the get cloud storage matrix v4 operation typically these are written to a http.Request
 */
 type GetCloudStorageMatrixV4Params struct {

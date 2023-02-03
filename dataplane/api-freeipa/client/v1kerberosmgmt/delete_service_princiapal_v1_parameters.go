@@ -58,7 +58,8 @@ func NewDeleteServicePrinciapalV1ParamsWithHTTPClient(client *http.Client) *Dele
 	}
 }
 
-/*DeleteServicePrinciapalV1Params contains all the parameters to send to the API endpoint
+/*
+DeleteServicePrinciapalV1Params contains all the parameters to send to the API endpoint
 for the delete service princiapal v1 operation typically these are written to a http.Request
 */
 type DeleteServicePrinciapalV1Params struct {

@@ -42,7 +42,8 @@ func NewGetEventsByStackNameInWorkspaceOK() *GetEventsByStackNameInWorkspaceOK {
 	return &GetEventsByStackNameInWorkspaceOK{}
 }
 
-/*GetEventsByStackNameInWorkspaceOK handles this case with default header values.
+/*
+GetEventsByStackNameInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

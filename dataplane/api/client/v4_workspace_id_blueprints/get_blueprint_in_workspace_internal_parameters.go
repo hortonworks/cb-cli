@@ -57,7 +57,8 @@ func NewGetBlueprintInWorkspaceInternalParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*GetBlueprintInWorkspaceInternalParams contains all the parameters to send to the API endpoint
+/*
+GetBlueprintInWorkspaceInternalParams contains all the parameters to send to the API endpoint
 for the get blueprint in workspace internal operation typically these are written to a http.Request
 */
 type GetBlueprintInWorkspaceInternalParams struct {

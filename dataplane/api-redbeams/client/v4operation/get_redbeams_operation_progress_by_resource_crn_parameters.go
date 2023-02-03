@@ -69,7 +69,8 @@ func NewGetRedbeamsOperationProgressByResourceCrnParamsWithHTTPClient(client *ht
 	}
 }
 
-/*GetRedbeamsOperationProgressByResourceCrnParams contains all the parameters to send to the API endpoint
+/*
+GetRedbeamsOperationProgressByResourceCrnParams contains all the parameters to send to the API endpoint
 for the get redbeams operation progress by resource crn operation typically these are written to a http.Request
 */
 type GetRedbeamsOperationProgressByResourceCrnParams struct {

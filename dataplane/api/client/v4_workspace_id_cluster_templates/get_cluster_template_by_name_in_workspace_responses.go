@@ -42,7 +42,8 @@ func NewGetClusterTemplateByNameInWorkspaceOK() *GetClusterTemplateByNameInWorks
 	return &GetClusterTemplateByNameInWorkspaceOK{}
 }
 
-/*GetClusterTemplateByNameInWorkspaceOK handles this case with default header values.
+/*
+GetClusterTemplateByNameInWorkspaceOK handles this case with default header values.
 
 successful operation
 */

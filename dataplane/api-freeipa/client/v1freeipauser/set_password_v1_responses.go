@@ -42,7 +42,8 @@ func NewSetPasswordV1OK() *SetPasswordV1OK {
 	return &SetPasswordV1OK{}
 }
 
-/*SetPasswordV1OK handles this case with default header values.
+/*
+SetPasswordV1OK handles this case with default header values.
 
 successful operation
 */

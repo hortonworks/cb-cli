@@ -58,7 +58,8 @@ func NewCreateProxyConfigV1ParamsWithHTTPClient(client *http.Client) *CreateProx
 	}
 }
 
-/*CreateProxyConfigV1Params contains all the parameters to send to the API endpoint
+/*
+CreateProxyConfigV1Params contains all the parameters to send to the API endpoint
 for the create proxy config v1 operation typically these are written to a http.Request
 */
 type CreateProxyConfigV1Params struct {

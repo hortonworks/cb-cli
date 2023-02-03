@@ -58,7 +58,8 @@ func NewPutScalingDistroXV1ByNameParamsWithHTTPClient(client *http.Client) *PutS
 	}
 }
 
-/*PutScalingDistroXV1ByNameParams contains all the parameters to send to the API endpoint
+/*
+PutScalingDistroXV1ByNameParams contains all the parameters to send to the API endpoint
 for the put scaling distro x v1 by name operation typically these are written to a http.Request
 */
 type PutScalingDistroXV1ByNameParams struct {

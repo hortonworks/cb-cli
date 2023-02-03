@@ -56,7 +56,8 @@ func NewPreSynchronizeV1ParamsWithHTTPClient(client *http.Client) *PreSynchroniz
 	}
 }
 
-/*PreSynchronizeV1Params contains all the parameters to send to the API endpoint
+/*
+PreSynchronizeV1Params contains all the parameters to send to the API endpoint
 for the pre synchronize v1 operation typically these are written to a http.Request
 */
 type PreSynchronizeV1Params struct {

@@ -57,7 +57,8 @@ func NewDeleteImageCatalogInWorkspaceParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/*DeleteImageCatalogInWorkspaceParams contains all the parameters to send to the API endpoint
+/*
+DeleteImageCatalogInWorkspaceParams contains all the parameters to send to the API endpoint
 for the delete image catalog in workspace operation typically these are written to a http.Request
 */
 type DeleteImageCatalogInWorkspaceParams struct {

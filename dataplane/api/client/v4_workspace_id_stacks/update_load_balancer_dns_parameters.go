@@ -57,7 +57,8 @@ func NewUpdateLoadBalancerDNSParamsWithHTTPClient(client *http.Client) *UpdateLo
 	}
 }
 
-/*UpdateLoadBalancerDNSParams contains all the parameters to send to the API endpoint
+/*
+UpdateLoadBalancerDNSParams contains all the parameters to send to the API endpoint
 for the update load balancer DNS operation typically these are written to a http.Request
 */
 type UpdateLoadBalancerDNSParams struct {

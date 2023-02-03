@@ -39,7 +39,8 @@ func NewDeleteStackInWorkspaceV4Default(code int) *DeleteStackInWorkspaceV4Defau
 	}
 }
 
-/*DeleteStackInWorkspaceV4Default handles this case with default header values.
+/*
+DeleteStackInWorkspaceV4Default handles this case with default header values.
 
 successful operation
 */

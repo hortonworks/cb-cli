@@ -42,7 +42,8 @@ func NewCreateProxyConfigV1OK() *CreateProxyConfigV1OK {
 	return &CreateProxyConfigV1OK{}
 }
 
-/*CreateProxyConfigV1OK handles this case with default header values.
+/*
+CreateProxyConfigV1OK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewGetAccessConfigsOK() *GetAccessConfigsOK {
 	return &GetAccessConfigsOK{}
 }
 
-/*GetAccessConfigsOK handles this case with default header values.
+/*
+GetAccessConfigsOK handles this case with default header values.
 
 successful operation
 */

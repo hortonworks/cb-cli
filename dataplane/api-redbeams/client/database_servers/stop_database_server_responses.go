@@ -39,7 +39,8 @@ func NewStopDatabaseServerDefault(code int) *StopDatabaseServerDefault {
 	}
 }
 
-/*StopDatabaseServerDefault handles this case with default header values.
+/*
+StopDatabaseServerDefault handles this case with default header values.
 
 successful operation
 */

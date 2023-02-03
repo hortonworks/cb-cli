@@ -56,7 +56,8 @@ func NewStopSdxByNameParamsWithHTTPClient(client *http.Client) *StopSdxByNamePar
 	}
 }
 
-/*StopSdxByNameParams contains all the parameters to send to the API endpoint
+/*
+StopSdxByNameParams contains all the parameters to send to the API endpoint
 for the stop sdx by name operation typically these are written to a http.Request
 */
 type StopSdxByNameParams struct {

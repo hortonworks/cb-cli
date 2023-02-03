@@ -56,7 +56,8 @@ func NewGetNoSQLTablesParamsWithHTTPClient(client *http.Client) *GetNoSQLTablesP
 	}
 }
 
-/*GetNoSQLTablesParams contains all the parameters to send to the API endpoint
+/*
+GetNoSQLTablesParams contains all the parameters to send to the API endpoint
 for the get no Sql tables operation typically these are written to a http.Request
 */
 type GetNoSQLTablesParams struct {

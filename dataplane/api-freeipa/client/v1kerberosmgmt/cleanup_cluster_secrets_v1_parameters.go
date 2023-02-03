@@ -58,7 +58,8 @@ func NewCleanupClusterSecretsV1ParamsWithHTTPClient(client *http.Client) *Cleanu
 	}
 }
 
-/*CleanupClusterSecretsV1Params contains all the parameters to send to the API endpoint
+/*
+CleanupClusterSecretsV1Params contains all the parameters to send to the API endpoint
 for the cleanup cluster secrets v1 operation typically these are written to a http.Request
 */
 type CleanupClusterSecretsV1Params struct {

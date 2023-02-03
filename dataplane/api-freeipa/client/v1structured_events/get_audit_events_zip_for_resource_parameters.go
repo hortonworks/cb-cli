@@ -57,7 +57,8 @@ func NewGetAuditEventsZipForResourceParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetAuditEventsZipForResourceParams contains all the parameters to send to the API endpoint
+/*
+GetAuditEventsZipForResourceParams contains all the parameters to send to the API endpoint
 for the get audit events zip for resource operation typically these are written to a http.Request
 */
 type GetAuditEventsZipForResourceParams struct {

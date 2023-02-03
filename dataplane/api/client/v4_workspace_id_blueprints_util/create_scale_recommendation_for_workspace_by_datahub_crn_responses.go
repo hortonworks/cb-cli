@@ -42,7 +42,8 @@ func NewCreateScaleRecommendationForWorkspaceByDatahubCrnOK() *CreateScaleRecomm
 	return &CreateScaleRecommendationForWorkspaceByDatahubCrnOK{}
 }
 
-/*CreateScaleRecommendationForWorkspaceByDatahubCrnOK handles this case with default header values.
+/*
+CreateScaleRecommendationForWorkspaceByDatahubCrnOK handles this case with default header values.
 
 successful operation
 */

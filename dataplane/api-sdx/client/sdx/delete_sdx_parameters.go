@@ -69,7 +69,8 @@ func NewDeleteSdxParamsWithHTTPClient(client *http.Client) *DeleteSdxParams {
 	}
 }
 
-/*DeleteSdxParams contains all the parameters to send to the API endpoint
+/*
+DeleteSdxParams contains all the parameters to send to the API endpoint
 for the delete sdx operation typically these are written to a http.Request
 */
 type DeleteSdxParams struct {

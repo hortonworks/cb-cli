@@ -57,7 +57,8 @@ func NewGetAuditPrerequisitesForCloudPlatformParamsWithHTTPClient(client *http.C
 	}
 }
 
-/*GetAuditPrerequisitesForCloudPlatformParams contains all the parameters to send to the API endpoint
+/*
+GetAuditPrerequisitesForCloudPlatformParams contains all the parameters to send to the API endpoint
 for the get audit prerequisites for cloud platform operation typically these are written to a http.Request
 */
 type GetAuditPrerequisitesForCloudPlatformParams struct {

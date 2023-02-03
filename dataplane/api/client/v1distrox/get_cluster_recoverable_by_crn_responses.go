@@ -42,7 +42,8 @@ func NewGetClusterRecoverableByCrnOK() *GetClusterRecoverableByCrnOK {
 	return &GetClusterRecoverableByCrnOK{}
 }
 
-/*GetClusterRecoverableByCrnOK handles this case with default header values.
+/*
+GetClusterRecoverableByCrnOK handles this case with default header values.
 
 successful operation
 */

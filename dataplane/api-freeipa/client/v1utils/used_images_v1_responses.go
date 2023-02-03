@@ -42,7 +42,8 @@ func NewUsedImagesV1OK() *UsedImagesV1OK {
 	return &UsedImagesV1OK{}
 }
 
-/*UsedImagesV1OK handles this case with default header values.
+/*
+UsedImagesV1OK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewPutAuditCredentialV1OK() *PutAuditCredentialV1OK {
 	return &PutAuditCredentialV1OK{}
 }
 
-/*PutAuditCredentialV1OK handles this case with default header values.
+/*
+PutAuditCredentialV1OK handles this case with default header values.
 
 successful operation
 */

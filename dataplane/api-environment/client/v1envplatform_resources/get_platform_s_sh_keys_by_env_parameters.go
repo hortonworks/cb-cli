@@ -56,7 +56,8 @@ func NewGetPlatformSShKeysByEnvParamsWithHTTPClient(client *http.Client) *GetPla
 	}
 }
 
-/*GetPlatformSShKeysByEnvParams contains all the parameters to send to the API endpoint
+/*
+GetPlatformSShKeysByEnvParams contains all the parameters to send to the API endpoint
 for the get platform s sh keys by env operation typically these are written to a http.Request
 */
 type GetPlatformSShKeysByEnvParams struct {

@@ -42,7 +42,8 @@ func NewUpdateSaltDistroxV1ByCrnOK() *UpdateSaltDistroxV1ByCrnOK {
 	return &UpdateSaltDistroxV1ByCrnOK{}
 }
 
-/*UpdateSaltDistroxV1ByCrnOK handles this case with default header values.
+/*
+UpdateSaltDistroxV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

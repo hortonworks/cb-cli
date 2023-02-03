@@ -42,7 +42,8 @@ func NewPrepareDistroxClusterUpgradeOK() *PrepareDistroxClusterUpgradeOK {
 	return &PrepareDistroxClusterUpgradeOK{}
 }
 
-/*PrepareDistroxClusterUpgradeOK handles this case with default header values.
+/*
+PrepareDistroxClusterUpgradeOK handles this case with default header values.
 
 successful operation
 */

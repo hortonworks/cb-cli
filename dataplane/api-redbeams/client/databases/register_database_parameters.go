@@ -58,7 +58,8 @@ func NewRegisterDatabaseParamsWithHTTPClient(client *http.Client) *RegisterDatab
 	}
 }
 
-/*RegisterDatabaseParams contains all the parameters to send to the API endpoint
+/*
+RegisterDatabaseParams contains all the parameters to send to the API endpoint
 for the register database operation typically these are written to a http.Request
 */
 type RegisterDatabaseParams struct {

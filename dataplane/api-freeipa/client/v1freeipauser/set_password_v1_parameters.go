@@ -58,7 +58,8 @@ func NewSetPasswordV1ParamsWithHTTPClient(client *http.Client) *SetPasswordV1Par
 	}
 }
 
-/*SetPasswordV1Params contains all the parameters to send to the API endpoint
+/*
+SetPasswordV1Params contains all the parameters to send to the API endpoint
 for the set password v1 operation typically these are written to a http.Request
 */
 type SetPasswordV1Params struct {

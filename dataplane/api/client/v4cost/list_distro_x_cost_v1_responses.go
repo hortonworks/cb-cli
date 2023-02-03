@@ -42,7 +42,8 @@ func NewListDistroXCostV1OK() *ListDistroXCostV1OK {
 	return &ListDistroXCostV1OK{}
 }
 
-/*ListDistroXCostV1OK handles this case with default header values.
+/*
+ListDistroXCostV1OK handles this case with default header values.
 
 successful operation
 */

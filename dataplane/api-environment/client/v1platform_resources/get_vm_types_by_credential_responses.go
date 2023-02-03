@@ -42,7 +42,8 @@ func NewGetVMTypesByCredentialOK() *GetVMTypesByCredentialOK {
 	return &GetVMTypesByCredentialOK{}
 }
 
-/*GetVMTypesByCredentialOK handles this case with default header values.
+/*
+GetVMTypesByCredentialOK handles this case with default header values.
 
 successful operation
 */

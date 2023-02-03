@@ -57,7 +57,8 @@ func NewCreateRecommendationForWorkspaceByCredCrnParamsWithHTTPClient(client *ht
 	}
 }
 
-/*CreateRecommendationForWorkspaceByCredCrnParams contains all the parameters to send to the API endpoint
+/*
+CreateRecommendationForWorkspaceByCredCrnParams contains all the parameters to send to the API endpoint
 for the create recommendation for workspace by cred crn operation typically these are written to a http.Request
 */
 type CreateRecommendationForWorkspaceByCredCrnParams struct {

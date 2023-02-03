@@ -42,7 +42,8 @@ func NewStatusDistroXV1ByCrnOK() *StatusDistroXV1ByCrnOK {
 	return &StatusDistroXV1ByCrnOK{}
 }
 
-/*StatusDistroXV1ByCrnOK handles this case with default header values.
+/*
+StatusDistroXV1ByCrnOK handles this case with default header values.
 
 successful operation
 */

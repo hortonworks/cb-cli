@@ -77,7 +77,8 @@ func NewGetFileSystemParametersInternalParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/*GetFileSystemParametersInternalParams contains all the parameters to send to the API endpoint
+/*
+GetFileSystemParametersInternalParams contains all the parameters to send to the API endpoint
 for the get file system parameters internal operation typically these are written to a http.Request
 */
 type GetFileSystemParametersInternalParams struct {

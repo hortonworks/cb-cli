@@ -42,7 +42,8 @@ func NewRenewInternalSdxCertificateOK() *RenewInternalSdxCertificateOK {
 	return &RenewInternalSdxCertificateOK{}
 }
 
-/*RenewInternalSdxCertificateOK handles this case with default header values.
+/*
+RenewInternalSdxCertificateOK handles this case with default header values.
 
 successful operation
 */

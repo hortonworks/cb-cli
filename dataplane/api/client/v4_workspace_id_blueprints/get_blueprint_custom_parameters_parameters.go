@@ -57,7 +57,8 @@ func NewGetBlueprintCustomParametersParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/*GetBlueprintCustomParametersParams contains all the parameters to send to the API endpoint
+/*
+GetBlueprintCustomParametersParams contains all the parameters to send to the API endpoint
 for the get blueprint custom parameters operation typically these are written to a http.Request
 */
 type GetBlueprintCustomParametersParams struct {

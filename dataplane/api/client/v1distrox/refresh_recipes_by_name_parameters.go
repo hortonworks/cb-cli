@@ -58,7 +58,8 @@ func NewRefreshRecipesByNameParamsWithHTTPClient(client *http.Client) *RefreshRe
 	}
 }
 
-/*RefreshRecipesByNameParams contains all the parameters to send to the API endpoint
+/*
+RefreshRecipesByNameParams contains all the parameters to send to the API endpoint
 for the refresh recipes by name operation typically these are written to a http.Request
 */
 type RefreshRecipesByNameParams struct {

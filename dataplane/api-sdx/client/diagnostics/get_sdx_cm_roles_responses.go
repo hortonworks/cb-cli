@@ -40,7 +40,8 @@ func NewGetSdxCmRolesOK() *GetSdxCmRolesOK {
 	return &GetSdxCmRolesOK{}
 }
 
-/*GetSdxCmRolesOK handles this case with default header values.
+/*
+GetSdxCmRolesOK handles this case with default header values.
 
 successful operation
 */

@@ -42,7 +42,8 @@ func NewPostStackInWorkspaceV4InternalOK() *PostStackInWorkspaceV4InternalOK {
 	return &PostStackInWorkspaceV4InternalOK{}
 }
 
-/*PostStackInWorkspaceV4InternalOK handles this case with default header values.
+/*
+PostStackInWorkspaceV4InternalOK handles this case with default header values.
 
 successful operation
 */

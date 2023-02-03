@@ -39,7 +39,8 @@ func NewSetDistroXMaintenanceModeByCrnDefault(code int) *SetDistroXMaintenanceMo
 	}
 }
 
-/*SetDistroXMaintenanceModeByCrnDefault handles this case with default header values.
+/*
+SetDistroXMaintenanceModeByCrnDefault handles this case with default header values.
 
 successful operation
 */

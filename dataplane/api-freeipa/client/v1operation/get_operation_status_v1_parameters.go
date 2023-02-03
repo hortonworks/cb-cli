@@ -56,7 +56,8 @@ func NewGetOperationStatusV1ParamsWithHTTPClient(client *http.Client) *GetOperat
 	}
 }
 
-/*GetOperationStatusV1Params contains all the parameters to send to the API endpoint
+/*
+GetOperationStatusV1Params contains all the parameters to send to the API endpoint
 for the get operation status v1 operation typically these are written to a http.Request
 */
 type GetOperationStatusV1Params struct {
