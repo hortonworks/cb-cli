@@ -204,6 +204,7 @@ generate-swagger-environment-docker: _init-swagger-generation-environment
 release: build
 	rm -rf release
 	mkdir release
+	git config --global --add safe.directory /go/src/github.com/hortonworks/cb-cli
 	git tag v${CB_VERSION}
 	git push https://${GITHUB_ACCESS_TOKEN}@github.com/hortonworks/cb-cli.git v${CB_VERSION}
 	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_x86_64.tgz -C build/Darwin "${BINARY}"
@@ -214,6 +215,7 @@ release: build
 release-version: build-version
 	rm -rf release
 	mkdir release
+	git config --global --add safe.directory /go/src/github.com/hortonworks/cb-cli
 	git tag v${CB_VERSION}
 	git push https://${GITHUB_ACCESS_TOKEN}@github.com/hortonworks/cb-cli.git v${CB_VERSION}
 	tar -zcvf release/dp-cli_${CB_VERSION}_Darwin_x86_64.tgz -C build/Darwin "${BINARY}"
