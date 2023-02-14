@@ -362,6 +362,13 @@ var (
 			Usage: "Whether to take a backup or not. By default it's false",
 		},
 	}
+	FlRollingUpgradeOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "rolling-upgrade",
+			Usage: "If set to true the upgrade will be done in rolling fashion",
+		},
+	}
 	FlCloudStorageManagedIdentityOptional = StringFlag{
 		RequiredFlag: OPTIONAL,
 		StringFlag: cli.StringFlag{

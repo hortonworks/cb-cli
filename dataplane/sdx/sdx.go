@@ -609,8 +609,9 @@ func SdxClusterUpgrade(c *cli.Context) {
 	showImages := c.Bool(fl.FlShowImagesOptional.Name)
 	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
 	backup := c.Bool(fl.FlUpgradeBackup.Name)
+	rollingUpgrade := c.Bool(fl.FlRollingUpgradeOptional.Name)
 
-	sdxRequest := createSdxUpgradeRequest(image, runtime, lock, dryRun, replaceVms, showImages, showLatestImages, backup)
+	sdxRequest := createSdxUpgradeRequest(image, runtime, lock, dryRun, rollingUpgrade, replaceVms, showImages, showLatestImages, backup)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 
@@ -631,7 +632,7 @@ func SdxClusterUpgradePrepare(c *cli.Context) {
 	showImages := c.Bool(fl.FlShowImagesOptional.Name)
 	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
 
-	sdxRequest := createSdxUpgradeRequest(image, runtime, false, dryRun, "", showImages, showLatestImages, false)
+	sdxRequest := createSdxUpgradeRequest(image, runtime, false, dryRun, false, "", showImages, showLatestImages, false)
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
 
@@ -662,7 +663,9 @@ func VerticalScaleSdx(c *cli.Context) {
 	log.Infof("[VerticalScaleSdx] SDX vertical scaled, name: %s", name)
 }
 
-func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string, showImages bool, showLatestImages bool, backup bool) *sdxModel.SdxUpgradeRequest {
+func createSdxUpgradeRequest(imageId, runtime string, lockComponents, dryRun, rollingUpgrade bool, replaceVms string,
+	showImages, showLatestImages, backup bool) *sdxModel.SdxUpgradeRequest {
+
 	var showImagesString string
 	if showLatestImages {
 		showImagesString = "LATEST_ONLY"
@@ -672,13 +675,14 @@ func createSdxUpgradeRequest(imageid string, runtime string, lockComponents bool
 		showImagesString = "DO_NOT_SHOW"
 	}
 	sdxRequest := &sdxModel.SdxUpgradeRequest{
-		ImageID:             imageid,
-		Runtime:             runtime,
-		LockComponents:      lockComponents,
-		DryRun:              dryRun,
-		ReplaceVms:          replaceVms,
-		ShowAvailableImages: showImagesString,
-		SkipBackup:          !backup,
+		ImageID:               imageId,
+		Runtime:               runtime,
+		LockComponents:        lockComponents,
+		DryRun:                dryRun,
+		ReplaceVms:            replaceVms,
+		ShowAvailableImages:   showImagesString,
+		SkipBackup:            !backup,
+		RollingUpgradeEnabled: rollingUpgrade,
 	}
 	return sdxRequest
 }
