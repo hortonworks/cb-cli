@@ -622,7 +622,7 @@ func RotateCertificates(c *cli.Context) {
 	log.Infof("[RotateCerts] Distrox cluster certificate rotation started for: %s", name)
 }
 
-func DistroxClusterkUpgrade(c *cli.Context) {
+func DistroxClusterUpgrade(c *cli.Context) {
 	defer commonutils.TimeTrack(time.Now(), "Start DistroX upgrade")
 	dryRun := c.Bool(fl.FlDryRunOptional.Name)
 	name := c.String(fl.FlName.Name)
@@ -632,8 +632,9 @@ func DistroxClusterkUpgrade(c *cli.Context) {
 	replaceVms := c.String(fl.FlReplaceVms.Name)
 	showImages := c.Bool(fl.FlShowImagesOptional.Name)
 	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
+	rollingUpgrade := c.Bool(fl.FlRollingUpgradeOptional.Name)
 
-	dxRequest := createDistroxUpgradeRequest(image, runtime, lock, dryRun, replaceVms, showImages, showLatestImages)
+	dxRequest := createDistroxUpgradeRequest(image, runtime, lock, dryRun, rollingUpgrade, replaceVms, showImages, showLatestImages)
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 
 	resp, err := dxClient.Cloudbreak.V1distrox.UpgradeDistroxCluster(v1distrox.NewUpgradeDistroxClusterParams().WithName(name).WithBody(dxRequest))
@@ -655,7 +656,7 @@ func DistroxUpgradeValidateAndDownload(c *cli.Context) {
 	showImages := c.Bool(fl.FlShowImagesOptional.Name)
 	showLatestImages := c.Bool(fl.FlShowLatestImagesOptional.Name)
 
-	dxRequest := createDistroxUpgradeRequest(image, runtime, lock, dryRun, replaceVms, showImages, showLatestImages)
+	dxRequest := createDistroxUpgradeRequest(image, runtime, lock, dryRun, false, replaceVms, showImages, showLatestImages)
 	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
 
 	resp, err := dxClient.Cloudbreak.V1distrox.PrepareDistroxClusterUpgrade(v1distrox.NewPrepareDistroxClusterUpgradeParams().WithName(name).WithBody(dxRequest))
@@ -666,7 +667,9 @@ func DistroxUpgradeValidateAndDownload(c *cli.Context) {
 	printUpgradeResponse(resp.Payload, dryRun || showImages || showLatestImages)
 }
 
-func createDistroxUpgradeRequest(imageid string, runtime string, lockComponents bool, dryRun bool, replaceVms string, showImages bool, showLatestImages bool) *distroxModel.DistroXUpgradeV1Request {
+func createDistroxUpgradeRequest(imageid, runtime string, lockComponents, dryRun, rollingUpgrade bool,
+	replaceVms string, showImages, showLatestImages bool) *distroxModel.DistroXUpgradeV1Request {
+
 	var showImagesString string
 	if showLatestImages {
 		showImagesString = "LATEST_ONLY"
@@ -676,12 +679,13 @@ func createDistroxUpgradeRequest(imageid string, runtime string, lockComponents 
 		showImagesString = "DO_NOT_SHOW"
 	}
 	dxRequest := &distroxModel.DistroXUpgradeV1Request{
-		ImageID:             imageid,
-		Runtime:             runtime,
-		LockComponents:      lockComponents,
-		DryRun:              dryRun,
-		ReplaceVms:          replaceVms,
-		ShowAvailableImages: showImagesString,
+		ImageID:               imageid,
+		Runtime:               runtime,
+		LockComponents:        lockComponents,
+		DryRun:                dryRun,
+		ReplaceVms:            replaceVms,
+		ShowAvailableImages:   showImagesString,
+		RollingUpgradeEnabled: rollingUpgrade,
 	}
 	return dxRequest
 }
