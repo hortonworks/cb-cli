@@ -358,6 +358,18 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:   "sync-component-versions",
+				Usage:  "synchronizes component versions from CM for a DistroX cluster",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: distrox.SyncComponentVersions,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlName).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }

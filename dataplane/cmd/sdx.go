@@ -315,6 +315,18 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:   "sync-component-versions",
+				Usage:  "sync SDX cluster component version from CM",
+				Before: cf.CheckConfigAndCommandFlagsWithoutWorkspace,
+				Flags:  fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().Build(),
+				Action: sdx.SyncComponentVersions,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddNameFlag().AddAGlobalFlags().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }
