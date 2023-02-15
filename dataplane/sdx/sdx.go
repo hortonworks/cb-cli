@@ -942,3 +942,15 @@ func UpgradeDatabase(c *cli.Context) {
 		commonutils.Println(string(response))
 	}
 }
+
+func SyncComponentVersions(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "Sync sdx cluster component versions from CM")
+	name := c.String(fl.FlName.Name)
+	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
+	checkClientVersion(sdxClient, common.Version)
+	_, err := sdxClient.Sdx.SyncCmOnDatalakeCluster(sdx.NewSyncCmOnDatalakeClusterParams().WithName(name))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("[SyncVersionsSdx] SDX cluster component versions sync started for: %s", name)
+}

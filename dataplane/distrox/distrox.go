@@ -715,3 +715,16 @@ func printUpgradeResponse(template *model.DistroXUpgradeV1Response, dryRun bool)
 	commonutils.Println(string(response))
 	return nil
 }
+
+func SyncComponentVersions(c *cli.Context) {
+	defer commonutils.TimeTrack(time.Now(), "sync components version DistroX")
+
+	dxClient := DistroX(*oauth.NewCloudbreakHTTPClientFromContext(c))
+	name := c.String(fl.FlName.Name)
+	log.Infof("[SyncDistroX] syncing  components versions for DistroX, name: %s", name)
+	_, err := dxClient.Cloudbreak.V1distrox.SyncDistroxCm(v1distrox.NewSyncDistroxCmParams().WithName(name))
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("[SyncVersionDistroX] DistroX components version sync started, name: %s", name)
+}
