@@ -94,6 +94,9 @@ type StackV4Response struct {
 	// instance groups
 	InstanceGroups []*InstanceGroupV4Response `json:"instanceGroups"`
 
+	// the java version to use when the image supports multiple ones
+	JavaVersion int32 `json:"javaVersion,omitempty"`
+
 	// Any load balancers routing traffic both to and inside of the cluster.
 	LoadBalancers []*LoadBalancerResponse `json:"loadBalancers"`
 
