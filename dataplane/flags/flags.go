@@ -1697,6 +1697,13 @@ var (
 			Usage: "Target version of the database",
 		},
 	}
+	FlTargetAvailabilityType = StringFlag{
+		RequiredFlag: REQUIRED,
+		StringFlag: cli.StringFlag{
+			Name:  "target-availability-type",
+			Usage: "scaling target availability type: [\"HA\",\"TWO_NODE_BASED\",\"NON_HA\"]",
+		},
+	}
 )
 
 type RequiredFlag struct {
