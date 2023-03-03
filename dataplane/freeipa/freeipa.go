@@ -759,3 +759,37 @@ func Rebuild(c *cli.Context) {
 		commonutils.LogErrorAndExit(err)
 	}
 }
+
+func UpscaleFreeIpa(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	targetAvailabilityType := c.String(fl.FlTargetAvailabilityType.Name)
+
+	request := model.FreeIpaUpscaleV1Request{
+		EnvironmentCrn:         &envCrn,
+		TargetAvailabilityType: &targetAvailabilityType,
+	}
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	_, err := freeIpaClient.V1freeipa.UpscaleFreeIpaV1(v1freeipa.NewUpscaleFreeIpaV1Params().WithBody(&request), nil)
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("Upscale FreeIpa cluster requested in environment %s", envName)
+}
+
+func DownscaleFreeIpa(c *cli.Context) {
+	envName := c.String(fl.FlEnvironmentName.Name)
+	envCrn := env.GetEnvirontmentCrnByName(c, envName)
+	targetAvailabilityType := c.String(fl.FlTargetAvailabilityType.Name)
+
+	request := model.FreeIpaDownscaleV1Request{
+		EnvironmentCrn:         &envCrn,
+		TargetAvailabilityType: &targetAvailabilityType,
+	}
+	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
+	_, err := freeIpaClient.V1freeipa.DownscaleFreeIpaV1(v1freeipa.NewDownscaleFreeIpaV1Params().WithBody(&request), nil)
+	if err != nil {
+		commonutils.LogErrorAndExit(err)
+	}
+	log.Infof("Downscale FreeIpa cluster requested in environment %s", envName)
+}

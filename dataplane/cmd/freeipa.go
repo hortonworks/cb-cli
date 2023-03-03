@@ -417,6 +417,30 @@ func init() {
 					}
 				},
 			},
+			{
+				Name:   "upscale",
+				Usage:  "upscales freeipa to the desired formation",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlTargetAvailabilityType).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: freeipa.UpscaleFreeIpa,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlTargetAvailabilityType).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
+			{
+				Name:   "downscale",
+				Usage:  "downscales freeipa to the desired formation",
+				Before: cf.CheckConfigAndCommandFlags,
+				Flags:  fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlTargetAvailabilityType).AddAGlobalFlags().AddOutputFlag().Build(),
+				Action: freeipa.DownscaleFreeIpa,
+				BashComplete: func(c *cli.Context) {
+					for _, f := range fl.NewFlagBuilder().AddFlags(fl.FlEnvironmentName, fl.FlTargetAvailabilityType).AddAGlobalFlags().AddOutputFlag().Build() {
+						fl.PrintFlagCompletion(f)
+					}
+				},
+			},
 		},
 	})
 }
