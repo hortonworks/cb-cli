@@ -62,6 +62,8 @@ type SdxInternalClusterRequest struct {
 
 	// Tags.
 	Tags map[string]string `json:"tags,omitempty"`
+
+	JavaVersion int32 `json:"javaVersion,omitempty"`
 }
 
 // Validate validates this sdx internal cluster request

@@ -304,6 +304,7 @@ func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cl
 		Aws:              nil,
 		EnableRangerRaz:  withRangerRazEnabled,
 		EnableMultiAz:    withEnableMultiAz,
+		JavaVersion:      inputJson.JavaVersion,
 	}
 
 	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxInternalRequest.CloudStorage = storage }))
