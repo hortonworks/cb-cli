@@ -84,7 +84,7 @@ coverage-html:
 	@go tool cover -html=fmt
 	@rm -f fmt
 
-build: versioncheck errcheck formatcheck vet test build-darwin build-darwin-arm64 build-linux
+build: versioncheck errcheck formatcheck vet build-darwin
 
 build-version: errcheck format vet test build-darwin-version build-darwin-arm64-version build-linux-version
 

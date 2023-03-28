@@ -1,6 +1,9 @@
 package oauth
 
 import (
+	"context"
+	"strings"
+
 	"github.com/go-openapi/strfmt"
 	environmentclient "github.com/hortonworks/cb-cli/dataplane/api-environment/client"
 	freeipaclient "github.com/hortonworks/cb-cli/dataplane/api-freeipa/client"
@@ -124,8 +127,27 @@ func NewRedbeamsClientFromContext(c *cli.Context) *Redbeams {
 func NewRedbeamsClient(address string, apiKeyID, privateKey string) *Redbeams {
 	u.CheckServerAddress(address)
 	//var transport *utils.Transport
-	//const baseAPIPath string = "/redbeams/api"
+	const baseAPIPath string = "/redbeams/api"
 	//transport = apikeyauth.GetAPIKeyAuthTransport(address, baseAPIPath, apiKeyID, privateKey)
-	var config = redbeamsclient.NewConfiguration()
+	var headers = apikeyauth.AltusAPIKeyAuthForOpenApi(baseAPIPath, apiKeyID, privateKey)
+	var config = redbeamsclient.NewConfiguration(address+baseAPIPath, headers)
+
+	ctx := context.WithValue(context.Background(), redbeamsclient.ContextServerVariables, map[string]string{
+		"basePath": baseAPIPath,
+	})
+
+	//ctx = context.WithValue(ctx, redbeamsclient.ContextAPIKeys, map[string]string{
+	//	apiKeyID: privateKey,
+	//})
+
+	for _, v := range PREFIX_TRIM {
+		address = strings.TrimPrefix(address, v)
+	}
+	config.Scheme = "https"
+	config.Host = address
+	// config.Host = url.Path
+	// config.Host = address + baseAPIPath
+	config.Debug = true
+	config.ServerURLWithContext(ctx, "DatabaseServersApiService.ListDatabaseServers")
 	return &Redbeams{Redbeams: redbeamsclient.NewAPIClient(config)}
 }

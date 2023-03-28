@@ -60,6 +60,15 @@ func GetActorCrnAuthTransport(address, baseAPIPath, actorCrn string) *utils.Tran
 	return cbTransport
 }
 
+func AltusAPIKeyAuthForOpenApi(baseAPIPath, accessKeyID, privateKey string) map[string]string {
+	date := formatdate()
+	result := make(map[string]string)
+	result[altusAuthHeader] = authHeader(accessKeyID, privateKey, "GET", resourcePath("redbeams/api", "/v4/databaseservers", url.QueryEscape("environmentCrn=crn%3Acdp%3Aenvironments%3Aus-west-1%3Adefault%3Aenvironment%3Adc3328f0-85ab-4073-8038-b8a1a471f90c")), date)
+	result[altusDateHeader] = date
+	result[contentTypeHeader] = "application/json"
+	return result
+}
+
 func altusActorCrnAuth(baseAPIPath, actorCrn string) runtime.ClientAuthInfoWriter {
 	return runtime.ClientAuthInfoWriterFunc(func(r runtime.ClientRequest, _ strfmt.Registry) error {
 		return r.SetHeaderParam(altusActorCrnHeader, actorCrn)
@@ -70,6 +79,7 @@ func altusActorCrnAuth(baseAPIPath, actorCrn string) runtime.ClientAuthInfoWrite
 func altusAPIKeyAuth(baseAPIPath, accessKeyID, privateKey string) runtime.ClientAuthInfoWriter {
 	return runtime.ClientAuthInfoWriterFunc(func(r runtime.ClientRequest, _ strfmt.Registry) error {
 		date := formatdate()
+		log.Infof("[altusAPIKeyAuth] : %s, %s, %s, %s, %s", r.GetMethod(), baseAPIPath, r.GetPath(), r.GetQueryParams().Encode(), resourcePath(baseAPIPath, r.GetPath(), r.GetQueryParams().Encode()))
 		err := r.SetHeaderParam(altusAuthHeader, authHeader(accessKeyID, privateKey, r.GetMethod(), resourcePath(baseAPIPath, r.GetPath(), r.GetQueryParams().Encode()), date))
 		if err != nil {
 			return err
@@ -100,6 +110,7 @@ func escapePath(path string) string {
 }
 
 func authHeader(accessKeyID, privateKey, method, path, date string) string {
+	log.Debugf("authHeader: M:" + method + " P:" + path)
 	return fmt.Sprintf("%s.%s", urlsafeMeta(accessKeyID, privateKey), urlsafeSignature(privateKey, method, path, date))
 }
 

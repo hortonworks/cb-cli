@@ -13,6 +13,7 @@ package model
 import (
 	"context"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strings"
 )
@@ -86,14 +87,14 @@ type Configuration struct {
 }
 
 // NewConfiguration returns a new Configuration object
-func NewConfiguration() *Configuration {
+func NewConfiguration(serverUrl string, headers map[string]string) *Configuration {
 	cfg := &Configuration{
-		DefaultHeader: make(map[string]string),
+		DefaultHeader: headers,
 		UserAgent:     "OpenAPI-Generator/1.0.0/go",
-		Debug:         false,
+		Debug:         true,
 		Servers: ServerConfigurations{
 			{
-				URL:         "",
+				URL:         serverUrl,
 				Description: "No description provided",
 			},
 		},
@@ -142,6 +143,7 @@ func (c *Configuration) ServerURL(index int, variables map[string]string) (strin
 
 func getServerIndex(ctx context.Context) (int, error) {
 	si := ctx.Value(ContextServerIndex)
+	log.Infof("[getServerIndex] : %s", si)
 	if si != nil {
 		if index, ok := si.(int); ok {
 			return index, nil
@@ -153,6 +155,7 @@ func getServerIndex(ctx context.Context) (int, error) {
 
 func getServerOperationIndex(ctx context.Context, endpoint string) (int, error) {
 	osi := ctx.Value(ContextOperationServerIndices)
+	log.Infof("[getServerOperationIndex] : %s", osi)
 	if osi != nil {
 		if operationIndices, ok := osi.(map[string]int); !ok {
 			return 0, reportError("Invalid type %T should be map[string]int", osi)
@@ -168,6 +171,7 @@ func getServerOperationIndex(ctx context.Context, endpoint string) (int, error) 
 
 func getServerVariables(ctx context.Context) (map[string]string, error) {
 	sv := ctx.Value(ContextServerVariables)
+	log.Infof("[getServerVariables] : %s", sv)
 	if sv != nil {
 		if variables, ok := sv.(map[string]string); ok {
 			return variables, nil
@@ -179,6 +183,7 @@ func getServerVariables(ctx context.Context) (map[string]string, error) {
 
 func getServerOperationVariables(ctx context.Context, endpoint string) (map[string]string, error) {
 	osv := ctx.Value(ContextOperationServerVariables)
+	log.Infof("[ContextOperationServerVariables] : %s", osv)
 	if osv != nil {
 		if operationVariables, ok := osv.(map[string]map[string]string); !ok {
 			return nil, reportError("ctx value of ContextOperationServerVariables has invalid type %T should be map[string]map[string]string", osv)

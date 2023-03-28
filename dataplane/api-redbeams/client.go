@@ -17,6 +17,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	utils "github.com/hortonworks/dp-cli-common/utils"
 	"io"
 	"io/ioutil"
 	"log"
@@ -75,6 +76,7 @@ type service struct {
 func NewAPIClient(cfg *Configuration) *APIClient {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
+		cfg.HTTPClient.Transport = utils.LoggedTransportConfig
 	}
 
 	c := &APIClient{}

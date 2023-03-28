@@ -102,8 +102,8 @@ func ListDatabaseServers(c *cli.Context) {
 	envCrn := c.String(fl.FlEnvironmentCrn.Name)
 	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServersApi
 
-	log.Infof("[ListDBServers] Listing database servers in environment: %s", envCrn)
-	resp, _, err := redbeamsDbServerClient.ListDatabaseServersExecute(redbeamsDbServerClient.ListDatabaseServers(context.Background()).EnvironmentCrn(envCrn))
+	log.Infof("[ListDBServers] Listing database servers in environment: %s, %s, %s", envCrn, c.String(fl.FlApiKeyIDOptional.Name), c.String(fl.FlPrivateKeyOptional.Name))
+	resp, _, err := redbeamsDbServerClient.ListDatabaseServersExecute(redbeamsDbServerClient.ListDatabaseServers(nil).EnvironmentCrn(envCrn))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -161,7 +161,7 @@ func CreateManagedDatabaseServer(c *cli.Context) {
 		commonutils.LogErrorMessageAndExit(msg)
 	}
 
-	log.Infof("[CreateManagedDBServer] JSON read, creating database server with name: %s", req.Name)
+	log.Infof("[CreateManagedDBServer] JSON read, creating database server with name: %s", *req.Name)
 	redbeamsDbServerClient := ClientRedbeams(*oauth.NewRedbeamsClientFromContext(c)).Redbeams.DatabaseServersApi
 	resp, _, err := redbeamsDbServerClient.CreateDatabaseServerExecute(redbeamsDbServerClient.CreateDatabaseServer(context.Background()).AllocateDatabaseServerV4Request(req))
 	if err != nil {
@@ -384,7 +384,7 @@ func DeleteDatabase(c *cli.Context) {
 		if err != nil {
 			commonutils.LogErrorAndExit(err)
 		}
-		log.Infof("[DeleteDB] Deleted database with CRN: %s Details: %s", crn, result)
+		log.Infof("[DeleteDB] Deleted database with CRN: %s Name: %s", crn, result.GetName())
 	} else {
 		envCrn := c.String(fl.FlEnvironmentCrn.Name)
 		name := c.String(fl.FlName.Name)
@@ -393,6 +393,6 @@ func DeleteDatabase(c *cli.Context) {
 		if err != nil {
 			commonutils.LogErrorAndExit(err)
 		}
-		log.Infof("[DeleteDB] Deleted database with name: %s Details: %s", name, result)
+		log.Infof("[DeleteDB] Deleted database with name: %s Name: %s", name, result.GetName())
 	}
 }
