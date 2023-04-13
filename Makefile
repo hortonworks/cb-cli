@@ -174,10 +174,13 @@ generate-swagger-environment:
 	mkdir -p dataplane/api-environment/client
 	mkdir -p dataplane/api-environment/model
 	swagger generate client -f http://$(ENVIRONMENT_IP):$(ENVIRONMENT_PORT)/environmentservice/api/swagger.json -c client -m model -t dataplane/api-environment
+	# The following commands are needed because 'EnvironmentNetworkAzureV1Params.NoOutboundLoadBalancer=false' param cannot be sent in env creation request
+	sed -i.bak '/NoOutboundLoadBalancer bool/s/bool/*bool/g' dataplane/api-environment/model/environment_network_azure_v1_params.go
+	rm -rf dataplane/api-environment/model/environment_network_azure_v1_params.go.bak
 
-generate-swagger-all: generate-swagger generate-swagger-sdx generate-swagger-freeipa generate-swagger-redbeams generate-swagger-environment
+generate-swagger-all: generate-swagger generate-swagger-sdx generate-swagger-freeipa generate-swagger-redbeams generate-swagger-environment format
 
-generate-swagger-docker-all: generate-swagger-docker generate-swagger-sdx-docker generate-swagger-freeipa-docker generate-swagger-redbeams-docker generate-swagger-environment-docker
+generate-swagger-docker-all: generate-swagger-docker generate-swagger-sdx-docker generate-swagger-freeipa-docker generate-swagger-redbeams-docker generate-swagger-environment-docker format
 
 generate-swagger-docker: _init-swagger-generation
 	@docker run --rm -it -v "${GOPATH}":"${GOPATH}" -v ${PWD}/build/swagger.json:${PWD}/build/swagger.json  -w "${PWD}" -e GOPATH --net=host quay.io/goswagger/swagger:v0.19.0 \
@@ -200,6 +203,9 @@ generate-swagger-environment-docker: _init-swagger-generation-environment
 	mkdir -p dataplane/api-environment/model
 	@docker run --rm -it -v "${GOPATH}":"${GOPATH}" -v ${PWD}/build/swagger.json:${PWD}/build/swagger.json  -w "${PWD}" -e GOPATH --net=host quay.io/goswagger/swagger:v0.19.0 \
 	generate client -f ${PWD}/build/swagger.json -c client -m model -t dataplane/api-environment
+	# The following commands are needed because 'EnvironmentNetworkAzureV1Params.NoOutboundLoadBalancer=false' param cannot be sent in env creation request
+	sed -i.bak '/NoOutboundLoadBalancer bool/s/bool/*bool/g' dataplane/api-environment/model/environment_network_azure_v1_params.go
+	rm -rf dataplane/api-environment/model/environment_network_azure_v1_params.go.bak
 
 release: build
 	rm -rf release

@@ -123,6 +123,7 @@ func CreateSdx(c *cli.Context) {
 	spotMaxPrice := utils.ConvertToFloat64Ptr(spotMaxPriceString)
 	withRangerRazEnabled := c.Bool(fl.FlRangerRazEnabled.Name)
 	withEnableMultiAz := c.Bool(fl.FlEnableMultiAz.Name)
+	azureFlexibleServer := c.Bool(fl.FlAzureDatabaseFlexibleOptional.Name)
 
 	inputJson := assembleStackRequest(c)
 	log.Infof("[CreateSdx] Runtime: %s", runtime)
@@ -130,22 +131,22 @@ func CreateSdx(c *cli.Context) {
 		createInternalSdx(envName, inputJson, c,
 			name, baseLocation, instanceProfile, managedIdentity, serviceAccount, runtime,
 			withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, databaseEngineVersion,
-			spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz)
+			spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz, azureFlexibleServer)
 	} else {
 		createSdx(clusterShape, envName, c,
 			name, baseLocation, instanceProfile, managedIdentity, serviceAccount, runtime,
 			withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, databaseEngineVersion,
-			spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz)
+			spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz, azureFlexibleServer)
 	}
 }
 
 func createSdx(clusterShape, envName string, c *cli.Context,
 	name, cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, runtime string,
 	withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase bool, databaseEngineVersion string,
-	spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled, withEnableMultiAz bool) {
+	spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled, withEnableMultiAz bool, azureFlexibleServer bool) {
 	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, runtime,
 		withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, databaseEngineVersion,
-		spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz)
+		spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz, azureFlexibleServer)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
@@ -159,7 +160,7 @@ func createSdx(clusterShape, envName string, c *cli.Context,
 
 func createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, runtime string,
 	withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase bool, databaseEngineVersion string,
-	spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled, withEnableMultiAz bool) *sdxModel.SdxClusterRequest {
+	spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled, withEnableMultiAz bool, azureFlexibleServer bool) *sdxModel.SdxClusterRequest {
 	sdxRequest := &sdxModel.SdxClusterRequest{
 		ClusterShape:     &clusterShape,
 		Environment:      &envName,
@@ -172,12 +173,12 @@ func createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceP
 		EnableMultiAz:    withEnableMultiAz,
 	}
 	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = storage }))
-	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, databaseEngineVersion, &sdxRequest.ExternalDatabase)
+	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, databaseEngineVersion, azureFlexibleServer, &sdxRequest.ExternalDatabase)
 	setupAwsSpotParameters(spotPercentage, spotMaxPrice, &sdxRequest.Aws)
 	return sdxRequest
 }
 
-func setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase bool, databaseEngineVersion string, sdxDatabase **sdxModel.SdxDatabaseRequest) {
+func setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase bool, databaseEngineVersion string, azureFlexibleServer bool, sdxDatabase **sdxModel.SdxDatabaseRequest) {
 	if withoutExternalDatabase && withExternalDatabase && withNonHaExternalDatabase {
 		commonutils.LogErrorAndExit(errors.New("both withExternalDatabase and withoutExternalDatabase were set"))
 	}
@@ -201,6 +202,11 @@ func setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, with
 	}
 	if len(databaseEngineVersion) != 0 {
 		(*sdxDatabase).DatabaseEngineVersion = databaseEngineVersion
+	}
+	if azureFlexibleServer {
+		(*sdxDatabase).SdxDatabaseAzureRequest = &model.SdxDatabaseAzureRequest{
+			AzureDatabaseType: "FLEXIBLE_SERVER",
+		}
 	}
 }
 
@@ -293,7 +299,7 @@ func setupAwsSpotParameters(spotPercentage *int32, spotMaxPrice *float64, sdxAws
 func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cli.Context,
 	name, cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, runtime string,
 	withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase bool, databaseEngineVersion string,
-	spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool, withEnableMultiAz bool) {
+	spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled bool, withEnableMultiAz bool, azureFlexibleServer bool) {
 	sdxInternalRequest := &sdxModel.SdxInternalClusterRequest{
 		ClusterShape:     &(&types.S{S: sdxModel.SdxClusterRequestClusterShapeCUSTOM}).S,
 		Environment:      &envName,
@@ -307,7 +313,7 @@ func createInternalSdx(envName string, inputJson *sdxModel.StackV4Request, c *cl
 	}
 
 	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxInternalRequest.CloudStorage = storage }))
-	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, databaseEngineVersion, &sdxInternalRequest.ExternalDatabase)
+	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, databaseEngineVersion, azureFlexibleServer, &sdxInternalRequest.ExternalDatabase)
 	setupAwsSpotParameters(spotPercentage, spotMaxPrice, &sdxInternalRequest.Aws)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
