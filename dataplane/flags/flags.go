@@ -1704,6 +1704,13 @@ var (
 			Usage: "scaling target availability type: [\"HA\",\"TWO_NODE_BASED\",\"NON_HA\"]",
 		},
 	}
+	FlAzureDatabaseFlexibleOptional = BoolFlag{
+		RequiredFlag: OPTIONAL,
+		BoolFlag: cli.BoolFlag{
+			Name:  "azure-database-flexible",
+			Usage: "Azure database will be flexible server if this parameter is set",
+		},
+	}
 )
 
 type RequiredFlag struct {
