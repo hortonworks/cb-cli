@@ -93,7 +93,7 @@ type ClusterV4Response struct {
 	// proxy config name
 	ProxyConfigName string `json:"proxyConfigName,omitempty"`
 
-	// Enables Ranger Raz for the cluster on S3 and ADLSv2.
+	// Enables Ranger Raz for the cluster on S3, ADLSv2 and GCS.
 	RangerRazEnabled bool `json:"rangerRazEnabled,omitempty"`
 
 	// FQDN of the gateway node for the stack

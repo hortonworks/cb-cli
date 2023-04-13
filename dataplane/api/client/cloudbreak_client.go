@@ -16,6 +16,8 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api/client/flow"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/flow_public"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v1distrox"
+	"github.com/hortonworks/cb-cli/dataplane/api/client/v1distroxcarbon_dioxide"
+	"github.com/hortonworks/cb-cli/dataplane/api/client/v1distroxcost"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v1internaldistrox"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_audits"
@@ -27,6 +29,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_imagecatalogs"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_recipes"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4_workspace_id_stacks"
+	"github.com/hortonworks/cb-cli/dataplane/api/client/v4carbon_dioxide"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4cost"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4custom_configurations"
 	"github.com/hortonworks/cb-cli/dataplane/api/client/v4customimagecatalogs"
@@ -94,6 +97,10 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 
 	cli.V1distrox = v1distrox.New(transport, formats)
 
+	cli.V1distroxcarbonDioxide = v1distroxcarbon_dioxide.New(transport, formats)
+
+	cli.V1distroxcost = v1distroxcost.New(transport, formats)
+
 	cli.V1internaldistrox = v1internaldistrox.New(transport, formats)
 
 	cli.V4WorkspaceID = v4_workspace_id.New(transport, formats)
@@ -115,6 +122,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Cloudbreak
 	cli.V4WorkspaceIDRecipes = v4_workspace_id_recipes.New(transport, formats)
 
 	cli.V4WorkspaceIDStacks = v4_workspace_id_stacks.New(transport, formats)
+
+	cli.V4carbonDioxide = v4carbon_dioxide.New(transport, formats)
 
 	cli.V4cost = v4cost.New(transport, formats)
 
@@ -194,6 +203,10 @@ type Cloudbreak struct {
 
 	V1distrox *v1distrox.Client
 
+	V1distroxcarbonDioxide *v1distroxcarbon_dioxide.Client
+
+	V1distroxcost *v1distroxcost.Client
+
 	V1internaldistrox *v1internaldistrox.Client
 
 	V4WorkspaceID *v4_workspace_id.Client
@@ -215,6 +228,8 @@ type Cloudbreak struct {
 	V4WorkspaceIDRecipes *v4_workspace_id_recipes.Client
 
 	V4WorkspaceIDStacks *v4_workspace_id_stacks.Client
+
+	V4carbonDioxide *v4carbon_dioxide.Client
 
 	V4cost *v4cost.Client
 
@@ -257,6 +272,10 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 
 	c.V1distrox.SetTransport(transport)
 
+	c.V1distroxcarbonDioxide.SetTransport(transport)
+
+	c.V1distroxcost.SetTransport(transport)
+
 	c.V1internaldistrox.SetTransport(transport)
 
 	c.V4WorkspaceID.SetTransport(transport)
@@ -278,6 +297,8 @@ func (c *Cloudbreak) SetTransport(transport runtime.ClientTransport) {
 	c.V4WorkspaceIDRecipes.SetTransport(transport)
 
 	c.V4WorkspaceIDStacks.SetTransport(transport)
+
+	c.V4carbonDioxide.SetTransport(transport)
 
 	c.V4cost.SetTransport(transport)
 

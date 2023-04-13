@@ -784,7 +784,7 @@ func DownscaleFreeIpa(c *cli.Context) {
 
 	request := model.FreeIpaDownscaleV1Request{
 		EnvironmentCrn:         &envCrn,
-		TargetAvailabilityType: &targetAvailabilityType,
+		TargetAvailabilityType: targetAvailabilityType,
 	}
 	freeIpaClient := ClientFreeIpa(*oauth.NewFreeIpaClientFromContext(c)).FreeIpa
 	_, err := freeIpaClient.V1freeipa.DownscaleFreeIpaV1(v1freeipa.NewDownscaleFreeIpaV1Params().WithBody(&request), nil)

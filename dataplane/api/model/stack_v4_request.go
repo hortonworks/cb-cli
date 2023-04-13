@@ -64,6 +64,9 @@ type StackV4Request struct {
 	// Required: true
 	InstanceGroups []*InstanceGroupV4Request `json:"instanceGroups"`
 
+	// Java version to be forced on virtual machines
+	JavaVersion int32 `json:"javaVersion,omitempty"`
+
 	// mock
 	Mock MockStackV4Parameters `json:"mock,omitempty"`
 

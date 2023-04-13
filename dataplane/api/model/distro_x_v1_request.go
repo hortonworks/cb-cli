@@ -55,7 +55,7 @@ type DistroXV1Request struct {
 	// Unique: true
 	InstanceGroups []*InstanceGroupV1Request `json:"instanceGroups"`
 
-	// the java version to use when the image supports multiple ones
+	// java version
 	JavaVersion int32 `json:"javaVersion,omitempty"`
 
 	// name of the stack

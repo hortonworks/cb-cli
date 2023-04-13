@@ -33,6 +33,9 @@ type ImageInfoV4Response struct {
 
 	// image name
 	ImageName string `json:"imageName,omitempty"`
+
+	// prepared
+	Prepared bool `json:"prepared,omitempty"`
 }
 
 // Validate validates this image info v4 response

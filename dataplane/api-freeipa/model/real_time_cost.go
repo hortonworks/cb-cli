@@ -24,6 +24,9 @@ type RealTimeCost struct {
 	// hourly provider usd
 	HourlyProviderUsd float64 `json:"hourlyProviderUsd,omitempty"`
 
+	// resource crn
+	ResourceCrn string `json:"resourceCrn,omitempty"`
+
 	// resource name
 	ResourceName string `json:"resourceName,omitempty"`
 

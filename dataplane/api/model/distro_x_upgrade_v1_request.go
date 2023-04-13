@@ -41,6 +41,9 @@ type DistroXUpgradeV1Request struct {
 	// show available images
 	// Enum: [SHOW LATEST_ONLY DO_NOT_SHOW]
 	ShowAvailableImages string `json:"showAvailableImages,omitempty"`
+
+	// variant change disabled
+	VariantChangeDisabled bool `json:"variantChangeDisabled,omitempty"`
 }
 
 // Validate validates this distro x upgrade v1 request

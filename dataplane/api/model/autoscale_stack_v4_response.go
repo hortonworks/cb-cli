@@ -48,6 +48,9 @@ type AutoscaleStackV4Response struct {
 	// ambari password
 	PasswordPath string `json:"passwordPath,omitempty"`
 
+	// cloudbreak version stored by the salt state component of the cluster
+	SaltCbVersion string `json:"saltCbVersion,omitempty"`
+
 	// the unique crn of the resource
 	StackCrn string `json:"stackCrn,omitempty"`
 

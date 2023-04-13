@@ -38,6 +38,10 @@ type DatabaseServerV4Response struct {
 	// CRN of the database server
 	Crn string `json:"crn,omitempty"`
 
+	// Database server properties
+	// Required: true
+	DatabasePropertiesV4Response *DatabasePropertiesV4Response `json:"databasePropertiesV4Response"`
+
 	// Name of the database vendor (MYSQL, POSTGRES, ...)
 	// Required: true
 	DatabaseVendor *string `json:"databaseVendor"`
@@ -105,6 +109,10 @@ func (m *DatabaseServerV4Response) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateConnectionUserName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDatabasePropertiesV4Response(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -195,6 +203,24 @@ func (m *DatabaseServerV4Response) validateConnectionUserName(formats strfmt.Reg
 		if err := m.ConnectionUserName.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("connectionUserName")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DatabaseServerV4Response) validateDatabasePropertiesV4Response(formats strfmt.Registry) error {
+
+	if err := validate.Required("databasePropertiesV4Response", "body", m.DatabasePropertiesV4Response); err != nil {
+		return err
+	}
+
+	if m.DatabasePropertiesV4Response != nil {
+		if err := m.DatabasePropertiesV4Response.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("databasePropertiesV4Response")
 			}
 			return err
 		}

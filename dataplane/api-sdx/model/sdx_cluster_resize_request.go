@@ -21,7 +21,7 @@ type SdxClusterResizeRequest struct {
 
 	// The shape of the cluster such as Micro Duty, Light Duty, Medium Duty...
 	// Required: true
-	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA MICRO_DUTY]
+	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA SCALABLE MICRO_DUTY]
 	ClusterShape *string `json:"clusterShape"`
 
 	// The name of the environment.
@@ -36,6 +36,9 @@ type SdxClusterResizeRequest struct {
 
 	// Option to skip the backup/restore of Ranger HMS Metadata.
 	SkipRangerMetadata bool `json:"skipRangerMetadata,omitempty"`
+
+	// Option to skip validation before the backup/restore.
+	SkipValidation bool `json:"skipValidation,omitempty"`
 }
 
 // Validate validates this sdx cluster resize request
@@ -60,7 +63,7 @@ var sdxClusterResizeRequestTypeClusterShapePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA","MICRO_DUTY"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA","SCALABLE","MICRO_DUTY"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -78,6 +81,9 @@ const (
 
 	// SdxClusterResizeRequestClusterShapeMEDIUMDUTYHA captures enum value "MEDIUM_DUTY_HA"
 	SdxClusterResizeRequestClusterShapeMEDIUMDUTYHA string = "MEDIUM_DUTY_HA"
+
+	// SdxClusterResizeRequestClusterShapeSCALABLE captures enum value "SCALABLE"
+	SdxClusterResizeRequestClusterShapeSCALABLE string = "SCALABLE"
 
 	// SdxClusterResizeRequestClusterShapeMICRODUTY captures enum value "MICRO_DUTY"
 	SdxClusterResizeRequestClusterShapeMICRODUTY string = "MICRO_DUTY"

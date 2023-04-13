@@ -15,6 +15,9 @@ import (
 // swagger:model FlowCheckResponse
 type FlowCheckResponse struct {
 
+	// current state
+	CurrentState string `json:"currentState,omitempty"`
+
 	// end time
 	EndTime int64 `json:"endTime,omitempty"`
 
@@ -24,11 +27,17 @@ type FlowCheckResponse struct {
 	// flow Id
 	FlowID string `json:"flowId,omitempty"`
 
+	// flow type
+	FlowType string `json:"flowType,omitempty"`
+
 	// has active flow
 	HasActiveFlow bool `json:"hasActiveFlow,omitempty"`
 
 	// latest flow finalized and failed
 	LatestFlowFinalizedAndFailed bool `json:"latestFlowFinalizedAndFailed,omitempty"`
+
+	// next event
+	NextEvent string `json:"nextEvent,omitempty"`
 }
 
 // Validate validates this flow check response

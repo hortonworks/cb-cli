@@ -75,6 +75,8 @@ type RestoreDatalakeParams struct {
 	SkipRangerAudits *bool
 	/*SkipRangerMetadata*/
 	SkipRangerMetadata *bool
+	/*SkipValidation*/
+	SkipValidation *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -180,6 +182,17 @@ func (o *RestoreDatalakeParams) SetSkipRangerMetadata(skipRangerMetadata *bool) 
 	o.SkipRangerMetadata = skipRangerMetadata
 }
 
+// WithSkipValidation adds the skipValidation to the restore datalake params
+func (o *RestoreDatalakeParams) WithSkipValidation(skipValidation *bool) *RestoreDatalakeParams {
+	o.SetSkipValidation(skipValidation)
+	return o
+}
+
+// SetSkipValidation adds the skipValidation to the restore datalake params
+func (o *RestoreDatalakeParams) SetSkipValidation(skipValidation *bool) {
+	o.SkipValidation = skipValidation
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *RestoreDatalakeParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -267,6 +280,22 @@ func (o *RestoreDatalakeParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		qSkipRangerMetadata := swag.FormatBool(qrSkipRangerMetadata)
 		if qSkipRangerMetadata != "" {
 			if err := r.SetQueryParam("skipRangerMetadata", qSkipRangerMetadata); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.SkipValidation != nil {
+
+		// query param skipValidation
+		var qrSkipValidation bool
+		if o.SkipValidation != nil {
+			qrSkipValidation = *o.SkipValidation
+		}
+		qSkipValidation := swag.FormatBool(qrSkipValidation)
+		if qSkipValidation != "" {
+			if err := r.SetQueryParam("skipValidation", qSkipValidation); err != nil {
 				return err
 			}
 		}

@@ -25,6 +25,9 @@ type SdxUpgradeRequest struct {
 	// Image id.
 	ImageID string `json:"imageId,omitempty"`
 
+	// Value which indicates that the internal cloud platform variant should not be changed during the operation.
+	KeepVariant bool `json:"keepVariant,omitempty"`
+
 	// Option to lock components during the upgrade.
 	LockComponents bool `json:"lockComponents,omitempty"`
 
@@ -56,6 +59,9 @@ type SdxUpgradeRequest struct {
 
 	// Option to skip the backup/restore of Ranger HMS Metadata.
 	SkipRangerMetadata bool `json:"skipRangerMetadata,omitempty"`
+
+	// Option to skip validation before the backup/restore.
+	SkipValidation bool `json:"skipValidation,omitempty"`
 }
 
 // Validate validates this sdx upgrade request

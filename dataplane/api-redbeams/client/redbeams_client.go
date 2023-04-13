@@ -18,6 +18,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/flow_public"
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/v4operation"
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/v4progress"
+	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/v4support"
 	"github.com/hortonworks/cb-cli/dataplane/api-redbeams/client/v4utils"
 )
 
@@ -77,6 +78,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Redbeams {
 	cli.V4operation = v4operation.New(transport, formats)
 
 	cli.V4progress = v4progress.New(transport, formats)
+
+	cli.V4support = v4support.New(transport, formats)
 
 	cli.V4utils = v4utils.New(transport, formats)
 
@@ -138,6 +141,8 @@ type Redbeams struct {
 
 	V4progress *v4progress.Client
 
+	V4support *v4support.Client
+
 	V4utils *v4utils.Client
 
 	Transport runtime.ClientTransport
@@ -160,6 +165,8 @@ func (c *Redbeams) SetTransport(transport runtime.ClientTransport) {
 	c.V4operation.SetTransport(transport)
 
 	c.V4progress.SetTransport(transport)
+
+	c.V4support.SetTransport(transport)
 
 	c.V4utils.SetTransport(transport)
 

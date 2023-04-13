@@ -17,9 +17,11 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1credentials"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1credentialsaudit"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1env"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1envcarbon_dioxide"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1envcost"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1envplatform_resources"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1events"
+	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1imageterms"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1internalcredentials"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1internalenv"
 	"github.com/hortonworks/cb-cli/dataplane/api-environment/client/v1operation"
@@ -87,11 +89,15 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Environmen
 
 	cli.V1env = v1env.New(transport, formats)
 
+	cli.V1envcarbonDioxide = v1envcarbon_dioxide.New(transport, formats)
+
 	cli.V1envcost = v1envcost.New(transport, formats)
 
 	cli.V1envplatformResources = v1envplatform_resources.New(transport, formats)
 
 	cli.V1events = v1events.New(transport, formats)
+
+	cli.V1imageterms = v1imageterms.New(transport, formats)
 
 	cli.V1internalcredentials = v1internalcredentials.New(transport, formats)
 
@@ -169,11 +175,15 @@ type Environment struct {
 
 	V1env *v1env.Client
 
+	V1envcarbonDioxide *v1envcarbon_dioxide.Client
+
 	V1envcost *v1envcost.Client
 
 	V1envplatformResources *v1envplatform_resources.Client
 
 	V1events *v1events.Client
+
+	V1imageterms *v1imageterms.Client
 
 	V1internalcredentials *v1internalcredentials.Client
 
@@ -214,11 +224,15 @@ func (c *Environment) SetTransport(transport runtime.ClientTransport) {
 
 	c.V1env.SetTransport(transport)
 
+	c.V1envcarbonDioxide.SetTransport(transport)
+
 	c.V1envcost.SetTransport(transport)
 
 	c.V1envplatformResources.SetTransport(transport)
 
 	c.V1events.SetTransport(transport)
+
+	c.V1imageterms.SetTransport(transport)
 
 	c.V1internalcredentials.SetTransport(transport)
 
