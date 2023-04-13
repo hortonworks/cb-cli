@@ -34,7 +34,7 @@ type EnvironmentNetworkAzureV1Params struct {
 	NetworkID *string `json:"networkId"`
 
 	// Flag that marks the request to not create an outbound load balancer
-	NoOutboundLoadBalancer bool `json:"noOutboundLoadBalancer,omitempty"`
+	NoOutboundLoadBalancer *bool `json:"noOutboundLoadBalancer,omitempty"`
 
 	// Azure Network is private if this flag is true
 	// Required: true

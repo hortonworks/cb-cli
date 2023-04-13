@@ -48,7 +48,7 @@ GetFlowLogsByFlowIdsOK handles this case with default header values.
 successful operation
 */
 type GetFlowLogsByFlowIdsOK struct {
-	Payload *model.PageFlowLogResponse
+	Payload []*model.FlowLogResponse
 }
 
 func (o *GetFlowLogsByFlowIdsOK) Error() string {
@@ -57,10 +57,8 @@ func (o *GetFlowLogsByFlowIdsOK) Error() string {
 
 func (o *GetFlowLogsByFlowIdsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PageFlowLogResponse)
-
 	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -28,6 +28,9 @@ type UpgradeV4Request struct {
 	// UUID of the image to upgrade
 	ImageID string `json:"imageId,omitempty"`
 
+	// Value which indicates that the internal cloud platform variant should not be changed during the operation.
+	KeepVariant bool `json:"keepVariant,omitempty"`
+
 	// Upgrades to image with the same version of stack and clustermanager, if available
 	LockComponents bool `json:"lockComponents,omitempty"`
 

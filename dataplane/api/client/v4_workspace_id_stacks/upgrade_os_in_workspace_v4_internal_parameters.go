@@ -65,6 +65,8 @@ type UpgradeOsInWorkspaceV4InternalParams struct {
 
 	/*InitiatorUserCrn*/
 	InitiatorUserCrn *string
+	/*KeepVariant*/
+	KeepVariant *bool
 	/*Name*/
 	Name string
 	/*WorkspaceID*/
@@ -119,6 +121,17 @@ func (o *UpgradeOsInWorkspaceV4InternalParams) SetInitiatorUserCrn(initiatorUser
 	o.InitiatorUserCrn = initiatorUserCrn
 }
 
+// WithKeepVariant adds the keepVariant to the upgrade os in workspace v4 internal params
+func (o *UpgradeOsInWorkspaceV4InternalParams) WithKeepVariant(keepVariant *bool) *UpgradeOsInWorkspaceV4InternalParams {
+	o.SetKeepVariant(keepVariant)
+	return o
+}
+
+// SetKeepVariant adds the keepVariant to the upgrade os in workspace v4 internal params
+func (o *UpgradeOsInWorkspaceV4InternalParams) SetKeepVariant(keepVariant *bool) {
+	o.KeepVariant = keepVariant
+}
+
 // WithName adds the name to the upgrade os in workspace v4 internal params
 func (o *UpgradeOsInWorkspaceV4InternalParams) WithName(name string) *UpgradeOsInWorkspaceV4InternalParams {
 	o.SetName(name)
@@ -159,6 +172,22 @@ func (o *UpgradeOsInWorkspaceV4InternalParams) WriteToRequest(r runtime.ClientRe
 		qInitiatorUserCrn := qrInitiatorUserCrn
 		if qInitiatorUserCrn != "" {
 			if err := r.SetQueryParam("initiatorUserCrn", qInitiatorUserCrn); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.KeepVariant != nil {
+
+		// query param keepVariant
+		var qrKeepVariant bool
+		if o.KeepVariant != nil {
+			qrKeepVariant = *o.KeepVariant
+		}
+		qKeepVariant := swag.FormatBool(qrKeepVariant)
+		if qKeepVariant != "" {
+			if err := r.SetQueryParam("keepVariant", qKeepVariant); err != nil {
 				return err
 			}
 		}

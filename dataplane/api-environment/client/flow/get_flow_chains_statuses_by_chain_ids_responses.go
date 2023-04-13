@@ -48,7 +48,7 @@ GetFlowChainsStatusesByChainIdsOK handles this case with default header values.
 successful operation
 */
 type GetFlowChainsStatusesByChainIdsOK struct {
-	Payload *model.PageFlowCheckResponse
+	Payload []*model.FlowCheckResponse
 }
 
 func (o *GetFlowChainsStatusesByChainIdsOK) Error() string {
@@ -57,10 +57,8 @@ func (o *GetFlowChainsStatusesByChainIdsOK) Error() string {
 
 func (o *GetFlowChainsStatusesByChainIdsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.PageFlowCheckResponse)
-
 	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

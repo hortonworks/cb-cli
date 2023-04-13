@@ -67,6 +67,8 @@ type ReRegisterClusterProxyConfigParams struct {
 	Crn string
 	/*InitiatorUserCrn*/
 	InitiatorUserCrn *string
+	/*OriginalCrn*/
+	OriginalCrn *string
 	/*WorkspaceID*/
 	WorkspaceID int64
 
@@ -130,6 +132,17 @@ func (o *ReRegisterClusterProxyConfigParams) SetInitiatorUserCrn(initiatorUserCr
 	o.InitiatorUserCrn = initiatorUserCrn
 }
 
+// WithOriginalCrn adds the originalCrn to the re register cluster proxy config params
+func (o *ReRegisterClusterProxyConfigParams) WithOriginalCrn(originalCrn *string) *ReRegisterClusterProxyConfigParams {
+	o.SetOriginalCrn(originalCrn)
+	return o
+}
+
+// SetOriginalCrn adds the originalCrn to the re register cluster proxy config params
+func (o *ReRegisterClusterProxyConfigParams) SetOriginalCrn(originalCrn *string) {
+	o.OriginalCrn = originalCrn
+}
+
 // WithWorkspaceID adds the workspaceID to the re register cluster proxy config params
 func (o *ReRegisterClusterProxyConfigParams) WithWorkspaceID(workspaceID int64) *ReRegisterClusterProxyConfigParams {
 	o.SetWorkspaceID(workspaceID)
@@ -164,6 +177,22 @@ func (o *ReRegisterClusterProxyConfigParams) WriteToRequest(r runtime.ClientRequ
 		qInitiatorUserCrn := qrInitiatorUserCrn
 		if qInitiatorUserCrn != "" {
 			if err := r.SetQueryParam("initiatorUserCrn", qInitiatorUserCrn); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.OriginalCrn != nil {
+
+		// query param originalCrn
+		var qrOriginalCrn string
+		if o.OriginalCrn != nil {
+			qrOriginalCrn = *o.OriginalCrn
+		}
+		qOriginalCrn := qrOriginalCrn
+		if qOriginalCrn != "" {
+			if err := r.SetQueryParam("originalCrn", qOriginalCrn); err != nil {
 				return err
 			}
 		}

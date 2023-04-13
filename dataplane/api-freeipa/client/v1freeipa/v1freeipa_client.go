@@ -366,7 +366,7 @@ func (a *Client) DetachChildEnvironmentV1(params *DetachChildEnvironmentV1Params
 }
 
 /*
-DownscaleFreeIpaV1 downscales free IP a instances
+DownscaleFreeIpaV1 downscales free IP a instances either by providing a target availability type or specifying a list of nodes to delete
 
 FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
 */
@@ -733,6 +733,37 @@ func (a *Client) InternalGetFreeIpaByEnvironmentV1(params *InternalGetFreeIpaByE
 		return nil, err
 	}
 	return result.(*InternalGetFreeIpaByEnvironmentV1OK), nil
+
+}
+
+/*
+InternalGetFreeIpaRootCertificateByEnvironmentV1 gets free IP a root certificate by environment c r n and account ID using the internal actor
+
+FreeIPA is an integrated Identity and Authentication solution that can be used for any of CM, CDP services.
+*/
+func (a *Client) InternalGetFreeIpaRootCertificateByEnvironmentV1(params *InternalGetFreeIpaRootCertificateByEnvironmentV1Params, authInfo runtime.ClientAuthInfoWriter) (*InternalGetFreeIpaRootCertificateByEnvironmentV1OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewInternalGetFreeIpaRootCertificateByEnvironmentV1Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "internalGetFreeIpaRootCertificateByEnvironmentV1",
+		Method:             "GET",
+		PathPattern:        "/v1/freeipa/internal/ca.crt",
+		ProducesMediaTypes: []string{"text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &InternalGetFreeIpaRootCertificateByEnvironmentV1Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*InternalGetFreeIpaRootCertificateByEnvironmentV1OK), nil
 
 }
 

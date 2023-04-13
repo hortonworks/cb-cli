@@ -1045,6 +1045,36 @@ func (a *Client) ListRetryableFlowsDistroXV1(params *ListRetryableFlowsDistroXV1
 }
 
 /*
+ModifyProxyConfigDistroXInternalV1ByCrn modifies proxy config of stack
+
+Trigger modify proxy config for the stack
+*/
+func (a *Client) ModifyProxyConfigDistroXInternalV1ByCrn(params *ModifyProxyConfigDistroXInternalV1ByCrnParams) (*ModifyProxyConfigDistroXInternalV1ByCrnOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewModifyProxyConfigDistroXInternalV1ByCrnParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "modifyProxyConfigDistroXInternalV1ByCrn",
+		Method:             "PUT",
+		PathPattern:        "/v1/distrox/crn/{crn}/modify_proxy",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ModifyProxyConfigDistroXInternalV1ByCrnReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ModifyProxyConfigDistroXInternalV1ByCrnOK), nil
+
+}
+
+/*
 OsUpgradeByUpgradeSetsInternal upgrades distrox cluster o s by name and upgrades sets internal
 */
 func (a *Client) OsUpgradeByUpgradeSetsInternal(params *OsUpgradeByUpgradeSetsInternalParams) (*OsUpgradeByUpgradeSetsInternalOK, error) {

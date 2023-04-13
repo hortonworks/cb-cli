@@ -951,6 +951,34 @@ func (a *Client) ModifyProxyConfigInternal(params *ModifyProxyConfigInternalPara
 }
 
 /*
+OsUpgradeByUpgradeSetsInternalStack upgrades the cluster o s by name and upgrades sets internal
+*/
+func (a *Client) OsUpgradeByUpgradeSetsInternalStack(params *OsUpgradeByUpgradeSetsInternalStackParams) (*OsUpgradeByUpgradeSetsInternalStackOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewOsUpgradeByUpgradeSetsInternalStackParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "osUpgradeByUpgradeSetsInternalStack",
+		Method:             "POST",
+		PathPattern:        "/v4/{workspaceId}/stacks/internal/{crn}/os_upgrade_by_upgrade_sets",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &OsUpgradeByUpgradeSetsInternalStackReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*OsUpgradeByUpgradeSetsInternalStackOK), nil
+
+}
+
+/*
 PostStackForBlueprintV4 posts stack for blueprint in workspace
 
 Stacks are template instances - a running cloud infrastructure created based on a template. Stacks are always launched on behalf of a cloud user account. Stacks support a wide range of resources, allowing you to build a highly available, reliable, and scalable infrastructure for your application needs.

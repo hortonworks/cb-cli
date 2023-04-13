@@ -25,32 +25,62 @@ type Client struct {
 }
 
 /*
-ListDistroXCostV1 lists all environments
+ListClusterCostByEnvV4 lists costs based on cluster crns and environment crns
 
-Environment consists of a credential and various other resources and enables users to quickly create clusters in given regions in a given cloud provider.
+Costs of clusters
 */
-func (a *Client) ListDistroXCostV1(params *ListDistroXCostV1Params) (*ListDistroXCostV1OK, error) {
+func (a *Client) ListClusterCostByEnvV4(params *ListClusterCostByEnvV4Params) (*ListClusterCostByEnvV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewListDistroXCostV1Params()
+		params = NewListClusterCostByEnvV4Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "listDistroXCostV1",
+		ID:                 "listClusterCostByEnvV4",
 		Method:             "PUT",
-		PathPattern:        "/v4/cost",
+		PathPattern:        "/v4/cost/environment",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &ListDistroXCostV1Reader{formats: a.formats},
+		Reader:             &ListClusterCostByEnvV4Reader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListDistroXCostV1OK), nil
+	return result.(*ListClusterCostByEnvV4OK), nil
+
+}
+
+/*
+ListClusterCostV4 lists costs based on cluster crns
+
+Costs of clusters
+*/
+func (a *Client) ListClusterCostV4(params *ListClusterCostV4Params) (*ListClusterCostV4OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListClusterCostV4Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listClusterCostV4",
+		Method:             "PUT",
+		PathPattern:        "/v4/cost",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListClusterCostV4Reader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListClusterCostV4OK), nil
 
 }
 

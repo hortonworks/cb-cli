@@ -31,7 +31,7 @@ type SdxCustomClusterRequest struct {
 
 	// The shape of the cluster such as Micro Duty, Light Duty, Medium Duty...
 	// Required: true
-	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA MICRO_DUTY]
+	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA SCALABLE MICRO_DUTY]
 	ClusterShape *string `json:"clusterShape"`
 
 	// Custom instance group options.
@@ -52,6 +52,13 @@ type SdxCustomClusterRequest struct {
 
 	// Image settings.
 	ImageSettingsV4Request *ImageSettingsV4Request `json:"imageSettingsV4Request,omitempty"`
+
+	// Java version to be forced on virtual machines
+	JavaVersion int32 `json:"javaVersion,omitempty"`
+
+	// Recipes.
+	// Unique: true
+	Recipes []*SdxRecipe `json:"recipes"`
 
 	// runtime
 	Runtime string `json:"runtime,omitempty"`
@@ -93,6 +100,10 @@ func (m *SdxCustomClusterRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateImageSettingsV4Request(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecipes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -160,7 +171,7 @@ var sdxCustomClusterRequestTypeClusterShapePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA","MICRO_DUTY"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA","SCALABLE","MICRO_DUTY"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -178,6 +189,9 @@ const (
 
 	// SdxCustomClusterRequestClusterShapeMEDIUMDUTYHA captures enum value "MEDIUM_DUTY_HA"
 	SdxCustomClusterRequestClusterShapeMEDIUMDUTYHA string = "MEDIUM_DUTY_HA"
+
+	// SdxCustomClusterRequestClusterShapeSCALABLE captures enum value "SCALABLE"
+	SdxCustomClusterRequestClusterShapeSCALABLE string = "SCALABLE"
 
 	// SdxCustomClusterRequestClusterShapeMICRODUTY captures enum value "MICRO_DUTY"
 	SdxCustomClusterRequestClusterShapeMICRODUTY string = "MICRO_DUTY"
@@ -270,6 +284,35 @@ func (m *SdxCustomClusterRequest) validateImageSettingsV4Request(formats strfmt.
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *SdxCustomClusterRequest) validateRecipes(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Recipes) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("recipes", "body", m.Recipes); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Recipes); i++ {
+		if swag.IsZero(m.Recipes[i]) { // not required
+			continue
+		}
+
+		if m.Recipes[i] != nil {
+			if err := m.Recipes[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("recipes" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

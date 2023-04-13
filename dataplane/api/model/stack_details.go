@@ -72,7 +72,7 @@ type StackDetails struct {
 	// instance groups
 	InstanceGroups []*InstanceGroupDetails `json:"instanceGroups"`
 
-	// the java version to use when the image supports multiple ones
+	// java version
 	JavaVersion int32 `json:"javaVersion,omitempty"`
 
 	// multi az

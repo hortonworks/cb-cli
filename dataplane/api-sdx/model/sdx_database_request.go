@@ -29,6 +29,9 @@ type SdxDatabaseRequest struct {
 	// Database engine version.
 	// Pattern: ^(9\.6|10|11|12|13|14)$
 	DatabaseEngineVersion string `json:"databaseEngineVersion,omitempty"`
+
+	// Azure Database request.
+	SdxDatabaseAzureRequest *SdxDatabaseAzureRequest `json:"sdxDatabaseAzureRequest,omitempty"`
 }
 
 // Validate validates this sdx database request
@@ -40,6 +43,10 @@ func (m *SdxDatabaseRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDatabaseEngineVersion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSdxDatabaseAzureRequest(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -103,6 +110,24 @@ func (m *SdxDatabaseRequest) validateDatabaseEngineVersion(formats strfmt.Regist
 
 	if err := validate.Pattern("databaseEngineVersion", "body", string(m.DatabaseEngineVersion), `^(9\.6|10|11|12|13|14)$`); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *SdxDatabaseRequest) validateSdxDatabaseAzureRequest(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SdxDatabaseAzureRequest) { // not required
+		return nil
+	}
+
+	if m.SdxDatabaseAzureRequest != nil {
+		if err := m.SdxDatabaseAzureRequest.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("sdxDatabaseAzureRequest")
+			}
+			return err
+		}
 	}
 
 	return nil

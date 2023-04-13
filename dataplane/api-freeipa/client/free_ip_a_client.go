@@ -18,6 +18,7 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1dns"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1events"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipa"
+	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipacarbon_dioxide"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipacost"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipatest"
 	"github.com/hortonworks/cb-cli/dataplane/api-freeipa/client/v1freeipauser"
@@ -88,6 +89,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *FreeIPA {
 	cli.V1events = v1events.New(transport, formats)
 
 	cli.V1freeipa = v1freeipa.New(transport, formats)
+
+	cli.V1freeipacarbonDioxide = v1freeipacarbon_dioxide.New(transport, formats)
 
 	cli.V1freeipacost = v1freeipacost.New(transport, formats)
 
@@ -171,6 +174,8 @@ type FreeIPA struct {
 
 	V1freeipa *v1freeipa.Client
 
+	V1freeipacarbonDioxide *v1freeipacarbon_dioxide.Client
+
 	V1freeipacost *v1freeipacost.Client
 
 	V1freeipatest *v1freeipatest.Client
@@ -215,6 +220,8 @@ func (c *FreeIPA) SetTransport(transport runtime.ClientTransport) {
 	c.V1events.SetTransport(transport)
 
 	c.V1freeipa.SetTransport(transport)
+
+	c.V1freeipacarbonDioxide.SetTransport(transport)
 
 	c.V1freeipacost.SetTransport(transport)
 

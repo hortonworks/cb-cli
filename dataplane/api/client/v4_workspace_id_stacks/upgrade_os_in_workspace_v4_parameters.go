@@ -65,6 +65,8 @@ type UpgradeOsInWorkspaceV4Params struct {
 
 	/*AccountID*/
 	AccountID *string
+	/*KeepVariant*/
+	KeepVariant *bool
 	/*Name*/
 	Name string
 	/*WorkspaceID*/
@@ -119,6 +121,17 @@ func (o *UpgradeOsInWorkspaceV4Params) SetAccountID(accountID *string) {
 	o.AccountID = accountID
 }
 
+// WithKeepVariant adds the keepVariant to the upgrade os in workspace v4 params
+func (o *UpgradeOsInWorkspaceV4Params) WithKeepVariant(keepVariant *bool) *UpgradeOsInWorkspaceV4Params {
+	o.SetKeepVariant(keepVariant)
+	return o
+}
+
+// SetKeepVariant adds the keepVariant to the upgrade os in workspace v4 params
+func (o *UpgradeOsInWorkspaceV4Params) SetKeepVariant(keepVariant *bool) {
+	o.KeepVariant = keepVariant
+}
+
 // WithName adds the name to the upgrade os in workspace v4 params
 func (o *UpgradeOsInWorkspaceV4Params) WithName(name string) *UpgradeOsInWorkspaceV4Params {
 	o.SetName(name)
@@ -159,6 +172,22 @@ func (o *UpgradeOsInWorkspaceV4Params) WriteToRequest(r runtime.ClientRequest, r
 		qAccountID := qrAccountID
 		if qAccountID != "" {
 			if err := r.SetQueryParam("accountId", qAccountID); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.KeepVariant != nil {
+
+		// query param keepVariant
+		var qrKeepVariant bool
+		if o.KeepVariant != nil {
+			qrKeepVariant = *o.KeepVariant
+		}
+		qKeepVariant := swag.FormatBool(qrKeepVariant)
+		if qKeepVariant != "" {
+			if err := r.SetQueryParam("keepVariant", qKeepVariant); err != nil {
 				return err
 			}
 		}

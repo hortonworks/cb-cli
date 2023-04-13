@@ -64,7 +64,7 @@ type StackV4Request struct {
 	// Required: true
 	InstanceGroups []*InstanceGroupV4Request `json:"instanceGroups"`
 
-	// the java version to use when the image supports multiple ones
+	// Java version to be forced on virtual machines
 	JavaVersion int32 `json:"javaVersion,omitempty"`
 
 	// mock

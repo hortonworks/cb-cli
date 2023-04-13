@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -16,6 +18,10 @@ import (
 // AzureDatabaseServerV4Parameters azure database server v4 parameters
 // swagger:model AzureDatabaseServerV4Parameters
 type AzureDatabaseServerV4Parameters struct {
+
+	// The type of the azure database: single server / flexible server
+	// Enum: [SINGLE_SERVER FLEXIBLE_SERVER]
+	AzureDatabaseType string `json:"azureDatabaseType,omitempty"`
 
 	// Time to retain backups, in days
 	// Minimum: 7
@@ -47,6 +53,10 @@ type AzureDatabaseServerV4Parameters struct {
 func (m *AzureDatabaseServerV4Parameters) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAzureDatabaseType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateBackupRetentionDays(formats); err != nil {
 		res = append(res, err)
 	}
@@ -66,6 +76,49 @@ func (m *AzureDatabaseServerV4Parameters) Validate(formats strfmt.Registry) erro
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var azureDatabaseServerV4ParametersTypeAzureDatabaseTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["SINGLE_SERVER","FLEXIBLE_SERVER"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		azureDatabaseServerV4ParametersTypeAzureDatabaseTypePropEnum = append(azureDatabaseServerV4ParametersTypeAzureDatabaseTypePropEnum, v)
+	}
+}
+
+const (
+
+	// AzureDatabaseServerV4ParametersAzureDatabaseTypeSINGLESERVER captures enum value "SINGLE_SERVER"
+	AzureDatabaseServerV4ParametersAzureDatabaseTypeSINGLESERVER string = "SINGLE_SERVER"
+
+	// AzureDatabaseServerV4ParametersAzureDatabaseTypeFLEXIBLESERVER captures enum value "FLEXIBLE_SERVER"
+	AzureDatabaseServerV4ParametersAzureDatabaseTypeFLEXIBLESERVER string = "FLEXIBLE_SERVER"
+)
+
+// prop value enum
+func (m *AzureDatabaseServerV4Parameters) validateAzureDatabaseTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, azureDatabaseServerV4ParametersTypeAzureDatabaseTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *AzureDatabaseServerV4Parameters) validateAzureDatabaseType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AzureDatabaseType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateAzureDatabaseTypeEnum("azureDatabaseType", "body", m.AzureDatabaseType); err != nil {
+		return err
+	}
+
 	return nil
 }
 

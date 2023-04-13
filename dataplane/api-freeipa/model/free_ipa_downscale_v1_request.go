@@ -23,10 +23,13 @@ type FreeIpaDownscaleV1Request struct {
 	// Required: true
 	EnvironmentCrn *string `json:"environmentCrn"`
 
+	// ID of the instance
+	// Unique: true
+	InstanceIds []string `json:"instanceIds"`
+
 	// Availability type of the resource reflecting the number of instances and the presence or absence of high availability
-	// Required: true
 	// Enum: [HA TWO_NODE_BASED NON_HA]
-	TargetAvailabilityType *string `json:"targetAvailabilityType"`
+	TargetAvailabilityType string `json:"targetAvailabilityType,omitempty"`
 }
 
 // Validate validates this free ipa downscale v1 request
@@ -34,6 +37,10 @@ func (m *FreeIpaDownscaleV1Request) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateEnvironmentCrn(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInstanceIds(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -50,6 +57,19 @@ func (m *FreeIpaDownscaleV1Request) Validate(formats strfmt.Registry) error {
 func (m *FreeIpaDownscaleV1Request) validateEnvironmentCrn(formats strfmt.Registry) error {
 
 	if err := validate.Required("environmentCrn", "body", m.EnvironmentCrn); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FreeIpaDownscaleV1Request) validateInstanceIds(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.InstanceIds) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("instanceIds", "body", m.InstanceIds); err != nil {
 		return err
 	}
 
@@ -90,12 +110,12 @@ func (m *FreeIpaDownscaleV1Request) validateTargetAvailabilityTypeEnum(path, loc
 
 func (m *FreeIpaDownscaleV1Request) validateTargetAvailabilityType(formats strfmt.Registry) error {
 
-	if err := validate.Required("targetAvailabilityType", "body", m.TargetAvailabilityType); err != nil {
-		return err
+	if swag.IsZero(m.TargetAvailabilityType) { // not required
+		return nil
 	}
 
 	// value enum
-	if err := m.validateTargetAvailabilityTypeEnum("targetAvailabilityType", "body", *m.TargetAvailabilityType); err != nil {
+	if err := m.validateTargetAvailabilityTypeEnum("targetAvailabilityType", "body", m.TargetAvailabilityType); err != nil {
 		return err
 	}
 

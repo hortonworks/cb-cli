@@ -20,6 +20,8 @@ import (
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/operation"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/progress"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdx"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxcarbon_dioxide"
+	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxcost"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/sdxutils"
 	"github.com/hortonworks/cb-cli/dataplane/api-sdx/client/v4utils"
 )
@@ -84,6 +86,10 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Datalake {
 	cli.Progress = progress.New(transport, formats)
 
 	cli.Sdx = sdx.New(transport, formats)
+
+	cli.SdxcarbonDioxide = sdxcarbon_dioxide.New(transport, formats)
+
+	cli.Sdxcost = sdxcost.New(transport, formats)
 
 	cli.Sdxutils = sdxutils.New(transport, formats)
 
@@ -151,6 +157,10 @@ type Datalake struct {
 
 	Sdx *sdx.Client
 
+	SdxcarbonDioxide *sdxcarbon_dioxide.Client
+
+	Sdxcost *sdxcost.Client
+
 	Sdxutils *sdxutils.Client
 
 	V4utils *v4utils.Client
@@ -179,6 +189,10 @@ func (c *Datalake) SetTransport(transport runtime.ClientTransport) {
 	c.Progress.SetTransport(transport)
 
 	c.Sdx.SetTransport(transport)
+
+	c.SdxcarbonDioxide.SetTransport(transport)
+
+	c.Sdxcost.SetTransport(transport)
 
 	c.Sdxutils.SetTransport(transport)
 
