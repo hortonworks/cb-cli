@@ -19,7 +19,7 @@ import (
 // swagger:model SdxDatabaseAzureRequest
 type SdxDatabaseAzureRequest struct {
 
-	// Azure Database type.
+	// The type of the azure database: single server / flexible server
 	// Enum: [SINGLE_SERVER FLEXIBLE_SERVER]
 	AzureDatabaseType string `json:"azureDatabaseType,omitempty"`
 }

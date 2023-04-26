@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -66,6 +67,8 @@ type RestoreDatabaseParams struct {
 	BackupID *string
 	/*BackupLocation*/
 	BackupLocation *string
+	/*DatabaseMaxDurationInMin*/
+	DatabaseMaxDurationInMin *int32
 	/*Name*/
 	Name string
 	/*RestoreID*/
@@ -131,6 +134,17 @@ func (o *RestoreDatabaseParams) SetBackupLocation(backupLocation *string) {
 	o.BackupLocation = backupLocation
 }
 
+// WithDatabaseMaxDurationInMin adds the databaseMaxDurationInMin to the restore database params
+func (o *RestoreDatabaseParams) WithDatabaseMaxDurationInMin(databaseMaxDurationInMin *int32) *RestoreDatabaseParams {
+	o.SetDatabaseMaxDurationInMin(databaseMaxDurationInMin)
+	return o
+}
+
+// SetDatabaseMaxDurationInMin adds the databaseMaxDurationInMin to the restore database params
+func (o *RestoreDatabaseParams) SetDatabaseMaxDurationInMin(databaseMaxDurationInMin *int32) {
+	o.DatabaseMaxDurationInMin = databaseMaxDurationInMin
+}
+
 // WithName adds the name to the restore database params
 func (o *RestoreDatabaseParams) WithName(name string) *RestoreDatabaseParams {
 	o.SetName(name)
@@ -187,6 +201,22 @@ func (o *RestoreDatabaseParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		qBackupLocation := qrBackupLocation
 		if qBackupLocation != "" {
 			if err := r.SetQueryParam("backupLocation", qBackupLocation); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.DatabaseMaxDurationInMin != nil {
+
+		// query param databaseMaxDurationInMin
+		var qrDatabaseMaxDurationInMin int32
+		if o.DatabaseMaxDurationInMin != nil {
+			qrDatabaseMaxDurationInMin = *o.DatabaseMaxDurationInMin
+		}
+		qDatabaseMaxDurationInMin := swag.FormatInt32(qrDatabaseMaxDurationInMin)
+		if qDatabaseMaxDurationInMin != "" {
+			if err := r.SetQueryParam("databaseMaxDurationInMin", qDatabaseMaxDurationInMin); err != nil {
 				return err
 			}
 		}

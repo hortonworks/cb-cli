@@ -31,7 +31,7 @@ type SdxClusterResponse struct {
 	CloudStorageFileSystemType string `json:"cloudStorageFileSystemType,omitempty"`
 
 	// The shape of the cluster such as Micro Duty, Light Duty, Medium Duty...
-	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA SCALABLE MICRO_DUTY]
+	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA ENTERPRISE MICRO_DUTY]
 	ClusterShape string `json:"clusterShape,omitempty"`
 
 	// Timestamp when the resource was created.
@@ -222,7 +222,7 @@ var sdxClusterResponseTypeClusterShapePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA","SCALABLE","MICRO_DUTY"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA","ENTERPRISE","MICRO_DUTY"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -241,8 +241,8 @@ const (
 	// SdxClusterResponseClusterShapeMEDIUMDUTYHA captures enum value "MEDIUM_DUTY_HA"
 	SdxClusterResponseClusterShapeMEDIUMDUTYHA string = "MEDIUM_DUTY_HA"
 
-	// SdxClusterResponseClusterShapeSCALABLE captures enum value "SCALABLE"
-	SdxClusterResponseClusterShapeSCALABLE string = "SCALABLE"
+	// SdxClusterResponseClusterShapeENTERPRISE captures enum value "ENTERPRISE"
+	SdxClusterResponseClusterShapeENTERPRISE string = "ENTERPRISE"
 
 	// SdxClusterResponseClusterShapeMICRODUTY captures enum value "MICRO_DUTY"
 	SdxClusterResponseClusterShapeMICRODUTY string = "MICRO_DUTY"

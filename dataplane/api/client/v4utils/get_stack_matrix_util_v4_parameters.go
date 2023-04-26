@@ -67,6 +67,8 @@ type GetStackMatrixUtilV4Params struct {
 	GovCloud *bool
 	/*ImageCatalogName*/
 	ImageCatalogName *string
+	/*Os*/
+	Os *string
 	/*Platform*/
 	Platform *string
 
@@ -130,6 +132,17 @@ func (o *GetStackMatrixUtilV4Params) SetImageCatalogName(imageCatalogName *strin
 	o.ImageCatalogName = imageCatalogName
 }
 
+// WithOs adds the os to the get stack matrix util v4 params
+func (o *GetStackMatrixUtilV4Params) WithOs(os *string) *GetStackMatrixUtilV4Params {
+	o.SetOs(os)
+	return o
+}
+
+// SetOs adds the os to the get stack matrix util v4 params
+func (o *GetStackMatrixUtilV4Params) SetOs(os *string) {
+	o.Os = os
+}
+
 // WithPlatform adds the platform to the get stack matrix util v4 params
 func (o *GetStackMatrixUtilV4Params) WithPlatform(platform *string) *GetStackMatrixUtilV4Params {
 	o.SetPlatform(platform)
@@ -175,6 +188,22 @@ func (o *GetStackMatrixUtilV4Params) WriteToRequest(r runtime.ClientRequest, reg
 		qImageCatalogName := qrImageCatalogName
 		if qImageCatalogName != "" {
 			if err := r.SetQueryParam("imageCatalogName", qImageCatalogName); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Os != nil {
+
+		// query param os
+		var qrOs string
+		if o.Os != nil {
+			qrOs = *o.Os
+		}
+		qOs := qrOs
+		if qOs != "" {
+			if err := r.SetQueryParam("os", qOs); err != nil {
 				return err
 			}
 		}

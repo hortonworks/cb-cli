@@ -28,6 +28,9 @@ type InstanceTemplateV1Request struct {
 
 	// type of the instance
 	InstanceType string `json:"instanceType,omitempty"`
+
+	// root volume
+	RootVolume *VolumeV1Request `json:"rootVolume,omitempty"`
 }
 
 // Validate validates this instance template v1 request
@@ -39,6 +42,10 @@ func (m *InstanceTemplateV1Request) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAws(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRootVolume(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -87,6 +94,24 @@ func (m *InstanceTemplateV1Request) validateAws(formats strfmt.Registry) error {
 		if err := m.Aws.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("aws")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *InstanceTemplateV1Request) validateRootVolume(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RootVolume) { // not required
+		return nil
+	}
+
+	if m.RootVolume != nil {
+		if err := m.RootVolume.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("rootVolume")
 			}
 			return err
 		}

@@ -21,7 +21,7 @@ type DatabasePropertiesV4Response struct {
 
 	// The format of the username for the database connection
 	// Required: true
-	// Enum: [SIMPLE USERNAME_WITH_HOSTNAME]
+	// Enum: [USERNAME_ONLY USERNAME_WITH_HOSTNAME]
 	ConnectionNameFormat *string `json:"connectionNameFormat"`
 }
 
@@ -43,7 +43,7 @@ var databasePropertiesV4ResponseTypeConnectionNameFormatPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["SIMPLE","USERNAME_WITH_HOSTNAME"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["USERNAME_ONLY","USERNAME_WITH_HOSTNAME"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -53,8 +53,8 @@ func init() {
 
 const (
 
-	// DatabasePropertiesV4ResponseConnectionNameFormatSIMPLE captures enum value "SIMPLE"
-	DatabasePropertiesV4ResponseConnectionNameFormatSIMPLE string = "SIMPLE"
+	// DatabasePropertiesV4ResponseConnectionNameFormatUSERNAMEONLY captures enum value "USERNAME_ONLY"
+	DatabasePropertiesV4ResponseConnectionNameFormatUSERNAMEONLY string = "USERNAME_ONLY"
 
 	// DatabasePropertiesV4ResponseConnectionNameFormatUSERNAMEWITHHOSTNAME captures enum value "USERNAME_WITH_HOSTNAME"
 	DatabasePropertiesV4ResponseConnectionNameFormatUSERNAMEWITHHOSTNAME string = "USERNAME_WITH_HOSTNAME"
