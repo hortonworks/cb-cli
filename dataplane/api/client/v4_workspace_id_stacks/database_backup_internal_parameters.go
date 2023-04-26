@@ -69,6 +69,8 @@ type DatabaseBackupInternalParams struct {
 	BackupLocation *string
 	/*CloseConnections*/
 	CloseConnections *bool
+	/*DatabaseMaxDurationInMin*/
+	DatabaseMaxDurationInMin *int32
 	/*InitiatorUserCrn*/
 	InitiatorUserCrn *string
 	/*Name*/
@@ -147,6 +149,17 @@ func (o *DatabaseBackupInternalParams) WithCloseConnections(closeConnections *bo
 // SetCloseConnections adds the closeConnections to the database backup internal params
 func (o *DatabaseBackupInternalParams) SetCloseConnections(closeConnections *bool) {
 	o.CloseConnections = closeConnections
+}
+
+// WithDatabaseMaxDurationInMin adds the databaseMaxDurationInMin to the database backup internal params
+func (o *DatabaseBackupInternalParams) WithDatabaseMaxDurationInMin(databaseMaxDurationInMin *int32) *DatabaseBackupInternalParams {
+	o.SetDatabaseMaxDurationInMin(databaseMaxDurationInMin)
+	return o
+}
+
+// SetDatabaseMaxDurationInMin adds the databaseMaxDurationInMin to the database backup internal params
+func (o *DatabaseBackupInternalParams) SetDatabaseMaxDurationInMin(databaseMaxDurationInMin *int32) {
+	o.DatabaseMaxDurationInMin = databaseMaxDurationInMin
 }
 
 // WithInitiatorUserCrn adds the initiatorUserCrn to the database backup internal params
@@ -243,6 +256,22 @@ func (o *DatabaseBackupInternalParams) WriteToRequest(r runtime.ClientRequest, r
 		qCloseConnections := swag.FormatBool(qrCloseConnections)
 		if qCloseConnections != "" {
 			if err := r.SetQueryParam("closeConnections", qCloseConnections); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.DatabaseMaxDurationInMin != nil {
+
+		// query param databaseMaxDurationInMin
+		var qrDatabaseMaxDurationInMin int32
+		if o.DatabaseMaxDurationInMin != nil {
+			qrDatabaseMaxDurationInMin = *o.DatabaseMaxDurationInMin
+		}
+		qDatabaseMaxDurationInMin := swag.FormatInt32(qrDatabaseMaxDurationInMin)
+		if qDatabaseMaxDurationInMin != "" {
+			if err := r.SetQueryParam("databaseMaxDurationInMin", qDatabaseMaxDurationInMin); err != nil {
 				return err
 			}
 		}

@@ -67,6 +67,8 @@ type DatabaseRestoreInternalParams struct {
 	BackupID *string
 	/*BackupLocation*/
 	BackupLocation *string
+	/*DatabaseMaxDurationInMin*/
+	DatabaseMaxDurationInMin *int32
 	/*InitiatorUserCrn*/
 	InitiatorUserCrn *string
 	/*Name*/
@@ -132,6 +134,17 @@ func (o *DatabaseRestoreInternalParams) WithBackupLocation(backupLocation *strin
 // SetBackupLocation adds the backupLocation to the database restore internal params
 func (o *DatabaseRestoreInternalParams) SetBackupLocation(backupLocation *string) {
 	o.BackupLocation = backupLocation
+}
+
+// WithDatabaseMaxDurationInMin adds the databaseMaxDurationInMin to the database restore internal params
+func (o *DatabaseRestoreInternalParams) WithDatabaseMaxDurationInMin(databaseMaxDurationInMin *int32) *DatabaseRestoreInternalParams {
+	o.SetDatabaseMaxDurationInMin(databaseMaxDurationInMin)
+	return o
+}
+
+// SetDatabaseMaxDurationInMin adds the databaseMaxDurationInMin to the database restore internal params
+func (o *DatabaseRestoreInternalParams) SetDatabaseMaxDurationInMin(databaseMaxDurationInMin *int32) {
+	o.DatabaseMaxDurationInMin = databaseMaxDurationInMin
 }
 
 // WithInitiatorUserCrn adds the initiatorUserCrn to the database restore internal params
@@ -201,6 +214,22 @@ func (o *DatabaseRestoreInternalParams) WriteToRequest(r runtime.ClientRequest, 
 		qBackupLocation := qrBackupLocation
 		if qBackupLocation != "" {
 			if err := r.SetQueryParam("backupLocation", qBackupLocation); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.DatabaseMaxDurationInMin != nil {
+
+		// query param databaseMaxDurationInMin
+		var qrDatabaseMaxDurationInMin int32
+		if o.DatabaseMaxDurationInMin != nil {
+			qrDatabaseMaxDurationInMin = *o.DatabaseMaxDurationInMin
+		}
+		qDatabaseMaxDurationInMin := swag.FormatInt32(qrDatabaseMaxDurationInMin)
+		if qDatabaseMaxDurationInMin != "" {
+			if err := r.SetQueryParam("databaseMaxDurationInMin", qDatabaseMaxDurationInMin); err != nil {
 				return err
 			}
 		}

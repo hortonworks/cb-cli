@@ -31,7 +31,7 @@ type SdxInternalClusterRequest struct {
 
 	// The shape of the cluster such as Micro Duty, Light Duty, Medium Duty...
 	// Required: true
-	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA SCALABLE MICRO_DUTY]
+	// Enum: [CUSTOM LIGHT_DUTY MEDIUM_DUTY_HA ENTERPRISE MICRO_DUTY]
 	ClusterShape *string `json:"clusterShape"`
 
 	// Custom instance group options.
@@ -171,7 +171,7 @@ var sdxInternalClusterRequestTypeClusterShapePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA","SCALABLE","MICRO_DUTY"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["CUSTOM","LIGHT_DUTY","MEDIUM_DUTY_HA","ENTERPRISE","MICRO_DUTY"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -190,8 +190,8 @@ const (
 	// SdxInternalClusterRequestClusterShapeMEDIUMDUTYHA captures enum value "MEDIUM_DUTY_HA"
 	SdxInternalClusterRequestClusterShapeMEDIUMDUTYHA string = "MEDIUM_DUTY_HA"
 
-	// SdxInternalClusterRequestClusterShapeSCALABLE captures enum value "SCALABLE"
-	SdxInternalClusterRequestClusterShapeSCALABLE string = "SCALABLE"
+	// SdxInternalClusterRequestClusterShapeENTERPRISE captures enum value "ENTERPRISE"
+	SdxInternalClusterRequestClusterShapeENTERPRISE string = "ENTERPRISE"
 
 	// SdxInternalClusterRequestClusterShapeMICRODUTY captures enum value "MICRO_DUTY"
 	SdxInternalClusterRequestClusterShapeMICRODUTY string = "MICRO_DUTY"

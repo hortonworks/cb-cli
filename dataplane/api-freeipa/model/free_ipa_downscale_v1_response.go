@@ -19,6 +19,10 @@ import (
 // swagger:model FreeIpaDownscaleV1Response
 type FreeIpaDownscaleV1Response struct {
 
+	// downscale candidates
+	// Unique: true
+	DownscaleCandidates []string `json:"downscaleCandidates"`
+
 	// flow identifier
 	FlowIdentifier *FlowIdentifier `json:"flowIdentifier,omitempty"`
 
@@ -38,6 +42,10 @@ type FreeIpaDownscaleV1Response struct {
 func (m *FreeIpaDownscaleV1Response) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDownscaleCandidates(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateFlowIdentifier(formats); err != nil {
 		res = append(res, err)
 	}
@@ -53,6 +61,19 @@ func (m *FreeIpaDownscaleV1Response) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *FreeIpaDownscaleV1Response) validateDownscaleCandidates(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DownscaleCandidates) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("downscaleCandidates", "body", m.DownscaleCandidates); err != nil {
+		return err
+	}
+
 	return nil
 }
 

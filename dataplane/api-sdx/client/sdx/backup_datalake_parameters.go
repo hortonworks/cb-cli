@@ -67,6 +67,8 @@ type BackupDatalakeParams struct {
 	BackupLocation *string
 	/*BackupName*/
 	BackupName *string
+	/*FullDrMaxDurationInMin*/
+	FullDrMaxDurationInMin *int32
 	/*Name*/
 	Name string
 	/*SkipAtlasMetadata*/
@@ -136,6 +138,17 @@ func (o *BackupDatalakeParams) WithBackupName(backupName *string) *BackupDatalak
 // SetBackupName adds the backupName to the backup datalake params
 func (o *BackupDatalakeParams) SetBackupName(backupName *string) {
 	o.BackupName = backupName
+}
+
+// WithFullDrMaxDurationInMin adds the fullDrMaxDurationInMin to the backup datalake params
+func (o *BackupDatalakeParams) WithFullDrMaxDurationInMin(fullDrMaxDurationInMin *int32) *BackupDatalakeParams {
+	o.SetFullDrMaxDurationInMin(fullDrMaxDurationInMin)
+	return o
+}
+
+// SetFullDrMaxDurationInMin adds the fullDrMaxDurationInMin to the backup datalake params
+func (o *BackupDatalakeParams) SetFullDrMaxDurationInMin(fullDrMaxDurationInMin *int32) {
+	o.FullDrMaxDurationInMin = fullDrMaxDurationInMin
 }
 
 // WithName adds the name to the backup datalake params
@@ -227,6 +240,22 @@ func (o *BackupDatalakeParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		qBackupName := qrBackupName
 		if qBackupName != "" {
 			if err := r.SetQueryParam("backupName", qBackupName); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.FullDrMaxDurationInMin != nil {
+
+		// query param fullDrMaxDurationInMin
+		var qrFullDrMaxDurationInMin int32
+		if o.FullDrMaxDurationInMin != nil {
+			qrFullDrMaxDurationInMin = *o.FullDrMaxDurationInMin
+		}
+		qFullDrMaxDurationInMin := swag.FormatInt32(qrFullDrMaxDurationInMin)
+		if qFullDrMaxDurationInMin != "" {
+			if err := r.SetQueryParam("fullDrMaxDurationInMin", qFullDrMaxDurationInMin); err != nil {
 				return err
 			}
 		}

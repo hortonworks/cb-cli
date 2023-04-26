@@ -67,6 +67,8 @@ type RestoreDatalakeParams struct {
 	BackupID *string
 	/*BackupLocationOverride*/
 	BackupLocationOverride *string
+	/*FullDrMaxDurationInMin*/
+	FullDrMaxDurationInMin *int32
 	/*Name*/
 	Name string
 	/*SkipAtlasMetadata*/
@@ -136,6 +138,17 @@ func (o *RestoreDatalakeParams) WithBackupLocationOverride(backupLocationOverrid
 // SetBackupLocationOverride adds the backupLocationOverride to the restore datalake params
 func (o *RestoreDatalakeParams) SetBackupLocationOverride(backupLocationOverride *string) {
 	o.BackupLocationOverride = backupLocationOverride
+}
+
+// WithFullDrMaxDurationInMin adds the fullDrMaxDurationInMin to the restore datalake params
+func (o *RestoreDatalakeParams) WithFullDrMaxDurationInMin(fullDrMaxDurationInMin *int32) *RestoreDatalakeParams {
+	o.SetFullDrMaxDurationInMin(fullDrMaxDurationInMin)
+	return o
+}
+
+// SetFullDrMaxDurationInMin adds the fullDrMaxDurationInMin to the restore datalake params
+func (o *RestoreDatalakeParams) SetFullDrMaxDurationInMin(fullDrMaxDurationInMin *int32) {
+	o.FullDrMaxDurationInMin = fullDrMaxDurationInMin
 }
 
 // WithName adds the name to the restore datalake params
@@ -227,6 +240,22 @@ func (o *RestoreDatalakeParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		qBackupLocationOverride := qrBackupLocationOverride
 		if qBackupLocationOverride != "" {
 			if err := r.SetQueryParam("backupLocationOverride", qBackupLocationOverride); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.FullDrMaxDurationInMin != nil {
+
+		// query param fullDrMaxDurationInMin
+		var qrFullDrMaxDurationInMin int32
+		if o.FullDrMaxDurationInMin != nil {
+			qrFullDrMaxDurationInMin = *o.FullDrMaxDurationInMin
+		}
+		qFullDrMaxDurationInMin := swag.FormatInt32(qrFullDrMaxDurationInMin)
+		if qFullDrMaxDurationInMin != "" {
+			if err := r.SetQueryParam("fullDrMaxDurationInMin", qFullDrMaxDurationInMin); err != nil {
 				return err
 			}
 		}

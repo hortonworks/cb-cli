@@ -29,6 +29,9 @@ type SdxDatabaseBackupRequest struct {
 	// Required: true
 	CloseConnections *bool `json:"closeConnections"`
 
+	// The maximum duration allowed for a backup or restore
+	DatabaseMaxDurationInMin int32 `json:"databaseMaxDurationInMin,omitempty"`
+
 	// The names of the Databases not to be backed up, or blank for all
 	SkipDatabaseNames []string `json:"skipDatabaseNames"`
 }
