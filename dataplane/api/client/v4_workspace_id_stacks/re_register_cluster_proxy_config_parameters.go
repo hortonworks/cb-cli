@@ -21,8 +21,11 @@ import (
 // NewReRegisterClusterProxyConfigParams creates a new ReRegisterClusterProxyConfigParams object
 // with the default values initialized.
 func NewReRegisterClusterProxyConfigParams() *ReRegisterClusterProxyConfigParams {
-	var ()
+	var (
+		skipFullReRegistrationDefault = bool(false)
+	)
 	return &ReRegisterClusterProxyConfigParams{
+		SkipFullReRegistration: &skipFullReRegistrationDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -31,8 +34,11 @@ func NewReRegisterClusterProxyConfigParams() *ReRegisterClusterProxyConfigParams
 // NewReRegisterClusterProxyConfigParamsWithTimeout creates a new ReRegisterClusterProxyConfigParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewReRegisterClusterProxyConfigParamsWithTimeout(timeout time.Duration) *ReRegisterClusterProxyConfigParams {
-	var ()
+	var (
+		skipFullReRegistrationDefault = bool(false)
+	)
 	return &ReRegisterClusterProxyConfigParams{
+		SkipFullReRegistration: &skipFullReRegistrationDefault,
 
 		timeout: timeout,
 	}
@@ -41,8 +47,11 @@ func NewReRegisterClusterProxyConfigParamsWithTimeout(timeout time.Duration) *Re
 // NewReRegisterClusterProxyConfigParamsWithContext creates a new ReRegisterClusterProxyConfigParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewReRegisterClusterProxyConfigParamsWithContext(ctx context.Context) *ReRegisterClusterProxyConfigParams {
-	var ()
+	var (
+		skipFullReRegistrationDefault = bool(false)
+	)
 	return &ReRegisterClusterProxyConfigParams{
+		SkipFullReRegistration: &skipFullReRegistrationDefault,
 
 		Context: ctx,
 	}
@@ -51,9 +60,12 @@ func NewReRegisterClusterProxyConfigParamsWithContext(ctx context.Context) *ReRe
 // NewReRegisterClusterProxyConfigParamsWithHTTPClient creates a new ReRegisterClusterProxyConfigParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewReRegisterClusterProxyConfigParamsWithHTTPClient(client *http.Client) *ReRegisterClusterProxyConfigParams {
-	var ()
+	var (
+		skipFullReRegistrationDefault = bool(false)
+	)
 	return &ReRegisterClusterProxyConfigParams{
-		HTTPClient: client,
+		SkipFullReRegistration: &skipFullReRegistrationDefault,
+		HTTPClient:             client,
 	}
 }
 
@@ -69,6 +81,8 @@ type ReRegisterClusterProxyConfigParams struct {
 	InitiatorUserCrn *string
 	/*OriginalCrn*/
 	OriginalCrn *string
+	/*SkipFullReRegistration*/
+	SkipFullReRegistration *bool
 	/*WorkspaceID*/
 	WorkspaceID int64
 
@@ -143,6 +157,17 @@ func (o *ReRegisterClusterProxyConfigParams) SetOriginalCrn(originalCrn *string)
 	o.OriginalCrn = originalCrn
 }
 
+// WithSkipFullReRegistration adds the skipFullReRegistration to the re register cluster proxy config params
+func (o *ReRegisterClusterProxyConfigParams) WithSkipFullReRegistration(skipFullReRegistration *bool) *ReRegisterClusterProxyConfigParams {
+	o.SetSkipFullReRegistration(skipFullReRegistration)
+	return o
+}
+
+// SetSkipFullReRegistration adds the skipFullReRegistration to the re register cluster proxy config params
+func (o *ReRegisterClusterProxyConfigParams) SetSkipFullReRegistration(skipFullReRegistration *bool) {
+	o.SkipFullReRegistration = skipFullReRegistration
+}
+
 // WithWorkspaceID adds the workspaceID to the re register cluster proxy config params
 func (o *ReRegisterClusterProxyConfigParams) WithWorkspaceID(workspaceID int64) *ReRegisterClusterProxyConfigParams {
 	o.SetWorkspaceID(workspaceID)
@@ -193,6 +218,22 @@ func (o *ReRegisterClusterProxyConfigParams) WriteToRequest(r runtime.ClientRequ
 		qOriginalCrn := qrOriginalCrn
 		if qOriginalCrn != "" {
 			if err := r.SetQueryParam("originalCrn", qOriginalCrn); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.SkipFullReRegistration != nil {
+
+		// query param skipFullReRegistration
+		var qrSkipFullReRegistration bool
+		if o.SkipFullReRegistration != nil {
+			qrSkipFullReRegistration = *o.SkipFullReRegistration
+		}
+		qSkipFullReRegistration := swag.FormatBool(qrSkipFullReRegistration)
+		if qSkipFullReRegistration != "" {
+			if err := r.SetQueryParam("skipFullReRegistration", qSkipFullReRegistration); err != nil {
 				return err
 			}
 		}

@@ -24,6 +24,9 @@ type DatabaseRequest struct {
 	// Enum: [NONE NON_HA HA ON_ROOT_VOLUME]
 	AvailabilityType *string `json:"availabilityType"`
 
+	// Azure Database request.
+	DatabaseAzureRequest *DatabaseAzureRequest `json:"databaseAzureRequest,omitempty"`
+
 	// database engine version
 	// Pattern: ^(9\.6|10|11|12|13|14)$
 	DatabaseEngineVersion string `json:"databaseEngineVersion,omitempty"`
@@ -34,6 +37,10 @@ func (m *DatabaseRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAvailabilityType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDatabaseAzureRequest(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -91,6 +98,24 @@ func (m *DatabaseRequest) validateAvailabilityType(formats strfmt.Registry) erro
 	// value enum
 	if err := m.validateAvailabilityTypeEnum("availabilityType", "body", *m.AvailabilityType); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DatabaseRequest) validateDatabaseAzureRequest(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DatabaseAzureRequest) { // not required
+		return nil
+	}
+
+	if m.DatabaseAzureRequest != nil {
+		if err := m.DatabaseAzureRequest.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("databaseAzureRequest")
+			}
+			return err
+		}
 	}
 
 	return nil

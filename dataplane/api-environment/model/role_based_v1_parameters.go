@@ -19,7 +19,7 @@ type RoleBasedV1Parameters struct {
 
 	// the role ARN of the credential
 	// Required: true
-	// Max Length: 100
+	// Max Length: 2048
 	// Min Length: 20
 	RoleArn *string `json:"roleArn"`
 }
@@ -48,7 +48,7 @@ func (m *RoleBasedV1Parameters) validateRoleArn(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MaxLength("roleArn", "body", string(*m.RoleArn), 100); err != nil {
+	if err := validate.MaxLength("roleArn", "body", string(*m.RoleArn), 2048); err != nil {
 		return err
 	}
 
