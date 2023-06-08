@@ -124,6 +124,8 @@ func CreateSdx(c *cli.Context) {
 	withRangerRazEnabled := c.Bool(fl.FlRangerRazEnabled.Name)
 	withEnableMultiAz := c.Bool(fl.FlEnableMultiAz.Name)
 	azureFlexibleServer := c.Bool(fl.FlAzureDatabaseFlexibleOptional.Name)
+	imageCatalog := c.String(fl.FlImageCatalogOptional.Name)
+	imageId := c.String(fl.FlImageIdOptional.Name)
 
 	inputJson := assembleStackRequest(c)
 	log.Infof("[CreateSdx] Runtime: %s", runtime)
@@ -136,21 +138,24 @@ func CreateSdx(c *cli.Context) {
 		createSdx(clusterShape, envName, c,
 			name, baseLocation, instanceProfile, managedIdentity, serviceAccount, runtime,
 			withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase, databaseEngineVersion,
-			spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz, azureFlexibleServer)
+			spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz, azureFlexibleServer,
+			imageCatalog, imageId)
 	}
 }
 
 func createSdx(clusterShape, envName string, c *cli.Context,
 	name, cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, runtime string,
 	withoutExternalDatabase, withExternalDatabase, withNonHaExternalDatabase bool, databaseEngineVersion string,
-	spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled, withEnableMultiAz bool, azureFlexibleServer bool) {
+	spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled, withEnableMultiAz bool, azureFlexibleServer bool,
+	imageCatalog, imageId string) {
+
 	sdxRequest := createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, runtime,
 		withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, databaseEngineVersion,
-		spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz, azureFlexibleServer)
+		spotPercentage, spotMaxPrice, withRangerRazEnabled, withEnableMultiAz, azureFlexibleServer, imageCatalog, imageId)
 
 	sdxClient := ClientSdx(*oauth.NewSDXClientFromContext(c)).Sdx
 	checkClientVersion(sdxClient, common.Version)
-	resp, err := sdxClient.Sdx.CreateSdx(sdx.NewCreateSdxParams().WithName(name).WithBody(sdxRequest))
+	resp, err := sdxClient.Sdx.CreateCustomSdx(sdx.NewCreateCustomSdxParams().WithName(name).WithBody(sdxRequest))
 	if err != nil {
 		commonutils.LogErrorAndExit(err)
 	}
@@ -160,19 +165,34 @@ func createSdx(clusterShape, envName string, c *cli.Context,
 
 func createSdxRequest(clusterShape, envName, cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, runtime string,
 	withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase bool, databaseEngineVersion string,
-	spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled, withEnableMultiAz bool, azureFlexibleServer bool) *sdxModel.SdxClusterRequest {
-	sdxRequest := &sdxModel.SdxClusterRequest{
-		ClusterShape:     &clusterShape,
-		Environment:      &envName,
-		Runtime:          runtime,
-		Tags:             nil,
-		CloudStorage:     nil,
-		ExternalDatabase: nil,
-		Aws:              nil,
-		EnableRangerRaz:  withRangerRazEnabled,
-		EnableMultiAz:    withEnableMultiAz,
+	spotPercentage *int32, spotMaxPrice *float64, withRangerRazEnabled, withEnableMultiAz bool, azureFlexibleServer bool,
+	imageCatalog, imageId string) *sdxModel.SdxCustomClusterRequest {
+
+	var imageSettings *sdxModel.ImageSettingsV4Request = nil
+	if len(imageCatalog) > 0 || len(imageId) > 0 {
+		imageSettings = &sdxModel.ImageSettingsV4Request{}
+		if len(imageCatalog) > 0 {
+			imageSettings.Catalog = imageCatalog
+		}
+		if len(imageId) > 0 {
+			imageSettings.ID = imageId
+		}
 	}
-	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, CloudStorageSetter(func(storage *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = storage }))
+
+	sdxRequest := &sdxModel.SdxCustomClusterRequest{
+		ClusterShape:           &clusterShape,
+		Environment:            &envName,
+		Runtime:                runtime,
+		Tags:                   nil,
+		CloudStorage:           nil,
+		ExternalDatabase:       nil,
+		Aws:                    nil,
+		EnableRangerRaz:        withRangerRazEnabled,
+		EnableMultiAz:          withEnableMultiAz,
+		ImageSettingsV4Request: imageSettings,
+	}
+
+	setupCloudStorageIfNeeded(cloudStorageBaseLocation, instanceProfile, managedIdentity, serviceAccount, func(storage *sdxModel.SdxCloudStorageRequest) { sdxRequest.CloudStorage = storage })
 	setupExternalDbIfNeeded(withExternalDatabase, withoutExternalDatabase, withNonHaExternalDatabase, databaseEngineVersion, azureFlexibleServer, &sdxRequest.ExternalDatabase)
 	setupAwsSpotParameters(spotPercentage, spotMaxPrice, &sdxRequest.Aws)
 	return sdxRequest
