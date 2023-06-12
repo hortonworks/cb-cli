@@ -17,6 +17,10 @@ import (
 // swagger:model EnvironmentNetworkGcpV1Params
 type EnvironmentNetworkGcpV1Params struct {
 
+	// Gcp availability zones
+	// Unique: true
+	AvailabilityZones []string `json:"availabilityZones"`
+
 	// Gcp network id
 	// Required: true
 	// Max Length: 255
@@ -40,6 +44,10 @@ type EnvironmentNetworkGcpV1Params struct {
 func (m *EnvironmentNetworkGcpV1Params) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAvailabilityZones(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateNetworkID(formats); err != nil {
 		res = append(res, err)
 	}
@@ -59,6 +67,19 @@ func (m *EnvironmentNetworkGcpV1Params) Validate(formats strfmt.Registry) error 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *EnvironmentNetworkGcpV1Params) validateAvailabilityZones(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AvailabilityZones) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("availabilityZones", "body", m.AvailabilityZones); err != nil {
+		return err
+	}
+
 	return nil
 }
 
