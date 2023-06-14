@@ -26,6 +26,11 @@ type FreeIpaImageRequest struct {
 	// Max Length: 255
 	// Min Length: 0
 	ID *string `json:"id,omitempty"`
+
+	// OS type to be chosen from the image catalog
+	// Max Length: 255
+	// Min Length: 0
+	Os *string `json:"os,omitempty"`
 }
 
 // Validate validates this free ipa image request
@@ -37,6 +42,10 @@ func (m *FreeIpaImageRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOs(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -74,6 +83,23 @@ func (m *FreeIpaImageRequest) validateID(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("id", "body", string(*m.ID), 255); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *FreeIpaImageRequest) validateOs(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Os) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("os", "body", string(*m.Os), 0); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("os", "body", string(*m.Os), 255); err != nil {
 		return err
 	}
 

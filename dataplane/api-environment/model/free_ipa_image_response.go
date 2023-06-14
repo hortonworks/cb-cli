@@ -20,6 +20,9 @@ type FreeIpaImageResponse struct {
 
 	// Image ID for FreeIpa instance creation.
 	ID string `json:"id,omitempty"`
+
+	// OS type to be chosen from the image catalog
+	Os string `json:"os,omitempty"`
 }
 
 // Validate validates this free ipa image response
